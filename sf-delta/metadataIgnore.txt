@@ -1,0 +1,9 @@
+/customMetadata        
+/labels                 
+/callCenters            
+/authproviders          
+/namedCredentials       
+/connectedApps          
+/cspTrustedSites      
+/certs                 
+/profiles               
