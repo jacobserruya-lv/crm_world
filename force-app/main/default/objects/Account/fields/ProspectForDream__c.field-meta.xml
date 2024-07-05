@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProspectForDream__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Boolean that indicates if a prospect is new or has been modified (except by DREAM). Set to 1 when a user creates or modifies it. When DREAM retrieves the record, resets the value to 0. Not used on clients</description>
+    <label>Prospect for Dream</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

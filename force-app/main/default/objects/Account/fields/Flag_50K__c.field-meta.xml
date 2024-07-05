@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Flag_50K__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag 50K calculated by One Data on YTD since May 2022</description>
+    <label>Flag 50K</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

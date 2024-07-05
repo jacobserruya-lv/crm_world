@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACC_VR01_ClientLastNameCantBeChanged</fullName>
+    <active>true</active>
+    <description>Client Last Name can&apos;t be changed.</description>
+    <errorConditionFormula>NOT($User.BypassVR__c )
+&amp;&amp;
+ISCHANGED(LastName)
+&amp;&amp;
+$Profile.Name &lt;&gt; &quot;ICON_Interface DREAM&quot;
+&amp;&amp;
+$Profile.Name &lt;&gt; &quot;LV_Interface_Datastage&quot;
+&amp;&amp;
+$Profile.Name &lt;&gt; &quot;LV Pass integration&quot;
+&amp;&amp;
+$User.Alias &lt;&gt; &quot;autoproc&quot;
+&amp;&amp;
+RecordType.Name =&quot;Person Account&quot;
+&amp;&amp;
+NOT( IsProspect__pc )
+&amp;&amp;
+NOT( SPO_BypassVR__pc )</errorConditionFormula>
+    <errorDisplayField>LastName</errorDisplayField>
+    <errorMessage>You don&apos;t have the right to edit Client&apos;s Last Name.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACC_VR04_Client_must_be_created_by_dream</fullName>
+    <active>true</active>
+    <description>Forbid to create clients to users except dream or sys admins</description>
+    <errorConditionFormula>ISNEW() 
+&amp;&amp;   
+$Profile.Name != &apos;System Administrator&apos; 
+&amp;&amp;
+!BEGINS( $User.Username, &apos;dream@icon.vuitton.com&apos;)
+&amp;&amp; 
+NOT( IsProspect__pc )
+&amp;&amp; 
+NOT( SPO_BypassVR__pc )</errorConditionFormula>
+    <errorMessage>You don&apos;t have rights to create clients</errorMessage>
+</ValidationRule>

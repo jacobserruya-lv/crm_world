@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_Private_Data__c</fullName>
+    <formula>!ISPICKVAL(Jacket__pc, &apos;&apos;)
+|| !ISPICKVAL(Dress__pc, &apos;&apos;)
+|| !ISPICKVAL(Knit__pc, &apos;&apos;)
+|| !ISPICKVAL(Pant__pc, &apos;&apos;)
+|| !ISPICKVAL(Shirt__pc, &apos;&apos;)
+|| !ISPICKVAL(Skirt__pc, &apos;&apos;)
+|| !ISPICKVAL(Suit__pc, &apos;&apos;)
+|| !ISPICKVAL(Belt__pc, &apos;&apos;)
+|| !ISPICKVAL(Shoes__pc, &apos;&apos;)
+|| !ISPICKVAL(Ring__pc, &apos;&apos;)
+|| !ISBLANK(Spouse__pc)
+|| !ISPICKVAL(AnniversaryMonth__pc, &apos;&apos;)
+|| !ISPICKVAL(AnniversaryDay__pc, &apos;&apos;)
+|| !ISBLANK(Children__pc)
+|| !ISBLANK(Pets__pc)
+|| !ISBLANK(ShopsFor__pc)
+|| !ISPICKVAL(PersonalInterest1__pc, &apos;&apos;)
+|| !ISPICKVAL(PersonalInterest2__pc, &apos;&apos;)
+|| !ISPICKVAL(PersonalInterest3__pc, &apos;&apos;)
+|| !ISBLANK(FoodPreferences__pc)
+|| !ISBLANK(Star_FoodPreferences__pc)
+|| !ISBLANK(BeveragePreferences__pc)
+|| !ISBLANK(AccessoriesInterest__pc)
+|| !ISBLANK(JewelleryInterest__pc)
+|| !ISBLANK(LeatherGoodsInterest__pc)
+|| !ISBLANK(RTWInterest__pc)
+|| !ISBLANK(ShoesInterest__pc)
+|| !ISBLANK(WatchesInterest__pc)
+|| !ISBLANK(OtherInterest__pc)
+|| !ISBLANK(ServiceInterest__pc)
+|| !ISBLANK(PersonAssistantName)
+|| !ISBLANK(PersonAssistantPhone)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Has Private Data</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

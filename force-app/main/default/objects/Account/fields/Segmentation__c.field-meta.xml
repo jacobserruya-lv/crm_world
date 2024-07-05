@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmentation__c</fullName>
+    <description>Calculated by One Data on 12 months rolling updated once a month</description>
+    <label>Segmentation</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>10k_local</fullName>
+                <default>false</default>
+                <label>10k_local</label>
+            </value>
+            <value>
+                <fullName>10k_non_local</fullName>
+                <default>false</default>
+                <label>10k_non_local</label>
+            </value>
+            <value>
+                <fullName>potential_10k_local</fullName>
+                <default>false</default>
+                <label>potential_10k_local</label>
+            </value>
+            <value>
+                <fullName>potential_10k_non_local</fullName>
+                <default>false</default>
+                <label>potential_10k_non_local</label>
+            </value>
+            <value>
+                <fullName>No Segmentation</fullName>
+                <default>false</default>
+                <label>No Segmentation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TR_Object_Type__c</fullName>
+    <label>Object_Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account</fullName>
+                <default>false</default>
+                <label>Account</label>
+            </value>
+            <value>
+                <fullName>C360_Tech_Event_Return_Flow__e</fullName>
+                <default>false</default>
+                <label>C360_Tech_Event_Return_Flow__e</label>
+            </value>
+            <value>
+                <fullName>TECH_IntegrationManager__c</fullName>
+                <default>false</default>
+                <label>TECH_IntegrationManager__c</label>
+            </value>
+            <value>
+                <fullName>C360_Tech_Event__e</fullName>
+                <default>false</default>
+                <label>C360_Tech_Event__e</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

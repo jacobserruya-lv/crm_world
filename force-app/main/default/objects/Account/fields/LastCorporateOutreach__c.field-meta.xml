@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LastCorporateOutreach__c</fullName>
+    <label>Last Corporate Outreach</label>
+    <summarizedField>Campaign_History__c.Activity_Date__c</summarizedField>
+    <summaryForeignKey>Campaign_History__c.Client__c</summaryForeignKey>
+    <summaryOperation>max</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

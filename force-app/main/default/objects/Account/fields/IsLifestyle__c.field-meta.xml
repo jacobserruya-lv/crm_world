@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsLifestyle__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>10K Lifestyle: Clients who have spent 10K since the beginning of the Year (01/01) and who have bought at least one piece RTW and/or High End. But, did not reach 50K (in the last 12 months rolling ) yet.</description>
+    <inlineHelpText>Clients who have spent 10K since the beginning of the Year (01/01) and who have bought at least one piece RTW and/or High End and have reached 50K in the last 12 months rolling should appear in 50K client segmentation.</inlineHelpText>
+    <label>Is Lifestyle</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>
