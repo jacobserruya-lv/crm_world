@@ -1,0 +1,16 @@
+.THIS .slds-text-heading--small {
+    font-weight: 700;
+}
+
+.THIS .icon {
+    margin-right: 0.25rem;
+}
+
+.THIS .slds-card__footer {
+    padding: 0;
+    margin: 0;
+}
+
+.THIS .slds-card__header {
+    margin-bottom: 0;
+}

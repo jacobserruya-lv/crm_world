@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template" >
+	<aura:attribute name="selectedItems" type="List" description="Selected items event parameter" />
+	<aura:attribute name="name" type="String" description="Picklist name" />
+</aura:event>

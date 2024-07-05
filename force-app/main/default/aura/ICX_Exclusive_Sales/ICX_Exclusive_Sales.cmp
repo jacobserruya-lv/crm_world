@@ -1,0 +1,34 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller = "ICX_Exclusive_Sales_LC">
+    
+    <aura:attribute name="exclusiveSales" type="Exclusive_Experience__c[]"/>
+    <aura:attribute name="size" type="Integer" default= "0"/>
+    <aura:registerEvent name="cmpEvent" type="c:ICX_ExclusiveSaleInAccountPannel"/>
+    <aura:handler name="change" value="{!v.size}" action="{!c.itemsChange}"/>
+
+    <aura:attribute name="headerTitle" type="Aura.Component[]">
+        <h2 >  <img src="{!$Resource.iconics + '/images/exclusivesSales.png'}"  width="25" />  <b class= "slds-m-left_medium"  >Exclusive Experiences</b> </h2>
+   </aura:attribute>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:if isTrue="{!v.size > 0}">
+
+        <lightning:card variant="Narrow" title="{!v.headerTitle}">
+            <aura:iteration items="{!v.exclusiveSales}" var="line">
+				<div class= " slds-grid slds-m-left_xx-large slds-m-bottom_medium">
+                   
+                   <!-- <span class="slds-col slds-size_1-of-12"> <img src="{!$Resource.iconics + '/images/exclusivesSales.png'}"/></span>-->
+                    <span class="slds-col slds-col slds-size_11-of-12">
+                        <h2><b> {!line.Offer_Code__c}</b></h2>  
+                    	<a  id = "{!line.Id}" onclick="{!c.copyHardcoreText}">
+                            Exclusive Experience Link 
+                            <lightning:buttonIcon class="slds-m-bottom_xx-small slds-m-left_x-small" iconName="utility:copy_to_clipboard"  variant="bare"/>
+                            
+						</a>	
+                    </span>
+
+                </div>
+            </aura:iteration>
+        </lightning:card>
+    </aura:if>
+    
+</aura:component>

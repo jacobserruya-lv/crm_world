@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>45.0</apiVersion>
+    <description>Workaround to display buttons in the LiveAgentScript detail page (not visible in Winter &apos;19)</description>
+</AuraDefinitionBundle>

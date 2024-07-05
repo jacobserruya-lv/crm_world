@@ -1,0 +1,368 @@
+.THIS {
+    /*background-color: #c8a985;*/
+}
+
+/* Title */
+.THIS .titleClass {
+    /*display: inline-block;*//*inline-flex;*/
+}
+.THIS .titleClass .slds-form-element__static {
+    /*font-size: 1.1rem;*/
+    /*font-weight: 700;*/
+}
+
+.THIS .slds-form-element__static {
+    /*font-weight: 700;*/
+    /*display: initial;*/
+    /*font-size: 0.85rem;*/
+    width: initial; /* Firstname2, lastname2 in the same line */
+}
+/*
+.THIS .imgClass {
+    text-align: center;
+}
+.THIS .imgClass img {
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 25px;
+}
+*/
+
+/* opt-out icon (email, phone, address) with a bar */
+/*.THIS .optout {
+    position: absolute;
+    width: 0.95rem;
+}*/
+.THIS .iconGreen svg {
+    fill: green !important; /* important for clickToDial icon */
+}
+.THIS .iconRed svg {
+    fill: red !important; /* important for clickToDial icon */
+}
+
+/* Hide standard phone icon (for click to call) */
+.THIS .hideStandardCallIcon svg {
+    display: none !important;
+}
+/*.THIS .dream {
+    top: -1rem !important;
+}*/
+
+/* less space between figure and bottom section */
+.THIS .slds-media__figure {
+    margin-bottom: -2.5rem;
+    margin-left: -0.5rem;
+}
+
+.THIS .slds-box {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /*background-color: #e5e0da;
+    color: #533f34;*/
+	/*font-weight: 700;*/
+}
+
+/*.THIS .slds-box2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.25rem;
+    background-color: #e5e0da;
+    color: #533f34;
+	font-weight: 700;
+}*/
+
+.THIS .slds-input, .THIS .slds-checkbox, .THIS .slds-select, .THIS .textarea, .THIS .uiInputTextArea, .THIS .slds-form-element, .THIS .slds-textarea {
+    background-color: inherit;/*rgb(224, 229, 238);*/
+    /*border-color: rgb(168, 183, 199);
+    cursor: not-allowed;
+    user-select: none;*/
+    pointer-events: none;
+    border-style: none;
+    /*font-weight: bold;*/
+}
+
+/*
+.THIS .wordWrap {
+    word-wrap: break-word;
+    font-size: 0.85rem;
+}
+*/
+
+.THIS .slds-card {
+    border: 0px;
+    background-color: #bfa69a;
+    color: #533f34;
+	/*font-weight: 700;*/
+}
+
+.THIS .slds-card__header {
+    padding: 0;
+    margin: 0;
+}
+
+.THIS .slds-card__body {
+    margin-bottom: 0;
+    position: relative;
+    top: -0.5rem;/*-8px;*/
+}
+
+/*.THIS .iconCheckinClass {
+    margin-right: 0.25rem;
+}*/
+/*.THIS .addressClass .slds-form-element__static {
+    word-wrap: break-word;
+    font-size: 0.75rem;
+    line-height: 1.25;
+}*/
+.THIS .imgLanguageClass img {
+    width: 1.8rem !important;
+    height: 1.8rem !important;
+   
+    
+}
+
+/* remove height because of the language Flag  */
+.THIS .birthdayClass {
+    position: relative;
+    top: -0.5rem;
+    /*background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url(/resource/Birthday/Birthday/cakered.PNG);*/
+}
+
+.THIS .imgBirthdayClass, .THIS .imgBirthdayClass img {
+    margin-bottom: 0;
+    width: 1.5rem!important;
+    height: 1.5rem!important;
+    position: relative;
+    top: -0.15rem;
+    margin: 0;
+}
+
+.THIS .highlight__icon-detail-icon_MyLv{
+    width:1.7rem;
+    height:1.6rem;
+    background-position: center !important;
+    background-size: cover!important;
+    /*top: -0.3rem;*/
+    margin-left: 0.5rem;
+    /* margin: 7px; */
+    position: sticky;
+}
+
+.THIS .highlight__icon-detail-icon.highlight__icon-detail-icon_MyLv::after {
+    border:  2px solid #ffffff;
+    top: 0.15rem;
+}
+
+
+/* display picture with no cut */
+.THIS .slds-avatar_circle {
+    display: inline-flex;
+    top: -0.2rem;
+    position: relative;
+    margin-left: 0.25rem;
+}
+
+.THIS .slds-avatar_circle img {
+	width: 2rem !important;
+    height: 2rem !important;
+}
+
+/*
+.THIS .slds-icon_container {
+    top: -0.1rem;
+    position: relative;
+}
+*/
+
+/* remove height for input in read-only */
+/*.THIS .lightningInput .slds-form-element__control {
+    position: relative;
+    top: 0.15rem;
+}
+*/
+/* remove height for input in read-only */
+.THIS .slds-input {
+    padding: 0;
+    line-height: 1rem;
+    min-height: calc(1rem + (1px * 2));
+}
+
+.THIS .emailClass a {
+    color: #533f34;
+}
+
+.THIS .border {
+    border-top: 1px solid #533f34;
+    /*padding-top: 0.75rem;
+    margin-top: 0.5rem;*/
+    padding-top: .25rem;
+    margin-top: .25rem;
+    /*justify-content: inherit;*/
+    justify-content: start;/*space-between;*/
+}
+
+.THIS .indicator {
+    justify-content: start;
+}
+
+
+.THIS .borderAlign {
+    padding-top:0.15rem;
+}
+/*
+
+.THIS .alignOutputField div {
+    display: inline-block;
+}
+
+*/
+
+/*
+.THIS .slds-form_horizontal .slds-form-element__control, .THIS .slds-form--horizontal .slds-form-element__control {
+    position: relative;
+    top: -6.35rem;
+    left: 5rem;
+}*/
+
+/* Space in column 2 between left border and Label fields */
+.THIS .slds-form--horizontal .slds-form-element__label {
+    padding-left: 2rem;
+}
+/*
+.THIS .buttonMenu {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+}*/
+
+.THIS .highlight__icon-detail-icon_type_phone2 > span:not(.slds-icon_container)::after,
+.THIS .highlight__icon-detail-icon_type_phone2 > a > span::after {
+    content: 'Phone';
+    font-size: 14px;
+}
+
+.THIS .highlight__requests_xsmall {
+    border-top: 1px solid #d4d4d4;
+    margin: 0;
+    display: flex;
+}
+
+.THIS .ParallelMarket {
+    top: 4px;
+    position: relative;
+}
+
+
+
+
+
+
+.THIS .highlight_icon
+{
+    padding: 1rem;
+    /* margin-right: 0.5rem; */
+}
+
+.THIS .highlight_before_footer
+{
+    background-color: #DFC7B7;
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+    margin-bottom: -0.5rem;
+
+
+
+}
+.THIS .highlight_before_footer_right
+{
+    
+    margin-right: -0.5rem;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+
+}
+
+.THIS .highlight_before_footer_left
+{
+    
+    margin-left: -0.5rem;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.THIS .highlight_before_footer .highlight_indicator
+{
+    text-align: center;
+    padding: 15px 15px 15px 10px; 
+    /* font-size: 13px; */
+    line-height: 0.5;
+
+
+}
+.THIS .highlight_before_footer .highlight_indicator_title
+{
+    text-align: left;
+    font-size: 13px;
+    line-height: 1;
+
+}
+.THIS .highlight_before_footer .highlight_indicator_title_small
+{
+    text-align: center;
+
+    font-size: 11px;
+    line-height: 1;
+    
+
+}
+.THIS .highlight_before_footer .hihglight_indicator_count
+{
+    /* font-weight: bold; */
+    font-size: 40px;
+    text-align: center;
+    padding-right: 15px;
+
+}
+
+
+
+.THIS .highlight_before_footer .hihglight_indicator_count_small
+{
+    /* font-weight: bold; */
+    font-size: 22px;
+    text-align: center;
+    padding-bottom: 12px;
+    /* padding-right: 2px; */
+
+
+}
+
+
+.THIS .red {
+    color: red;
+
+}
+
+.THIS .flashing {
+    animation-name: flashIcon;
+    animation-duration: 4s;
+    animation-direction: linear;
+    animation-timing-function: cubic-bezier(0,0,0.7,1.0);
+    animation-iteration-count: infinite;
+}
+@keyframes flashIcon {
+    50% {opacity: 0%; }
+
+}
+
+.THIS .flex
+{
+    display: flex;
+}

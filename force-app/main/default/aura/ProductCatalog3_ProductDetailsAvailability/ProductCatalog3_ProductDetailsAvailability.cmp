@@ -1,0 +1,255 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:lightningQuickAction"
+    controller="Ctrl_ProductCatalog" access="global">
+    <aura:attribute name="product" type="Object" default="[]" />
+    <aura:attribute name="physicalStoresShown" type="String" default="all" />
+    <aura:attribute name="physicalStoresOptions" type="List" default="[
+    {'label': 'All', 'value': 'all'},
+    {'label': 'In Stock', 'value': 'inStock'}
+    ]" />
+
+    <aura:attribute name="showOnlyAvailable" type="Boolean" default="false" />
+    <aura:attribute name="searchStore" type="String" default="" />
+    <aura:attribute name="defaultAvailability" type="Object" default="[]" />
+    <aura:attribute name="nearbyAvailabilities" type="List" />
+    <aura:attribute name="selectedAvailabilities" type="List" />
+    <aura:attribute name="nearbyAvailabilitiesFilterd" type="List" />
+    <aura:attribute name="selectedAvailabilitiesFilterd" type="List" default="[]" />
+    <aura:attribute name="selectedStores" type="List" />
+    <aura:attribute name="selectedZone" type="List" />
+    <aura:attribute name="selectedWarehouses" type="List" />
+    <aura:attribute name="digitalStore" type="String" />
+    <aura:attribute name="productsPrices" type="Map" />
+    <aura:attribute name="productsStock" type="Map" />
+    <!-- <aura:attribute name="digitalPrice" type="Double" default="-1" /> -->
+    <aura:attribute name="digitalCurrency" type="String" default="" />
+    <aura:attribute name="showSelectedStores" type="Boolean" default="false" />
+    <aura:attribute name="showNearbyStores" type="Boolean" default="false" />
+    <aura:attribute name="selectedProductPrices" type="List" default="[]" />
+    <aura:attribute name="userStores" type="Object" />
+    <aura:attribute name="toggleSpinner" type="Boolean" default="false" />
+    <aura:attribute name="currentOpeningDays" type="List" />
+    <!-- <aura:attribute name="digitalStoresForAtgPrice" type="List" default="[]"/> -->
+    <aura:attribute name="maxMyList" type="Integer" default="130" />
+    <aura:attribute name="maxStoreError" type="boolean" default="false" />
+
+    <aura:attribute name="KBRWQty" type="String" />
+    <aura:attribute name="KBRWQtyMap" type="Map" default="{}" />
+    <aura:handler event="c:ProductCatalogueKBRWQtyChange" action="{!c.updateKBRWQty}" />
+
+
+
+    <aura:handler name="change" value="{!v.product}" action="{!c.getProductStock}" />
+    <aura:handler name="init" value="{!this}" action="{!c.getProductStock}" />
+
+    <div class="pc3-availability">
+        <aura:if isTrue="{!v.toggleSpinner}">
+            <div class="spinner-section">
+                <lightning:spinner variant="brand" size="large" />
+            </div>
+        </aura:if>
+
+        <div class="pc3-availability__stores-section">
+            <aura:if isTrue="{!and(v.product.isPersoProduct , v.product.stockRequest == false)}">
+                <div>
+                    <ui:outputRichText value="{!$Label.c.CatalogNoPurchase}" />
+                </div>
+                <c:ProductCatalog3_PriceByCountry selectedProductPrices="{!v.selectedProductPrices}" />
+            </aura:if>
+            <aura:if
+                isTrue="{!and(and(and(v.defaultAvailability != null, v.toggleSpinner == false),v.product), !v.product.persoProduct)}">
+                <h1>Product Availability</h1>
+                <aura:if isTrue="{!v.maxStoreError}">
+                    You have more than 130 Stores in your list
+                    <aura:set attribute="else">
+                        <div class="pc3-availability__store-grid pc3-availability__store-grid_type_digital">
+                            <h2>Digital Store</h2>
+                            <h2>CSC</h2>
+                            <h2>LV.COM</h2>
+                            <h2>Price</h2>
+                            <div>({!v.defaultAvailability.store.retailStoreId}) {!v.defaultAvailability.storeName}</div>
+                            <!--CSC-->
+                            <aura:if isTrue="{!v.defaultAvailability.csc == true}">
+                                <div class="slds-text-color_success">Available</div>
+                            </aura:if>
+                            <aura:if
+                                isTrue="{!and (v.defaultAvailability.csc == false, v.defaultAvailability.haveAvailabilities == true)}">
+                                <div class="slds-text-color_error">Unavailable</div>
+                            </aura:if>
+                            <aura:if
+                                isTrue="{!and (v.defaultAvailability.csc == false, v.defaultAvailability.haveAvailabilities == false)}">
+                                <div> No Data</div>
+                            </aura:if>
+
+                            <!--LV.COM-->
+                            <aura:if isTrue="{!v.defaultAvailability.online == true}">
+                                <div class="slds-text-color_success">Available</div>
+                            </aura:if>
+                            <aura:if
+                                isTrue="{!and (v.defaultAvailability.online == false, v.defaultAvailability.haveAvailabilities == true)}">
+                                <div class="slds-text-color_error">Unavailable</div>
+                            </aura:if>
+                            <aura:if
+                                isTrue="{!and (v.defaultAvailability.online == false, v.defaultAvailability.haveAvailabilities == false)}">
+                                <div> No Data</div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.defaultAvailability.price > 0 }">
+                                <lightning:formattedNumber value="{!v.defaultAvailability.price}" style="currency"
+                                    currencyCode="{!v.defaultAvailability.currencyCoin}" minimumFractionDigits="0"
+                                    maximumFractionDigits="0" />
+                            </aura:if>
+                        </div>
+                        <div class="pc3-availability__physical-stores">
+                            <h2>Physical Stores</h2>
+                            <div class="pc3-availability__stores-display">
+                                <lightning:radioGroup name="physicalStores" label="Physical Stores"
+                                    options="{! v.physicalStoresOptions }" value="{! v.physicalStoresShown }"
+                                    type="radio" variant="label-hidden" class="pc3-availability__stores-display-radio"
+                                    onchange="{!c.showAvailable}" />
+                                <lightning:input name="physicalStoresSearch" value="{!v.searchStore}"
+                                    variant="label-hidden" class="pc3-availability__stores-search"
+                                    label="Search when user hits the 'enter' key" placeholder="Search stores"
+                                    type="search" onchange="{!c.storeNameChange}" />
+                            </div>
+                            <div class="pc3-availability__store-grid pc3-availability__store-grid_type_physical">
+                                <h2 style="grid-column: span 3;">Store Name</h2>
+                                <h2 class="pc3-availability__store-grid-cell_col_stock">Stock</h2>
+                                <h2>Price</h2>
+                                <aura:if isTrue="{!v.showSelectedStores}">
+                                    <aura:iteration items="{!v.selectedAvailabilitiesFilterd}" var="stock">
+                                        <aura:if isTrue="{!or(stock.inStock > 0, v.showOnlyAvailable == false )}">
+                                            <lightning:buttonIcon iconName="utility:chevronright"
+                                                alternativeText="Click for more information"
+                                                onclick="{!c.toggleStoreDisplay}" variant="bare"
+                                                name="selectedAvailabilitiesFilterd" value="{!stock.storeName}"
+                                                size="small" class="{!
+                                                'pc3-availability__store-hours-expand-btn' +
+                                                (stock.displayPopover ? ' pc3-availability__store-hours-expand-btn_expanded': '')
+                                                }" />
+                                            <div
+                                                class="{!'pc3-availability__stock-dot' + (stock.inStock > 0 ? ' pc3-availability__stock-dot_in-stock':'')}">
+                                            </div>
+                                            <div>({!stock.store.retailStoreId}) {!stock.storeName}</div>
+
+                                            <div class="pc3-availability__store-grid-cell_col_stock">{!stock.inStock}
+                                            </div>
+
+                                            <!-- KBRW Stocks -->
+                                            <!-- <div class="pc3-availability__store-grid-cell_col_stock">
+                                        <c:ProductCatalog3_ProductDetailStock mapObject="{!v.KBRWQtyMap}" mapKey="{!stock.storeName}"></c:ProductCatalog3_ProductDetailStock>
+                                    </div> -->
+
+
+                                            <aura:if isTrue="{!stock.price > 0}">
+                                                <lightning:formattedNumber value="{!stock.price}" style="currency"
+                                                    currencyCode="{!stock.currencyCoin}" minimumFractionDigits="0"
+                                                    maximumFractionDigits="0" />
+                                            </aura:if>
+                                        </aura:if>
+                                        <div
+                                            class="{!'pc3-availability__store-hours' + (stock.displayPopover ? ' pc3-availability__store-hours_expanded': '')}">
+                                            <aura:if isTrue="{!not(empty(v.currentOpeningDays))}">
+                                                <div class="pc3-availability__store-hours-title">Opening Hours</div>
+                                                <table class="pc3-availability__store-hours-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <aura:iteration items="{!v.currentOpeningDays}" var="day">
+                                                            <tr>
+                                                                <td>{!day.day}:</td>
+                                                                <td>{!day.openingHours}</td>
+                                                            </tr>
+                                                        </aura:iteration>
+                                                    </tbody>
+                                                </table>
+                                            </aura:if>
+                                            <a onclick="{!c.openMapView}" data-link="{!stock.googleMapLink}"
+                                                class="pc3-availability__store-hours-map">
+                                                <lightning:icon
+                                                    src="{!$Resource.LVDS_Iconography + '/lvds.svg#geolocalisation'}"
+                                                    class="slds-m-right_small" size="x-small"
+                                                    alternativeText="Store map view" />
+                                                <span>Store map view</span>
+                                            </a>
+                                        </div>
+                                        <div class="pc3-availability__store-hours-clear"></div>
+                                    </aura:iteration>
+
+                                </aura:if>
+
+                                <aura:if isTrue="{!v.showNearbyStores}">
+                                    <aura:iteration items="{!v.nearbyAvailabilitiesFilterd}" var="stock">
+                                        <aura:if isTrue="{!or(stock.inStock > 0, v.showOnlyAvailable == false )}">
+                                            <div></div>
+                                            <div
+                                                class="{!'pc3-availability__stock-dot' + (stock.inStock > 0 ? ' pc3-availability__stock-dot_in-stock':'')}">
+                                            </div>
+                                            <div>({!stock.store.retailStoreId}) {!stock.storeName}</div>
+                                            <div>{!stock.inStock}</div>
+                                            <aura:if isTrue="{!stock.price > 0}">
+                                                <lightning:formattedNumber value="{!stock.price}" style="currency"
+                                                    currencyCode="{!stock.currencyCoin}" minimumFractionDigits="0"
+                                                    maximumFractionDigits="0" />
+                                            </aura:if>
+                                        </aura:if>
+                                        <div
+                                            class="{!'pc3-availability__store-hours' + (stock.displayPopover ? ' pc3-availability__store-hours_expanded': '')}">
+                                            <aura:if isTrue="{!not(empty(v.currentOpeningDays))}">
+                                                <div class="pc3-availability__store-hours-title">Opening Hours</div>
+                                                <table class="pc3-availability__store-hours-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <aura:iteration items="{!v.currentOpeningDays}" var="day">
+                                                            <tr>
+                                                                <td>{!day.day}:</td>
+                                                                <td>{!day.openingHours}</td>
+                                                            </tr>
+                                                        </aura:iteration>
+                                                    </tbody>
+                                                </table>
+                                            </aura:if>
+                                            <a onclick="{!c.openMapView}" data-link="{!stock.googleMapLink}"
+                                                class="pc3-availability__store-hours-map">
+                                                <lightning:icon
+                                                    src="{!$Resource.LVDS_Iconography + '/lvds.svg#geolocalisation'}"
+                                                    class="slds-m-right_small" size="x-small"
+                                                    alternativeText="Store map view" />
+                                                <span>Store map view</span>
+                                            </a>
+                                        </div>
+                                        <div class="pc3-availability__store-hours-clear"></div>
+                                    </aura:iteration>
+                                </aura:if>
+                            </div>
+                        </div>
+                    </aura:set>
+                </aura:if>
+            </aura:if>
+
+
+        </div>
+
+        <dl class="pc3-availability__mypr">
+            <!--<div>
+                <dt>MyPR available</dt>
+                <dd>Southeast Asia, Northeast Asia</dd>
+            </div>
+            <div>
+                <dt>MyPR available with lead time</dt>
+                <dd>Middle East</dd>
+            </div>-->
+            <c:ProductCatalog3_WarehouseAvailability selectedZone="{!v.selectedZone}"
+                selectedWarehouses="{!v.selectedWarehouses}" product="{!v.product}"
+                selectedStores="{!v.selectedStores}" />
+        </dl>
+
+    </div>
+</aura:component>

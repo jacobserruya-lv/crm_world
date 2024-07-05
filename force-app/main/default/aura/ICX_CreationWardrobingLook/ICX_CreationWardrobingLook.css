@@ -1,0 +1,19 @@
+.THIS.style_Account_Layout{
+   width: 1.8rem !important;
+    height: 1.8rem !important;
+    position: relative;
+    right: 5px;
+    cursor: pointer;
+   /*border: 2px solid black ;*/
+   
+}
+.THIS.style_Purshased_Product_Layout{
+   width: 2.5rem !important;
+    height: 2.5rem !important;
+    position: relative;
+    right: -8px;
+    top: 27px;
+    cursor: pointer;
+   /*border: 2px solid black ;*/
+   
+}

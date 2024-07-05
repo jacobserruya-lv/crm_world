@@ -1,0 +1,360 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-21-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<aura:component controller="ICX_ProductSearchLookup_LC">
+    
+    <aura:attribute access="global" type="Object" name="item" description="Item qualification"/>
+    <!--aura:attribute access="global" type="Id" name="recordId" description="Item record id"/-->
+    
+    <!--aura:attribute access="global" type="String" name="label" required="true" description="Component's label"/>
+    <aura:attribute access="global" type="List" name="selection" required="true" default="[]" description="List of selected items (a list of only one element for a single entry lookup). Data structure is the same as Apex List&lt;LookupSearchResult&gt;."/>
+    <aura:attribute access="global" type="String" name="placeholder" default="" description="Component's placeholder. Optional, defaults to none."/>
+    <aura:attribute access="global" type="Boolean" name="isMultiEntry" default="false" description="Whether this component allows multiple selection. Optional, defaults to true."/>
+    <aura:attribute access="global" type="String" name="displayResult" default="small" description="Display results in small or x-small display"/-->
+    <aura:attribute access="global" type="Boolean" name="displayEnlargePill" default="false" description="Display pill results in small or enlarge pictures"/>
+    <aura:attribute access="global" type="Boolean" name="readOnly" default="true" description="Display products in read-only mode"/>
+    <!--aura:attribute access="global" type="Boolean" name="required" default="false" description="Required field?"/-->
+    <!--aura:attribute access="global" type="List" name="currencyList" /-->
+    <aura:attribute name="showNewRequestCheckbox" type="Boolean" default="false" description="Show New Request checkbox" />
+    <aura:attribute name="requestType" type="String" description="request type"/>
+    <aura:attribute type="String" name="clientPhone"/>
+    <aura:attribute type="String" name="clientEmail"/>
+    <aura:attribute type="String" name="userZone"/>
+    <aura:attribute access="global" type="String" name="taskCategory" description="task Category"/> <!--naomi 02/05/2022-->
+    <aura:attribute name="GenderPicklist" type="String" default="Unisex"/>
+
+
+
+    <aura:attribute access="private" name="width" type="String" description=" width of parent region / useful to display this component in the middle or in the left column in a page layout"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+    
+    <!--aura:attribute access="private" type="String" name="searchTerm" default=""/>
+    <aura:attribute access="private" type="List" name="searchResults" default="[]"/>
+    <aura:attribute access="private" type="Boolean" name="hasFocus" default="false"/>
+    <aura:attribute access="private" type="Map" name="blurTimeout"/>
+    <aura:attribute access="private" type="Map" name="searchThrottlingTimeout"/-->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!--aura:registerEvent name="onSearch" type="c:LookupSearchEvent" description="Component event fired when a search needs to be performed on the server-side. The search method should be called by the handler of this event."/-->
+    <!--aura:registerEvent name="onSearchAction" type="c:LookupSearchActionEvent" description="Component event fired when a search needs to be performed on the server-side. The search method should be called by the handler of this event."/-->
+    <aura:registerEvent name="onSearchAction" type="c:ICX_Flow_ProductLookup_SearchActionEvent" description="Component event fired when a search needs to be performed on the server-side. The search method should be called by the handler of this event."/>
+
+    <lightning:workspaceAPI aura:id="workspace" />
+
+    <!--lightning:recordEditForm aura:id="recordViewForm"
+                              recordId="{!v.item.qualification.Id}"
+                              objectApiName="ProductEnquired__c"-->
+        <!-- recordTypeId="012R00000000000000" -->    
+
+    <lightning:layoutitem size="{!v.width == 'MEDIUM' ? '12' : (v.width == 'SMALL' ? '12' : '12')}">
+                
+                <aura:if isTrue="{!v.displayEnlargePill}">
+                    <!--div class="{! 'slds-p-top_small ' + (v.readOnly == true ? 'pillRead' : 'pillCustom')}"-->
+                    <div class="{! 'slds-p-top_small pillCustom' }">
+                        
+                        <div>
+                            <span data-index="{!v.item.id}" class="{!(v.readOnly == true ? 'slds-hide' : '')}" style="float:right;"><!--+ onclick="{! c.onRemoveSelectedItem2 }" ' showCloseButton'}"-->
+                                <lightning:buttonIcon aura:id="removeButton" iconName="utility:close" variant="bare" onclick="{! c.onRemoveSelectedItem }" alternativeText="Remove" />
+                            </span>
+                        </div>
+                        <lightning:layout multipleRows="true" class="{!v.width == 'SMALL' ? 'displayBlock' : 'displayFlex'}">
+                            
+                            <lightning:layoutitem padding="" size="{!v.width == 'MEDIUM' ? '4' : (v.width == 'SMALL' ? '12' : '4')}">
+                                <lightning:layout>
+                                    <lightning:layoutitem padding="">
+                                        <aura:if isTrue="{! v.item.isIconUrl}">
+                                            <div>
+                                                <img src="{!v.item.icon + (v.width == 'MEDIUM' ? '?wid=100&amp;hei=100': (v.width == 'SMALL' ? '?wid=60&amp;hei=60' : '?wid=100&amp;hei=100'))}" class="{!(v.width == 'SMALL' ? 'merchandise': 'img100')}"/>
+                                            </div>
+                                            <aura:set attribute="else">
+                                                <div class="{!(v.width == 'SMALL' ? 'merchandise': 'img100')}" style="text-align: center;padding-top: .75rem;">
+                                                    <lightning:icon iconName="{! empty(v.item.icon) ? 'action:question_post_action' : v.item.icon}" size="medium" alternativeText="Result item icon"/>
+                                                </div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:layoutitem>
+
+                                    <lightning:layoutitem flexibility="grow" class="slds-truncate">
+                                        <div title="{!v.item.title}" class="title slds-truncate">
+                                            <aura:if isTrue="{!empty(v.item.qualification.Product__c)}">
+                                                <a>{!v.item.title}</a>
+                                                <aura:set attribute="else">
+                                                    <a data-index="{!v.item.id}" onclick="{!c.redirectTab}">{!v.item.title}</a>
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                        <div>{!v.item.subtitle}</div>
+                                        <div class="{!empty(v.item.relatedId) ? 'slds-hide' : ''}">
+                                            <a data-index="{!v.item.relatedId}" onclick="{!c.redirectTab}">
+                                                <lightning:icon iconName="standard:case" title="Request" alternativeText="Request" size="xx-small" class="slds-m-right_xx-small"/>
+                                                {!v.item.relatedName}
+                                            </a>
+                                        </div>
+                                        
+                                        <aura:if isTrue="{!and(v.readOnly == false, empty(v.item.qualification.Product__c))}">
+                                                <lightning:layout multipleRows="true" class="">
+                                                    <lightning:layoutitem padding="" size="12">
+                                                        
+                                                        <!-- <lightning:select label="product description" name="productDescription" value="{!v.item.qualification.Product_Unknown__c}">
+                                                            <aura:if isTrue="{!empty(v.item.qualification.Product_Unknown__c)}">
+                                                                <option label="{!v.defaultProductDescription.label}" value="{!v.defaultProductDescription.value}" selected="selected" />
+                                                            </aura:if>
+                                                            <aura:iteration items="{!v.productDescriptionOpts}" var="item">
+                                                                <option label="{!item.label}"
+                                                                        value="{!item.value}"
+                                                                        selected="{!item.value == v.item.qualification.Product_Unknown__c}"
+                                                                />
+                                                            </aura:iteration>
+                                                        </lightning:select> -->
+
+                                                        <!-- <lightning:textarea label="" value="Digital Collectibles" variant="label-hidden" class="labelHide2" maxlength="100"/> -->
+                                                        <lightning:textarea label="" value="{!v.item.qualification.Product_Unknown__c}" variant="label-hidden" placeholder="Product description" class="labelHide2" maxlength="100"/>
+                                                    </lightning:layoutitem>
+
+                                                    <!-- <lightning:select label="Nationality" name="nationality" value="{!v.simpleAccount.Nationality__pc}">
+                                                        <aura:if isTrue="{!empty(v.simpleAccount.Nationality__pc)}">
+                                                            <option label="{!v.defaultNationality.label}" value="{!v.defaultNationality.value}" selected="selected" />
+                                                        </aura:if>
+                                                        <aura:iteration items="{!v.nationalityOpts}" var="item">
+                                                            <option label="{!item.label}"
+                                                                    value="{!item.value}"
+                                                                    selected="{!item.value == v.simpleAccount.Nationality__pc}"
+                                                            />
+                                                        </aura:iteration>
+                                                    </lightning:select> -->
+                                                    
+                                                    <lightning:layoutitem padding="" size="12" class="labelHide2">
+
+                                                        <!-- <lightning:select label="Gender" name="select1" value="{!v.item.qualification.ProductGender__c}" variant="label-hidden" class="labelHide2">
+                                                            <aura:if isTrue="{!empty(v.item.qualification.ProductGender__c)}">
+                                                                <option label="{!v.defaultGender.label}" value="{!v.defaultGender.value}" selected="selected" />
+                                                            </aura:if>
+                                                        </lightning:select> -->
+
+
+                                                        <c:PicklistFlow showLabel="false" object="Case" field="POD_gender__c" showLabelInEmptyValue="true" 
+                                                                        label="-- Gender --" 
+                                                                        selectedValue="{!v.item.qualification.ProductGender__c}" />
+                                                                        <!-- selectedValue="{!v.item.qualification.ProductGender__c}" /> -->
+                                                        <!--lightning:select value="{!v.item.qualification.RequestType__c}" name="select1" label="Gender" variant="label-hidden" class="labelHide2">
+                                                            <option value="">Gender</option>
+                                                            <option value="TBD">TBD</option>
+                                                        </lightning:select-->
+                                                    </lightning:layoutitem>
+                                                    <lightning:layoutitem padding="" size="12" class="labelHide2">
+                                                        <!--lightning:select value="{!v.item.qualification.RequestType__c}" name="select1" label="Category" variant="label-hidden" class="labelHide2">
+                                                            <option value="">Category</option>
+                                                            <option value="TBD">TBD</option>
+                                                        </lightning:select-->
+                                                        
+                                                        <c:PicklistFlow showLabel="false" object="Case" field="POD_Category__c" showLabelInEmptyValue="true" 
+                                                                        label="-- Category --"
+                                                                        selectedValue="{!v.item.qualification.ProductCategory__c}" />
+                                                    </lightning:layoutitem>
+                                                    <lightning:layoutitem padding="" size="12" class="{! v.item.qualification.RequestType__c != 'DistantCareService' ? 'labelHide2' : 'slds-hide'}">
+                                                        <!--lightning:select value="{!v.item.qualification.RequestType__c}" name="select1" label="Collection" variant="label-hidden" class="labelHide2">
+                                                            <option value="">Collection</option>
+                                                            <option value="TBD">TBD</option>
+                                                        </lightning:select-->
+                                                        <c:PicklistFlow showLabel="false" object="Case" field="Collection__c" showLabelInEmptyValue="true" 
+                                                                        label="-- Collection --"
+                                                                        selectedValue="{!v.item.qualification.ProductCollection__c}" />
+                                                    </lightning:layoutitem>
+                                                </lightning:layout>
+
+                                            <aura:set attribute="else">
+                                                <!--lightning:layout multipleRows="true" class="{! (not(empty(v.requestType)) &amp;&amp; v.requestType != 'OperationException' &amp;&amp; v.item.qualification.CreateRequest__c &amp;&amp; v.item.qualification.RequestType__c == 'PODWithSKU') ? '' : 'slds-hide'}"-->
+                                                <lightning:layout multipleRows="true" class="{! v.item.qualification.RequestType__c == 'PODWithSKU' ? '' : 'slds-hide'}">
+
+                                                <lightning:layoutitem padding="" size="12" class="slds-p-left_xx-small slds-p-top_x-small slds-m-top_xxx-small">
+                                                        <lightning:input type="checkbox" label="Hot SKU" checked="{!v.item.qualification.HotSku__c}" class="" />
+                                                    </lightning:layoutitem>
+                                                    <lightning:layoutitem padding="" size="12" class="labelHide2">
+                                                        <c:PicklistFlow showLabel="false" object="Case" field="Collection__c" showLabelInEmptyValue="true" 
+                                                                        label="-- Collection --"
+                                                                        selectedValue="{!v.item.qualification.ProductCollection__c}" />
+                                                    </lightning:layoutitem>
+                                                </lightning:layout>
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:layoutitem>
+                                    <!--lightning:layoutitem>
+                                                    <span data-index="{!v.item.id}" onclick="{! c.onRemoveSelectedItem2 }" class="{!(v.readOnly == true ? 'slds-hide' : '') }">
+                                                        <lightning:buttonIcon iconName="utility:close" variant="bare" onclick="{! c.onRemoveSelectedItem }" alternativeText="Remove" />
+                                                    </span>
+                                                </lightning:layoutitem-->
+                                </lightning:layout>
+                            </lightning:layoutitem>
+                            <lightning:layoutitem padding="" size="{!v.width == 'MEDIUM' ? '8' : (v.width == 'SMALL' ? '12' : '8')}" class="slds-form slds-form_horizontal">
+                                
+                                <!--aura:if isTrue="{!and(v.requestType != 'RequestToStore' &amp;&amp; v.requestType != 'OperationException' &amp;&amp; not(empty(v.requestType)), or(v.showNewRequestCheckbox, v.item.qualification.CreateRequest__c))}"-->
+                                <aura:if isTrue="{!or(v.showNewRequestCheckbox, and(v.requestType != 'RequestToStore' &amp;&amp; v.requestType != 'OperationException'&amp;&amp; v.requestType != 'DistantCareService' &amp;&amp; not(empty(v.requestType)), v.item.qualification.CreateRequest__c))}">
+                                    <lightning:layout multipleRows="true" class="">
+                                        <lightning:layoutitem padding="" size="{!v.width == 'MEDIUM' ? '6' : (v.width == 'SMALL' ? '12' : '4')}" class="{!empty(v.requestType) ? '' : 'slds-hide'}">
+                                            <!--span data-index="{!v.item.id}" onclick="{! c.onRequestCheck }" class="{!(v.readOnly == true ? 'slds-hide' : '') }"-->
+                                            <!--lightning:input type="toggle" label="Create a request?" onchange="{!c.onRequestCheck}" class="checkboxAlignment"/-->
+                                            <lightning:input type="checkbox" label="New request?" checked="{!v.item.qualification.CreateRequest__c}" onchange="{!c.onRequestChecked}" class="{!'checkboxAlignment ' + (v.readOnly == true ? 'slds-hide' : '') }"/>
+                                            <!--lightning:input type="toggle" label="New request?" checked="{!v.item.qualification.CreateRequest__c}" onchange="{!c.onRequestChecked}" class="{!'toggleCusto checkboxAlignment ' + (v.readOnly == true ? 'slds-hide' : '') }"/-->
+                                            <!--/span-->
+                                        </lightning:layoutitem>
+                                        
+                                        <lightning:layoutitem padding="" size="12">
+                                            <lightning:layout multipleRows="true" aura:id="moreInfo" class="{!v.item.qualification.CreateRequest__c == true ? '' : 'slds-hide'}">
+                                                
+                                                <!--lightning:layoutitem padding="" class="{! v.width == 'MEDIUM' ? '' : 'slds-hide'}">&nbsp;</lightning:layoutitem-->
+                                                 <!--size="{!v.width == 'MEDIUM' ? '6' : (v.width == 'SMALL' ? '12' : '8')}" -->
+                                                <lightning:layoutitem padding="" size="12">
+                                                    <lightning:layout multipleRows="true">
+                                                        <lightning:layoutitem padding="" size="12" class="{!empty(v.requestType) ? '' : 'slds-hide'}">
+                                                            <lightning:select value="{!v.item.qualification.RequestType__c}" name="select1" label="Request Type">
+                                                                <aura:if isTrue="{!not(empty(v.item.qualification.Product__c))}">
+                                                                    <option value="RequestToStore">Request to store</option>
+                                                                    <option value="PODWithSKU">Product on Demand (with SKU)</option>
+                                                                    <aura:set attribute="else">
+                                                                        <option value="PODWithoutSku">Product on Demand (no SKU)</option>
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </lightning:select>
+                                                        </lightning:layoutitem>
+                                                        
+                                                        <lightning:layoutitem padding="" size="12" class="{! v.item.qualification.RequestType__c == 'RequestToStore' ? '' : 'slds-hide'}">
+                                                            <!--lightning:inputField fieldName="Store__c" /-->
+                                                            <!--lightning:input label="Store" value="{!v.item.qualification.Store__c}"/-->
+                                                            <!--aura:if isTrue="{!not(empty(v.item.qualification))}"-->
+                                                                <c:ICX_Flow_RequestToStoreSelection UserId="{! (v.item != null &amp;&amp; v.item.qualification != null ? v.item.qualification.Store_ClientAdvisor__c : null)}" RecordLookUpId="{! (v.item != null &amp;&amp; v.item.qualification != null ? v.item.qualification.Store__c : null)}"  /> 
+                                                            <!--/aura:if-->
+                                                            <!--l_lookup:Lookup objectType="Store__c"
+                                                                             label="Store"
+                                                                             selectedRecordId="{!v.item.qualification.Store__c}"
+                                                                             readOnly="false"
+                                                                             showFiveRecent="true"
+                                                                             queryCondition="Status__c = 'Open' AND StoreType__c = 'Store'"
+                                                                             additionalField="RetailStoreId__c"
+                                                                             /-->
+                                                        </lightning:layoutitem>
+                                                        <lightning:layoutitem padding="" size="12" class="{!v.item.qualification.RequestType__c == 'PODWithoutSku' || v.item.qualification.RequestType__c == 'PODWithSKU' ? '' : 'slds-hide'}">
+                                                            <!--lightning:inputField fieldName="Store__c" /-->
+                                                            <!--lightning:input label="Store" value="{!v.item.qualification.Store__c}"/-->
+                                                            <l_lookup:Lookup objectType="Store__c"
+                                                                             label="Digital Store"
+                                                                             selectedRecordId="{!v.item.qualification.Store__c}"
+                                                                             readOnly="false"
+                                                                             showFiveRecent="true"
+                                                                             queryCondition="Status__c = 'Open' AND StoreType__c = 'CSC'"
+                                                                             additionalField="RetailStoreId__c"
+                                                                             />
+                                                        </lightning:layoutitem>
+                                                        
+
+                                                        <!--
+              											// TODO search Store>RetailStoreId__c then queryCondition=
+														<lightning:layoutitem padding="" size="12" class="{! v.item.qualification.RequestType__c == 'RequestToStore' ? '' : 'slds-hide'}">
+                                                            <l_lookup:Lookup objectType="User"
+                                                                             label="Store Advisor"
+                                                                             selectedRecordId="{!v.item.qualification.Store_ClientAdvisor__c}"
+                                                                             readOnly="false"
+                                                                             />
+                                                        </lightning:layoutitem-->
+                                                        <lightning:layoutitem padding="" size="12" class="{! v.item.qualification.RequestType__c == 'RequestToStore' || v.item.qualification.RequestType__c == 'OperationException' ? 'slds-hide' : ''}">
+                                                            <div class="slds-form-element">
+                                                                <label class="slds-form-element__label ">Price</label>
+                                                                <div class="slds-form-element__control ">
+                                                                    <div class=" " style="display: inline-flex; width: 100%;">
+                                                                        <lightning:input variant="label-hidden" class="slds-m-right_x-small slds-m-top_xx-small " label="Price" name="price" value="{!v.item.qualification.ProductUnitPrice__c}" type="number" min="1" step="any"/>
+                                                             <!--lightning:inputField fieldName="ProductUnitPrice__c" variant="label-hidden" class="p-left_none slds-m-right_x-small" />
+                                                            <lightning:inputField fieldName="ProductCurrency__c" variant="label-hidden" class="labelHide p-left_none" />
+                                                            <lightning:input label="Currency" value="{!v.item.qualification.ProductCurrency__c}" variant="label-hidden" class="labelHide p-left_none" /-->
+                                                                        <!--lightning:select name="currency" value="{!v.item.qualification.request__r.Currency__c}" label="Currency" variant="label-hidden" class="labelHide p-left_none">
+                                                                        <option value="">Currency</option>
+                                                                        <aura:iteration items="{!v.currencyList}" var="item">
+                                                                            <option label="{!item.label}"
+                                                                                    value="{!item.value}"
+                                                                                    selected="{!item.value == v.item.request__r.Currency__c}"
+                                                                                    />
+                                                                        </aura:iteration>
+                                                                    </lightning:select-->
+                                                                        
+                                                                        <c:PicklistFlow object="Case" field="Currency__c"
+                                                                                        label="-- Currency --" showLabel="false"
+                                                                                        showLabelInEmptyValue="true"
+                                                                                        selectedValue="{!v.item.qualification.ProductCurrency__c}"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </lightning:layoutitem>
+                                                        <lightning:layoutitem padding="" size="12" class="{! v.item.qualification.RequestType__c != 'RequestToStore' &amp;&amp; v.item.qualification.RequestType__c != 'OperationException' ? '' : 'slds-hide'}">
+                                                            <lightning:input type="Date" label="Desired Date" value="{!v.item.qualification.ClientDesiredDate__c}"/>
+                                                        </lightning:layoutitem>
+                                                        <lightning:layoutitem padding="" size="12" class="{! v.item.qualification.RequestType__c != 'RequestToStore' &amp;&amp; v.item.qualification.RequestType__c != 'OperationException' ? '' : 'slds-hide'}">
+                                                            <c:PicklistFlow object="Case" field="Contact_preference_from_client__c"
+                                                                            label="Contact Preference" selectedValue="{!v.item.qualification.ClientContactPreference__c}"/>
+                                                        </lightning:layoutitem>
+                                                        <!--size="{!v.width == 'MEDIUM' ? '6' : (v.width == 'SMALL' ? '12' : '4')}" -->
+                                                         <lightning:layoutitem padding="" size="12" class="{!v.item.qualification.RequestType__c != 'OperationException' ? '' : 'slds-hide'}">
+                                                    		<lightning:textarea label="Comment" value="{!v.item.qualification.Comment__c}" variant="label-hidden" placeholder="Comment" class="p-left_none slds-p-right_x-small slds-p-left_x-small" maxlength="255"/>
+                                               		 	</lightning:layoutitem>
+                                                    </lightning:layout>
+                                                   
+                                                </lightning:layoutitem>
+                                                
+                                                
+                                            </lightning:layout>
+                                        </lightning:layoutitem>
+                                    </lightning:layout>
+
+                                </aura:if>
+                                <!--DistantCareService implementation-->
+                                <aura:if isTrue="{!v.requestType == 'DistantCareService'}">
+                                    <lightning:layout multipleRows="true" class="">
+                                        <lightning:layoutitem padding="" size="12">
+                                            <l_lookup:Lookup objectType="Store__c"
+                                            label="Distant Care Service Store"
+                                            selectedRecordId="{!v.item.qualification.Store__c}"
+                                            readOnly="false"
+                                            showFiveRecent="true"
+                                            queryCondition="{! 'Distant_Repair_Store__c = TRUE AND MANAGEMENT_ZONE_LEVEL__c=\'' + v.userZone + '\'' }"
+                                            additionalField="RetailStoreId__c"
+                                            isRequired="true"
+                                            />
+                                           <!-- Distant_Repair_Store__c = TRUE AND 
+                                            queryCondition="{! 'StoreCountry__c=\'' + v.userCountry + '\'' }"-->
+                                        </lightning:layoutitem>
+                                        <lightning:layoutitem padding="" size="12">
+                                            <lightning:textarea  label="Description" value="{!v.item.qualification.Comment__c}" placeholder="Comment" class="p-left_none slds-p-right_x-small slds-p-left_x-small" maxlength="255"/>
+                                        </lightning:layoutitem>
+                                        <lightning:layoutitem padding="" size="12">
+                                            <lightning:input type="tel" label="Mobile" value="{!v.item.qualification.Phone__c}"  required="true"/>
+                                        </lightning:layoutitem>
+                                        <lightning:layoutitem padding="" size="12">
+                                            <lightning:input type="email" label="Personal Email" value="{!v.item.qualification.Email__c}" required="true"/> 
+                                        </lightning:layoutitem>                                    
+                                         <lightning:layoutitem padding="" size="12" >                                            
+                                                 <span style="padding-left: 1%;" class="required slds-form-element__label">*</span>
+                                                <label class="slds-form-element__label">Follow-up Channel<br/><div style="font-size: 85%">Please select at least one of the contact channel</div></label>
+                                         </lightning:layoutitem>
+                                            <lightning:layoutitem padding="" size="12" >
+                                                    <lightning:input type="checkbox" label="Follow up By Call" checked="{!v.item.qualification.Follow_up_By_Call__c}" /> 
+                                            </lightning:layoutitem>
+                                        <lightning:layoutitem padding="" size="12">
+                                            <lightning:input type="checkbox" label="Follow up By Email" checked="{!v.item.qualification.Follow_up_By_Email__c}"/>
+                                        </lightning:layoutitem>
+                                    </lightning:layout>
+                                </aura:if>
+                            </lightning:layoutitem>
+                            
+                            
+                        </lightning:layout>
+                        
+                    </div> 
+                    
+                </aura:if>
+                
+            </lightning:layoutitem>
+
+    <!--/lightning:recordEditForm-->
+</aura:component>

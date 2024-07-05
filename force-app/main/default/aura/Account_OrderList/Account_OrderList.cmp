@@ -1,0 +1,76 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" controller="Account_OrderListControllerLC">
+
+    <aura:attribute name="lines" type="OrderLine__c[]"/>
+
+    <aura:attribute name="pageSize" type="integer" default="4"/>
+    <aura:attribute name="page" type="integer"/>
+    <aura:attribute name="pages" type="integer"/>
+    <aura:attribute name="total" type="integer"/> 
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:if isTrue="{!v.lines.length > 0}">
+        <lightning:card>
+            <!-- <aura:set attribute="actions"></aura:set> -->
+            
+            <aura:set attribute="title">
+                <lightning:icon iconName="utility:cart" size="small" class="slds-m-right_x-small"/>
+                <a href="" onclick="{!c.openRelatedList}" class="slds-card__header-link baseCard__header-title-container">
+                   KBRW Orders ({!v.total})
+                </a>
+            </aura:set>
+
+            <lightning:layout horizontalAlign="" multipleRows="true" class="slds-p-left_small">
+                
+                <lightning:layoutitem size="12" class="">
+                    <lightning:layout horizontalAlign="" multipleRows="true">
+                        <lightning:layoutitem size="2">
+                            <div style="font-weight:600;">
+                                <div title="Order Date" class="">Order Date</div>
+                            </div>
+                        </lightning:layoutitem>
+                        <lightning:layoutitem size="3">
+                            <div class="slds-m-bottom_xx-small">
+                                <div style="display: flex;">
+                                    <div style="font-weight:600;">Order Number</div>
+                                    <span class="slds-truncate">
+                                        <!--lightning:badge class="slds-theme_warning slds-badge_lightest" title="Distribution in Progress" label="Distribution in Progress"></lightning:badge-->
+                                    </span>
+                                </div>
+                            </div>
+                            <!--lightning:badge label="Now Yours" class=""></lightning:badge-->
+                        </lightning:layoutitem>
+                        <lightning:layoutitem size="2">
+                            <div title="Store">
+                                <span style="font-weight:600;">Product</span>
+                            </div>
+                        </lightning:layoutitem>
+                        <lightning:layoutitem size="3">
+                            <div title="Store">
+                                <span style="font-weight:600;">Store</span>
+                            </div>
+                        </lightning:layoutitem>
+                        <lightning:layoutitem size="2">
+                            <div style="font-weight:600;">
+                                Status
+                            </div>
+                        </lightning:layoutitem>
+                    </lightning:layout>
+                </lightning:layoutitem>
+                <lightning:layoutitem size="12" class="">
+                    <aura:iteration items="{!v.lines}" var="item">
+                        <c:Account_OrderItem item="{#item}"/>
+                    </aura:iteration>
+                </lightning:layoutitem>
+            </lightning:layout>
+           
+            <aura:set attribute="footer">
+                <aura:if isTrue="{!v.pages > 1}">
+                    <c:Paginator page="{!v.page}" pages="{!v.pages}" total="{!v.total}" label="purchased products"
+                                previousPage="{!c.onPreviousPage}" nextPage="{!c.onNextPage}"/>
+                </aura:if>
+            </aura:set>
+        </lightning:card>
+    
+    </aura:if>
+
+</aura:component>

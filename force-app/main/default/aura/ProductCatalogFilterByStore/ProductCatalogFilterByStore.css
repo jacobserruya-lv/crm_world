@@ -1,0 +1,92 @@
+/** LEGACY **/
+/*
+.THIS .location-filter__container {
+	display: flex;
+	!*justify-content: space-around;*!
+    justify-content: space-between;
+}
+.THIS.location-filter__header {
+	font-size: 18px;
+	padding-top: -15px;
+}
+.THIS .slds-picklist__label {
+	height: 32px;
+    top: 19px;
+}
+.THIS .slds-dropdown-trigger--click.slds-is-open .slds-dropdown {
+	top: 49px;
+	z-index: 10000;
+}
+.THIS .slds-picklist__label .slds-icon {
+	right: 0.2rem;
+}
+.THIS .disabled-btn {
+	background-color: rgb(224, 229, 238) !important;
+	pointer-events: none;
+	cursor: no-drop;
+	border-color: rgb(168, 183, 199);
+}
+.THIS .slds-picklist {
+    top: 3px;
+}
+.THIS .slds-card__hierarchy-containter {
+	margin-bottom: 1px;
+}
+.THIS .stores-title {
+	position: absolute;
+	display: inline-block;
+    color: rgb(84, 105, 141);
+    font-size: .75rem;
+    line-height: 1.5;
+    margin-right: .75rem;
+    margin-bottom: .25rem;
+    top: -1px;
+}
+.THIS.digital-stores-container {
+	width: 21%;
+    !*min-height: 112px;*!
+}
+.THIS.physical-stores-container {
+	width: 73%;
+	!* width: 100%; *!
+    !*width: 95%;*!
+	margin: 0 15px 0 2px;
+}
+.THIS.digital-stores-container, .THIS.physical-stores-container {
+	display: inline-block;
+	border: 1px solid rgb(221, 219, 218);
+	background: rgb(255, 255, 255);
+    border-radius: .25rem;
+    padding-bottom: 10px;
+    height: 100px;
+}
+*/
+/** Redesign March 2018 **/
+.THIS.pc-filter-by-store {
+  max-height: 0;
+  transition: max-height 300ms;
+  border-bottom: 1px solid transparent;
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
+.THIS.pc-filter-by-store_expanded {
+  max-height: 9.1rem;
+  border-bottom-color: #dddbda;
+  overflow: visible;
+}
+.THIS.pc-filter-by-store_expanding {
+  overflow: hidden;
+}
+.THIS .pc-filter-by-store__header {
+  color: #56463e;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.THIS .pc-filter-by-store__digital-stores {
+  height: 100%;
+}
+.THIS .physical-stores-container__max {
+  color: red;
+  font-weight: bold;
+}

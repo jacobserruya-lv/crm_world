@@ -1,0 +1,55 @@
+.THIS .disabledStyle {
+    opacity: 1;
+    pointer-events: none;
+}
+
+.THIS .fieldsetLegend {
+    padding-top: 7px;
+}
+
+.THIS .slds-card__header {
+	font-size: 18px;
+    padding-top: .25rem;
+    margin-bottom: .25rem;
+}
+
+.THIS .slds-input, .THIS .slds-checkbox, .THIS .slds-select, .THIS .textarea, .THIS .uiInputTextArea, .THIS .slds-form-element, .THIS .slds-textarea {
+    background-color: inherit;/*rgb(224, 229, 238);*/
+    /*border-color: rgb(168, 183, 199);
+    cursor: not-allowed;
+    user-select: none;*/
+    pointer-events: none;
+    border-style: none;
+    /*font-weight: bold;*/
+    margin-bottom: -0.25rem !important;
+    padding: 0 !important;
+    line-height: 1rem;
+}
+
+/* remove arrows in Select */
+.THIS .slds-select_container:before, .THIS .slds-select_container:after {
+    content: none;
+}
+
+.THIS .datePicker-openIcon{
+	display:none;
+}
+
+/*.THIS .slds-select {
+	display: none !important;
+}*/
+
+.THIS {
+    margin:0px 10px 10px 0px !important;
+}
+
+.THIS .slds-card__body {
+    text-align: left;
+    padding: 0px 20px 24px 20px;
+    /*background-color: #f8f8f8;*/
+}
+
+/* Hide standard icon */
+.THIS .hideIcon svg {
+    display: none !important;
+}

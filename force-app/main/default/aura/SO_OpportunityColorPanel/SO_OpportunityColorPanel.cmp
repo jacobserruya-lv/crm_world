@@ -1,0 +1,53 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" 
+                controller="SO_OpportunityColorController">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="editEvent" event="c:SO_OpportunityColorEvent" action="{!c.onEditEvent}"/>
+    
+    <aura:attribute name="opp" type="Opportunity" />
+    <aura:attribute name="mode" type="String" default="read" description="read / edit"/>
+    <aura:attribute name="type" type="String" description="editInterior / editExterior"/>
+    <aura:attribute name="isMTO" type="Boolean" default="false"/>
+
+    <aura:if isTrue="{! v.isMTO == false }">
+        <aura:if isTrue="{!v.mode == 'read'}"> <!-- workaround for refreshing view after saving -->
+            <div aura:id="readDiv">
+                <c:SO_OpportunityColorRead opp="{!v.opp}" recordId="{!v.recordId}" />
+            </div>
+        </aura:if>
+        <div aura:id="editExteriorDiv">
+            <!--aura:if isTrue="{!v.type == 'editExterior'}"-->
+            <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="EXTERIOR" creationType="{!v.opp.SPO_CreationType__c}"/>
+            <!--aura:set attribute="else">
+                            <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="INTERIOR"/>
+                        </aura:set>
+                    </aura:if-->
+        </div>
+        <div aura:id="editInteriorDiv">
+            <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="INTERIOR" creationType="{!v.opp.SPO_CreationType__c}"/>
+        </div>
+        <!-- <div aura:id="editMaterialDiv">
+            <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="MATERIAL" creationType="{!v.opp.SPO_CreationType__c}" metalicPart="{!v.opp.SPO_ColorMetalicparts__c}"/>
+        </div> -->
+
+        		<!--div aura:id="editDiv">
+                    <aura:if isTrue="{!v.type == 'editExterior'}">
+                        <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="EXTERIOR"/>
+                        <aura:set attribute="else">
+                            <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="INTERIOR"/>
+                        </aura:set>
+                    </aura:if>
+                </div-->
+                
+                <!--aura:set attribute="else">
+                    <aura:if isTrue="{!v.type == 'editExterior'}">
+                        <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="EXTERIOR"/>
+                        <aura:set attribute="else">
+                            <c:SO_OpportunityColorEdit opp="{!v.opp}" recordId="{!v.recordId}" type="INTERIOR"/>
+                        </aura:set>
+                    </aura:if>
+                </aura:set>
+            </aura:if-->
+    </aura:if>
+
+</aura:component>

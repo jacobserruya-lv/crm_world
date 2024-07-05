@@ -1,0 +1,98 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+
+    <!-- <aura:attribute name="fields" type="String[]" default="['OwnerId','CaseNumber','CreatedDate','Status']" />
+    <div class="slds-card cardStyle">
+         <lightning:recordForm aura:id="ContactForm"
+            recordId="{!v.recordId}"
+            objectApiName="Case"
+            fields="{!v.fields}"
+            columns="4"
+            mode="readonly"/>
+    </div> -->
+    <aura:attribute name="Case" type="Object"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+
+         <force:recordData aura:id="recordLoader"
+            recordId="{!v.recordId}"
+            fields="Owner.Name,CaseNumber,CreatedDate,Status,OwnerId,Request_Age__c,Transaction_Id__c,Case_Origin_IMG__c,Origin"
+            targetFields="{!v.Case}"
+            targetError="{!v.recordLoadError}"
+        />
+        <div class="slds-card mcardStyle" style="margin-bottom: -0.5rem;margin-top: -1.07em !important;">
+            <lightning:layout>
+                <lightning:layoutItem flexibility="auto" padding="" class="slds-m-left_small slds-p-around_xx-small">
+                    <div class="custom-box">
+                        <h3 class="labelStyle">
+                            Owner
+                        </h3>
+                        <a href="" onclick="{!c.onclick}"> {!v.Case.Owner.Name} </a>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="" class="slds-p-around_xx-small">
+                    <div style="display: inline-flex;" title="{!v.Case.Origin}">
+                        <aura:unescapedHtml value="{!v.Case.Case_Origin_IMG__c}" />
+                        <div class="custom-box slds-m-left_xx-small"> 
+                            <h3 class="labelStyle">
+                                Request Number
+                            </h3>
+                            {!v.Case.CaseNumber}
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                
+   				<aura:if isTrue="{!not(empty(v.Case.Transaction_Id__c))}">
+                    <lightning:layoutItem flexibility="auto" padding="" class="slds-p-around_xx-small">
+                        <div class="custom-box"> 
+                            <h3 class="labelStyle">
+                                Distant Order
+                            </h3>
+                          {!v.Case.Transaction_Id__c} 
+                        </div>
+                    </lightning:layoutItem>  
+                </aura:if>
+                <lightning:layoutItem flexibility="auto" padding="" class="slds-p-around_xx-small">
+                    <div class="custom-box">
+                        <h3 class="labelStyle">
+                            Created Date
+                        </h3>
+                        <lightning:formattedDateTime aura:id="dt"
+                                    value="{!v.Case.CreatedDate}"
+                                    month="short"
+                                    day="numeric"
+                                    year="numeric"
+									hour="2-digit"
+                                 	minute="2-digit" />
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="" class="slds-p-around_xx-small">
+                    <div class="custom-box">
+                        <h3 class="labelStyle">
+                           Request Age
+                        </h3>
+                        <span >
+                        	<lightning:icon iconName="utility:clock" class="slds-m-right_xxx-small" size="xx-small" title="Timer" />  
+                        </span>
+                        <span class="slds-p-top_xxx-small" style="position: absolute;">
+                            {!v.Case.Request_Age__c}
+                            <aura:if isTrue="{!v.Case.Request_Age__c > '1'}">
+                                days
+                                <aura:set attribute="else">
+                                    day
+                                </aura:set>
+                            </aura:if>
+                        </span>
+						
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="" class="slds-p-around_xx-small">
+                    <div class="custom-box">
+                        <h3 class="labelStyle">
+                            Status
+                        </h3>
+                        {!v.Case.Status}
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+        
+</aura:component>

@@ -1,0 +1,267 @@
+.THIS.spo-main {
+  position: relative;
+}
+.THIS.spo-main .firm-order-item-details {
+  align-items: center;
+  border: solid #e4e8eb;
+  border-width: 1px 0;
+  background: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.32);
+}
+.THIS.spo-main .firm-order-item-details__product-img {
+  margin: .75rem;
+}
+.THIS.spo-main .firm-order-item-details__line-num {
+  display: none;
+}
+.THIS.spo-main .firm-order-item-details__line-num + span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.THIS.spo-main .firm-order-item-details__sku {
+  font-size: .875rem;
+}
+@media only screen and (max-width: 47.9375em) {
+  .THIS.spo-main .firm-order-item-details__sku {
+    margin-top: 0.5rem;
+    font-size: .75rem;
+  }
+}
+.THIS.spo-main .firm-order-item-details__price {
+  display: none;
+}
+.THIS.spo-main .firm-order-item-details__action-btn-area {
+  width: auto;
+}
+.THIS.spo-main .firm-order-item-details__action-btn {
+  width: auto;
+  height: auto;
+  margin: 0 .75rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-color: #3a9eff;
+  background-color: #3a9eff;
+  color: white;
+  text-align: center;
+  opacity: 1;
+  vertical-align: middle;
+}
+.THIS.spo-main .firm-order-item-details__action-btn:hover, .THIS.spo-main .firm-order-item-details__action-btn:focus, .THIS.spo-main .firm-order-item-details__action-btn:active {
+  border-color: #1b8fff;
+  background-color: #1b8fff;
+}
+.THIS.spo-main .firm-order-item-details__action-btn_style_none {
+  display: none;
+}
+.THIS.spo-main .firm-order-item-details__status-badge {
+  font-size: .875rem;
+  line-height: 1.875rem;
+}
+@media only screen and (max-width: 47.9375em) {
+  .THIS.spo-main .firm-order-item-details__status-badge {
+    min-height: 1rem;
+    padding: 0 1.125rem;
+    font-size: 0.6875rem;
+    line-height: 1;
+  }
+}
+.THIS.spo-main_status_brief-in-progress .firm-order-item-details__status-badge {
+  background: #3dc4be;
+}
+.THIS.spo-main_status_quotation-in-progress .firm-order-item-details__status-badge {
+  background: #50e3c2;
+}
+.THIS.spo-main_status_quotation-submitted .firm-order-item-details__status-badge {
+  background: #3acaaa;
+}
+.THIS.spo-main_status_quotation-accepted .firm-order-item-details__status-badge {
+  background: #7ed321;
+}
+.THIS.spo-main_status_creation-in-progress .firm-order-item-details__status-badge {
+  background: #7ed321;
+}
+.THIS.spo-main_status_in-progress .firm-order-item-details__status-badge {
+  background: #ffc91c;
+}
+.THIS.spo-main_status_distribution-in-progress .firm-order-item-details__status-badge {
+  background: #ee981d;
+}
+.THIS.spo-main_status_closed-won .firm-order-item-details__status-badge {
+  background: #6da9e8;
+}
+.THIS.spo-main_status_delivered .firm-order-item-details__status-badge {
+  background: #5bc983;
+}
+.THIS.spo-main_status_cancelled-store .firm-order-item-details__status-badge {
+  background: #000;
+}
+.THIS.spo-main_status_cancelled-production .firm-order-item-details__status-badge {
+  background: #000;
+}
+.THIS.spo-main_status_delivered .spo-stage__content-past, .THIS.spo-main_status_cancelled-store .spo-stage__content-past, .THIS.spo-main_status_cancelled-production .spo-stage__content-past {
+  opacity: 0;
+}
+.THIS .spo-main__steps {
+  overflow: auto;
+}
+.THIS .spo-main__steps-header {
+  display: flex;
+  width: fit-content;
+  box-shadow: 5px 10px 30px 0 rgba(41, 26, 204, 0.12);
+}
+.THIS .spo-main__step {
+  flex-shrink: 0;
+  width: 23.5rem;
+  height: 60px;
+  border: solid 1px #dbd9d9;
+  background-color: #ffffff;
+  color: rgba(104, 104, 104, 0.86);
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 58px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.THIS .spo-main__step_past {
+  border-color: rgba(74, 144, 226, 0.71);
+  background-color: rgba(74, 144, 226, 0.71);
+  color: rgba(255, 255, 255, 0.86);
+}
+.THIS .spo-main__steps-main {
+  display: flex;
+  width: fit-content;
+}
+@media only screen and (max-width: 47.9375em) {
+  .THIS .spo-main__steps-main {
+    flex-direction: column;
+  }
+}
+.THIS .spo-main__collab {
+  border-top: solid 1px #979797;
+}
+.THIS .spo-main__collab .slds-tabs_default__link {
+  text-transform: uppercase;
+}
+.THIS .spo-main__collab .slds-tabs_default__content {
+  padding: 1rem;
+}
+.THIS .spo-main__progress {
+  position: relative;
+  top: -5rem;
+  max-width: 90%;
+  margin-bottom: -1.125rem;
+  z-index: 3;
+}
+.THIS .spo-main__progress .slds-progress-bar {
+  left: .5rem;
+  width: calc(100% - 1rem);
+  background: #c8cfd7;
+  box-shadow: 0 4px 6px 0 rgba(117, 64, 238, 0.2);
+}
+.THIS .spo-main__progress .slds-progress-bar__value {
+  background: #b79b6b;
+  box-shadow: 0 4px 6px 0 rgba(117, 64, 238, 0.2);
+}
+.THIS .spo-main__progress .slds-progress__marker {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0.3125rem;
+  border: none;
+  background: #c8cfd7;
+  box-shadow: 0 4px 6px 0 rgba(117, 64, 238, 0.2);
+}
+.THIS .spo-main__progress .slds-progress__item {
+  position: relative;
+}
+.THIS .spo-main__progress .slds-progress__item.slds-is-active .slds-progress__marker, .THIS .spo-main__progress .slds-progress__item.slds-is-completed .slds-progress__marker {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  border: 2px solid white;
+  background: #b79b6b;
+  box-shadow: 4px 4px 14px 0 rgba(0, 0, 0, 0.25);
+}
+.THIS .spo-main__progress .slds-progress__item.slds-is-active .spo-main__progress-stage-note, .THIS .spo-main__progress .slds-progress__item.slds-is-completed .spo-main__progress-stage-note {
+  margin-bottom: 0.325rem;
+  opacity: 1;
+}
+.THIS .spo-main__progress .slds-progress__item:last-child .spo-main__progress-stage-note {
+  right: 0;
+  left: unset;
+  text-align: right;
+}
+.THIS .spo-main__progress-stage-note {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  color: #4a4a4a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.42;
+  white-space: nowrap;
+  opacity: 0;
+}
+.THIS .spo-main__progress-stage-note dd {
+  font-weight: bold;
+}
+.THIS .spo-main__progress-subnote {
+  position: absolute;
+  top: 1.375rem;
+  width: 25%;
+  color: #4a4a4a;
+  font-size: 0.75rem;
+  font-style: italic;
+  text-align: center;
+  white-space: nowrap;
+}
+.THIS .spo-main__progress-subnote:nth-child(2) {
+  left: 0%;
+}
+.THIS .spo-main__progress-subnote:nth-child(4) {
+  left: 25%;
+}
+.THIS .spo-main__progress-subnote:nth-child(6) {
+  left: 50%;
+}
+.THIS .spo-main__progress-subnote:nth-child(8) {
+  left: 75%;
+}
+.THIS .spo-main__progress-subnote_color_success {
+  color: #7ed321;
+}
+.THIS .spo-main__progress-subnote-value {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.THIS .spo-main__closed-overlay {
+  display: flex;
+  position: absolute;
+  top: 5.125rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(238, 238, 238, 0.8);
+  color: #4a4a4a;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  text-align: center;
+  white-space: pre-line;
+  z-index: 5;
+}
+.THIS .spo-main__closed-overlay .slds-icon {
+  width: 5rem;
+  height: 5rem;
+}
+.THIS .spo-main__closed-overlay .slds-button {
+  border-color: #3a9eff;
+  background-color: #3a9eff;
+  font-size: 0.9375rem;
+  line-height: 2.3;
+}
+.THIS .spo-main__closed-overlay .slds-button:hover, .THIS .spo-main__closed-overlay .slds-button:focus, .THIS .spo-main__closed-overlay .slds-button:active {
+  border-color: #1b8fff;
+  background-color: #1b8fff;
+}

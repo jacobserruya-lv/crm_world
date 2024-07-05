@@ -1,0 +1,44 @@
+<aura:component >
+    <aura:attribute name="title" type="String" default="" />
+    <aura:attribute name="productVariations" type="Object" default="[]" />
+    <aura:attribute name="myProductData" type="List" default="" />
+    <aura:attribute name="hoverName" type="String" />
+    <aura:attribute name="productVariationsStock" type="Object" />
+    
+    <aura:handler name="productCatalogVariantHover"
+                  event="c:ProductCatalogVariantHoverEvent"
+                  action="{!c.changeProductDataName}"
+    />
+
+	<lightning:layout multipleRows="true" class="pc-summary__section pc-catalog-vars">
+        <lightning:layoutItem class="pc-summary__section-header">{!v.title}</lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-medium">
+        	<aura:if isTrue="{!v.hoverName}">             
+                {!v.hoverName}                
+                <aura:set attribute="else">
+                    {!v.myProductData.ValueName}
+                </aura:set>
+            </aura:if>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+            <lightning:layout class="pc-catalog-vars__variants">
+                <lightning:layoutItem class="pc-catalog-vars__variant">
+                    <c:ProductCatalogVariationItem productVariant="{!v.myProductData}"
+                                                   selected="true"
+                                                   cmpTitle="{!v.title}"
+                                                   stockChecked="{!not(empty(v.productVariationsStock))}"
+                    />
+                </lightning:layoutItem>
+                <aura:iteration items="{!v.productVariations}" var="variant">
+                    <lightning:layoutItem class="pc-catalog-vars__variant">
+                        <c:ProductCatalogVariationItem productVariant="{!variant}"
+                                                       productVariationsStock="{!v.productVariationsStock}"
+                                                       cmpTitle="{!v.title}"
+                                                       stockChecked="{!not(empty(v.productVariationsStock))}"
+                        />
+                    </lightning:layoutItem>
+                </aura:iteration>
+            </lightning:layout>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

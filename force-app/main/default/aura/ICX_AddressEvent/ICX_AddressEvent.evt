@@ -1,0 +1,9 @@
+<aura:event type="COMPONENT" description="Address Event">
+    <aura:attribute type="String" name="street_number" description="Street Number"/>
+    <aura:attribute type="String" name="route" description="Street"/>
+    <aura:attribute type="String" name="locality" description="City"/>
+    <aura:attribute type="String" name="postal_code" description="Postal code"/>
+    <aura:attribute type="String" name="administrative_area_level_1" description="ex: Centre"/>
+    <aura:attribute type="String" name="administrative_area_level_2" description="ex: Indre-et-Loire"/>
+    <aura:attribute type="String" name="country" description="Country (short name in ISO2)"/>
+</aura:event>

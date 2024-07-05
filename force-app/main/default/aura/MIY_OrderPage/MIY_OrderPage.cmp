@@ -1,0 +1,234 @@
+<aura:component implements="flexipage:availableForRecordHome,lightning:actionOverride,force:hasRecordId,force:hasSObjectName,force:appHostable,force:lightningQuickAction"
+                access="global"
+                controller="MIY_OrderPageController"
+                >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="userId" type="Id" default="" />
+    <aura:attribute name="userProfile" type="String" />
+    <aura:attribute name="record" type="Opportunity" />
+    <aura:attribute name="user" type="User" />
+    <aura:attribute name="productSettings" type="ProductSettings__c" /> <!--MIY-1969-->
+    <aura:attribute name="sobjecttype" type="String" default="{!v.sObjectName}"/>
+    <aura:attribute name="panelOpen" type="Boolean" default="false" />
+    <aura:attribute name="briefEdit" type="Boolean" default="false" />
+    <aura:attribute name="briefSaving" type="Boolean" default="false" />
+    <aura:attribute name="warningsMap" type="Map" />
+    <aura:attribute name="storeMode" type="Boolean" />
+        <!-- MIY-2224 -->
+    <aura:attribute name="isUserInPermissionSetGroup" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:MIY_OrderUpdate" action="{!c.handleUpdateEvent}" />
+
+    <lightning:notificationsLibrary aura:id="notifLib" />
+    <lightning:quickActionAPI aura:id="quickActionAPI" />
+    <lightning:utilityBarAPI aura:id="utilitybar"/>
+
+    <lightning:layout class="{!join(' ', 'order-page',
+                (empty(v.record)
+                        ? undefined
+                        : (v.record.RecordType.Name == 'Perso Order' ? 'order-page_type_perso' : 'order-page_type_spo')
+                ),
+                ($Browser.formFactor == 'DESKTOP' ? 'slds-card' : undefined)
+            )}"
+                      multipleRows="true"
+    >
+        <lightning:layoutItem size="12">
+            <aura:if isTrue="{!not(empty(v.record))}">
+                <!-- MIY-2224 add isUserInPermissionSetGroup -->
+                <c:MIY_OrderPageHeader recordId="{!v.recordId}" 
+                    record="{!v.record}" 
+                    userProfile="{!v.userProfile}"
+                    storeMode="{!v.storeMode}"
+                    isUserInPermissionSetGroup="{!v.isUserInPermissionSetGroup}"
+                />
+            </aura:if>
+        </lightning:layoutItem>
+        <aura:if isTrue="{!not(empty(v.record))}">
+            <aura:if isTrue="{!v.record.RecordType.Name == 'Perso Order'}">
+                <lightning:layoutItem size="12" class="order-page__section order-page__welcome">
+                    <aura:if isTrue="{!and(not(empty(v.userId)), not(empty(v.recordId)))}">
+                        <lightning:recordViewForm recordId="{!v.userId}"
+                                                  objectApiName="User"
+                                                  class="slds-form slds-form_inline"
+                        >
+                            <h1>{!$Label.c.MIY_OrderPage_Hello + ' '}<lightning:outputField fieldName="Name" variant="label-hidden"/>,</h1>
+                        </lightning:recordViewForm>
+                        <lightning:recordViewForm recordId="{!v.recordId}"
+                                                  objectApiName="Opportunity"
+                                                  class="slds-form slds-form_inline"
+                        >
+                            <p>{!$Label.c.MIY_OrderPage_Intro_Have_Line_order_pre + ' '}
+                                <ui:outputText class="order-page__welcome-field"
+                                               value="{!format((
+                                                           (v.record.SpeOrder_Order_Following__r.length == 1)
+                                                                   ? $Label.c.MIY_OrderPage_Intro_Have_1_Line_Order
+                                                                   : $Label.c.MIY_OrderPage_Intro_Have_X_Line_Orders)
+                                                       , v.record.SpeOrder_Order_Following__r.length)
+                                               }"
+                                />
+                                <aura:if isTrue="{!not(empty(v.record.SPO_DepositAmount__c))}">
+                                    {!' ' + $Label.c.MIY_OrderPage_Intro_With_deposit_of + ' '}
+                                    <span class="order-page__welcome-field">
+                                        <lightning:formattedNumber style="currency"
+                                                                   currencyCode="{!v.record.SPO_Store__r.Currency__c}"
+                                                                   value="{!v.record.SPO_DepositAmount__c}"
+                                                                   minimumFractionDigits="0"
+                                                                   maximumFractionDigits="0"
+                                        /> (<lightning:formattedNumber value="{!div(v.record.SPO_DepositAmount__c,v.record.Amount)}"
+                                                                       style="percent"
+                                    />)</span>
+                                    {!' - ' + $Label.c.MIY_OrderPage_Intro_Store_Txn_pre + ' '}
+                                    <ui:outputText class="order-page__welcome-field"
+                                                   value="{!v.record.SPO_DepositNumber__c}"
+                                    />
+                                </aura:if>. <br/>
+                                {!$Label.c.MIY_OrderPage_Intro_Created_Date_pre + ' '}
+                                <ui:outputDate class="order-page__welcome-field" value="{!v.record.CreatedDate}"/>
+                                {!' ' + $Label.c.MIY_OrderPage_Intro_Order_Owner_pre + ' '}
+                                <ui:outputText class="order-page__welcome-field" value="{!v.record.Owner.Name}"/>. <br/>
+                                 <!--MIY-1807 cHANGE DISPLAYED TEXT-->
+                                 <!--
+                                {!$Label.c.MIY_OrderPage_Intro_Delivery_Date_pre + ' '}
+                                <ui:outputDate class="order-page__welcome-field"
+                                               value="{!empty(v.record.Final_Delivery_Date__c)
+                                                       ? v.record.SPO_PlannedDeliveryDateFormula__c
+                                                       : v.record.Final_Delivery_Date__c}"
+                                />. <br/>
+                                -->
+                                {!$Label.c.MIY_OrderPage_Intro_Delivery_Address_pre + ' '}
+                                <ui:outputText class="order-page__welcome-field"
+                                               value="{!v.record.SPO_DeliveryAddress__c}"
+                                />.
+                            </p>
+                        </lightning:recordViewForm>
+                    </aura:if>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="12" class="order-page__section"> <!--MIY-1969 adding productSettings-->
+                    <!-- MIY-2224 -->
+                    <c:MIY_FirmOrderList listData="{!v.record.SpeOrder_Order_Following__r}"
+                                         record="{!v.record}"
+                                         userProfile="{!v.userProfile}"
+                                         isUserInPermissionSetGroup="{!v.isUserInPermissionSetGroup}"
+                                         productSettings="{!v.productSettings}"
+                    />
+                </lightning:layoutItem>
+                <aura:set attribute="else">
+                    <lightning:layoutItem size="12">
+                        <c:MIY_SPO_Main recordId="{!v.recordId}"
+                                        record="{!v.record}"
+                                        editBriefAction="{!c.togglePanelOpen}"
+                                        userId="{!v.userId}"
+                                        warningsMap="{!v.warningsMap}"
+                                        storeMode="{!v.storeMode}"
+                                        userProfile="{!v.userProfile}"
+                                        isUserInPermissionSetGroup="{!v.isUserInPermissionSetGroup}"
+                        />
+                    </lightning:layoutItem>
+                    <div class="{!join(' ', 'order-page__panel slds-panel slds-panel_docked',
+                            (v.panelOpen ? 'order-page__panel_open' : undefined)
+                            )}"
+                         aria-hidden="false"
+                    >
+                        <div class="slds-panel__header">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                  alternativeText="Close Brief Details"
+                                                  class="slds-panel__close slds-button_icon-small"
+                                                  variant="bare"
+                                                  onclick="{!c.togglePanelOpen}"
+                            />
+                            <h2 class="slds-panel__header-title">{!$Label.c.MIY_OrderPage_Brief_Details}</h2>
+                            <h3 class="slds-text-heading_small">{!$Label.c.MIY_OrderPage_Order_Number}{!v.record.OrderNumber__c}</h3>
+                            <lightning:buttonGroup>
+                                <lightning:button label="Edit"
+                                                  onclick="{!c.editBrief}"
+                                                  disabled="{!v.briefEdit}"
+                                />
+                                <lightning:button label="Cancel"
+                                                  onclick="{!c.cancelEditBrief}"
+                                                  disabled="{!not(v.briefEdit)}"
+                                />
+                                <c:LaddaLightningButton label="Save"
+                                                        isLoading="{!v.briefSaving}"
+                                                        onclick="{!c.saveBrief}"
+                                                        disabled="{!not(v.briefEdit)}"
+                                                        laddaStyle="expand-right"
+                                />
+                            </lightning:buttonGroup>
+                        </div>
+                        <div class="slds-panel__body">
+                            <lightning:recordEditForm recordId="{!v.recordId}"
+                                                      objectApiName="{!v.sObjectName}"
+                                                      class="{!join(' ','slds-form_compound',
+                                                              (v.briefEdit ? '' : 'slds-hide')
+                                                              )}"
+                                                      aura:id="briefEditForm"
+                                                      onsuccess="{!c.onSaveBriefSuccess}"
+                            >
+                                <div class="slds-form-element__row">
+                                    <lightning:inputField fieldName="SPO_BaseSKURefmodelSKU__c" class="slds-size_1-of-1"/>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <lightning:inputField fieldName="AccountId" class="slds-size_1-of-1" />
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <lightning:inputField fieldName="SPO_CACode__c" class="slds-size_1-of-2" />
+                                    <lightning:inputField fieldName="SPO_StoreCode__c" class="slds-size_1-of-2" />
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <lightning:inputField fieldName="SPO_Store__c" class="slds-size_1-of-1" />
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <lightning:inputField fieldName="SPO_DeliveryAddress__c" class="slds-size_1-of-1" />
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <lightning:inputField fieldName="SPO_CommercialLocalComment__c" class="slds-size_1-of-1" />
+                                </div>
+                            </lightning:recordEditForm>
+                            <lightning:recordViewForm recordId="{!v.recordId}"
+                                                              objectApiName="{!v.sObjectName}"
+                                                              class="{!join(' ','slds-form_compound',
+                                                                      (v.briefEdit ? 'slds-hide' : '')
+                                                                      )}"
+                                    >
+                                        <div class="slds-form-element__row">
+                                            <lightning:outputField fieldName="SPO_BaseSKURefmodelSKU__c"
+                                                                   class="slds-size_1-of-1 slds-form-element_readonly"
+                                            />
+                                        </div>
+                                        <div class="slds-form-element__row">
+                                            <lightning:outputField fieldName="AccountId"
+                                                                   class="slds-size_1-of-1 slds-form-element_readonly"
+                                            />
+                                        </div>
+                                        <div class="slds-form-element__row">
+                                            <lightning:outputField fieldName="SPO_CACode__c"
+                                                                   class="slds-size_1-of-2 slds-form-element_readonly"
+                                            />
+                                            <lightning:outputField fieldName="SPO_StoreCode__c"
+                                                                   class="slds-size_1-of-2 slds-form-element_readonly"
+                                            />
+                                        </div>
+                                        <div class="slds-form-element__row">
+                                            <lightning:outputField fieldName="SPO_Store__c"
+                                                                   class="slds-size_1-of-1 slds-form-element_readonly"
+                                            />
+                                        </div>
+                                        <div class="slds-form-element__row">
+                                            <lightning:outputField fieldName="SPO_DeliveryAddress__c"
+                                                                   class="slds-size_1-of-1 slds-form-element_readonly"
+                                            />
+                                        </div>
+                                        <div class="slds-form-element__row">
+                                            <lightning:outputField fieldName="SPO_CommercialLocalComment__c"
+                                                                   class="slds-size_1-of-1 slds-form-element_readonly"
+                                            />
+                                        </div>
+                                    </lightning:recordViewForm>
+                        </div>
+                    </div>
+                </aura:set>
+            </aura:if>
+        </aura:if>
+    </lightning:layout>
+</aura:component>

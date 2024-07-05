@@ -1,0 +1,7 @@
+<design:component>
+		<design:attribute name="shippingGroup" label="Shipping Group"/>
+    	<design:attribute name="accountId" label="Account Id"/>
+        <design:attribute name="canFinish" label="Finish" />
+        <design:attribute name="continue" label="Continue"/>
+
+</design:component>

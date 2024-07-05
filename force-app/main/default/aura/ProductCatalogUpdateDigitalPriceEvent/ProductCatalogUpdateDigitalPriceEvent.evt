@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="digitalPrice" type="Double" default="-1"/>
+    <aura:attribute name="digitalCurrency" type="String" default=""/>
+</aura:event>

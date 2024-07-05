@@ -1,0 +1,85 @@
+<aura:component controller="MIY_OrderPageController">
+    <aura:attribute name="headerText" type="String" default="{!$Label.c.MIY_OrderPage_Cancel_Modal_Header_Text}"/>
+    <!-- MIY-2224 -->
+    <aura:attribute name="isUserInPermissionSetGroup" type="Boolean" />
+    <aura:attribute name="reasonOptions" type="List" default="[]"/>
+    <aura:attribute name="reasonValue" type="String"/>
+    <aura:attribute name="commentValue" type="String"/>
+    <aura:attribute name="remainingTimeText" type="String"/>
+    <aura:attribute name="expired" type="Boolean" default="false"/>
+    <aura:attribute name="success" type="Boolean" default="false"/>
+    <aura:attribute name="onSuccess" type="Aura.Action" />
+    <aura:attribute name="listData" type="List" />
+    <aura:attribute name="applyLoading" type="Boolean" default="false" />
+    <aura:attribute name="userProfile" type="String" />
+    <aura:attribute name="isExpirationDisplayed" type="Boolean" default="true" />
+    <aura:registerEvent name="updateOrderEvent" type="c:MIY_FirmOrderUpdate"/>
+
+    <lightning:overlayLibrary aura:id="cancelModalOverlayLib"/>
+    <lightning:notificationsLibrary aura:id="cancelModalNotifLib"/>
+
+    <ltng:require scripts="{!$Resource.MakeItYours_Assets + '/js/moment.min.js'}"
+                  afterScriptsLoaded="{!c.scriptsLoaded}"
+    />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.success}" action="{!v.onSuccess}"/>
+
+    <div class="cancel-modal__content">
+        <div class="cancel-modal__notice slds-p-horizontal_small">
+            <p>{!$Label.c.MIY_OrderPage_Cancel_Modal_Notice_line_1_pre_count + ' '}
+                <span class="cancel-modal__notice-field">{!
+                        v.listData.length + ' ' + $Label.c.MIY_OrderPage_Cancel_Modal_Notice_line_1_post_count
+                }</span>
+            </p>
+            <aura:if isTrue="{!not(v.expired)}">
+                <p>{!$Label.c.MIY_OrderPage_Cancel_Modal_Please_Provide_Reason}</p>
+                <aura:if isTrue="{!not(empty(v.remainingTimeText))}">
+                    <p class="cancel-modal__notice-field">
+                        {!$Label.c.MIY_OrderPage_Cancel_Modal_Remaining_time_pre + ' '}
+                        <lightning:formattedText value="{!v.remainingTimeText}" class="cancel-modal__time-remaining"/>
+                        {!' ' + $Label.c.MIY_OrderPage_Cancel_Modal_Remaining_time_post}
+                    </p>
+                </aura:if>
+                <aura:set attribute="else">
+                        <aura:if isTrue="{!v.isExpirationDisplayed}">
+                    <p class="cancel-modal__notice-field cancel-modal__notice-field_warning">
+                        {!$Label.c.MIY_OrderPage_Cancel_Modal_Expired_Notice}
+                    </p>
+                </aura:if>
+                </aura:set>
+            </aura:if>
+        </div>
+        <lightning:combobox name="reason"
+                            label=""
+                            variant="label-hidden"
+                            placeholder="{!$Label.c.MIY_OrderPage_Cancel_Modal_Reason_Placeholder}"
+                            options="{! v.reasonOptions }"
+                            class="slds-p-top_small"
+                            value="{!v.reasonValue}"
+        />
+        <lightning:textarea name="comment"
+                            label=""
+                            variant="label-hidden"
+                            placeholder="{!$Label.c.MIY_OrderPage_Cancel_Modal_Comment_Placeholder}"
+                            class="slds-p-top_small"
+                            value="{!v.commentValue}"
+        />
+        <div class="cancel-modal__notice cancel-modal__notice-field">{!$Label.c.MIY_OrderPage_Cancel_Modal_X_Store_Notice}</div>
+    </div>
+    
+    <aura:attribute name="footer" type="Aura.Component[]">
+        <lightning:button label="{!$Label.c.MIY_OrderPage_Back}"
+                          title="{!$Label.c.MIY_OrderPage_Back}"
+                          onclick="{!c.handleBack}"
+        />
+        <!-- MIY-2224 -->
+        <c:LaddaLightningButton variant="brand"
+                                label="{!$Label.c.MIY_OrderPage_Apply}"
+                                title="{!$Label.c.MIY_OrderPage_Apply}"
+                                onclick="{!c.handleApply}"
+                                isLoading="{!v.applyLoading}"
+                                disabled="{!or(and(not(v.isUserInPermissionSetGroup), v.userProfile != 'System Administrator', v.expired), empty(v.reasonValue))}"
+        />
+    </aura:attribute>
+</aura:component>

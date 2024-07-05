@@ -1,0 +1,44 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="PurchasedProductControllerLC">
+	
+    <aura:attribute name="items" type="PPR_PurchProduct__c[]"/>
+
+    <aura:attribute name="pageSize" type="integer" default="4"/>
+    <aura:attribute name="page" type="integer"/>
+    <aura:attribute name="pages" type="integer"/>
+    <aura:attribute name="total" type="integer"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card >
+        
+        <aura:set attribute="title">
+            <lightning:icon iconName="custom:custom93" size="small" class="slds-m-right_x-small"/>
+            <a href="" onclick="{!c.goToRelatedList}" class="slds-card__header-link baseCard__header-title-container">
+                Purchased Products ({!v.total})
+            </a>
+        </aura:set>
+
+        <!-- aura:set attribute="actions">
+                <c:paginator page="{!v.page}" pages="{!v.pages}" total="{!v.total}" label="products"
+                             previousPage="{!c.onPreviousPage}" nextPage="{!c.onNextPage}"/>
+        </aura:set-->
+
+        <lightning:layout horizontalAlign="center" multipleRows="true">
+            <aura:iteration items="{!v.items}" var="item">
+                <lightning:layoutitem size="6">
+                    <c:PurchasedProductTile item="{#item}"/>
+                </lightning:layoutitem>
+            </aura:iteration>
+        </lightning:layout>
+
+        <aura:set attribute="footer">
+            <aura:if isTrue="{!v.pages > 1}">
+                <c:Paginator page="{!v.page}" pages="{!v.pages}" total="{!v.total}" label="purchased products"
+                             previousPage="{!c.onPreviousPage}" nextPage="{!c.onNextPage}"/>
+            </aura:if>
+        </aura:set>
+
+    </lightning:card>
+    
+
+</aura:component>

@@ -1,0 +1,21 @@
+.THIS.miy-layout {
+  display: flex;
+  align-content: stretch;
+  align-items: stretch;
+  justify-content: space-between;
+}
+.THIS .miy-layout__panel {
+  width: 50%;
+}
+.THIS .gutter {
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+.THIS .gutter.gutter-horizontal {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23706e6b' width='100%25' height='100%25'%3E%3Cpath d='M9.2 1.8c1 0 1.9.9 1.9 1.9s-.9 1.8-1.9 1.8-1.8-.8-1.8-1.8.8-1.9 1.8-1.9zm5.6 0c1 0 1.8.9 1.8 1.9s-.8 1.8-1.8 1.8-1.9-.8-1.9-1.8.9-1.9 1.9-1.9zM9.2 7.4c1 0 1.9.8 1.9 1.8s-.9 1.9-1.9 1.9-1.8-.9-1.8-1.9.8-1.8 1.8-1.8zm5.6 0c1 0 1.8.8 1.8 1.8s-.8 1.9-1.8 1.9-1.9-.9-1.9-1.9.9-1.8 1.9-1.8zm-5.6 5.5c1 0 1.9.9 1.9 1.9s-.9 1.8-1.9 1.8-1.8-.8-1.8-1.8.8-1.9 1.8-1.9zm5.6 0c1 0 1.8.9 1.8 1.9s-.8 1.8-1.8 1.8-1.9-.8-1.9-1.8.9-1.9 1.9-1.9zm-5.6 5.6c1 0 1.9.8 1.9 1.8s-.9 1.9-1.9 1.9-1.8-.9-1.8-1.9.8-1.8 1.8-1.8zm5.6 0c1 0 1.8.8 1.8 1.8s-.8 1.9-1.8 1.9-1.9-.9-1.9-1.9.9-1.8 1.9-1.8z'%3E%3C/path%3E%3C/svg%3E");
+  cursor: col-resize;
+}
+.THIS .gutter.gutter-vertical {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+  cursor: row-resize;
+}

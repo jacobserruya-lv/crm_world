@@ -1,0 +1,26 @@
+.THIS .received-modal__field {
+  font-weight: bold;
+}
+.THIS .received-modal__ok-btn .ladda-lightning-button__label {
+  display: inline-block;
+  min-width: 9rem;
+}
+.THIS .received-modal__icon {
+  margin: 1.25rem 0 1.75rem;
+}
+.THIS .received-modal__icon .slds-icon {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+.THIS .received-modal__subheader {
+  color: #616161;
+  font-size: 1.125rem;
+  white-space: pre-line;
+}
+.THIS .received-modal__message {
+  padding: 2rem;
+  color: #848484;
+  font-size: 1rem;
+  line-height: 1.64;
+  white-space: pre-line;
+}

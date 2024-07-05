@@ -1,0 +1,26 @@
+.THIS.pc-recently-publish-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    color: #5e4f47;
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+}
+.THIS.pc-recently-publish-item:hover {
+    color: #5e4f47;
+    text-decoration: none;
+}
+.THIS .pc-recently-publish-item__image {
+    width: auto;
+    height: 100px;
+}
+.THIS .pc-recently-publish-item__name,
+.THIS .pc-recently-publish-item__sku {
+      height: 1.25rem;
+      color: #5e4f47;
+      font-size: .8rem;
+      font-weight: 300;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+}

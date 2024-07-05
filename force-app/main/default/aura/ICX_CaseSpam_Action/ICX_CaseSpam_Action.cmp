@@ -1,0 +1,24 @@
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:isUrlAddressable,force:lightningQuickActionWithoutHeader,force:hasRecordId"
+                access="global" >
+
+    <aura:attribute name="recordId" type="Id"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <lightning:workspaceAPI aura:id="workspace" />
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+    
+    <aura:attribute name="case" type="Object"/>
+    <aura:attribute name="simpleCase" type="Object"/>
+    <aura:attribute name="caseError" type="String"/>
+
+    <force:recordData aura:id="caseRecordLoader"
+        recordId="{!v.recordId}"
+        fields="Status,Spam__c,SpamReason__c"
+        targetRecord="{!v.case}"
+        targetFields="{!v.simpleCase}"
+        targetError="{!v.caseError}"
+        mode="EDIT"
+        recordUpdated="{!c.handleRecordUpdated}" 
+    />
+
+</aura:component>

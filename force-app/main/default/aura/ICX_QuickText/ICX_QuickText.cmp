@@ -1,0 +1,148 @@
+<aura:component controller="ICX_QuickTextControllerLC" >
+    
+    <aura:attribute name="channel" type="String" default="Email" description="Filter Quick text depending on the channel : Email / Live Agent / Messaging. Mix several with ';' (for example: Email;Messaging)" />
+    <aura:attribute name="language" type="String" description="Filter on language" />
+    <aura:attribute name="country" type="String" description="Filter on country" />
+    <aura:attribute name="searchText" type="String" description="Search Quick Text value" />
+    <aura:attribute name="recordId" type="String" description="Current record id" />
+    
+    <aura:attribute name="placeholder" type="String" default="Search Quick Text" />
+    
+    <aura:attribute access="private" type="Boolean" name="hasFocus" default="false"/>
+    <aura:attribute access="private" type="Map" name="blurTimeout"/>
+    
+    <aura:attribute access="private" name="folderList" type="List" default="[]" />
+    <aura:attribute access="private" name="folderWrapperList" type="List" default="[]" />
+    <aura:attribute access="private" name="searchResults" type="List" default="[]" />
+    <aura:attribute access="private" type="String" name="searchTerm" default=""/>
+    <aura:attribute access="private" type="Map" name="searchThrottlingTimeout"/>
+    
+    <aura:attribute access="private" name="quickTextList" type="List" default="[]" />
+    <aura:attribute access="private" name="quickTextWrapperList" type="List" default="[]" />
+    <aura:attribute access="private" name="quickTextIdOnMouse" type="String" />
+    
+    <aura:attribute access="private" name="recentQuickTextWrapperList" type="List" default="[]" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <!-- using key up or down on the results -->
+    <aura:attribute name="focusIndex" type="Integer" description="Integer value that determines which record is focused" access="private" default="0"/>
+    <aura:handler name="change" value="{!v.focusIndex}" action="{!c.handleFocusIndexChange}"/>
+    
+    <!--aura:attribute access="private" name="quickTextLabel" type="String" default="" /-->
+    <aura:registerEvent name="appEvent" type="c:ICX_QuickTextEvent"/>
+    
+    <!--lightning:tree header="QuickText" items="{!v.data}" /-->
+    
+    <div class="{! 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click '+ (and(v.hasFocus, !empty(v.searchResults)) ? 'slds-is-open' : 'slds-combobox-lookup') }"
+         aria-expanded="true" aria-haspopup="listbox" role="combobox">
+        
+        <div class="{! 'slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left' }" role="none">
+            <input type="text" class="slds-input " aria-autocomplete="list" aria-controls="listbox-lookup-id" autocomplete="off" role="textbox"
+                   id="{# globalId + '_combobox' }"
+                   aura:id="searchInput"
+                   placeholder="{!v.placeholder}"
+                   onfocus="{!c.onFocus}"
+                   onblur="{!c.onBlur}"
+                   oninput="{!c.onInput}"
+                   onkeydown="{!c.handleInputKeyDown}"
+                   onkeyup="{!c.handleInputKeyUp}"
+                   onkeypress="{!c.handleInputKeyPress}"
+                   />
+            <!--                value="{!v.seachText }" -->
+            <lightning:icon iconName="utility:search" size="x-small" alternativeText="Search icon"
+                            class="{! 'slds-input__icon slds-input__icon_right '}"/>
+            
+            
+            <!-- List box start -->                    
+            <!--div id="listbox-lookup-id" onclick="{!c.onComboboxClick}">
+                <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="listbox" aura:id="lookupMenu">
+                    <aura:iteration items="{!v.searchResults}" var="result" indexVar="i">
+                        <li role="presentation" class="slds-listbox__item" id="{!result.quickText.Id}" onclick="{!c.onResultClick}" data-index="{!i}" onmouseenter="{!c.handleQuickTextMouseEnter}" >
+                            <span class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                <span class="slds-media__body">
+                                    <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                        <c:ICX_QuickTextItem label="{!result.label}" message="{!result.quickText.Message}" />                                                
+                                    </span>
+                                </span>
+                            </span>
+                        </li>
+                    </aura:iteration>
+                </ul>
+            </div-->
+            <div class="mainBodyItem bodyItem slds-col slds-size_12-of-12 slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid">
+                <div class="slds-grid slds-wrap mainBody"><!-- style="position: initial;"-->
+                    <div class="listBodyLayoutItem slds-col slds-size_12-of-12">
+                        <div class="slds-grid searchListBody ">
+                            <div class="listBodyChild halfWidth slds-col slds-size_6-of-12">
+                                <!--div class="leftList scrollable uiScroller macrosBrowserPanelList scroller-wrapper scroll-vertical native" tabindex="-1" style="">
+                                    <div class="scroller">
+                                        <div class="uiAbstractList"-->
+                                            <div id="listbox-lookup-id" onclick="{!c.onComboboxClick}">
+                                                <ul class="" role="listbox" aura:id="lookupMenu">
+                                                    <aura:iteration items="{!v.searchResults}" var="result" indexVar="i">
+                                                        <li role="presentation" class="slds-listbox__item" id="{!result.quickText.Id}" onclick="{!c.onResultClick}" data-index="{!i}" onmouseenter="{!c.handleQuickTextMouseEnter}">
+                                                            <span class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                                                        <div class="fontTitle">
+                                                                            <p>{!result.label}</p>
+                                                                        </div>
+                                                                        <!--c:ICX_QuickTextItem label="{!result.label}" message="{!result.quickText.Message}" /-->
+                                                                        <!--div class="fontTitle" data-id="" onmouseenter="{!c.handleQuickTextMouseEnter}" onmouseleave="{!c.handleQuickTextMouseLeave}">
+                                                  <div class="slds-grid">
+                                                      <div class="slds-col slds-size_6-of-12">
+                                                          <p>{!result.label}</p>
+                                                      </div>
+                                                      <div class="slds-col slds-size_6-of-12">
+                                                          <section aura:id="popupQuickText" class=" slds-hide" role="dialog">
+                                                              <div class="slds-popover__body" style="position:fixed;top:0;">
+                                                                  <p class="whiteline"><lightning:formattedText value="{!result.quickText.Message}"/></p>
+                                                              </div>
+                                                          </section>
+                                                      </div>
+                                                  </div>
+                                              </div-->
+                                                                        
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </ul>
+                                            </div>
+                                        <!--/div>
+                                    </div>
+                                </div-->
+                            </div>
+                            <div class="detailView slds-border_left halfWidth slds-p-right_small slds-p-left_small slds-col slds-size_6-of-12">
+                                <div class="detailFullViewItem whiteline">
+                                    <div class="detailsViewContainer"><span class="uiOutputText">{!v.quickTextIdOnMouse}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- List box end -->
+            
+        </div>
+    </div>
+    
+    <!--lightning:accordion
+        allowMultipleSectionsOpen="true">
+
+        <aura:iteration var="folder" items="{!v.folderWrapperList}">
+            <lightning:accordionSection name="{!folder.Label}" label="{!folder.Label}">
+                <p>{!folder.Label}</p>
+            </lightning:accordionSection>
+        </aura:iteration>
+
+    </lightning:accordion>
+
+    <aura:iteration var="quickText" items="{!v.quickTextWrapperList}">
+
+        <c:ICX_QuickTextItem label="{!quickText.label}" message="{!quickText.quickText.Message}" />
+    </aura:iteration-->
+    
+</aura:component>

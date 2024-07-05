@@ -1,0 +1,22 @@
+.THIS .script-box {
+    /*margin-top: 0rem;
+    margin-bottom: .25rem;*//*1rem;*/
+    /*border: solid 2px rgb(0, 112, 210);*/
+    border: none;
+    padding-top: 0;
+}
+
+.THIS .color svg {
+    fill: rgb(0, 112, 210);
+}
+
+.THIS .script {
+    padding-left: .75rem;/*2.75rem;*/
+    padding-right: .75rem;/*2.75rem;*/
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.THIS .inline {
+    display: inline-flex;
+}

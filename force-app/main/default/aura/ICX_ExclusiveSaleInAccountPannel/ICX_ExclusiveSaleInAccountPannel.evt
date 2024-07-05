@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template" >
+    <aura:attribute name="recordId" type="string"/>
+    <aura:attribute name="exculsiveSalesName" type="String"/>
+</aura:event>

@@ -1,0 +1,199 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" 
+                controller="SO_OpportunityColorController">
+    
+    <aura:attribute name="colorMap" type="Map"/> <!--description="get picture (SPO_Color__c object) by name"/-->
+    <aura:attribute name="opp" type="Opportunity" />
+    <aura:attribute name="showMenu" type="Boolean" default="true" description="Show menu, title..." />
+    <aura:attribute name="pictoSize" type="Integer" default="40" />
+    <aura:attribute name="user" type="User" />
+    <aura:attribute name="creationType" type="List" default="Hardsided"/>
+    <aura:attribute name="creationTypeList" type="List" default="Hardsided"/>
+    <aura:attribute name="colorMetalic" type="List" default="Gold"/>
+    <aura:attribute name="colorMetalicList" type="List" default="Gold"/>
+    <aura:attribute name="disabled" type="Boolean" default="true"/>
+    <aura:attribute name="showAction" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="editEvent" type="c:SO_OpportunityColorEvent"/>
+	<aura:handler name="change" value="{!v.opp}" action="{!c.refreshColor}"/>
+
+    <lightning:card aura:id="readCard" class="{!(v.showMenu ? '' : 'hideBorder')}">
+
+        <aura:set attribute="title">
+            <aura:if isTrue="{!or(v.showMenu, and(v.showMenu == false, v.showAction == true))}">
+                <lightning:icon iconName="utility:brush" size="x-small"/>
+                <span class="title"> Material Color</span>
+            </aura:if>
+        </aura:set>
+        <aura:set attribute="actions">
+            <aura:if isTrue="{! and(v.showMenu, or( and(v.user.Profile.Name != 'SPO_Production', v.opp.StageName == 'Brief in progress'), and(or(v.user.Profile.Name == 'SPO_Production', v.user.Profile.Name == 'System Administrator'), and(v.opp.StageName != 'Creation in progress', not(v.opp.isClosed))))) }">
+                <lightning:buttonMenu alternativeText="Action" iconSize="x-small" onselect="{!c.handleMenuSelect}" menuAlignment="right">
+                    <lightning:menuItem aura:id="actionMenuItems" label="Edit Exterior" value="editExterior" />
+                    <lightning:menuItem aura:id="actionMenuItems" label="Edit Interior" value="editInterior" />
+                    <lightning:menuItem aura:id="actionMenuItems" label="Edit Material" value="editMaterial" />
+                </lightning:buttonMenu>
+            </aura:if>
+             <aura:if isTrue="{!v.showAction}">
+                    <lightning:buttonGroup >
+                        <lightning:button label="Save" onclick="{!c.save}" variant="brand"/>
+                        <lightning:button label="Cancel" onclick="{!c.cancelAction}" />
+                    </lightning:buttonGroup>
+        	</aura:if> 
+        </aura:set>
+      
+
+        <lightning:layout horizontalAlign="spread" multipleRows="true">
+          <aura:if isTrue="{!v.opp.Id != null}">
+            <lightning:layoutItem class="{! (v.disabled==true ? 'disabledStyle ' : '') + ' slds-m-horizontal_none slds-p-right--xxx-small' }" flexibility="grow" size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4" >
+            <!--<label>{!$Label.c.LV_SO_Creation_type}</label> <br/>-->
+             <!-- <lightning:input value="{! v.opp.SPO_CreationType__c }" label="{!$Label.c.LV_SO_Creation_type}"/> -->
+             <lightning:select aura:id="creationTypeSelect" name="creationTypeSelect" value="{!v.opp.SPO_CreationType__c}" label="{!$Label.c.LV_SO_Creation_type}" >
+                                        <option value="">{!$Label.c.LV_SO_LabelNoneMaj}</option>
+                                        <aura:iteration items="{!v.creationTypeList}" var="creationType">
+                                            <option value="{!creationType.value}" text="{!creationType.label}" selected="{!creationType.value == v.opp.SPO_CreationType__c}"></option>
+                                        </aura:iteration>
+                                    </lightning:select>
+          </lightning:layoutItem>
+          
+          <lightning:layoutItem class="{! (v.disabled==true ? 'disabledStyle ' : '') + ' slds-m-horizontal_none slds-p-right--xxx-small' }" flexibility="grow" size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4">
+            <!--<label>{!$Label.c.LV_SO_Color_metalic_part}</label><br/>-->
+              <!-- <lightning:input value="{!v.opp.SPO_ColorMetalicparts__c }" label="{!$Label.c.LV_SO_Color_metalic_part}"/><br/>  -->
+              <lightning:select class="slds-m-horizental_none" aura:id="colorMetalic" name="colorMetalic" value="{!v.opp.SPO_ColorMetalicparts__c}" label="{!$Label.c.LV_SO_Color_metalic_part}" >
+                                   
+                                        <option value="">{!$Label.c.LV_SO_LabelNoneMaj}</option>
+                                        <aura:iteration items="{!v.colorMetalicList}" var="colorMetalic">
+                                            <option value="{!colorMetalic.value}" text="{!colorMetalic.label}" selected="{!colorMetalic.value == v.opp.SPO_ColorMetalicparts__c}"></option>
+                                        </aura:iteration>
+                                    </lightning:select>
+          </lightning:layoutItem>
+
+          <aura:if isTrue="{!v.opp.SPO_ColorMetalicparts__c == 'Other (free text)'}">
+          <lightning:layoutItem class="{! (v.disabled==true ? 'disabledStyle ' : '') + ' slds-m-horizontal_none slds-p-right--xxx-small' }" flexibility="grow" size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4">
+          <lightning:input class="slds-m-horizental_none" label="Comment" aura:id="colorMetalicComment" name="colorMetalicComment" value="{!v.opp.SPO_ColorMetalicPartsLocalComment__c}"/>
+          </lightning:layoutItem>
+          </aura:if>
+
+          </aura:if>
+          
+          <br/>
+          <br/>
+          <br/>
+        <fieldset class="fieldsetRead">
+            <legend class="slds-text-title--caps">
+                Exterior
+            </legend>
+            <aura:if isTrue="{!not(empty(v.opp.SPO_ExteriorMaterial1__c))}">
+                <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure">
+                        <c:SO_ColorPickerTile aura:id="ext1"
+                                              tileSize="{!v.pictoSize}"
+                                              color="{!v.opp.SPO_ExteriorMaterialColor1__c}"
+                                              colorUrl="{! (v.colorMap.EXT1.SPO_StaticResourceName__c != '' ? '/resource/SPO_' + v.colorMap.EXT1.SPO_StaticResourceName__c : '')}" 
+                                              colorBackground="{!v.colorMap.EXT1.SPO_CodeCouleur__c}"
+                                              readOnly="true"/>
+                                            <!--  material="{!v.opp.SPO_ExteriorMaterial1__c}"/-->
+                    </div>
+                    <div class="slds-media__body">
+                        <!--ui:outputText value="{! '1: '+ (v.opp.SPO_ExteriorMaterialColor1__c == 'OTHER' ? v.opp.SPO_ExteriorMaterial1__c + ' ' : '') + v.opp.SPO_ExteriorMaterialColor1__c}" class="colorLabelSelected slds-text-title- -caps"/-->
+                        <c:SO_OpportunityColorReadLabel colorNumber="1"
+                                                        material="{!v.opp.SPO_ExteriorMaterial1__c}"
+                                                        color="{!v.opp.SPO_ExteriorMaterialColor1__c}"
+                                                        commentMaterial="{!v.opp.SPO_ExteriorMaterial1localcomment__c}"
+                                                        commentColor="{!v.opp.SPO_ExtMaterialColor1localcomment__c}" />
+                    </div>
+                </div>
+            </aura:if>
+            
+            <aura:if isTrue="{!not(empty(v.opp.SPO_ExteriorMaterial2__c))}">
+                <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure">
+                        <c:SO_ColorPickerTile aura:id="ext2"
+                                              tileSize="{!v.pictoSize}"
+                                              color="{!v.opp.SPO_ExteriorMaterialColor2__c}"
+                                              colorUrl="{! (v.colorMap.EXT2.SPO_StaticResourceName__c != '' ? '/resource/SPO_' + v.colorMap.EXT2.SPO_StaticResourceName__c : '')}" 
+                                              colorBackground="{!v.colorMap.EXT2.SPO_CodeCouleur__c}"
+                                              readOnly="true"/>
+                                              <!-- material="{!v.opp.SPO_ExteriorMaterial2__c}"/-->
+                    </div>
+                    <div class="slds-media__body">
+                        <!--ui:outputText value="{! '2: ' + (v.opp.SPO_ExteriorMaterialColor2__c == 'OTHER' ? v.opp.SPO_ExteriorMaterial2__c + ' ' : '') + v.opp.SPO_ExteriorMaterialColor2__c }" class="colorLabelSelected slds-text-title- -caps"/-->
+                        <c:SO_OpportunityColorReadLabel colorNumber="2"
+                                                        material="{!v.opp.SPO_ExteriorMaterial2__c}"
+                                                        color="{!v.opp.SPO_ExteriorMaterialColor2__c}"
+                                                        commentMaterial="{!v.opp.SPO_ExteriorMaterial2localcomment__c}"
+                                                        commentColor="{!v.opp.SPO_ExtMaterialColor2localcomment__c}" />
+                    </div>
+                </div>
+            </aura:if>
+            
+            <aura:if isTrue="{!not(empty(v.opp.SPO_ExteriorMaterial3__c))}">
+                <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure">
+                        <c:SO_ColorPickerTile aura:id="ext3"
+                                              tileSize="{!v.pictoSize}"
+                                              color="{!v.opp.SPO_ExteriorMaterialColor3__c}"
+                                              colorUrl="{! (v.colorMap.EXT3.SPO_StaticResourceName__c != '' ? '/resource/SPO_' + v.colorMap.EXT3.SPO_StaticResourceName__c : '')}" 
+                                              colorBackground="{!v.colorMap.EXT3.SPO_CodeCouleur__c}"
+                                              readOnly="true"/>
+                                              <!-- material="{!v.opp.SPO_ExteriorMaterial3__c}"/-->
+                    </div>
+                    <div class="slds-media__body">
+                        <!--ui:outputText value="{! '3: ' + (v.opp.SPO_ExteriorMaterialColor3__c == 'OTHER' ? v.opp.SPO_ExteriorMaterial3__c + ' ' : '') + v.opp.SPO_ExteriorMaterialColor3__c}" class="colorLabelSelected slds-text-title- -caps"/-->
+                        <c:SO_OpportunityColorReadLabel colorNumber="3"
+                                                        material="{!v.opp.SPO_ExteriorMaterial3__c}"
+                                                        color="{!v.opp.SPO_ExteriorMaterialColor3__c}"
+                                                        commentMaterial="{!v.opp.SPO_ExteriorMaterial3localcomment__c}"
+                                                        commentColor="{!v.opp.SPO_ExtMaterialColor3localcomment__c}" />
+                    </div>
+                </div>
+            </aura:if>
+        </fieldset>
+        
+        <fieldset class="fieldsetRead">
+            <legend class="slds-text-title--caps">
+                Interior
+            </legend>
+            <aura:if isTrue="{!not(empty(v.opp.SPO_LiningInteriorMaterial1__c))}">
+                <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure">
+                        <c:SO_ColorPickerTile aura:id="int1"
+                                              tileSize="{!v.pictoSize}"
+                                              color="{!v.opp.SPO_LiningInteriorColor1__c}"
+                                              colorUrl="{! (v.colorMap.INT1.SPO_StaticResourceName__c != '' ? '/resource/SPO_' + v.colorMap.INT1.SPO_StaticResourceName__c : '')}" 
+                                              colorBackground="{!v.colorMap.INT1.SPO_CodeCouleur__c}"
+                                              readOnly="true"/>
+                                              <!-- material="{!v.opp.SPO_LiningInteriorMaterial1__c}"/-->
+                    </div>
+                    <div class="slds-media__body">
+                        <c:SO_OpportunityColorReadLabel colorNumber="1"
+                                                        material="{!v.opp.SPO_LiningInteriorMaterial1__c}"
+                                                        color="{!v.opp.SPO_LiningInteriorColor1__c}"
+                                                        commentMaterial="{!v.opp.SPO_LiningMaterial1LocalComment__c}"
+                                                        commentColor="{!v.opp.SPO_LiningColor1LocalComment__c}" />
+                    </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!not(empty(v.opp.SPO_LiningInteriorMaterial2__c))}">
+                <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure">
+                        <c:SO_ColorPickerTile aura:id="int2"
+                                              tileSize="{!v.pictoSize}"
+                                              color="{!v.opp.SPO_LiningInteriorColor2__c}"
+                                              colorUrl="{! (v.colorMap.INT2.SPO_StaticResourceName__c != '' ? '/resource/SPO_' + v.colorMap.INT2.SPO_StaticResourceName__c : '')}" 
+                                              colorBackground="{!v.colorMap.INT2.SPO_CodeCouleur__c}"
+                                              readOnly="true"/>
+                                              <!-- material="{!v.opp.SPO_LiningInteriorMaterial2__c}"/-->
+                    </div>
+                    <div class="slds-media__body">
+                        <!--ui:outputText value="{! '2: ' + (v.opp.SPO_LiningInteriorColor2__c == 'OTHER' ? v.opp.SPO_LiningInteriorMaterial2__c + ' ' : '') + v.opp.SPO_LiningInteriorColor2__c}" class="colorLabelSelected slds-text-title- -caps"/-->
+                        <c:SO_OpportunityColorReadLabel colorNumber="2"
+                                                        material="{!v.opp.SPO_LiningInteriorMaterial2__c}"
+                                                        color="{!v.opp.SPO_LiningInteriorColor2__c}"
+                                                        commentMaterial="{!v.opp.SPO_LiningMaterial2LocalComment__c}"
+                                                        commentColor="{!v.opp.SPO_LiningColor2LocalComment__c}" />
+                    </div>
+                </div>            
+            </aura:if>
+        </fieldset>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

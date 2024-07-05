@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event for ICX_QuickText component">
+    <aura:attribute type="String" name="recordId" description="Current record Id"/>
+    <aura:attribute type="QuickText" name="quickText" description="QuickText selected"/>
+    <aura:attribute type="String" name="quickTextFormatted" description="QuickText selected with value for the merge fields"/>
+</aura:event>

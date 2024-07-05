@@ -1,0 +1,275 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes" access="global" >
+    
+    <!--aura:attribute name="sObjectName" type="String"/-->
+
+    <aura:attribute name="width" type="String" description=" width of parent region / useful to display this component in the middle or in the left column in a page layout"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+
+    <aura:attribute name="recordId" type="Id" />
+    <!--aura:attribute name="accountId" type="Id"/-->
+    
+    <!--aura:attribute name="object" type="String"/>
+    <aura:attribute name="fields" type="String[]"/-->
+    
+    <aura:attribute name="simpleAccount" type="Object"/>
+    <aura:attribute name="accountError" type="String"/>
+    <aura:attribute name="account" type="Object"/>
+    
+    <aura:attribute name="disabled" type="Boolean" default="false" />
+
+	<!--aura:handler name="init" value="{!this}" action="{!c.doInit}" /-->
+    <aura:handler name="change" value="{!v.recordId}" action="{!c.onRecordChange}" />
+    <!--aura:registerEvent name="cmpEvent" type="c:ICX_Account_Highlight_Event"/-->
+
+    <!--c:ICX_CaseDataService aura:id="caseService"/-->
+    
+    <force:recordData aura:id="recordDataAccount"
+                      recordId="{!v.recordId}"
+                      mode="EDIT"
+                      layoutType="COMPACT"
+                      fields="Salutation,Gender__pc,Name,FirstName,LastName,PersonBirthdate,Nationality__pc,
+                              PrimaryAddressLine1__pc, PrimaryAddressLine2__pc, PrimaryAddressLine3__pc, PrimaryCity__pc, PrimaryZipCode__pc, PrimaryStateProvince__pc, PrimaryCountry__pc,
+                              PersonEmail,LocalMobilePhone__pc,LocalHomePhone__pc,LocalWorkPhone__pc,
+                              Can_Be_Contacted_By_Email__pc,Can_Be_Contacted_By_Mail__pc,Can_Be_Contacted_By_Phone__pc,Can_Be_Contacted_By_SMS__pc,
+                              PreferredLanguage__pc,DREAMID__c,Segmentation__pc,
+                              Store__pr.Name,Owner.Name,LastTrans__pc,LastContactDate__pc,Typology__pc"
+                      targetRecord="{!v.account}"
+                      targetFields="{!v.simpleAccount}"
+                      targetError="{!v.accountError}" />
+    
+    <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Account"><!--{!v.object}"-->
+    <!--Waiting Spring 18 > lightning:recordEditForm recordId="{!v.recordId}" objectApiName="Account"
+                              onload="{!c.handleLoad}"
+                              onsubmit="{!c.handleSubmit}"
+                              onsuccess="{!c.handleSuccess}"-->
+
+        <div class="slds-box slds-theme_shade">
+            <lightning:layout horizontalAlign="spread" multipleRows="true">
+                
+                <lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="{!v.width == 'SMALL' ? 12 : 4}" mediumDeviceSize="12" smallDeviceSize="12" class="slds-form_compound">
+                                
+                    <!--aura:attribute name="salutationOptions" type="List" 
+                                                        default="[{'label': '- -None- -', 'value': 'None'},
+                                                                 {'label': 'Mr.', 'value': 'Mr.'},
+                                                                 {'label': 'Ms.', 'value': 'Ms.'},
+                                                                 {'label': 'Mrs.', 'value': 'Mrs.'},
+                                                                 {'label': 'Dr.', 'value': 'Dr.'}
+                                                                 ]"/>
+                                        
+                                <lightning:inputName fieldsToDisplay="['firstName', 'salutation', 'lastName']"
+                                                             options="{!v.salutationOptions}" /-->
+                    <fieldset class="slds-form-element">
+                        <legend class="slds-form-element__label slds-text-title_caps">Client</legend>
+                        <div class="slds-form-element__group">
+                            <div class="slds-form-element__row">
+                                <lightning:input label="Civility" name="salutation" value="{!v.simpleAccount.Salutation}" />
+                                <lightning:input label="First Name" name="firstname" value="{!v.simpleAccount.FirstName}" />
+                                <lightning:input label="Last Name" name="lastname" value="{!v.simpleAccount.LastName}" />
+                                
+                                <!--lightning:inputField fieldName="Salutation" />
+                                <lightning:inputField fieldName="Firstname" />
+                                <lightning:inputField fieldName="Lastname" /-->
+                            </div>
+                            <div class="slds-form-element__row">
+                                <lightning:input type="date" label="Birthdate" name="birthday" value="{!v.simpleAccount.PersonBirthdate}" class="{!v.width == 'LARGE' ? 'input3columns' : ''}"/>
+                                <lightning:input label="Nationality" name="nationality" value="{!v.simpleAccount.Nationality__pc}"/>
+                                <lightning:input label="Preferred Language" name="language" value="{!v.simpleAccount.PreferredLanguage__pc}" />
+                                <!--lightning:inputField fieldName="PersonBirthdate" />
+                                <lightning:inputField fieldName="Nationality__pc" />
+                                <lightning:inputField fieldName="PreferredLanguage__pc" /-->
+                            </div>
+                            <div class="slds-form-element__row">
+                                <lightning:input label="Gender" name="gender" value="{!v.simpleAccount.Gender__pc}" />
+                                <lightning:input label="Dream Id" name="dream" value="{!v.simpleAccount.DREAMID__c}"/>
+                                <div/>
+                                <!-- lightning:inputField fieldName="Gender__pc" />
+								<lightning:inputField fieldName="DREAMID__c" /-->
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!--div class="slds-form_horizontal">
+                        <lightning:input label="Gender" name="gender" value="{!v.simpleAccount.Gender__pc}" />
+                        <lightning:input label="Salutation" name="salutation" value="{!v.simpleAccount.Salutation}" />
+                        <lightning:input label="Firstname" name="firstname" value="{!v.simpleAccount.FirstName}" />
+                        <lightning:input label="Lastname" name="lastname" value="{!v.simpleAccount.LastName}" />
+                        <lightning:input label="Birthdate" name="birthday" value="{!v.simpleAccount.PersonBirthdate}"/>
+                        <lightning:input label="Nationality" name="nationality" value="{!v.simpleAccount.Nationality__pc}"/>
+                        <lightning:input label="Preferred Language" name="language" value="{!v.simpleAccount.PreferredLanguage__pc}" />
+                        <lightning:input label="Dream Id" name="dream" value="{!v.simpleAccount.DREAMID__c}"/-->
+                        <!-- lightning:inputField fieldName="Gender__pc" />
+                                <lightning:inputField fieldName="Salutation" />
+                                <lightning:inputField fieldName="Firstname" />
+                                <lightning:inputField fieldName="Lastname" />
+                                <lightning:inputField fieldName="PersonBirthdate" />
+                                <lightning:inputField fieldName="PreferredLanguage__pc" />
+                                <lightning:inputField fieldName="DREAMID__c" /-->
+                    <!--/div-->
+                    
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="{!v.width == 'SMALL' ? 12 : 4}" mediumDeviceSize="9" smallDeviceSize="7" class="slds-form_compound">
+                    
+                    <fieldset class="slds-form-element">
+                        <legend class="slds-form-element__label slds-text-title_caps">Contact</legend>
+                        <div class="slds-form-element__group">
+                            <div class="slds-form-element__row">
+                                <lightning:input label="Address Line 1" name="line1" value="{!v.simpleAccount.PrimaryAddressLine1__pc}" />
+                                <lightning:input label="Address Line 2" name="line2" value="{!v.simpleAccount.PrimaryAddressLine2__pc}" />
+                                <lightning:input label="Address Line 3" name="line3" value="{!v.simpleAccount.PrimaryAddressLine3__pc}" />
+                                
+                                <!--lightning:inputField fieldName="PrimaryAddressLine1__pc" />
+                                <lightning:inputField fieldName="PrimaryAddressLine2__pc" />
+                                <lightning:inputField fieldName="PrimaryAddressLine3__pc" /-->
+                                <!--lightning:inputAddress
+                                                        addressLabel="Address"
+                                                        streetLabel="Street"
+                                                        cityLabel="City"
+                                                        countryLabel="Country"
+                                                        provinceLabel="Province/State"
+                                                        postalCodeLabel="PostalCode"
+                                                        street="{! v.street }"
+                                                        city="{! v.city }"
+                                                        province="{! v.province }"
+                                                        country="{! v.country }"
+                                                        postalCode="{! v.postalCode }"
+                                                        countryOptions="{! v.countryOptions }"
+                                                        provinceOptions="{! v.provinceOptions }"
+                                                        /-->
+                            </div>
+                            <div class="slds-form-element__row">
+                                <lightning:input label="Town/City" name="city" value="{!v.simpleAccount.PrimaryCity__pc}" />
+                                <lightning:input label="Postal Code" name="zipcode" value="{!v.simpleAccount.PrimaryZipCode__pc}" />
+                                <lightning:input label="Province/State" name="state" value="{!v.simpleAccount.PrimaryStateProvince__pc}" />
+                                <!--lightning:inputField fieldName="PrimaryCity__pc" />
+                                <lightning:inputField fieldName="PrimaryZipCode__pc" />
+                                <lightning:inputField fieldName="PrimaryStateProvince__pc"-->
+                            </div>
+                            <div class="slds-form-element__row">
+                                <lightning:input label="Country" name="country" value="{!v.simpleAccount.PrimaryCountry__pc}" />
+                                <!--lightning:input type="checkbox" label="Can Be Contacted By Mail" name="contactmail" checked="{!v.simpleAccount.Can_Be_Contacted_By_Mail__pc}" /-->
+                                <!--lightning:inputField fieldName="PrimaryCountry__pc" />
+                          <lightning:inputField fieldName="Can_Be_Contacted_By_Mail__pc" /-->
+                            </div>
+
+                            <lightning:layout horizontalAlign="spread" multipleRows="true" class="slds-form-element__row">
+                                <lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="{!v.width == 'SMALL' ? 12 : 6}" mediumDeviceSize="12" smallDeviceSize="12">
+                                    <lightning:input type="email" label="Personal Email" name="email" value="{!v.simpleAccount.PersonEmail}" />
+                                </lightning:layoutItem>
+                                <lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="{!v.width == 'SMALL' ? 12 : 6}" mediumDeviceSize="12" smallDeviceSize="12">
+                                    <lightning:input type="tel" label="Mobile" name="mobile" value="{!v.simpleAccount.LocalMobilePhone__pc}" class="{!v.width == 'SMALL' ? '' : 'slds-p-left_x-small'}"/>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            
+                            <!--div class="slds-form-element__row">
+                                <lightning:input type="email" label="Personal Email" name="email" value="{!v.simpleAccount.PersonEmail}" />
+                                <lightning:input type="tel" label="Mobile" name="mobile" value="{!v.simpleAccount.LocalMobilePhone__pc}" /-->
+                                <!--lightning:input type="checkbox" label="Can Be Contacted By Email" name="contactemail" checked="{!v.simpleAccount.Can_Be_Contacted_By_Email__pc}" /-->
+                                
+                                <!--lightning:inputField fieldName="PersonEmail" />
+                                <lightning:inputField fieldName="Can_Be_Contacted_By_Email__pc" /-->
+                                <!--lightning:inputField fieldName="LocalMobilePhone__pc" />
+                                <lightning:inputField fieldName="Can_Be_Contacted_By_Phone__pc" />
+                                <lightning:inputField fieldName="Can_Be_Contacted_By_SMS__pc" /-->
+                            <!--/div-->
+                            <div class="slds-form-element__row">
+                                <lightning:layout horizontalAlign="spread" class="contactedClass">
+                                    <lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="6" mediumDeviceSize="12" smallDeviceSize="12" class="">
+                                        <div>
+                                            <lightning:input type="checkbox" label="Can Be Contacted By Mail" name="contactmail" checked="{!v.simpleAccount.Can_Be_Contacted_By_Mail__pc}" />
+                                        </div>
+                                        <div>
+                                            <lightning:input type="checkbox" label="Can Be Contacted By Email" name="contactemail" checked="{!v.simpleAccount.Can_Be_Contacted_By_Email__pc}" />
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="6" mediumDeviceSize="12" smallDeviceSize="12" class="">
+                                        <div>
+                                            <lightning:input type="checkbox" label="Can Be Contacted By Phone" name="contactphone" checked="{!v.simpleAccount.Can_Be_Contacted_By_Phone__pc}" />
+                                        </div>
+                                        <div>
+                                            <lightning:input type="checkbox" label="Can Be Contacted By SMS" name="contactsms" checked="{!v.simpleAccount.Can_Be_Contacted_By_SMS__pc}" />
+                                        </div>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+
+                                <!--lightning:inputField fieldName="Can_Be_Contacted_By_Phone__pc" />
+                                <lightning:inputField fieldName="Can_Be_Contacted_By_SMS__pc" /-->
+                                <!--lightning:inputField fieldName="Can_Be_Contacted_By_Email__pc" />
+                                <lightning:inputField fieldName="Can_Be_Contacted_By_Mail__pc" /-->
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    
+                    <!--div class="slds-form_horizontal">
+                        <lightning:input label="Address Line 1" name="line1" value="{!v.simpleAccount.PrimaryAddressLine1__pc}" />
+                        <lightning:input label="Address Line 2" name="line2" value="{!v.simpleAccount.PrimaryAddressLine2__pc}" />
+                        <lightning:input label="Address Line 3" name="line3" value="{!v.simpleAccount.PrimaryAddressLine3__pc}" />
+                        <lightning:input label="Town/City" name="city" value="{!v.simpleAccount.PrimaryCity__pc}" />
+                        <lightning:input label="Postal Code" name="zipcode" value="{!v.simpleAccount.PrimaryZipCode__pc}" />
+                        <lightning:input label="Province/State" name="state" value="{!v.simpleAccount.PrimaryStateProvince__pc}" />
+                        <lightning:input label="Country" name="country" value="{!v.simpleAccount.PrimaryCountry__pc}" />
+                        <lightning:input label="Can Be Contacted By Mail" name="contactmail" value="{!v.simpleAccount.Can_Be_Contacted_By_Mail__pc}" />
+                        
+                        <lightning:input label="Personal Email" name="email" value="{!v.simpleAccount.PersonEmail}" />
+                        <lightning:input label="Can Be Contacted By Email" name="contactemail" value="{!v.simpleAccount.Can_Be_Contacted_By_Email__pc}" />
+                        
+                        <lightning:input label="Mobile" name="mobile" value="{!v.simpleAccount.LocalMobilePhone__pc}" />
+                        <lightning:input label="Can Be Contacted By Phone" name="contactphone" value="{!v.simpleAccount.Can_Be_Contacted_By_Phone__pc}" />
+                        <lightning:input label="Can Be Contacted By SMS" name="contactsms" value="{!v.simpleAccount.Can_Be_Contacted_By_SMS__pc}" />
+                        
+                        <lightning:inputField fieldName="PrimaryAddressLine1__pc" />
+                        <lightning:inputField fieldName="PrimaryAddressLine2__pc" />
+                        <lightning:inputField fieldName="PrimaryAddressLine3__pc" />
+                        <lightning:inputField fieldName="PrimaryCity__pc" />
+                        <lightning:inputField fieldName="PrimaryZipCode__pc" />
+                        <lightning:inputField fieldName="PrimaryStateProvince__pc" />
+                        <lightning:inputField fieldName="PrimaryCountry__pc" />
+                        <lightning:inputField fieldName="Can_Be_Contacted_By_Mail__pc" />
+    
+                        <lightning:inputField fieldName="PersonEmail" />
+                        <lightning:inputField fieldName="Can_Be_Contacted_By_Email__pc" />
+    
+                        <lightning:inputField fieldName="LocalMobilePhone__pc" />
+                        <lightning:inputField fieldName="Can_Be_Contacted_By_Phone__pc" />
+                        <lightning:inputField fieldName="Can_Be_Contacted_By_SMS__pc" />
+                    </div-->
+
+                    
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="{!v.width == 'SMALL' ? 12 : 4}" mediumDeviceSize="9" smallDeviceSize="5" class="slds-form_compound">
+                                
+                    <fieldset class="slds-form-element">
+                        <legend class="slds-form-element__label slds-text-title_caps">LV Client</legend>
+                        <div class="slds-form-element__group">
+                            <div class="slds-form-element__row">
+                                <!--lightning:inputField fieldName="Segmentation__pc" variant=""/-->
+                                <lightning:input label="Segmentation" name="segmentation" value="{!v.simpleAccount.Segmentation__pc}" />
+                                <!--lightning:inputField fieldName="Typology__pc" /-->
+                                <lightning:input label="Typology" name="typology" value="{!v.simpleAccount.Typology__pc}" />
+                            </div>
+                            <div class="slds-form-element__row">
+                                <!--lightning:inputField fieldName="Store__pc" variant=""/-->
+                                <lightning:input label="Store" name="store" value="{!v.simpleAccount.Store__pr.Name}" />
+                                <!--lightning:inputField fieldName="OwnerId" /-->
+                                <lightning:input label="Preferred CA" name="preferredCa" value="{!v.simpleAccount.Owner.Name}" />
+                                <!--lightning:inputField fieldName="LastTrans__pc" /-->
+                                <!--lightning:inputField fieldName="LastContactDate__pc" /-->
+                            </div>
+                        </div>
+                    </fieldset>
+                </lightning:layoutItem>
+            </lightning:layout>
+
+            <!--lightning:messages /-->
+            <div class="slds-docked-form-footer2">
+                <lightning:button type="cancel" name="cancel" label="Cancel" class="" onclick="{!c.fireEvent}" iconName="utility:close"/>
+                <lightning:button disabled="{!v.disabled}" variant="brand" type="submit" name="save" label="Save" class="slds-m-left_large" onclick="{!c.fireEvent}" iconName="utility:check"/>
+            </div>
+
+        </div>
+
+    <!--/lightning:recordEditForm-->
+    </lightning:recordViewForm>
+</aura:component>

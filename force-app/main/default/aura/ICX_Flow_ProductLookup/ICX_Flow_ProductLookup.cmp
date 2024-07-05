@@ -1,0 +1,232 @@
+<!-- Salesforce Lightning Lookup Component
+https://github.com/pozil/sfdc-ui-lookup
+https://developer.salesforce.com/blogs/2018/07/10-tips-for-implementing-an-efficient-lightning-lookup-component.html
+-->
+<aura:component access="global">
+
+    <aura:attribute access="global" type="String" name="label" required="true" description="Component's label"/>
+    <aura:attribute access="global" type="List" name="selection" required="true" default="[]" description="List of selected items (a list of only one element for a single entry lookup). Data structure is the same as Apex List&lt;LookupSearchResult&gt;."/>
+    <aura:attribute access="global" type="List" name="productSelection" description="List of product selected items (a list of only one element for a single entry lookup). Data structure is the same as Apex List&lt;LookupSearchResult&gt;."/>
+    <aura:attribute access="global" type="List" name="unknownSelection" default="[]" description="List of unknown selected items (a list of only one element for a single entry lookup). Data structure is the same as Apex List&lt;LookupSearchResult&gt;."/>
+    <aura:attribute access="global" type="String" name="placeholder" default="" description="Component's placeholder. Optional, defaults to none."/>
+    <aura:attribute access="global" type="Boolean" name="isMultiEntry" default="false" description="Whether this component allows multiple selection. Optional, defaults to true."/>
+    <aura:attribute access="global" type="String" name="displayResult" default="small" description="Display results in small or x-small display"/>
+    <aura:attribute access="global" type="Boolean" name="displayEnlargePill" default="false" description="Display pill results in small or enlarge pictures"/>
+    <aura:attribute access="global" type="Boolean" name="readOnly" default="false" description="Display products in read-only mode"/>
+    <aura:attribute  type="String" name="taskCategory" description="task Category"/><!--naomi 02/05/2022-->
+    <aura:attribute access="global" type="Boolean" name="required" default="false" description="Required field?"/>
+    <aura:attribute name="showNewRequestCheckbox" type="Boolean" default="false" description="Show New Request checkbox" />
+    <aura:attribute name="requestType" type="String" description="Request type" />
+    <aura:attribute name="showSearch" type="Boolean" default="true" />
+    
+
+    <aura:attribute access="private" name="width" type="String" description=" width of parent region / useful to display this component in the middle or in the left column in a page layout"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+
+    <aura:attribute access="private" type="String" name="searchTerm" default=""/>
+    <aura:attribute access="private" type="List" name="searchResults" default="[]"/>
+    <aura:attribute access="private" type="Boolean" name="hasFocus" default="false"/>
+    <aura:attribute access="private" type="Map" name="blurTimeout"/>
+    <aura:attribute access="private" type="Map" name="searchThrottlingTimeout"/>
+    <aura:attribute access="public" type="Boolean" name="isInPopup" default="false"/>
+    <aura:attribute access="public" type="String" name="clientPhone"/>
+    <aura:attribute access="public" type="String" name="clientEmail"/>
+
+    <aura:registerEvent name="onSearch" type="c:ICX_Flow_ProductLookup_SearchEvent" description="Component event fired when a search needs to be performed on the server-side. The search method should be called by the handler of this event."/>
+    <!--aura:registerEvent name="onSearchAction" type="c:LookupSearchActionEvent" description="Component event fired when a search needs to be performed on the server-side. The search method should be called by the handler of this event."/-->
+    <aura:registerEvent name="onSearchAction" type="c:ICX_Flow_ProductLookup_SearchActionEvent" description="Component event fired when a search needs to be performed on the server-side. The search method should be called by the handler of this event."/>
+
+    <aura:method name="search" action="{!c.search}" description="Performs search by calling the provide server-side action and displays results.">
+        <aura:attribute name="serverAction" type="Aura.Action" required="true" description="Server-side action for the search. Action must return an Apex List&lt;LookupSearchResult&gt;."/>
+    </aura:method>
+    <!--aura:method name="buildSelection" action="{!c.buildSelection}" description="Performs search by calling the provide server-side action and displays results.">
+        <aura:attribute name="serverAction" type="Aura.Action" required="true" description="Server-side action for the search. Action must return an Apex List&lt;LookupSearchResult&gt;."/>
+        <aura:attribute name="recordId" type="Id" required="true" description="init selection"/>
+    </aura:method-->
+
+    <lightning:workspaceAPI aura:id="workspace" />
+
+	<div aura:id="dropDown" class="slds-form-element slds-scope slds-lookup" data-select="single">
+        <label class="{!(empty(v.label) ? 'slds-assistive-text' :'') + ' slds-form-element__label'}" for="{# globalId + '_combobox' }">
+            <abbr class="{!v.required ? 'slds-required' : 'slds-hide'}" title="required">*</abbr>
+            {!v.label}
+        </label>
+
+        <div class="slds-form-element__control ">
+            <div class="{!v.showSearch == true ? '' : 'slds-hide'}" style="{!(v.width == 'MEDIUM' || v.width == 'LARGE') &amp;&amp; !v.isInPopup ? 'padding: 0rem 5rem 0rem;' : ''}">
+                <div class="{! 'slds-combobox_container ' + (v.requestType == 'PODWithoutSku' ? '' : ' slds-has-inline-listbox ') + (v.hasFocus ? 'slds-has-input-focus' : '') 
+                            + (v.readOnly == true || 
+                                (v.isMultiEntry == false &amp;&amp;
+                                        (	(empty(v.requestType) &amp;&amp; not(empty(v.selection))) ||
+                                            (v.requestType == 'PODWithoutSku' &amp;&amp; not(empty(v.unknownSelection))) ||
+                                            (v.requestType == 'PODWithSKU' &amp;&amp; not(empty(v.productSelection))) ||
+                                            (v.requestType == 'RequestToStore' &amp;&amp; not(empty(v.selection))) ||
+                                            (v.requestType == 'OperationException' &amp;&amp; not(empty(v.selection)))
+                                        )
+                                )
+                            ? 'slds-hide' : '')}">
+                    <div class="{! 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click '+ (and(v.hasFocus, !empty(v.searchResults)) ? 'slds-is-open' : 'slds-combobox-lookup') }"
+                        aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                        <aura:if isTrue="{!v.isMultiEntry}">
+    
+                            <!-- Multi-entry combobox start -->
+                            <div class="{!(v.readOnly == true ? 'slds-hide' : '') + ' slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right'}">
+                                <input type="search" class="slds-input slds-combobox__input" aria-owns="listbox-lookup-id" aria-activedescendant="" aria-expanded="false" aria-autocomplete="list" 
+                                       id="{# globalId + '_combobox' }"
+                                       aura:id="searchInput"
+                                       placeholder="{!v.placeholder}"
+                                       value=""
+                                       onfocus="{!c.onFocus}"
+                                       onblur="{!c.onBlur}"
+                                       oninput="{!c.onInput}"/>
+                                <lightning:icon iconName="utility:search" size="x-small" alternativeText="Search icon"
+                                                class="slds-input__icon slds-input__icon_right"/>
+                            </div>
+                            <!-- Multi-entry combobox end -->
+                            
+                            <!-- Single-entry combobox start -->
+                            <aura:set attribute="else">
+                                <!--div class="{!not(empty(v.selection)) ? 'slds-hide' : '' }"-->
+                                <div class="{! 'slds-combobox__form-element slds-input-has-icon '+ (empty(v.selection) ? 'slds-input-has-icon_right' : 'slds-input-has-icon_left-right') }" role="none">
+                                    <!--aura:if isTrue="{! v.selection[0].isIconUrl}">
+                                            <span class="slds-media__figure mediaImageSmall">
+                                                <img height="{!v.displayResult == 'small' ? '36' : '20'}" width="{!v.displayResult == 'small' ? '36' : '20'}" src="{!v.selection[0].icon +'?wid=42'}" />
+                                            </span>
+                                        <aura:set attribute="else">
+                                            <lightning:icon iconName="{! empty(v.selection[0].icon) ? 'standard:default' : v.selection[0].icon}" size="small" alternativeText="Selected item icon"
+                                                            class="{! 'slds-combobox__input-entity-icon '+ (empty(v.selection) ? 'slds-hide' : '') }"/>
+                                        </aura:set>
+                                    </aura:if-->
+    <!--value="{!empty(v.selection) ? '' : v.selection[0].title }"
+    readonly="{! !empty(v.selection) }"-->
+                                    <div class="{! v.requestType == 'PODWithoutSku' ? 'slds-hide' : ''}">
+                                        
+                                        
+                                        <!-- slds-combobox__input slds-combobox__input-value -->
+                                        <input type="text" class="slds-input " aria-autocomplete="list" aria-controls="listbox-lookup-id" autocomplete="off" role="textbox"
+                                               id="{# globalId + '_combobox' }"
+                                               aura:id="searchInput"
+                                               placeholder="{!v.placeholder}"
+                                               value="{!empty(v.selection) ? '' : v.productSelection[0].title }"
+                                               onfocus="{!c.onFocus}"
+                                               onblur="{!c.onBlur}"
+                                               oninput="{!c.onInput}"
+                                               />
+                                        <lightning:icon iconName="utility:search" size="x-small" alternativeText="Search icon"
+                                                        class="{! 'slds-input__icon slds-input__icon_right '+ (empty(v.selection) ? '' : 'slds-hide') }"/>
+                                        <lightning:buttonIcon iconName="utility:close" variant="bare" alternativeText="Remove"
+                                                              onclick="{!c.onClearSelection}"
+                                                              class="{! 'slds-input__icon slds-input__icon_right '+ (empty(v.selection) || v.readOnly == true ? 'slds-hide' : '') }"/>
+                                    </div>
+                               </div>
+                                <!--/div-->
+                            </aura:set>
+                            <!-- Single-entry combobox end -->
+                        </aura:if>
+    
+                        <!-- List box start -->
+                        <div id="listbox-lookup-id" onclick="{!c.onComboboxClick}">
+                            <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="listbox">
+    
+                                <aura:iteration items="{!v.searchResults}" var="result" indexVar="i">
+                                    <li role="presentation" class="slds-listbox__item" id="{!result.id}" onclick="{!c.onResultClick}">
+                                        <span class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                            <aura:if isTrue="{! result.isIconUrl}">
+                                                <span class="slds-media__figure mediaImageSmall">
+                                                    <img height="{!v.displayResult == 'small' ? '36' : '20'}" width="{!v.displayResult == 'small' ? '36' : '20'}" src="{!result.icon +'?wid=42'}" />
+                                                </span>
+                                                <aura:set attribute="else">
+                                                    <span class="slds-media__figure">
+                                                        <lightning:icon class="{!v.displayResult == 'small' ? 'icon' : ''}" iconName="{! empty(result.icon) ? 'standard:default' : result.icon}" 
+                                                                        size="{!v.displayResult == 'small' ? 'small' : 'xx-small'}" alternativeText="Result item icon"/>
+                                                    </span>
+                                                </aura:set>
+                                            </aura:if>
+                                            <span class="slds-media__body">
+                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!(v.displayResult == 'x-small' ? result.subtitle + ' • ' : '') + result.title}</span>
+                                                <aura:if isTrue="{!v.displayResult == 'small'}">
+                                                    <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{!result.subtitle}</span>
+                                                </aura:if>
+                                            </span>
+                                        </span>
+                                    </li>
+                                </aura:iteration>
+    <!--                            <aura:if isTrue="{!empty(v.searchResults)}">
+                                    <li role="presentation" class="slds-listbox__item">
+                                        <span id="0" class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option" onclick="">
+                                            <span class="slds-media__figure">
+                                                <lightning:icon class="{!v.displayResult == 'small' ? 'icon' : ''}" iconName="standard:default" 
+                                                                size="{!v.displayResult == 'small' ? 'small' : 'xx-small'}" alternativeText="Result item icon"/>
+                                            </span>
+                                            <span class="slds-media__body">
+                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">No Result</span>
+                                                <span class="slds-listbox__option-meta slds-listbox__option-meta_entity"></span>
+                                            </span>
+                                        </span>
+                                    </li>
+                                </aura:if-->
+                            </ul>
+                        </div>
+                        <!-- List box end -->
+    
+                    </div>
+                </div>
+    
+                <!--c:ICX_UnknownProduct selection="{!v.unknownList}" readOnly="{!v.readOnly}" recordId="{!v.recordId}" isMultiEntry="{!v.isMultiEntry}" /-->
+                <div class="{! (v.readOnly == true || v.requestType == 'PODWithSKU' || (v.isMultiEntry == false &amp;&amp; not(empty(v.selection))) ? 'slds-hide' : '')}">
+                    <!--c:ICX_UnknownProduct readOnly="{!v.readOnly}" isMultiEntry="{!v.isMultiEntry}" /-->
+                    <div style="{! 'font-size: smaller; ' +  (v.requestType == 'PODWithoutSku' ? '' : 'text-align: right;')}" class="{!(v.readOnly == true ? 'slds-hide' : '')}">
+                        <!--a class="slds-text-link_reset" onclick="{!c.toggleComment}">Unknown product?</a-->
+                        <lightning:button label="{!$Label.c.ICX_Flow_Product_UnknownButton}" variant="neutral" onclick="{!c.addUnknownProduct}" class="slds-m-bottom_x-small" />
+                    </div>
+    
+                </div>
+            </div>
+
+            <!-- Multi-selection start -->
+            <!--aura:if isTrue="{!v.isMultiEntry}"-->
+                <lightning:layout horizontalAlign="" multipleRows="true">
+                    <aura:iteration items="{!v.selection}" var="item">
+                        
+                        <div style="width:100%" class="{! (and(v.requestType == 'PODWithSKU', item.qualification.Product__c == null) 
+                                    || (and(v.requestType == 'PODWithoutSku', item.qualification.Product__c != null)) ? 'slds-hide' : '')}">
+                            <c:ICX_QualificationItem item="{!item}" displayEnlargePill="{!v.displayEnlargePill}" readOnly="{!v.readOnly}"
+                                                     showNewRequestCheckbox="{!v.showNewRequestCheckbox}"
+                                                     requestType="{!v.requestType}" clientPhone="{!v.clientPhone}" clientEmail="{!v.clientEmail}" taskCategory="{!v.taskCategory}" />
+                        </div>
+                    </aura:iteration>
+                </lightning:layout>
+
+                <aura:if isTrue="{!v.displayEnlargePill == false}">
+
+                    <div id="{# globalId + '_selection' }" role="listbox" aria-orientation="horizontal">
+                        <ul class="slds-listbox slds-listbox_inline slds-p-top_xxx-small" role="group" aria-label="Selected Options:">
+                            <aura:iteration items="{!v.selection}" var="item">
+                                                                
+                                <li role="presentation" class="{!'slds-listbox__item ' + 
+                                                               (
+                                                               		and(v.requestType == 'PODWithoutSku', item.qualification.Product__c != null)
+                                                                   || and(v.requestType == 'PODWithSKU', item.qualification.Product__c == null) 
+                                                                   ? 'slds-hide' : ''
+                                                               )}">
+                                    
+                                    <lightning:pill label="{!item.title}" onremove="{! c.onRemoveSelectedItem }" name="{!item.id}" title="{!item.subtitle}">
+                                        <aura:set attribute="media">
+                                            <aura:if isTrue="{! item.isIconUrl}">
+                                                <img height="42" width="42" src="{!item.icon +'?wid=42'}" />
+                                                <aura:set attribute="else">
+                                                    <lightning:icon iconName="{! empty(item.icon) ? 'standard:default' : item.icon}" size="small" alternativeText="Result item icon"/>
+                                                </aura:set>
+                                            </aura:if>
+                                        </aura:set>
+                                    </lightning:pill>
+                                </li>
+                            </aura:iteration>
+                        </ul>
+                    </div>
+                </aura:if>
+            <!--/aura:if-->
+            <!-- Multi-selection end -->
+        </div>
+    </div>
+</aura:component>

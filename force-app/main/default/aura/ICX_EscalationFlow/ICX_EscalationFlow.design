@@ -1,0 +1,10 @@
+<design:component >
+    <design:attribute name="recordId" label="Record Id" description="Record id of the page (to be used only if you want existing selections from the record id)" />
+    <design:attribute name="distanceOrder"  />
+    <design:attribute name="typeOfSupport"  />
+    <design:attribute name="origineOfEscalation" />
+    <design:attribute name="Description" description="description of escalation" />
+    <design:attribute name="storeCode"  />
+    <design:attribute name="UserId" description="assigned user to escalation" />
+
+</design:component>

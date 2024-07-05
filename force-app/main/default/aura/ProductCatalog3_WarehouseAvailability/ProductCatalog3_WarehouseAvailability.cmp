@@ -1,0 +1,106 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" access="global" controller="Ctrl_ProductCatalog">
+    <aura:attribute name="searchKey" type="String" />
+
+    <aura:attribute name="product" type="Object"/>
+    <aura:attribute name="warehouse" type="String" />
+    <aura:attribute name="AvailabilityText" type="String" default=""/>
+    <aura:attribute name="warehouseZone" type="String" default="" />
+    <aura:attribute name="selectedZone" type="List" />
+    <aura:attribute name="selectedStores" type="List" />
+    <aura:attribute name="selectedWarehouses" type="List"/>
+    <aura:attribute name="warehouseAvailability" type="List"/>
+    
+    <aura:attribute name="KBRW" type="String"/>
+    <aura:attribute name="KBRWqty" type="String"/>
+    <aura:registerEvent name="KBRWQtyChangeEvent" type="c:ProductCatalogueKBRWQtyChange"/>
+
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.product}" action="{!c.doInit}"/>
+    <aura:handler event="c:ProductCatalogFilterChangeEvent" action="{!c.getSearchKey}"/>
+
+        <!-- <aura:iteration items="{!v.warehouseAvailability}" var="warehouse">
+            <div class="pc-warehouse-availability">
+                <aura:if isTrue="{!v.AvailabilityText == 'Orderable'}">
+                <dd class="pc-warehouse-availability__text pc-warehouse-availability__text_availability_orderable">
+                        {!$Label.c.Product_Referential_Orderable}
+                </dd>
+                </aura:if>
+                <aura:if isTrue="{warehouse.Name == 'Not Orderable'}">
+                    <dt class="pc-warehouse-availability__text pc-warehouse-availability__text_availability_not-orderable">
+                            {!$Label.c.Product_Referential_Not_Orderable}
+                    </dt>
+                </aura:if>
+                <aura:if isTrue="{!or(warehouse.Name == 'SC Validation', warehouse.Name == 'OROB SC Validation')}">
+                    <dt class="pc-warehouse-availability__text pc-warehouse-availability__text_availability_sc-validation">
+                            {!$Label.c.Product_Referential_SC_Validation}
+                    </dt>
+                </aura:if>
+                <aura:if isTrue="{!warehouse.Name == 'No data'}">
+                    <dt class="pc-warehouse-availability__text">
+                        {!$Label.c.Product_Referential_No_Data}
+                    </dt>
+                </aura:if>
+                <aura:if isTrue="{!v.product.CappedSku}">
+                <dd class="pc-warehouse-availability__text">
+                        / {!$Label.c.Product_Catalog_PDR_Process_Only}
+                    </dd>
+                </aura:if>
+                <dd>{!warehouse.Zone}</dd>
+               
+            </div>
+        </aura:iteration> -->
+        
+        <div>
+            <!-- KBRW -->
+            <h1>Possible to Order</h1>
+
+            <div class="pc3-availability__store-grid pc3-availability__store-grid_availability" style="margin-bottom: 0;">
+                <h2>Country/Region</h2>
+                <h2>Status</h2>
+                <!-- <h2>Lead Time</h2> -->
+                <h2>Comment</h2>
+            </div>
+
+            <aura:iteration items="{!v.KBRW}" var="avail">
+                <!-- {!avail.Country} : {!avail.Available} <br/> -->
+
+
+                <div class="pc3-availability__store-grid pc3-availability__store-grid_availability" style="margin-bottom: 0;">
+                    <dd>{!avail.FullCountryName}</dd>
+                    
+                    <!-- Status -->
+                    <aura:if isTrue="{!avail.Available == 'Orderable'}">
+                        <dd class="slds-text-color_success">{!avail.Available}</dd>
+                    </aura:if>
+                    <aura:if isTrue="{!avail.Available == 'Not orderable'}">
+                        <dd class="slds-text-color_error">{!avail.Available}</dd>
+                    </aura:if>
+                    <aura:if isTrue="{!avail.Available == 'No Data'}">
+                        <dd class="slds-text-color_error">{!avail.Available}</dd>
+                    </aura:if>
+
+                    <!-- Lead Time (moved to Comment column) -->
+                    <aura:if isTrue="{!avail.LeadMin != 'null'}">
+                        <dd>Lead time min: {!avail.LeadMin}, max: {!avail.LeadMax}</dd>
+                    </aura:if>
+                    <aura:if isTrue="{!avail.Available == 'No Data'}">
+                        <dd>No orderable status available for the selected stores</dd>
+                    </aura:if>
+                </div>
+
+
+                <!-- <div style="margin-bottom: 10px;">
+                    <aura:iteration items="{!v.KBRWqty}" var="store">
+                        <div style="margin-left: 10px;display: grid;grid-template-columns: 2fr 2fr;">
+                            <aura:if isTrue="{!store.Country == avail.Country}">
+                                <dd>- {!store.storeName}</dd>
+                                <dd>{!store.qty}</dd>
+                            </aura:if>
+                        </div>
+                    </aura:iteration>
+                </div> -->
+
+            </aura:iteration>
+        </div>
+</aura:component>

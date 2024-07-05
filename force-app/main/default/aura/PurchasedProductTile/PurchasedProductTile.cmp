@@ -1,0 +1,26 @@
+<aura:component >
+	
+    <aura:attribute name="item" type="PPR_PurchProduct__c"/>
+
+    <div class="slds-p-left_x-small slds-p-top_small" onmouseenter="{!c.handleMouseEnter}" onmouseleave="{!c.handleMouseLeave}">
+
+        <lightning:layout verticalAlign="center">
+            <!--lightning:layoutitem >
+                <lightning:icon iconName="utility:rows" size="x-small"></lightning:icon> 
+            </lightning:layoutitem-->
+            <lightning:layoutitem padding="">
+                <img src="{#v.item.Image_Url__c + '?wid=160&amp;hei=160'}" class="merchandise"/>
+            </lightning:layoutitem>
+            <lightning:layoutitem flexibility="grow" class="slds-truncate">
+                <div class="title slds-truncate"><a href="" onclick="{!c.titleClickHandler}">{#v.item.Name}</a></div>
+                <div><lightning:formattedDateTime value="{#v.item.PurchasedDate__c}"/><!--span class="price">{#v.item.PurchasedDate__c}</span--></div>
+                <div>{#v.item.Amount__c}&nbsp;{#v.item.CurrencyCode__c}</div>
+            </lightning:layoutitem>
+        </lightning:layout>
+
+        <c:PurchasedProductTilePopup aura:id="popup" item="{#v.item}" />
+
+    </div> 
+
+
+</aura:component>

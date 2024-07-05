@@ -1,0 +1,251 @@
+<aura:component controller="ICX_SendEmail"
+                implements="force:hasRecordId,force:appHostable,lightning:availableForFlowScreens,flexipage:availableForRecordHome,lightning:actionOverride,forceCommunity:availableForAllPageTypes,force:lightningQuickActionwithoutHeader,force:hasSObjectName">
+    <!--Part 1 [for attribute declare]-->  
+    <aura:attribute name="email" type="string"/>
+    <aura:attribute name="subject" type="string"/>
+    <aura:attribute name="toAddress" type="string"/>
+
+    <aura:attribute name="accountId" type="String" />
+    <aura:attribute name="bodytext" type="string"/>
+    <aura:attribute name="recordId" type="String" description="Salesforce Record id. Note: String type as Design does not support Id type" />
+    <aura:attribute name="spinner" type="boolean" />
+    <aura:attribute name="files" type="List"/>
+    
+    <aura:attribute name="templateRecordList" type="List"/>
+	<aura:attribute name="fromList" type="List"/>											 
+    <aura:attribute name="templateList" type="List"/>
+    <aura:attribute name="emailTemplateId" type="Id"/>
+    <aura:attribute name="emailTemplate" type="EmailTemplate"/>
+    <aura:attribute name="selectedEmailTemplateName" type="string"/> 
+    <aura:attribute name="remoteConsentAccess" type="Boolean" default="false"/>
+    <aura:attribute name="emailTypeOptions" type="List"/>
+    <aura:attribute name="emailTypeSelected" type="string" default="email"/>
+    <aura:attribute name="defaultSearchId" type="String" />
+   
+    <aura:attribute name="selectedValue" type="string" default=""/>
+    <aura:attribute name="fromOptions" type="List" default="[]"/>
+    <aura:attribute name="fromValues" type="List"/>
+    <aura:attribute name="message" type="string"/>
+    <aura:attribute name="disableButton" access="private" type="Boolean" default="false"/>
+
+    <aura:attribute name="isFlow" type="Boolean" default="false" description="Component is in the Flow? If so, hide the buttons as the buttons are in the ICX_Flow_Footer"/>
+
+    <aura:attribute name="signatureText" type="String"/>
+    <aura:attribute name="templateFolder" type="String" default="ICONiCS_Templates"/>
+    
+    <aura:attribute name="isDoneRendering" type="Boolean" default="false" />
+    <lightning:messageChannel type="ICX_AccountSelected__c" aura:id="ICX_AccountSelected" />
+    <aura:handler name="render" value="{!this}" action="{!c.doneRendering}" />
+
+    <lightning:overlayLibrary aura:id="overlayPreviewEmail"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler event="c:ICX_QuickTextEvent" action="{!c.handleQuickTextEvent}"/>
+
+    <!--aura:handler name="change" value="{!v.emailTemplateId}" action="{!c.emailTemplateChanged}"/-->
+    <aura:handler event="c:ICX_Flow_FooterEvent" action="{!c.handleFlowFooterEvent}" />
+    
+
+
+   <!-- <aura:registerEvent name="closeModelPopupEvent" type="c:EventCloseModelPopup"/> -->
+   <!---Part 2 [header part] -->  
+    <!--div class="slds-page-header" role="banner" id="banner">
+        <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate" title="Email Component">
+            Email Component
+        </h1>
+    </div-->
+   <!---Part 4 [mail fourm part]-->   
+    <div class="" id="mainDiv"> <!-- slds-p-left_x-large -->
+            <lightning:card title="">
+                <p class=""> <!-- slds-p-horizontal_small -->
+                    <div class=""> <!-- slds-container_x-large -->
+                        <div class=""> <!-- slds-form_stacked -->
+                            <div aura:id="message" class="slds-hide slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error " role="alert">
+                                    {!v.message}
+                            </div>                        
+                            <div class="">
+                                <div class="">
+                                    <div class="slds-grid slds-p-around_xxx-small">
+                                        <div class="slds-col slds-size_1-of-12 alignText"> 
+                                            <label style="padding:4px" class="slds-form-element__label" for="horizontal-input-id-01">From</label> 
+                                        </div>   
+                                        <div class="slds-col slds-size_11-of-12">
+                                        <!-- <lightning:combobox variant="label-hidden" style = "margin-bottom: 3px;" aura:id="from" name="general" label="" value="{!v.selectedValue}" options="{! v.fromOptions }"/> -->
+										<lightning:input variant="label-hidden" type="search" name="fromSearchKey" aura:id="fromSearchKey"  onchange="{!c.fromSearchKeyChange}" placeholder="Search From Address" value="{!v.selectedValue}" />   
+                                         
+                                         <aura:if isTrue="{!not(empty(v.fromList))}">
+                                            <div id="listbox-unique-id" role="listbox" class="{!(empty(v.fromList) ? 'slds-hide' : '')}" >
+                                             <ul class="slds-listbox slds-listbox_vertical slds-dropdown" role="presentation"
+                                                 style="overflow:hidden; overflow-y:auto;display: block; min-width: auto; max-width: 100% ; max-height:50%; width: 100%;">
+                                                <aura:iteration items="{!v.fromList}" var="item" indexVar="index">
+                                                     <li role="presentation" class="slds-listbox__item"  data-value="{!item.value}" 
+                                                         onclick="{!c.FromAddressChanged}">
+                                                         <span id="{#'listbox-option-unique-id-'+i+1}"  
+                                                               class="slds-media slds-listbox__option slds-listbox__option_entity 
+                                                                      slds-listbox__option_has-meta" 
+                                                               role="option">
+                                                            
+                                                             <span class="slds-media__body singleRow">
+                                                                 <span 
+                                                                       class="optionTitle 
+                                                                              slds-listbox__option-text_entity">{!item.label}</span>
+                                                             </span>
+                                                         </span>
+                                                     </li>
+                                                 </aura:iteration> 
+                                             </ul>
+                                         </div>
+                                             </aura:if>																																																   
+                                        </div>
+                                    </div>
+                                    <div>
+                                        
+                                    </div>
+                                    <c:ICX_LookupComponent aura:id="email" isMultiEntry="true" label="To" defaultSearchCriteria="{!v.toAddress}" defaultSearchId="{!v.defaultSearchId}"/>
+                                    <div class="addressContainerLinks">
+                                        <div>
+                                            <div class="expandLinks">
+                                                <a data-index="ccLink" aura:id="ccLink" onclick="{!c.showText}" title="" class="uiOutputURL">Cc</a>
+                                                <a data-index="bccLink" aura:id="bccLink" onclick="{!c.showText}" title="" class="uiOutputURL">Bcc</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div aura:id="ccDiv" class="slds-hide">
+                                        <c:ICX_LookupComponent aura:id="Cc" isMultiEntry="true" label="Cc" />
+                                    </div>
+                                    <div aura:id="bccDiv" class="slds-hide">
+                                        <c:ICX_LookupComponent aura:id="Bcc" isMultiEntry="true" label="Bcc" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                           <aura:if isTrue="{! and(v.sObjectName == 'Account', v.remoteConsentAccess)}">
+                                <div class="slds-grid slds-p-around_xxx-small">
+                                    <div class="slds-col slds-size_1-of-12 alignText"> 
+                                        <label style="padding:4px" class="slds-form-element__label">Email Type</label> 
+                                    </div>   
+                                    <div class="slds-col slds-size_11-of-12">
+                                        <div class="slds-grid">
+                                            <div class="slds-grow-none">
+                                                <lightning:combobox variant="label-hidden" style="margin-bottom: 3px;" aura:id="emailType" label="" value="{!v.emailTypeSelected}" options="{!v.emailTypeOptions}" onchange="{!c.emailTypeChanged}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aura:if>
+
+            
+
+                            <!-- nao new  -->
+                            <div class="slds-grid slds-p-around_xxx-small">
+                                <div class="slds-col slds-size_6-of-12">
+                                    <div class="slds-form-element">
+                                        <div class="alignText"> 
+                                            <label style="padding:4px" class="slds-form-element__label">Template</label> 
+                                        </div>
+                                    </div>
+                                    <div class="">        
+                                        <lightning:input variant="label-hidden" type="search" name="templateSearchKey" aura:id="templateSearchKey" value="{!v.selectedEmailTemplateName}" onchange="{!c.templateSearchKeyChange}" placeholder="Search Template" />   
+                                        <aura:if isTrue="{!not(empty(v.templateList))}">
+                                            <div id="listbox-unique-id" role="listbox" class="{!(empty(v.templateList) ? 'slds-hide' : '')}" >
+                                                <ul class="slds-listbox slds-listbox_vertical slds-dropdown" role="presentation"
+                                                    style="overflow:hidden; overflow-y:auto;display: block; min-width: auto; max-width: 100% ; max-height:50%; width: 100%;">
+                                                <aura:iteration items="{!v.templateList}" var="item" indexVar="index">
+                                                        <li role="presentation" class="slds-listbox__item"  data-value="{!item.value}" 
+                                                            onclick="{!c.emailTemplateChanged}">
+                                                            <span id="{#'listbox-option-unique-id-'+i+1}"  
+                                                                class="slds-media slds-listbox__option slds-listbox__option_entity 
+                                                                        slds-listbox__option_has-meta" 
+                                                                role="option">
+                                                            
+                                                                <span class="slds-media__body singleRow">
+                                                                    <span 
+                                                                        class="optionTitle 
+                                                                                slds-listbox__option-text_entity">{!item.label}
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </li>
+                                                    </aura:iteration> 
+                                                </ul>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                </div>
+                                        
+                                <div class="slds-p-left_x-large slds-col slds-size_6-of-12 ">
+                                    <div class="slds-form-element">
+                                        <div  class="alignText"> 
+                                            <label style="padding:4px" class="slds-form-element__label" for="CC">Subject</label>
+                                        </div>
+                                        <div class="slds-form-element__control">
+                                            <ui:inputText class="slds-input" aura:id="subject"  value="{!v.subject}" placeholder="Enter Subject..."/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                            
+
+                            <div class="slds-p-top_small">
+                                <c:icx_quickTextLwc recordId="{!v.recordId}" channel="Email" onselect="{!c.handleQuickTextEvent}"/>
+                                <!--c:ICX_QuickText recordId="{!v.recordId}" channel="Email"/-->
+                            </div>
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <pre class="slds-m-around_none"> <!-- <pre> used to reuse break lines in a selected Quick Text --> <!--style="height: 24rem;" -->
+                                        <!-- TODO to get the LV Font, just uncomment this + CSS part + Apex Class: previewEmail method
+                                        <lightning:inputRichText aura:id="body" value="{!v.bodytext}" class="contentRichTextClass fontlv" shareWithEntityId="{!v.recordId}"
+                                                                disabledCategories="FORMAT_FONT">
+                                            <lightning:insertImageButton/>
+                                        </lightning:inputRichText>
+                                        <div class="{!(empty(v.signatureText) ? 'slds-hide' : '')}">
+                                            <div class="slds-rich-text-editor__toolbar slds-shrink-none slds-p-around_none"><label class="slds-form-element__label slds-m-left_x-small">Signature</label></div>
+                                            <lightning:inputRichText aura:id="signatureText" value="{!v.signatureText}" class="signatureRichTextClass fontlv"
+                                                                     disabledCategories="FORMAT_FONT,FORMAT_TEXT,FORMAT_BODY,ALIGN_TEXT,INSERT_CONTENT,REMOVE_FORMATTING"/>
+                                        </div>
+
+										-->
+                                        <!-- variant="bottom-toolbar"-->
+                                        <lightning:inputRichText aura:id="body" value="{!v.bodytext}" class="contentRichTextClass" shareWithEntityId="{!v.recordId}"> 
+                                            <!-- <lightning:insertImageButton/> -->
+                                        </lightning:inputRichText>
+                                        <div class="{!(empty(v.signatureText) ? 'slds-hide' : '')}">
+                                            <div class="slds-rich-text-editor__toolbar slds-shrink-none slds-p-around_none"><label class="slds-form-element__label slds-m-left_x-small">Signature</label></div>
+                                            <lightning:inputRichText aura:id="signatureText" value="{!v.signatureText}" class="signatureRichTextClass"
+                                                                     disabledCategories="FORMAT_TEXT,FORMAT_BODY,ALIGN_TEXT,INSERT_CONTENT,REMOVE_FORMATTING"/>
+                                        </div>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-p-top_xx-small">  
+                            <div class="slds-clearfix">
+                                <div class="slds-float_left">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">  
+                                            <!-- <lightning:fileUpload label="Upload File" multiple="true" accept=".pdf, .png, .txt" recordId="{!v.recordId}" aura:id="multifileUpload" onuploadfinished="{!c.uploadFile}" /> -->
+                                            <c:ICX_EmailFiles recordId="{!v.recordId}" aura:id="attachFiles"></c:ICX_EmailFiles>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="{!'slds-float_right ' + (v.isFlow ? 'slds-hide' : '')}">
+                                    <lightning:buttonIcon iconName="utility:preview"  alternativeText="Preview" onclick="{!c.preview}" />
+                                    <lightning:button aura:id="sendButton" class="slds-button slds-button_brand" onclick="{!c.sendMail}">Send</lightning:button >
+                                </div>
+                            </div>
+                            <div class="demo-only slds-hide" style="height:6rem" dir="rtl" aura:id="spinner">
+                                    <div role="status" class="slds-spinner slds-spinner_medium ">
+                                        <span class="slds-assistive-text">Loading</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+            </p>
+        </lightning:card>
+   </div>
+</aura:component>

@@ -1,0 +1,25 @@
+<aura:component controller="ICX_EmailUploadedFiles" >
+
+    <aura:attribute name="allFiles" type="list"/> 
+    <aura:attribute name="recordId" type="string"/>  
+    <aura:attribute name="accept" type="List" default="['.jpg', '.jpeg','.pdf','.csv','.xlsx','.png','.docx','.ext']"/>  
+ 
+    <div class="slds">  
+        <aura:iteration items="{!v.allFiles}" var="file">  
+            <div class="slds-box slds-box_x-small background" > 
+                <lightning:icon iconName="doctype:attachment"/> &nbsp;&nbsp;
+                <a href="" id="{!file.documentId}" onclick="{!c.OpenFile}">  {!file.name}   </a> &nbsp;&nbsp;
+                <span class="alignCloseButton" >
+                    <lightning:buttonIcon value="{!file.documentId}" iconName="utility:close" variant="bare" onclick="{!c.handleClick }" alternativeText="Close window" />
+                </span>
+            </div>
+        </aura:iteration>  
+        <div class="slds-grid">  
+            <div class="slds-col">  
+                <lightning:fileUpload label="" multiple="true"   
+                            accept="{!v.accept}" recordId="{!v.recordId}"   
+                            onuploadfinished="{!c.UploadFinished}" class="alignFileUpload"/>  
+            </div>  
+        </div>
+    </div>  
+</aura:component>

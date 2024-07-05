@@ -1,0 +1,76 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog">
+
+    <aura:attribute name="product" type="Object"/>
+    <aura:attribute name="toggleSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="productVariations" type="Object" default="[]"/>
+    <aura:attribute name="productVariationsStock" type="Object" default="[]"/>
+    <aura:attribute name="selectedStores" type="List"/>
+    <aura:attribute name="searchVariationStock" type="Boolean" default="false"/>
+    <aura:attribute name="savedProduct" type="Object" />
+
+    <aura:handler event="c:ProductCatalogGetSummaryEvent" action="{!c.getProductCatalog}"/>
+    <aura:handler event="c:ProductCatalogSummarySpinnerEvent" action="{!c.handleSpinner}"/>
+    <!--<aura:handler event="c:ProductCatalogUpdateSummaryPriceEvent" action="{!c.updatePrice}" />-->
+    <aura:handler event="c:ProductCatalogUpdateListStores" action="{!c.updateSelectedStores}"/>
+    <aura:handler event="c:ProductCatalogFiltersChangeEvent" action="{!c.updateSelectedStores}"/>
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>-->
+
+    <div class="pc-summary">
+        <div class="pc-summary__header">Product Variation</div>
+        <aura:if isTrue="{!v.toggleSpinner}">
+            <div class="pc-summary__placeholder">
+                <lightning:spinner variant="brand" size="medium"/>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!and(v.product == null, v.toggleSpinner == false)}">
+            <div aura:id="selectSection" class="pc-summary__placeholder">
+                <ui:outputRichText value="{!$Label.c.defaultTextAvailability}"/>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!and(v.product != null, v.toggleSpinner == false)}">
+            <!--<div class="pc-summary__product-name">{!v.productVariations.SelectedProduct.Name}</div>-->
+            <!--<div class="pc-summary__sku">{!v.product.sku}</div>-->
+
+            <aura:if isTrue="{!v.productVariations.Size !=  null }">
+                <lightning:layout class="pc-summary__section" verticalAlign="center">
+                    <lightning:layoutItem class="pc-summary__section-header">Sizes</lightning:layoutItem>
+                    <lightning:layoutItem padding="horizontal-medium">
+                        <c:ProductCatalogProductSizePicList productSizes="{!v.productVariations.Size}"
+                                                            myProductData="{!v.productVariations.SelectedProduct.SizeData}"
+                                                            productVariationsStock="{!v.productVariationsStock}"
+                        />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="pc-summary__section-header">Find the perfect size
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </aura:if>
+            <aura:if isTrue="{!v.productVariations.Color != null}">
+                <c:ProductCatalogVariations title="Colors"
+                                            productVariations="{!v.productVariations.Color}"
+                                            myProductData="{!v.productVariations.SelectedProduct.ColorData}"
+                                            productVariationsStock="{!v.productVariationsStock}"/>
+            </aura:if>
+
+
+            <aura:if isTrue="{!v.productVariations.Material != null}">
+                <c:ProductCatalogVariations title="Materials"
+                                            productVariations="{!v.productVariations.Material}"
+                                            myProductData="{!v.productVariations.SelectedProduct.MaterialData}"
+                                            productVariationsStock="{!v.productVariationsStock}"/>
+            </aura:if>
+            <aura:if isTrue="{!and(and(v.productVariations.Size ==  null, v.productVariations.Color == null), v.productVariations.Material == null)}">
+                <div class="pc-summary__placeholder">{!$Label.c.NoProductVariations}</div>
+            </aura:if>
+            <!--<aura:if isTrue="{!or(or(v.productVariations.Material != null, v.productVariations.Color != null), v.productVariations.Size != null)}">
+                <button onclick="{!c.getVariantStock}" class="slds-is-relative slds-button slds-button_brand pc-summary__stock-req-btn"
+                        disabled="{!v.productVariationsStock ?true:false}">
+                    <aura:if isTrue="{!v.searchVariationStock}">
+                        <lightning:spinner variant="brand" size="small"/>
+                    </aura:if>
+                    Variation Stock Request
+                </button>
+            </aura:if>-->
+        </aura:if>
+    </div>
+</aura:component>

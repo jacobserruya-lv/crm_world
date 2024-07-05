@@ -1,0 +1,14 @@
+.THIS .disabledStyle {
+	opacity: 1;
+    pointer-events: none;
+}
+
+.THIS .disabledStyle .slds-input, .THIS .disabledStyle .slds-checkbox, .THIS .disabledStyle .slds-select, .THIS .disabledStyle .textarea, .THIS .disabledStyle .uiInputTextArea, .THIS .disabledStyle .slds-form-element, .THIS .disabledStyle .slds-textarea {
+    border-style: none;
+    background-color: inherit;
+}
+
+/* remove arrows in Select */
+.THIS .disabledStyle .slds-select_container:before, .THIS .disabledStyle .slds-select_container:after {
+    content: none;
+}

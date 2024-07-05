@@ -1,0 +1,31 @@
+<aura:component >
+
+    <aura:attribute name="page" type="integer"/>
+    <aura:attribute name="pages" type="integer"/>
+    <aura:attribute name="total" type="integer"/>
+    
+    <aura:registerEvent name="clientSearchResultPageChange" type="c:SO_ClientSearchResultPageChangeEvent"/>
+    
+    <div class="container">
+        <div class="left">
+            <aura:if isTrue="{!v.page > 1}">
+                <lightning:buttonIcon iconName="utility:left" variant="border-filled" onclick="{!c.previousPage}"/>
+            </aura:if>
+        </div>
+        <!--div class="centered">{!v.total} clients <aura:if isTrue="{!v.total > 0}">• page {!v.page} / {!v.pages}</aura:if></div-->
+        <div class="centered">
+            <aura:if isTrue="{!v.total > 1}">
+                {!v.total} clients • page {!v.page} / {!v.pages}
+                <aura:set attribute="else">
+                    {!v.total} client
+                </aura:set>
+            </aura:if>
+        </div>
+        <div class="right">
+            <aura:if isTrue="{!v.page &lt; v.pages}">
+                <lightning:buttonIcon iconName="utility:right" variant="border-filled" onclick="{!c.nextPage}"/>
+            </aura:if>
+        </div>
+	</div>
+    
+</aura:component>

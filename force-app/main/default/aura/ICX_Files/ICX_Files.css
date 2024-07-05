@@ -1,0 +1,28 @@
+.THIS .file-icon{
+    background-color:#F2CE5B;
+    width:32px;
+    height:32px;
+}
+
+
+.THIS .file-icon svg{
+    fill:white;
+    display: block;
+    margin: 0 auto;
+}
+
+.THIS table .slds-truncate{
+	max-width: 180px;
+}
+
+.THIS .upload .slds-form-element__label {
+    display:none;
+}
+
+.THIS .slds-file-selector__text {
+    display:none;
+}
+
+.THIS .slds-file-selector__button {
+    font-size: 12px;
+}

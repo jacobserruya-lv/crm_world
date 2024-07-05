@@ -1,0 +1,11 @@
+<aura:component implements="lightning:homeTemplate" description="One column template">
+	<aura:attribute name="middle" type="Aura.Component[]" />
+
+    <div>
+        <lightning:layout horizontalAlign="spread" pullToBoundary="slds-grid_pull-padded">
+            <lightning:layoutItem size="12" padding="">
+                    {!v.middle}
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

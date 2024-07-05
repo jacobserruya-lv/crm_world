@@ -1,0 +1,58 @@
+<aura:component extends="c:MIY_FancyModal" controller="MIY_OrderPageController">
+    <aura:attribute name="record" type="SPO_FirmOrder__c" />
+    <aura:attribute name="adjustDate" type="String" />
+    <aura:attribute name="confirmLoading" type="Boolean" default="false" />
+    <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+    <aura:attribute name="baseMfgDate" type="Date" default="{!
+        if(empty(v.record.Planned_Manufacturing_Date__c),v.record.PlannedDeliveryDate__c,v.record.Planned_Manufacturing_Date__c)
+    }"/>
+    <aura:attribute name="mfgDate" type="Date" />
+    <aura:attribute name="baseDeliveryDate" type="Date" default="{!v.record.Planned_Delivery_date__c}" />
+    <aura:attribute name="deliveryDate" type="Date" />
+
+    <aura:registerEvent name="updateFirmOrderEvent" type="c:MIY_FirmOrderUpdate"/>
+    <aura:registerEvent name="updateOrderEvent" type="c:MIY_OrderUpdate"/>
+
+    <ltng:require scripts="{!$Resource.MakeItYours_Assets + '/js/moment.min.js'}"
+                  afterScriptsLoaded="{!c.scriptsLoaded}"
+    />
+
+    <lightning:overlayLibrary aura:id="modalOverlayLib"/>
+
+    <aura:attribute name="header" type="Aura.Component[]">Adjust Planned {!v.adjustDate} Date</aura:attribute>
+    <lightning:recordEditForm class="miy-adjust-mfg-date-modal slds-form-element_compound" 
+        aura:id="form" 
+        recordId="{!v.record.Id}"
+        objectApiName="SPO_FirmOrder__c"
+        onsuccess="{!c.onSaveInfoSuccess}"
+        onerror="{!c.onSaveInfoError}"
+    >
+            <lightning:messages />
+            <div class="slds-form-element__row">
+                <aura:if isTrue="{!(v.adjustDate == 'Manufacturing')}">
+                <lightning:inputField fieldName="Planned_Manufacturing_Date__c" aura:id="mfg_date"
+                    onchange="{!c.handleDateChange}" 
+                    class="slds-size_1-of-2"
+                    value="{!if(empty(v.mfgDate),v.baseMfgDate,v.mfgDate)}" 
+                />
+                </aura:if>
+                <lightning:inputField fieldName="Planned_Delivery_date__c" aura:id="dlv_date"
+                    onchange="{!c.handleDateChange}"
+                    class="slds-size_1-of-2 miy-adjust-mfg-date-modal__delivery-date"
+                    type="date" 
+                    readonly="{!if(v.adjustDate == 'Delivery',false,true)}" 
+                    value="{!if(empty(v.deliveryDate),v.baseDeliveryDate,v.deliveryDate)}" 
+                />
+
+            </div>
+    </lightning:recordEditForm>
+    <aura:attribute name="footerContent" type="Aura.Component[]">
+        <lightning:button label="Cancel" onclick="{!c.closeModal}"/>
+        <c:LaddaLightningButton label="Confirm"
+                                onclick="{!c.handleConfirmClick}"
+                                isLoading="{!v.confirmLoading}"
+                                variant="brand"
+        />
+    </aura:attribute>
+
+</aura:component>

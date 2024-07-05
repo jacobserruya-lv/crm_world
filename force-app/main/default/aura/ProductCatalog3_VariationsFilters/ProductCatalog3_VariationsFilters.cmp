@@ -1,0 +1,32 @@
+<aura:component>
+    <aura:attribute name="title" type="String" default="" />
+    <!--<aura:attribute name="productVariations" type="Object" default="[]" />-->
+    <aura:attribute name="myProductData" type="List" default="" />
+    <aura:attribute name="hoverName" type="String" />
+    <aura:attribute name="productVariationsStock" type="Object" />
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="colors" type="Object" />
+    <aura:attribute name="varaitionsImg" type="Object" />
+    <aura:attribute name="filterTitle" type="String" default="" />
+    <aura:attribute name="variantFilter" type="String" default="" />
+
+    <aura:handler name="productCatalogVariantFilterHover" event="c:ProductCatalogVariantFilterHoverEvent"
+        action="{!c.changeVariantFilterName}" />
+
+    <div class="pc3-variation-filter">
+        <h2 class="pc3-variation-filter__header">
+            {!v.title + ': '}
+            <span class="pc3-variation-filter__filter-name">
+                {!v.hoverName}
+            </span>
+        </h2>
+
+        <ul class="pc3-variation-filter__variants">
+            <aura:iteration items="{!v.varaitionsImg}" var="variantProduct">
+                <c:ProductCatalog3_VariationsFilterItem variant="{!variantProduct}" title="{!v.title}"
+                    filterTitle="{!v.filterTitle}" variantFilter="{!v.variantFilter}" />
+            </aura:iteration>
+        </ul>
+
+    </div>
+</aura:component>

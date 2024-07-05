@@ -1,0 +1,22 @@
+<aura:component access="global" controller="PhoneFormatter_LC" >
+    
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="countryCode" type="String"/>
+    <aura:attribute type="String" name="internationalPhone" default=""/>
+    
+    <aura:attribute type="String" name="localPhone" default=""/>
+    <aura:attribute name="options" type="List" default="[]"/>
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="CurrentSelection" type="CountryPhoneCode__mdt" />
+    <aura:attribute name="Selection" type="CountryPhoneCode__mdt" default="[]" />
+    <aura:attribute name="flag" type="Boolean" default="true"/>
+
+
+    <aura:handler name="init" value="{! this }" action="{! c.onInit }"/>
+    <div class="slds-grid">
+    	<lightning:combobox class="values"  name="general" label="{!v.title}" value="{!v.value}" placeholder="" options="{!v.options}" onchange="{!c.handleChangeValue}" onblur="{!c.handleBlur}"/>
+    	<lightning:input aura:Id="Phone" class="inputPhone" type="tel" value="{!v.localPhone}" onchange="{!c.handleChange}" onblur="{!c.handleBlur}" maxlength="12"/>
+    </div>
+    <!-- <p style="margin-left: 7px;"> {!v.internationalPhone}</p> -->
+	
+</aura:component>

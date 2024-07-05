@@ -1,0 +1,33 @@
+/* Label when a color is selected */
+.THIS .colorLabelSelected {
+    /*vertical-align: 18px;*/
+    /*margin-left: 10px;*/
+    /*margin-left: 4px;*/
+    font-size: smaller;
+    line-height: 0px;
+}
+
+.THIS .slds-item--label {
+	font-size: smaller !important;
+    width: 100% !important;
+}
+/*
+.THIS .slds-card__body {
+    padding: 0 16px 16px 12px;
+    display: flex;
+}
+
+.THIS .slds-card__body > div {
+ 	flex: 1;
+    padding: 8px 16px 0 16px;
+}
+
+.THIS .slds-media__body > :last-child {
+    vertical-align: 5px !important;
+}
+*/
+/* Comments fields */
+.THIS .slds-list--horizontal .slds-item--detail {
+    width:100%;
+    font-size: 9px;
+}

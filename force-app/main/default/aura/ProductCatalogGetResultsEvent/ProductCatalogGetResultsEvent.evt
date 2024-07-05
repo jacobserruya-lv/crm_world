@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="searchKey" type="String" />
+    <aura:attribute name="total" type="Integer" />
+    <aura:attribute name="selectedProduct" type="Object"/>
+</aura:event>

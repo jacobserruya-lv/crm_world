@@ -1,0 +1,37 @@
+.THIS .imgClass img {
+    border-radius: 25px;
+    margin-bottom: 28px;
+}
+
+.THIS .productName {
+    color: rgb(0, 112, 210);
+}
+
+.THIS .calendar-icon {
+	background: url(/resource/1491028136000/IconImages/images/calendar.png) 0 0 no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.THIS .icon span {
+    width: 0.8rem;
+    vertical-align: text-top;
+    margin-right: 0.15rem;
+}
+
+.THIS .icon {
+    top: -0.1rem;
+    position: relative;
+}
+
+.THIS .buttonCustom {
+    color: #ffffff;
+    padding: 1px 4px 2px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #468847;
+}
+
+.THIS .bottomTile {
+    margin-bottom: -1.5rem;
+}

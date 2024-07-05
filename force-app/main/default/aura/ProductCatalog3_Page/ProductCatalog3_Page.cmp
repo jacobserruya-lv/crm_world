@@ -1,0 +1,110 @@
+<aura:component implements="force:appHostable,lightning:hasPageReference,force:hasRecordId"
+  controller="Ctrl_ProductCatalog" access="global">
+  <!--<ltng:require scripts="{!$Resource.dynatrace + '/jsSnippet.js'}" afterScriptsLoaded="{!c.init}" />-->
+  <!--g:require scripts="{!$Resource.Catalogue_GA + '/GA-snippet.js'}" afterScriptsLoaded="{!c.init}" /> -->
+  <!--<ltng:require scripts="https://www.google-analytics.com/analytics.js" afterScriptsLoaded="{!c.loadAnalytics}"/>-->
+  <!--<ltng:require scripts="https://www.googletagmanager.com/gtag/js?id=UA-135880969-28"/>-->
+
+  <aura:attribute name="searchTerm" type="String" default="" />
+  <aura:attribute name="searchTermParameter" type="String" default="" />
+  <aura:attribute name="myFavorites" type="List" default="" />
+  <aura:attribute name="productsMap" type="Map" />
+  <aura:attribute name="currentProduct" type="Object" />
+  <aura:attribute name="selectedStores" type="List" />
+  <aura:attribute name="selectedZone" type="List" />
+  <aura:attribute name="selectedWarehouses" type="List" />
+  <aura:attribute name="selectedCountries" type="List" />
+  <aura:attribute name="selectedPhysicalStores" type="string" />
+  <aura:attribute name="userStores" type="Object" />
+  <aura:attribute name="sidebarOpen" type="Boolean" default="false" />
+  <aura:attribute name="sidebarType" type="String" />
+  <aura:attribute name="digitalStore" type="String" />
+  <aura:attribute name="isSearchProduct" type="Boolean" default="true" />
+  <aura:attribute name="ManagementZoneLevelMap" type="Map" />
+  <aura:attribute name="currentUserData" type="Object" />
+  <aura:attribute name="recentlyViewed" type="List" default="[]" />
+  <aura:attribute name="productsSkusSearch" type="List" />
+  <aura:attribute name="maxMyList" type="Integer" default="130" />
+  <aura:attribute name="isNotDisplayStaticPage" type="Boolean" default="true" />
+
+  <aura:attribute name="isPersonalizeButtonPermission" type="Boolean" default="false" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  <!--<aura:handler name="change" value="{!v.recordId}" action="{!c.handleRecordChange}"/>-->
+  <aura:handler name="change" value="{!v.currentProduct}" action="{!c.updateRecentlyViewed}" />
+  <aura:handler name="change" value="{!v.searchTerm}" action="{!c.removeData}" />
+  <aura:handler name="triggerCustomProducts" event="c:OpenCustomProductsAuthorizationEvent"
+    action="{!c.getCustomizeCommand}" />
+
+  <aura:handler event="c:ProductCatalogListSkusCallbackEvent" action="{!c.onDataReady}" />
+  <aura:handler event="c:ProductCatalogUpdateFavoriteListEvent" action="{!c.updateFavoriteList}" />
+  <aura:handler event="aura:locationChange" action="{!c.handleLocationChange}" />
+  <aura:handler event="c:ProductCatalogFiltersChangeEvent" action="{!c.updateStoreList}" />
+  <aura:handler event="c:ProductCatalog3_productClickEvent" action="{!c.updateProduct}" />
+  <aura:handler event="c:ProductCatalogGetDigitalStoreEvent" action="{!c.updateDigitalStore}" />
+  <aura:handler event="c:ProductCatalogUpdateListStores" action="{!c.updateSelectedStores}" />
+
+  <div class="pc3-page">
+    <aura:if isTrue="{!or(v.searchTermParameter == null, v.searchTermParameter == '')}">
+      <c:ProductCatalog3_Header recordId="{!v.recordId}" product="{!v.currentProduct}" searchTerm="{!v.searchTerm}"
+        myFavorites="{!v.myFavorites}" triggerCustomProducts="{!c.getCustomizeCommand}"
+        onSidebarBtnClick="{!c.handleSidebarBtnClick}"
+        isPersonalizeButtonPermission="{!v.isPersonalizeButtonPermission}"
+        ManagementZoneLevelMap="{!v.ManagementZoneLevelMap}" currentUserData="{!v.currentUserData}"
+        maxMyList="{!v.maxMyList}" />
+      <aura:set attribute="else">
+        <c:ProductCatalog3_Header recordId="{!v.recordId}" product="{!v.currentProduct}"
+          searchTerm="{!v.searchTermParameter}" myFavorites="{!v.myFavorites}"
+          isPersonalizeButtonPermission="{!v.isPersonalizeButtonPermission}"
+          onSidebarBtnClick="{!c.handleSidebarBtnClick}" ManagementZoneLevelMap="{!v.ManagementZoneLevelMap}"
+          currentUserData="{!v.currentUserData}" maxMyList="{!v.maxMyList}" />
+      </aura:set>
+    </aura:if>
+
+
+    <c:ProductCatalog3_Sidebar open="{!v.sidebarOpen}" type="{!v.sidebarType}" myFavorites="{!v.myFavorites}"
+      ManagementZoneLevelMap="{!v.ManagementZoneLevelMap}" currentUserData="{!v.currentUserData}"
+      maxMyList="{!v.maxMyList}" />
+
+    <aura:if isTrue="{!v.isNotDisplayStaticPage}">
+      <aura:if isTrue="{!empty(v.currentProduct)}">
+        <aura:if isTrue="{!or(v.searchTermParameter == null, v.searchTermParameter == '')}">
+          <c:ProductCatalog3_SearchResults searchTerm="{!v.searchTerm}" myFavorites="{!v.myFavorites}"
+            productsMap="{!v.productsMap}" selectedStores="{!v.selectedStores}"
+            productsSkusSearch="{!v.productsSkusSearch}" />
+          <aura:set attribute="else">
+            <c:ProductCatalog3_SearchResults searchTerm="{!v.searchTermParameter}" myFavorites="{!v.myFavorites}"
+              productsMap="{!v.productsMap}" selectedStores="{!v.selectedStores}"
+              productsSkusSearch="{!v.productsSkusSearch}" />
+          </aura:set>
+        </aura:if>
+
+
+        <aura:set attribute="else">
+          <aura:if isTrue="{!v.isSearchProduct}">
+            <c:ProductCatalog3_ProductDetailsPage product="{!v.currentProduct}" originalProduct="{!v.currentProduct}"
+              selectedStores="{!v.selectedStores}" selectedZone="{!v.selectedZone}"
+              selectedWarehouses="{!v.selectedWarehouses}"
+              isPersonalizeButtonPermission="{!v.isPersonalizeButtonPermission}"
+              countriesSelected="{!v.selectedCountries}" userStores="{!v.userStores}" myFavorites="{!v.myFavorites}"
+              physicalStoresSelected="{!v.selectedPhysicalStores}" digitalStore="{!v.digitalStore}"
+              recentlyViewed="{!v.recentlyViewed}" productsMap="{!v.productsMap}" />
+            <aura:set attribute="else">
+              <c:ProductCatalog3_ProductDetailsPage product="{!v.currentProduct}" originalProduct="{!v.currentProduct}"
+                selectedStores="{!v.selectedStores}" selectedZone="{!v.selectedZone}"
+                physicalStoresSelected="{!v.selectedPhysicalStores}" selectedWarehouses="{!v.selectedWarehouses}"
+                userStores="{!v.userStores}" myFavorites="{!v.myFavorites}" countriesSelected="{!v.selectedCountries}"
+                isPersonalizeButtonPermission="{!v.isPersonalizeButtonPermission}" digitalStore="{!v.digitalStore}"
+                recentlyViewed="{!v.recentlyViewed}" />
+            </aura:set>
+          </aura:if>
+        </aura:set>
+      </aura:if>
+    </aura:if>
+
+    <aura:if isTrue="{!not(v.isNotDisplayStaticPage)}">
+      <c:productCatalog_StaticPage countriesSelected="{!v.selectedCountries}"
+        physicalStoresSelected="{!v.selectedPhysicalStores}" />
+    </aura:if>
+  </div>
+</aura:component>

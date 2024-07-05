@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event for Account Highlight panel">
+    <!--aura:attribute type="String" name="mode" description="Mode: READ/EDIT"/-->
+    <aura:attribute type="Id" name="recordId" description="For new record created in the highlight panel"/>
+    <aura:attribute type="Id" name="currentRecordId" description="Record related to the highlight panel : can be the account id or task id, case id..."/>
+</aura:event>

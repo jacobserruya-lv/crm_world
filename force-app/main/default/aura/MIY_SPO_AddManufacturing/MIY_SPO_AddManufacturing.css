@@ -1,0 +1,14 @@
+.THIS.cMIY_FancyModal .slds-modal__content {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  overflow: visible;
+}
+.THIS.cMIY_FancyModal .slds-modal__content .slds-form_compound .slds-size_1-of-2:last-child {
+  padding-left: 0.5rem;
+}
+
+.THIS .errorMsg {
+  width: 75%;
+  color: red;
+  text-align: center;
+}

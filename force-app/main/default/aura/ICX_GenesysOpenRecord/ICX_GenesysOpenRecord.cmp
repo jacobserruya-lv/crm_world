@@ -1,0 +1,14 @@
+<aura:component access="global" controller="ICX_GenesysController" description="ICX_GenesysOpenRecord" implements="flexipage:availableForAllPageTypes">
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" /> 
+    
+    <aura:attribute name="clienteling" type="Boolean" />
+    <aura:attribute name="clientelingId" type="String" default="notDefined" />
+    <aura:attribute name="monitoring" type="Boolean" />
+    <aura:attribute name="monitoringId" type="String" default="notDefined" />
+    <aura:attribute name="nbRetry" type="Integer" default="2" />
+    <aura:attribute name="recordId" type="String" />
+    
+    <lightning:messageChannel type="purecloud__ClientEvent__c" aura:id="clientEventMessageChannel" onMessage="{!c.onClientEvent}" scope="APPLICATION"/>
+    <lightning:omniToolkitAPI aura:id="omniToolkit" /> 
+    <lightning:workspaceAPI aura:id="workspace" />
+</aura:component>

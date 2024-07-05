@@ -1,0 +1,14 @@
+<aura:component implements="force:lightningQuickAction,flexipage:availableForAllPageTypes" >
+    
+    <h3 class="slds-section-title--divider">Voice App</h3>
+		<div class="slds-text-align--center">
+            <ui:button class="slds-button" label="Voice Console" press="{!c.PopupWindowVoice}"/>
+           
+    	</div>
+    <h3 class="slds-section-title--divider">SPO App</h3>
+		<div class="slds-text-align--center">
+            <ui:button label="Special Order" class="slds-button" press="{!c.PopupWindowSPO}"/>
+    	</div>
+   
+
+</aura:component>

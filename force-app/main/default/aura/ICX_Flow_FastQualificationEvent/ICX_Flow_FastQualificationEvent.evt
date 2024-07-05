@@ -1,0 +1,7 @@
+<aura:event type="COMPONENT" description="Event for ICX_Flow_FastQualification">
+
+    <aura:attribute name="level1" type="Object" description="Level 1 label/value" />
+    <aura:attribute name="level2" type="Object" description="Level 2 label/value" />
+    <aura:attribute name="level3" type="Object" description="Level 3 label/value" />
+
+</aura:event>

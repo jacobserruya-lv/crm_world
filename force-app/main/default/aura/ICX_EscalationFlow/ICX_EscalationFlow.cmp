@@ -1,0 +1,106 @@
+<!-- /**
+ * @description       : 
+ * @author            : Naomi Baroghel
+ * @last modified on  : 27-02-2022
+ * @last modified by  : Naomi Baroghel
+ * Modifications Log 
+ * Ver   Date         Author                               Modification
+ * 1.0   27-02-2022  Naomi Baroghel                        Initial Version
+**/ -->
+
+<aura:component access="global"
+    implements="lightning:availableForFlowScreens,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes">
+
+    <!--les fields : description (cree un field escalation description ?), distanceOder, Type of Support, Origine of Escalation, Client's preference : (Lookup Client)Follow up By Email/Phone/Chat-Messaging, Chose a Product -->
+    <aura:attribute access="global" name="distanceOrder" type="String" default="" />
+    <aura:attribute access="global" name="typeOfSupport" type="String" default="" />
+    <!--Picklist-->
+    <aura:attribute access="global" name="origineOfEscalation" type="String" default="Digital"  />
+    <!--Picklist-->
+    <aura:attribute access="public" name="Description" type="String" default="" />
+    <aura:attribute access="global" name="storeCode" type="String" default="" />
+    <aura:attribute access="global" name="storeType" type="String" default="" />
+    <aura:attribute access="global" name="UserId" type="String"  />
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler name="change" value="{!v.origineOfEscalation}" action="{!c.getStoreType}"/>
+
+
+
+    <lightning:layout multipleRows="true">
+        <div class="slds-card margin " size="12">
+            <lightning:layoutitem padding="" size="12">
+                <lightning:textarea label="Description" value="{!v.Description}" placeholder="Escalation Description" class="" />
+            </lightning:layoutitem>
+
+            <lightning:layout horizontalAlign="spread">
+
+                <lightning:layoutitem padding="" size="5">
+
+                <div  title="Please assign the case to the correct member - Advisor or Manager.If not, the case will be automatically assigned to the escalation team">
+
+                    <c:ICX_Lookup aura:id="userLookup" objectType="User" label="Assign To"
+                        selectedRecordId="{!v.UserId}" queryCondition="{!'IsActive=true'}" showFiveRecent="true"
+                        IsRequired="false" />
+
+                    </div>
+                </lightning:layoutitem>
+
+
+                    <lightning:layoutitem padding="" size="1">
+
+                        <lightning:helptext content="Please assign the case to the correct member - Advisor or Manager.If not, the case will be automatically assigned to the escalation team"/>
+                    </lightning:layoutitem>
+
+                    <lightning:layoutitem padding="" size="6">
+
+                <c:ICX_Lookup objectType="Store__c" label="Store" readOnly="false" selectedRecordId="{!v.storeCode}"
+                showFiveRecent="false" queryCondition="{!v.storeType}"
+                additionalField="RetailStoreId__c" IsRequired="false" />
+
+            </lightning:layoutitem>
+        </lightning:layout>
+
+
+         
+
+
+                   
+
+
+
+
+            <lightning:layout horizontalAlign="spread">
+                <lightning:layoutitem padding="" size="2">
+
+                <c:PicklistFlow showLabel="true" object="Case" field="Origin_of_Escalation__c"
+                    showLabelInEmptyValue="true" label="-- Origine of Escalation --" required="true"
+                    selectedValue="{!v.origineOfEscalation}" />
+                </lightning:layoutitem>
+                
+                <lightning:layoutitem padding="" size="2">
+
+                <div style="display: flex;" title="1/ Advice: Any question answered by Escalation Team to client advisor. Advisor keeps the lead to reply​. 2/ Investigation: Any question addressed to Escalation Team that requires a third party's answer (ex: Back office, repair team, stores..)​Advisor keeps the lead to reply.​ 3/ Handover: Any very difficult situation that requires Escalation team to take the lead (by call or email) to de-escalate or assist further the client​.">
+
+                <c:PicklistFlow showLabel="true" object="Case" field="Type_of_Support_Escalation__c"
+                    showLabelInEmptyValue="true" label="-- Type of Support --" required="true"
+                    selectedValue="{!v.typeOfSupport}" />
+                    <lightning:helptext content="1/ Advice: Any question answered by Escalation Team to client advisor. Advisor keeps the lead to reply​. 2/ Investigation: Any question addressed to Escalation Team that requires a third party's answer (ex: Back office, repair team, stores..)​Advisor keeps the lead to reply.​ 3/ Handover: Any very difficult situation that requires Escalation team to take the lead (by call or email) to de-escalate or assist further the client​."/>
+
+                </div>
+            </lightning:layoutitem>
+
+                   
+
+
+                <lightning:layoutitem padding="" size="2">
+                    <lightning:textarea label="Distance Order" value="{!v.distanceOrder}" placeholder="Distance Order"
+                        class="" maxlength="21" />
+                </lightning:layoutitem>
+            </lightning:layout>
+
+        </div>
+    </lightning:layout>
+
+
+</aura:component>

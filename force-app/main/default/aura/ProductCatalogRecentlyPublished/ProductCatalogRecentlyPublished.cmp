@@ -1,0 +1,46 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog" access="global">
+    <aura:attribute name="toggleSpinner" type="Boolean" default="false" />
+	<aura:attribute name="newProducts" type="List" default="[]" />
+    <aura:attribute name="slideItemCount" type="Integer" default="6"/>
+    <aura:attribute name="slideIndex" type="Integer" default="0"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <lightning:layout multipleRows="true" class="pc-recently-published">
+        <div class="pc-recently-published__title">Recently Published</div>
+        <div class="pc-recently-published__carousel">
+            <div class="pc-recently-published__slide-wrap"
+                 style="{!'left: ' + ((v.slideIndex * -100) / v.slideItemCount) + '%;'}">
+                <lightning:layout class="pc-recently-viewed__slide-strip">
+                    <aura:iteration items="{!v.newProducts}" var="product" indexVar="idx">
+                        <lightning:layoutItem size="{!(12 / v.slideItemCount)}" class="pc-recently-published__item-wrap">
+                            <c:ProductCatalogRecentlyPublishedItem product="{!product}" />
+                        </lightning:layoutItem>
+                    </aura:iteration>
+                </lightning:layout>
+            </div>
+            <aura:if isTrue="{!v.newProducts.length > v.slideItemCount}">
+                <lightning:buttonIcon variant="bare"
+                                      iconName="utility:chevronleft"
+                                      alternativeText="Previous"
+                                      disabled="{!v.slideIndex == 0}"
+                                      class="pc-recently-published__arrow pc-recently-published__arrow_dir_left"
+                                      value="prev"
+                                      onclick="{!c.changeSlide}"
+                                      size="large"
+                                      />
+                
+                <lightning:buttonIcon variant="bare"
+                                      iconName="utility:chevronright"
+                                      alternativeText="Next"
+                                      disabled="{!greaterthanorequal(v.slideIndex, (v.newProducts.length - v.slideItemCount))}"
+                                      class="pc-recently-published__arrow pc-recently-published__arrow_dir_right"
+                                      value="next"
+                                      onclick="{!c.changeSlide}"
+                                      size="large"
+                                      />
+            </aura:if>
+        </div>
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,130 @@
+<!--aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" -->
+<aura:component implements="flexipage:availableForAllPageTypes" controller="SO_ProductController" access="global">
+    
+    <aura:method name="initSku" action="{!c.setDefaultSku}" description="Method to set a default sku when PERSO application asks a special order for a specific sku"> 
+        <aura:attribute name="sku" type="String" default=""/>
+        <aura:attribute name="category" type="String" default=""/>
+    </aura:method>
+    
+    <aura:attribute name="searchKey" type="String" default=""/>
+    <aura:attribute name="category" type="String" access="global"/>
+    <aura:attribute name="isMTO" type="Boolean" default="false"/>
+    <aura:attribute name="canSelectMTO" type="Boolean" default="false"/>
+    <aura:attribute name="isMTOEnabled" type="Boolean" default="false"/>
+    
+    <aura:attribute name="advancedSearch" type="Boolean" default="false"/>
+    <aura:attribute name="productCategoryList" type="List" description="Special Order filter (only Leather goods or Belts"/>
+    <!-- Requirement in SPO New Brief Product Search Line 18 --> 
+    <aura:attribute name="obsolete" type="Boolean" default="false" access="global"/>
+    
+    <aura:registerEvent name="productFilterChange" type="c:ProductFilterChange"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.searchKey}" action="{!c.searchKeyChange}"/>
+    
+    <lightning:card iconName="utility:filter" title="{!$Label.c.SO_Product_Title}">
+        <!--aura:set attribute="actions">
+            <lightning:button label="Reset" name="reset" onclick="{!c.reset}"/>
+        </aura:set-->
+        
+        
+        <aura:if isTrue="{!v.advancedSearch == false}">
+        	<div class="slds-card__hierarchy-containter">
+        		<!-- <c:ProductFilterByLocation ></c:ProductFilterByLocation> -->
+        	</div>
+        	<div class="slds-card__header">Search Product</div>
+            <lightning:input type="search" label=" " name="search" value="{!v.searchKey}" placeholder="{!$Label.c.ProductFilter_SearchField}" variant="label-hidden"/>
+            
+            <aura:set attribute="else">
+                
+                <lightning:layout horizontalAlign="spread" multipleRows="true" class="slds-form--horizontal">
+
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="12" class="slds-p-bottom--xx-small" >
+                        <lightning:input type="search" label=" " name="search" value="{!v.searchKey}" placeholder="{!$Label.c.ProductFilter_SearchField}" variant="label-hidden"/>
+                    </lightning:layoutItem>
+
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="3" largeDeviceSize="12" class="slds-p-bottom--xx-small">
+                        <lightning:select aura:id="productCategory" name="productCategory" value="{!v.category}"  label=" " variant="label-hidden"
+                                          onchange="{!c.searchKeyChange}"> <!-- label="Product Category" -->
+                            <!-- <option value="">{!$Label.c.LV_SO_LabelCategory}</option> -->
+                            <aura:iteration items="{!v.productCategoryList}" var="prodCat">
+                                <option value="{!prodCat.value}" text="{!prodCat.label}" selected="{!prodCat.value == v.category}"></option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </lightning:layoutItem>
+
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="3" largeDeviceSize="12" class="{! 'slds-p-bottom--xx-small ' + (v.isMTO == false ? '' : 'disabledStyle') }">
+                        <!-- Requirement in SPO New Brief Product Search Line 18 --> 
+                        <!--ui:inputCheckbox aura:id="obsolete" name="obsoleteOption" label="Extended Search" value="{!v.obsolete}" change="{!c.searchKeyChange}"/-->
+                        <lightning:input aura:id="obsolete" type="checkbox" label="{!$Label.c.ProductFilter_ExtendedSearch}" name="obsoleteOption" checked="{!v.obsolete}" onchange="{!c.searchKeyChange}" class="checkboxmiddle" />
+                    </lightning:layoutItem>
+
+                    <aura:if isTrue="{! and(v.isMTOEnabled, v.canSelectMTO) }">
+                        <!--lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12" class="slds-p-bottom- -xx-small slds-p-top- -xx-small">
+                            <lightning:radioGroup name="MTOradioGroup" label="Creation Or MTO" value="{! isMTO }" options="[{'label':'Creation', 'value':'false'}{'label':'Make To Order', 'value':'true'}]"/>
+                            <fieldset class="slds-form-element ">
+                              <legend class="slds-form-element__legend slds-form-element__label">{!$Label.c.LV_SO_LabelExistingLock}</legend>
+                              <div class="slds-form-element__control">
+                                <div class="slds-radio_button-group">
+                                  <span class="slds-button slds-radio_button">
+                                    <input type="radio" name="radio" id="Creation" value="Creation" checked="{! v.isMTO == true ? '' : 'checked' }" onchange="{!c.changeMTO}"/>
+                                    <label class="slds-radio_button__label" for="Creation">
+                                      <span class="slds-radio_faux">{! $Label.c.LV_SO_Order_Type_Creation }</span>
+                                    </label>
+                                  </span>
+                                  <span class="slds-button slds-radio_button">
+                                    <input type="radio" name="radio" id="MTO" value="MTO" checked="{! v.isMTO == true ? 'checked' : '' }" onchange="{!c.changeMTO}"/>
+                                    <label class="slds-radio_button__label" for="MTO">
+                                      <span class="slds-radio_faux">{! $Label.c.LV_SO_Order_Type_MTO }</span>
+                                    </label>
+                                  </span>
+                                </div>
+                              </div>
+                            </fieldset>
+                        </lightning:layoutItem-->
+
+                        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" class="slds-p-bottom--xx-small slds-p-top--xx-small">
+                            <lightning:buttonStateful labelWhenOff="{! $Label.c.LV_SO_Order_Type_Creation }"
+                                                      labelWhenOn="{! $Label.c.LV_SO_Order_Type_Creation }"
+                                                      labelWhenHover="{! $Label.c.LV_SO_Order_Type_Creation }"
+                                                      iconNameWhenOn="utility:check"
+                                                      iconNameWhenHover="utility:close"
+                                                      state="{! not(v.isMTO) }"
+                                                      variant="{! v.isMTO ? '' : 'brand' }"
+                                                      onclick="{! c.changeMTO }"
+                                                      class="btn-mto"
+                                                      />
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" class="slds-p-bottom--xx-small slds-p-top--xx-small">
+                            <lightning:buttonStateful labelWhenOff="{! $Label.c.LV_SO_Order_Type_MTO }"
+                                                      labelWhenOn="{! $Label.c.LV_SO_Order_Type_MTO }"
+                                                      labelWhenHover="{! $Label.c.LV_SO_Order_Type_MTO }"
+                                                      iconNameWhenOn="utility:check"
+                                                      iconNameWhenHover="utility:close"
+                                                      state="{! v.isMTO }"
+                                                      variant="{! v.isMTO ? 'brand' : '' }"
+                                                      onclick="{! c.changeMTO }"
+                                                      class="btn-mto"
+                                                      />
+                        </lightning:layoutItem>
+                    </aura:if>
+
+                </lightning:layout>    
+                
+            </aura:set>
+        </aura:if>
+        
+        <!--aura:if isTrue="{!v.advancedSearch}">
+            <lightning:select aura:id="productCategory" name="productCategory" value="{!v.category}" 
+                              label="Product Category" onchange="{!c.searchKeyChange}">
+                <option value="">- -NONE- -</option>
+                <aura:iteration items="{!v.productCategoryList}" var="prodCat">
+                    <option value="{!prodCat.value}" text="{!prodCat.label}"></option>
+                </aura:iteration>
+            </lightning:select>
+        </aura:if>
+        <br/>
+        <ui:inputCheckbox aura:id="obsolete" name="obsoleteOption" label="Extended Search" value="{!v.obsolete}" change="{!c.searchKeyChange}"/-->
+        
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,28 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="ICX_Emails"
+                extends="c:ICX_Carousel_Item">
+    <!--ATTRIBUTES-->
+    <aura:attribute name="emailsData" type="Object" />
+	<aura:attribute name="maxRows" type="Integer" default="5" />
+	
+    <!--HANDLER-->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+
+    <!--BODY-->
+    <lightning:card iconName="standard:email_chatter">
+        <aura:set attribute="title">
+            <span class="headerMessage">Emails</span>
+        </aura:set>
+
+        <lightning:layout >
+            <lightning:layoutItem padding="horizontal-large" size="12">
+                <aura:if isTrue="{!not(empty(v.emailsData.rows))}">
+                    <c:ICX_DataTable tableData="{!v.emailsData}" nbRowsToShow="{!v.maxRows}"/>
+                    <aura:set attribute="else">
+                        <p>There aren't any emails attached to this case</p>
+                    </aura:set>
+                </aura:if>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

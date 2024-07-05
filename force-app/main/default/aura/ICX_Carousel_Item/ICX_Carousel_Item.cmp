@@ -1,0 +1,7 @@
+<aura:component extensible="true">
+	<!--ATTRIBUTES-->
+	<aura:attribute name="body" type="Aura.Component[]" />
+	<aura:attribute name="highDots" type="Boolean" default="false" />
+	<!--COMPONENT-->
+	{!v.body}
+</aura:component>

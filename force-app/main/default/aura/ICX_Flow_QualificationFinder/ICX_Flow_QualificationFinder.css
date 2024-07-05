@@ -1,0 +1,28 @@
+.THIS .buttonCustom {
+    /*padding: .25rem 2rem .25rem;*/
+    /*padding: 0rem 1rem 0rem;*/
+    line-height: 1.5rem;
+}
+
+.THIS .slds-page-header {
+    background: none;
+}
+
+.THIS .horizontalSmall > .slds-item_label {
+    width : 100%;
+}
+
+.THIS .horizontalSmall > .slds-item_detail {
+    width : 100%;
+}
+
+/* Mandatory custom (not slds-required as it blocks the auto-next screen) */
+.THIS .required2 {
+    color: rgb(194, 57, 52);
+    margin-bottom: .25rem;
+    margin-top: 0;
+    vertical-align: top;
+    float: left;
+    padding-right: 2px;
+    font-weight: 700;
+}

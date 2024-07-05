@@ -1,0 +1,19 @@
+.THIS .footer2 {
+    position: fixed;
+    bottom: 2.25rem;
+    height: 3rem;
+    background: rgb(255, 255, 255);
+    width: 72%;
+    border-top: 1px solid rgb(221, 219, 218);
+    padding-top: 0.25rem;
+    padding-right: 1rem;
+    z-index: 2;
+}
+
+.THIS .alignButton {
+    display: inline-flex;
+}
+
+.THIS .marginSpace {
+    margin-right : 1.25rem;
+}

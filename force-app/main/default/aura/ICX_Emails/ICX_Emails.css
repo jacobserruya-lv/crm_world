@@ -1,0 +1,25 @@
+.THIS .email-icon{
+    background-color:#F2CE5B;
+    width:32px;
+    height:32px;
+}
+
+.THIS .email-icon svg{
+    fill:white;
+}
+
+.THIS .slds-truncate{
+	max-width: 180px;
+}
+
+.THIS .headerMessage {
+    /* Font from lv.com */
+    font-weight: 500;
+    font-size: .8125rem;
+    line-height: 1.2307692307692308;
+    letter-spacing: .8px;
+    box-sizing: border-box;
+    transition: box-shadow .3s cubic-bezier(0.39,0.575,0.565,1);
+    text-transform: inherit;
+    text-transform: uppercase;
+}

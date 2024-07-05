@@ -1,0 +1,29 @@
+<aura:component>
+    <aura:attribute name="title" type="String" default="" />
+    <aura:attribute name="productVariations" type="Object" default="[]" />
+    <aura:attribute name="myProductData" type="List" default="" />
+    <aura:attribute name="hoverName" type="String" />
+    <aura:attribute name="productVariationsStock" type="Object" />
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="filterTitle" type="String" default="" />
+    <aura:attribute name="variantFilter" type="String" default="" />
+    <aura:attribute name="originalProduct" type="Object" />
+
+    <aura:handler name="productCatalogVariantHover" event="c:ProductCatalogVariantHoverEvent"
+        action="{!c.changeProductDataName}" />
+
+
+    <div class="pc3-variations">
+        <!---Original Product-->
+        <c:ProductCatalog3_VariationsItem productVariant="{!v.originalProduct}" isOriginalProduct="true" />
+
+        <!-- Variation Product -->
+        <aura:iteration items="{!v.productVariations}" var="variant">
+            <aura:if isTrue="{!v.originalProduct.sku ne variant.sku}">
+                <c:ProductCatalog3_VariationsItem productVariant="{!variant}"
+                    productVariationsStock="{!v.productVariationsStock}"
+                    stockChecked="{!not(empty(v.productVariationsStock))}" />
+            </aura:if>
+        </aura:iteration>
+    </div>
+</aura:component>

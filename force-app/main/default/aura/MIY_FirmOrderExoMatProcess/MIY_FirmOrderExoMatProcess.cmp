@@ -1,0 +1,77 @@
+<aura:component controller="MIY_OrderPageController">
+    <aura:attribute name="isDebugMode" type="Boolean"/>
+    <aura:attribute name="isLoading" type="Boolean"/>
+    <aura:attribute name="itemData" type="SPO_FirmOrder__c" access="global"/>
+    <aura:attribute name="creationStatus" type="String" default="{!v.itemData.Creation_Status__c}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <aura:if isTrue="{!and(v.creationStatus != 'Ready to be Sent',v.creationStatus != null)}"> <!--MIY-1993-->
+        <div class="firm-order-item-details__received-btn-area">
+            <aura:if isTrue="{!v.creationStatus == 'New Order'}">
+                <c:LaddaLightningButton variant="base"
+                                        class="order-page__btn firm-order-item-details__received-btn"
+                                        label="New Order Noted"
+                                        name="New Order Noted"
+                                        onclick="{!c.openConfirmModal}"
+                                        isLoading="{!v.isLoading}"
+                                        laddaStyle="slide-left"
+                />
+            </aura:if>
+            <aura:if isTrue="{!v.creationStatus == 'Order to Check/Validate'}">
+                <c:LaddaLightningButton variant="base"
+                                        class="order-page__btn firm-order-item-details__received-btn"
+                                        label="Validate Order"
+                                        name="Validate Order"
+                                        onclick="{!c.openConfirmModal}"
+                                        isLoading="{!v.isLoading}"
+                                        laddaStyle="slide-left"
+                />
+            </aura:if>
+            <aura:if isTrue="{!v.creationStatus == 'Leather to Order'}">
+                <c:LaddaLightningButton variant="base"
+                                        class="order-page__btn firm-order-item-details__received-btn"
+                                        label="Leather Ordered"
+                                        name="Leather Ordered"
+                                        value="Leather Ordered"
+                                        ariaLabel="Leather Ordered"
+                                        onclick="{!c.openConfirmModal}"
+                                        isLoading="{!v.isLoading}"
+                                        laddaStyle="slide-left"
+                />
+            </aura:if>
+            <aura:if isTrue="{!v.creationStatus == 'Species to Choose'}">
+                <c:LaddaLightningButton variant="base"
+                                        class="order-page__btn firm-order-item-details__received-btn"
+                                        label="Select Material"
+                                        name="Select Material"
+                                        onclick="{!c.selectExoMatClick}"
+                                        isLoading="{!v.isLoading}"
+                                        laddaStyle="slide-left"
+                />
+            </aura:if>
+            <aura:if isTrue="{!v.creationStatus == 'Technical Data to Define'}">
+                <c:LaddaLightningButton variant="base"
+                                        class="order-page__btn firm-order-item-details__received-btn"
+                                        label="Technical Data Defined"
+                                        name="Technical Data Defined"
+                                        onclick="{!c.openConfirmModal}"
+                                        isLoading="{!v.isLoading}"
+                                        laddaStyle="slide-left"
+                />
+            </aura:if>
+            <aura:if isTrue="{!v.creationStatus == 'Technical Data to Check'}">
+                <c:LaddaLightningButton variant="base"
+                                        class="order-page__btn firm-order-item-details__received-btn"
+                                        label="Technical Data Checked"
+                                        name="Technical Data Checked"
+                                        onclick="{!c.openConfirmModal}"
+                                        isLoading="{!v.isLoading}"
+                                        laddaStyle="slide-left"
+                />
+            </aura:if>
+        </div>
+    </aura:if>
+</aura:component>

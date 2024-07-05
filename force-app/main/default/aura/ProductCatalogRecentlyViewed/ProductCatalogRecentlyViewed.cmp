@@ -1,0 +1,50 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog"
+                access="global">
+    <aura:attribute name="recentlyViewedProducts" type="List" default="[]"/>
+    <aura:attribute name="slideIndex" type="Integer" default="0"/>
+    <aura:attribute name="slideItemCount" type="Integer" default="6"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:ProductCatalogSelected" action="{!c.itemViewed}" />
+
+    <aura:if isTrue="{!not(empty(v.recentlyViewedProducts))}">
+        <lightning:layout multipleRows="true" class="pc-recently-viewed">
+            <lightning:layoutItem size="12" class="pc-recently-viewed__title">Recently Viewed</lightning:layoutItem>
+            <div class="pc-recently-viewed__carousel">
+                <div class="pc-recently-viewed__slide-wrap"
+                     style="{!'left: ' + ((v.slideIndex * -100) / v.slideItemCount) + '%;'}">
+                    <lightning:layout class="pc-recently-viewed__slide-strip">
+                        <aura:iteration items="{!v.recentlyViewedProducts}" var="item" indexVar="idx">
+                            <lightning:layoutItem size="{!(12 / v.slideItemCount)}"
+                                                  class="pc-recently-viewed__item-wrap">
+                                <c:ProductCatalogRelatedSkuItem relatedSku="{!item}"/>
+                            </lightning:layoutItem>
+                        </aura:iteration>
+                    </lightning:layout>
+                </div>
+
+                <aura:if isTrue="{!v.recentlyViewedProducts.length > v.slideItemCount}">
+                    <lightning:buttonIcon variant="bare"
+                                          iconName="utility:chevronleft"
+                                          alternativeText="Previous"
+                                          disabled="{!v.slideIndex == 0}"
+                                          class="pc-recently-viewed__arrow pc-recently-viewed__arrow_dir_left"
+                                          value="prev"
+                                          onclick="{!c.changeSlide}"
+                                          size="large"
+                    />
+
+                    <lightning:buttonIcon variant="bare"
+                                          iconName="utility:chevronright"
+                                          alternativeText="Next"
+                                          disabled="{!greaterthanorequal(v.slideIndex, (v.recentlyViewedProducts.length - v.slideItemCount))}"
+                                          class="pc-recently-viewed__arrow pc-recently-viewed__arrow_dir_right"
+                                          value="next"
+                                          onclick="{!c.changeSlide}"
+                                          size="large"
+                    />
+                </aura:if>
+            </div>
+        </lightning:layout>
+    </aura:if>
+</aura:component>

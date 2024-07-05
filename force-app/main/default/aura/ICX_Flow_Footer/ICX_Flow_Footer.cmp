@@ -1,0 +1,79 @@
+<!-- https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/components_config_for_flow_screens_replace_footer.htm -->
+<aura:component access="global" implements="lightning:availableForFlowScreens">
+    
+    <aura:attribute name="recordId" type="String" description="Current record Id (to avoid to send the Application event to every tabs)"/>
+    <!-- Determine which actions are available -->
+    <aura:attribute name="canPause" type="Boolean" />
+    <aura:attribute name="canBack" type="Boolean" />
+    <aura:attribute name="canNext" type="Boolean" />
+    <aura:attribute name="canFinish" type="Boolean" />
+    <aura:attribute name="positionFixed" type="Boolean" default="true" />
+    <aura:attribute name="validationRequired" type="Boolean" default="false" description="If some validations/actions are required before executing the action. The action should then be done in the Flow Screen."/>
+    
+    <aura:attribute name="validation" type="Integer" default="0" />
+    
+    <aura:attribute name="customButtonList" type="String" description="Add custom buttons" />
+    <aura:attribute name="customButtonIconList" type="String" description="Add icon to the custom buttons. See: https://www.lightningdesignsystem.com/icons/" />
+    <aura:attribute name="customButtonShowIconOnlyList" type="String" description="Show only icon to the custom buttons" />    
+    
+    <aura:attribute name="nextName" type="String" default="Next" />
+
+    <aura:attribute name="buttonClicked" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!--aura:handler name="phoneEvent" event="c:Account_PhoneFormatterEvent" action="{!c.phoneChanged}" /-->
+    <aura:registerEvent name="footerEvent" type="c:ICX_Flow_FooterEvent"/>
+
+    <!--div class="{!v.positionFixed == true ? '' : 'slds-m-top_x-large'}"-->
+    <div>
+        <div class="{!'slds-clearfix ' + (v.positionFixed == true ? 'footer2' : '')}">
+            <!-- If Previous is available, display to the left -->
+            <div class="slds-float_left">
+                <aura:if isTrue="{!v.canPause}">
+                    <lightning:button aura:id="PAUSE" label="Pause"
+                                      variant="neutral" onclick="{!c.onButtonPressed}" />
+                </aura:if>
+            </div>
+            <div class="slds-float_right alignButton">
+                <!-- If Pause, Next, or Finish are available, display to the right -->
+                
+                <aura:if isTrue="{!v.canBack}">
+                    <lightning:button aura:id="BACK" label="Previous"
+                                      variant="neutral" onclick="{!c.onButtonPressed}" />
+                </aura:if>
+
+                <div aura:id="customButtonDiv"/>
+
+                <aura:if isTrue="{!v.canNext}">
+                    <lightning:button aura:id="NEXT" label="{!v.nextName}" 
+                                      variant="brand" onclick="{!c.onButtonPressed}" />
+                </aura:if>
+                <aura:if isTrue="{!v.canFinish}">
+                    <lightning:button aura:id="FINISH" label="Done"
+                                      variant="brand" onclick="{!c.onButtonPressed}" />
+                </aura:if>
+            </div>
+        </div>
+    </div>
+</aura:component>
+
+
+<!--aura:component implements="lightning:availableForFlowScreens" access="global">>
+    <footer class="slds-card__footer actionButtonBar slds-clearfix footer">
+        <div class="actionsLeft slds-float_left">
+            <lightning:button label="Pause" title="Pause" onclick="{! c.handleClick }"/>
+
+            <button class="slds-button slds-button_neutral uiButton" aria-live="off" type="button">
+                <span class=" label bBody" dir="ltr">Pause</span>
+            </button>
+        </div>
+        <div class="actionsRight slds-float_right">
+            <button class="slds-button slds-button_neutral uiButton" aria-live="off" type="button">
+                <span class=" label bBody" dir="ltr">Previous</span>
+            </button>
+            <button class="slds-button uiButton slds-button_brand" aria-live="off" type="button">
+                <span class=" label bBody" dir="ltr">Next</span>
+            </button>
+        </div>
+    </footer>
+</aura:component-->

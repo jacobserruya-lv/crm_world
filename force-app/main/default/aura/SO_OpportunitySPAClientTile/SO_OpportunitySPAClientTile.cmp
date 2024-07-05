@@ -1,0 +1,38 @@
+<aura:component >
+    
+    <aura:attribute name="account" type="Account" access="global"/>
+    
+    <lightning:layout horizontalAlign="spread" multipleRows="true">
+        
+        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="4" largeDeviceSize="10">
+            
+            <div class="{! 'slds-tile slds-tile--board tileDiv '}">
+                <div class="slds-grid">
+                    <header class="slds-has-flexi-truncate slds-text-title--caps">
+                        <h3 class="slds-truncate" title="{!v.account.LastName + ' ' + v.account.FirstName + ', birthday: ' + v.account.PersonBirthdate}"><a href="javascript:void(0);">{!v.account.LastName + ' ' + v.account.FirstName}&nbsp;</a></h3>
+                    </header>
+                    <div title="DREAM ID">{!v.account.DREAMID__c}</div>
+                </div>
+                <div class="slds-tile__detail slds-text-body--small slds-text-title">
+                    <p class="slds-hyphenate" title="{!v.account.PrimaryAddressLine1__pc}">{!v.account.PrimaryAddressLine1__pc}&nbsp;</p>
+                    <p class="slds-text-heading--small" title="{!v.account.PrimaryCity__pc + ', ' + v.account.PrimaryZipCode__pc + ', ' + v.account.SPO_Country_code__pc}">
+                        <ul class="slds-list--horizontal slds-has-dividers--right slds-text-title--caps">
+                            <li class="{! empty(v.account.PrimaryCity__pc) ? '' : 'slds-item'}" title="{!v.account.PrimaryCity__pc + ', ' + v.account.PrimaryZipCode__pc}">{!v.account.PrimaryCity__pc}</li>
+                            <li class="{! empty(v.account.SPO_Country_code__pc) ? '' : 'slds-item'}" title="{!v.account.SPO_Country_code__pc}">{!v.account.SPO_Country_code__pc}&nbsp;</li>
+                        </ul>
+                    </p>
+                    <p class="slds-m-top--xx-small" title="{!v.account.PersonEmail}"><a href="javascript:void(0);">{!v.account.PersonEmail}&nbsp;</a></p>
+                    <p>
+                        <ul class="slds-list--horizontal slds-has-dividers--right">
+                            <li class="{! empty(v.account.LocalHomePhone__pc) ? '' : 'slds-item'}" title="{!'Home: ' + v.account.HomePhoneCountrycode__pc + ': ' + v.account.LocalHomePhone__pc}">{!v.account.LocalHomePhone__pc}</li>
+                            <li class="{! empty(v.account.LocalMobilePhone__pc) ? '' : 'slds-item'}" title="{!'Mobile: ' + v.account.MobilePhoneCountryCode__pc + ': ' + v.account.LocalMobilePhone__pc}">{!v.account.LocalMobilePhone__pc}</li>
+                            <li class="{! empty(v.account.LocalWorkPhone__pc) ? '' : 'slds-item'}" title="{!'Work: ' + v.account.WorkPhoneCountryCode__pc + ': ' + v.account.LocalWorkPhone__pc}">{!v.account.LocalWorkPhone__pc}&nbsp;</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </lightning:layoutItem>
+        
+    </lightning:layout>
+    
+</aura:component>

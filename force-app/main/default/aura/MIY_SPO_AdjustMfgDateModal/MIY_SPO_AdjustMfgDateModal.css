@@ -1,0 +1,10 @@
+.THIS .slds-modal__content {
+    padding: .75rem 4rem;
+}
+
+
+.THIS .miy-adjust-mfg-date-modal__delivery-date .slds-form-element__control {
+    flex-basis: 0%;
+    border-bottom: 1px solid rgb(221, 219, 218);
+    margin-bottom: 0;
+}

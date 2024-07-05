@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="OrderNumber" type="String"/>
+    <aura:attribute name="OrderDetails" type="Object"/>
+
+</aura:event>

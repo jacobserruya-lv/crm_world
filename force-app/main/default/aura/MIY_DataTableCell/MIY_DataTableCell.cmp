@@ -1,0 +1,42 @@
+<aura:component >
+    <!--ATTRIBUTES-->
+    <aura:attribute name="headers" type="List" />
+    <aura:attribute name="cellData" type="Object" />
+    <aura:attribute name="cellIndex" type="Integer" />
+    <aura:attribute name="header" type="Object" access="PRIVATE"/>
+    <aura:attribute name="type" type="String" access="PRIVATE" />
+    
+    <!--HANDLERS-->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    
+    <td data-label="{!v.header.label}" class="{!
+                    'miy-data-table__cell' +
+                    ' miy-data-table__cell_type_' + v.header.type +
+                    ' miy-data-table__cell_col_' + v.header.label
+            }">
+        <aura:if isTrue="{!v.type=='Date'}">
+            <div class="slds-truncate"><lightning:formattedDateTime value="{!v.cellData.date}" /></div>
+        </aura:if>
+        <aura:if isTrue="{!v.type=='String'}">
+        	<div class="slds-truncate" title="{!v.cellData.label}">{!v.cellData.label}</div>
+        </aura:if>
+        <aura:if isTrue="{!v.type=='Record'}">
+            <div class="slds-truncate" title="{!v.cellData.label}">
+                <a href="javascript:void" onclick="{!c.navigateToRecord}" data-record-id="{!v.cellData.id}">{!v.cellData.label}</a>
+            </div>
+        </aura:if>
+		<aura:if isTrue="{!v.type=='File'}">
+            <div class="slds-truncate" title="{!v.cellData.label}">
+                <a href="javascript:void" onclick="{!c.openFile}" data-file-id="{!v.cellData.id}">{!v.cellData.label}</a>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!v.type=='Icon'}">
+        	<div class="slds-truncate" title="{!v.cellData.label}">
+                <aura:if isTrue="{!not(empty(v.cellData.iconName))}" >
+                	<lightning:icon iconName="{!v.cellData.iconName}" size="xx-small"/>
+                </aura:if>
+            </div>
+        </aura:if>
+    </td>
+	
+</aura:component>

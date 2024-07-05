@@ -1,0 +1,85 @@
+<aura:component implements="force:hasRecordId" controller="Ctrl_ProductCatalog" access="global">
+  <aura:attribute name="searchTerm" type="String" />
+  <aura:attribute name="timer" type="Integer" default="0" />
+  <aura:attribute name="myFavorites" type="List" default="[]" />
+  <aura:attribute name="isStoreFilterExpanding" type="Boolean" default="false" />
+  <aura:attribute name="isStoreFilterExpanded" type="Boolean" default="false" />
+  <aura:attribute name="product" type="Object" default="[]" />
+  <aura:attribute name="onSidebarBtnClick" type="Aura.Action" />
+  <aura:attribute name="disabled" type="Boolean" default="false" />
+  <aura:attribute name="ManagementZoneLevelMap" type="Map" />
+  <aura:attribute name="currentUserData" type="Object" />
+  <aura:attribute name="maxMyList" type="Integer" />
+  <aura:attribute name="totalResult" type="Integer" />
+  <aura:attribute name="isModalOpen" type="Boolean" />
+  <aura:attribute name="isDisplaySearchBar" type="Boolean" default="true" />
+  <aura:attribute name="isPersonalizeButtonPermission" type="Boolean" default="false" />
+
+  <aura:handler name="change" value="{!v.recordId}" action="{!c.handleRecordChange}" />
+  <aura:handler name="change" value="{!v.product}" action="{!c.handleRecordChange}" />
+  <aura:registerEvent name="onDataReadyEvent" type="c:ProductCatalogListSkusCallbackEvent" />
+  <aura:registerEvent name="triggerCustomProducts" type="c:OpenCustomProductsAuthorizationEvent" />
+
+  <div class="pc3-header">
+    <div class="pc3-header__main">
+      <span class="pc3-header__title">CSC</span>
+      <aura:if isTrue="{!empty(v.product)}">
+        <lightning:button variant="base" class="pc3-header__store-heirarchy-btn" label="Store Hierarchy"
+          iconName="{!v.isStoreFilterExpanded ? 'utility:up' : 'utility:down'}" iconPosition="right"
+          onclick="{!c.toggleStoreFilterExpanded}" aura:id="storeHierarchyButton" disabled="{!v.disabled}" />
+      </aura:if>
+      <!-- <lightning:input name="search-filter" class="pc3-header__search" label="This is the search." type="search"
+        variant="label-hidden" value="{!v.searchTerm}" /> -->
+      <div id="searchBar" class="pc3-header__container">
+        <aura:if isTrue="{!v.isDisplaySearchBar}">
+          <lightning:container aura:id="reactApp" src="{!$Resource.catalogSearchReactApp + '/index.html'}"
+            onmessage="{!c.handleMessage}" onerror="{!c.handleError}" />
+        </aura:if>
+      </div>
+
+      <!--<lightning:input 
+                type="toggle" 
+                class="pc3-header__fav-store-toggle"
+                label="Only in LV Champs-Elysées" 
+                name="onlyFavStore" 
+                variant="label-hidden"  
+                messageToggleActive="" 
+                messageToggleInactive=""
+            />
+            <span>Only in <strong>LV Champs-Elysées</strong></span>-->
+
+
+      <aura:if isTrue="{!v.isPersonalizeButtonPermission}">
+        <lightning:button class="slds-col_bump-left pc3-header__icon-btn" variant="bare-inverse"
+          label="PERSONALIZE PRODUCT" onclick="{!c.handelPersonalizedProdNavigation}">
+          <img src="{!$Resource.iconics + '/images/customizewhiteStartIcon.svg'}"
+            class="pc3-header__main__product-library-img" alternativeText="PERSONALIZE PRODUCT" />
+        </lightning:button>
+      </aura:if>
+
+
+      <lightning:button class="slds-col_bump-left pc3-header__icon-btn" variant="bare-inverse" label="PRODUCT LIBRARY"
+        onclick="{!c.goToProductLibrary}">
+        <img src="{!$Resource.ProductcatalogProductLibraryIcon}" class="pc3-header__main__product-library-img"
+          alternativeText="PRODUCT LIBRARY" />
+      </lightning:button>
+
+      <lightning:button class="slds-col_bump-left pc3-header__icon-btn" variant="bare-inverse"
+        value="{!v.myFavorites.length}" onclick="{!v.onSidebarBtnClick}" name="favorites">
+        <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#star-empty'}" size="x-small"
+          alternativeText="My Wishlist" />
+      </lightning:button>
+      <!--<lightning:button class="pc3-header__icon-btn" variant="bare-inverse" value="8" onclick="{!v.onSidebarBtnClick}" name="notifications">
+                <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#alert'}" size="x-small" alternativeText="Notifications"/>
+            </lightning:button>-->
+      <lightning:button class="pc3-header__icon-btn" variant="bare-inverse" onclick="{!v.onSidebarBtnClick}"
+        name="setup">
+        <lightning:icon src="{!$Resource.LVDS_Iconography + '/lvds.svg#settings'}" size="x-small"
+          alternativeText="Set Default Stores" />
+      </lightning:button>
+    </div>
+    <c:ProductCatalog3_SelectStores isFilterExpanding="{!v.isStoreFilterExpanding}"
+      isFilterExpanded="{!v.isStoreFilterExpanded}" currentUserData="{!v.currentUserData}"
+      ManagementZoneLevelMap="{!v.ManagementZoneLevelMap}" maxMyList="{!v.maxMyList}" />
+  </div>
+</aura:component>

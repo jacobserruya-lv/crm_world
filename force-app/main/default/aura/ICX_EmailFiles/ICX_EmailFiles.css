@@ -1,0 +1,11 @@
+.THIS .alignFileUpload .slds-form-element__label {
+	padding: 0;
+    display: initial;
+}
+.THIS .alignCloseButton  {
+    float: right ; 
+    margin-top: 5px;
+}
+.THIS .background  {
+    background-color:#f3f2f2 !important;
+}

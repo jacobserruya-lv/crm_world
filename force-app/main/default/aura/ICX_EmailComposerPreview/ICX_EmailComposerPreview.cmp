@@ -1,0 +1,6 @@
+<aura:component >
+	<aura:attribute name="parent" type="Object" />
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <lightning:button name="cancel" label="Cancel" onclick="{!c.handleCancel}"/>
+    <lightning:button name="sendemail" label="Send Email" variant="brand" onclick="{!c.handleSendEmail}"/>
+</aura:component>

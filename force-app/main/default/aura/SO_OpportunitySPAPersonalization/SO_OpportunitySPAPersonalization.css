@@ -1,0 +1,75 @@
+.THIS .disabledStyle {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.THIS .slds-card {
+    padding: 0 1rem 0 .75rem;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px; /*MIY-1783*/
+}
+
+.THIS .slds-input[disabled], .THIS .slds-input.slds-is-disabled {
+    background-color: inherit;/*rgb(224, 229, 238);*/
+    /*border-color: rgb(168, 183, 199);
+    cursor: not-allowed;
+    user-select: none;*/
+    pointer-events: none;
+    border-style: none;
+}
+
+.THIS .cSO_OpportunityColorEdit {
+    border-style: none;
+	padding: 0 0 0 0;
+}
+
+.THIS .textarea-small textarea {
+    height: 56px; /*rows="10" */
+    /*width: 50em; cols="50"*/
+}
+
+.THIS .textarea-big textarea {
+    height: 250px;
+}
+
+.THIS .slds-hide{
+    display: none;
+}
+
+.THIS .slds-show{
+    display: block;
+}
+
+.THIS .UnitNonEditable .slds-input{
+    pointer-events: none;
+    border-style: none;
+    border : none;
+}
+
+.THIS .error {
+    border-color: red !important;
+}
+
+/* remove arrow (spin-button) for number fields */
+.THIS .slds-input[type=number]::-webkit-outer-spin-button, .THIS .slds-input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.THIS .slds-input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.THIS .slds-form-element__label{
+    margin-right: auto;
+    font-size: .69rem;
+}
+
+.THIS .slds-m-around_xx-small {
+    padding-top: 16px;
+}
+
+.THIS .slds-p-vertical_xxx-small {
+    padding-top: 0.90;
+    padding-top: 1px;
+    padding-left: 2px;
+}

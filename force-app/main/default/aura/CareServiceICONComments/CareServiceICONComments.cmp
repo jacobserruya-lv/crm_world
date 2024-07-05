@@ -1,0 +1,21 @@
+<aura:component extends="c:CareServiceComments" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                  access="global">
+    
+        
+    <aura:set attribute="CommentsType" value="ICON" />  
+    <aura:attribute name="newComment" type="Map" default="{ Date: '', SACode: '', Comment: '' }"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+   
+    <!--here comes something specific from the sub component CareServiceICONComponent-->   
+   
+    <form class="slds-form slds-form_stacked slds-border_top">            
+        <legend class="slds-form-element__legend slds-form-element__label">Add a comment</legend>        
+        <lightning:textarea name="commentText" aura:id="commentText" value="{!v.newComment.Comment}" onkeyup="{! c.success }"/> 
+        <!--lightning:input type="date" name="commentDate" value="{!v.newComment.Date}"/--> 
+        <!--lightning:input name="commentAuthor" value="{!v.newComment.SACode}" /--> 
+        <lightning:button aura:id="submit" label="Save" onclick="{! c.saveComment }" disabled="true"/>   
+    </form>
+    
+    
+	
+</aura:component>

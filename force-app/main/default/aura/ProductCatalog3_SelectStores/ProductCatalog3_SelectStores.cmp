@@ -1,0 +1,80 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="Ctrl_ProductCatalog" access="global">
+
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doInit}" />-->
+
+    <aura:attribute name="ManagementZoneLevelMap" type="Map" />
+    <aura:attribute name="MANAGEMENT_ZONE_LEVEL__c_List" type="List" />
+    <aura:attribute name="MGMT_ZONE_SUB_LEVEL1__c_List" type="List" />
+    <aura:attribute name="MGMT_ZONE_SUB_LEVEL2__c_List" type="List" />
+    <aura:attribute name="MGMT_ZONE_SUB_LEVEL3__c_List" type="List" />
+    <aura:attribute name="Countries" type="List" />
+    <aura:attribute name="Warehouse_List" type="Object" />
+
+    <!--<aura:attribute name="selectedZoneLevel" type="String"/>
+    <aura:attribute name="selectedZoneLevel1" type="String"/>
+    <aura:attribute name="selectedZoneLevel2" type="String"/>
+    <aura:attribute name="selectedZoneLevel3" type="String"/>
+    <aura:attribute name="defaultStore" type="String"/>-->
+    <aura:attribute name="selectedZoneLevel" type="List" />
+    <aura:attribute name="selectedZoneLevel1" type="List" />
+    <aura:attribute name="selectedZoneLevel2" type="List" />
+    <aura:attribute name="selectedZoneLevel3" type="List" />
+    <aura:attribute name="defaultStore" type="List" />
+
+    <aura:attribute name="digitalStores" type="List" default="[]" />
+    <aura:attribute name="userStores" type="Object" />
+    <aura:attribute name="selectedDigitalStore" type="String" default="" />
+    <aura:attribute name="lastSelectedStore" type="String" default="" />
+    <aura:attribute name="physicalStores" type="List" default="[]" />
+    <aura:attribute name="selectedPhysicalStores" type="List" default="[]" />
+    <aura:attribute name="maxMyList" type="Integer" />
+    <aura:attribute name="selectedWarehouses" type="List" default="[]" />
+    <aura:attribute name="selectedCountries" type="List" default="[]" />
+    <aura:attribute name="mySelectedList" type="List" default="[]" />
+    <aura:attribute name="searchKey" type="String" default="" />
+
+    <aura:attribute name="isFilterExpanding" type="Boolean" default="false" />
+    <aura:attribute name="isFilterExpanded" type="Boolean" default="false" />
+    <aura:attribute name="advencedSearch" type="Boolean" />
+
+    <aura:attribute name="currentUserData" type="Object" />
+
+    <aura:handler name="change" value="{!v.ManagementZoneLevelMap}" action="{!c.setupLists}" />
+    <aura:handler name="change" value="{!v.currentUserData}" action="{!c.setupLists}" />
+
+    <aura:handler event="c:ProductCatalogFilterChangeEvent" action="{!c.searchFilterChange}" />
+    <aura:handler event="c:ProductCatalogMultiPicklistSelectEvent" action="{!c.storeSelectionChange}" />
+
+    <aura:registerEvent name="filtersChangeEvent" type="c:ProductCatalogFiltersChangeEvent" />
+    <aura:registerEvent name="updateListStores" type="c:ProductCatalogUpdateListStores" />
+    <aura:registerEvent name="summarySpinnerEvent" type="c:ProductCatalogSummarySpinnerEvent" />
+    <aura:registerEvent name="ProductCatalogGetDigitalStore" type="c:ProductCatalogGetDigitalStoreEvent" />
+    <aura:registerEvent name="updateSelectedWarehousesEvent" type="c:ProductCatalogUpdateSelectedWarehousesEvent" />
+
+    <!--<aura:handler name="change" value="{!v.mySelectedList}" action="{!c.changeSelectedList}"/>-->
+
+
+    <lightning:layout class="{!'pc3-filter-by-store' +
+                    (v.isFilterExpanding ? ' pc3-filter-by-store_expanding' : '') +
+                    (v.isFilterExpanded ? ' pc3-filter-by-store_expanded' : '')
+            }">
+        <lightning:layoutItem size="3" padding="horizontal-medium" class="pc3-filter-by-store__picklist-wrap">
+            <c:ProductCatalog3_selectStoresMultiPicklist items="{!v.MANAGEMENT_ZONE_LEVEL__c_List}" type="region"
+                name="ZoneLevel" title="Management Zone Level" selectItem="{!v.selectedZoneLevel}" multiSelect="true" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="3" padding="horizontal-medium" class="pc3-filter-by-store__picklist-wrap">
+            <c:ProductCatalog3_selectStoresMultiPicklist items="{!v.MGMT_ZONE_SUB_LEVEL3__c_List}" type="region"
+                name="ZoneLevel3" title="Country" selectItem="{!v.selectedZoneLevel3}" multiSelect="true"
+                digitalStores="{!v.digitalStores}" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="3" padding="horizontal-medium" class="pc3-filter-by-store__picklist-wrap">
+            <c:ProductCatalog3_selectStoresMultiPicklist items="{!v.physicalStores}" type="store" name="physicalStores"
+                title="Stores" selectItem="{!v.mySelectedList}" multiSelect="true" mySelectedList="{!v.mySelectedList}"
+                maxMyList="{!v.maxMyList}" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="3" padding="horizontal-medium" class="pc3-filter-by-store__picklist-wrap">
+            <c:ProductCatalog3_selectStoresMultiPicklist items="{!v.digitalStores}" type="store" name="digitalStores"
+                title="Digital Stores" selectItem="{!v.selectedDigitalStore}" multiSelect="false" />
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,52 @@
+<aura:component implements="lightning:appHomeTemplate" description="Top Panel and two columns">
+    <aura:attribute name="top" type="Aura.Component[]"/>
+    <aura:attribute name="left" type="Aura.Component[]"/>
+    <aura:attribute name="right" type="Aura.Component[]"/>
+    <aura:attribute name="cleanSearch" type="Boolean" default="true"/>
+    <aura:attribute name="MyFavorites" type="List" default="[]" />
+
+    <aura:handler event="c:ProductCatalogFilterChangeEvent" action="{!c.onFilterChange}"/>
+
+    <lightning:layout horizontalAlign="spread"
+                      multipleRows="true"
+                      class="{!'pc-layout' + (v.cleanSearch ? ' pc-layout_clean' : '')}"
+    >
+        <lightning:layoutItem size="12" class="slds-m-bottom_small" aura:id="top">
+            <!--
+                        <c:ProductCatalogFilter />
+                        <c:ProductCatalogResults />
+            -->
+                {!v.top}
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" class="pc-layout__recently-published">
+            <div>
+                <c:ProductCatalogDisplayList title="Recently Published"/>
+            </div>
+            <div class="pc-layout__recently-published-favorites">
+                <c:ProductCatalogDisplayList title="Favorites"/>
+            </div>
+        </lightning:layoutItem>
+
+
+        <lightning:layoutItem size="8" flexibility="grow" aura:id="left">
+            <!--
+                        <c:ProductCatalogList />
+            -->
+                {!v.left}
+        </lightning:layoutItem>
+        <lightning:layoutItem size="4" flexibility="auto" class="slds-p-left_small" aura:id="right">
+            <!--
+                        <c:ProductCatalogSummary />
+                        <c:ProductCatalogAvailability />
+            -->
+                {!v.right}
+        </lightning:layoutItem>
+
+        <!--<lightning:layoutItem size="12" class="pc-layout__placeholder">
+            <div class="pc-layout__placeholder-header">Welcome to LV catalogue</div>
+            <div class="pc-layout__placeholder-text">Start typing your request</div>
+            <div class="pc-layout__placeholder-text">Search by SKU, Name or any product information in the search bar
+            </div>
+        </lightning:layoutItem>-->
+    </lightning:layout>
+</aura:component>

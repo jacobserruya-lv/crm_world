@@ -1,0 +1,89 @@
+<aura:component implements="force:hasRecordId,flexipage:availableForAllPageTypes,force:hasSObjectName,force:appHostable" access="global"
+                controller="SO_ProductController">
+    <!-- controller used as force:recordPreview is not available -->
+    
+    <!--aura:attribute name="recordId" type="Id" description="product or opp Id. Can be removed by force.hasRecordId but it is used on 'Product Explorer' App" /-->
+	<aura:attribute name="product" type="ProductReferential__c" /> 
+	<aura:attribute name="showPicture" type="Boolean" default="true" /> 
+	<aura:attribute name="productSettings" type="ProductSettings__c" /> 
+
+    <!-- gallery pictures -->
+	<aura:attribute name="showGallery" type="Boolean" default="false" /> 
+	<aura:attribute name="fullScreen" type="Boolean" default="false" /> 
+    <aura:attribute name="slides" type="Object[]" default="[]"/>
+    
+    <!-- attributes from Opportunity Page Layout-->
+    <!--aura:attribute name="oppId" type="Id" description="opportunity Id from Opportunity page layout" /--> 
+	<!-- <aura:attribute name="sObjectName" type="String" /> -->
+
+    <!-- force:recordPreview not available in Spring '17 in Sandbox or Production environment -->
+	<!--force:recordData aura:id="service" 
+                         recordId="{!v.recordId}"
+                         targetFields="{!v.product}" 
+                         fields="['Id', 'Name', 'SKUCode__c', 'Length__c', 'Witdth__c', 'Height__c', 'ProductCategory__c, SPO_ImageLink1FrontView__c']" /-->
+
+    <aura:handler event="ltng:selectSObject" action="{!c.recordChangeHandler}"/>
+
+    <!-- handlers used from Opportunity Page Layout-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="force:refreshView" action="{!c.doInit}" /> <!-- refresh component when a product is selected in the Opportunity Page Layout -->
+
+    <aura:if isTrue="{! v.product != undefined }"> <!-- waiting Lightning release to display the components by App Builder / component hidden for Perso orders in order page -->
+        <lightning:card >
+            
+            <aura:set attribute="title">
+                <lightning:icon iconName="standard:household"/>
+                <span class="title">{!$Label.c.LV_SO_ProductSummaryTitle}</span>
+            </aura:set>
+            
+            <aura:set attribute="actions">
+                <!--lightning:buttonIcon iconName="utility:down" variant="border-filled" alternativeText="Show More"/-->
+            	<aura:if isTrue="{!v.showGallery}">
+                    <lightning:buttonIcon onclick="{!c.fullScreen}" size="large" iconName="utility:expand" alternativeText="Full screen"/>
+                </aura:if>
+            </aura:set>
+            
+            <!--aura:if isTrue="{!and(v.recordId==undefined, v.oppId==undefined)}"-->
+            <aura:if isTrue="{!v.product==undefined}">
+                <div aura:id="selectSection" class="select">
+                   {!$Label.c.LV_SO_LabelSelectProduct}
+                </div>
+            </aura:if>
+            
+            <!--aura:if isTrue="{!or(v.recordId!=undefined,v.product!=undefined)}"-->
+            <aura:if isTrue="{!v.product!=undefined}">
+                <aura:if isTrue="{!v.showPicture}"> <!-- v.product.SPO_ImageLink1FrontView__c-->
+                    <!-- BccExtraSmallPictureUrl__c problem for example with M99999 SKU where the link is broken --> 
+                    <img src="{!v.productSettings.BccSmallPictureUrl__c + v.product.ImageLink1__c}" onclick="{!c.fullScreen}"/>
+                </aura:if>
+                <div class="summary">
+                    <h3>{!v.product.Name}</h3>
+                    <p>{!v.product.SKUCode__c} - {!v.product.ProductCategory__c}</p>
+                    <!--hide if we are not on new brief-->
+                    <aura:if isTrue="{!empty(v.sObjectName)}"> 
+                        <p><!-- Dimensions (cm): -->{!v.product.Length__c}<aura:if isTrue="{!not(empty(v.product.Witdth__c))}"> x {!v.product.Witdth__c}</aura:if> x {!v.product.Height__c}&nbsp;{!$Label.c.LV_SO_cm}</p>
+                    </aura:if>
+                    <p>{!v.product.MacroColor__c} / {!v.product.AestheticLine__c} / {!v.product.Departement__c}</p>
+                    <ui:outputCurrency aura:id="curr" value="{!v.product.Product_Store_Availabilities__r[0].Price__c}"/>
+                    <!--h3><lightning:formattedNumber value="{!v.product.Price__c}" style="currency" maximumFractionDigits="0" currencyCode="USD"/></h3-->
+                </div>
+            </aura:if>
+            
+            <!-- Gallery picture - full screen mode -->
+            <aura:if isTrue="{!and (v.showGallery, v.fullScreen==true)}">
+                <div role="dialog" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <c:SO_PictureCarousel slides="{!v.slides}"/>
+                    </div>
+                    
+                    <div class="btn slds-modal__close close x-large">
+                        <lightning:buttonIcon variant="border-filled" onclick="{!c.closeDialog}" size="large" iconName="utility:close" alternativeText="Close"/>
+                    </div>
+                    
+                </div>
+                <div class="slds-backdrop slds-backdrop--open"></div>
+            </aura:if>
+        </lightning:card>
+    </aura:if>
+    
+</aura:component>

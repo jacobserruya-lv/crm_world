@@ -1,0 +1,40 @@
+<aura:component extends="c:MIY_FancyPrompt" controller="MIY_OrderPageController">
+    <aura:attribute name="record" type="Opportunity" />
+    <aura:attribute name="workshopName" type="String" />
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:registerEvent name="updateOrderEvent" type="c:MIY_FirmOrderUpdate"/>
+
+    <lightning:overlayLibrary aura:id="modalOverlayLib"/>
+
+    <aura:attribute name="headerIconSrc"
+                    type="String"
+                    default="{!'/resource/1602685985000/MakeItYours_Assets/images/stage-icon-mailbox.svg#mailbox'}"
+    />
+    <aura:attribute name="headerText"
+                    type="String"
+                    default="{!format($Label.c.MIY_SPO_OrderPage_Quote_Sent_Prompt_Header, v.workshopName)}"
+    />
+    <aura:attribute name="subHeader" type="Aura.Component[]">
+            {!format($Label.c.MIY_SPO_OrderPage_Quote_Sent_Prompt_Subheader, v.workshopName)}
+    </aura:attribute>
+
+    <div class="spo-quote-sent-prompt__content">
+        <lightning:icon iconName="utility:info_alt" size="small"/>
+        <div>
+            <p>{!$Label.c.MIY_SPO_OrderPage_Quote_Sent_Prompt_Info_Line_1}</p>
+            <strong>{!$Label.c.MIY_SPO_OrderPage_Quote_Sent_Prompt_Info_Strong}</strong>
+        </div>
+    </div>
+
+    <aura:attribute name="footer" type="Aura.Component[]">
+        <c:LaddaLightningButton label="{!$Label.c.MIY_OrderPage_Continue}"
+                                variant="brand"
+                                onclick="{!c.handleContinueClick}"
+                                isLoading="{!v.isLoading}"
+        />
+    </aura:attribute>
+
+</aura:component>

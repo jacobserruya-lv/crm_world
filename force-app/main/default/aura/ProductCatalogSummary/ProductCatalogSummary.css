@@ -1,0 +1,143 @@
+@import url("/resource/LVFont/font-faces.css");
+/** LEGACY **/
+/*
+.THIS .slds-card__body {
+    padding: 0 16px 0px 12px;
+    display: flex;
+    flex-direction: column;
+    background-color:white;
+}
+.THIS .slds-card__body > div {
+ 	flex: 1;
+    padding: 8px 16px 0 16px;
+}
+*/
+.THIS .slds-card__body .summary {
+  text-align: left;
+}
+/*.THIS img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: none;
+}*/
+.THIS .slds-icon-standard-household {
+  background-color: transparent;
+}
+.THIS .slds-icon-standard-household svg {
+  fill: #54698D;
+}
+.THIS h3 {
+  font-size: 13px;
+  color: #0070D2;
+  font-weight: 300;
+}
+/*
+.THIS .select {
+    color: #BBBAB9;
+    margin-top: 20px;
+    text-align: center;
+    position: absolute;
+    width: 89%;
+}*/
+.THIS .slds-card {
+  min-height: 134px;
+  /*padding: 0px 15px;*/
+}
+.THIS .spinner-section {
+  position: relative;
+  width: 100%;
+  min-height: 74px;
+}
+.THIS svg {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+.THIS .productVariant {
+  display: flex;
+  flex-direction: row;
+}
+/*
+.THIS .productVariant > div {
+    padding:5px;
+}
+*/
+/** Redesign March 2018 **/
+.THIS {
+  font-family: 'Louis Vuitton', Futura, sans-serif;
+}
+.THIS .slds-card__body {
+  padding: 0 1rem;
+}
+.THIS.pc-summary {
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #f8f8f8;
+}
+.THIS .pc-summary__header {
+  color: #5e4f47;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+.THIS .pc-summary__header::before {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+  margin-left: 0.1875rem;
+  border-radius: 50%;
+  background: rgba(109, 75, 58, 0.57) url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 26 26"%3E%3Cpath fill="%23fff" d="M12.998,3.499 C7.750,3.499 3.497,7.753 3.497,12.999 C3.497,18.245 7.750,22.499 12.998,22.499 C18.243,22.499 22.497,18.245 22.497,12.999 C22.497,7.753 18.243,3.499 12.998,3.499 ZM9.217,16.449 C8.854,16.449 8.560,16.155 8.560,15.792 C8.560,15.430 8.854,15.136 9.217,15.136 C9.580,15.136 9.873,15.430 9.873,15.792 C9.873,16.155 9.580,16.449 9.217,16.449 ZM9.217,13.655 C8.854,13.655 8.560,13.362 8.560,12.999 C8.560,12.636 8.854,12.342 9.217,12.342 C9.580,12.342 9.873,12.636 9.873,12.999 C9.873,13.362 9.580,13.655 9.217,13.655 ZM9.217,10.862 C8.854,10.862 8.560,10.569 8.560,10.206 C8.560,9.843 8.854,9.550 9.217,9.550 C9.580,9.550 9.873,9.843 9.873,10.206 C9.873,10.569 9.580,10.862 9.217,10.862 ZM17.432,16.407 L11.281,16.407 C10.918,16.407 10.624,16.113 10.624,15.750 C10.624,15.388 10.918,15.093 11.281,15.093 L17.432,15.093 C17.796,15.093 18.090,15.388 18.090,15.750 C18.090,16.113 17.796,16.407 17.432,16.407 ZM17.432,13.635 L11.281,13.635 C10.918,13.635 10.624,13.341 10.624,12.979 C10.624,12.616 10.918,12.321 11.281,12.321 L17.432,12.321 C17.796,12.321 18.090,12.616 18.090,12.979 C18.090,13.341 17.796,13.635 17.432,13.635 ZM17.432,10.864 L11.281,10.864 C10.918,10.864 10.624,10.569 10.624,10.207 C10.624,9.843 10.918,9.549 11.281,9.549 L17.432,9.549 C17.796,9.549 18.090,9.843 18.090,10.207 C18.090,10.569 17.796,10.864 17.432,10.864 Z"/%3E%3C/svg%3E') center/26px no-repeat;
+  content: '';
+  vertical-align: text-bottom;
+}
+.THIS .pc-summary__section {
+  padding: 0.5rem 0;
+  color: #5e4f47;
+}
+.THIS .pc-summary__section + .pc-summary__section {
+  border-top: solid 2px #f8f8f8;
+}
+.THIS .pc-summary__section-header {
+  font-size: 0.825rem;
+  text-transform: uppercase;
+}
+.THIS .pc-summary__placeholder {
+  position: relative;
+  width: 100%;
+  min-height: 4.625rem;
+  padding: 1.75rem;
+  color: #bbbabe;
+  font-size: 1rem;
+  font-style: oblique;
+  font-weight: 300;
+  line-height: 1.15;
+  text-align: center;
+}
+.THIS .pc-summary__product-name {
+  color: #bbbabe;
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+.THIS .pc-summary__sku {
+  color: #8a8a8a;
+  font-size: 0.825rem;
+  line-height: 1;
+}
+.THIS .pc-summary__stock-req-btn {
+  margin: 0.5rem 0;
+}
+.THIS .pc-summary__stock-req-btn.slds-button_brand[disabled] {
+  border-color: #f3efed;
+  background-color: transparent;
+}
+.THIS .pc-summary__stock-req-btn::before {
+  display: inline-block;
+  width: 28px;
+  height: 30px;
+  margin: 0 4px 2px -6px;
+  background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 27 24"%3E%3Cpath stroke-width="1" stroke="%23eee7e4" fill="transparent" d="M19.633,8.251 L19.633,6.057 C19.633,4.646 18.483,3.497 17.041,3.497 L9.976,3.497 C8.535,3.497 7.361,4.646 7.361,6.057 L7.361,8.251 L4.631,8.251 C4.002,8.251 3.493,8.749 3.493,9.364 L3.493,11.786 C3.493,12.401 4.002,12.900 4.631,12.900 L4.970,12.900 L6.213,19.587 C6.311,20.116 6.783,20.501 7.333,20.501 L19.685,20.501 C20.234,20.501 20.705,20.116 20.804,19.586 L22.046,12.900 L22.363,12.900 C22.991,12.900 23.501,12.401 23.501,11.786 L23.501,9.364 C23.501,8.749 22.991,8.251 22.363,8.251 L19.633,8.251 L19.633,8.251 Z M9.469,6.057 C9.469,5.788 9.702,5.561 9.976,5.561 L17.042,5.561 C17.316,5.561 17.526,5.788 17.526,6.057 L17.526,8.251 L9.469,8.251 L9.469,6.057 Z%0A" /%3E%3Cpath fill="%23eee7e4" d="%0AM11.043,16.520 C11.043,16.948 10.692,17.295 10.255,17.295 C9.819,17.295 9.469,16.948 9.469,16.520 L9.469,12.265 C9.469,11.837 9.819,11.490 10.255,11.490 C10.693,11.490 11.043,11.837 11.043,12.265 L11.043,16.520 Z%0AM14.297,16.520 C14.297,16.948 13.947,17.295 13.510,17.295 C13.073,17.295 12.723,16.948 12.723,16.520 L12.723,12.265 C12.723,11.837 13.073,11.490 13.510,11.490 C13.948,11.490 14.297,11.837 14.297,12.265 L14.297,16.520 Z%0AM17.552,16.520 C17.552,16.948 17.202,17.295 16.765,17.295 C16.327,17.295 15.978,16.948 15.978,16.520 L15.978,12.265 C15.978,11.837 16.328,11.490 16.765,11.490 C17.202,11.490 17.552,11.837 17.552,12.265 L17.552,16.520 Z%0A" /%3E%3C/svg%3E') center no-repeat;
+  content: '';
+  vertical-align: top;
+}

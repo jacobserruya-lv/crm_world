@@ -1,0 +1,9 @@
+<design:component>
+    <design:attribute name="messageSize" description="Title in xxx-small/xx-small/x-small/small/medium/large/x-large/xx-large/xxx-large"/>
+    <design:attribute name="message" description="DEPRECATED: Script message" />
+    <design:attribute name="label" description="Custom Label API name" />
+    <design:attribute name="language" description="ISO2 language code"/>
+    <design:attribute name="languageDisplay" description="Display language field?"/>
+    <design:attribute name="copyDisplay" description="Display copy button?"/>
+    <design:attribute name="type" description="Script / Header"/>
+</design:component>

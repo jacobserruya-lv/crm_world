@@ -1,0 +1,101 @@
+.THIS .icon {
+    margin-left: .25rem;
+    /*margin-left: .5rem;
+    margin-right: .5rem;*/
+}
+
+.THIS .mediaImageSmall {
+    left: -0.25rem;
+    position: relative;
+    margin-top:0rem !important;
+    margin-right: 0rem !important;
+}
+
+.THIS .merchandise {
+    /*height: auto;
+    width: 50px;*/
+    height: auto;
+    min-height: 60px;
+    width: 60px;
+    height: auto;
+    min-height: 60px;
+    width: 60px;
+}
+
+.THIS .img100 {
+    height: auto;
+    min-height: 100px;
+    width: 100px;
+    height: auto;
+    min-height: 100px;
+    width: 100px;
+}
+
+.THIS .showCloseButton {
+    position: relative;
+    /*top: -1.25rem;*/
+    left: 9.75rem;
+}
+
+.THIS .pillCustom {
+    padding: .125rem;
+    border: 1px solid rgb(221, 219, 218);
+    border-radius: .25rem;
+    background-color: rgb(255, 255, 255);
+}
+
+.THIS .pillRead {
+    padding: 0rem;
+}
+
+.THIS .lookupImg {
+    position: relative;
+    width: 50px;
+    height: 50px; /*100%;*/
+    background-position-x: -8px;
+    background-position-y: -12px;
+    background-size: auto;
+    background-repeat-x: no-repeat;
+}
+
+.THIS a {
+	color: inherit;
+}
+
+.THIS:active {
+    cursor: -webkit-grabbing;
+}
+
+.THIS img {
+    max-width: initial;
+    border-radius: 0.25rem;
+}
+
+.THIS .title {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: .5rem;
+}
+
+.THIS .checkboxAlignment .slds-form-element__control {
+    padding-left: 1rem;
+}
+/*
+.THIS .slds-form_horizontal .slds-form-element__control {
+  padding-left: 8rem;
+  padding-right: 2rem;
+}*/
+
+.THIS .slds-form_horizontal .slds-form-element {
+    margin-bottom: .25rem;
+}
+
+/* hide label */
+.THIS .labelHide .slds-form-element__label {
+    display: none;
+}
+
+/* align Price components */
+.THIS .p-left_none .slds-form-element__control {
+    padding-left: 0 !important;
+}

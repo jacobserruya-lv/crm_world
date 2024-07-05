@@ -1,0 +1,41 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="MIY_Files">
+	 <!--ATTRIBUTES-->
+    <aura:attribute name="filesData" type="Object" />
+	<aura:attribute name="maxRows" type="Integer" default="5" />
+
+    <!--HANDLER-->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    <aura:handler event="c:MIY_FileUpload" action="{!c.onInit}" />
+
+    <!--BODY-->
+    <lightning:card iconName="standard:file">
+    	<aura:set attribute="title">
+			<lightning:layout verticalAlign="center">
+                <lightning:layoutItem flexibility="grow" padding="horizontal-medium">
+                    {!$Label.c.MIY_OrderPage_Files_Title}
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="no-shrink">
+                    <lightning:fileUpload class="upload"
+                                          label="{!$Label.c.MIY_OrderPage_Files_Upload}"
+                                          multiple="true"
+                                          recordId="{!v.recordId}"
+                                          onuploadfinished="{!c.onInit}"
+                                         
+                    />
+                </lightning:layoutItem>
+			</lightning:layout>
+        </aura:set>
+        <lightning:layout >
+            <lightning:layoutItem padding="horizontal-large" size="12">
+                <p>{!$Label.c.MIY_OrderPage_Documents_Related_To_The_Brief}</p>
+                <aura:if isTrue="{!not(empty(v.filesData.rows))}">
+
+                    <c:MIY_DataTable tableData="{!v.filesData}" nbRowsToShow="{!v.maxRows}"/>
+                    <aura:set attribute="else">
+                        <p>{!$Label.c.MIY_OrderPage_Files_No_Files_notes}</p>
+                    </aura:set>
+                </aura:if>
+            </lightning:layoutItem>
+        </lightning:layout>
+	</lightning:card>
+</aura:component>

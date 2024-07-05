@@ -1,0 +1,6 @@
+<design:component >
+    <design:attribute name="templateFolder" label="Template Folder Developer Name" description="Template Developer Name for folder" default="ICONiCS_Templates" />
+    <design:attribute name="recordId" label="Record Id"/>
+    <design:attribute name="accountId" description="Selected Account Id to update Hightlight Panel " />
+    <design:attribute name="isFlow" label="Is in a Flow?" description="Component is in the Flow? If so, hide the buttons as the buttons are in the ICX_Flow_Footer"/>
+</design:component>

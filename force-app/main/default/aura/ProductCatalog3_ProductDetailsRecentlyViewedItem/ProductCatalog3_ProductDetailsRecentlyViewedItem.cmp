@@ -1,0 +1,8 @@
+<aura:component>
+    <aura:attribute name="product" type="Object" />
+
+    <aura:registerEvent name="openProductDetailsEvent" type="c:ProductCatalog3_productClickEvent"/>
+
+    <img src="{!v.product.image1Url}" class="pc3-recently-viewed__tile" onclick="{!c.openRecentlyViewed}"/>
+
+</aura:component>

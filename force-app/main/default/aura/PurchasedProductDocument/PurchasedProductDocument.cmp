@@ -1,0 +1,43 @@
+<aura:component controller="PurchasedProduct_DocumentController" implements="flexipage:availableForAllPageTypes,lightning:isUrlAddressable" access="global"> <!-- force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction, -->
+
+    <aura:attribute name="transactionListFlow" type="String" description="Input: Transaction id list (used by flow) / JSON String to be parsed"/>
+    <aura:attribute name="isflow" type="String" default="false" description="Input: is Flow (used by flow) / Save doc in the record"/>
+
+    <aura:attribute name="transactionId" type="String" description="Input: Transaction id from the Purchased Product record or Transaction History Webservice"/>
+    <aura:attribute name="documentList" type="List" description="Output: PDF list" />
+    <aura:attribute name="docBase64List" type="List" description="PDF list" default="[]"/>
+    <aura:attribute name="recordId" type="Id" description="Record Id" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <lightning:navigation aura:id="navigationService"/>
+    <lightning:workspaceAPI aura:id="workspace" />
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    <aura:attribute name="purchasedProduct" type="Object"/>
+    <aura:attribute name="simplePurchasedProduct" type="Object"/>
+    <aura:attribute name="purchasedProductError" type="String"/>
+    <force:recordData aura:id="recordDataPurchasedProduct"
+                      recordId="{!v.recordId}"
+                      fields="Origin__c,TransactionRMSId__c,TransactionStHFlag__c"
+                      targetRecord="{!v.purchasedProduct}"
+                      targetFields="{!v.simplePurchasedProduct}"
+                      targetError="{!v.purchasedProductError}"
+                      recordUpdated="{!c.handleRecordUpdated}"
+                      />
+    <!-- Host Salesforce -->
+    <!--aura:attribute name="vfHost" type="String" default="louisvuitton- -iconics- -c.cs70.visual.force.com" /-->
+    <!-- Call iframe PDF_LightningPDFGeneratorDemo VF : to be recalled PDF_GeneratorView -->
+    <!--iframe class="slds-hide" aura:id="vfFrame" src="{!'https://' + v.vfHost + '/apex/analyticsservice?appId=' + v.applicationId}" onload="{!c.initIframe}"/-->
+    <!--iframe class="" width="100%" heigth="100%" aura:id="vfFrame" src="{!'https://' + v.vfHost + '/apex/PDF_LightningPDFGeneratorDemo'}" onload="{!c.doInit}"/-->
+
+    <aura:if isTrue="{!not(empty(v.docBase64List))}">
+        <lightning:tabset>
+            <aura:iteration items="{!v.docBase64List}" var="doc" indexVar="index">
+                <lightning:tab label="{!'Document ' + add(index,1)}">
+                    <c:PurchasedProductDocumentItem base64="{!doc}" fileName="{! v.transactionId + '-' + add(index,1)}"/>
+                    <!--iframe height="100%" width="100%" src="{!'data:application/pdf;base64,' + doc}"></iframe-->
+                </lightning:tab>
+            </aura:iteration>
+        </lightning:tabset>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,92 @@
+.THIS {
+    padding: 1.5rem 2.25rem 1.5rem 3.875rem;
+    background: t(lvdsWestarGrey30);
+}
+
+.THIS .pc3-product-variations__title {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.THIS .pc3-product-variations__title-count {
+    font-weight: 300;
+}
+
+.THIS .pc3-product-variations__variation {
+    color: t(lvdsEternity);
+    border-color: t(lvdsWestarGrey);
+    border-radius: 0;
+    background: white;
+    font: t(lvdsListItemMReg);
+    position: relative;
+}
+.THIS .pc3-product-variations__variation + .pc3-product-variations__variation {
+    margin-left: unset;
+}
+
+.THIS .pc3-product-variations__variation_selected {
+    border-color: t(pc3_accentColor);
+    outline: 1px solid t(pc3_accentColor);
+    outline-offset: -2px;
+    box-shadow: 0 2px 10px 0 rgba(121, 180, 189, 0.26);
+}
+
+.THIS .pc3-product-variations__variation:disabled {
+    background: t(lvdsWestarGrey50);
+    opacity: 0.4;
+}
+.THIS .pc3-product-variations__variation:disabled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right top,
+            transparent 0,
+            transparent calc(50% - 0.5px),
+            var(--c-lvdsEternity, #19110b) calc(50% - 0.5px),
+            var(--c-lvdsEternity, #19110b) calc(50% + 0.5px),
+            transparent calc(50% + 0.5px));
+    z-index: 1;
+}
+
+.THIS .pc3-product-variations__colors {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.THIS .pc3-product-variations__color-img {
+    height: 5.25rem;
+    width: 5.25rem;
+    margin: 0.3125rem 0.625rem 0.3125rem 0;
+}
+
+.THIS .pc3-product-variations__color-img:disabled {
+    opacity: 0.25;
+}
+.THIS .pc3-product-variations__show-filter-btn {
+    font: t(lvdsBodyM);
+    color: t(lvdsEternity);
+}
+.THIS .pc3-product-variations__filters {
+    display: none;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.THIS .pc3-product-variations__filters_visible {
+    display: block;
+}
+.THIS .pc3-product-variations__reset-filters-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font: t(lvdsBodyM);
+    color: t(lvdsEternity);
+    border-width: 0 1px;
+}
+.THIS .pc3-product-sizes {
+    margin-bottom: 2rem;
+}

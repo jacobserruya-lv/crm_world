@@ -1,0 +1,139 @@
+.THIS .slds-modal__close {
+  display: inline-block;
+  top: 0.125rem;
+  right: 0.66rem;
+  color: rgba(51, 50, 56, 0.53);
+}
+.THIS .slds-modal__close .slds-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.THIS .slds-modal__content {
+  border-radius: 0;
+}
+.THIS .spo-product-details__product-image {
+  display: block;
+  max-width: 400px;
+  margin: 2.5rem auto;
+}
+@media only screen and (max-width: 47.9375em) {
+  .THIS .spo-product-details__product-image {
+    max-width: 12rem;
+    margin: 1rem auto;
+  }
+}
+.THIS .spo-product-details__summary {
+  margin: 2.25rem;
+  padding: 1.125rem 1.5rem;
+  border: solid 1px lightgray;
+  color: #979ba0;
+  font-size: 1rem;
+  line-height: 1.63;
+}
+.THIS .spo-product-details__summary .slds-text-heading_medium {
+  margin-bottom: 0.75rem;
+  color: #616161;
+  font-weight: 600;
+}
+@media only screen and (max-width: 47.9375em) {
+  .THIS .spo-product-details__summary {
+    margin: 1rem;
+    font-size: .75rem;
+  }
+  .THIS .spo-product-details__summary .slds-text-heading_medium {
+    font-size: 1.25rem;
+  }
+}
+.THIS .spo-product-details__fieldset + .spo-product-details-modal__fieldset {
+  margin-top: 1rem;
+}
+@media only screen and (max-width: 47.9375em) {
+  .THIS .spo-product-details__fieldset {
+    margin-top: 1rem;
+  }
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-card__header {
+  display: none;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-card__body {
+  margin-bottom: 0;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-card__body > .slds-wrap {
+  align-items: stretch;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-small-size_4-of-12 {
+  width: 50%;
+  margin-bottom: .25rem;
+  border-bottom: 1px solid #dddbda;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-small-size_4-of-12 + .slds-small-size_4-of-12 {
+  width: calc(50% - .5rem);
+  margin-left: .5rem;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-small-size_4-of-12 + .slds-small-size_4-of-12.slds-m-horizontal_none {
+  margin-left: .5rem !important;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-small-size_4-of-12.slds-p-right--xxx-small {
+  padding: 0;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .slds-select {
+  padding: 0;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .fieldsetRead {
+  border-bottom: 1px solid #dddbda;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .fieldsetRead + .fieldsetRead {
+  width: calc(50% - .5rem);
+  margin-left: .5rem;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .fieldsetRead legend.slds-text-title--caps {
+  margin-right: .5rem;
+  margin-bottom: .125rem;
+  padding-top: .25rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.THIS .spo-product-details .cSO_OpportunityColorRead .fieldsetRead .cSO_ColorPickerTile > div {
+  margin-left: 0;
+}
+.THIS .spo-product-details .cSO_OpportunityColorEdit .slds-card__header {
+  display: none;
+}
+.THIS.spo-product-details_size_SMALL .spo-product-details__high-lvl {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.THIS.spo-product-details_size_SMALL .spo-product-details__product-image {
+  max-width: 25%;
+  margin: 1rem auto;
+}
+.THIS.spo-product-details_size_SMALL .spo-product-details__summary {
+  margin: 1rem;
+  font-size: .75rem;
+}
+.THIS.spo-product-details_size_SMALL .spo-product-details__summary .slds-text-heading_medium {
+  font-size: 1.25rem;
+}
+.THIS.spo-product-details_size_SMALL .spo-product-details__details {
+  width: 100%;
+}
+.THIS.spo-product-details .slds-form-element__legend {
+  float: none;
+  color: #616161;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.THIS.spo-product-details .slds-form-element__row {
+  align-items: flex-start;
+}
+.THIS.spo-product-details .slds-form-element__row > .slds-form-element + .slds-form-element {
+  margin-left: .5rem;
+  padding-left: 0;
+}
+.THIS.spo-product-details .slds-form-element__row > .slds-form-element + .slds-form-element.slds-size_1-of-2 {
+  width: calc(50% - .5rem);
+}
+.THIS.spo-product-details .slds-form-element__row > .slds-form-element + .slds-form-element.slds-size_1-of-4 {
+  width: calc(25% - .5rem);
+}

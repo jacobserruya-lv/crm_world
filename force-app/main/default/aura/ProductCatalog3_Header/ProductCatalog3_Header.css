@@ -1,0 +1,170 @@
+.THIS.pc3-header {
+  position: relative;
+  z-index: 2;
+}
+
+.THIS .pc3-header__main {
+  display: flex;
+  align-items: center;
+  background-color: t(lvdsEternity);
+  background-image: linear-gradient(107deg, #86bfc8 0, #86bfc8 27px, transparent 27px);
+  height: 4rem;
+  padding: 0 t(pc3_mainPadding);
+  color: white;
+  flex-grow: 1;
+}
+
+.THIS .pc3-header__title {
+  font: t(lvdsHeading3);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.THIS .pc3-header__store-heirarchy-btn {
+  background-color: transparent;
+  border-radius: 1.25rem;
+  padding: 0 1.5rem 0 1.75rem;
+  margin: 0 1.375rem;
+  color: white;
+  font-weight: 500;
+  border: solid 1px #9b9793;
+  line-height: 2.125;
+}
+
+.THIS .pc3-header__container {
+  flex: 1;
+  height: 4.3em;
+  max-width: 1000px;
+  margin-left: 10px;
+}
+
+.THIS .pc3-header__container--open {
+  height: 1000px;
+  flex: 1;
+  max-width: 1000px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.THIS .pc3-header__search {
+  margin-inline-end: 1.375rem;
+  padding: 0 1.5rem 0 1.75rem;
+}
+
+.THIS .pc3-header__search .slds-input {
+  border-radius: 1.25rem;
+  background-color: rgba(201, 197, 197, 0.12);
+  border: none;
+  height: 2.125rem;
+  padding-left: 2.75rem;
+}
+
+.THIS .pc3-header__search .slds-input__icon {
+  fill: white;
+}
+
+.THIS .pc3-header__search .slds-button__icon {
+  vertical-align: baseline;
+}
+
+.THIS .pc3-header__fav-store-toggle+span>strong {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]+.slds-checkbox_faux_container {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 1rem;
+  margin-inline-end: 0.5rem;
+}
+
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)+.slds-checkbox_faux_container .slds-checkbox_faux {
+  background-color: rgba(201, 197, 197, 0.12);
+  border-color: #9b9793;
+}
+
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)+.slds-checkbox_faux_container .slds-checkbox_faux:hover {
+  background-color: transparent;
+}
+
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked+.slds-checkbox_faux_container .slds-checkbox_faux {
+  background-color: t(pc3_accentColor);
+  border-color: t(pc3_accentColor);
+}
+
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked+.slds-checkbox_faux_container .slds-checkbox_faux:hover {
+  background-color: hsl(188, 37%, 55%);
+}
+
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)+.slds-checkbox_faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)+.slds-checkbox--faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)~.slds-checkbox_faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)~.slds-checkbox--faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)+.slds-checkbox_faux_container .slds-checkbox_faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:not(:checked)+.slds-checkbox--faux_container .slds-checkbox--faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:not(:checked)+.slds-checkbox_faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:not(:checked)+.slds-checkbox--faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:not(:checked)~.slds-checkbox_faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:not(:checked)~.slds-checkbox--faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:not(:checked)+.slds-checkbox_faux_container .slds-checkbox_faux::before,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:not(:checked)+.slds-checkbox--faux_container .slds-checkbox--faux::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0.6rem;
+}
+
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked+.slds-checkbox_faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked+.slds-checkbox--faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked~.slds-checkbox_faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked~.slds-checkbox--faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked+.slds-checkbox_faux_container .slds-checkbox_faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox_toggle [type="checkbox"]:checked+.slds-checkbox--faux_container .slds-checkbox--faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:checked+.slds-checkbox_faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:checked+.slds-checkbox--faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:checked~.slds-checkbox_faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:checked~.slds-checkbox--faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:checked+.slds-checkbox_faux_container .slds-checkbox_faux:after,
+.THIS .pc3-header__fav-store-toggle .slds-checkbox--toggle [type="checkbox"]:checked+.slds-checkbox--faux_container .slds-checkbox--faux:after {
+  transform: none;
+  border: none;
+  top: 0;
+}
+
+.THIS .pc3-header__main .slds-button+.slds-button {
+  margin-inline-start: 1.25rem;
+}
+
+.THIS .pc3-header__icon-btn {
+  position: relative;
+  padding: 0.75rem;
+  color: white;
+}
+
+.THIS .pc3-header__icon-btn[value]:not([value=""]):not([value="0"])::after {
+  content: attr(value);
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  background: t(pc3_accentColor);
+  color: white;
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid t(pc3_accentColor);
+  border-radius: 50%;
+  font-size: 0.625rem;
+  font-weight: 600;
+  display: inline-flex;
+  letter-spacing: -0.59px;
+  line-height: 0.7;
+  align-items: center;
+  justify-content: center;
+}
+
+.THIS .pc3-header__main__product-library-img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}

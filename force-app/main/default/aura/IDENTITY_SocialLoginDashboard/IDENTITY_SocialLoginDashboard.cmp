@@ -1,0 +1,15 @@
+<aura:component controller="IDENTITY_Social_Login_Dashboard_CTRL" implements="flexipage:availableForAllPageTypes" access="global" >
+
+    <ltng:require styles="/resource/Identity_ChartJS_css" scripts='/resource/Identity_ChartJS_js' afterScriptsLoaded="{!c.ctr}" />
+    
+    <div style="width: 800px; height: 500px; display:inline-block">
+		<div class="slds-text-heading--medium">Social Login History (last 6 months)</div>
+	    <canvas aura:id="SocialLoginHistory" id="SocialLoginHistory"></canvas>
+    </div>
+
+    <div style="width: 400px; height: 500px; display: inline-block">
+		<div class="slds-text-heading--medium">Social Login History (current month)</div>
+	    <canvas aura:id="SocialLoginHistory2" id="SocialLoginHistory2"></canvas>
+    </div>
+
+</aura:component>

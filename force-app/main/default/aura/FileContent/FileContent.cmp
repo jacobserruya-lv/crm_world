@@ -1,0 +1,28 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global" controller="LTN_FileContent">
+   
+    <aura:attribute name="record" type="Object" description="The record object to be displayed"/>
+    <aura:attribute name="simpleRecord" type="Object" description="A simplified view record object to be displayed"/>
+    <aura:attribute name="recordError" type="String" description="An error message bound to force:recordData"/>
+    <aura:attribute name="fileContent" type="String" default="" />
+    
+    <aura:handler name="refreshChildComponent" event="c:RefreshChild" action="{!c.doInit}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <force:recordData aura:id="record"
+    layoutType="FULL"
+    recordId="{!v.recordId}"
+    targetError="{!v.recordError}"
+    targetRecord="{!v.record}"
+    targetFields ="{!v.simpleRecord}"
+    fields="Status__c"/>
+    
+    
+    <div class="slds-align_absolute-center">
+        <aura:if isTrue="{!(v.simpleRecord.Status__c != 'Approved')}">
+            <lightning:overlayLibrary aura:id="overlayLib"/>
+        	<lightning:button variant="neutral" label="Edit" title="Edit" onclick="{! c.openEditModal }"/>
+        </aura:if> 
+    </div>
+    
+    <lightning:textarea name="fileContent" readonly="true" value="{!v.fileContent}" />
+</aura:component>

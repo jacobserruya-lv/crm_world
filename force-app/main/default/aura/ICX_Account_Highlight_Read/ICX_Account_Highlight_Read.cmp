@@ -1,0 +1,595 @@
+<aura:component implements="force:hasRecordId,force:hasSObjectName"
+        access="global" controller="ICX_Account_Highlight">
+
+    <aura:attribute name="width" type="String"
+                    description=" width of parent region / useful to display this component in the middle or in the left column in a page layout"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+    <aura:attribute name="widthXSmall" type="Boolean" default="false"
+                    description="To differentiate SMALL from a 50/50 view (like in Case detail page) and SMALL from a 25/75 view"/>
+
+
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="sObjectName" type="String" description="Data sent from ICX_Account_Highlight LC as a workaround to get object name"/>
+    <aura:attribute name="excludedCountries" type="String" description="[RMS FLOW] Display button if countries is not excluded (part of HomeAddressCountryCode__pc)"/>
+
+
+    <aura:attribute name="currentUser" type="User" description="Current user"/>
+    <aura:attribute name="isCurrentUserIconics" type="Boolean" description="Current user is ICONICS profile?" default="false"/>
+    <aura:attribute name="isCurrentUserIcon" type="Boolean" description="Current user is ICON SA MANAGER OR CORP profile?" default="false"/>
+
+    
+    <aura:attribute name="account" type="Object"/>
+    <aura:attribute name="simpleAccount" type="Object"/>
+    <aura:attribute name="accountError" type="String"/>
+    <aura:attribute name="editModalOpened" type="boolean" default="false"/>
+    <aura:attribute name="displayAction" type="boolean" default="true"/>
+
+    <aura:attribute name="picklistOptions" type="Object" />
+    <aura:attribute name="salutationLabel" type="String"/>
+    <aura:attribute name="iconMyLvUrl" type="string"/>
+    <aura:attribute name="isUserIdentity" type="boolean" default="false"/>
+    <aura:attribute name="titleMyLv" type="string"/>
+    <aura:attribute name="relatedRecordId" type="Id" description="Get the id of the record of the current detail page. e.g. Task Id, Case Id, Account Id..." />
+
+   
+    <aura:attribute name="indicatorList" type="List" />
+    <aura:attribute name="showPopup" type="Boolean" default="false" />
+    <aura:attribute name="showPopupName" type="String" default="" />
+
+    
+    <aura:attribute name="showSpeaker" type="Boolean" default="false" />
+    <aura:attribute name="showBell" type="Boolean" default="false" />
+
+
+
+    
+    <c:ICX_CaseDataService aura:id="caseService"/>
+
+
+    <aura:attribute name="exclusiveSales" type="boolean"/>
+    <aura:attribute name="exculsiveSalesMessage" type="boolean" default="string"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.recordId}" action="{!c.onRecordChange}"/>
+    <!--aura:registerEvent name="cmpEvent" type="c:ICX_Account_Highlight_Event"/-->
+    
+    <aura:handler event="c:ICX_ExclusiveSaleInAccountPannel" action="{!c.handleApplicationEvent}"/>
+
+
+    <force:recordData aura:id="recordDataAccount"
+                      recordId="{!v.recordId}"
+                      fields="Salutation,Gender_IMG__pc,Name,FirstName,LastName,Firstname2__pc,Lastname2__pc, PersonBirthdate,Birthday_Cake_IMG__c,PersonMobilePhone,
+                              PrimaryAddressCompacted__pc,PersonEmail,LocalMobilePhone__pc,LocalHomePhone__pc,LocalWorkPhone__pc,HomeAddressCountryCode__pc,
+                              Can_Be_Contacted_By_Email__pc,Can_Be_Contacted_By_Mail__pc,Can_Be_Contacted_By_Phone__pc,Can_Be_Contacted_By_SMS__pc,
+                              PreferredLanguage__pc,Language_IMG__pc,Segmentation_To_Display__c,Ind_10K__c,indic10KImg__c,DREAMID__c,Age_Calculator__c,Segmentation__pc,
+                              Store__pc,Store__pr.Name,Store__pr.StoreType__c,OwnerId,Owner.Name,LastTrans__pc,LastContactDate__pc,Typology__pc,Id,
+                              Parallel_Market_IMG__c ,RMSId__pc,NationalityCountryCode__pc,AttachedStore__pc,Status_RMSID__c, Error_RMSID__c,Purchaser__pc ,TypologyCode__pc, 
+                              PrimaryCity__pc"
+                      targetRecord="{!v.account}"
+                      targetFields="{!v.simpleAccount}"
+                      targetError="{!v.accountError}"
+                      recordUpdated="{!c.handleRecordUpdated}"
+    />
+    <!--,indicatorList,showPopup,showPopupName,showSpeaker,showBell-->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!--lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Account"--><!--{!v.object}"-->
+        <ltng:require scripts="{!$Resource.iconics + '/js/clipboard.min.js'}" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+        <div class="slds-box slds-theme_default">
+            <lightning:layout horizontalAlign="spread" verticalAlign="stretch" multipleRows="true">
+                <lightning:layoutItem flexibility="grow"  class="highlight__main"><!--size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 10 : (v.widthXSmall == true ? 12 : 10))}"-->
+                    <lightning:tile >
+                        <aura:set attribute="media">
+                            <div class="{! empty(v.recordId) ? 'imgClass slds-hide' : 'imgClass'}">
+                                <div class="highlight__profile-pic">
+                                    <div class="highlight__profile-pic-badge"
+                                         title="{!v.simpleAccount.Segmentation_To_Display__c}">
+                                        <aura:unescapedHtml value="{!v.simpleAccount.indic10KImg__c}"/>
+                                    </div>
+                                    <aura:unescapedHtml value="{!v.simpleAccount.Gender_IMG__pc}"/>
+                                </div>
+                            </div>
+                        </aura:set>
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem flexibility="grow"  size="{! (v.width == 'SMALL' ? 11 : 7)}" class="slds-form_inline">
+                                                    <div class="slds-grid">
+                                   <div class="slds-col"> 
+                                     <a href="" onclick="{!c.goToAccount}" title="{!v.simpleAccount.Name}" class="highlight__title slds-form-element__control slds-truncate slds-col">
+                                        <lightning:formattedName class="slds-form-element__static" 
+                                                                 firstName="{!v.simpleAccount.FirstName}"
+                                                                 lastName="{!v.simpleAccount.LastName}"
+                                                                 salutation="{!v.salutationLabel}"
+                                                                 />
+                                        <!--span class="slds-m-right_xx-small">
+                                            <lightning:formattedText class="slds-form-element__static" value="{!v.salutationLabel}" />
+                                        </span>
+                                        <lightning:formattedText class="slds-form-element__static" value="{!v.simpleAccount.FirstName}" />
+    
+                                        <span class="highlight__last-name slds-m-left_xx-small">
+                                            <lightning:formattedText class="slds-form-element__static" value="{!v.simpleAccount.LastName}" />
+                                        </span-->
+                                        <span class="slds-m-left_xx-small">
+                                            <aura:if isTrue="{!or( not(empty(v.simpleAccount.Lastname2__pc)), not(empty(v.simpleAccount.Firstname2__pc)))}">
+                                                <lightning:formattedText value="(" class="slds-form-element__static" />
+                                                <lightning:formattedName class="slds-form-element__static" 
+                                                                         firstName="{!v.simpleAccount.Firstname2__pc}"
+                                                                         lastName="{!v.simpleAccount.Lastname2__pc}"
+                                                                         />
+                                                <lightning:formattedText value=")" class="slds-form-element__static" />
+                                            </aura:if>
+                                        </span>
+                                    </a>
+                                    </div>
+                                    <div class="ParallelMarket slds-col">
+                                         <aura:unescapedHtml value="{!v.simpleAccount.Parallel_Market_IMG__c}"></aura:unescapedHtml>
+                                    </div>
+                                  
+                                </div>
+                               
+                                <div class="highlight__subtitle">
+                                    <!--lightning:outputField fieldName="DREAMID__c"/-->
+                                    <span class="slds-form-element__label">DREAM Id</span>
+                                    <div class="slds-form-element__control highlight__no-dream-id">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.DREAMID__c))}">
+                                            <lightning:formattedText class="slds-form-element__static" value="{!v.simpleAccount.DREAMID__c}" />
+                                             
+                                            <aura:set attribute="else">
+                                                <lightning:formattedText class="slds-form-element__static" value="N/A" />
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                    
+                                   <!-- Shows if the user has a MyLV Account-->
+                                   <aura:if isTrue="{!not(empty(v.simpleAccount.DREAMID__c))}">
+                                    		<lightning:layoutItem class="{!(v.isUserIdentity? 'highlight__icon-detail_badge_green':'highlight__icon-detail_badge_red')}">
+                                       			 <div class="highlight__icon-detail-icon highlight__icon-detail-icon_MyLv" 
+                                            		  style ="{! 'background:url(' + v.iconMyLvUrl +') no-repeat;'}"
+                                             		  title="{!v.titleMyLv}" />
+                                    		</lightning:layoutItem>
+                                   </aura:if>
+                               
+
+                                    <aura:if isTrue="{!not(empty(v.simpleAccount.PreferredLanguage__pc))}">
+                                        <div class="highlight__flag"
+                                             title="{!v.simpleAccount.PreferredLanguage__pc}">
+                                            <aura:unescapedHtml value="{!v.simpleAccount.Language_IMG__pc}"/>
+                                        </div>
+                                    </aura:if>
+                                    <div class="">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.Birthday_Cake_IMG__c))}">
+                                            <div title="{!v.simpleAccount.PersonBirthdate + ' (age ' + v.simpleAccount.Age_Calculator__c + ')'}"
+                                                 class="imgBirthdayClass">
+                                                <aura:unescapedHtml value="{!v.simpleAccount.Birthday_Cake_IMG__c}"/>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem flexibility="grow, no-shrink" size="{! (v.width == 'SMALL' ? 1 : 5)}" class="slds-text-align_right">
+                                <!--aura:if isTrue="{!empty(v.simpleAccount.DREAMID__c)}"-->
+                                
+                                <aura:if isTrue="{!empty(v.recordId)}">
+                                    <lightning:buttonIcon iconName="utility:search"
+                                                          onclick="{!c.searchAccount}"
+                                                          title="Search Account"
+                                                          alternativeText="Search Account" />
+
+                                    <aura:set attribute="else"> 
+                                        <aura:if isTrue="{!v.sObjectName == 'Account'}">
+
+                                            <div class="slds-grid slds-float_right"> 
+
+                                                <span class="slds-col slds-m-right_medium" style="font-size: 1rem;"> 
+
+                                                    <aura:if  isTrue="{!v.exclusiveSales == true}">
+                                                        <img src="{!$Resource.iconics + '/images/exclusivesSales.png'}" width="25"/> {!v.exculsiveSalesMessage}  
+                                                    </aura:if>
+                                                </span> 
+                                                <lightning:layoutItem class="{!v.isCurrentUserIconics == true ? '' : 'slds-hide'}">
+
+                                                            <!-- naomi temporary hide IW Desktop nov 2022 -->    
+                                                            <div class="slds-hide">
+                                                                <c:ICX_CreationWardrobingLook recordId="{!v.recordId}"/>
+                                                            </div>                  
+                                                           <lightning:buttonIcon   iconName="utility:edit"
+                                                                            onclick="{!c.editCase}"
+                                                                            title="Edit"
+                                                                            alternativeText="Edit"/>
+
+                                                </lightning:layoutItem>
+                                            </div>
+                                        
+
+                                            <aura:set attribute="else">
+
+                                                <aura:if isTrue="{!v.displayAction}">
+
+                                                    <lightning:buttonMenu aura:id="menu" onselect="{! c.handleMenuSelect }" alternativeText="Menu" class="{! v.isCurrentUserIconics == true ? '' : 'slds-hide'}">
+                                                        <lightning:menuItem value="Edit" label="{!$Label.c.ICX_HighlightClient_EditButton}" iconName="utility:edit" />
+                                                        <lightning:menuItem value="Replace" label="{!$Label.c.ICX_HighlightClient_ChangeButton}" iconName="utility:replace" />
+                                                    </lightning:buttonMenu>
+                                                </aura:if>
+                                            </aura:set>
+
+                                        </aura:if>
+                                    </aura:set>
+                                </aura:if>
+                                <!--/aura:if-->
+                                 
+                            </lightning:layoutItem>
+                            
+                        </lightning:layout>
+                    </lightning:tile>
+                                <lightning:layout horizontalAlign="spread" multipleRows="true" class="{! empty(v.recordId) ? 'slds-hide' : ''}">
+                                    <lightning:layoutItem flexibility="grow" size="{! (v.width == 'SMALL' ? 4 : (v.width == 'MEDIUM' ? 3 : 2))}" class="highlight__detail">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.LastContactDate__pc))}">
+                                            <lightning:input class="hideStandardCallIcon slds-truncate"
+                                                             type="date"
+                                                             label="Last Contact"
+                                                             name="lastContact"
+                                                             value="{!v.simpleAccount.LastContactDate__pc}"
+                                            />
+                                            <aura:set attribute="else">
+                                                <lightning:input label="Last Contact"
+                                                                 name="lastContact"
+                                                                 value="N/A"
+                                                                 class="slds-truncate"
+                                                />
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem flexibility="grow" size="{! (v.width == 'SMALL' ? 4 : (v.width == 'MEDIUM' ? 3 : 2))}"  class="highlight__detail" title="{!v.simpleAccount.Store__pr.Name}">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.Store__pr.Name))}">
+                                            <a onclick="{!c.goToStore}" class="slds-text-link_reset">
+                                                <lightning:input label="Store"
+                                                                 name="store"
+                                                                 value="{!v.simpleAccount.Store__pr.Name}"
+                                                />
+                                            </a>
+                                            <aura:set attribute="else">
+                                                <lightning:input label="Store"
+                                                                 name="store"
+                                                                 value="N/A"
+                                                                 class="slds-truncate"
+                                                />
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem flexibility="grow" size="{! (v.width == 'SMALL' ? 4 : (v.width == 'MEDIUM' ? 3 : 2))}"  class="highlight__detail" title="{!v.simpleAccount.Owner.Name}">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.Owner.Name))}">
+                                            <a onclick="{!c.goToUser}" class="slds-text-link_reset">
+                                                <lightning:input label="Preferred CA"
+                                                                 name="preferredCa"
+                                                                 value="{!v.simpleAccount.Owner.Name}"
+                                                                 class="slds-truncate"
+                                                />
+                                            </a>
+                                            <aura:set attribute="else">
+                                                <lightning:input label="Preferred CA"
+                                                                 name="preferredCa"
+                                                                 value="N/A"
+                                                                 class="slds-truncate"
+                                                />
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem flexibility="grow" size="{! (v.width == 'SMALL' ? 4 : (v.width == 'MEDIUM' ? 3 : 2))}"  class="highlight__detail" title="{!v.simpleAccount.PrimaryCity__pc}">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.PrimaryCity__pc))}">
+                                            <lightning:input label="CITY"
+                                                             name="city"
+                                                             value="{!v.simpleAccount.PrimaryCity__pc}"
+                                                             class="slds-truncate"
+                                            />
+                                            
+                                            
+                                        </aura:if>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+
+                                    <lightning:layout horizontalAlign="{! (v.width == 'SMALL' ? '' : (v.width == 'MEDIUM' ? '' : 'spread'))}"  multipleRows="true" class="{! empty(v.recordId) ? 'slds-hide' : ''}">
+
+                                    <lightning:layoutItem flexibility="grow" size="{! (v.width == 'SMALL' ? 4 : (v.width == 'MEDIUM' ? 3 : 2))}"  class="highlight__detail" >
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.LastTrans__pc))}">
+                                            <lightning:input class="hideStandardCallIcon slds-truncate"
+                                                             type="date"
+                                                             label="Last Transaction"
+                                                             name="lastTransaction"
+                                                             value="{!v.simpleAccount.LastTrans__pc}"
+                                            />
+                                            <aura:set attribute="else">
+                                                <lightning:input label="Last Transaction"
+                                                                 name="lastTransaction"
+                                                                 value="N/A"
+                                                                 class="slds-truncate"/>
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem flexibility="grow" size="{! (v.width == 'SMALL' ? 4 : (v.width == 'MEDIUM' ? 3 : 2))}"  class="highlight__detail" title="{!v.simpleAccount.PersonBirthdate}">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.PersonBirthdate))}">
+                                            <lightning:input label="Birthdate"
+                                                             name="Birthdate"
+                                                             value="{!v.simpleAccount.PersonBirthdate}"
+                                                             class="slds-truncate"
+                                            />
+                                            <!-- <aura:set attribute="else">
+                                                <lightning:input label="Segmentation"
+                                                                 name="segmentation"
+                                                                 value="N/A"
+                                                                 class="slds-truncate"
+                                                />
+                                            </aura:set> -->
+                                        </aura:if>
+                                    </lightning:layoutItem>
+                                
+
+                                       
+                                    <lightning:layoutItem flexibility="grow" size="{! (v.width == 'SMALL' ? 4 : (v.width == 'MEDIUM' ? 3 : 2))}"  class="highlight__detail" title="{!v.simpleAccount.Typology__pc}">
+                                        <aura:if isTrue="{!not(empty(v.simpleAccount.Typology__pc))}">
+                                            <lightning:input label="Typology"
+                                                             name="typology"
+                                                             value="{!v.simpleAccount.Typology__pc}"
+                                                             class="slds-truncate"
+                                            />
+                                            <aura:set attribute="else">
+                                                <lightning:input label="Typology"
+                                                                 name="typology"
+                                                                 value="N/A"
+                                                                 class="slds-truncate"
+                                                />
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:layoutItem>
+
+                                 
+                                    
+                                </lightning:layout>
+                
+                            </lightning:layoutItem>
+
+               <!-- <lightning:layoutItem flexibility="grow" size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 2 : (v.widthXSmall == true ? 12 : 2))}" class="{!(v.widthXSmall==true ? 'highlight__requests_xsmall' : 'highlight__requests slds-p-top_small')}"> <!padding="{!v.widthXSmall==true ? '' : 'around-small'}" -->
+                    <!--c:ICX_Account_Highlight_IndicatorList accountId="{!v.simpleAccount.Id}" relatedRecordId="{!v.relatedRecordId}" widthXSmall="{!v.widthXSmall}" /-->
+                  <!-- <c:icx_account_highlightIndicatorList width="{!v.width}" accountId="{!(empty(v.simpleAccount.Id) ? v.relatedRecordId : v.simpleAccount.Id)}" widthXSmall="{!v.widthXSmall}" />
+                </lightning:layoutItem>-->
+                    
+                
+                <aura:if isTrue="{!(v.showSpeaker) + (v.showBell)}">
+
+                <!-- <lightning:layoutItem  size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 1 : (v.widthXSmall == true ? 5 : 4))}" class="{!(v.widthXSmall==true ? 'highlight__requests_xsmall' : 'highlight__requests slds-p-top_small')}"> -->
+                    <lightning:layoutItem  flexibility="no-grow"   size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 1 : (v.widthXSmall == true ? 12 : 4))}" class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'highlight__requests slds-p-top_small' : (v.widthXSmall == true ? 'highlight__requests_xsmall' : 'highlight__requests slds-p-top_small'))}">
+
+                    <lightning:layout horizontalAlign="space" multipleRows="true" > 
+
+                        <aura:if isTrue="{!v.showSpeaker}">
+
+                    <div class="highlight_icon slds-truncate flashing"  title="New Case opened within last 48h">
+
+
+                        <lightning:icon flexibility="grow"  iconName="utility:announcement" size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'medium' : (v.widthXSmall == true ? 'small' : 'small'))}"  variant="error"/>
+                </div>
+            </aura:if>
+
+                <aura:if isTrue="{!v.showBell}">
+
+                <div class="highlight_icon slds-truncate flashing"  title="3 contacts made within 48h by call, email, webform, Live Chat and/or Messaging">
+
+                        <lightning:icon  iconName="utility:alert" size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'medium' : (v.widthXSmall == true ? 'small' : 'small'))}"  variant="error"/>
+                </div>
+            </aura:if>
+
+                </lightning:layout>
+            </lightning:layoutItem>
+
+              </aura:if>
+
+
+              <lightning:layoutItem size="12" class="flex"  >
+
+              <!-- <aura:if isTrue="{!(v.indicatorList[0].pendingAnswersList.length>0) + (v.indicatorList[0].pendingCareServiceList.length>0) +  (v.indicatorList[0].pendingComplaintsList.length>0) + (v.indicatorList[0].resolvedComplaintsList.length>0)}"> -->
+
+                <lightning:layoutItem size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 10 : (v.widthXSmall == true ? 9 : 10))}"    class=" highlight_before_footer   highlight_before_footer_left ">
+                   <lightning:layout horizontalAlign="spread" multipleRows="true" class="wordWrap"> 
+                    <!-- <aura:if isTrue="{!v.indicatorList[0].pendingAnswersList.length>0}"> -->
+                    
+                    
+                    <!-- <lightning:layoutItem  flexibility="grow"   size="4" class="highlight_indicator" >
+
+                    <div data-value="pendingAnswers" onmouseenter="{!c.handleOpenCasesMouseEnter}" onmouseleave="{!c.handleOpenCasesMouseLeave}"  >
+                    <div>
+                        <span >PENDING ANSWERS</span>
+                        <c:icx_account_highlightIndicatorPopup indicators="{!v.indicatorList[0]}" showCscIndicatorPendingAnswers="true"  class="{! (v.showPopupName  == 'pendingAnswers' ?  (v.showPopup ? '' : 'slds-hide'): 'slds-hide')}"/>
+
+                    </div>
+                    <div>
+                        <span class="hihglight_indicator_count"><lightning:formattedNumber value="{!v.indicatorList[0].pendingAnswersList.length}"/></span>
+                    </div>
+                </div>
+
+                </lightning:layoutItem> -->
+
+                <lightning:layoutItem  flexibility="grow"   size="4" class="highlight_indicator " >
+
+                    <div data-value="pendingAnswers" onmouseenter="{!c.handleOpenCasesMouseEnter}" onmouseleave="{!c.handleOpenCasesMouseLeave}" class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'flex' : (v.widthXSmall == true ? '' : 'flex'))}"   >
+                        <div class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'hihglight_indicator_count' : (v.widthXSmall == true ? 'hihglight_indicator_count_small' : 'hihglight_indicator_count'))}">
+                            <span ><lightning:formattedNumber value="{!v.indicatorList[0].pendingAnswersList.length}"/></span>
+                        </div>
+                        <div class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'highlight_indicator_title' : (v.widthXSmall == true ? 'highlight_indicator_title_small' : 'highlight_indicator_title'))}" >
+                        <p >PENDING </p>  <p>ANSWERS</p>
+
+                    </div>
+                    <c:icx_account_highlightIndicatorPopup indicators="{!v.indicatorList[0]}" showCscIndicatorPendingAnswers="true"  class="{! (v.showPopupName  == 'pendingAnswers' ?  (v.showPopup ? '' : 'slds-hide'): 'slds-hide')}"/>
+
+                </div>
+
+                </lightning:layoutItem>
+            <!-- </aura:if> -->
+
+            <!-- <aura:if isTrue="{!v.indicatorList[0].pendingCareServiceList.length>0}"> -->
+
+
+                <lightning:layoutItem flexibility="grow"  size="4"  class="highlight_indicator" >
+                    <div data-value="pendingCareService" onmouseenter="{!c.handleOpenCasesMouseEnter}" onmouseleave="{!c.handleOpenCasesMouseLeave}" class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'flex' : (v.widthXSmall == true ? '' : 'flex'))}">
+                        <div class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'hihglight_indicator_count' : (v.widthXSmall == true ? 'hihglight_indicator_count_small' : 'hihglight_indicator_count'))}">
+                            <span ><lightning:formattedNumber value="{!v.indicatorList[0].pendingCareServiceList.length}"/></span>
+    
+                        </div>
+                    <div class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'highlight_indicator_title' : (v.widthXSmall == true ? 'highlight_indicator_title_small' : 'highlight_indicator_title'))}">
+                        <p>PENDING </p><p>CARE SERVICES</p>
+                    </div>
+                    
+                    <c:icx_account_highlightIndicatorPopup indicators="{!v.indicatorList[0]}" showCscIndicatorPendingCareService="true"   class="{! (v.showPopupName == 'pendingCareService' ?  (v.showPopup ? '' : 'slds-hide'): 'slds-hide')}"/>
+
+                </div>
+
+                </lightning:layoutItem>
+            <!-- </aura:if> -->
+
+                <!-- <aura:if isTrue="{!v.indicatorList[0].pendingComplaintsList.length>0}"> -->
+
+                <lightning:layoutItem  flexibility="grow"  size="4"  class="highlight_indicator" >
+                    <div data-value="pendingComplaints" onmouseenter="{!c.handleOpenCasesMouseEnter}" onmouseleave="{!c.handleOpenCasesMouseLeave}" class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'flex' : (v.widthXSmall == true ? '' : 'flex'))}" >
+                        <div class="{! 'red ' + (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'hihglight_indicator_count' : (v.widthXSmall == true ? 'hihglight_indicator_count_small' : 'hihglight_indicator_count'))}">
+                            <span ><lightning:formattedNumber value="{!v.indicatorList[0].pendingComplaintsList.length}"/></span>
+    
+                        </div>
+                    <div class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'highlight_indicator_title' : (v.widthXSmall == true ? 'highlight_indicator_title_small' : 'highlight_indicator_title'))}">
+                        <p>PENDING</p><p>COMPLAINTS</p>
+                    </div>
+                   
+                    <c:icx_account_highlightIndicatorPopup  indicators="{!v.indicatorList[0]}" showCscIndicatorPendingComplaints="true"  class="{! (v.showPopupName == 'pendingComplaints' ?  (v.showPopup ? '' : 'slds-hide'): 'slds-hide')}"/>
+
+                </div>
+
+                </lightning:layoutItem>
+
+            <!-- </aura:if> -->
+            </lightning:layout>
+
+        </lightning:layoutItem>
+
+        <!-- <aura:if isTrue="{!v.indicatorList[0].resolvedComplaintsList.length>0 }"> -->
+
+        <lightning:layoutItem size="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 2 : (v.widthXSmall == true ? 3 : 2))}"   class=" highlight_before_footer highlight_before_footer_right ">
+            <lightning:layout horizontalAlign="spread" multipleRows="true" class="wordWrap">
+
+            <lightning:layoutItem flexibility="grow"  size="10"  class="highlight_indicator" >
+                <div data-value="resolvedComplaints" onmouseenter="{!c.handleOpenCasesMouseEnter}" onmouseleave="{!c.handleOpenCasesMouseLeave}"  class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'flex' : (v.widthXSmall == true ? '' : 'flex'))}">
+                    <div class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'hihglight_indicator_count' : (v.widthXSmall == true ? 'hihglight_indicator_count_small' : 'hihglight_indicator_count'))}">
+                        <span><lightning:formattedNumber value="{!v.indicatorList[0].resolvedComplaintsList.length}"/></span>
+
+                    </div>
+                    <div class="{! (v.width == 'LARGE' || v.width == 'MEDIUM' ? 'highlight_indicator_title' : (v.widthXSmall == true ? 'highlight_indicator_title_small' : 'highlight_indicator_title'))}">
+                        <p>RESOLVED</p> <p> COMPLAINTS</p>
+                    </div>
+                    
+                    <c:icx_account_highlightIndicatorPopup indicators="{!v.indicatorList[0]}" showCscIndicatorResolvedComplaints="true"  class="{! (v.showPopupName == 'resolvedComplaints' ?  (v.showPopup ? '' : 'slds-hide'): 'slds-hide')}"/>
+
+                </div>
+
+                </lightning:layoutItem>
+                </lightning:layout>
+        </lightning:layoutItem>
+    <!-- </aura:if> -->
+
+    <!-- </aura:if> -->
+</lightning:layoutItem>
+
+
+
+                <lightning:layoutItem size="10" class="highlight__footer highlight__footer_left">
+                    <lightning:layout horizontalAlign="spread" multipleRows="true" class="wordWrap">
+                        <lightning:layoutItem size="3" class="{!
+                                'highlight__icon-detail' +
+                                        (v.simpleAccount.PersonMobilePhone
+                                                ? (v.simpleAccount.Can_Be_Contacted_By_Phone__pc ? ' highlight__icon-detail_badge_green' : ' highlight__icon-detail_badge_red')
+                                                : ' highlight__icon-detail_disabled'
+                                                )
+                                }">
+
+                            <lightning:clickToDial class="{!'highlight__icon-detail-icon highlight__icon-detail-icon_type_phone ' + (v.width == 'SMALL' ? '' : 'highlight__icon-detail-icon_type_phone2')}"
+                                    value="{!v.simpleAccount.PersonMobilePhone}" recordId="{! not(empty(v.relatedRecordId)) ? v.relatedRecordId : v.simpleAccount.Id}"
+                            />
+                            <!--div class="highlight__icon-detail-tooltip">{!v.simpleAccount.PersonMobilePhone}</div-->
+                            <div class="highlight__icon-detail-tooltip">
+                                <lightning:clickToDial class="hideStandardCallIcon"
+                                                       value="{!v.simpleAccount.PersonMobilePhone}" recordId="{! not(empty(v.relatedRecordId)) ? v.relatedRecordId : v.simpleAccount.Id}"
+                                                       />
+                            </div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="3" class="{!
+                                'highlight__icon-detail' +
+                                        (v.simpleAccount.PersonEmail
+                                                ? (v.simpleAccount.Can_Be_Contacted_By_Email__pc ? ' highlight__icon-detail_badge_green' : ' highlight__icon-detail_badge_red')
+                                                : ' highlight__icon-detail_disabled'
+                                                )
+                                }">
+                            <!--aura:if isTrue="{!v.simpleAccount.PersonEmail}">
+                                <lightning:formattedEmail value="{!v.simpleAccount.PersonEmail}" label="Email"/>
+                                <aura:set attribute="else"-->
+                                    <div class="highlight__icon-detail-icon highlight__icon-detail-icon_type_email">
+                                        <span class="{! (v.width == 'SMALL' ? 'slds-hide' : '')}">Email</span>
+                                    </div>
+                                <!--/aura:set>
+                            </aura:if-->
+                            <div class="highlight__icon-detail-tooltip">{!v.simpleAccount.PersonEmail}</div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="3" class="{!
+                                'highlight__icon-detail' +
+                                        (v.simpleAccount.PersonMobilePhone
+                                                ? (v.simpleAccount.Can_Be_Contacted_By_SMS__pc ? ' highlight__icon-detail_badge_green' : ' highlight__icon-detail_badge_red')
+                                                : ' highlight__icon-detail_disabled'
+                                                )
+                                }">
+                            <div class="highlight__icon-detail-icon highlight__icon-detail-icon_type_sms">
+                                <span class="{! (v.width == 'SMALL' ? 'slds-hide' : '')}">SMS</span>
+                            </div>
+                            <div class="highlight__icon-detail-tooltip">{!v.simpleAccount.PersonMobilePhone}</div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="3" class="{!
+                                'highlight__icon-detail' +
+                                        (v.simpleAccount.PrimaryAddressCompacted__pc
+                                                ? (v.simpleAccount.Can_Be_Contacted_By_Mail__pc ? ' highlight__icon-detail_badge_green' : ' highlight__icon-detail_badge_red')
+                                                : ' highlight__icon-detail_disabled'
+                                                )
+                                }">
+                            <a onclick="{!(v.simpleAccount.PrimaryAddressCompacted__pc ? c.goToMaps : null)}"
+                               class="highlight__icon-detail-icon highlight__icon-detail-icon_type_address"
+                               ><span class="{! (v.width == 'SMALL' ? 'slds-hide' : '')}">Address</span></a>
+                            <div class="highlight__icon-detail-tooltip">{!v.simpleAccount.PrimaryAddressCompacted__pc}</div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:layoutItem>
+
+                <lightning:layoutItem size="2" class="highlight__footer highlight__footer_right">
+                    <lightning:layout horizontalAlign="spread" multipleRows="true" class="wordWrap">
+                            <lightning:layoutItem aura:id='RMSLayout' size="6" class= "slds-hide">
+                                Send to MYCC/XSTORE  
+                                <lightning:buttonIcon iconName="utility:send"   onclick="{! c.sendClientToRMSConso }" class = " slds-p-bottom_xx-small" variant="bare" alternativeText="Send to RMS" title="Send Client to RMS" /> 
+                            </lightning:layoutItem>
+                        <lightning:layoutItem size="{! (v.sObjectName != 'Account' ? 12: 6)}">
+                            <div class="highlight__copy-details-btn" data-clipboard-target="{!'#' + v.recordId + '_details'}">
+                                Copy <span class="{! (v.width == 'SMALL' ? 'slds-hide' : '')}">Details</span>
+                            </div>
+                            
+                            <textarea id="{!v.recordId + '_details'}" class="highlight__copy-details-textarea">{!
+                            'Name: ' + v.simpleAccount.Name + '\n' +
+                            'Dream ID: ' + v.simpleAccount.DREAMID__c + '\n' +
+                            'Language: ' + v.simpleAccount.PreferredLanguage__pc + '\n' +
+                            'Last Contact: ' + v.simpleAccount.LastContactDate__pc + '\n' +
+                                    (false
+                                            ? ('Store: ' + (v.simpleAccount.Store__pr ? v.simpleAccount.Store__pr.Name : '') + '\n' +
+                                                'Preferred CA: ' + (v.simpleAccount.Owner ? v.simpleAccount.Owner.Name : '') + '\n' +
+                                                'Last Transaction: ' + v.simpleAccount.LastTrans__pc + '\n' +
+                                                'Segmentation: ' + v.simpleAccount.Segmentation__pc + '\n' +
+                                                'Typology: ' + v.simpleAccount.Typology__pc + '\n')
+                                            : '') +
+                            'Phone: ' + (v.simpleAccount.Can_Be_Contacted_By_Phone__pc ? v.simpleAccount.PersonMobilePhone : 'Do Not Contact')  + '\n' +
+                            'Email: ' + (v.simpleAccount.Can_Be_Contacted_By_Email__pc ? v.simpleAccount.PersonEmail : 'Do Not Contact') + '\n' +
+                            'Address: ' + (v.simpleAccount.Can_Be_Contacted_By_Mail__pc ? v.simpleAccount.PrimaryAddressCompacted__pc : 'Do Not Contact')
+                            }
+                            </textarea>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+    <!--/lightning:recordViewForm-->
+</aura:component>

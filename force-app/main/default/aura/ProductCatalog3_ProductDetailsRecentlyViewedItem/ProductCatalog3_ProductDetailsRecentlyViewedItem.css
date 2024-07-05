@@ -1,0 +1,8 @@
+.THIS .pc3-recently-viewed__tile {
+    width: 7rem;
+    height: 7rem;
+    margin-right: 0.75rem;
+    margin-left: 0;
+    padding: 0;
+    flex-shrink: 0;
+}

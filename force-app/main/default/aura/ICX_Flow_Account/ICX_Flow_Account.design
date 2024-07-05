@@ -1,0 +1,9 @@
+<design:component>
+    <design:attribute name="recordId" label="Input: recordId" description="Current record id" />
+    <design:attribute name="language" label="Input: ISO2 language" description="Language for the Script Speaking" />
+    <design:attribute name="required" label="Input: required" description="Selection required?" />
+    <design:attribute name="showContactabilityValidation" label="Input: show Contactability Validation?" description="If the client is known (ex: account caller linked to the task), show Contact section for validation" />
+    
+    <design:attribute name="accountId" label="Input/Output: Account Id" description="Account information" />
+    <design:attribute name="accountRmsId" label="Output: Client RMS Id" description="Client RMS Id" />
+</design:component>

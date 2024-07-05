@@ -1,0 +1,30 @@
+<aura:component >
+
+    <!--aura:attribute name="label" type="String" />
+    <aura:attribute name="message" type="String" />
+    
+    <div>
+        <div class="fontTitle" onmouseenter="{!c.handleMouseEnter}" onmouseleave="{!c.handleMouseLeave}">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_6-of-12">
+                    <p>{!v.label}</p>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <section aura:id="popup" class=" slds-hide" role="dialog">
+                        <div class="slds-popover__body" style="position:fixed;top:">
+                            <p class="whiteline"><lightning:formattedText value="{!v.message}"/></p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <p>{!v.label}</p>
+        </div>
+
+        <section aura:id="popup" class=" slds-hide" role="dialog">
+            <div class="slds-popover__body">
+                <p class="whiteline">{!v.message}</p>
+            </div>
+        </section>
+    </div-->
+
+</aura:component>

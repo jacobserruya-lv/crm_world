@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="" >
+	<aura:attribute name="product" type="Object" />
+    <aura:attribute name="productsStock" type="Map" />
+    <aura:attribute name="productsPrices" type="Map" />
+</aura:event>

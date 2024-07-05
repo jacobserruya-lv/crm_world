@@ -1,0 +1,11 @@
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:isUrlAddressable" access="global">
+    <lightning:workspaceAPI aura:id="workspace"/>
+
+    <aura:attribute type="Object" name="orders"/>
+    <aura:attribute type="String" name="orderNumber"/>
+    <aura:attribute type="String" name="accountId"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>    
+    <c:account_DigitalOrderDetails orders="{!v.orders}" orderNumber="{!v.orderNumber}" accountId="{!v.accountId}" />
+</aura:component>
+<!-- oncloselicked="{!c.handleClose}" -->

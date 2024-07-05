@@ -1,0 +1,84 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName"  controller="MIY_OrderPageController">
+    <aura:attribute name="selectedTabId" type="String" default="details"/>
+    <aura:attribute name="record" type="Opportunity"/>
+    <!--MIY-1808 disable posting on collaboration based on user profile and order type (CA and Perso =>hide posting)-->
+    <aura:attribute name="userProfile" type="String" />
+    <!-- MIY-2224 -->
+    <aura:attribute name="isUserInPermissionSetGroup" type="Boolean" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!---->
+    <aura:handler event="c:MIY_PostEvent" action="{!c.openPostAction}" />
+    
+
+    <lightning:quickActionAPI aura:id="quickActionAPI"/>
+    <force:recordData aura:id="recordLoader"
+                      recordId="{!v.recordId}"
+                      fields="ApplicationSource__c,SPO_Exo__c,SPO_ProductCategory__c,StageName"
+                      targetFields="{!v.record}"
+                      recordUpdated="{!c.handleRecordUpdated}"
+    />
+
+    <lightning:tabset selectedTabId="{!v.selectedTabId}" class="slds-tabs_card miy-tabs">
+        <aura:if isTrue="{!v.record.ApplicationSource__c == 'SPO'}">
+            <lightning:tab label="Product Details" id="details">
+                <c:MIY_SPO_ProductDetailsPanel recordId="{!v.recordId}" sObjectName="{!v.sObjectName}" />
+            </lightning:tab>
+        </aura:if>
+        <lightning:tab label="Collaborate" id="collab">
+
+            <aura:if isTrue="{!v.record.ApplicationSource__c == 'SPO'}">
+                <aura:if isTrue="{!or(or(or(or(
+                        v.record.StageName=='Creation in progress',
+                        v.record.StageName=='In progress'),
+                        v.record.StageName=='Distribution in Progress'),
+                        v.record.StageName=='Received in store'),
+                        v.record.StageName=='Closed Won')
+                        }"
+                >
+                    <p class="miy-tabs__notice">{!$Label.c.MIY_OrderPage_Collab_In_prod_No_changes}</p>
+                </aura:if>
+                <aura:if isTrue="{!v.record.SPO_Exo__c == 'No'}">
+                    <aura:if isTrue="{!or(or(v.record.SPO_ProductCategory__c == 'Leather goods',v.record.SPO_ProductCategory__c == 'Hardsided leather goods'),v.record.SPO_ProductCategory__c == 'Softsided leather goods')}">
+                        <p class="miy-tabs__notice">
+                            {!$Label.c.MIY_OrderPage_Collab_Tag_Intro + ' '}
+                            <strong>{!$Label.c.MIY_OrderPage_Collab_Production_team_LG}</strong>
+                            {!' ' + $Label.c.MIY_OrderPage_Collab_Tag_By + ' '}
+                            <strong class="miy-tabs__collab-tag">{!$Label.c.MIY_OrderPage_Collab_Point_of_Contact_LG}</strong>.
+                            {!' ' + $Label.c.MIY_OrderPage_Collab_Tag_Exo_Orders + ' '}
+                            <strong class="miy-tabs__collab-tag">{!$Label.c.MIY_OrderPage_Collab_Point_of_Contact_Exo}</strong>.
+                            {!' ' + $Label.c.MIY_OrderPage_Collab_Changes_need_prod_confirmation}
+                        </p>
+                    </aura:if>
+                    <aura:if isTrue="{!v.record.SPO_ProductCategory__c == 'Belts'}">
+                        <p class="miy-tabs__notice">
+                            {!$Label.c.MIY_OrderPage_Collab_Tag_Intro + ' '}
+                            <strong>{!$Label.c.MIY_OrderPage_Collab_Production_team_Belts}</strong>
+                            {!' ' + $Label.c.MIY_OrderPage_Collab_Tag_By + ' '}
+                            <strong class="miy-tabs__collab-tag">{!$Label.c.MIY_OrderPage_Collab_Point_of_Contact_Belts}</strong>.
+                            {!' ' + $Label.c.MIY_OrderPage_Collab_Changes_need_prod_confirmation}
+                        </p>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.record.SPO_Exo__c == 'Yes'}">
+                    <p class="miy-tabs__notice">
+                        {!$Label.c.MIY_OrderPage_Collab_Tag_Intro + ' '}
+                        <strong>{!$Label.c.MIY_OrderPage_Collab_Production_team_Exo}</strong> 
+                        {!' ' + $Label.c.MIY_OrderPage_Collab_Tag_By + ' '}
+                        <strong class="miy-tabs__collab-tag">{!$Label.c.MIY_OrderPage_Collab_Point_of_Contact_Exo}</strong>.
+                        {!' ' + $Label.c.MIY_OrderPage_Collab_Changes_need_prod_confirmation}
+                    </p>
+                </aura:if>
+                <aura:set attribute="else">
+                    <p class="miy-tabs__notice">{!$Label.c.MIY_OrderPage_Collab_Perso_Orders}</p>
+                </aura:set>
+            </aura:if>
+            <!--MIY-1808 disable posting on collaboration based on user profile and order type (CA and Perso =>hide posting)-->
+            <aura:if isTrue="{!OR(OR(v.record.ApplicationSource__c == 'SPO',v.record.ApplicationSource__c == 'ECO'),AND(v.record.ApplicationSource__c == 'PERSO',OR(v.userProfile == 'System Administrator',OR(v.userProfile == 'SPO_Production',OR(v.userProfile == 'MIY_Admin',v.userProfile == 'SPO_ExoProduction', v.isUserInPermissionSetGroup)))))}">
+                <forceChatter:publisher context="RECORD" recordId="{!v.recordId}"/>
+            </aura:if>
+            
+             <!---->
+            <forceChatter:feed type="Record" subjectId="{!v.recordId}" feedDesign="DEFAULT"/>
+        </lightning:tab>
+    </lightning:tabset>
+</aura:component>

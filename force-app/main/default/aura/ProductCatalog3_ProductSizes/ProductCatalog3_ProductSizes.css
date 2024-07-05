@@ -1,0 +1,12 @@
+.THIS {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 4.25rem);
+    grid-template-rows: 2rem;
+    grid-auto-flow: row;
+    gap: 0.625rem;
+    margin-bottom: 5px;
+}
+
+select.THIS{
+    max-width: 40%;
+}

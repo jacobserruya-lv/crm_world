@@ -1,0 +1,65 @@
+<aura:component implements="lightningsnapin:prechatUI">
+
+    <aura:attribute name="country" type="String" default=""/>
+
+    <aura:attribute name="firstNameField" type="Aura.Component[]"/>
+    <aura:attribute name="lastNameField" type="Aura.Component[]"/>
+    <aura:attribute name="emailField" type="Aura.Component[]"/> 
+    <aura:attribute name="phoneField" type="Aura.Component[]"/> 
+
+    <aura:attribute name="firstName" type="String"/>
+    <aura:attribute name="lastName" type="String"/>
+    <aura:attribute name="email" type="String"/> 
+    <aura:attribute name="phone" type="String"/> 
+
+    <aura:attribute name="legalNoticeHereWord" type="String" />
+    <aura:attribute name="legalNoticeFirstPart" type="String" />
+    <aura:attribute name="legalNoticeWebSiteLink" type="String" />
+    <aura:attribute name="legalNoticeSecondPart" type="String" />
+
+    <!-- Contains methods for getting pre-chat fields, starting a chat, and validating fields -->
+    <lightningsnapin:prechatAPI aura:id="prechatAPI"/>
+
+    <!-- After this component has rendered, call the controller's onRender function -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <ltng:require styles="{!$Resource.iconics +'/styles/prechat-slds.min.css'}" />
+ 
+    <div class="prechatUI icx-pre-chat">
+        <div class="icx-pre-chat__logo-head"></div>
+        <div class="icx-pre-chat__main">
+            <div class="prechatFields icx-pre-chat__form slds-form">
+                <fieldset class="slds-form-element slds-form-element_compound">
+                    <div class="slds-form-element__control">
+                        <!-- <div class="slds-form-element__row">
+                            <div class="slds-size_1-of-2">{!v.firstNameField}</div>
+                            <div class="slds-size_1-of-2">{!v.lastNameField}</div>
+                        </div> -->
+                        <div class="slds-grid slds-grid_vertical">
+                            <div class="slds-size_1-of-1">{!v.emailField}</div>
+                            <div class="slds-size_1-of-1">{!v.phoneField}</div> 
+
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="icx-pre-chat__notice">
+                <aura:unescapedHtml value="{!v.legalNoticeFirstPart}"/>
+                <a class="icx-pre-chat__notice" href="{!v.legalNoticeWebSiteLink}" target="_blank">{!v.legalNoticeHereWord}</a>{!v.legalNoticeSecondPart}
+            </div>
+            
+            <div class="icx-pre-chat__notice">
+                    <lightning:input type="checkbox" label="{!v.country == 'TWN' ? $Label.c.ICX_LiveChatGDPR_IAgree_Twn : $Label.c.ICX_LiveChatGDPR_IAgree}" name="iAgree" aura:id="iAgree" required="true" onchange="{!c.Showhide}"/>
+              </div>
+            <lightning:button class="startChatButton icx-pre-chat__btn"
+                              aura:id='btn'
+                              variant="success"
+                              label="{!$Label.c.ICX_LiveChat_StartChattingButton}"
+                              title="{!$Label.c.ICX_LiveChat_StartChattingButton}"
+                              onclick="{!c.onStartButtonClick}"
+                              disabled="true"
+            />
+        </div>
+    </div>
+
+</aura:component>

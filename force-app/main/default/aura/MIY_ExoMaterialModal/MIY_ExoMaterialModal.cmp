@@ -1,0 +1,51 @@
+<aura:component extends="c:MIY_FancyModal" controller="MIY_OrderPageController"
+                implements="lightning:availableForFlowScreens"
+>
+    <aura:attribute name="record" type="SPO_FirmOrder__c" />
+    <aura:attribute name="confirmLoading" type="Boolean" default="false" />
+    <aura:attribute name="exoLeatherOptions" type="List" default="[]" />
+    <aura:attribute name="exoLeatherSelected" type="String" default="" />
+    <aura:attribute name="fluidRecipeId" type="String" default="{!v.record.FluidRecipeId__c}" />
+
+    <aura:registerEvent name="updateOrderEvent" type="c:MIY_FirmOrderUpdate"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:overlayLibrary aura:id="modalOverlayLib"/>
+
+    <aura:attribute name="header" type="Aura.Component[]">{!$Label.c.MIY_OrderPage_Choose_the_Material}</aura:attribute>
+    <div class="miy-exo-mat-modal">
+        <div class="miy-fancy-modal__content">
+            <fieldset class="slds-form-element slds-form_compound">
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__group">
+                        <div class="slds-form-element__row">
+                            <lightning:combobox name="Exotic_Leather__c"
+                                                label="Exotic Leather"
+                                                options="{!v.exoLeatherOptions}"
+                                                value="{!v.exoLeatherSelected}"
+                                                class="miy-exo-mat-modal__picklist slds-size_1-of-1"
+                            />
+                        </div>
+                        <div class="slds-form-element__row">
+                            <lightning:input name="FluidRecipeId__c"
+                                label="Fluid Recipe Id"
+                                value="{!v.fluidRecipeId}"
+                                class="slds-size_1-of-1"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <aura:attribute name="footerContent" type="Aura.Component[]">
+        <lightning:button label="Cancel" onclick="{!c.closeModal}"/>
+        <c:LaddaLightningButton label="Confirm"
+                                onclick="{!c.handleConfirmClick}"
+                                isLoading="{!v.confirmLoading}"
+                                variant="brand"
+        />
+    </aura:attribute>
+
+</aura:component>

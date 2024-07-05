@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event when the user selects an action from the ICX_Flow_Footer component">
+    <aura:attribute type="String" name="action" description="PAUSE / BACK / NEXT / FINISH"/>
+    <aura:attribute type="String" name="recordId" description="record Id (just in the scope of the recordId as it is an Application event)"/>
+</aura:event>

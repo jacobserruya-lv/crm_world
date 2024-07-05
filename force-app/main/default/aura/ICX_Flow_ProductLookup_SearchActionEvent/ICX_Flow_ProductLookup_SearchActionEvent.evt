@@ -1,0 +1,6 @@
+<aura:event access="global" type="COMPONENT" description="Component event associated with the ICX_Flow_ProductLookup component. Fired when a search needs to be performed on the server-side.">
+    <aura:attribute type="String" name="action" description="values: ADD / REMOVE"/>
+    <aura:attribute type="Id" name="recordId" description="item id related to the lookup"/>
+    <!--aura:attribute type="ICX_ProductEnquired__c" name="qualification" description="qualification detail"/-->
+    <aura:attribute type="ICX_ProductLookupSearchResult" name="item" description="Lookup search item selected"/>
+</aura:event>

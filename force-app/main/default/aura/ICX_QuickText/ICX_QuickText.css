@@ -1,0 +1,18 @@
+.THIS .slds-dropdown {
+    margin : 0;
+    padding : 0;
+}
+
+/* Long text in the same markup */
+.THIS .whiteline {
+    white-space: pre-line;
+}
+
+.THIS .halfWidth {
+    max-height: 28.5rem;
+    overflow-y: auto;
+}
+
+.THIS .fontTitle {
+    font-size: larger;
+}

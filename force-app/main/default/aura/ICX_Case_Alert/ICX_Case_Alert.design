@@ -1,0 +1,3 @@
+<design:component>
+        <design:attribute name="hide" label="hide Details?" description="Hide the Details of the Request in the title"/>
+</design:component>

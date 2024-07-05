@@ -1,0 +1,9 @@
+<design:component label="Two Headers And One Region">
+    <flexipage:template >
+       
+            <flexipage:region name="left" label="Left Region" defaultWidth="LARGE">
+            </flexipage:region>
+            <flexipage:region name="right" label="Right Region" defaultWidth="LARGE" />
+            <flexipage:region name="center" label="Center Region" defaultWidth="LARGE" />
+       </flexipage:template>
+</design:component>

@@ -1,0 +1,8 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="selectedStores" type="List" />
+    <aura:attribute name="selectedWarehouses" type="List" />
+    <aura:attribute name="selectedZone" type="List" />
+    <aura:attribute name="selectedCountries" type="List" />
+    <aura:attribute name="selectedPhysicalStores" type="String" />
+
+</aura:event>

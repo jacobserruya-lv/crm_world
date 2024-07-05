@@ -1,0 +1,129 @@
+<aura:component controller="ICX_ProductSearchLookup_LC" implements="flexipage:availableForRecordHome,force:hasRecordId,lightning:availableForFlowScreens,lightning:availableForFlowActions" access="global">
+
+    <aura:attribute name="validate" type="Aura.Action" description="Custom validation function to run when the flow is navigated to the next screen. The function must evaluate the component and return values for isValid and errorMessage."/>
+
+    <aura:attribute access="public" type="Boolean" name="isMultiEntry" default="false"/>
+    <aura:attribute access="public" type="Boolean" name="required" default="true"/>
+    <aura:attribute access="public" type="Boolean" name="showSearch" default="true"/>
+    <aura:attribute access="public" type="Boolean" name="isInPopup" default="false"/>
+
+    <aura:attribute access="public" type="List" name="selection" default="[]"/>
+    <aura:attribute access="public" type="String" name="selectionId" description="Get the selection id for mono-selection only"/>
+    <aura:attribute access="global" type="ICX_ProductEnquired__c[]" name="selectionList" description="Get the ProductEnquired__c selection for mono-selection only"/>
+
+    <aura:attribute access="private" type="Case" name="cas" />
+    <aura:attribute access="public" type="List" name="productList" default="[]" />
+    <aura:attribute access="public" type="List" name="unknownList" default="[]" />
+    
+    <aura:attribute access="public" type="Integer" name="selectionSize" default="0" description="useful for Lightning Flow to know if a product was defined"/>
+    <aura:attribute access="public" type="Integer" name="unknownProductSize" default="0" description="useful for Lightning Flow to know if an unknown product was defined"/>
+  
+    <aura:attribute access="public" type="String"  name="comment" default="" description="comment PODWithSKU/PODWithoutSku " />
+    <aura:attribute access="public" type="String" name="digitalStore" default="" description="Digital Store PODWithSKU/PODWithoutSku "/>
+    <aura:attribute access="public" type="String" name="taskCategory" description="task Category"/><!--naomi 02/05/2022-->
+
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <!--aura:handler name="change" value="{!v.selection}" action="{!c.selectionChange}"/-->
+    <aura:handler name="onSearch" event="c:ICX_Flow_ProductLookup_SearchEvent" action="{!c.handleSearchEvent}"/>
+    <!--aura:handler name="onSearchAction" event="c:LookupSearchActionEvent" action="{!c.handleSearchActionEvent}"/-->
+    <aura:handler name="onSearchAction" event="c:ICX_Flow_ProductLookup_SearchActionEvent" action="{!c.handleSearchActionEvent}"/>
+    <!--aura:handler event="force:refreshView" action="{!c.onRefreshView}" /-->
+    <aura:handler name="change" value="{!v.userRecord}" action="{!c.userChange}"/>
+    <aura:handler event="c:ICX_Flow_FooterEvent" action="{!c.handleFlowFooterEvent}"/>
+
+    <aura:attribute name="readOnly" type="Boolean" default="false"/>
+    <aura:attribute name="showNewRequestCheckbox" type="Boolean" default="false" description="Show New Request checkbox" />
+    <aura:attribute name="requestType" type="String" description="Request type name" />
+    <aura:attribute access="public" name="clientPhone" type="String"/>
+    <aura:attribute access="public" name="clientEmail" type="String"/>
+
+    <aura:attribute name="case" type="Case"/>
+    <aura:attribute name="simpleCase" type="Case"/>
+    <aura:attribute name="caseError" type="String"/>
+    <!-- TODO: problem when a Case is qualified then Resolution = "Request creation" => The page should not be updated otherwise the flow will be hidden (App Builder option)
+		force:recordData aura:id="caseRecordLoader"
+        recordId="{!v.recordId}"
+        fields="Status,Product_Sku__c,Product_Sku_unknown__c,IsClosed"
+        targetRecord="{!v.case}"
+        targetFields="{!v.simpleCase}"
+        targetError="{!v.caseError}"
+        mode="EDIT"
+        recordUpdated="{!c.onCaseUpdated}"
+     /-->
+
+    <aura:attribute name="userRecord" type="Object" />
+    <force:recordData recordId="{!$SObjectType.CurrentUser.Id}"
+                      fields="Id, Profile.Name, FirstName"
+                      targetFields="{!v.userRecord}" />
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!--div class="slds-form slds-form_stacked slds-m-around_xx-large"-->
+    <lightning:card >
+        
+        <aura:set attribute="title">
+            <aura:if isTrue="{!v.showSearch == true &amp;&amp; (v.isMultiEntry == true || v.readOnly)}">
+                <lightning:icon iconName="custom:custom55" size="small" class="slds-m-right_x-small"/>
+                <span class="slds-card__header-link baseCard__header-title-container">
+                    Products ({!v.selection.length})
+                </span>
+            </aura:if>
+        </aura:set>
+
+        <div class="{!v.readOnly == true ? 'cardDivRead' : 'cardDiv'}">
+            <c:ICX_Flow_ProductLookup aura:id="lookup" 
+                                      showSearch="{!v.showSearch}"
+                                      selection="{!v.selection}"
+                                      productSelection="{!v.productList}"
+                                      unknownSelection="{!v.unknownList}"
+                                      onSearch="{!c.lookupSearch}" label="" displayEnlargePill="true" 
+                                      placeholder="{!$Label.c.ICX_Flow_Product_SearchPlaceholder}" isMultiEntry="{!v.isMultiEntry}" readOnly="{!v.readOnly}" required="{!v.required}" 
+                                      showNewRequestCheckbox="{!v.showNewRequestCheckbox}"
+                                      requestType="{!v.requestType}"
+                                      isInPopup="{!v.isInPopup}"
+                                      clientPhone="{!v.clientPhone}"
+                                      clientEmail="{!v.clientEmail}"
+                                      taskCategory="{!v.taskCategory}" />
+            <!--c:Lookup aura:id="lookup" 
+                      selection="{!v.selection}"
+                      productSelection="{!v.productList}"
+                      unknownSelection="{!v.unknownList}"
+                      onSearch="{!c.lookupSearch}" label="" displayEnlargePill="true" 
+                      placeholder="Search Product" isMultiEntry="{!v.isMultiEntry}" readOnly="{!v.readOnly}" required="{!v.required}" 
+                      showNewRequestCheckbox="{!v.showNewRequestCheckbox}"
+                      requestType="{!v.requestType}" /-->
+
+            <!-- TODO Unknown Product Lightning component: add many unknown products in ICX_ProductEnquired__c object. As a start, just a Comment field -->
+            <!--c:ICX_UnknownProduct selection="{!v.unknownList}" readOnly="{!v.readOnly}" recordId="{!v.recordId}" isMultiEntry="{!v.isMultiEntry}" /-->
+
+        </div>
+
+    </lightning:card>
+    
+    <!--/div-->
+
+
+    <!-- If the Case is closed then no updatable : no lookup, no pill, only image -->
+    <!--lightning:layout horizontalAlign="" multipleRows="true" class="{!v.readOnly == true ? 'slds-hide' : ''}">
+        <aura:iteration items="{!v.selection}" var="item">
+            <lightning:layoutitem>
+                <div class="slds-pill">
+                    <aura:if isTrue="{! item.isIconUrl}">
+                        <img src="{!item.icon + '?wid=160&amp;hei=160'}" class="merchandise"/>
+                        <aura:set attribute="else">
+                            <lightning:icon iconName="{! empty(item.icon) ? 'standard:default' : item.icon}" size="small" alternativeText="Result item icon"/>
+                        </aura:set>
+                    </aura:if>
+                    <div class="title slds-truncate">
+                        <a href="" onclick="{!c.titleClickHandler}">{!item.title}</a>
+                        <lightning:buttonIcon iconName="utility:close" variant="bare" onclick="" alternativeText="Remove" />
+                        <div>{!item.subtitle}</div>
+                    </div>
+                </div>
+            </lightning:layoutitem>
+        </aura:iteration>
+    </lightning:layout-->
+
+</aura:component>

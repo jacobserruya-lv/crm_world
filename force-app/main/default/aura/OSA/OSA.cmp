@@ -1,0 +1,7 @@
+<aura:component access="global" extensible="true" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes">
+   
+    <aura:attribute name="dev" type="String" />
+
+
+          <lightning:container src="{!$Resource.appointmentsVue  + '/index.html'}" />
+</aura:component>

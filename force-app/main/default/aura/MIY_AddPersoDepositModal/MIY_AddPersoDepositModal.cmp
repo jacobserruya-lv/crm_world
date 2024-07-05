@@ -1,0 +1,75 @@
+<aura:component extends="c:MIY_FancyModal" controller="MIY_OrderPageController">
+    <aura:attribute name="record" type="Opportunity"/>
+    <aura:attribute name="depositAmount" type="Integer"/>
+    <aura:attribute name="depositComment" type="String"/>
+    <aura:attribute name="caCode" type="String"/>
+    <aura:attribute name="confirmLoading" type="Boolean" default="false" />
+    <aura:attribute name="selectedUser" type="User" />
+    <aura:attribute name="selectedUserItem" type="Object" />
+    <aura:attribute name="caEmail" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:overlayLibrary aura:id="modalOverlayLib"/>
+    <aura:attribute name="header" type="Aura.Component[]">{!$Label.c.MIY_OrderPage_Add_Deposit}</aura:attribute>
+
+    <div class="spo-add-deposit-modal__body">
+        <div class="miy-fancy-modal__content">
+            <div>{!$Label.c.MIY_OrderPage_Deposit_From}<span class="spo-add-deposit-modal__client">{!v.record.Account.Name}</span>.</div>
+            <div>{!$Label.c.MIY_OrderPage_Fill_The_Fields}</div>
+        </div>
+
+        <div class="slds-form slds-form_compound">
+            <div class="slds-form-element__row">
+                <div class="slds-form-element slds-size_1-of-2">
+                    <lightning:input type="number"
+                                     formatter="currency"
+                                     name="deposit"
+                                     label="Deposit"
+                                     step="1"
+                                     value="{!v.depositAmount}"
+                                     min="{!v.record.Amount / 2}"
+                                     max="{!v.record.Amount}"
+                    />
+                    <div class="slds-form-element__help"><span class="spo-add-deposit-modal__quote-amnt">{!$Label.c.MIY_OrderPage_Of}
+                        <lightning:formattedNumber style="currency"
+                                                   currencyCode="{!v.record.SPO_Store__r.Currency__c}"
+                                                   value="{!v.record.Amount}"
+                                                   minimumFractionDigits="0"
+                                                   maximumFractionDigits="0"
+                        /></span> {!$Label.c.MIY_OrderPage_par}<ui:outputNumber value="{!div(v.depositAmount, v.record.Amount) * 100}" />{!$Label.c.MIY_OrderPage_Amount}</div>
+                </div>
+                <lightning:input name="ca-code" label="CA Code" class="slds-size_1-of-2" value="{!v.caCode}" />
+            </div>
+            <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size_1-of-1">
+                        <c:SO_UserLookup selEmail="{!v.caEmail}" 
+                            user="{!v.selectedUser}" 
+                            storeCode="{!v.record.SPO_StoreCode__c}"
+                            selItem="{!v.selectedUserItem}"
+                        />
+                    </div>  
+                </div>
+            <div class="slds-form-element__row">
+                <lightning:textarea name="comment"
+                                    label="Deposit Comment"
+                                    placeholder="Comment…"
+                                    class="slds-form-element slds-size_1-of-1"
+                                    value="{!v.depositComment}"
+                />
+            </div>
+        </div>
+          
+        </div>
+
+    
+    <aura:attribute name="footerContent" type="Aura.Component[]">
+        <lightning:button label="Cancel" onclick="{!c.closeModal}"/>
+        <c:LaddaLightningButton label="Confirm"
+                                onclick="{!c.handleConfirmClick}"
+                                isLoading="{!v.confirmLoading}"
+                                variant="brand"
+        />
+    </aura:attribute>
+
+</aura:component>

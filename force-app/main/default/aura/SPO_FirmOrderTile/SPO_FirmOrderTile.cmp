@@ -1,0 +1,143 @@
+<aura:component implements="force:hasRecordId" access="global" controller="SPO_OpportunityActionButtonController">
+
+    <aura:attribute name="recordId" type="Id" />    
+    <aura:attribute name="object" type="String" default="SPO_FirmOrder__c"/>
+    <aura:attribute name="simpleFirmOrder" type="Object"/>
+    <aura:attribute name="parentOrder" type="Object"/>
+    <aura:attribute name="foError" type="String"/>
+    <aura:attribute name="fo" type="Object"/>
+    <aura:attribute name="dispalyBtn" type="Boolean" />
+    <aura:attribute name="isOpen" type="boolean" default="false"/>
+     <aura:attribute name="today" type="Date" />
+    <aura:attribute name="opp" type="Object"/>
+     <aura:attribute name="stopOrderList" type="List" />
+     <aura:attribute name="imgHeightSPO" type="String" default="?wid=140&amp;hei=110"  />
+     <aura:attribute name="imgHeightPERSO" type="String" default="?width=140&amp;height=110"/>
+    
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId}"
+                      fields="Id,Name,ValidatedMaxDate__c,FirmOrderNumber__c,SPO_FirmOrderStatus__c,SPO_BriefName__r.OrderNumber__c,UnitRetailPrice__c,CreatedDate,ProductSKU__c,Product_Name__c,ProductCatalogue__r.Name,SPO_BriefName__r.SPO_Store__r.Name, SPO_BriefName__r.SPO_StoreCurrency__c,Product_Image_URL__c,Fluid_Image_Font__c,IsInferiorVmaxDate__c,TECH_ParentOrderType__c,UnitaryPrice__c, TECH_Picture_source__c"
+                      targetRecord="{!v.fo}"
+                      targetFields="{!v.simpleFirmOrder}"
+                      targetError="{!v.foError}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+   
+   
+    
+
+    <lightning:spinner aura:id="spinner" class="slds-hide" alternativeText="Updating..."/>
+
+    <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="{!v.object}">
+
+        <lightning:tile label="" href="" class="bottomTile">
+            <aura:set attribute="media">
+                <div class="imgClass">
+                    <!--lightning:outputField fieldName="Product_Image__c" variant="label-hidden"/-->
+                    <aura:if isTrue="{!v.simpleFirmOrder.TECH_Picture_source__c=='lv.com'}">
+                      <img src="{!v.simpleFirmOrder.Product_Image_URL__c+v.imgHeightSPO}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.simpleFirmOrder.TECH_Picture_source__c=='fluidretail.net'}">
+                      <img src="{!v.simpleFirmOrder.Product_Image_URL__c+v.imgHeightPERSO}"/>
+                    </aura:if>
+                </div>
+            </aura:set>
+                    <!-- <p class="slds-truncate productName" title="Product">
+                        {!v.simpleFirmOrder.ProductSKU__c} - {!v.simpleFirmOrder.ProductCatalogue__r.Name}
+                        <lightning:outputField fieldName="ProductCatalogue__r.Name" variant="label-hidden"/>
+                        <lightning:outputField fieldName="ProductSKU__c" variant="label-hidden"/>  
+                        <lightning:input label="SKU" name="sku" value="{!v.simpleFirmOrder.ProductSKU__c}" />
+                        <lightning:input label="SKU" name="sku" value="{!v.simpleFirmOrder.ProductCatalogue__r.Name}" /
+                    </p> -->
+            		
+                <p class="slds-truncate cSO_ProductSummary" title="Product">
+                        <h3><a onclick="{!c.handleClickToRecord}">{!v.simpleFirmOrder.Product_Name__c}</a></h3>
+                        <!-- lightning:outputField fieldName="SPO_FirmOrderStatus__c" variant="label-hidden"/ -->
+                    </p>
+            		<div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size--1-of-2 cSO_ProductSummary"><p class="slds-truncate" title="SKU">
+                        <h3>{!v.simpleFirmOrder.ProductSKU__c}</h3>
+                        <!-- lightning:outputField fieldName="SPO_FirmOrderStatus__c" variant="label-hidden"/ -->
+                    </p>
+                  
+                    <p class="slds-truncate" title="Price">
+                        {!v.simpleFirmOrder.UnitaryPrice__c}&nbsp;{!v.simpleFirmOrder.SPO_BriefName__r.SPO_StoreCurrency__c}
+                    </p>
+                  </div>
+                  <div class="slds-col slds-size--1-of-2"><p class="slds-truncate" title="Status">
+                        {!v.simpleFirmOrder.SPO_FirmOrderStatus__c}
+                        <!-- lightning:outputField fieldName="SPO_FirmOrderStatus__c" variant="label-hidden"/ -->
+                    </p>
+                    <p class="slds-truncate" title="Name">
+                        {!v.simpleFirmOrder.Name}
+                        <!--lightning:outputField fieldName="Name" variant="label-hidden"/-->
+                    </p>
+                  <p class="slds-truncate" title="Planned Delivery Date">
+                        
+                        <lightning:icon iconName="utility:event" size="xx-small" class="icon"/>
+                        <!--lightning:avatar src="/resource/1491028136000/IconImages/images/calendar.png" alternativeText="Planned Delivery date"/-->
+
+                        <!--span class="calendar-icon icon"></span-->
+                        <!--lightning:outputField fieldName="CreatedDate" variant="label-hidden"/-->
+                        <lightning:formattedDateTime value="{!v.simpleFirmOrder.CreatedDate}"/>
+                    </p>
+                  </div>
+
+                </div>
+                <p class="slds-truncate" title="">
+                        <aura:if isTrue="{!and(v.dispalyBtn,or(v.simpleFirmOrder.SPO_FirmOrderStatus__c=='Distribution in progress',v.simpleFirmOrder.SPO_FirmOrderStatus__c=='Sent to MyPR'))}"><!--DISPLAY THIS BUTTON ONLY FOR ICON_ Profiles-->
+                        <lightning:button aura:id="closeorder" label="{!$Label.c.LV_SO_Received_in_Store}" onclick="{!c.updateFirmOrder}" class="buttonCustom"/>
+                    	</aura:if>
+                        <!-- Display button Cancel If today < fo.Created Date + ProductCatalogue.lead Time approval -->
+                      
+                        <aura:if isTrue="{!and(v.simpleFirmOrder.IsInferiorVmaxDate__c,v.simpleFirmOrder.SPO_FirmOrderStatus__c =='Creation in progress')}">                             
+                        	<lightning:button aura:id="cancelorder" label="Cancel" onclick="{!c.openModal}" class="slds-button slds-button_destructive"/>
+                     </aura:if>                      
+                     
+                       
+                   <!-- Modal Box opened when user click on Cancel button -->
+                        <aura:if isTrue="{!v.isOpen}">
+          
+                           <!--###### MODAL BOX Start From Here ######--> 
+                              <div aura:id="cancelModal" role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-fade-in-open ">
+                                <div class="slds-modal__container">
+                                  <!-- ###### MODAL BOX HEADER Part Start From Here ######-->
+                                 
+                                  <!--###### MODAL BOX BODY Part Start From Here ######-->
+                                  <div class="slds-modal__content slds-p-around--medium">
+                                    <p>
+                                      <aura:if isTrue="{!and(v.parentOrder.TECH_Nb_FO_Creation_in_Progress__c==1,v.parentOrder.TECH_Nb_FO__c == v.parentOrder.TECH_Nb_FO_Creation_in_Progress__c + v.parentOrder.TECH_Nb_FO_cancelled__c)}" >
+                                      <lightning:select aura:id="storeSelect" name="storeSelect" value="{!v.opp.SPO_StopBriefReason__c}" label="Stop Order reason" required="true"><!-- onchange="{!c.changeStore}"-->
+                                        <aura:iteration items="{!v.stopOrderList}" var="stoporder">
+                                            <option value="{!stoporder.value}" text="{!stoporder.label}" selected="{!stoporder.value == v.opp.SPO_StopBriefReason__c}"></option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                        <lightning:input value="{!v.opp.SPO_StopBriefComment__c}" name="stopOrderComment" label="Stop Order Comment" />
+                                        <aura:set attribute="else">
+                                          Do you confirm cancellation?
+                                        </aura:set>
+                                      </aura:if>
+                                    </p>
+                                  </div>
+                                  <!--###### MODAL BOX FOOTER Part Start From Here ######-->
+                                  <div class="slds-modal__footer">
+                                    <button class="slds-button slds-button--neutral" onclick="{!c.closeModal}" >Cancel</button>
+                                    <button class="slds-button slds-button--brand" onclick="{!c.cancelFirmOrder}">Save</button>
+                                  </div>
+                                </div>
+                              </div>
+                             <div aura:id="MB-Back" class="slds-backdrop slds-backdrop--open"></div>
+                              <!--###### MODAL BOX Part END Here ######-->
+                    
+                  </aura:if>
+                           
+                        
+                        	
+                           
+                        
+                    </p>
+                    
+        </lightning:tile>
+    </lightning:recordViewForm>
+
+</aura:component>

@@ -1,0 +1,35 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog">
+    <aura:attribute name="productVariant" type="Object" default="[]"/>
+    <aura:attribute name="selected" type="Boolean" default="false"/>
+    <aura:attribute name="productVariationsStock" type="Object" default="[]"/>
+    <aura:attribute name="haveAvailabilities" type="Boolean" default="false" />
+    <aura:attribute name="stockChecked" type="Boolean" default="false" />
+    <aura:attribute name="cmpTitle" type="String" />
+    <aura:attribute name="myProductNoStock" type="Boolean" default="false"/>
+
+    <aura:handler event="c:ProductCatalogGetProductNoStock" action="{!c.updateMyProductNoStock}"/>
+    
+    <aura:handler name="change" value="{!v.productVariationsStock}" action="{!c.getAvailabilities}"/>
+    
+    <aura:registerEvent name="productCatalogFilterChange" type="c:ProductCatalogFilterChangeEvent"/> 
+    <aura:registerEvent name="productCatalogVariantHover" type="c:ProductCatalogVariantHoverEvent"/>
+    <div class="{!'pc-var-item' +
+            (v.selected ? ' pc-var-item_selected' :'') +
+            (and(
+                    v.stockChecked, or(
+                    and(not(v.selected), not(v.haveAvailabilities)),
+                    and(v.selected, v.myProductNoStock)
+                    )
+                    ) ? ' pc-var-item_unavailable' :'')
+            }" >
+        <aura:if isTrue="{!not(v.selected)}">
+            <a onclick="{!c.variantClick}" onmouseover="{!c.onmouseover}"  onmouseout="{!c.onmouseout}">
+                <img src="{!v.productVariant.Value}" width="31" height="31"/>
+            </a>
+            <aura:set attribute="else">
+                <img src="{!v.productVariant.Value}" width="31" height="31"/>
+            </aura:set>
+        </aura:if>
+    </div>
+
+</aura:component>

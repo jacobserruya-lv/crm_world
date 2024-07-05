@@ -1,0 +1,5 @@
+<aura:component controller="MIY_OrderPageController" extends="c:MIY_ReceivedModal">
+    <aura:attribute name="order" type="Opportunity" />
+    <lightning:overlayLibrary aura:id="spo-received-modal__overlay-lib"/>
+
+</aura:component>

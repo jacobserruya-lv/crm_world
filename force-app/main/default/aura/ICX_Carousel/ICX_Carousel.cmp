@@ -1,0 +1,58 @@
+<aura:component extensible="true">
+	<!--ATTRIBUTES-->
+    <aura:attribute name="currentScreen" type="integer" default="0"/>
+    <aura:attribute name="body" type="Aura.Component[]" />
+    <aura:attribute name="highDots" type="Boolean" default="false" />
+
+    <!--HANDLER-->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <!--COMPONENTS-->
+    <div class="icx-carousel">
+		<div class="icx-carousel__wrap" style="{!'left: ' + (v.currentScreen * -100) + '%;'}">
+			<lightning:layout >
+                <aura:iteration items="{!v.body}" var="screen" indexVar="idx">
+                    <lightning:layoutItem size="12">
+						{!screen}
+					</lightning:layoutItem>
+				</aura:iteration>
+			</lightning:layout>
+		</div>
+
+		<lightning:buttonIcon variant="bare"
+								iconName="utility:chevronleft"
+								alternativeText="Previous"
+								disabled="{!v.currentScreen == 0}"
+								class="icx-carousel__arrow icx-carousel__arrow_dir_left"
+								value="prev"
+								onclick="{!c.changeScreens}"
+		/>
+
+		<lightning:buttonIcon variant="bare"
+								iconName="utility:chevronright"
+								alternativeText="Next"
+								disabled="{!v.currentScreen == (v.body.length - 1)}"
+								class="icx-carousel__arrow icx-carousel__arrow_dir_right"
+								value="next"
+								onclick="{!c.changeScreens}"
+		/>
+
+
+        <lightning:layout horizontalAlign="center"
+                          class="{!'icx-carousel__screens' + (v.highDots ? ' icx-carousel__screens_high' : '')}"
+        >
+            <aura:iteration items="{!v.body}" var="screen" indexVar="idx">
+                <lightning:layoutItem >
+                    <lightning:button variant="base"
+                                      class="{!
+											  'icx-carousel__screen-btn' +
+													  (v.currentScreen == idx ? ' icx-carousel__screen-btn_active' : '')
+											  }"
+                                      value="{!idx}"
+                                      onclick="{!c.changeScreens}"
+                    />
+                </lightning:layoutItem>
+            </aura:iteration>
+        </lightning:layout>
+	</div>
+</aura:component>

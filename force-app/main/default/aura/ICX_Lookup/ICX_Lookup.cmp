@@ -1,0 +1,27 @@
+<aura:component >
+
+    <aura:attribute access="global" type="String" name="objectType" required="true"/>
+    <aura:attribute access="global" type="String" name="selectedRecordId" required="true"/>
+    <aura:attribute access="global" type="String" name="label"/>
+    <aura:attribute access="global" type="String" name="queryCondition" />
+    <aura:attribute access="global" type="String" name="additionalField" />
+    <aura:attribute access="global" type="Boolean" name="readOnly" default="false"/>
+    <aura:attribute access="global" type="Boolean" name="IsRequired" default="false" />
+    <aura:attribute access="global" type="Boolean" name="showFiveRecent" default="true" />
+   <!-- <aura:registerEvent name="name" type="c:eventName" /-->
+    
+    <lightning:layout>
+        <lightning:layoutitem padding="" size="12" >
+               <l_lookup:Lookup objectType="{!v.objectType}"
+                                label="{!v.label}"
+                                selectedRecordId= "{!v.selectedRecordId}"
+                                readOnly="{!v.readOnly}"
+                                showFiveRecent="{!v.showFiveRecent}"
+                                queryCondition="{!v.queryCondition}"
+                                additionalField="{!v.additionalField}"
+                                isRequired ="{!v.IsRequired}"
+                />
+       </lightning:layoutitem>
+      
+    </lightning:layout>
+</aura:component>

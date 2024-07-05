@@ -1,0 +1,153 @@
+@import url("/resource/LVFont/font-faces.css");
+.THIS {
+  font-family: "Louis Vuitton", Futura, sans-serif;
+}
+
+/** LEGACY **/
+.THIS .selected {
+  border: 2px solid #0070d2;
+  /*padding: 0px 65px;*/
+}
+
+.THIS .not-selected {
+  border: 2px solid transparent;
+  /*padding: 0px 65px;*/
+}
+
+.THIS .spinner-section {
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+}
+
+/*
+.THIS.product-list-container {
+  position: relative;
+  min-height: 400px;
+  padding: 14px;
+  border: 1px solid rgb(221, 219, 218);
+  border-radius: .25rem;
+  background: rgb(255, 255, 255);
+}
+
+.THIS .slds-spinner--medium {
+
+}
+
+
+.THIS .slds-spinner_container {
+  position: relative;
+  top: -14px;
+  right: 14px;
+  bottom: 13px;
+  left: -14px;
+  min-height: 400px;
+  border-radius: .25em;
+  background-color: rgba(255, 255, 255, 0.75);
+  z-index: 9050;
+}
+
+*/
+.THIS .product-list-stockButton {
+  /*padding-right: 20px;*/
+  text-align: right;
+}
+
+.THIS .product-list-header {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  align-content: stretch;
+  align-items: stretch;
+  justify-content: space-end;
+}
+
+.THIS .errorMsg {
+  width: 75%;
+  color: red;
+  text-align: center;
+}
+
+.THIS .slds-icon-utility-error {
+  background-color: transparent;
+}
+
+.THIS .slds-icon-utility-error svg {
+  fill: red;
+}
+
+.THIS .slds-modal__content.slds-p-around_medium p {
+  text-align: center;
+}
+
+/** Redesign March 2018 **/
+.THIS.pc-list {
+  position: relative;
+  padding: 0 1rem;
+  border-right: 2px solid #f8f8f8;
+}
+.THIS.pc-list .slds-spinner {
+  top: 1.05rem;
+}
+.THIS .pc-list__stock-req-btn {
+  padding: 0 0.5rem;
+  border-radius: 0;
+  border-color: transparent;
+  background-color: #9c7663;
+  color: #f3efed;
+  font-size: .875rem;
+}
+.THIS .pc-list__stock-req-btn[disabled] {
+  border-color: #f3efed;
+  background-color: transparent;
+}
+.THIS .pc-list__stock-req-btn::before {
+  display: inline-block;
+  width: 18px;
+  height: 22px;
+  margin: 4px 7px 6px -3px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%0AviewBox='0 0 18 22'%3E%3Cpath fill-rule='evenodd' fill='%23eee7e4' d='M17.838,10.474 C17.833,10.506 17.814,10.603 17.777,10.769 C17.640,11.369 17.437,11.949 17.174,12.508 C16.205,14.744 14.069,18.181 9.398,21.861 C9.280,21.953 9.138,21.999 8.998,21.999 C8.857,21.999 8.714,21.953 8.597,21.861 C3.920,18.181 1.790,14.744 0.821,12.508 C0.558,11.949 0.355,11.363 0.218,10.769 C0.181,10.603 0.162,10.506 0.158,10.474 C0.049,9.930 -0.002,9.371 -0.002,8.818 C-0.002,3.957 4.034,-0.001 8.993,-0.001 C13.951,-0.001 17.987,3.957 17.998,8.818 C17.998,9.371 17.941,9.930 17.838,8.474 Z M8.993,1.240 C4.735,1.240 1.268,4.640 1.268,8.813 C1.268,9.297 1.315,9.777 1.409,10.252 C1.409,10.266 1.413,10.275 1.413,10.285 C1.419,10.307 1.428,10.377 1.456,10.483 C1.456,10.488 1.456,10.488 1.456,10.492 C1.578,11.009 1.753,11.516 1.978,11.996 C1.983,12.000 1.983,12.009 1.987,12.014 C2.868,14.058 4.796,17.175 8.993,20.574 C13.190,17.175 15.118,14.058 15.997,12.014 C16.003,12.009 16.003,12.000 16.008,11.996 C16.238,11.511 16.413,11.009 16.530,10.492 C16.530,10.488 16.530,10.488 16.530,10.483 C16.553,10.377 16.567,10.307 16.572,10.285 C16.572,10.275 16.576,10.266 16.576,10.257 C16.671,9.786 16.718,9.302 16.718,8.813 C16.718,4.640 13.251,1.240 8.993,1.240 Z M8.993,14.513 C5.846,14.513 3.281,12.000 3.281,8.915 C3.281,5.829 5.846,3.316 8.993,3.316 C12.141,3.316 14.704,5.829 14.704,8.915 C14.704,12.000 12.141,14.513 8.993,14.513 ZM8.993,4.561 C6.546,4.561 4.552,6.516 4.552,8.915 C4.552,11.313 6.542,13.269 8.993,13.269 C11.444,13.269 13.434,11.313 13.434,8.915 C13.434,6.516 11.438,4.561 8.993,4.561 Z' /%3E%3C/svg%3E") center no-repeat;
+  content: '';
+  vertical-align: top;
+}
+.THIS .pc-list__stock-req-btn .label {
+  display: inline;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+.THIS .pc-list__item-wrap {
+  border-bottom: solid 2px #f8f8f8;
+}
+
+.THIS .pc-list__no-products-a {
+  text-transform: none;
+  color: #56463e;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.THIS .pc-list__no-products-a:hover {
+  text-transform: none;
+  color: #56463e;
+  text-decoration: none;
+}
+
+.THIS .pc-list__no-products-link-a:visited {
+  text-transform: none;
+  color: #56463e;
+  text-decoration: none;
+}
+
+.THIS .pc-list__no-products {
+
+  text-align:center;
+  font-weight: 600;
+  fornt-size: 1rem;
+  padding-top:50px;
+}
+
+.THIS .pc-list__no-products-btn svg {
+  width: 3rem;
+  height: 3rem;
+}

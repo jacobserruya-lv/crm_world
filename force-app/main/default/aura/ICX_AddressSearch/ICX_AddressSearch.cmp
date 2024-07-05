@@ -1,0 +1,106 @@
+<!-- 
+/**
+* Google Auto Search  
+* @category  Lightning component
+* @author    Veeranjaneyulu k
+* 
+* NOTES: don't forget CSP Trusted sites : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/csp_trusted_sites.htm
+**/
+-->
+<aura:component description="GoogleMapsLanguageAutoComplete" access="global" controller="ICX_AddressSearchControllerLC">
+
+    <!--aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedValue" type="String" default="en"/>       
+    <aura:attribute name="selectedOption" type="String" default="English"  />
+
+    <aura:attribute name="filteredOptions" type="String[]"/>
+    <aura:attribute name="searchKey" type="String"/>
+    <aura:attribute access="private" type="Map" name="searchThrottlingTimeout" description="Apply search throttling (prevents search if user is still typing)"/>
+    <aura:attribute access="private" type="Map" name="blurTimeout" description="When the focus is outside the search box, hide the results"/>
+
+    <aura:attribute name="placeholder" type="String" default="Enter a location"/>
+    <aura:attribute name="myselePlaceID" type="String" default=""/> 
+    <aura:attribute name="Selecteddataset" type="String" default=""/>
+    <aura:attribute name="PropId" type="String" default=""/-->
+    <aura:attribute name="iframeHeight" type="String" default="2.5rem" description="Results from the iFrame should be displayed. So this parameter will automatically add height for the iframe"/>
+    <aura:attribute name="isChinaUser" type="Boolean" default="true" description="Don't show the Google Place search as it is blocked in China"/>
+
+    <aura:registerEvent name="addressEvent" type="c:ICX_AddressEvent" description="Send address event"/>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- Add utils component to use aura:method -->
+    <!--c:Utils_XMLHttpRequest aura:id="utilsHttp" /-->
+    <aura:attribute name="vfHost" type="String"/>
+    <aura:attribute name="lightningHost" type="String" description="Lightning host to be sent to the Visualforce page to get a feedback when the user selects a value" />
+
+    <!--ltng:require 
+    scripts="Resource.GoogleApi + '?libraries=places&amp;key=AIzaSyA4Se4IGo4I-Yltajy5al-gnqxHAlaASuk'" 
+    afterScriptsLoaded="{!c.scriptsLoaded}" 
+                  /-->
+
+    <aura:if isTrue="{! and(!empty(v.vfHost), !empty(v.lightningHost), !v.isChinaUser) }">
+        <label class="slds-form-element__label" >  Address Search
+        <lightning:icon iconName="utility:checkin" size="x-small" alternativeText="Search a location" class="slds-input__icon slds-input__icon_left"/>
+        </label>
+        <iframe aura:id="vfFrame" src="{!'https://' + v.vfHost + '/apex/ICX_AddressSearch?lightningDomain=' + v.lightningHost}" frameborder='0' style="{!'width: 100%;z-index:10;height:' + v.iframeHeight}"/>
+    </aura:if>
+
+    <!--ltng:require styles="{!$Resource.SLDS24 + '/styles/lightning-design-system-ltng.css'}" /-->
+    <!-- To load the picklist values 
+    <aura:handler name="init" value="{!this}" action="{!c.loadOptions}" />
+    Language Pick list Start 
+    <div class="slds-align_absolute-center">
+        <lightning:select name="mySelect" label="Select a language" aura:id="mySelect" onchange="{!c.handleSelect}" value="{!v.selectedValue}">
+            <aura:iteration items="{!v.options}" var="item">
+                <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+            </aura:iteration>
+        </lightning:select>
+        
+    </div>
+    Language Pick list End   -->    
+    
+    <!-- Auto Suggestion Start -->
+    <!--div>
+        <div class=" slds-size_12-of-12 slds-dropdown-trigger slds-dropdown-trigger_click slds-combobox-lookup slds-input-has-icon slds-input-has-icon_left" 
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            role="combobox"
+            aura:id="searchLookup">
+
+            <input type="text" id="autocomplete_one" />
+            <ui:inputtext updateOn="keyup"
+                        label=""
+                        keyup="{!c.keyPressController}"
+                        click="{!c.keyPressController}"
+                        class="slds-input slds-combobox__input label-hidden"
+                        blur="{!c.onBlur}"
+                        value="{!v.searchKey}"
+                        placeholder="{!v.placeholder}"
+                        aura:id="prptext3"
+                        />
+            <img src="{!$Resource.iconics + '/images/google/powered_by_google_on_white.png'}" class="slds-is-absolute googleLogoRight"/>
+
+            <lightning:icon iconName="utility:checkin" size="x-small" alternativeText="Search a location" class="slds-input__icon slds-input__icon_left"/>
+            
+            <div id="listbox-unique-id" > 
+                <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid slds-p-bottom_none" role="listbox">
+                    <aura:iteration items="{!v.filteredOptions}" var="option" indexVar="index">
+                        <li role="presentation"
+                            class="slds-listbox__item"
+                            onclick="{!c.handleSelect}"
+                            data-index="{!index}"
+                            >
+                            <span id="listbox-option-unique-id-01"
+                                class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                role="option">
+                                <span class="slds-media__body">
+                                    <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!option.formatted_address}</span>
+                                </span>
+                            </span>
+                        </li>
+                    </aura:iteration>
+                </ul>
+            </div>
+        </div>
+    </div-->
+</aura:component>

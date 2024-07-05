@@ -1,0 +1,17 @@
+.THIS .pc3-var-filter-item__btn {
+    padding: 0.125rem;
+}
+
+.THIS .pc3-var-filter-item__btn:hover {
+    border-color: t(lvdsEternity);
+}
+
+.THIS .pc3-var-filter-item__img {
+    width: 2.25rem;
+    height: 2.25rem;
+    object-fit: contain;
+}
+
+.THIS.pc3-var-filter-item-container__btn {
+    margin: 0 10px 10px 0;
+}

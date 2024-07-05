@@ -1,0 +1,6 @@
+<aura:component implements= "force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global">
+    
+   RECORDID {!v.recordId}
+    <c:icx_ipd_confirmation recordId="{!v.recordId}" onclose="{!c.closeQuickAction}"></c:icx_ipd_confirmation>
+
+</aura:component>

@@ -1,0 +1,7 @@
+.THIS .customSplitToggle {
+    /*top: 0;*/
+    right: unset;
+    z-index: 6;
+    /*left: 0rem;*/
+    position: fixed;
+}

@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template" >
+    <aura:attribute name="myFavorites" type="String" />
+    <aura:attribute name="src" type="String" />
+</aura:event>

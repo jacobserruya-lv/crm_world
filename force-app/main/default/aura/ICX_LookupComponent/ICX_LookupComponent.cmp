@@ -1,0 +1,15 @@
+<aura:component access="global" controller="ICX_LookupComponentController">
+    
+    <aura:attribute access="public" type="List" name="selection" default="[]"/>
+    <aura:attribute access="private" type="List" name="errors" default="[]"/>
+    <aura:attribute access="public" type="Boolean" name="isMultiEntry" default="false"/>    
+    <aura:attribute access="public" type="String" name="label" default="false"/>
+    <aura:attribute access="public" type="String" name="defaultSearchCriteria" />
+    <aura:attribute access="public" type="String" name="defaultSearchId" />        
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.onInit}"/> -->
+    <aura:handler name="change" value="{!v.defaultSearchCriteria}" action="{!c.onInit}"/>
+    <div class="slds-p-around_xxx-small">
+        <c:LookupComponent aura:id="lookupComponent" selection="{!v.selection}" onSearch="{!c.lookupSearch}" onSelection="{!c.clearErrorsOnChange}" errors="{!v.errors}" label="{!v.label}" placeholder="Search Email" isMultiEntry="{!v.isMultiEntry}"/>
+    </div>
+
+</aura:component>

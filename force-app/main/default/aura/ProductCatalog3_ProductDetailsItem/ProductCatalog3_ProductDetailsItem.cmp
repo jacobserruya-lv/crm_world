@@ -1,0 +1,110 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-05-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<aura:component implements="force:hasRecordId" controller="Ctrl_ProductCatalog">
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="productsMap" type="List" />
+    <aura:attribute name="currentImageSrc" type="String" default="{!v.product.image1Url}" />
+    <aura:attribute name="myFavorites" type="List" default="" />
+    <aura:attribute name="countriesSelected" type="List" />
+    <aura:attribute name="physicalStoresSelected" type="String" />
+    <aura:attribute name="favorite" default="false" type="Boolean" />
+    <aura:attribute name="statusText" type="String" default="" />
+    <aura:attribute name="isPersonalizeButtonPermission" type="Boolean" default="false" />
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.initData}" />
+    <aura:handler name="change" value="{!v.product}" action="{!c.initData}" />
+    <aura:handler name="change" value="{!v.myFavorites}" action="{!c.isFavorite}" />
+
+
+    <div class="pc3-details-item">
+        <div class="pc3-details-item__header">
+            <!-- <aura:if isTrue="{!v.productsMap.length gt 1}">-->
+            <lightning:buttonIcon class="pc3-details-item__back-btn" iconName="utility:back" alternativeText="Back"
+                onclick="{!c.goBack}" />
+            <!--</aura:if>-->
+            <div class="pc3-details-item__header-img"></div>
+            <div class="pc3-details-item__header-title">
+                <div class="pc3-details-item__sku">{!v.product.sku}</div>
+                <aura:if isTrue="{!not(empty(v.product.longSku))}">
+                    <div class="pc3-details-item__sku">{!v.product.longSku}</div>
+                </aura:if>
+                <div class="pc3-details-item__name">{!v.product.name}</div>
+                <lightning:formattedNumber class="pc3-details-item__price" value="{!v.product.price}" style="currency"
+                    currencyCode="{!v.product.currencyCoin}" minimumFractionDigits="0" maximumFractionDigits="0" />
+
+            </div>
+
+
+            <aura:if
+                isTrue="{!and((v.product.engravingEnabled),(v.isPersonalizeButtonPermission),(v.product.engravingType == 'HighEndWebview'))}">
+                <div class="personalizedButton">
+                    <c:icx_personalizeButton isFromProductDetailPage="{!v.isPersonalizeButtonPermission}"
+                        productName="{!v.product.name}" productSKU="{!v.product.sku}"
+                        countrySelected="{!v.countriesSelected}" physicalStoresSelected="{!v.physicalStoresSelected}" />
+                </div>
+
+                <aura:set attribute="else">
+                    <aura:if isTrue="{!v.product.isPersoProduct}">
+                        <lightning:button class="pc3-details-item__header-btn-icon" variant="bare" name="ny"
+                            onclick="{!c.nowyours}">
+                            <img src="https://nowyours-prp.louisvuitton.com/images/icon-stock.png" size="x-small"
+                                alternativeText="ny" />
+                        </lightning:button>
+                    </aura:if>
+                </aura:set>
+            </aura:if>
+
+
+            <!-- <lightning:button class="pc3-details-item__header-btn-icon" variant="bare" name="wardrobing" onclick="{!c.createLook}">
+                <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#wardrobing'}" size="x-small"
+                    alternativeText="Wardrobing" />
+            </lightning:button> -->
+
+            <lightning:button class="pc3-details-item__header-btn-icon" variant="bare" name="favorites"
+                onclick="{!c.handleFavoriteClick}">
+                <aura:if isTrue="{!v.favorite}">
+                    <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#star-filled'}"
+                        class="pc3-search-result-item__favorite-icon" size="x-small"
+                        alternativeText="Remove from Favorites" />
+                    <aura:set attribute="else">
+                        <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#star-empty'}"
+                            class="pc3-search-result-item__favorite-icon" size="x-small"
+                            alternativeText="Add to Favorites" />
+                    </aura:set>
+                </aura:if>
+            </lightning:button>
+        </div>
+        <div class="pc3-details-item__product-img-section">
+            <div class="pc3-details-item__product-img-thumbs">
+                <aura:iteration items="{!v.product.images}" var="image" indexVar="idx">
+                    <lightning:button value="{!image}" onclick="{!c.handleThumbClick}" variant="base">
+                        <img class="{!
+                            'pc3-details-item__product-img-thumb' + 
+                            (image == v.currentImageSrc ? ' pc3-details-item__product-img-thumb_current' : '')
+                        }" src="{!image}" />
+                    </lightning:button>
+                </aura:iteration>
+            </div>
+            <img class="pc3-details-item__current-img" src="{!v.currentImageSrc}" />
+            <div class="pc3-details-item__product-badges">
+                <!--<div class="pc3-product-badge pc3-product-badge_type_now-yours">Now Yours</div>
+                <div class="pc3-product-badge pc3-product-badge_type_exclusive">Exclusive</div>-->
+                <aura:if isTrue="{!not(empty(v.statusText))}">
+                    <div class="{!'pc3-product-badge pc3-product-badge_type_'+v.product.status}" title="{v.statusText}">
+                        {!v.statusText}</div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.product.season}">
+                    <div class="pc3-product-badge">{!v.product.season}</div>
+                </aura:if>
+                <!--<div class="pc3-product-badge">Millestone</div>-->
+            </div>
+        </div>
+    </div>
+</aura:component>

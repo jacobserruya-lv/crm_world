@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Custom Toast Event for standalone New Brief App" >
+	<aura:attribute name="type" type="String"/>
+	<aura:attribute name="title" type="String"/>
+	<aura:attribute name="message" type="String"/>
+</aura:event>

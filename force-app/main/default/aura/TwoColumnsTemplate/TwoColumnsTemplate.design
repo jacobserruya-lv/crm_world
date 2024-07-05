@@ -1,0 +1,13 @@
+<design:component label="Top Panel and two columns">
+    <flexipage:template >
+        <!-- The default width for the "left" region is "MEDIUM". In tablets,
+        the width is "SMALL" -->
+        <flexipage:region name="top" defaultWidth="MEDIUM">
+            <flexipage:formfactor type="MEDIUM" width="SMALL"/>
+        </flexipage:region>
+        <flexipage:region name="left" defaultWidth="SMALL"/>
+        <flexipage:region name="right" defaultWidth="MEDIUM">
+            <flexipage:formfactor type="MEDIUM" width="SMALL"/>
+        </flexipage:region>
+    </flexipage:template>
+</design:component>

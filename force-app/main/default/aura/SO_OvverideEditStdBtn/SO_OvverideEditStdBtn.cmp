@@ -1,0 +1,39 @@
+<aura:component implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName" controller="SO_OpportunitySPAController">
+     
+      				
+     <aura:attribute name="isOpen" type="boolean" default="false"/>
+     <aura:attribute name="opp" type="Opportunity" />
+     <aura:attribute name="currentUsr" type="User" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:if isTrue="{!v.currentUsr.Profile.Name != 'System Administrator'}">
+        
+        
+
+             <!--###### MODAL BOX Start From Here ######--> 
+                              <div role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-fade-in-open ">
+                                <div class="slds-modal__container">
+                                  <!-- ###### MODAL BOX HEADER Part Start From Here ######-->
+                                    <div class="slds-modal__header">
+                                    <p>Permission denied!</p>
+                                    </div>
+                                  <!--###### MODAL BOX BODY Part Start From Here ######-->
+                                  <div class="slds-modal__content slds-p-around--medium">
+                                    <p>
+                                        <b>You don't have the permissions to Edit this record. You will be redirected to the current record.</b>
+                                    </p>
+                                  </div>
+                                  <!--###### MODAL BOX FOOTER Part Start From Here ######-->
+                                  <div class="slds-modal__footer">
+                                  
+                                    <button class="slds-button slds-button--neutral" onclick="{!c.getOpp}" >Continue</button>
+                                  </div>
+                                </div>
+                              </div>
+                             <div class="slds-backdrop slds-backdrop--open"></div>
+                              <!--###### MODAL BOX Part END Here ######-->
+            
+
+    </aura:if>
+   <h1>{!$Label.c.LV_SO_Reclick_Order_Tab}</h1>
+</aura:component>

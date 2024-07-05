@@ -1,0 +1,30 @@
+.THIS {
+    padding: 1.5rem 2.25rem 1.5rem 3.875rem;
+    margin-bottom: 4rem;
+}
+.THIS .pc3-recently-viewed__title {
+    margin-bottom: 1.75rem;
+}
+.THIS .pc3-recently-viewed__slider-wrap {
+    display: flex;
+    align-items: center;
+}
+.THIS .pc3-recently-viewed__slider {
+    width: calc(100% - 4.5rem);
+    height: 7rem;
+    overflow: hidden;
+    margin: 0 0.75rem;
+}
+.THIS .pc3-recently-viewed__tiles {
+    position: relative;
+    display: flex;
+    transition: all 250ms;
+}
+.THIS .pc3-recently-viewed__tile {
+    width: 7rem;
+    height: 7rem;
+    margin-right: 0.75rem;
+    margin-left: 0;
+    padding: 0;
+    flex-shrink: 0;
+}

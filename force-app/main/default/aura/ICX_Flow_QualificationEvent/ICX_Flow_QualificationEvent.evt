@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT" description="Event for ICX_Flow_QualificationFinder">
+    <aura:attribute type="String" name="field" />
+    <aura:attribute type="String" name="value"  description="value of the selected picker"/>
+    <aura:attribute type="Integer" name="level"  description="Level for dependant picklist"/>
+    <aura:attribute type="String" name="action"  description="Select / Change"/>
+</aura:event>

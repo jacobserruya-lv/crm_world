@@ -1,0 +1,68 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes" access="global" >
+    <!--ltng:require scripts="{!$Resource.NewRelic2}" afterScriptsLoaded="{!c.initRelic}"/-->
+    <!--c:NewRelic aura:id="newRelicService"/-->
+    <!--aura:registerEvent name="analyticsServiceEvent" type="c:AnalyticsServiceEvent"/-->
+    <!--aura:attribute name="width" type="String" description=" width of parent region / useful to display this component in the middle or in the left column in a page layout"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="accountId" type="Id"/>
+    
+    <aura:attribute name="object" type="String"/>
+    
+    <aura:attribute name="simpleAccount" type="Object"/>
+    <aura:attribute name="accountError" type="String"/>
+    <aura:attribute name="account" type="Object"/-->
+    
+    <!--aura:attribute name="openCases" type="List"/>
+    <aura:attribute name="complaintIndicator" type="ICX_CaseDataServiceControllerLC.ComplaintCaseWrapper"/-->
+
+	<!--aura:handler name="init" value="{!this}" action="{!c.doInit}" /-->
+    <!--aura:handler name="change" value="{!v.recordId}" action="{!c.onRecordChange}" /-->
+    <!--aura:handler name="change" value="{!v.simpleAccount}" action="{!c.onAccountChange}" /-->
+
+    
+    <aura:attribute name="currentRecordId" type="Id" description="Keep recordId of the Object detail page asking the Highlight panel" />
+    <!--aura:attribute name="editMode" type="Boolean" default="false" description="show highlight panel data in read or edit mode" /-->
+
+    <aura:attribute name="accountChanged" type="Boolean" default="false" description="used when Case Id occured on loading in Case page layout" />
+
+    <aura:attribute name="widthXSmall" type="Boolean" default="false"
+                    description="To differentiate SMALL from a 50/50 view (like in Case detail page) and SMALL from a 25/75 view"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:handler event="c:ICX_Account_Highlight_Event" action="{!c.handleEvent}" description="refresh highlight panel when the account id became not empty (account created from the Call or Case detail page for example)"/>
+    <!--aura:handler event="force:refreshView" action="{!c.handleEvent}"/-->
+    <c:ICX_CaseDataService aura:id="caseService"/>
+    
+   <lightning:messageChannel type="ICX_AccountSelected__c" onMessage="{!c.handleEvent}" scope="APPLICATION"/>
+    
+    
+    <!-- get data from the current record (not the Account record) -->
+    <aura:attribute name="accountApi" type="String" default="AccountId" description="Account field API name of the current object. Used to simplify the usage for all objects with a lookup with Account" />
+    <!--aura:attribute name="formattedAccountFields" type="List" description="force:recordData needs a List of fields for 'fields' attribute. To avoid the user to miss the brackets [], this workaround will help" /-->
+    <!--aura:if isTrue="{!v.formattedAccountFields.length > 1}">
+        <force:recordData aura:id="accountRecordData" recordId="{!v.recordId}" fields="{!v.formattedAccountFields}" mode="VIEW" targetFields="{!v.simpleRecord}" recordUpdated="{!c.handleAccountInOtherObject}"/>
+    </aura:if>
+    <aura:attribute name="simpleRecord" type="Object"/-->
+
+    <div class="slds-theme_default highlight">
+        <!--lightning:buttonIcon iconName="utility:edit" variant="border-filled" onclick="{! c.handleEdit }" alternativeText="Edit" class="{! v.editMode ? 'slds-hide' : 'buttonMenu'}" /-->
+        <!--lightning:buttonIcon iconName="utility:save" variant="border-filled" onclick="{! c.handleSave }" alternativeText="Save" class="{! v.editMode ? 'buttonMenu' : 'slds-hide'}" /-->
+
+        <!--aura:if isTrue="{!v.editMode}"-->
+            <!--c:ICX_Account_Highlight_Edit recordId="{!v.recordId}" /-->
+            <!--aura:set attribute="else"-->
+                <aura:if isTrue="{!or(v.sObjectName == 'Account', and(v.sObjectName != 'Account', v.accountChanged))}">
+                    <c:ICX_Account_Highlight_Read recordId="{!v.recordId}" aura:id="readPage" relatedRecordId="{!v.currentRecordId}" sObjectName="{!v.sObjectName}" widthXSmall="{!v.widthXSmall}"/>
+                </aura:if>
+                <!--aura:if isTrue="{!and(v.sObjectName == 'Case', v.accountChanged)}">
+                    <c:ICX_Account_Highlight_Read recordId="{!v.recordId}" />
+                </aura:if-->
+            <!--/aura:set>
+        </aura:if-->
+        <!--c:ICX_Account_Highlight_Read recordId="{!v.recordId}"/-->
+    </div>
+
+</aura:component>

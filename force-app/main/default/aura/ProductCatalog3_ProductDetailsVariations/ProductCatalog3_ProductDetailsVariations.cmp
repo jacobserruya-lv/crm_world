@@ -1,0 +1,88 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog">
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="originalProduct" type="Object" />
+    <aura:attribute name="productVariationsData" type="Object" default="[]" />
+    <aura:attribute name="filterTitle" type="String" default="" />
+    <aura:attribute name="variantFilter" type="String" default="" />
+    <aura:attribute name="productColors" type="List" default="[]" />
+    <aura:attribute name="productMaterials" type="List" default="[]" />
+    <aura:attribute name="listProductSkinMaterials" type="List" default="[]" />
+    <aura:attribute name="productVariationsStock" type="List" default="[]" />
+    <aura:attribute name="listVariationFiltered" type="List" default="[]" />
+    <aura:attribute name="filtersShown" type="Boolean" default="false" />
+    <aura:attribute name="isFiltered" type="Boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.getProductVariation}" />
+    <aura:handler name="change" value="{!v.product}" action="{!c.getProductVariation}" />
+    <aura:handler event="c:ProductCatalogVariantFilterClickEvent" action="{!c.updateFilterList}" />
+
+    <div class="pc3-product-variations">
+        <h1 class="pc3-product-variations__title">
+            <span>Product Variations
+                <aura:if isTrue="{!v.productVariationsData.sizeProduct.length > 0}">
+                    <aura:if isTrue="{!or(or(or(v.product.productGroup == 'Souliers', v.product.productGroup == 'Accessoires'),v.product.productGroup == 'Ready to wear'), v.product.productGroup == 'Jewelry')
+            }">
+                        <span class="pc3-product-variations__title-count">({!v.productVariationsData.variations.length +
+                            (v.productVariationsData.sizeProduct.length - 1)})</span>
+                        <aura:set attribute="else">
+                            <span
+                                class="pc3-product-variations__title-count">({!v.productVariationsData.variations.length
+                                +
+                                v.productVariationsData.sizeProduct.length})</span>
+                        </aura:set>
+                    </aura:if>
+                    <aura:set attribute="else">
+                        <span
+                            class="pc3-product-variations__title-count">({!v.productVariationsData.variations.length})</span>
+                    </aura:set>
+                </aura:if>
+            </span>
+            <aura:if isTrue="{!or(v.productMaterials.length gt 0 , v.productColors.length gt 0)}">
+                <lightning:button class="pc3-product-variations__show-filter-btn" variant="bare"
+                    label="{!(v.filtersShown ? '- Hide' : '+ Show') + ' Filters'}" onclick="{!c.handleFilterToggle}" />
+            </aura:if>
+        </h1>
+
+        <aura:if
+            isTrue="{!or(v.productMaterials.length != null , v.productColors.length != null, v.listProductSkinMaterials.length != null)}">
+            <div
+                class="{!'pc3-product-variations__filters' + (v.filtersShown ? ' pc3-product-variations__filters_visible' : '')}">
+                <lightning:button class="pc3-product-variations__reset-filters-btn" variant="bare"
+                    onclick="{!c.resetFilters}" label="Reset filters" />
+
+                <aura:if isTrue="{!and(v.productMaterials != null, v.product.productGroup  ne 'Souliers')}">
+                    <c:ProductCatalog3_VariationsFilters title="Material" varaitionsImg="{!v.productMaterials}"
+                        productVariationsStock="{!v.productVariationsStock}" product="{!v.product}"
+                        variantFilter="{!v.variantFilter}" filterTitle="{!v.filterTitle}" />
+                </aura:if>
+                <aura:if isTrue="{!v.listProductSkinMaterials.length>0}">
+                    <c:ProductCatalog3_VariationsFilters title="Material Sub-type"
+                        varaitionsImg="{!v.listProductSkinMaterials}"
+                        productVariationsStock="{!v.productVariationsStock}" product="{!v.product}"
+                        variantFilter="{!v.variantFilter}" filterTitle="{!v.filterTitle}" />
+                </aura:if>
+                <aura:if isTrue="{!v.productColors != null}">
+                    <c:ProductCatalog3_VariationsFilters title="Color" varaitionsImg="{!v.productColors}"
+                        productVariationsStock="{!v.productVariationsStock}" product="{!v.product}"
+                        variantFilter="{!v.variantFilter}" filterTitle="{!v.filterTitle}" />
+                </aura:if>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!not(empty(v.productVariationsData.sizeProduct)) }">
+            <c:ProductCatalog3_ProductSizes productSizes="{!v.productVariationsData.sizeProduct}"
+                myProductData="{!v.productVariations.SelectedProduct.SizeData}"
+                productVariationsStock="{!v.productVariationsStock}" product="{!v.product}" />
+        </aura:if>
+        <aura:if isTrue="{!v.isFiltered}">
+            <c:ProductCatalog3_Variations title="" originalProduct="{!v.originalProduct}"
+                productVariations="{!v.listVariationFiltered}" productVariationsStock="{!v.productVariationsStock}"
+                product="{!v.product}" variantFilter="{!v.variantFilter}" filterTitle="{!v.filterTitle}" />
+        </aura:if>
+        <aura:if isTrue="{!and(v.productVariationsData.variations.length > 0 , v.isFiltered == false)}">
+            <c:ProductCatalog3_Variations title="" originalProduct="{!v.originalProduct}"
+                productVariations="{!v.productVariationsData.variations}"
+                productVariationsStock="{!v.productVariationsStock}" product="{!v.product}"
+                variantFilter="{!v.variantFilter}" filterTitle="{!v.filterTitle}" />
+        </aura:if>
+    </div>
+</aura:component>

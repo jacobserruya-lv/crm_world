@@ -1,0 +1,8 @@
+.THIS .fontTitle {
+    font-size: larger;
+}
+
+/* Long text in the same markup */
+.THIS .whiteline {
+    white-space: pre-line;
+}

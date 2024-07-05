@@ -1,0 +1,29 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog"
+                access="global">
+    <aura:attribute name="total" type="integer" default="null"/>
+    <aura:attribute name="searchKey" type="String" default=""/>
+    <aura:attribute name="selectedProduct" type="Object"/>
+
+    <aura:handler event="c:ProductCatalogGetResultsEvent" action="{!c.getResults}"/>
+    <aura:handler event="c:ProductCatalogItemClickedEvent" action="{!c.itemClicked}"/>
+
+    <lightning:layout verticalAlign="end" class="{!'pc-results' +
+            (or(not(empty(v.total)),not(empty(v.selectedProduct))) ? '' : ' slds-hide')
+            }">
+        <lightning:layoutItem class="pc-results__search" padding="horizontal-small">
+            <aura:if isTrue="{!v.total != null}">
+                <span class="pc-results__search-total">{!v.total}</span>
+                <span class="pc-results__search-for">Results for</span>
+                <span class="pc-results__search-key">"{!v.searchKey}"</span>
+            </aura:if>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem flexibility="grow" class="pc-results__select" padding="horizontal-small">
+            <aura:if isTrue="{!not(empty(v.selectedProduct))}">
+                <span class="pc-results__select-label">You selected</span>
+                <span class="pc-results__select-name">"{!v.selectedProduct.name}"</span>
+                <span class="pc-results__select-sku">SKU {!v.selectedProduct.sku}</span>
+            </aura:if>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,80 @@
+<aura:component >
+    
+    <aura:attribute name="itemList" type="List" default="[]"/>
+    <aura:attribute name="selection" type="String" description="API name of the selection" />
+    <aura:attribute name="selectionLabel" type="String" description="Label name of the selection" />
+    <aura:attribute name="label" type="String" default="" />
+    <aura:attribute name="showLabel" type="Boolean" default="true" />
+    <aura:attribute name="showLabelInEmptyValue" type="Boolean" default="false" />
+
+    <aura:attribute name="visual" type="String" default="Picklist" description="Visual choice: 'Picklist' / 'Picker' " />
+    <aura:attribute name="required" type="Boolean" default="false" description="Required field" />
+
+    <!--Declare the validation attribute so it can store the validation logic.--> 
+    <!-- http://releasenotes.docs.salesforce.com/en-us/winter19/release-notes/rn_forcecom_flow_validate_attribute.htm -->
+    <aura:attribute name="validate" type="Aura.Action" access="private"/> 
+
+    <aura:attribute name="width" type="String" description=" width of parent region / useful to display this component in the middle or in the left column in a page layout"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+    <aura:registerEvent name="onPickerSelected" type="c:ICX_VisualPickerEvent" />
+
+    <aura:if isTrue="{!v.visual == 'Picker'}">
+        <fieldset class="slds-form-element">
+            <!--legend class="{! 'slds-form-element__legend slds-form-element__label ' + (empty(v.label) ? 'slds-hide' : '')}"-->
+            <legend class="{! 'slds-form-element__label ' + (empty(v.label) ? 'slds-hide' : '')}">
+                <span class="{!(v.required ? 'slds-required' : 'slds-hide')}">*</span>
+                {!v.label}
+            </legend>
+            
+            <lightning:layout horizontalAlign="" multipleRows="true">
+                <aura:iteration items="{!v.itemList}" var="item" indexVar="index">
+                    
+                    <!--lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="{!v.width == 'SMALL' ? 12 : 1}" mediumDeviceSize="12" smallDeviceSize="12" class="slds-form_compound"-->
+                    <lightning:layoutItem smallDeviceSize="6" mediumDeviceSize="3" largeDeviceSize="{!v.width == 'SMALL' ? '6' : '2'}" size="{!v.width == 'MEDIUM' ? '3' : (v.width == 'SMALL' ? '6' : '2')}">
+                        
+                        <div class="slds-visual-picker slds-visual-picker_small fullWidth"><!--style="width: 20%;"-->
+                            <input type="radio" value="{!item.value}" name="options" id="{!'picker-' + item.label}" checked="{!v.selection == item.value ? true : false}"/>
+                            
+                            <label for="{!'picker-' + item.label}" onclick="{!c.onSelection}" data-index="{!index}">
+                                <span class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center enlargePicker">
+                                    {!item.label}
+                                </span>
+                                <!--span class="slds-visual-picker__body slds-hide">
+                                <span class="slds-text-heading_small"></span>
+                                <span class="slds-text-title">Complete service CRM for teams of any size</span>
+                            </span-->
+                                <!--span class="slds-icon_container ">
+                                    <lightning:icon iconName="utility:check" alternativeText="Check" class="slds-icon slds-icon-text-check slds-icon_x-small"/>
+                                </span-->
+                            </label>
+                        </div>
+                        
+                    </lightning:layoutItem>
+                    
+                </aura:iteration>
+                
+            </lightning:layout>
+        </fieldset>
+        
+        <aura:set attribute="else">
+            <!--div class="slds-form-element">
+                <label class="slds-form-element__label" for="select-01">1 {!v.label}</label>
+                <div class="slds-select_container">
+                    <ui:inputSelect aura:id="accIndustry" class="slds-select"  change="{!c.onSelection}"/>
+                </div>
+            </div-->
+            <lightning:select label="{!v.label}" value="{!v.selection}" required="{!v.required}" onchange="{!c.onChangeSelect}" 
+                              variant="{!v.showLabel ? '' : 'label-hidden'}"
+                              class="{!v.showLabel ? '' : 'labelHide'}">
+                <option value="">{!v.showLabelInEmptyValue ? v.label : ''}</option>
+                <aura:iteration items="{!v.itemList}" var="item" indexVar="index">
+                    <option value="{!item.value}" selected="{!v.selection == item.value ? true : false}">{!item.label}</option>
+                </aura:iteration>
+            </lightning:select>
+        </aura:set>
+    </aura:if>
+
+
+</aura:component>

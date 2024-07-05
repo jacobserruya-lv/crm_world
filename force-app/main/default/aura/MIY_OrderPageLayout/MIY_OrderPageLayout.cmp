@@ -1,0 +1,11 @@
+<aura:component implements="lightning:recordHomeTemplate" description="Two-Column layout for Order follow-up">
+    <aura:attribute name="left" type="Aura.Component[]"/>
+    <aura:attribute name="right" type="Aura.Component[]"/>
+
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+
+    <div class="miy-layout">
+        <div aura:id="left" class="miy-layout__panel miy-layout__panel_side_left">{!v.left}</div>
+        <div aura:id="right" class="miy-layout__panel miy-layout__panel_side_right">{!v.right}</div>
+    </div>
+</aura:component>

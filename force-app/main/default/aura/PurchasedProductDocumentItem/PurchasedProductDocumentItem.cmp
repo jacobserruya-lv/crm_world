@@ -1,0 +1,40 @@
+<aura:component controller="PurchasedProduct_DocumentController" access="global"> <!-- force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction, -->
+
+    <aura:attribute name="base64" type="String" description="Base64 file"/>
+    <aura:attribute name="fileName" type="String" description="File name"/>
+
+    <!--aura:handler name="init" value="{!this}" action="{!c.sendToVF}" /-->
+    <!--lightning:navigation aura:id="navigationService"/-->
+
+    <!-- Host Salesforce -->
+    <aura:attribute name="vfHost" type="String" />
+    <!-- Call iframe PDF_LightningPDFGeneratorDemo VF : to be recalled PDF_GeneratorView -->
+    <!--iframe class="slds-hide" aura:id="vfFrame" src="{!'https://' + v.vfHost + '/apex/analyticsservice?appId=' + v.applicationId}" onload="{!c.initIframe}"/-->
+    <!--iframe class="" width="100%" heigth="100%" aura:id="vfFrame" src="{!'https://' + v.vfHost + '/apex/PDF_LightningPDFGeneratorDemo'}" onload="{!c.doInit}"/-->
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:if isTrue="{!not(empty(v.vfHost))}">
+        <iframe aura:id="vfFrame" height="465rem" width="100%" src="{!'https://' + v.vfHost + '/apex/PDF_DataDisplay'}" onload="{!c.sendToVF}"></iframe>
+    </aura:if>
+
+    <!--div style="position:relative;padding-top:56.25%;">
+        <iframe aura:id="vfFrame" style="position:absolute;top:0;left:0;width:100%;height:100%;" heigth="100%" width="100%" src="{!'https://' + v.vfHost + '/apex/PDF_LightningPDFGeneratorDemo'}" onload="{!c.sendToVF}"></iframe>
+    </div-->
+    
+    <!--lightning:button variant="brand" label="Download" iconName="utility:download" iconPosition="left" onclick="{! c.handleDownload }" />
+    <a class="slds-button slds-button_brand" download="{!v.filename}" href="{!'data:application/pdf;headers=Content-Disposition: attachment;filename=' + v.fileName + '.pdf;base64,' + v.base64}" title='Download Document'>Download</a-->
+    <!--ui:outputURL aura:id="oURL" value="" label="Test Pdf" target="_blank" />
+    <iframe height="500px" width="1000px" src="{!base64}">
+    </iframe-->
+    <!--a download="{!v.fileName + '.pdf'}" href="{!'data:application/octet-stream;base64,' + v.base64}">Download PDF</a-->
+    
+    <div>
+        <div class="slds-docked-form-footer2">
+            <a class="slds-button slds-button_brand" download="{!v.fileName + '.pdf'}" href="{!'data:application/pdf;base64,' + v.base64}">Download</a>
+        </div>
+    </div>
+    
+
+
+</aura:component>

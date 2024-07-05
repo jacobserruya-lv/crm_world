@@ -1,0 +1,44 @@
+<aura:component implements="lightning:actionOverride">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:navigation aura:id="navService"/>
+    <lightning:workspaceAPI aura:id="workspace" />
+
+    <!--lightning:overlayLibrary aura:id="overlayLib"/-->
+	<lightning:overlayLibrary aura:id="overlayLib"/>
+	<lightning:notificationsLibrary aura:id="notifLib"/>
+
+	<lightning:spinner aura:id="Spinner" alternativeText="Loading" size="medium" variant="brand" class="slds-hide"/>
+
+    <lightning:card class="slds-m-around_medium slds-p-around_x-small">
+        <aura:set attribute="title">
+            
+            <div class="slds-media slds-m-bottom_small slds-media_center">
+                <div class="slds-media__figure">
+                    <lightning:icon iconName="standard:account" size="medium" variant="slds-icon-inverse"></lightning:icon>
+                </div>
+                <div class="slds-media__body">
+                    <div class="slds-card__header-link slds-text-heading_small">New Account</div>
+                </div>
+                <div class="slds-media__figure slds-media__figure_reverse"></div>
+            </div>
+            
+        </aura:set>
+        <aura:set attribute="footer">
+        </aura:set>
+        
+        <c:ICX_Account_Highlight_Edit2 aura:id="edit2"/>
+        
+        <div style="text-align: center;" class="slds-m-top_large slds-p-top_medium slds-border_top">
+            <!--c:ICX_Account_Highlight_Edit_Buttons /-->
+            <lightning:button name="cancel" label="Cancel" onclick="{!c.handleCancel}" class="slds-m-right_medium"/>
+            <lightning:button name="ok" label="OK" variant="brand" onclick="{!c.handleOK}"/>
+        </div>
+        <!--c:ICX_Account_Highlight_Edit_Buttons aura:id="buttonComponent"/-->
+        
+        
+        
+    </lightning:card>
+    
+</aura:component>

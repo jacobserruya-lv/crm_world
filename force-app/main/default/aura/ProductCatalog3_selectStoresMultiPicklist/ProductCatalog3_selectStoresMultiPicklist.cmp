@@ -1,0 +1,99 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="Ctrl_ProductCatalog" access="global">
+
+	<aura:attribute name="items" type="List" />
+	<aura:attribute name="title" type="String" />
+	<aura:attribute name="class" type="String" />
+	<aura:attribute name="type" type="String" default="region" />
+	<aura:attribute name="localItems" type="List" />
+	<aura:attribute name="name" type="String" />
+	<aura:attribute name="mySelectedList" type="List" />
+	<!--<aura:attribute name="selectItem" type="String" /> -->
+	<aura:attribute name="selectItem" type="List" />
+	<aura:attribute name="digitalStores" type="List" default="[]" />
+
+	<aura:attribute name="infoText" type="String" default="Select" />
+	<!--<aura:attribute name="dropdownLength" type="Integer" default="5"/>-->
+	<aura:attribute name="dropdownLength" type="Integer" default="10" />
+	<aura:attribute name="dropdownOver" type="Boolean" default="false" />
+	<aura:attribute name="multiSelect" type="Boolean" default="true" />
+	<aura:attribute name="maxMyList" type="Integer" />
+	<aura:attribute name="changeFlag" type="Boolean" default="false" />
+
+	<aura:attribute name="dropdownOpen" type="Boolean" default="false" />
+	<aura:attribute name="isStoresList" type="Boolean" default="false" />
+	<aura:attribute name="numSelected" type="Integer" default="0" />
+	<aura:attribute name="setup" type="String" default=""/>
+
+
+	<aura:handler name="change" value="{!v.items}" action="{!c.prepareItems}" />
+	<aura:handler name="change" value="{!v.selectItem}" action="{!c.prepareItems}" />
+	<aura:handler name="change" value="{!v.mySelectedList}" action="{!c.prepareItems}" />
+
+	<aura:registerEvent name="setupStoreMultiPicklistSelectEvent" type="c:ProductCatalog3_SetupStoreMultiPicklistSelectEvent"
+		description="Event on item select" />
+		<aura:registerEvent name="multiPicklistSelectEvent" type="c:ProductCatalogMultiPicklistSelectEvent"
+		description="Event on item select" />
+	<aura:registerEvent name="productCatalogItemClicked" type="c:ProductCatalogItemClickedEvent" />
+
+
+	<div class="{!
+		'slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click pc3-multi-picklist' + 
+		((v.numSelected == 0) ? ' pc3-multi-picklist_empty' : '') + 
+		(v.dropdownOpen ? ' slds-is-open' : '')
+	}">
+		<div class="pc3-multi-picklist__title">{!v.title}</div>
+		<lightning:button class="pc3-multi-picklist__btn" label="{!v.infoText}"
+			iconName="{!(v.dropdownOpen ? 'utility:up' : 'utility:down')}" iconPosition="right"
+			onclick="{!c.handleClick}" />
+
+		<div class="pc3-multi-picklist__dropdown-wrap" onmouseleave="{!c.handleMouseLeave}" >
+			<div class="slds-dropdown slds-dropdown--left">
+				<!--<div class="pc3-multi-picklist__search">
+				<lightning:input
+				label="{!'Search ' + (v.type == 'store' ? 'stores' : 'items')}" 
+				placeholder="{!'Search ' + (v.type == 'store' ? 'stores' : 'items')}" 
+				type="search"
+				variant="label-hidden" />
+			</div>-->
+				<aura:if isTrue="{!or(v.title == 'Country', v.title == 'Stores')}">
+					<div class="pc3-multi-picklist__select-all">
+						<lightning:button variant="bare" disabled="{!v.numSelected == v.localItems.length}"
+							onclick="{!c.selectAllList}">Select All
+						</lightning:button>
+						<lightning:button variant="bare" disabled="{!v.numSelected == 0}"
+							onclick="{!c.clearListSelection}">Clear</lightning:button>
+					</div>
+				</aura:if>
+				<ul class="{!'slds-dropdown__list slds-dropdown--length-' + v.dropdownLength}" role="menu">
+					<aura:iteration items="{!v.localItems}" var="item">
+
+						<span class="slds-truncate">
+							<li class="{!'slds-dropdown__item pc3-multi-picklist__item' +
+							(item.selected ? ' slds-is-selected pc3-multi-picklist__item_selected' : '')+
+							(item.myList ? ' pc3-multi-picklist__item_in-my-list' : '')
+							}" role="presentation">
+								<!--<aura:if isTrue="{!and(v.name== 'physicalStores', item.value ne 'SELECT ALL')}">-->
+
+								<a href="javascript:void(0)" role="menuitemcheckbox" aria-checked="true"
+									onclick="{!c.handleSelection}" data-value="{!item.value}"
+									data-selected="{!item.selected}">
+									<lightning:icon
+										src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#checkbox-' + (item.selected ? 'on' : 'off')}"
+										size="x-small" />
+									<span>{!item.value}</span>
+								</a>
+
+							</li>
+						</span>
+					</aura:iteration>
+				</ul>
+				<div class="pc3-multi-picklist__count-summary">{!v.numSelected} of {!
+					v.localItems.length + ' ' + (v.type == 'store' ? 'stores' : 'items')
+					} selected</div>
+			</div>
+
+		</div>
+	</div>
+
+
+</aura:component>

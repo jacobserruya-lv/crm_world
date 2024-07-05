@@ -1,0 +1,47 @@
+<aura:component extends="c:MIY_FancyModal" controller="MIY_OrderPageController">
+    <aura:attribute name="record" type="Opportunity" />
+    <aura:attribute name="confirmLoading" type="Boolean" default="false" />
+    <aura:attribute  name="cloneComment" type ="String" />
+    
+
+    <aura:registerEvent name="updateOrderEvent" type="c:MIY_FirmOrderUpdate"/>
+
+    <lightning:overlayLibrary aura:id="modalOverlayLib"/>
+
+    <aura:attribute name="header" type="Aura.Component[]">{!$Label.c.MIY_ConfirmCloneModal_Confirm_Clone}</aura:attribute>
+    <div class="spo-confirm-clone-modal">
+    <div class="miy-fancy-modal__content">
+            <div>{!$Label.c.MIY_OrderPage_ConfirmCloneModal}</div>
+            <div>{!$Label.c.MIY_OrderPage_Clone_Order}</div>
+        </div>
+       
+        <div class="{!if(v.record.TECH_Nb_FO__c == 0,'slds-hide','slds-form-element__row')}">
+            <lightning:textarea 
+                                aura:id="CloneReason"
+                                name="comment"
+                                label="Clone Reason"
+                                placeholder="Comment…"
+                                class="slds-form-element slds-size_1-of-1"
+                                value="{!v.cloneComment}"
+                                required="true"
+                               
+                                
+                                
+            />
+            <p style=" color: #ff5722;">
+                <lightning:icon iconName="utility:warning" variant="error" style=" fill : #ffa500 !important;" size="x-small"/>
+                {!$Label.c.LV_SO_update_original_order_before_cloning
+                }
+            </p>
+        </div>
+    <!-- </div> -->
+    </div>
+    <aura:attribute name="footerContent" type="Aura.Component[]">
+        <lightning:button label="Cancel" onclick="{!c.closeModal}"/>
+        <c:LaddaLightningButton label="Confirm"
+                                onclick="{!c.handleConfirmClick}"
+                                isLoading="{!v.confirmLoading}"
+                                variant="brand"
+        />
+    </aura:attribute>
+</aura:component>

@@ -1,0 +1,79 @@
+/*
+Enlarge rich text
+.THIS .slds-rich-text-editor {
+    height: 24rem;
+}
+
+.THIS .slds-rich-text-editor__textarea {
+    height : 100%;
+}*/
+
+.THIS {
+/*    font-family: 'Louis Vuitton';
+    font-weight: 500;
+    font-style: normal;*/
+}
+
+/* TODO: to see LV Font, just uncomment this part
+@font-face {
+  font-family: 'Louis Vuitton';
+  src: url('/resource/LVFont/louisvuitton-medium-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('/resource/LVFont/louisvuitton-medium-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+}
+
+.THIS .fontlv {
+    font-family: 'Louis Vuitton';
+    src: url('/resource/LVFont/louisvuitton-medium-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('/resource/LVFont/louisvuitton-medium-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+    font-size: 16px !important;
+    font-style: normal;
+}
+
+.THIS .signatureRichTextClass .slds-rich-text-editor__toolbar {
+    display : none;
+}*/
+
+.THIS .addressContainerLinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: relative;
+    top: -2.25em;
+    left: -.75em;
+    height: 0;
+}
+
+.THIS .expandLinks a {
+    padding: 0 5px 0 5px;
+}
+
+.THIS .alignText {
+    position: relative;
+    top: 0.25rem;
+}
+
+/*.THIS .signatureRichTextClass .slds-rich-text-editor__toolbar {
+    display: none;
+}*/
+
+.THIS .signatureRichTextClass .slds-rich-text-area__content {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+/*
+Only if we want no Signature frame between the 2 rich texts
+.THIS .signatureRichTextClass {
+    border-top-style: hidden;
+}
+*/
+.THIS .contentRichTextClass .slds-rich-text-area__content {
+    min-height : 11rem;
+}
+
+.THIS .slds-card__header {
+    padding: 0;
+    margin: 0;
+}
+
+.THIS .slds-card__body {
+    margin-top: 0;
+}

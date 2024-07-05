@@ -1,0 +1,170 @@
+<aura:component controller="ICX_Flow_AccountController" implements="lightning:availableForFlowScreens" access="global">
+<!--aura:component controller="ICX_ProductSearchLookup_LC" implements="flexipage:availableForRecordHome,force:hasRecordId,lightning:availableForFlowScreens,lightning:availableForFlowActions" -->
+
+    <aura:attribute name="isModal" type="Boolean" default="false" description="If the component is in a modal/popup, the modal/popup should be closed after Save or Cancel" />
+    <aura:attribute name="language" type="String" description="ISO2 language" />
+    <aura:attribute name="showContactabilityValidation" type="Boolean" default="true" />
+
+    <aura:attribute name="required" type="Boolean" default="false" description="Account selection required or not" />
+
+    <aura:attribute name="recordId" type="String" description="Record id from Case, Task, LiveChatTranscript..." />
+    <aura:attribute name="accountId" type="String" />
+    <aura:attribute name="accountFromRecord" type="Account" />
+    <aura:attribute name="newProspectCreated" type="Boolean" default="false" access="private" description="When the New prospect is created, indicator to go the next screen" />
+    
+    <aura:attribute name="account" type="Account" />
+    <aura:attribute name="accountFromSearch" type="Account" description="used to have predefined values in the highlight panel if the user selects the New button" />
+    <aura:attribute name="store" type="Store__c" />
+    <aura:attribute name="selecteduser" type="User" />
+    
+    <aura:attribute name="showClient" type="Boolean" default="true" />
+    
+    <aura:attribute name="storeList" type="List" />
+    <aura:attribute name="user" type="User" />
+    <!--aura:attribute name="users" type="User[]" /-->
+    <aura:attribute name="storeCode" type="String" />
+    
+    <aura:attribute name="accountRmsId" type="String" description="Output: Account RMS Id or Dream Id" />
+    <!--aura:attribute name="isSearchClicked" type="Boolean" default="false" description="Handle to show New Prospect button" /-->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!--aura:handler event="ltng:selectSObject" action="{!c.handleClientSelected}"/-->
+    <aura:handler name="clientEvent" event="c:SO_ClientSearchResultEvent" action="{!c.handleClientSelected}"/>
+    <aura:handler name="change" value="{!v.storeCode}" action="{!c.changeStore}"/>
+    <aura:handler name="change" value="{!v.selecteduser}" action="{!c.changeUser}"/>
+    <aura:handler event="c:ICX_Flow_FooterEvent" action="{!c.handleFlowFooterEvent}"/>
+    <aura:handler event="c:SO_ClientFilterChange" action="{!c.filterChange}" description="Handle to show New Prospect button"/>
+    <aura:handler event="c:ICX_Account_Highlight_Event" action="{!c.handleHighlightEvent}" description="On account creation/update, get the account id"/>
+    <aura:registerEvent name="cmpEvent" type="c:ICX_Account_Highlight_Event"/>
+
+    <!--aura:registerEvent name="customToast" type="c:SO_CustomToastEvent"/-->
+
+    <aura:attribute name="simpleAccount" type="Object"/>
+    <aura:attribute name="accountError" type="String"/>
+    <!-- mode is used in VIEW to get dynamic update of the record. EDIT : used to create/update the record -->
+    <force:recordData aura:id="recordDataAccount"
+                      recordId="{!v.accountId}"
+                      mode="{!empty(v.accountId) ? 'EDIT' : 'VIEW'}"
+                      layoutType="COMPACT"
+                      fields="Id, FirstName, LastName, Salutation, Typology__pc, DREAMID__c, PersonEmail, LocalMobilePhone__pc, LocalHomePhone__pc, LocalWorkPhone__pc"
+                      targetFields="{!v.accountFromRecord}"
+                      targetRecord="{!v.simpleAccount}"
+                      recordUpdated="{!c.handleRecordUpdated}"
+                      targetError="{!v.accountError}" />
+    
+    <lightning:spinner aura:id="spinner" class="slds-hide" alternativeText="Searching..."/>
+    
+    <aura:attribute name="options" type="List" default="[{'label': 'Yes', 'value': 'true'},
+                                                        {'label': 'No', 'value': 'false'}]"/>
+    <aura:attribute name="accountNotVerified" type="Boolean" default="false"/>
+
+    <aura:attribute name="editModalOpened" type="boolean" default="false" description="Open highlight panel modal"/>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <c:ICX_CaseDataService aura:id="caseService"/>
+	<aura:method name="save" action="{!c.saveFromModal}" description="Method called by ICX_Account_Hightlight_Edit_Buttons on click on the OK button"/>
+
+    <!--div style="display:flex" class="{!'slds-m-top_medium ' + (v.accountNotVerified == true || empty(v.accountFromRecord) || empty(v.accountFromRecord.DREAMID__c) ? 'slds-hide' : '')}"--><!-- v.accountFromRecord.Typology__pc == 'Prospects' ? 'slds-hide' : '')}"-->
+    <div style="display:flex" class="{!'slds-m-top_medium ' + (v.accountNotVerified == true || empty(v.accountFromRecord) ? 'slds-hide' : '')}">
+        <div class="slds-m-right_medium slds-text-heading_medium">
+            <lightning:formattedName firstName="{!v.accountFromRecord.FirstName}"
+                                     lastName="{!v.accountFromRecord.LastName}"
+                                     />
+            ?
+        </div>
+        <!--lightning:formattedText value="{!v.account.name + '?'}" class="slds-m-right_medium slds-text-heading_medium"/-->
+        <lightning:radioGroup name="clientVerifiedRadioButton"
+                              label=""
+                              class="lineRadio"
+                              options="{! v.options }"
+                              variant="label-hidden"
+                              onchange="{!c.onRadioClientChanged}"
+                              type="button"/>
+        
+    </div>
+    <div aura:id="contactabilityValidationDiv" class="slds-m-top_medium slds-hide">
+        <c:ICX_Flow_AgentScript label="ICX_Flow_Account_Contact_SpeakingScript" language="{!v.language}" />
+
+        <div class="contactability slds-form">
+            <div class="slds-form-element slds-form-element_horizontal">
+                <label class="slds-form-element__label">Mobile</label>
+                <div class="slds-form-element__control">
+                    <ui:outputText value="{!(empty(v.accountFromRecord.LocalMobilePhone__pc) ? '&nbsp;' : v.accountFromRecord.LocalMobilePhone__pc)}"/>
+                </div>
+            </div>
+            <div class="{!'slds-form-element slds-form-element_horizontal ' + (empty(v.accountFromRecord.LocalHomePhone__pc) ? 'slds-hide' : '')}">
+                <label class="slds-form-element__label">Home</label>
+                <div class="slds-form-element__control">
+                    <ui:outputText value="{!v.accountFromRecord.LocalHomePhone__pc}"/>
+                </div>
+            </div>
+            <div class="{!'slds-form-element slds-form-element_horizontal ' + (empty(v.accountFromRecord.LocalWorkPhone__pc) ? 'slds-hide' : '')}">
+                <label class="slds-form-element__label">Work</label>
+                <div class="slds-form-element__control">
+                    <ui:outputText value="{!v.accountFromRecord.LocalWorkPhone__pc}"/>
+                </div>
+            </div>
+            <div class="slds-form-element slds-form-element_horizontal">
+                <label class="slds-form-element__label">Email</label>
+                <div class="slds-form-element__control">
+                    <!--ui:outputText value="{!v.accountFromRecord.PersonEmail}"/-->
+                    <ui:outputText value="{!(empty(v.accountFromRecord.PersonEmail) ? ' ' : v.accountFromRecord.PersonEmail)}"/>
+                </div>
+            </div>
+             <div class="slds-form-element slds-form-element_horizontal">
+                <label class="slds-form-element__label">&nbsp;</label>
+                <div class="slds-form-element__control">
+                    <lightning:buttonIcon iconName="utility:edit"
+                                          onclick="{!c.editAccount}"
+                                          title="Edit Account"
+                                          alternativeText="Edit Account"
+                                          />
+                </div>
+            </div>
+        </div>
+    </div>
+    <lightning:layout horizontalAlign="spread" multipleRows="true" aura:id="clientSearchLayout" class="{!v.accountNotVerified == true ? '' : 'slds-hide'}">
+    <!--aura:if isTrue="{!v.accountNotVerified}"-->
+        
+        
+        <!--lightning:layout horizontalAlign="spread" multipleRows="true" aura:id="clientSearchLayout"--><!-- class="{!(v.accountNotVerified == true &amp;&amp; (empty(v.accountFromRecord) || empty(v.accountFromRecord.DREAMID__c)) ? '' : 'slds-hide')}"--><!-- 'disabledClient'}"-->
+            
+            <!--lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="2" class="{! (v.showClient ? '' : 'disabledClient')}">
+            <c:SO_ClientSearch />
+        </lightning:layoutItem-->
+            <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="2" class="">
+                <lightning:layout horizontalAlign="spread" multipleRows="true" class="sidebar">
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12" class="{!empty(v.storeCode) ? '' : 'slds-hide'}">
+                        <lightning:select aura:id="storeSelect" name="storeSelect" value="{!v.storeCode}" label="{!$Label.c.LV_SO_Store}" required="true">
+                            <option value="">{!$Label.c.LV_SO_LabelNoneMaj}</option>
+                            <aura:iteration items="{!v.storeList}" var="store">
+                                <option value="{!store.value}" text="{!store.label}" selected="{!store.value == v.storeCode}"></option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                        <div class="{!v.showClient ? '' : 'disabledClient'}">
+                            <c:SO_ClientSearch storeCode="{! v.storeCode }" isCustomerServiceView="true"/>
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem class="" flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="{! v.account == null ? 10 : 10 }">
+                <div class="{!v.showClient ? '' : 'disabledClient'}">
+                    <c:SO_ClientSearchResult pageSize="{!$Browser.isDesktop ? 16  : 12}" />
+                    <div class="slds-text-align_center">
+                        <!--lightning:button label="New" onclick="{!c.onNewProspect}" variant="brand" aura:id="newProspectButton" class="slds-hide" /-->
+                        <lightning:button iconName="utility:add" iconPosition="left" 
+                                              label="New" onclick="{!c.onNewProspect}" aura:id="newProspectButton" class="slds-hide" />
+                    </div>
+                </div>
+            </lightning:layoutItem>
+            <!--lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="2" class="{!v.account != null ? '' : 'slds-hide'}">
+                
+                <c:SO_Client account="{!v.account}" />
+            </lightning:layoutItem-->
+        </lightning:layout>
+    <!--/aura:if-->
+
+</aura:component>

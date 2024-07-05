@@ -1,0 +1,19 @@
+.THIS .miy-fancy-modal__footer {
+  padding-left: 1.5rem;
+}
+.THIS .slds-form-element__help {
+  white-space: nowrap;
+}
+.THIS .slds-form_compound .slds-form-element__row {
+  align-items: flex-start;
+}
+.THIS .spo-add-deposit-modal__client {
+  color: #4a90e2;
+  font-weight: bold;
+}
+.THIS .spo-add-deposit-modal__quote-amnt {
+  font-weight: bold;
+}
+.THIS .slds-modal__content {
+  overflow: visible;
+}

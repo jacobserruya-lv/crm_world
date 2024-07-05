@@ -1,0 +1,23 @@
+<aura:component controller="ICX_CreationWardrobingLook_LC" implements="force:hasRecordId,force:hasSObjectName,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes">
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+     <aura:attribute name="mystr" type="String" />
+    <img title="Wardrobing"  
+         class="{!(v.sObjectName == 'PPR_PurchProduct__c' ? 'style_Purshased_Product_Layout':'style_Account_Layout')}"  
+         onclick="{!c.navigate}" 
+         src="{!$Resource.iconics + '/images/WardrobingIcon.png'}">
+    </img>
+    <!--a href="{!$Label.c.ICX_WardrobingUrl + v.mystr}" target="_blank">Wardrobing</a-->
+    <!---lightning:formattedUrl value="{!$Label.c.ICX_WardrobingUrl + v.mystr}" tooltip="Go to Wardrobing" target="_blank" >
+        <img title="Wardrobing"  
+             class="{!(v.sObjectName == 'PPR_PurchProduct__c' ? 'style_Purshased_Product_Layout':'style_Account_Layout')}"  
+             src="{!$Resource.iconics + '/images/WardrobingIcon.png'}">
+        </img>
+    </lightning:formattedUrl-->
+    <!--a href="{!$Label.c.ICX_WardrobingUrl + v.mystr}" target="_blank">
+        <img title="Wardrobing"  
+             class="{!(v.sObjectName == 'PPR_PurchProduct__c' ? 'style_Purshased_Product_Layout':'style_Account_Layout')}"  
+             src="{!$Resource.iconics + '/images/WardrobingIcon.png'}">
+        </img>
+    </a-->
+    <!---->
+</aura:component>

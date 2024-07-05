@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="Ctrl_ProductCatalog" access="global">
+
+    <aura:attribute name="productVariant" type="Object" />
+    <aura:attribute name="productVariationsStock" type="Object" default="[]" />
+    <!--<aura:attribute name="haveAvailabilities" type="Object" default="[]"/>-->
+    <aura:attribute name="myProductNoStock" type="Boolean" default="false" />
+    <aura:attribute name="product" type="Object" />
+
+    <!--<aura:handler name="change" value="{!v.productVariationsStock}" action="{!c.getAvailabilities}"/>-->
+    <aura:registerEvent name="productCatalogVariationClick" type="c:ProductCatalog3_VariationClickEvent" />
+
+    <lightning:button label="{!v.productVariant.productSize}"
+        class="{!'pc3-product-size-item pc3-product-variations__variation' + (v.productVariant.sku == v.product.sku ? ' pc3-product-variations__variation_selected' : '')}"
+        onclick="{!c.changeSize}" />
+</aura:component>

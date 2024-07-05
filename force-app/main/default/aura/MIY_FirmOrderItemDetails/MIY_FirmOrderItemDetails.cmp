@@ -1,0 +1,336 @@
+<aura:component implements="force:hasRecordId" controller="MIY_OrderPageController">
+    <aura:attribute name="currency" type="String" />
+
+    <aura:attribute name="itemData" type="SPO_FirmOrder__c" access="global" />
+    <aura:attribute name="parentOrder" type="Opportunity" access="global" />
+    <aura:attribute name="productSettings" type="ProductSettings__c" access="global" /> <!--MIY-1969-->
+    <aura:attribute name="checked" type="Boolean" access="global" default="false"/>
+    <aura:attribute name="checkable" type="Boolean" access="global" default="true"/>
+    <aura:attribute name="cancelled" type="Boolean"  access="global" default="false"/>
+    <aura:attribute name="showCheckbox" type="Boolean" access="global" default="true"/>
+    <aura:attribute name="showQuotationPdfLink" type="Boolean" access="global" default="false"/>
+    <aura:attribute name="showAdjustMfgDateButton" type="Boolean" access="global" default="false"/>
+
+    <aura:attribute name="currentStatus" type="map" access="global"/>
+    <aura:attribute name="mainImgUrl" type="String" access="global"/>
+
+    <aura:attribute name="showEditBtn" type="Boolean" default="false" /> 
+    <aura:attribute name="isDisplayOrder" type="Boolean"/>
+    <!-- MIY-2224 -->
+    <aura:attribute name="isUserInPermissionSetGroup" type="Boolean"/> 
+    <aura:attribute name="actionDisabled" type="Boolean"/>
+    <aura:attribute name="actionActive" type="Boolean"/>
+    <aura:attribute name="actionIconStyle" type="String" default="hamburger"/>
+    <aura:attribute name="actionBtnLabel" type="String"/>
+    <aura:attribute name="onActionClick" type="Aura.Action" />
+
+    <aura:attribute name="productName" type="String" default="{!v.itemData.Product_Name__c}"/>
+    <aura:attribute name="productSku" type="String"/>
+    <aura:attribute name="inpirationSku" type="String" />
+    <aura:attribute name="plannedDeliveryDate" type="Date" default="{!v.itemData.Planned_Delivery_date__c}"/>
+    <aura:attribute name="plannedManufactoringDate" type="Date" default="{!v.itemData.Planned_Manufacturing_Date__c}"/>
+    <aura:attribute name="spoReceivedInStoreDate" type="Date" default="{!v.itemData.SPO_ReceivedInStoreDate__c}"/>
+    <aura:attribute name="quantity" type="Integer" />
+    <aura:attribute name="plannedManufactoringDateComment" type="String" default="{!v.itemData.Planned_Manufacturing_Date_Comment__c}"/>
+    <aura:attribute name="dateHasPassed" type="boolean" default="false" />
+    <aura:attribute name="today" type="Date"/>
+    <aura:attribute name="isWorkflowHardsided" type="Boolean" default="false" /> 
+    <aura:attribute name="userProfile" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="onSaveSuccess" event="force:recordSaveSuccess" action="{!c.handleSaveSuccess}" />
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <lightning:layout class="firm-order-item-details">
+        <aura:if isTrue="{!v.showCheckbox}">
+            <lightning:layoutItem class="firm-order-list__checkbox" flexibility="no-shrink">
+                <lightning:button variant="base"
+                                  class="{!'firm-order-list__checkbox-btn' +
+                                          (v.checked ? ' firm-order-list__checkbox-btn_checked' : '')
+                                          }"
+                                  onclick="{!c.checkboxClick}"
+                                  value="{!v.itemData.Id}"
+                                  disabled="{!not(v.checkable)}"
+                >
+                    <span></span>
+                </lightning:button>
+            </lightning:layoutItem>
+        </aura:if>
+        <lightning:layoutItem class="firm-order-item-details__product-img slds-show_small">
+            <lightning:button variant="base"
+                              class="firm-order-list-item__img-btn"
+                              onclick="{!c.imgClick}"
+                              value="{!v.mainImgUrl}"
+            >
+                <img src="{!v.mainImgUrl}" alt="{!v.productName}" />
+            </lightning:button>
+        </lightning:layoutItem>
+        <lightning:layoutItem class="firm-order-item-details__product-data slds-col_bump-right">
+            <div>
+                <ui:outputNumber class="firm-order-item-details__line-num slds-badge"
+                                 value="{!v.itemData.LineNumber__c}"
+                                 format="000"
+                />
+                <ui:outputText value="{!v.productName + '  '}"/>
+                <aura:if isTrue="{!greaterthan(v.quantity, 1)}">
+                    <ui:outputText value="{!'&times;' + v.quantity + ' '}" class="slds-m-right_x-small"/>
+                </aura:if>
+                <aura:if isTrue="{!not(empty(v.productSku))}">
+                    <lightning:icon src="{!'/resource/1572351312000/MakeItYours_Assets/images/icon-price-tag.svg#price-tag'}"
+                                    size="xx-small"
+                                    class="slds-m-right_xx-small"
+                    />
+                    <ui:outputText value="{!v.productSku + ' '}" class="slds-m-right_x-small"/>
+                </aura:if>
+          </div>
+            <aura:if isTrue="{!not(empty(v.inpirationSku))}">
+                <div class="firm-order-item-details__sku">
+              <ui:outputText value="{!'Product based on ' + v.inpirationSku}"/>
+                </div>
+            </aura:if>
+            <div class="{!'firm-order-item-details__sku ' +  
+                        (or(or(not(empty(v.plannedManufactoringDateComment)), 
+                        and(v.plannedDeliveryDate lt v.today, v.currentStatus.key == 'in-delivery')),and(v.plannedManufactoringDate lt v.today, v.currentStatus.key == 'in-production'))
+                        ?'firm-order-item-details__sku-passDate':'')}">
+                 <aura:if isTrue="{!or(
+                        not(empty(v.plannedDeliveryDate)),
+                        not(empty(v.spoReceivedInStoreDate))
+                        )}">
+                    <aura:if isTrue="{!not(empty(v.plannedDeliveryDate))}">
+                        <lightning:icon src="{!'/resource/1572351312000/MakeItYours_Assets/images/icon-calendar.svg#calendar'}"
+                                        size="xx-small"
+                                        class="slds-m-right_xx-small"
+                        />
+                    {!$Label.c.MIY_OrderPage_List_Item_Estimated}: <ui:outputDate value="{!v.plannedDeliveryDate}"  class="slds-m-right_x-small"/>
+                        <aura:if isTrue="{!not(empty(v.plannedManufactoringDateComment))}">
+                            <lightning:helptext content="{!v.plannedManufactoringDateComment}" class="firm-order-item-details__sku-manufactoringComment"/>
+                        </aura:if>
+                        <aura:if isTrue="{!and(and(v.plannedManufactoringDate lt v.today, v.currentStatus.key == 'in-production'),empty(v.plannedManufactoringDateComment))}">
+                            <lightning:helptext content="{!$Label.c.MIY_SPO_PASS_MANUFACTORING_DATE}" class="firm-order-item-details__sku-manufactoringComment"/>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.plannedDeliveryDate lt v.today, v.currentStatus.key == 'in-delivery')}">
+                            <lightning:helptext content="{!$Label.c.MIY_SPO_PASS_DELIVERY_DATE}" class="firm-order-item-details__sku-manufactoringComment"/>
+                        </aura:if>
+                        
+                    </aura:if>
+                    <aura:if isTrue="{!not(empty(v.spoReceivedInStoreDate))}">
+                        <ui:outputText value=" "/>
+                        <lightning:icon src="{!'/resource/1572351312000/MakeItYours_Assets/images/icon-clock.svg#clock'}"
+                                        size="xx-small"
+                                        class="slds-m-right_xx-small"
+                        />
+                    {!$Label.c.MIY_OrderPage_List_Item_Revised}: <ui:outputDate value="{!v.spoReceivedInStoreDate}"/>
+                    </aura:if>
+                </aura:if>
+               <aura:if isTrue="{!v.showQuotationPdfLink}">
+                   <aura:if isTrue="{!v.userProfile == 'SPO_Production'}">
+                        <a class="firm-order-item-details__quotation-pdf"
+                           href="{!'/apex/SPO_PDFPageProduction?id='+ v.parentOrder.Id}"
+                           target="_blank"
+                        >{!$Label.c.MIY_OrderPage_SPO_Production_PDF}</a>
+                        <aura:set attribute="else">
+                            <a class="firm-order-item-details__quotation-pdf"
+                               href="{!'/apex/PDFPage?id='+ v.parentOrder.Id}"
+                               target="_blank"
+                            >{!$Label.c.MIY_OrderPage_Quotation_PDF}</a>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
+                
+            </div>
+            <div class="firm-order-item-details__price">
+                <lightning:formattedNumber style="currency"
+                                           value="{!v.itemData.UnitaryPrice__c}"
+                                           currencyCode="{!v.currency}"
+                />
+            </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem class="firm-order-item-details__status">
+                <aura:if isTrue="{!v.itemData.SPO_FirmOrderStatus__c =='Technical error order'}">
+                        <p>   
+                            <div class="firm-order-item-details__status-badge">{!v.itemData.SPO_FirmOrderStatus__c}</div>
+                            <lightning:icon iconName="utility:warning" variant="error" size="x-small"/>
+                        </p>
+        
+                        </aura:if>
+            
+            <aura:if isTrue="{!and (not(v.cancelled),  not(v.itemData.SPO_FirmOrderStatus__c =='Technical error order'))}">
+                <div class="firm-order-item-details__status-badge">{!v.currentStatus.label}</div>               
+                <aura:set attribute="else">
+                        <aura:if isTrue="{!(v.cancelled)}">
+                    <div class="firm-order-item-details__status-badge">{!v.itemData.SPO_FirmOrderStatus__c}</div>
+                </aura:if>
+                </aura:set>
+            </aura:if>  
+          <!--  <aura:if isTrue="{!and(v.currentStatus.key == 'order-placed', not(empty(v.itemData.Creation_Status__c)))}"
+            >
+                <div class="firm-order-item-details__substatus">
+                    <lightning:icon iconName="utility:work_order_type" size="xx-small"/>
+                    <lightning:formattedText value="{!v.itemData.Creation_Status__c}" />
+                </div>
+            </aura:if>-->
+            <aura:if isTrue="{!and(v.itemData.SPO_FirmOrderStatus__c == 'Creation in progress', not(empty(v.itemData.Creation_Status__c)))}">
+    			<div class="firm-order-item-details__substatus">
+        			<lightning:icon iconName="utility:work_order_type" size="xx-small"/>
+        			<lightning:formattedText value="{!v.itemData.Creation_Status__c}" />
+   				 </div>
+			</aura:if>
+           <!-- <aura:if isTrue="{!and(not(v.currentStatus.isSentToMyPR),
+                    and(v.currentStatus.key == 'in-production', not(empty(v.itemData.MIY_ProductionStatusSimple__c)))
+                    )}"
+            >
+                <div class="firm-order-item-details__substatus">
+                    <lightning:icon iconName="utility:automate" size="xx-small"/>
+                    <lightning:formattedText value="{!v.itemData.MIY_ProductionStatusSimple__c}" />
+                </div>
+            </aura:if>-->
+            
+            <aura:if isTrue="{!and(not(v.itemData.SPO_FirmOrderStatus__c == 'Sent to MyPR'),
+                and(v.itemData.SPO_FirmOrderStatus__c == 'Production in progress', not(empty(v.itemData.MIY_ProductionStatusSimple__c))))}"
+            > 
+            	<div class="firm-order-item-details__substatus">
+                    <lightning:icon iconName="utility:automate" size="xx-small"/>
+                    <lightning:formattedText value="{!v.itemData.MIY_ProductionStatusSimple__c}" />
+                </div>
+            </aura:if>  
+           <!-- <aura:if isTrue="{!or(v.currentStatus.isSentToMyPR,
+                    and(v.currentStatus.key == 'in-delivery', not(empty(v.itemData.DistributionStatus__c)))
+                    )}"
+            >
+                <div class="firm-order-item-details__substatus">
+                    <lightning:icon iconName="utility:notification" size="xx-small"/>
+                    <lightning:formattedText value="{!v.itemData.DistributionStatus__c}" />
+                </div>
+            </aura:if>-->
+             <aura:if isTrue="{!or(v.itemData.SPO_FirmOrderStatus__c == 'Sent to MyPR',
+                and(v.itemData.SPO_FirmOrderStatus__c == 'Distribution in progress', not(empty(v.itemData.DistributionStatus__c)))
+                )}"
+        >
+            <div class="firm-order-item-details__substatus">
+                <lightning:icon iconName="utility:notification" size="xx-small"/>
+                <lightning:formattedText value="{!v.itemData.DistributionStatus__c}" />
+            </div>
+        </aura:if>
+            
+        </lightning:layoutItem>
+        
+        <!-- MIY-2224 add v.isUserInPermissionSetGroup -->
+        <aura:if isTrue="{!or(and(v.isUserInPermissionSetGroup, v.parentOrder.ApplicationSource__c != 'SPO'), v.showEditBtn)}">
+            <lightning:layoutItem class="slds-p-vertical_large slds-p-right_x-small">
+                <lightning:buttonIcon variant="border"
+                                      iconName="utility:edit"
+                                      value="{!v.itemData.Id}"
+                                      onclick="{!c.handleEditClick}"
+                                      alternativeText="{!$Label.c.MIY_OrderPage_List_Item_Edit_Btn_Alt_text}"
+                />
+            </lightning:layoutItem>
+        </aura:if>   
+        <aura:if isTrue="{!v.currentStatus.key == 'order-placed'}">
+            <!--MIY-1970 splitted 'or' conditions--> 
+            <aura:if isTrue="{!
+                    and(
+                           
+                                or( 
+                                    or(
+                                        or(
+                                    equals(v.userProfile, 'SPO_ExoProduction'),  
+                                    equals(v.userProfile, 'System Administrator')
+                                           ), 
+                                   
+                                    equals(v.userProfile, 'SPO_NomadeMgnt')
+                                    ),
+                                    equals(v.userProfile, 'MIY_Admin'),
+                                    v.isUserInPermissionSetGroup
+                                ),
+                              
+                            or(
+                                and(
+                                    not(empty(v.itemData.ProductCatalogue__r.ReportingCategory__r)),
+                                    v.itemData.ProductCatalogue__r.ReportingCategory__r.Exotic_Workflow__c
+                                ),
+                                v.itemData.TECH_Product_Hard_Workflow__c
+                            )
+                            
+                        )           
+                    }"
+                        >    
+                <c:MIY_FirmOrderExoMatProcess itemData="{!v.itemData}" />
+            </aura:if>
+
+   
+            <!--MIY-1733 added profiles SPO_Production and SPO_ExoProduction-->	
+            <aura:if isTrue="{!and (or(or(or (or (or (v.isUserInPermissionSetGroup, equals(v.userProfile, 'System Administrator'),  equals(v.userProfile, 'SPO_ExoProduction')), equals(v.userProfile, 'SPO_Production') ), equals(v.userProfile, 'SPO_Other')), equals(v.userProfile, 'MIY_Admin') ), equals(v.userProfile,'SPO_NomadeMgnt')), v.showAdjustMfgDateButton )}">
+                <lightning:layoutItem class="firm-order-item-details__received-btn-area" flexibility="no-shrink">
+                    <lightning:button variant="base" aura:id="Manufacturing"
+                                    class="order-page__btn firm-order-item-details__received-btn"
+                                    label="Adjust Mfg. Date"
+                                    onclick="{!c.adjustDateClick}"
+                    />
+                </lightning:layoutItem>
+            </aura:if>
+        </aura:if>
+        <!-- MIY-1767
+
+        <aura:if isTrue="{!v.currentStatus.key == 'in-production'}">
+            <lightning:layoutItem class="firm-order-item-details__received-btn-area" flexibility="no-shrink">
+                <lightning:button variant="base"
+                                  class="order-page__btn firm-order-item-details__received-btn"
+                                  label="{!$Label.c.MIY_OrderPage_List_Item_Received_in_Store_Btn}"
+                                  onclick="{!c.receivedClick}"
+                />
+            </lightning:layoutItem>
+        </aura:if> -->
+        <aura:if isTrue="{!v.currentStatus.key == 'in-delivery'}">
+            <lightning:layoutItem class="firm-order-item-details__received-btn-area" flexibility="no-shrink">                
+                <aura:if isTrue="{!or(or(or(
+                    equals(v.userProfile, 'SPO_Other'), 
+                    equals(v.userProfile, 'MIY_Admin')),
+                    equals(v.userProfile, 'SPO_NomadeMgnt')
+                    ),
+                    v.isUserInPermissionSetGroup,
+                    equals(v.userProfile, 'System Administrator'))}"
+                >
+                    <lightning:button variant="base" aura:id="Delivery"
+                                    class="order-page__btn firm-order-item-details__received-btn"
+                                    label="Adjust Delivery Date"
+                                    onclick="{!c.adjustDateClick}"
+                    />
+                </aura:if>
+                <lightning:button variant="base"
+                                  class="order-page__btn firm-order-item-details__received-btn"
+                                  label="{!$Label.c.MIY_OrderPage_List_Item_Received_in_Store_Btn}"
+                                  onclick="{!c.receivedClick}"
+                />
+            </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!and(v.currentStatus.key == 'in-store', not(v.isDisplayOrder))}">
+            <lightning:layoutItem class="firm-order-item-details__received-btn-area" flexibility="no-shrink">
+                <lightning:button variant="base"
+                                  class="order-page__btn firm-order-item-details__received-btn"
+                                  label="{!$Label.c.MIY_OrderPage_List_Item_Delivered_to_Client_Btn}"
+                                  onclick="{!c.deliveredClick}"
+                />
+            </lightning:layoutItem>
+        </aura:if>
+        <lightning:layoutItem class="firm-order-item-details__action-btn-area" flexibility="no-shrink">
+            <lightning:button variant="base"
+                              class="{!join(' ', 'firm-order-item-details__action-btn',
+                                        ('firm-order-item-details__action-btn_style_' + v.actionIconStyle),
+                                        (v.actionActive ? 'firm-order-item-details__action-btn_active' : undefined)
+                                      )}"
+                              onclick="{!v.onActionClick}"
+                              disabled="{!v.actionDisabled}"
+            >
+                <aura:if isTrue="{!v.actionIconStyle == 'hamburger'}">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </aura:if>
+                <aura:if isTrue="{!v.actionIconStyle == 'label'}">
+                    {!v.actionBtnLabel}
+                </aura:if>
+            </lightning:button>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,10 @@
+<aura:event type="APPLICATION" description="Event for SO_OpportunityCreationSPA">
+    <aura:attribute type="Opportunity" name="opp" description="Brief with values"/>  <!-- default="{'sObjectType':'Opportunity'}"  -->
+    <aura:attribute type="ProductReferential__c" name="product" description="Brief product"/> <!--  default="{'sObjectType':'ProductReferential__c'}"-->
+    <aura:attribute type="Account" name="account" description="Brief client"/> <!--  default="{'sObjectType':'Account'}"  -->
+    <aura:attribute type="Store__c" name="store"  description="Brief store"/> <!-- default="{'sObjectType':'Store__c'}" -->
+    <!--aura:attribute name="storeName" type="String" />-->
+
+    <aura:attribute type="String" name="channel" description="index to know who sends the event: Start, Account, Product, Customize, Summary LC"/>
+
+</aura:event>

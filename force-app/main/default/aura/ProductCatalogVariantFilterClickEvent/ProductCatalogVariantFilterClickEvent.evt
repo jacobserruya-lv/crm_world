@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="filterTitle" type="String" />
+    <aura:attribute name="variantfilter" type="String" />
+    <aura:attribute name="variantFilterImg" type="String" />
+</aura:event>

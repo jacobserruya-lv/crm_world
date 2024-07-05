@@ -1,0 +1,57 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog" access="global">
+    <aura:attribute name="toggleSpinner" type="Boolean" default="false" />
+    <aura:attribute name="newProducts" type="List" default="[]" />
+    <aura:attribute name="slideItemCount" type="Integer" default="6"/>
+    <aura:attribute name="slideIndex" type="Integer" default="0"/>
+    <aura:attribute name="title" type="String" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:ProductCatalogFavoriteChangeEvent" action="{!c.removeFavorite}" />
+    <aura:handler event="c:ProductCatalogUpdateFavoriteListEvent" action="{!c.doInit}" />
+    <aura:registerEvent name="productCatalogUpdateFavoriteList" type="c:ProductCatalogUpdateFavoriteListEvent"/>
+
+
+    <lightning:layout multipleRows="true" class="pc-display-list">
+        <div class="pc-display-list__title">
+                <span>{!v.title}</span>
+                <aura:if isTrue="{!v.title == 'Favorites'}">
+                    <span>
+                        <a onclick="{!c.clearFavorites}" class="pc-display-list__title-a">Clear All</a>
+                    </span>
+                </aura:if>
+        </div>
+        <div class="pc-display-list__carousel">
+            <div class="pc-display-list__slide-wrap"
+                 style="{!'left: ' + ((v.slideIndex * -100) / v.slideItemCount) + '%;'}">
+                <lightning:layout class="pc-display-list__slide-strip">
+                    <aura:iteration items="{!v.newProducts}" var="product" indexVar="idx">
+                        <lightning:layoutItem size="{!(12 / v.slideItemCount)}" class="pc-display-list__item-wrap">
+                            <c:ProductCatalogDisplayListItem product="{!product}" title="{!v.title}"/>
+                        </lightning:layoutItem>
+                    </aura:iteration>
+                </lightning:layout>
+            </div>
+            <aura:if isTrue="{!v.newProducts.length > v.slideItemCount}">
+                <lightning:buttonIcon variant="bare"
+                                      iconName="utility:chevronleft"
+                                      alternativeText="Previous"
+                                      disabled="{!v.slideIndex == 0}"
+                                      class="pc-display-list__arrow pc-display-list__arrow_dir_left"
+                                      value="prev"
+                                      onclick="{!c.changeSlide}"
+                                      size="large"
+                />
+
+                <lightning:buttonIcon variant="bare"
+                                      iconName="utility:chevronright"
+                                      alternativeText="Next"
+                                      disabled="{!greaterthanorequal(v.slideIndex, (v.newProducts.length - v.slideItemCount))}"
+                                      class="pc-display-list__arrow pc-display-list__arrow_dir_right"
+                                      value="next"
+                                      onclick="{!c.changeSlide}"
+                                      size="large"
+                />
+            </aura:if>
+        </div>
+    </lightning:layout>
+</aura:component>

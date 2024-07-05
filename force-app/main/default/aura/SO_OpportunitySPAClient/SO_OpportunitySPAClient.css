@@ -1,0 +1,73 @@
+.THIS .disabledClient {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.THIS .displayOrderButton {
+    text-align: left;/*right;*/
+    padding-right: 3%;
+}
+
+.THIS .slds-card__header {
+    padding-top: .25rem;
+    margin-bottom: 0px;
+}
+.THIS .slds-card {
+    background-color:white;
+    /*background-color: rgb(244, 246, 249);*//*#ffffff;*/
+    margin-bottom: 0.5rem;
+    margin-top: auto !important;
+}
+
+.THIS .slds-card__body {
+    /*text-align: left;*/
+    /*padding: 0 20px 0px 0px;*/
+    /*padding: 10px 16px 0px 16px;*/
+    padding: 0.5rem;
+    margin: auto; /*MIY-1783*/
+    /*margin-bottom: .25rem;*/
+}
+
+.THIS .sidebar {
+    /*min-width: 200px;*/
+    
+}
+
+
+
+/*.THIS .hideComponent{
+	display: none;
+}*/
+
+/* Important to display buttons in left or right side */
+.THIS .foot2 {
+    display: inherit;
+}
+/*
+.THIS .slds-form_horizontal .slds-form-element+.slds-form-element, .THIS .slds-form--horizontal .slds-form-element+.slds-form-element {
+    margin-top: 0rem;
+}*/
+
+/*.THIS {
+	margin: 0px 10px 20px 10px;
+}*/
+/*
+.THIS .phoneNumber {
+    width: 100%;
+}*/
+/*.THIS .slds-show{
+	display: block;
+}
+
+.THIS .slds-hide{
+	display: none;
+}
+
+.THIS .slds-card__body {
+    text-align: left;
+    padding: 0px 20px 24px 20px;
+}
+
+.THIS .slds-card{
+    background-color:white;
+}*/

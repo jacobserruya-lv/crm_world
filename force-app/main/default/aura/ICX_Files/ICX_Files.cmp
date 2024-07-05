@@ -1,0 +1,33 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="ICX_Files"
+                extends="c:ICX_Carousel_Item">
+	 <!--ATTRIBUTES-->
+    <aura:attribute name="filesData" type="Object" />
+	<aura:attribute name="maxRows" type="Integer" default="5" />
+
+    <!--HANDLER-->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+    <!--BODY-->
+    <lightning:card iconName="standard:file">
+    	<aura:set attribute="title">
+			<lightning:layout verticalAlign="center">
+			<lightning:layoutItem flexibility="grow" padding="horizontal-medium">
+				Files
+			</lightning:layoutItem>
+			<lightning:layoutItem flexibility="no-shrink">
+				<lightning:fileUpload class="upload" label="Upload" multiple="true" recordId="{!v.recordId}" onuploadfinished="{!c.onInit}"/>
+			</lightning:layoutItem>
+			</lightning:layout>
+        </aura:set>
+        <lightning:layout >
+            <lightning:layoutItem padding="horizontal-large" size="12">
+                <aura:if isTrue="{!not(empty(v.filesData.rows))}">
+                    <c:ICX_DataTable tableData="{!v.filesData}" nbRowsToShow="{!v.maxRows}"/>
+                    <aura:set attribute="else">
+                        <p>There aren't any files attached to this case</p>
+                    </aura:set>
+                </aura:if>
+            </lightning:layoutItem>
+        </lightning:layout>
+	</lightning:card>
+</aura:component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>45.0</apiVersion>
+    <description>Specific page for Special Order
+note: a profile can&apos;t see 2 page layout with the same record type. So, the ICON page layout can&apos;t be overidden for Special Order.
+(can&apos;t use force:recordView/recordEdit components)</description>
+</AuraDefinitionBundle>

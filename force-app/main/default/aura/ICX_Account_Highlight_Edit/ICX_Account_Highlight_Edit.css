@@ -1,0 +1,33 @@
+.THIS .slds-form_compound {
+    padding-right: 3.5rem;
+}
+
+.THIS legend {
+    font-weight: 700;
+}
+
+.THIS .contactedClass {
+    width: 100%;/*85%;*/
+}
+
+.THIS .slds-docked-form-footer2 {
+    box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.16);
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    padding: .5rem 0;
+}
+
+.THIS .slds-box {
+    padding-bottom: 0;
+}
+
+/* birthday input */
+.THIS .slds-input[type=date] {
+    padding-right: 0;
+    padding-left: 0.5rem;    
+}
+
+.THIS .input3columns {
+    width: 32%;
+}

@@ -1,0 +1,8 @@
+@import url("/resource/LVFont/font-faces.css");
+.THIS {
+  font-family: "Louis Vuitton", Futura, sans-serif;
+}
+
+.THIS .pc-layout {
+  margin: 0;
+}

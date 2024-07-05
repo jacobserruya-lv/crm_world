@@ -1,0 +1,3 @@
+<design:component>
+    <design:attribute name="widthXSmall" label="Width in XSMALL" description="Display the component in XSMALL? Indicators at the bottom" />
+</design:component>

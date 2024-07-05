@@ -1,0 +1,17 @@
+<aura:component extensible="true">
+    <aura:attribute name="header" type="Aura.Component[]" />
+    <aura:attribute name="overlayLib" type="Object" />
+    <aura:attribute name="errors" type="Map[]" default="[]" />
+    <aura:attribute name="isDebugMode" type="Boolean" default="false"/>
+
+    {!v.body}
+    <div>
+        <aura:iteration items="{!v.errors}" var="err">
+            <ui:message title="{!err.title}" severity="error">{!err.message}</ui:message>
+        </aura:iteration>
+    </div>
+    <aura:attribute name="footerContent" type="Aura.Component[]"/>
+    <aura:attribute name="footer" type="Aura.Component[]">
+        <div class="miy-fancy-modal__footer">{!v.footerContent}</div>
+    </aura:attribute>
+</aura:component>

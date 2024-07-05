@@ -1,0 +1,271 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" 
+                controller="SO_ClientController">
+    
+    <!-- pagination -->
+    <aura:attribute name="pageSize" type="integer" default="15"/>
+    <aura:attribute name="page" type="integer"/>
+    <aura:attribute name="pages" type="integer"/>
+    <aura:attribute name="total" type="integer" default="0"/>
+    <aura:attribute name="startIndexClientList" type="integer" default="0"/>
+    
+    <!-- form attributes -->
+    <aura:attribute name="clients" type="Account[]"/>
+    <!--Work but it's a JSON variable : aura:attribute name="clientRmsList" type="SO_WS_RMS_DoClientSearch.ResultLine[]"/-->
+    <aura:attribute name="clientRmsList" type="List"/>
+    <aura:attribute name="dreamId" type="String"/>
+    <aura:attribute name="lastname" type="String"/>
+    <aura:attribute name="firstname" type="String"/>
+    <aura:attribute name="email" type="String"/>
+    <aura:attribute name="phone" type="String"/>
+    <aura:attribute name="passport" type="String"/>
+    <aura:attribute name="country" type="String"/>
+    <aura:attribute name="postalcode" type="String"/>
+    <aura:attribute name="storeCode" type="String"/>
+    <aura:attribute name="isRmsSearch" type="Boolean"/>
+    <aura:attribute name="isCustomerServiceView" type="Boolean" />
+
+    <aura:attribute name="clientRmsSelected" type="String"/>
+    <aura:attribute name="clientSalesforceSelected" type="String"/>
+
+    <aura:handler event="c:SO_ClientSearchResultPageChangeEvent" action="{!c.pageChange}"/>
+    <aura:handler event="c:SO_ClientFilterChange" action="{!c.filterChange}"/>
+    
+    <!--aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/-->
+    
+    <aura:registerEvent name="clientEvent" type="c:SO_ClientSearchResultEvent" /> 
+    
+    <!--lightning:layout>
+        <lightning:layoutItem -->
+    <div class="slds-container--fluid">
+        <lightning:spinner aura:id="spinner" class="slds-hide" alternativeText="Searching..."/>
+        
+        <div>
+                            
+            <ul aura:id="list" class="slds-has-dividers--around-space slds-truncate" style="background-color: rgb(255, 255, 255);" onmousemove="{!c.onMouseMove}" onmouseleave="{!c.onMouseLeave}">
+
+                <!-- let this component is this place in order the user to get focus in the hover (for example to edit or copy value) -->
+                <aura:if isTrue="{!v.isCustomerServiceView}">
+                    <c:SO_ClientPopup aura:id="popup"/>
+                </aura:if>
+
+                <!--lightning:layout horizontalAlign="center" multipleRows="true"-->
+                <lightning:layout horizontalAlign="spread" multipleRows="true">
+
+                    <aura:iteration items="{!v.clientRmsList}" var="client" indexVar="idx" start="{!v.startIndexClientList}" end="{!v.startIndexClientList + v.pageSize}">
+                        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="4" largeDeviceSize="3">
+                            <li onclick="{!c.clientSelected}" data-index="{!idx}">
+
+                                <div class="{! 'slds-tile slds-tile--board tileDiv ' + (client.RMSId == v.clientRmsSelected ? 'selected' : '')}">
+                                    <div class="slds-grid">
+                                        <header class="slds-has-flexi-truncate slds-text-title--caps">
+                                            <h3 class="slds-truncate" title="{!client.LastName + ' ' + client.FirstName + ', birthday: ' + client.PersonBirthdate}">
+                                                <a href="javascript:void(0);">
+                                                    <!--{!client.LastName + ' ' + client.FirstName}&nbsp;-->
+                                                    <lightning:formattedName
+                                                             firstName="{!client.FirstName}"
+                                                             lastName="{!client.LastName}" />
+                                                </a>
+                                            </h3>
+                                        </header>
+                                        <!--div title="DREAM ID">{!client.DreamId}</div-->
+                                    </div>
+                                    <div class="slds-tile__detail slds-text-body--small slds-text-title">
+                                        <p class="slds-truncate" title="{!client.PrimaryAddressLine1}">{!client.PrimaryAddressLine1}&nbsp;</p>
+                                        <p class="slds-text-heading--small" title="{!client.PrimaryCity + ', ' + client.PrimaryZipCode + ', ' + client.PrimaryCountry}">
+                                            <ul class="slds-list--horizontal slds-has-dividers--right slds-text-title--caps">
+                                                <li class="{! empty(client.PrimaryCity) ? '' : 'slds-item'}" title="{!client.PrimaryCity + ', ' + client.PrimaryZipCode}">{!client.PrimaryCity}</li>
+                                                <!--li class="slds-item" title="{!client.PrimaryZipCode}">{!client.PrimaryZipCode}</li-->
+                                                <li class="{! empty(client.PrimaryCountry) ? '' : 'slds-item'}" title="{!client.PrimaryCountry}">{!client.PrimaryCountry}&nbsp;</li>
+                                            </ul>
+                                        </p>
+                                        <p class="slds-truncate slds-m-top--xx-small" title="{!client.Email}"><a href="javascript:void(0);">{!client.Email}&nbsp;</a></p>
+                                        <p class="slds-truncate">
+                                            <ul class="slds-list--horizontal slds-has-dividers--right">
+                                                <li class="{! empty(client.HomePhone) ? '' : 'slds-item '}" title="{!'Home: ' + client.HomePhoneCountryCode + ': ' + client.HomePhone}">{!client.HomePhone}</li>
+                                                <li class="{! empty(client.MobilePhone) ? '' : 'slds-item '}" title="{!'Mobile: ' + client.MobilePhoneCountryCode + ': ' + client.MobilePhone}">{!client.MobilePhone}</li>
+                                                <li class="{! empty(client.Phone) ? '' : 'slds-item '}" title="{!'Work: ' + client.WorkPhoneCountryCode + ': ' + client.Phone}">{!client.Phone}&nbsp;</li>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </lightning:layoutItem>
+                    </aura:iteration>
+
+                    <aura:if isTrue="{!v.isRmsSearch == false}">
+                        <aura:iteration items="{!v.clients}" var="client" indexVar="idx"><!-- start="{!v.startIndexClientList}" end="{!v.startIndexClientList + v.pageSize}"-->
+                            <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="4" largeDeviceSize="3">
+                                <li onclick="{!c.clientSelected}" data-index="{!idx}">
+                                    
+                                    <div class="{! 'slds-tile slds-tile--board tileDiv ' + (client.Id == v.clientSalesforceSelected ? 'selected' : '')}">
+                                        <div class="slds-grid">
+                                            <header class="slds-has-flexi-truncate slds-text-title--caps">
+                                                <h3 class="slds-truncate" title="{!client.LastName + ' ' + client.FirstName + ', birthday: ' + client.PersonBirthdate}">
+                                                    <a href="javascript:void(0);">
+                                                        <!--{!client.LastName + ' ' + client.FirstName}&nbsp;-->
+                                                        <lightning:formattedName
+                                                                                 firstName="{!client.FirstName}"
+                                                                                 lastName="{!client.LastName}" />
+                                                    </a>
+                                                </h3>
+                                            </header>
+                                            <!--div title="DREAM ID">{!client.DreamId}</div-->
+                                        </div>
+                                        <div class="slds-tile__detail slds-text-body--small slds-text-title">
+                                            <p class="slds-truncate" title="{!client.PrimaryAddressLine1__pc}">{!client.PrimaryAddressLine1__pc}&nbsp;</p>
+                                            <p class="slds-text-heading--small" title="{!client.PrimaryCity__pc + ', ' + client.PrimaryZipCode__pc + ', ' + client.SPO_Country_code__pc}">
+                                                <ul class="slds-list--horizontal slds-has-dividers--right slds-text-title--caps">
+                                                    <li class="{! empty(client.PrimaryCity__pc) ? '' : 'slds-item'}" title="{!client.PrimaryCity__pc + ', ' + client.PrimaryZipCode__pc}">{!client.PrimaryCity__pc}</li>
+                                                    <!--li class="slds-item" title="{!client.PrimaryZipCode}">{!client.PrimaryZipCode}</li-->
+                                                    <li class="{! empty(client.SPO_Country_code__pc) ? '' : 'slds-item'}" title="{!client.SPO_Country_code__pc}">{!client.SPO_Country_code__pc}&nbsp;</li>
+                                                </ul>
+                                            </p>
+                                            <p class="slds-truncate slds-m-top--xx-small" title="{!client.PersonEmail}"><a href="javascript:void(0);">{!client.PersonEmail}&nbsp;</a></p>
+                                            <p class="slds-truncate">
+                                                <ul class="slds-list--horizontal slds-has-dividers--right">
+                                                    <li class="{! empty(client.PersonHomePhone) ? '' : 'slds-item '}" title="{!'Home: ' + client.PersonHomePhone}">{!client.LocalHomePhone__pc}</li>
+                                                    <li class="{! empty(client.PersonMobilePhone) ? '' : 'slds-item '}" title="{!'Mobile: ' + client.PersonMobilePhone}">{!client.LocalMobilePhone__pc}</li>
+                                                    <li class="{! empty(client.Phone) ? '' : 'slds-item '}" title="{!'Work: ' + client.Phone}">{!client.LocalWorkPhone__pc}&nbsp;</li>
+                                                </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </lightning:layoutItem>
+                        
+                        </aura:iteration>
+                    </aura:if>
+                    
+                </lightning:layout>
+                
+                <!-- let this component is this place in order the user to get focus in the hover (for example to edit or copy value) -->
+                <!--c:SO_ClientPopup aura:id="popup"/-->
+            </ul>
+
+            <c:SO_ClientSearchResultPaginator page="{!v.page}" pages="{!v.pages}" total="{!v.total}"/>
+
+			
+        </div>
+        
+        
+        <!--lightning:card iconName="utility:user">
+            <aura:set attribute="title">
+                Clients
+            </aura:set>
+            <aura:set attribute="actions">
+                <lightning:button >
+                    <lightning:icon iconName="utility:adduser" title="New Client" size="medium" />
+                </lightning:button>
+            </aura:set>
+            <aura:set attribute="footer">
+                <c:SO_ClientSearchResultPaginator page="{!v.page}" pages="{!v.pages}" total="{!v.total}"/>
+            </aura:set>
+            
+            
+            <table class="slds-table slds-table- -bordered slds-table- -cell-buffer slds-max-medium-table- -stacked-horizontal">
+                <thead>
+                    <tr class="slds-text-title- -caps">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Name">Name</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Address">Address</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Location">Location</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Email">Email</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Home Phone">Home Phone</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Mobile Phone">Mobile Phone</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Work Phone">Work Phone</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="DREAM ID">DREAM ID</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Actions">Actions</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.clients}" var="client">
+                        <tr>
+                            <td data-label="Client Name">
+                                <div class="slds-truncate" title="{!client.Name + ', birthday: ' + client.PersonBirthdate}"><a href="javascript:void(0);">{!client.Name}</a></div>
+                            </td>
+                            <td data-label="Address">
+                                <div class="slds-truncate" title="{!client.PrimaryAddressLine1__pc}">{!client.PrimaryAddressLine1__pc}</div>
+                            </td>
+                            <td data-label="Location">
+                                <div class="slds-truncate" title="{!client.PrimaryCity__pc + ', ' + client.PrimaryZipCode__pc + ', ' + client.SPO_Country_code__pc}">{!client.PrimaryCity__pc}, {!client.SPO_Country_code__pc}</div>
+                            </td>
+                            <td data-label="Email">
+                                <div class="slds-truncate" title="{!client.PersonEmail}"><a href="javascript:void(0);">{!client.PersonEmail}</a></div>
+                            </td>
+                            <td data-label="Home Phone">
+                                <div class="slds-truncate" title="{!client.PersonHomePhone}">{!client.PersonHomePhone}</div>
+                            </td>
+                            <td data-label="Mobile Phone">
+                                <div class="slds-truncate" title="{!client.PersonMobilePhone}">{!client.PersonMobilePhone}</div>
+                            </td>
+                            <td data-label="Work Phone">
+                                <div class="slds-truncate" title="{!client.Phone}">{!client.Phone}</div>
+                            </td>
+                            <td data-label="DREAM ID">
+                                <div class="slds-truncate" title="{!client.DREAMID__c}">{!client.DREAMID__c}</div>
+                            </td>
+                            <td data-label="Actions" >
+                                <div class="slds-truncate" onclick="{!c.clientSelected}">SELECT</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                    <aura:iteration items="{!v.clientRmsList}" var="client" indexVar="idx" start="{!v.startIndexClientList}" end="{!v.startIndexClientList + v.pageSize}">
+                        <tr onclick="{!c.clientSelected}" data-index="{!idx}"
+                            class="{!(client.RMSId == v.clientRmsSelected) ? 'slds-is-selected' : ''}">
+                            
+                            <td data-label="Client Name">
+                                <div class="slds-truncate" title="{!client.LastName + ' ' + client.FirstName + ', birthday: ' + client.PersonBirthdate}"><a href="javascript:void(0);">{!client.LastName + ' ' + client.FirstName}</a></div>
+                            </td>
+                            <td data-label="Address">
+                                <div class="slds-truncate" title="{!client.PrimaryAddressLine1}">{!client.PrimaryAddressLine1}</div>
+                            </td>
+                            <td data-label="Location">
+                                <div class="slds-truncate" title="{!client.PrimaryCity + ', ' + client.PrimaryZipCode + ', ' + client.PrimaryCountry}">{!client.PrimaryCity}, {!client.PrimaryCountry}</div>
+                            </td>
+                            <td data-label="Email">
+                                <div class="slds-truncate" title="{!client.Email}"><a href="javascript:void(0);">{!client.Email}</a></div>
+                            </td>
+                            <td data-label="Home Phone">
+                                <div class="slds-truncate" title="{!client.HomePhoneCountryCode + ': ' + client.HomePhone}">{!client.HomePhone}</div>
+                            </td>
+                            <td data-label="Mobile Phone">
+                                <div class="slds-truncate" title="{!client.MobilePhoneCountryCode + ': ' + client.MobilePhone}">{!client.MobilePhone}</div>
+                            </td>
+                            <td data-label="Work Phone">
+                                <div class="slds-truncate" title="{!client.WorkPhoneCountryCode + ': ' + client.Phone}">{!client.Phone}</div>
+                            </td>
+                            <td data-label="DREAM ID">
+                                <div class="slds-truncate" title="{!client.DreamId}">{!client.DreamId}</div>
+                            </td>
+                            <td data-label="Actions">
+                                <div class="slds-truncate">SELECT</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+            
+            
+        </lightning:card-->
+        <!--/lightning:layoutItem>
+    </lightning:layout-->
+    </div>
+</aura:component>

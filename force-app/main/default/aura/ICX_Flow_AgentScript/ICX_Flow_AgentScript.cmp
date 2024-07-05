@@ -1,0 +1,64 @@
+<aura:component controller="ICX_Flow_AgentScriptController" implements="lightning:availableForFlowScreens" access="global">
+    
+    <aura:attribute name="messageSize" type="String" default="medium" description="Title in xxx-small/xx-small/x-small/small/medium/large/x-large/xx-large/xxx-large"/>
+    <aura:attribute name="message" type="String" description="Script message" />
+    <aura:attribute name="language" type="String" default="en" description="ISO2 Country code. If the account language is known, set it otherwise from the country predefined in the record"/>
+    <aura:attribute name="languageDisplay" type="Boolean" default="false" description="Display language?"/>
+    <aura:attribute name="copyDisplay" type="Boolean" default="false" description="Display copy button?"/>
+    <aura:attribute name="label" type="String" description="Custom label API name"/>
+    <aura:attribute name="type" type="String" default="Script" description="Script / Header"/>
+    
+    <aura:attribute name="iframeUrl" type="String" description="Custom label API name" access="private"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="vfHost" type="String" />
+    
+    <aura:attribute name="width" type="String"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+
+    <div>
+        <aura:if isTrue="{!v.type == 'Script'}">
+            <div class="slds-box slds-box_xx-small script-box">
+                
+                <lightning:icon iconName="utility:chat" size="{!v.width == 'SMALL' || v.messageSize == 'small' ? 'small' : 'medium'}" alternativeText="Script" class="slds-float_left color" />
+                
+                <div class="slds-float_right">
+                    
+                    <lightning:layout>
+                        <lightning:layoutItem >
+                            <lightning:select name="language" value="{!v.language}" label="" class="{!'inline ' + (v.languageDisplay == true ? '' : 'slds-hide')}">
+                                <option value="en">English</option>
+                                <option value="fr">French</option>
+                                <option value="es">Spanish</option>
+                            </lightning:select>
+                        </lightning:layoutItem>
+                        <!--lightning:layoutItem class="{!v.copyDisplay ? '' : 'slds-hide'}">
+                            <lightning:buttonIcon iconName="utility:copy" alternativeText="Copy" onclick="{!c.copyScript}" />
+                        </lightning:layoutItem-->
+                    </lightning:layout>
+                </div>
+                
+                <aura:if isTrue="{!not(empty(v.iframeUrl))}">
+                    <iframe aura:id="vfFrame" style="{! 'height: 2rem;border: 0;' + (v.copyDisplay ? 'width: 92%;' : 'width: 92%;')}" src="{!v.iframeUrl}" onload="{!c.sendToVF}"></iframe>
+                </aura:if>
+                <!--iframe aura:id="vfFrame" style="{! 'height: 2rem;border: 0;' + (v.copyDisplay ? 'width: 92%;' : 'width: 92%;')}" src="{!'https://' + v.vfHost + '/apex/ICX_Flow_AgentScript?language=' + v.language + '&amp;label=' + v.label + '&amp;size=' + (v.width == 'SMALL' ? 'small' : v.messageSize) + '&amp;showCopyButton=' + v.copyDisplay}" onload="{!c.sendToVF}"></iframe-->
+                
+            </div>
+            
+            <aura:set attribute="else">
+                <div class="slds-box slds-box_x-small script-box">
+                    <aura:if isTrue="{!not(empty(v.iframeUrl))}">
+                        <iframe aura:id="vfFrame" style="{! 'height: 2rem;border: 0;' + (v.copyDisplay ? 'width: 92%;' : 'width: 92%;')}" src="{!v.iframeUrl}" onload="{!c.sendToVF}"></iframe>
+                    </aura:if>
+                    <!--iframe aura:id="vfFrame" style="{! 'height: 2rem;border: 0;' + (v.copyDisplay ? 'width: 92%;' : 'width: 92%;')}" src="{!'https://' + v.vfHost + '/apex/ICX_Flow_AgentScript?language=' + v.language + '&amp;label=' + v.label + '&amp;size=' + (v.width == 'SMALL' ? 'small' : v.messageSize) + '&amp;showCopyButton=' + v.copyDisplay}" onload="{!c.sendToVF}"></iframe-->
+                </div>
+            </aura:set>
+
+        </aura:if>
+
+    </div>
+    
+    
+
+</aura:component>

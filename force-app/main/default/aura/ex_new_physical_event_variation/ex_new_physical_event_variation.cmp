@@ -1,0 +1,76 @@
+<aura:component implements="force:lightningQuickAction,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="Ex_new_experience_variation_Ctrl">
+    
+   
+    <aura:attribute name="parentFieldId" access="global" type="String" /> 
+    <aura:attribute name="recordTypeId" access="global" type="String" />   
+    <aura:attribute name="isOpen" type="boolean" default="true"/>
+   
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:if isTrue="{!v.isOpen}">
+    <div aura:id="editDialog" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <lightning:buttonIcon  class="slds-button slds-button_icon slds-button__icon_large slds-modal__close slds-button_icon-inverse" iconName="utility:close" onclick="{!c.cancelDialog}" variant="border-inverse" title="Close" alternativeText="Close modal" size="large"/>
+        
+            <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium">New Event &amp; Experience Activation: In Store Event</h2>
+            </div>           
+               
+                <lightning:recordEditForm recordTypeId="{!v.recordTypeId}" objectApiName="Brand_Experience_Variation__c" aura:id="recordEditForm"  onload="{!c.handleCreateLoad}"  onsubmit="{!c.handleSubmit}" onsuccess="{!c.handleSuccess}" >  
+                    <div class="slds-modal__content slds-p-around--medium slds-grid slds-wrap ">
+                    <lightning:messages />
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:inputField fieldName="Name" required="true" />  
+                        </div>                          
+                        <div class="slds-col slds-size_1-of-2">          
+                            <lightning:input type="text" label="Event &amp; Experience"  aura:id="experienceNameField" required="true" disabled="true"/>                   
+                        </div> 
+                        <div class="slds-col slds-size_1-of-2"> 
+                            <lightning:inputField fieldName="StartDateTime__c" aura:id="startDateTimeField" required="true"/>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2"> 
+                        <lightning:inputField fieldName="EndDateTime__c" aura:id="endDateTimeField" required="true"/>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:inputField fieldName="inStoreEventFormat__c" required="true"  />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:inputField fieldName="Store__c"  required="true"/>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-1"> 
+                            <lightning:inputField fieldName="Description__c" />  
+                        </div>                      
+                        
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:inputField fieldName="Target_Sales__c" />
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:inputField fieldName="Currency__c" />
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:inputField fieldName="Nb_Target_Clients__c"  />
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-2">          
+                            <lightning:inputField fieldName="Brand_Experience__c" aura:id="experienceField"  class="slds-hidden"/>                   
+                        </div> 
+                
+                     </div>
+                   
+                 
+                </div>
+
+                    <div class="slds-modal__footer">      
+                    <lightning:button variant="neutral" label="Cancel" onclick="{!c.cancelDialog}" />              
+                    <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="save" label="Save"  />
+                    </div>
+                </lightning:recordEditForm>
+ 
+        </div>       
+    </div>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:if>
+    
+</aura:component>

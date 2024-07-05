@@ -1,0 +1,47 @@
+<aura:component implements="flexipage:availableForAllPageTypes"
+                access="global"
+                controller="SO_ProductController">
+
+    <aura:attribute name="fullScreen" type="Boolean" default="false"/>
+    <aura:attribute name="animations" type="Boolean" default="true"/>
+    <aura:attribute name="slides" type="Object[]" default="[]"/>
+
+	<!-- aura:handler name="init" value="{!this}" action="{!c.doInit}" / -->
+    <aura:attribute name="recordId" type="Id" />
+	<aura:attribute name="product" type="ProductReferential__c" /> 
+
+    <aura:handler event="ltng:selectSObject" action="{!c.recordChangeHandler}"/>
+    
+    <lightning:card ><!-- iconName="utility:image" title="Picture Gallery"-->
+        
+        <aura:set attribute="title">
+            <lightning:icon size="small" iconName="utility:image" alternativeText="Picture Gallery"/>
+            <span class="title">&nbsp;{!$Label.c.LV_SO_PictureGallery}</span>
+        </aura:set>
+
+        <aura:set attribute="actions">
+            <lightning:buttonIcon onclick="{!c.fullScreen}" size="large" iconName="utility:expand" alternativeText="Full screen"/>
+        </aura:set>
+        <aura:if isTrue="{!or(v.recordId==undefined, empty(v.product))}">
+            <div aura:id="selectSection" class="select">
+                {!$Label.c.LV_SO_LabelSelectItem}
+            </div>
+        </aura:if>
+
+        <c:SO_PictureCarousel slides="{!v.slides}"/>
+        <aura:if isTrue="{!v.fullScreen==true}">
+            <div role="dialog" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <c:SO_PictureCarousel slides="{!v.slides}"/>
+                </div>
+                
+                <div class="btn slds-modal__close close x-large">
+                    <lightning:buttonIcon variant="border-filled" onclick="{!c.closeDialog}" size="large" iconName="utility:close" alternativeText="Close"/>
+                </div>
+                
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+        </aura:if>
+    </lightning:card>
+
+</aura:component>

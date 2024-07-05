@@ -1,0 +1,20 @@
+<design:component>
+    <design:attribute name="recordId" label="Record Id" description="Record id of the page (to be used only if you want existing selections from the record id)" />
+    <design:attribute name="isMultiEntry" label="Select multi-products?" description="For flows, to select one or more products" />
+    <design:attribute name="required" label="Required?" description="Required field?" />
+    <design:attribute name="readOnly" label="Read-only" description="Read-only mode" />
+    <design:attribute name="showNewRequestCheckbox" label="Show New Request Checkbox" description="Show New Request Checkbox" />
+    <design:attribute name="requestType" label="Case record type name" description="RequestToStore / PODWithSKU / PODWithoutSku / OperationException" />
+
+    <design:attribute name="selectionSize" label="Product selection Size" description="For flows, to know in output if a product was defined" />
+    <design:attribute name="selectionId" label="Mono-selection: selection id" description="Get the selection id for mono-selection only"/>
+   
+    <design:attribute name="comment" label="comment POD" description="comment PODWithSKU/PODWithoutSku " />
+    <design:attribute name="digitalStore" label="Digital Store" description="Digital Store PODWithSKU/PODWithoutSku " />
+    <design:attribute name="clientPhone" label="Client Phone Number" description="Client phone to be populated in Care Service screen" />
+    <design:attribute name="clientEmail" label="Client Email" description="Client Email to be populated in Care SErvice Screen " />
+    <design:attribute name="taskCategory" label="Task Category" description="Task Category" /><!--naomi 02/05/2022-->
+
+    <!-- https://success.salesforce.com/issues_view?id=a1p3A000000BMPtQAO -->
+   <!--design:attribute name="selectionQualification" label="Mono-selection: selection qualification record" description="Get the selection qualification record for mono-selection only"/-->
+</design:component>

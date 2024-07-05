@@ -1,0 +1,18 @@
+<design:component>
+    <design:attribute name="canPause" label="canPause" description="Displaye Pause button" />
+    <design:attribute name="canBack" label="canBack" description="Displaye Back button" />
+    <design:attribute name="canNext" label="canNext" description="Displaye Next button" />
+    <design:attribute name="canFinish" label="canFinish" description="Displaye Finish button" />
+    <design:attribute name="positionFixed" label="Position fixed" description="Display the footer fixed on bottom of the screen" />
+    <design:attribute name="nextName" label="Next button name" description="Next button name" />
+    <design:attribute name="validationRequired" description="If some validations/actions are required before executing the action. The action should then be done in the Flow Screen." />
+    <design:attribute name="customButtonList" label="custom Button List" description="List of other buttons" />
+    <design:attribute name="customButtonIconList" label="Icon for custom Button List" description="List of icons for other buttons. Ex: utility:preview, standard:account. See: https://www.lightningdesignsystem.com/icons/" />
+    <design:attribute name="customButtonShowIconOnlyList" label="Show icon only for custom Button List" description="List of icons for other buttons (ex for 2 custom buttons: true,false" />
+
+    <!--design:attribute name="validation" label="Validation" description="Number of validation to check" /-->
+    
+    <design:attribute name="recordId" label="Record Id" description="Current record Id (to avoid to send the Application event to every tabs)" />
+    <design:attribute name="buttonClicked" label="Output: name of the button clicked" description="Output: name of the button clicked" />
+
+</design:component>

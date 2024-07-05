@@ -1,0 +1,53 @@
+.THIS .disabledProduct {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.THIS .displayOrderButton {
+    text-align: left;/*right;*/
+    padding-right: 3%;
+    /*padding-left: 85%;
+    position: absolute;*/
+}
+
+.THIS .sidebar {
+  /*  min-width: 243px;
+    max-width: 390px;*/
+}
+
+.THIS .slds-card {
+    /*background-color: #ffffff;*/
+    background-color: rgb(244, 246, 249);/*#ffffff;*/
+    margin-bottom: 0.75rem;
+    margin-top: auto !important;
+}
+.THIS .foot3 {
+    /*height: 200px;*/
+    /*margin-bottom: 3rem;   */ 
+    margin-bottom: 38px;
+}
+/*
+.THIS .foot2 {
+    bottom: 35px;
+    
+    position: fixed;
+    left: 0;
+    width: 100%;
+}*/
+
+/* Important to display buttons in left or right side */
+.THIS .foot2 {
+    display: inherit;
+}
+/*.THIS .slds-docked-form-footer2 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(244, 246, 249);
+    box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.16);
+    display: inherit;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    padding: .5rem 0;
+}*/

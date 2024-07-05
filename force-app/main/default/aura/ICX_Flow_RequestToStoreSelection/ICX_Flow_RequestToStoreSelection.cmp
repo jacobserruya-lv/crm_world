@@ -1,0 +1,53 @@
+<aura:component access="global" controller="ICX_ProductSearchLookup_LC" implements="lightning:availableForFlowScreens">
+    <aura:attribute access="global" type="String" name="RecordLookUpId" description="record id" />
+    <aura:attribute access="global" type="String" name="UserId" description="record id"/>
+    <aura:attribute access="global" type="String" name="retailStoreId" description="retailStoreId (store code)"  /> 
+    <aura:attribute access="global" type="List" name="storeList" description="store List" default="[]"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    
+    <!--aura:attribute access="global" type="String" name="UserId2" description="record id"/>
+    <aura:attribute access="private" type="Boolean" name="userReadOnly" description="read ony for user component"/-->
+    
+    <aura:handler name="change" value="{!v.RecordLookUpId}" action="{!c.handleRecordLookUpIdChange}"/>
+
+    <!--aura:handler name="onchange" 
+              event="l_lookup:OnChange" 
+              action="{!c.handleChange}"/-->
+    <lightning:layout>
+        <lightning:layoutitem padding="" size="12">
+
+            <c:ICX_Lookup objectType = "Store__c" 
+                  label = "Store" 
+                  readOnly = "false" 
+                  selectedRecordId = "{!v.RecordLookUpId}"
+                  showFiveRecent = "true"
+                  queryCondition = "Status__c = 'Open' AND StoreType__c = 'Store'"
+                  additionalField = "RetailStoreId__c"
+                  IsRequired = "true"
+                  />
+    <!--p> RecordLookUpId {!v.RecordLookUpId}</p>
+    <p> retailStoreId {!v.retailStoreId}</p-->
+   			 <!--l_lookup:Lookup objectType = "User"
+                     label = "Store Advisor"
+                     selectedRecordId = "{!v.UserId}"
+                     readOnly = "{!empty(v.RecordLookUpId) ? 'true':'false'}"
+                     showFiveRecent = "false"
+                     queryCondition  = "{! empty(v.UserId) ? 'IsActive=true AND WWEmployeeNumber__c!=null AND DefaultStore__c=\'' + v.retailStoreId + '\'' : 'Id=\'' + v.UserId + '\''}"
+  			 /-->
+            <!-- Problem of user selection if no aura:if : On first selection, selectedRecordId is empty -->
+                <aura:if isTrue="{!not(empty(v.retailStoreId))}">
+                    <c:ICX_Lookup aura:id="userLookup"
+                                  objectType = "User" 
+                                  label = "Store Advisor" 
+                                  selectedRecordId = "{!v.UserId}"
+                                  queryCondition  = "{!'IsActive=true AND WWEmployeeNumber__c!=null AND DefaultStore__c=\'' + v.retailStoreId + '\''}"
+                                  showFiveRecent = "false"
+                                  IsRequired = "false"
+                                  />
+                </aura:if>
+
+        </lightning:layoutitem>
+    </lightning:layout>
+   <!--p> User Id {!v.UserId}</p-->  
+    
+</aura:component>

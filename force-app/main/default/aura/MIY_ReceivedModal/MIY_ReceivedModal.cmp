@@ -1,0 +1,59 @@
+<aura:component controller="MIY_OrderPageController" extends="c:MIY_FancyPrompt" extensible="true">
+    <aura:attribute name="itemData" type="SPO_FirmOrder__c"/>
+    <aura:attribute name="loading" type="Boolean" default="false"/>
+    <aura:attribute name="receivedMode" type="Boolean" default="true"/>
+    <aura:attribute name="confirmInStock" type="Boolean" default="false"/>
+    <aura:attribute name="errors" type="Map[]" default="[]" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:registerEvent name="updateOrderEvent" type="c:MIY_FirmOrderUpdate"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <aura:attribute name="headerIconSrc"
+                    type="String"
+                    default="{!'/resource'+ (v.receivedMode ? '/1602685985000/MakeItYours_Assets/images/stage-icon-store.svg#store' : '/MakeItYours_Assets/images/stage-icon-deliver.svg#deliver')}"
+    />
+    <aura:attribute name="headerText" type="String" default="{!$Label.c.MIY_OrderPage_Received_Modal_Header_Text}"/>
+
+    <aura:attribute name="subHeader" type="Aura.Component[]">
+    {!(v.receivedMode
+            ? $Label.c.MIY_OrderPage_Received_Modal_Notice_line_1
+            : $Label.c.MIY_OrderPage_Delivered_Modal_Notice_line_1
+            ) + '\n'}
+        <lightning:formattedText value="{!'&quot;' + v.itemData.Product_Name__c + '&quot;'}"
+                                 class="received-modal__field"
+        />{!' ' + (v.receivedMode
+            ? $Label.c.MIY_OrderPage_Received_Modal_Notice_line_2_post_name
+            : $Label.c.MIY_OrderPage_Delivered_Modal_Notice_line_2_post_name)
+            }
+    </aura:attribute>
+
+    <div>
+        <aura:if isTrue="{!empty(v.errors)}">
+        {!(v.receivedMode
+                ? $Label.c.MIY_OrderPage_Received_Modal_Alert_Line_1 + '\n' + $Label.c.MIY_OrderPage_Received_Modal_Alert_Line_2
+                : $Label.c.MIY_OrderPage_Delivered_Modal_Alert_Line_1 + '\n' + $Label.c.MIY_OrderPage_Delivered_Modal_Alert_Line_2
+                )}
+        <aura:if isTrue="{!v.confirmInStock}">
+            <div>{!$Label.c.MIY_OrderPage_Received_Modal_Confirm_In_Stock}</div>
+        </aura:if>
+        <aura:set attribute="else">
+            <aura:iteration items="{!v.errors}" var="err">
+                <ui:message title="{!err.title}" severity="error">{!err.message}</ui:message>
+            </aura:iteration>
+        </aura:set>
+        </aura:if>
+    </div>
+    <aura:attribute name="footer" type="Aura.Component[]">
+        <c:LaddaLightningButton variant="brand"
+                                title="{!$Label.c.MIY_OrderPage_Received_Modal_OK_Btn}"
+                                onclick="{!c.handleOk}"
+                                class="received-modal__ok-btn slds-is-relative"
+                                isLoading="{!v.loading}"
+                                label="{!$Label.c.MIY_OrderPage_Received_Modal_OK_Btn}"
+                                disabled="{!empty(v.itemData)}"
+        />
+    </aura:attribute>
+</aura:component>

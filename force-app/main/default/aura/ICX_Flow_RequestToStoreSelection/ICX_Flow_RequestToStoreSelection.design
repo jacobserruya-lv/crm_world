@@ -1,0 +1,4 @@
+<design:component>
+	<design:attribute name="RecordLookUpId" label="Store Id" description="Store id" />
+    <design:attribute name="UserId" label="User Id" description="User Id" />
+</design:component>

@@ -1,0 +1,17 @@
+<aura:component controller="ICX_PicklistDataServiceControllerLC">
+	
+    <aura:method name="getPicklist" action="{!c.findPicklist}">
+        <aura:attribute name="recordTypeId" type="Id" />
+        <aura:attribute name="object" type="String" />
+        <aura:attribute name="callback" type="function" />
+    </aura:method>
+
+    <aura:method name="getFieldList" action="{!c.findFieldList}">
+        <aura:attribute name="parser" type="String" />
+        <aura:attribute name="fieldLevelList" type="List" />
+        <aura:attribute name="showParentWithChildrenList" type="List" />
+        <aura:attribute name="hierarchyDependantFieldList" type="List" />
+        <aura:attribute name="callback" type="function" />
+    </aura:method>
+
+</aura:component>

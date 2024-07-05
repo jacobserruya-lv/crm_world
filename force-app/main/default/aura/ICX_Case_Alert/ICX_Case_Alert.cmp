@@ -1,0 +1,441 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global"
+                controller="ICX_Case_Alert" extends="c:ICX_Carousel_Item" description="Case Alert">
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!--ATTRIBUTES-->
+    <aura:attribute name="hide" type="boolean" default="false"/>
+    <aura:attribute name="caseData" type="Object"/>
+    <aura:attribute name="hasAttachment" type="Boolean" default="false"/>
+    <aura:attribute name="filesData" type="List" default="[]"/>
+    <aura:attribute name="longDesc" type="Boolean" default="false"/>
+    <aura:attribute name="descPinned" type="boolean" default="false"/>
+    <!--aura:attribute name="creationDate" type="Date"/-->
+    <aura:attribute name="timerMessage" type="String"/>
+    <aura:attribute name="parentRecordId" type="Id"/>
+    <aura:attribute name="lastReplyEmail" type="EmailMessage"/>
+
+    <!--HANDLER-->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+
+    <force:recordData aura:id="recordData"
+                      recordId="{!v.recordId}"
+                      mode="EDIT"
+                      layoutType="COMPACT"
+                      fields="High_Priority__c, Spam__c, SpamReason__c, Priority, Owner.Name, Account.Name, Type, CaseNumber, Origin, Subject, Description, Case_Origin_IMG__c, 
+                              Status, CreatedDate, ParentId, Parent.CaseNumber, Request_Age__c, SourceId, Parent.SourceId, SuppliedEmail,CreatedBy.Name,CreatedBy.IsTechnicalUser__c,CreatedBy.DefaultStore__c"
+                      targetFields="{!v.caseData}"
+                      targetRecord="{!v.case}"
+                      recordUpdated="{!c.handleRecordUpdated}"
+                      targetError="{!v.caseError}" />
+    <aura:attribute name="caseError" type="String"/>
+	<aura:attribute name="case" type="Object"/>
+
+    <aura:attribute name="richDescription" type="String" description="Workaround as formattedRichText is not working twice: 23/3/19 (workaround aura:if) the 15/4/19 (attribute workaround)"/>
+
+    <aura:attribute name="emailMessage" type="Object"/>
+
+    <!--BODY-->
+    <lightning:card class="{!'icx-case-alert' +
+            (v.caseData ? ' icx-case-alert_priority_' + v.caseData.Priority : '') +
+            (v.caseData.High_Priority__c || (v.caseData.Type == 'Complaints')
+                    ? ' icx-case-alert_priority_high'
+                    : '')
+            }">
+        
+        <aura:set attribute="title">
+            <div class="" style="" onmouseenter="{!c.handleInfoMouseEnter}" onmouseleave="{!c.handleInfoMouseLeave}">
+                <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning:icon iconName="{!v.caseData.CreatedBy.IsTechnicalUser__c == false ? 'standard:case' : 
+                                                  (v.caseData.Origin == 'Email' ? 'standard:email' : 
+                                                  (v.caseData.Origin == 'Web' ? 'standard:screen' : 
+                                                  (v.caseData.Origin == 'chatbot' ? 'standard:bot' : 
+                                                  'standard:quick_text')))}" 
+                                        size="small" alternativeText="{!v.caseData.Origin}" title="{!v.caseData.Origin}" />
+                    </div>
+                    <div class="slds-media__body slds-truncate" style="display: inline-flex;">
+                        <h2>
+                            <span class="headerMessage">
+                                <span class="">{!v.caseData.CreatedBy.IsTechnicalUser__c ? v.caseData.Origin : 'User'} Message</span>
+                            </span>
+                        </h2>
+                        <span class="icx-case-alert__field"><!--{!v.caseData.CaseNumber} -->
+                            
+                            <lightning:icon iconName="utility:info_alt" alternativeText="Details" size="xx-small" variant="" 
+                                            class="{!'slds-m-left_xx-small ' + (
+                                                   (v.caseData.CreatedBy.IsTechnicalUser__c==false
+                                                   || (v.caseData.Origin == 'Email' &amp;&amp; not(empty(v.caseData.SourceId)))
+                                                   || v.caseData.Origin == 'Phone'
+                                                   || v.caseData.Origin == 'Web'
+                                                   || v.caseData.Origin == 'chatbot') ? '' : 
+                                                   'slds-hide')}" />
+                            
+                            <lightning:badge label="SPAM" title="{!v.caseData.SpamReason__c}" class="{! v.caseData.Spam__c == true ? 'slds-m-left_x-small' : 'slds-hide'}"/>
+                            <lightning:badge label="{!v.caseData.Status}" title="Status" class="slds-m-left_x-small"/>
+
+                            <aura:if isTrue="{!v.caseData.Status != 'Closed'}">
+                                <span class="slds-badge timer" title="Timer">
+                                    <lightning:icon iconName="utility:clock" class="slds-m-right_xx-small" size="x-small" title="" /> {!v.timerMessage} 
+                                </span>
+                            </aura:if>
+
+                            <section aura:id="popupInfo" class="stylingPopup slds-popover slds-popover_panel slds-nubbin_top-left slds-popover_large slds-hide" role="tooltip" style="font-size: smaller;font-weight: 400;display: block;position: fixed;/*display: block;*/"> <!--position: fixed;-->
+                                <div class="slds-popover__body">
+                                    
+                                    <dl class="slds-popover__body-list">
+                                        <div class="uiBlock">
+                                            <div class="bLeft slds-form-element__label">From</div>
+                                            <div class="bRight slds-truncate">
+                                                <aura:if isTrue="{!v.caseData.CreatedBy.IsTechnicalUser__c == false}">
+                                                    <span title="{!v.caseData.CreatedBy.Name}">{!v.caseData.CreatedBy.Name} ({!v.caseData.CreatedBy.DefaultStore__c})</span>
+                                                    
+                                                    <aura:set attribute="else">
+                                                        <aura:if isTrue="{!v.caseData.Origin == 'Email'}">
+                                                            <span title="{!v.emailMessage.FromAddress}">{!v.emailMessage.FromName} &lt;{!v.emailMessage.FromAddress}&gt;</span>
+                                                            
+                                                            <aura:set attribute="else">
+                                                                <aura:if isTrue="{!or(v.caseData.Origin == 'Web', v.caseData.Origin == 'chatbot')}">
+                                                                    <span title="{!v.caseData.SuppliedEmail}">{!v.caseData.SuppliedEmail}</span>
+                                                                </aura:if>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </aura:set>
+                                                </aura:if>
+                                                <br/>
+                                            </div>
+                                            <div class="bBody">
+                                            </div>
+                                        </div>
+                                        <aura:if isTrue="{!and(v.caseData.CreatedBy.IsTechnicalUser__c == true, v.caseData.Origin == 'Email')}">
+                                            <span>
+                                                <div class="uiBlock">
+                                                    <div class="bLeft slds-form-element__label">To</div>
+                                                    <div class="bRight">
+                                                        <span title="{!v.emailMessage.ToAddress}">{!v.emailMessage.ToAddress}</span>
+                                                        <br/>
+                                                    </div>
+                                                    <div class="bBody"></div>
+                                                </div>
+                                            </span>
+                                        </aura:if>
+                                        <span>
+                                            <div class="uiBlock">
+                                                <div class="bLeft slds-form-element__label">Date</div>
+                                                <div class="bRight">
+                                                    <aura:if isTrue="{!and(v.caseData.CreatedBy.IsTechnicalUser__c == true, v.caseData.Origin == 'Email')}">
+                                                        <span><lightning:formattedDateTime value="{!v.emailMessage.MessageDate}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/></span>
+                                                    
+                                                        <aura:set attribute="else">
+                                                            <aura:if isTrue="{!(v.caseData.CreatedBy.IsTechnicalUser__c == false || v.caseData.Origin == 'Web' || v.caseData.Origin == 'chatbot' || v.caseData.Origin == 'Phone')}">
+                                                                <span><lightning:formattedDateTime value="{!v.caseData.CreatedDate}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/></span>
+                                                            </aura:if>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    <br/>
+                                                </div>
+                                                <div class="bBody"></div>
+                                            </div>
+                                        </span>
+                                        <span>
+                                            <div class="uiBlock">
+                                                <div class="bLeft slds-form-element__label">Origin</div>
+                                                <div class="bRight">
+                                                    <span title="">{!v.caseData.Origin}</span>
+                                                    <br/>
+                                                </div>
+                                                <div class="bBody"></div>
+                                            </div>
+                                        </span>
+                                    </dl>
+                                </div>
+                            </section>
+                        </span>
+                        
+                    </div>
+                </div>
+
+            </div>
+            
+        </aura:set>
+
+        <aura:set attribute="actions">
+            <!-- icx-case-alert__floating-pin-btn -->
+            <!--aura:if isTrue="{!not(empty(v.caseData.SourceId))}">
+	            <lightning:buttonIcon class="buttonAbsolute slds-m-right_large" size="medium" iconName="utility:new_window"  alternativeText="Open Message" onclick="{!c.toggleDescPin}" />
+            </aura:if-->
+            <lightning:buttonIcon class="buttonAbsolute" size="medium" iconName="{! v.descPinned ? 'utility:pinned' : 'utility:pin'}"  alternativeText="Full Message" onclick="{!c.toggleDescPin}" />
+        </aura:set>
+
+        <lightning:layout class="icx-case-alert__content">
+            <lightning:layoutItem size="12" class="icx-case-alert__section">
+                <div class="icx-case-alert__line">
+                    <!--Hi <span class="icx-case-alert__field icx-case-alert__owner">{!v.caseData.Owner.Name}</span>,
+                    you have a <span class="icx-case-alert__field">{!v.caseData.Type}</span> request.-->
+                    <aura:if isTrue="{!not(empty(v.caseData.ParentId))}">
+                        
+                        <!--div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_dark slds-align_absolute-center" role="status"-->
+                        <div class="slds-m-bottom_xx-small">
+                            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                                <lightning:icon iconName="utility:warning" alternativeText="Warning!" size="x-small" class="slds-m-right_x-small"/>
+                                <p>The request is linked to its parent request: <!--a href="" onclick="{!c.goToParentCase}" title="{!v.caseData.Parent.CaseNumber}" class="highlight__title slds-form-element__control">{!v.caseData.Parent.CaseNumber}</a-->
+                                    <lightning:button variant="base" label="{!v.caseData.Parent.CaseNumber}" title="Parent Request" aura:id="goToParentCase" onclick="{! c.goToRecord }" class="link"/>
+                                </p>
+                            </div>
+                        </div>
+                    </aura:if>
+
+                    <aura:if isTrue="{!not(empty(v.parentRecordId))}">
+                        <div class="slds-m-bottom_xx-small">
+                            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                                <p>Source: <lightning:button variant="base" label="Link" title="Parent record" aura:id="goToParentRecord" onclick="{! c.goToRecord }" class="link"/></p>
+                                <!--p>Source: <a href="" onclick="{!c.goToParentRecord}" class="highlight__title slds-form-element__control">Link</a></p-->
+                            </div>
+                        </div>
+                    </aura:if>
+
+                    <aura:if isTrue="{!not(empty(v.lastReplyEmail))}">
+                        <div class="">
+                            <div class="slds-notify slds-notify_alert slds-theme_alert-texture replyStyle" role="alert">
+                                <p>
+                                    {!'Last reply by ' + v.lastReplyEmail.CreatedBy.Name} on
+                                    <lightning:formattedDateTime value="{!v.lastReplyEmail.MessageDate}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/>
+                                    : <lightning:button variant="base" label="Link" title="Last Email" aura:id="goToLastReplyEmail" onclick="{! c.goToRecord }" class="link linkWhite"/>
+                                    <!--a href="" onclick="{!c.goToParentCase}" title="Last Email" class="highlight__title slds-form-element__control">Link</a-->
+                            	</p>
+                            </div>
+                        </div>
+                    </aura:if>
+
+                        <!--div class="{! 'icx-case-alert__line ' + (or(v.caseData.Origin == 'Email', v.caseData.Origin == '') ? '' : '')}" style="text-align: center;"-->
+                    <div class="icx-case-alert__line" style="text-align: center;">
+                        <span title="Subject" class="{!'icx-case-alert__field ' + (v.caseData.Origin == 'Web' ? 'slds-hide' : (empty(v.caseData.Subject) ? '' : ' slds-align_absolute-center'))}">{!v.caseData.Subject}</span>
+                        
+                        <aura:if isTrue="{!v.filesData.length > 0}">
+                            <ul class="slds-list_horizontal slds-wrap"> <!-- slds-grid slds-wrap slds-m-bottom_xx-small slds-m-top_xx-small -->
+                                <aura:iteration items="{!v.filesData}" var="item">
+                                    <li class="slds-p-horizontal_xx-small">
+                                        <lightning:fileCard fileId="{!item.file.Id}" />
+                                    </li>
+                                </aura:iteration>
+                                <!--
+                                <li class="slds-p-horizontal_xx-small">
+                                    <div class="slds-file slds-file_card" style="width: 10rem;">
+                                        <figure>
+                                            <a href="javascript:void(0);" class="slds-file__crop">
+                                                <div class="slds-file_overlay"></div>
+                                                https://www.lightningdesignsystem.com/assets/images/placeholder-img@16x9.jpg 
+                                            </a>
+                                            <figcaption class="slds-file__title slds-file__title_overlay slds-align_absolute-center slds-text-heading_large">
+                                                <div class="slds-media slds-media_small slds-media_center">
+                                                    <div class="slds-media__figure slds-line-height_reset"></div>
+                                                    <div class="slds-media__body">
+                                                        <span class="slds-file__text slds-truncate" title="+22">+22
+                                                            <span class="slds-assistive-text">more files</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </li-->
+                            </ul>
+                        </aura:if>
+                    </div>
+                    <!-- utility:pin-->
+                    <!--lightning:buttonIcon class="icx-case-alert__floating-pin-btn" iconName="{! v.descPinned ? 'utility:pinned' : 'utility:pin'}"  alternativeText="Full Message" onclick="{!c.toggleDescPin}" /-->
+
+                    <!--lightning:button onclick="{!c.toggleDescPin}"
+                                      iconName="utility:pinned"
+                                      class="icx-case-alert__floating-pin-btn"
+                                      label="{!v.descPinned ? 'Unpin Desc.' : 'Pin Desc. Open'}"
+                                      /-->
+
+                    <!--aura:if isTrue="{!v.hasAttachment}">
+                        <lightning:icon iconName="utility:attach" class="icx-case-alert__attach-icon" size="small" />
+                    </aura:if-->
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" class="icx-case-alert__section" padding="">
+                <dl>
+                    <!--div class="icx-case-alert__line">
+                        <dt>Subject: </dt>
+                        <dd class="icx-case-alert__field">{!v.caseData.Subject}</dd>
+                    </div-->
+                    <div class="{!
+                            'icx-case-alert__line icx-case-alert__desc-line' +
+                            (v.longDesc ? ' icx-case-alert__desc-line_long' : '')
+                            }"
+                    >
+                        <!--dt>Description: </dt-->
+                        <p aura:id="icx-case-alert__desc"
+                           class="{!(not(empty(v.richDescription)) || not(empty(v.emailMessage.HtmlBody)) ? 'icx-case-alert__desc ' : '') + (v.descPinned ? ' icx-case-alert__desc_pinned ' : '') + 
+                                  (v.caseData.Origin == 'Web' || v.caseData.Origin == 'chatbot' ? 'icx-case-alert__desc_web' : (v.caseData.Origin == 'Email' ? 'icx-case-alert__desc_email' : ''))}" >
+
+                            <!-- aura:if tag mandatory for formattedRichText (as seen with Salesforce support 23/3/19)
+       						15/4/19: new Salesforce bug: workaround is set text in the new richDescription attribute
+							-->
+                            <!--aura:if isTrue="{!not(empty(v.caseData.Description))}"-->
+                            	<!--lightning:formattedRichText value="{!v.richDescription}" class="" disableLinkify="true"/-->
+                                <!--lightning:formattedRichText value="{!v.caseData.Description}" class=""></lightning:formattedRichText>
+                            </aura:if-->
+                            <aura:if isTrue="{!and(not(empty(v.caseData.SourceId)), v.caseData.Origin == 'Email')}">
+                                 <!--problem with rendered: Outlook in HTML display differently than with Gmail or than in Text mode-->
+                                <!--aura:unescapedHtml value="{!v.emailMessage.HtmlBody}"/-->
+                                <pre class="{!not(empty(v.emailMessage.HtmlBody)) ? 'preBreakLine' : 'preWebformBreakLine'}">
+                                    <lightning:formattedRichText disableLinkify="true" value="{!not(empty(v.emailMessage.HtmlBody)) ? v.emailMessage.HtmlBody : v.emailMessage.TextBody}" />
+                                </pre>
+                                <!--lightning:formattedText linkify="true" value="{!v.emailMessage.HtmlBody}" /-->
+                                <aura:set attribute="else">
+                                    <pre class="preWebformBreakLine">
+                                        <aura:if isTrue="{!v.caseData.Origin == 'Web'}">
+                                            <lightning:formattedRichText value="{!v.richDescription}" class="" disableLinkify="true"/>
+                                            <aura:set attribute="else">
+                                                <aura:if isTrue="{!v.caseData.Origin == 'chatbot'}">
+                                                    <lightning:formattedRichText value="{!v.richDescription}" class="" disableLinkify="true"/>
+                                                    <aura:set attribute="else">
+                                                        {!v.richDescription}
+                                                    </aura:set>
+                                                </aura:if>
+                                            </aura:set>
+                                        </aura:if>
+                                    </pre>
+                                    <!--lightning:formattedRichText value="{!(v.caseData.Origin == 'Email' ? v.emailMessage.HtmlBody : v.caseData.Description)}" class="" disableLinkify="true"></lightning:formattedRichText-->
+                                </aura:set>
+                            </aura:if>
+                        </p>
+                        <!--lightning:button onclick="{!c.toggleDescPin}"
+                                          iconName="utility:pinned"
+                                          class="icx-case-alert__floating-pin-btn"
+                                          label="{!v.descPinned ? 'Unpin Desc.' : 'Pin Desc. Open'}"
+                        /-->
+                    </div>
+                </dl>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" class="icx-case-alert__section icx-case-alert__case-section">
+                <!--<div class="" style="position: absolute;left: 40%;top: 0.125rem;" onmouseenter="{!c.handleInfoMouseEnter}" onmouseleave="{!c.handleInfoMouseLeave}">
+                    <aura:unescapedHtml value="{!v.caseData.Case_Origin_IMG__c}" />
+                    Case 
+                    <lightning:icon iconName="standard:quick_text" size="small" alternativeText="Message" />
+
+                    <span class="icx-case-alert__field">{!v.caseData.CaseNumber}
+                    Message
+                    <lightning:icon iconName="utility:info" alternativeText="Details" size="xx-small" variant="inverse" class="{!'slds-m-left_xxx-small ' + (or(and(v.caseData.Origin == 'Email', not(empty(v.caseData.SourceId))), v.caseData.Origin == 'Web') ? '' : 'slds-hide')}" />
+                    
+                    <section aura:id="popupInfo" class="slds-popover slds-popover_panel slds-nubbin_top-left slds-popover_large slds-hide" role="tooltip" style="font-size: smaller;font-weight: 400;display: block;position: fixed;/*display: block;*/"> 
+                                <div class="slds-popover__body">
+                                    
+                                    <dl class="slds-popover__body-list">
+                                        <div class="uiBlock">
+                                            <div class="bLeft slds-form-element__label">From</div>
+                                            <div class="bRight slds-truncate">
+                                                <aura:if isTrue="{!v.caseData.Origin == 'Email'}">
+                                                    <span title="{!v.emailMessage.FromAddress}">{!v.emailMessage.FromName} &lt;{!v.emailMessage.FromAddress}&gt;</span>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.caseData.Origin == 'Web'}">
+                                                    <span title="{!v.caseData.SuppliedEmail}">{!v.caseData.SuppliedEmail}</span>
+                                                </aura:if>
+                                                <br/>
+                                            </div>
+                                            <div class="bBody">
+                                            </div>
+                                        </div>
+                                        <aura:if isTrue="{!v.caseData.Origin == 'Email'}">
+                                            <span>
+                                                <div class="uiBlock">
+                                                    <div class="bLeft slds-form-element__label">To</div>
+                                                    <div class="bRight">
+                                                        <span title="{!v.emailMessage.ToAddress}">{!v.emailMessage.ToAddress}</span>
+                                                        <br/>
+                                                    </div>
+                                                    <div class="bBody"></div>
+                                                </div>
+                                            </span>
+                                        </aura:if>
+                                        <span>
+                                            <div class="uiBlock">
+                                                <div class="bLeft slds-form-element__label">Date</div>
+                                                <div class="bRight">
+                                                    <aura:if isTrue="{!v.caseData.Origin == 'Email'}">
+                                                        <span><lightning:formattedDateTime value="{!v.emailMessage.MessageDate}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/></span>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!v.caseData.Origin == 'Web'}">
+                                                        <span><lightning:formattedDateTime value="{!v.caseData.CreatedDate}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/></span>
+                                                    </aura:if>
+                                                    <br/>
+                                                </div>
+                                                <div class="bBody"></div>
+                                            </div>
+                                        </span>
+                                    </dl>
+                                </div>
+                        </section>
+                    </span>
+                </div>-->
+                <!--aura:if isTrue="{!v.hide == false}">
+                    <div style="position: absolute;left: 1rem;top: 0.25rem;" title="Owner">{!v.caseData.Owner.Name}</div>
+                    <div style="position: absolute;right: .5rem;top: 0.15rem;">
+                        <span>
+                            <aura:if isTrue="{!v.caseData.Status == 'Closed'}">
+                                <lightning:formattedDateTime value="{!v.caseData.CreatedDate}"/>
+                                <aura:set attribute="else">
+                                    <lightning:icon iconName="utility:clock" class="slds-m-right_xx-small" size="x-small" variant="inverse" title="Timer" /> {!v.timerMessage} 
+                                </aura:set>
+                            </aura:if>
+                        </span>
+                        <lightning:badge label="{!v.caseData.Status}" title="Status" class="slds-m-left_x-small"/>
+                    </div>
+              </aura:if-->
+
+                <!--div class="icx-case-alert__line">
+                    <aura:unescapedHtml value="{!v.caseData.Case_Origin_IMG__c}" />
+                    Case <span class="icx-case-alert__field">{!v.caseData.CaseNumber}</span>
+                </div-->
+            </lightning:layoutItem>
+        </lightning:layout>
+        <div aura:id="modal-content" class="slds-form slds-form_stacked icx-case-alert__modal-content">
+            <ul>
+                <li class="slds-form-element slds-hint-parent slds-border_bottom">
+                    <span class="slds-form-element__label">Case Number</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">{!v.caseData.CaseNumber}</span>
+                    </div>
+                </li>
+                <li class="slds-form-element slds-hint-parent slds-border_bottom">
+                    <span class="slds-form-element__label">Case Origin</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">{!v.caseData.Origin}</span>
+                    </div>
+                </li>
+                <li class="slds-form-element slds-hint-parent slds-border_bottom">
+                    <span class="slds-form-element__label">Nature</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">{!v.caseData.Type}</span>
+                    </div>
+                </li>
+                <li class="slds-form-element slds-hint-parent slds-border_bottom">
+                    <span class="slds-form-element__label">Subject</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">{!v.caseData.Subject}</span>
+                    </div>
+                </li>
+                <li class="slds-form-element slds-hint-parent slds-border_bottom">
+                    <span class="slds-form-element__label">Description</span>
+                    <div class="slds-form-element__control">
+                        <span class="slds-form-element__static">
+                            <!-- aura:if tag mandatory for formattedRichText (as seen with Salesforce support 23/3/19)
+       						15/4/19: new Salesforce bug: workaround is set text in the new richDescription attribute
+							-->
+                            <!--aura:if isTrue="{!not(empty(v.caseData.Description))}"-->
+                            	<lightning:formattedRichText value="{!v.richDescription}" class="" disableLinkify="true"/>
+                                <!--lightning:formattedRichText value="{!v.caseData.Description}" class=""></lightning:formattedRichText>
+                            </aura:if-->
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </lightning:card>
+</aura:component>

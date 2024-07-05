@@ -1,0 +1,5 @@
+.THIS iframe[id*='Wardrobing_Canvas']{
+    height: 100vh;
+    min-height: 100vh;
+    display: inline;
+}

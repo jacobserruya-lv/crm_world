@@ -1,0 +1,19 @@
+<aura:component>
+    <aura:attribute name="record" type="Opportunity" />
+    <aura:attribute name="product" type="ProductReferential__c"/>
+    <aura:attribute name="productSettings" type="ProductSettings__c" />
+    <aura:attribute name="editMode" type="Boolean" />
+    <aura:attribute name="isSaving" type="Boolean" />
+    <aura:attribute name="materialAndColorOptions" type="map"/>
+
+    <aura:attribute name="SPO_PaintingYN__c" type="Boolean" />
+    <aura:attribute name="SPO_Lock__c" type="Boolean" />
+
+    <c:MIY_SPO_ProductDetailsPanel record="{!v.record}"
+                                   product="{!v.product}"
+                                   productSettings="{!v.productSettings}"
+                                   editMode="{!v.editMode}"
+                                   isSaving="{!v.isSaving}"
+                                   materialAndColorOptions="{!v.materialAndColorOptions}"
+	/>
+</aura:component>

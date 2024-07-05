@@ -1,0 +1,108 @@
+.THIS.slds-modal, .THIS.slds-modal input, .THIS.slds-modal textarea, .THIS.slds-modal select, .THIS.slds-modal button {
+  font-size: 0.875rem;
+}
+.THIS.slds-modal .miy-fancy-modal__content {
+  padding: 1.25rem 0 1rem;
+  font-size: 1rem;
+  line-height: 1.63;
+  text-align: center;
+}
+.THIS.slds-modal .miy-fancy-modal__content .lightning-autocomplete__list-wrap {
+  /* calc((((font size * line height) * # lines per item) + (padding + line margins)) * 5 items) */
+  max-height: calc((((0.875rem * 1.63) * 2) + 0.625rem) * 5);
+  /* content-box to simplify max-height calculation */
+  box-sizing: content-box;
+}
+.THIS.slds-modal .miy-fancy-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.THIS .slds-modal__header {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-color: #eef1f6;
+  color: #2b2826;
+  font-size: 1.25rem;
+}
+.THIS .slds-modal__close {
+  display: inline-block;
+  top: 0.125rem;
+  right: 0.66rem;
+  color: rgba(51, 50, 56, 0.53);
+}
+.THIS .slds-modal__close .slds-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.THIS .slds-modal__content {
+  padding: 0.75rem 7rem;
+}
+.THIS .slds-modal__content .slds-form_compound .slds-size_1-of-2:first-child {
+  padding-right: 1.875rem;
+}
+.THIS .slds-modal__content .slds-form_compound .slds-size_1-of-2:last-child {
+  padding-left: 1.875rem;
+}
+.THIS .slds-modal__content .slds-form-element__label {
+  font-size: 0.875rem;
+}
+.THIS .slds-modal__content .slds-textarea::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: rgba(43, 40, 38, 0.37);
+  font-size: 1rem;
+  font-style: italic;
+}
+.THIS .slds-modal__content .slds-textarea::-moz-placeholder {
+  /* Firefox 19+ */
+  color: rgba(43, 40, 38, 0.37);
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 1;
+}
+.THIS .slds-modal__content .slds-textarea:-moz-placeholder {
+  /* Firefox 18- */
+  color: rgba(43, 40, 38, 0.37);
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 1;
+}
+.THIS .slds-modal__content .slds-textarea:-ms-input-placeholder {
+  /* IE 10+ */
+  color: rgba(43, 40, 38, 0.37);
+  font-size: 1rem;
+  font-style: italic;
+}
+.THIS .slds-modal__footer {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-color: #eef1f6;
+}
+.THIS .slds-modal__footer .slds-button {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  line-height: 2.125rem;
+}
+.THIS .slds-modal__footer .slds-button_neutral:not(:disabled), .THIS .slds-modal__footer .slds-button_neutral:not([disabled]) {
+  color: #3a9eff;
+}
+.THIS .slds-modal__footer .slds-button_neutral:not(:disabled):hover, .THIS .slds-modal__footer .slds-button_neutral:not(:disabled):focus, .THIS .slds-modal__footer .slds-button_neutral:not(:disabled):active, .THIS .slds-modal__footer .slds-button_neutral:not([disabled]):hover, .THIS .slds-modal__footer .slds-button_neutral:not([disabled]):focus, .THIS .slds-modal__footer .slds-button_neutral:not([disabled]):active {
+  color: #1b8fff;
+}
+.THIS .slds-modal__footer .slds-button_brand {
+  border-color: #3a9eff;
+  background-color: #3a9eff;
+  color: white;
+}
+.THIS .slds-modal__footer .slds-button_brand:hover, .THIS .slds-modal__footer .slds-button_brand:focus, .THIS .slds-modal__footer .slds-button_brand:active {
+  border-color: #1b8fff;
+  background-color: #1b8fff;
+}
+.THIS .slds-modal__footer .slds-button_brand[disabled] {
+  border-color: #c9c7c5;
+  background: #c9c7c5;
+}
+.THIS .slds-modal__footer .slds-button_brand .slds-spinner_container {
+  border-radius: 0.25rem;
+  background-color: rgba(201, 199, 197, 0.75);
+}

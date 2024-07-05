@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template">
+	<!--<aura:attribute name="price" type="Integer" />
+	<aura:attribute name="currency" type="String" />-->
+    <aura:attribute name="inCm" type="Boolean" />
+</aura:event>

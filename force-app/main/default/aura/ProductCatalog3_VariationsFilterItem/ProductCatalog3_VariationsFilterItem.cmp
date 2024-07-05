@@ -1,0 +1,29 @@
+<aura:component>
+    <aura:attribute name="variant" type="Object" />
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="filterTitle" type="String" default="" />
+    <aura:attribute name="variantFilter" type="String" default="" />
+    <aura:attribute name="skinMaterialButton" type="String" default="filterSkin__btn" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:registerEvent name="productCatalogVariantFilterHover" type="c:ProductCatalogVariantFilterHoverEvent" />
+    <aura:registerEvent name="productCatalogVariantFilterClick" type="c:ProductCatalogVariantFilterClickEvent" />
+
+    <aura:if isTrue="{!v.title != 'Material Sub-type'}">
+
+        <li class="pc3-var-filter-item" onmouseover="{!c.onmouseover}" onmouseout="{!c.onmouseout}">
+            <lightning:button class="pc3-var-filter-item__btn pc3-product-variations__variation"
+                onclick="{!c.filterClick}" variant="bare">
+                <img class="pc3-var-filter-item__img" src="{!v.variant.img}" />
+            </lightning:button>
+        </li>
+    </aura:if>
+
+    <aura:if isTrue="{!v.title == 'Material Sub-type'}">
+        <div class="pc3-var-filter-item-container__btn" onmouseover="{!c.onmouseover}" onmouseout="{!c.onmouseout}">
+            <c:commonButton title="{!v.variant.Name}" myclass="{!v.skinMaterialButton}" onclick="{!c.filterClick}">
+            </c:commonButton>
+        </div>
+    </aura:if>
+
+</aura:component>

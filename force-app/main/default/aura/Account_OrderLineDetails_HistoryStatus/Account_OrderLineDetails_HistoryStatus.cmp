@@ -1,0 +1,36 @@
+<aura:component>
+    
+
+    <aura:attribute name="listStatusHistory" type="Object" default=""/>
+
+    <div class=" slds-col slds-size_1-of-4">
+       
+        <a class= "slds-form-element__label" onclick="{! c.handleSectionToggle }">
+            Status History 
+            <lightning:icon  aura:id="icon" iconName="utility:chevronright"  size=" x-small"/>
+         </a>
+    </div> 
+    <div class="slds-p-top_xx-small hideDiv" aura:id="History" > 
+        <table class="slds-table slds-table_cell-buffer">
+            <thead>
+                <tr> 
+                    <th scope="col"><span class="">Date</span></th>
+                    <th scope="col"><span class="">Status </span></th> 
+                    <th scope="col"><span class="">Location </span></th> 
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.listStatusHistory}" var="statusHistory">
+                    <tr class="slds-hint-parent"> 
+                        <td>
+                            <lightning:formattedDateTime value="{!statusHistory.date}" year="2-digit" month="short" day="2-digit" 
+                            hour="2-digit" minute="2-digit" hour12="true"/> 
+                        </td>
+                        <td>{!statusHistory.status}</td>
+                        <td>{!statusHistory.location.name}</td>
+                    </tr>
+                </aura:iteration>
+            </tbody> 
+        </table>
+    </div>
+</aura:component>

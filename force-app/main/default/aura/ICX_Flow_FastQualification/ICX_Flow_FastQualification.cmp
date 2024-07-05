@@ -1,0 +1,143 @@
+<!-- Inspired by:
+	Lookup: https://github.com/pozil/sfdc-ui-lookup 
+	Key pad: https://github.com/appiphony/Strike-Components/tree/master/aura/strike_lookup
+
+	Example:
+	<c:ICX_Flow_FastQualification recordTypeId="0123D0000008miMQAQ" 
+                                          objectType="Case" 
+                                          fieldLevelList="['Type', 'Category__c', 'Domaine__c']" 
+                                          showParentWithChildrenList="[true, false, true]"
+                                          />
+	Supported objects: https://developer.salesforce.com/docs/atlas.en-us.uiapi.meta/uiapi/ui_api_get_started_supported_objects.htm#ui_api_get_started_supported_objects 
+-->
+<aura:component implements="lightning:availableForFlowScreens" controller="ICX_FastQualification" access="global">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute access="global" type="String" name="recordTypeId" description="Record Type Id" />
+    <aura:attribute access="global" type="String" name="objectType" description="Object Type API Name" />
+    <aura:attribute access="global" type="String" name="fieldLevelList" description="Dependant Picklist API name Field List" />
+    <aura:attribute access="global" type="String" name="showParentWithChildrenList" description="show Parent item With Children List" />
+
+    <aura:attribute access="private" type="List" name="values" description="Values on init" />
+
+    <aura:attribute access="global" type="String" name="label" default="" description="Component's label" />
+    <aura:attribute access="global" type="List" name="selection" description="List of selected items (a list of only one element for a single entry lookup). Data structure is the same as Apex List&lt;LookupSearchResult&gt;." />
+    <aura:attribute access="global" type="String" name="placeholder" default="{!$Label.c.ICX_Flow_Qualification_Placeholder}" description="Component's placeholder. Optional, defaults to none." />
+    <aura:attribute access="global" type="Boolean" name="isMultiEntry" default="false" description="Whether this component allows multiple selection. Optional, defaults to true." />
+    <aura:attribute access="global" type="List" name="errors" default="[]" description="An array of error messages to display on conditions set by the consumer component, e.g [ {'message': 'Error!' } ]" />
+    <aura:attribute access="global" type="Integer" name="scrollAfterNItems" default="10" description="A null or integer value used to force overflow scroll on the result listbox after N number of items. Valid values are null, 5, 7, or 10. Use null to disable overflow scrolling." />
+
+    <aura:attribute access="private" type="String" name="searchTerm" default="" />
+    <aura:attribute access="private" type="String" name="cleanSearchTerm" default="" />
+    <aura:attribute access="private" type="List" name="searchResults" default="[]" />
+    <aura:attribute access="private" type="Boolean" name="hasFocus" default="false" />
+    <aura:attribute access="private" type="Map" name="blurTimeout" />
+    <aura:attribute access="private" type="Map" name="searchThrottlingTimeout" />
+
+    <aura:attribute name="openMenu" type="Boolean" default="{!false}" description="Determines whether the menu is open" access="private"/>
+    <aura:attribute name="focusIndex" type="Integer" description="Integer value that determines which record is focused" access="private" default="0"/>
+    <aura:handler name="change" value="{!v.focusIndex}" action="{!c.handleFocusIndexChange}"/>
+    <aura:registerEvent name="onFastQualificationSelectedEvent" type="c:ICX_Flow_FastQualificationEvent" />
+
+    <div class="slds-form-element">
+        <label class="{!(empty(v.label) ? 'slds-hide' : 'slds-form-element__label')}" for="{# globalId + '_combobox' }">{!v.label}</label>
+        <div class="slds-form-element__control">
+            <div class="{! 'slds-combobox_container ' + (and(v.hasFocus, empty(v.errors)) ? 'slds-has-input-focus' : '') + (!empty(v.errors) ? ' has-custom-error' : '') }"> <!-- slds-has-inline-listbox  -->
+                <div class="{! 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click '+ (and(v.hasFocus, !empty(v.searchResults)) ? 'slds-is-open' : 'slds-combobox-lookup') }"
+                    aria-expanded="{! !empty(v.searchResults) }" aria-haspopup="listbox" role="combobox">
+
+                        <!-- Single-entry combobox start -->
+                            <div class="{! 'slds-combobox__form-element slds-input-has-icon '+ (empty(v.selection) ? 'slds-input-has-icon_right' : 'slds-input-has-icon_left-right') }"
+                                role="none">
+                                <!--lightning:icon iconName="{! empty(v.selection[0].icon) ? 'standard:default' : v.selection[0].icon}"
+                                    size="small" alternativeText="Selected item icon" class="{! 'slds-combobox__input-entity-icon '+ (empty(v.selection) ? 'slds-hide' : '') }" /-->
+                                <!--input type="text" class="{! 'slds-input slds-combobox__input slds-combobox__input-value has-custom-height ' + (!empty(v.errors) ? 'has-custom-error' : '') + (!empty(v.selection) ? ' has-custom-border' : '') }"-->
+                                
+                                <!-- focus complex even with autofocus or focus() in javascript: https://developer.salesforce.com/blogs/developer-relations/2013/08/setting-field-focus-in-visual-workflow.html-->
+                                <input type="text" autofocus="autofocus" class="{! 'slds-input icx_input_border ' + (!empty(v.errors) ? 'has-custom-error' : '') + (!empty(v.selection) ? ' has-custom-border' : '') }"
+                                       aria-autocomplete="list" 
+                                       aria-controls="{# globalId + '_listbox' }" 
+                                       autocomplete="off"
+                                       role="textbox" 
+                                       id="{# globalId + '_combobox' }" 
+                                       aura:id="searchInput" 
+                                       placeholder="{!v.placeholder}"
+                                       value="{! empty(v.selection) ? '' : v.selection[0].display }" 
+                                       onfocus="{!c.onFocus}"
+                                       onblur="{!c.onBlur}" 
+                                       oninput="{!c.onInput}" 
+                                       onkeydown="{!c.handleInputKeyDown}"
+                                       onkeyup="{!c.handleInputKeyUp}"
+                                       onkeypress="{!c.handleInputKeyPress}"
+                                       readonly="{! !empty(v.selection) }" />
+
+                                <!-- search icon and spinner -->
+                                <div aura:id="spinner" role="presentation" class="slds-hide slds-input__icon slds-input__icon_right slds-is-relative">
+                                    <div role="status" class="slds-spinner slds-spinner_xx-small slds-spinner_delayed">
+                                        <span class="slds-assistive-text">Loading</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>
+                                    </div>
+                                </div>
+                                <lightning:icon aura:id="search-icon" iconName="utility:search" size="x-small" alternativeText="Search icon"
+                                    class="{! 'slds-input__icon slds-input__icon_right '+ (empty(v.selection) ? '' : 'slds-hide') }" />
+
+                                <lightning:buttonIcon iconName="utility:close" variant="bare" alternativeText="Remove"
+                                    onclick="{!c.onClearSelection}" class="{! 'slds-input__icon slds-input__icon_right '+ (empty(v.selection) ? 'slds-hide' : '') }" />
+                            </div>
+                        <!-- Single-entry combobox end -->
+
+                    <!-- List box start -->
+                    <!--div id="{# globalId + '_listbox' }" role="listbox" onclick="{!c.onComboboxClick}" -->
+                    <div id="{# globalId + '_listbox' }" role="listbox" onclick="{!c.onComboboxClick}" class="{!if(v.openMenu, '', 'slds-hide')}">
+                        <ul class="{! 'slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid ' + (v.scrollAfterNItems ? 'slds-dropdown_length-with-icon-' + v.scrollAfterNItems : '') }"
+                            role="presentation"
+                            aura:id="lookupMenu">
+                            
+                            <aura:iteration items="{!v.searchResults}" var="result" indexVar="index">
+                                <!--li role="presentation" class="slds-listbox__item"-->
+                                <li role="presentation" class="slds-listbox__item" data-index="{!index}"><!--onclick="{!c.onResultClick}"-->
+                                    <div id="{!result.label}" class="{!if(index == v.focusIndex, 'slds-has-focus', '') + ' slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta'}"
+                                         role="option" onclick="{!c.onResultClick}">
+                                        <!--span class="slds-media__figure">
+                                            <lightning:icon iconName="standard:default"
+                                                size="small" alternativeText="Result item icon" />
+                                        </span-->
+                                        <span class="slds-media__body">
+                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!result.display}</span>
+                                        </span>
+                                    </div>
+                                </li>
+                            </aura:iteration>
+                            
+                        </ul>
+                    </div>
+
+                    <!--div class="slds-lookup__menu" role="listbox" onclick="{!c.onComboboxClick}">
+                        <ul class="slds-lookup__list" role="listbox">
+                            <aura:iteration items="{!v.searchResults}" var="result">
+                                <li role="presentation">
+                                <span id="{!result.label}" class="slds-lookup__item-action slds-media sl-searching" role="option" onclick="{!c.onResultClick}">
+                                    <div class="slds-media__body">
+                                        <div class="slds-lookup__result-text">{!result.display}</div>
+                                    </div>
+                                </span>
+                            </li>
+                            </aura:iteration>
+                        </ul>
+                    </div-->
+
+                    <!-- List box end -->
+
+                </div>
+            </div>
+
+            <!-- errors start -->
+            <aura:iteration items="{!v.errors}" var="error">
+                <label role="alert" class="slds-form-element__label slds-m-top_xx-small form-error">{!error.message}</label>
+            </aura:iteration>
+            <!-- errors end -->
+        </div>
+    </div>
+</aura:component>

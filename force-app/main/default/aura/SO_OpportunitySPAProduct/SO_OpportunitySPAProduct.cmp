@@ -1,0 +1,139 @@
+<aura:component controller="SO_OpportunitySPAController">
+    
+    <!--aura:attribute name="opp" type="Opportunity" access="global"/-->
+    <aura:attribute name="opp" type="Opportunity" default="{'sobjectType':'Opportunity'}"/>
+    <aura:attribute name="account" type="Account"/>
+    <aura:attribute name="isMTO" type="Boolean" default="false"/>
+    <aura:attribute name="canSelectMTO" type="Boolean" default="false"/>
+    <aura:attribute name="isMTOEnabled" type="Boolean" default="true"/>
+    
+    <aura:attribute name="product" type="ProductReferential__c" access="global"/>
+    <aura:attribute name="productNotFound" type="ProductReferential__c" default="{ProductCategory__c : 'Leather goods'}"/>
+    <aura:attribute name="showProduct" type="Boolean" default="true" />
+    <!--aura:attribute name="noskubtnclick" type="Boolean" default="false" description="Use to pass to controller wheter or not the button No inspiration SKU is clicked"/-->
+    <aura:attribute name="filterCategory" type="String" default="Hardsided leather goods"/>
+
+    <aura:registerEvent name="bubblingEvent" type="c:SO_OpportunityCreationSPAEvent" /> 
+    <!-- <aura:registerEvent name="toastingEvent" type="force:showToast"/> -->
+    <aura:registerEvent name="customToast" type="c:SO_CustomToastEvent"/>
+
+    <!-- send event to Brief Creation SPA component when "No inspiration" button checked -->
+    <!--aura:registerEvent name="productEvent" type="c:SO_ProductTileEvent" /--> 
+    
+    <aura:handler event="c:SO_OpportunitySPAEvent" action="{!c.handleApplicationEvent}"/>
+    <aura:handler name="productEvent" event="c:SO_ProductTileEvent" action="{!c.handleProductSelected}"/>
+    <!--aura:handler event="ltng:selectSObject" action="{!c.handleProductSelected}"/-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{! v.isMTO }" action="{! c.updateMTO }"/>
+    <!--aura:handler event="c:SO_TabJumpSPAEvent" action="{!c.handleTabJump}"/-->
+    
+    <lightning:spinner aura:id="spinner" class="slds-hide" alternativeText="Searching..."/>
+    
+    <aura:method name="next" action="{!c.goNext}" description="Tab after Product for Path"/>
+    
+    <lightning:layout horizontalAlign="spread" multipleRows="true">
+        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="3" class="{!(v.showProduct ? 'sidebar slds-p-horizontal--small' : 'sidebar slds-p-horizontal--small disabledProduct')}">
+            <c:ProductFilter aura:id="productFilter" 
+                advancedSearch="true" 
+                isMTO="{! v.isMTO }" 
+                canSelectMTO="{! v.canSelectMTO }"
+                category="{!v.filterCategory}"
+            />
+            <!--div>&nbsp;</div-->
+            <!-- show div only for large device -->
+            <div class="slds-large-show">
+                <c:SO_ProductSummary showPicture="false" />
+                <c:SO_PictureGalleryCard />
+            </div>
+            
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="9">
+
+            <div class="{!(v.showProduct ? '' : 'disabledProduct')}" style="margin-bottom:250px;">
+                <c:ProductTileList pageSize="{!$Browser.isDesktop ? 18  : ($Browser.isTablet ? 15 : 9)}" showPaginatorHeader="false" 
+                                   tileSize="{!$Browser.isDesktop ? 175 : ($Browser.isTablet ? 175 : 200)}" 
+                                   category="{!v.filterCategory}"
+                                   />
+                <!--div class="slds-large-show">
+                    <c:ProductTileList pageSize="18" showPaginatorHeader="false" tileSize="175" />
+                </div>
+                <div class="slds-medium-show-only">
+                    <c:ProductTileList pageSize="20" showPaginatorHeader="false" tileSize="170" />
+                </div>
+                <div class="slds-small-show-only">
+                    <c:ProductTileList pageSize="10" showPaginatorHeader="false" tileSize="160" />
+                </div-->
+            </div>
+
+        </lightning:layoutItem>
+        <!--lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+            <div class="slds-medium-show-only" style="margin-bottom: 350px;">
+                
+            </div>
+            
+            <div class="{!(v.showProduct ? '' : 'disabledProduct')}">
+                <div class="{!v.product != null ? 'slds-docked-form-footer ' : 'slds-hide'}">
+                    <div class="slds-medium-show-only">
+                        <lightning:layout horizontalAlign="spread" multipleRows="true">
+                            <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="6">
+                                <c:SO_ProductSummary showPicture="false"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="6">
+                                    <c:SO_PictureGalleryCard />
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+                </div>
+            </div>
+            
+        </lightning:layoutItem-->
+    
+    <!--div class="slds-grid">
+        <div class="slds-col slds-size- -1-of-6">
+            <c:ProductFilter />
+        </div>
+        <div class="slds-col slds-size- -5-of-6">
+            <c:ProductTileList pageSize="10"/>
+        </div>
+    </div-->
+        <div class="slds-medium-show-only">
+            <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" class="{! v.product != undefined ? 'footer2 slds-docked-form-footer ' : ''}">
+                <div class="foot3">
+                    <c:SO_ProductSummary showPicture="true" showGallery="true"/>
+                </div>
+            </lightning:layoutItem>
+        </div>
+        <div class="slds-small-show-only">
+            <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" class="{! v.product != undefined ? 'footer2 slds-docked-form-footer ' : ''}">
+                <div class="foot3">
+                    <c:SO_ProductSummary showPicture="true" showGallery="true"/>
+                </div>
+            </lightning:layoutItem>
+        </div>
+        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="9">
+            <div class=" slds-docked-form-footer foot2">
+                <!--lightning:button label="{!$Label.c.IC_Btn_Previous}" onclick="{!c.goBack}" /-->
+                <lightning:layout horizontalAlign="spread" multipleRows="true">
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4" class="{! 'slds-p-left--small ' + (v.isMTO == false ? '' : 'disabledProduct') }">
+                        <div class="displayOrderButton">
+                            <div class="slds-checkbox--button-group">
+                                <span class="slds-button slds-checkbox--button" for="notfoundproduct">
+                                    <input type="checkbox" name="checkbox" id="notfoundproduct" onclick="{!c.displayProduct}" />
+                                    <label class="slds-checkbox--button__label" for="notfoundproduct">
+                                        <span class="slds-checkbox--faux">{!$Label.c.LV_SO_NewBrief_NoInspirationSku}</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4" class="slds-align_absolute-center">
+                        <lightning:button label="{!$Label.c.IC_Btn_Next}" onclick="{!c.goNext}" variant="brand"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4">
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    
+</aura:component>

@@ -1,0 +1,14 @@
+<aura:component controller="ICX_CaseCreationFromTask_CTRL"
+                implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global" >
+    
+    <lightning:workspaceAPI aura:id="workspace" />
+
+    <aura:attribute name="message" type="String" />
+    <aura:attribute name="newcaseid" type="String" default=""/>
+    <aura:attribute name="currTask" type="Task"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+   
+</aura:component>

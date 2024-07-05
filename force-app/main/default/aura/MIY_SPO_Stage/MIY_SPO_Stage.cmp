@@ -1,0 +1,234 @@
+<aura:component controller="MIY_OrderPageController">
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="status" type="map" />
+    <aura:attribute name="stageDate" type="Date" />
+    <aura:attribute name="currentStatusIdx" type="Integer" />
+    <aura:attribute name="totalStageCount" type="Integer" />
+    <aura:attribute name="pastValueContent" type="Aura.Component[]" />
+    <aura:attribute name="altAction" type="Aura.Action" />
+    <aura:attribute name="pastAction" type="Aura.Action" />
+    <aura:attribute name="userId" type="Id" default="" />
+    <aura:attribute name="dateCreated" type="Date"/>
+    <aura:attribute name="dateQuotationInProgress" type="Date"/>
+    <aura:attribute name="warningsMap" type="Map" />
+    <aura:attribute name="storeMode" type="Boolean" />
+    <aura:attribute name="workshopName" type="String" />
+    <aura:attribute name="iconId" type="string"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:handler event="c:MIY_FirmOrderUpdate" action="{!c.handleUpdateEvent}" />
+    <aura:registerEvent name="postEvent" type="c:MIY_PostEvent"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <lightning:quickActionAPI aura:id="quickActionAPI"/>
+
+    <lightning:layout class="{!join(' ','spo-stage',
+            (lessthan(v.status.idx,v.currentStatusIdx) ? 'spo-stage_past' : undefined),
+            (greaterthan(v.status.idx,v.currentStatusIdx) ? 'spo-stage_future' : undefined),
+            (v.status.altActionType == 'post' ? 'spo-stage_wait' : undefined)
+            )}">
+        <lightning:layoutItem class="spo-stage__date-badge">{!v.status.dateLabel}<ui:outputDate value="{!v.stageDate}"/></lightning:layoutItem>
+        <lightning:layoutItem class="spo-stage__name">{!v.status.label}</lightning:layoutItem>
+        <lightning:layoutItem class="spo-stage__timeline-icon">
+            <!-- <lightning:icon src="{!$Resource.MakeItYours_Assets + '/images/icon-' +
+                    (lessthan(v.status.idx,v.currentStatusIdx) ? 'check.svg#check' : 'clock.svg#clock')
+                    }"
+            /> -->
+            <lightning:icon src="{!'/resource/' + (lessthan(v.status.idx,v.currentStatusIdx) ? '1602685985000/MakeItYours_Assets/images/icon-check.svg#check'  : '1575297751000/MakeItYours_Assets/images/icon-clock.svg#clock')}"
+            />
+           
+        </lightning:layoutItem>
+        <lightning:layoutItem class="spo-stage__responsibilities">
+            <span class="{!join(' ','spo-stage__responsibility',
+                    (v.status.workshopResponsible ? undefined : 'spo-stage__responsibility_active')
+                    )}">{!$Label.c.MIY_OrderPage_Header_Store}</span>
+            <span class="{!join(' ','spo-stage__responsibility',
+                    (v.status.workshopResponsible ? 'spo-stage__responsibility_active' : undefined)
+                    )}">{!$Label.c.MIY_SPO_Stage_Workshop}</span>
+        </lightning:layoutItem>
+        <aura:if isTrue="{!greaterthanorequal(v.status.idx,v.currentStatusIdx)}">
+            <lightning:layoutItem class="spo-stage__content-popover">
+                <div class="spo-stage__stage-count">
+                    <lightning:helptext class="spo-stage__duration-info"
+                                        content="{!format($Label.c.MIY_SPO_OrderPage_Stage_Duration_Info, v.status.stageDuration)}"
+                    />
+                    {!(v.status.idx + 1) + '/' + v.totalStageCount}
+                </div>
+                <lightning:icon src="{!'/resource/' + v.status.iconId +
+                        '/MakeItYours_Assets/images/stage-icon-' + v.status.stageIcon + '.svg#' + v.status.stageIcon}"
+                                class="spo-stage__icon"
+                />
+                <div class="spo-stage__c2a-title">{!v.status.c2aTitle}</div>
+                <p class="spo-stage__c2a-text slds-form slds-form_inline">
+                    <aura:if isTrue="{!v.status.key == 'brief-in-progress'}">
+                        <lightning:recordViewForm recordId="{!v.userId}" objectApiName="User">
+                        <aura:if isTrue="{!v.storeMode}">
+                            {!$Label.c.MIY_OrderPage_Hello + ' '}
+                                <lightning:outputField fieldName="Name" variant="label-hidden"/>{!$Label.c.MIY_SPO_Stage_Brief_Since + ' '}
+                                <strong><lightning:relativeDateTime value="{!v.dateCreated}"/></strong> &nbsp;{!$Label.c.MIY_SPO_Stage_For}&nbsp;
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">{!v.record.Account.Name}</span>
+                                </div>{!$Label.c.MIY_SPO_Stage_Click_On + ' '}<em>"{!$Label.c.LV_SO_Request_quotation}"&nbsp;</em> {!$Label.c.MIY_SPO_Stage_Send_Brief_to_Production}
+                            <aura:set attribute="else">
+                            {!$Label.c.MIY_OrderPage_Hello + ' '}
+                                <lightning:outputField fieldName="Name" variant="label-hidden"/>{!$Label.c.MIY_SPO_Stage_Store_Has_Bief_in_Progress_Since}&nbsp; <strong><lightning:relativeDateTime value="{!v.dateCreated}"/>&nbsp;</strong>
+                                {!$Label.c.MIY_SPO_Stage_For}&nbsp; <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">{!v.record.Account.Name}</span>
+                                </div>{!$Label.c.MIY_SPO_Stage_Ask_Updates_For_Store_Request_Quotation_Or_Cancel_Order}
+                            </aura:set>
+                        </aura:if>
+                        </lightning:recordViewForm>
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'quotation-in-progress', v.storeMode)}">
+                        <strong>{!v.workshopName + ' '}</strong> {!$Label.c.MIY_SPO_Stage_Can_Communicate + ' '}
+                            {!v.workshopName + ' '} {!$Label.c.MIY_SPO_Stage_Via_The + ' '} <strong>{!$Label.c.MIY_SPO_Stage_Collaborate + ' '}</strong> {!$Label.c.MIY_SPO_Stage_Check_Notifications}
+                        
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'quotation-in-progress', not(v.storeMode))}">
+                        <lightning:recordViewForm recordId="{!v.userId}" objectApiName="User">
+                        {!$Label.c.MIY_OrderPage_Hello + ' '}
+                            <lightning:outputField fieldName="Name" variant="label-hidden"/>{!$Label.c.MIY_SPO_Stage_Create_Quotation_For}&nbsp;
+                            <div class="slds-form-element__control">
+                                <span class="slds-form-element__static">{!v.record.Account.Name + ' '}</span>
+                            </div>{!$Label.c.MIY_SPO_Stage_Click_On}&nbsp; <em>{!$Label.c.MIY_SPO_Stage_Create_Quotation}</em>&nbsp; {!$Label.c.MIY_SPO_Stage_Send_Quotation_To_CA}
+                        </lightning:recordViewForm>
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'quotation-submitted', v.storeMode)}">
+                        {!$Label.c.MIY_SPO_Stage_Call + ' '} <span class="slds-form-element__control">
+                        <span class="slds-form-element__static">{!v.record.Account.Name + ' '}</span>
+                    </span> {!$Label.c.MIY_SPO_Stage_Know_If_He_Accepts + ' '} <a class="spo-stage__alt-action-label"
+                                                     href="{!'/apex/PDFPage?id=' + v.record.Id}"
+                                                     target="_blank"
+                    >{!$Label.c.MIY_SPO_Stage_This_Quotation + ' '}</a>
+                        <strong> (<lightning:formattedNumber style="currency"
+                                                            currencyCode="{!v.record.SPO_Store__r.Currency__c}"
+                                                            value="{!v.record.Amount}"
+                                                            minimumFractionDigits="0"
+                                                            maximumFractionDigits="0"
+                        />)</strong>{!$Label.c.MIY_SPO_Stage_If_Yes_Should_Receive + ' '}
+                        <strong>{!v.record.SPO_Estimated_date_NOMTO__c + ' '} {!$Label.c.MIY_SPO_Stage_Weeks + ' '}</strong>{!$Label.c.MIY_SPO_Stage_If_No}&nbsp;<lightning:button
+                            variant="base"
+                            label="Cancel the Order"
+                            class="spo-stage__alt-action"
+                            onclick="{! c.handleCancelClick }"
+                    ><em class="spo-stage__alt-action-label">{!$Label.c.MIY_SPO_Stage_Cancel_The_Order}</em></lightning:button>.
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'quotation-submitted', not(v.storeMode))}">
+                        {!$Label.c.MIY_SPO_Stage_Store_Has_To_Get_Confirmation + ' '} <span class="slds-form-element__control">
+                            <span class="slds-form-element__static">{!v.record.Account.Name}</span></span>!
+                        {!$Label.c.MIY_SPO_Stage_Communicate_With_The_Store}&nbsp;<strong>{!$Label.c.MIY_SPO_Stage_Collaborate}</strong>&nbsp; {!$Label.c.MIY_SPO_Stage_Check_Notifications}
+                                            </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'quotation-accepted', v.storeMode)}">
+                      {!$Label.c.MIY_SPO_Stage_Add_Deposit_And_Complete_Fields}
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'quotation-accepted', not(v.storeMode))}">
+                       {!$Label.c.MIY_SPO_Main_The_Client} <span class="slds-form-element__control">
+                        <span class="slds-form-element__static">{!v.record.Account.Name}</span>
+                    </span>{!$Label.c.MIY_SPO_Stage_Has_Confirmed_The_Quotation}
+                        <lightning:formattedNumber style="currency"
+                                                   currencyCode="{!v.record.SPO_Store__r.Currency__c}"
+                                                   value="{!v.record.Amount}"
+                                                   minimumFractionDigits="0"
+                                                   maximumFractionDigits="0"
+                        /> {!$Label.c.MIY_SPO_Stage_Store_Waiting_For_Deposit}
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'creation-in-progress', v.storeMode)}">
+                        {!$Label.c.MIY_SPO_Stage_Order_In_Production_Phase + ' '}
+                        <strong>{!v.workshopName}</strong>{!$Label.c.MIY_SPO_Stage_Receive_Item_During_The_Month}
+                        <strong>
+                            &nbsp;  <ui:outputDate value="{!v.record.SpeOrder_Order_Following__r[0].Planned_Delivery_date__c}" format="MMMM yyyy" /> <!--MIY-1751-->
+                        </strong>.
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'creation-in-progress',not(v.storeMode))}">
+                        {!$Label.c.MIY_SPO_Main_The_Client +' '} <span class="slds-form-element__control">
+                        <span class="slds-form-element__static"> {!v.record.Account.Name} </span>
+                    </span> {!' ' + $Label.c.MIY_SPO_Stage_Has_Paid_Deposit_Create_Sku_in_PLM}
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'in-progress', v.storeMode)}">
+                      {!$Label.c.MIY_SPO_Stage_Order_Has_Entered_The_Production_Phase + ' '}
+                        <strong>{!v.workshopName}</strong>{!$Label.c.MIY_SPO_Stage_Receive_Item_During_The_Month}&nbsp;
+                        <strong>
+                            <ui:outputDate value="{!v.record.SpeOrder_Order_Following__r[0].Planned_Delivery_date__c}" format="MMMM yyyy" /> <!--MIY-1751 inside Info about Production (store mode)-->
+                        </strong>.
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'in-progress', not(v.storeMode))}">
+                        {!$Label.c.MIY_SPO_Stage_Client_Will_Receive_Item_Soon}&nbsp;
+                        <strong>
+                            <ui:outputDate value="{!v.record.SpeOrder_Order_Following__r[0].Planned_Delivery_date__c}" /> <!--MIY-1751 inside Info about Production (workshop mode) -->
+                        </strong>.
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'distribution-in-progress', v.storeMode)}">
+                       {!$Label.c.MIY_SPO_Stage_Order_Has_Entered_The_Distribution_Phase + ' '}<strong>{!v.workshopName}</strong>{!$Label.c.MIY_SPO_Stage_Receive_Item_Around}
+                       &nbsp;<strong> <ui:outputDate value="{!v.record.SpeOrder_Order_Following__r[0].Planned_Delivery_date__c}" /> <!--MIY-1751 inside Info about Delivery (store mode)-->
+                        </strong>{!$Label.c.MIY_SPO_Stage_Central_warehouse_info}
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'distribution-in-progress', not(v.storeMode))}">
+                        {!$Label.c.MIY_SPO_Stage_order_in_Distribution_Phase_Client_Will_Receive_Item}
+                        &nbsp;<strong> <ui:outputDate value="{!v.record.SpeOrder_Order_Following__r[0].Planned_Delivery_date__c}" /> <!--MIY-1751 inside Info about Delivery (workshop mode)-->
+                        </strong>.
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'received-in-store', v.storeMode)}">
+                        {!$Label.c.MIY_SPO_Stage_After_Delivering_To_Client_Deliver_Status}
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.status.key == 'received-in-store', not(v.storeMode))}">
+                        {!$Label.c.MIY_SPO_Stage_Product_Confirmed_And_Will_Be_Closed}
+                     </aura:if>
+                    <!-- <aura:if isTrue="{!and(v.status.key == 'closed-won', v.storeMode)}">
+                        {!$Label.c.MIY_SPO_Stage_After_Delivering_To_Client_Deliver_Status}
+                    </aura:if> -->
+                    <!-- <aura:if isTrue="{!and(v.status.key == 'closed-won', not(v.storeMode))}">
+                       {!$Label.c.MIY_SPO_Stage_Product_Confirmed_And_Will_Be_Closed}
+                    </aura:if> -->
+                </p>
+                <div class="spo-stage__c2a-actions">
+                    <lightning:button variant="base"
+                                      class="spo-stage__alt-action"
+                                      onclick="{!(v.status.altActionType == 'action'
+                                              ? v.altAction
+                                              : c.handleAltAction)}"
+                    >
+                        <aura:if isTrue="{!v.status.altActionStyle == 'checkbox'}">
+                            <div class="{!join(' ','spo-stage__alt-action-checkbox',
+                                    (v.status.altActionChecked ? 'spo-stage__alt-action-checkbox_checked' : undefined)
+                                    )}"
+                            >
+                                <span></span>
+                            </div>
+                        </aura:if>
+                        <span class="spo-stage__alt-action-label">{!v.status.altActionLabel}</span>
+                    </lightning:button>
+                    <aura:if isTrue="{!not(empty(v.status.c2aBtnLabel))}">
+                        <c:LaddaLightningButton class="spo-stage__c2a-btn"
+                                                variant="brand"
+                                                onclick="{!c.handleC2AAction}"
+                                                label="{!v.status.c2aBtnLabel}"
+                                                disabled="{!greaterthan(v.status.idx,v.currentStatusIdx)}"
+                                                
+                        />
+                    </aura:if>
+                </div>
+                <aura:if isTrue="{!not(empty(v.status.footerText))}">
+                    <div class="{!'spo-stage__popover-footer spo-stage__popover-footer_style_' + v.status.footerStyle}">
+                        {!v.status.footerText}
+                    </div>
+                </aura:if>
+            </lightning:layoutItem>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!not(empty(v.status.pastTitle))}">
+                    <lightning:layoutItem class="spo-stage__content-past">
+                        <div class="spo-stage__past-title">{!v.status.pastTitle}</div>
+                        <div class="spo-stage__past-subtitle">{!v.status.pastSubtitle}</div>
+                        <div class="spo-stage__past-value">{!v.pastValueContent}</div>
+                        <aura:if isTrue="{!not(empty(v.status.pastActionLabel))}">
+                            <lightning:button class="spo-stage__past-action"
+                                              onclick="{!v.pastAction}"
+                                              label="{!v.status.pastActionLabel}"
+                            />
+                        </aura:if>
+                    </lightning:layoutItem>
+                </aura:if>
+            </aura:set>
+        </aura:if>
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,55 @@
+.THIS * {
+	box-sizing: border-box; 
+}
+
+.THIS .slds-card+.slds-card {
+    margin-top: 0rem !important;
+}
+
+.THIS .slds-card__header {
+    padding-top: .25rem;
+    margin-bottom: .25rem;
+/*    padding-top: 0;
+    margin-bottom: 0;*/
+}
+
+.THIS .slds-card__body {
+	height: 250px;
+    background-color:white;
+
+    /*display: flex;*/
+}
+
+/* tablet mode */
+/*@media (min-width: 48em){ 
+.THIS .slds-card__body {
+	height: 90px;
+    background-color:white;
+}
+}*/
+
+/*.THIS .slds-card__body > div {
+ 	flex: 1;
+}*/
+
+
+
+.THIS .slds-modal__container {
+    margin-top: 100px;
+    height: 90%;
+    width: 90%;
+    max-width: initial;
+}
+
+.THIS .slds-modal__close {
+    position: absolute;
+    top: 100px;
+    right: 5%;
+	margin-top: 2% /* not hide close button when oneSystemMessage on header (for example Sandbox message) */
+}
+
+.THIS .select {
+    color: #BBBAB9;
+    /*margin-top: 20px;*/
+    text-align: center;
+}

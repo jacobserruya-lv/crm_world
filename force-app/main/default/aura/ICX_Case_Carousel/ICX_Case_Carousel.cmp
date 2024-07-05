@@ -1,0 +1,8 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global"
+                extends="c:ICX_Carousel">
+
+    <c:ICX_Case_Alert recordId="{!v.recordId}" highDots="true"/>
+    <c:ICX_Emails recordId="{!v.recordId}"/>
+    <c:ICX_Files recordId="{!v.recordId}"/>
+
+</aura:component>

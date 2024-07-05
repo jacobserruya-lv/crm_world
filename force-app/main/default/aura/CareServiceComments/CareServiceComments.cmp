@@ -1,0 +1,29 @@
+<aura:component extensible="true" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                  controller = "Ctrl_CareServiceComments" access="global">
+            
+    <aura:attribute name="comments" type="String[]" />
+    <aura:attribute name="commentsError" type="Boolean" default="false" />
+    <aura:attribute name="CommentsType" type="String" />
+    <!--aura:handler name="init" value="{!this}" action="{!c.doInit}" /-->
+
+    
+    <lightning:tabset class="slds-tabs_card">
+        <lightning:tab label="{!v.CommentsType + (v.CommentsType == 'ICON' ? ' – Client Services Comments' : ' Comments' )}">
+            <aura:if isTrue="{!v.commentsError}">
+                <div class="slds-m-bottom_x-small">Comments are not available</div>
+            <aura:set attribute="else">   
+                <!--div class="slds-m-bottom_x-small">Existing comments</div-->
+                <aura:iteration items="{!v.comments}" var="c">  
+                    <lightning:layout multipleRows="true" class="commentBox">
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="9"><strong>{!c.SACode}</strong></lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="3"><strong>{!c.Date}</strong></lightning:layoutItem>
+                        <lightning:layoutItem size="12">{!c.Comment}</lightning:layoutItem>
+                        <!--commentType: {!c.commentType}-->
+                    </lightning:layout>
+                </aura:iteration>             
+            </aura:set>
+            </aura:if>
+            {!v.body}   
+        </lightning:tab>
+    </lightning:tabset>	
+</aura:component>

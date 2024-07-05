@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event for ICX_VisualPicker">
+    <aura:attribute type="String" name="value" description="value of the selected picker"/>
+    <aura:attribute type="String" name="label" description="label of the selected picker"/>
+</aura:event>

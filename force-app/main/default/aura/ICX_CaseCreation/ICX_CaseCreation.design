@@ -1,0 +1,5 @@
+<design:component>
+    <design:attribute name="recordId" label="Case Record Id" required="true" />
+    <design:attribute name="sObject" label="sObject" default="Case" required="true" />
+    <design:attribute name="isNewQualification" label="is New Qualification" required="true" />
+</design:component>

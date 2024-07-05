@@ -1,0 +1,4 @@
+<design:component label="Show Obsolete and Product Category">
+	<design:attribute name="category" label="Show Category"/>
+	<design:attribute name="obsolete" label="Show Obsolete"/>
+</design:component>

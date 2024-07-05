@@ -1,0 +1,21 @@
+<aura:component implements="force:appHostable" >
+
+    <lightning:layout horizontalAlign="spread" multipleRows="true">
+        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="2">
+            <c:SO_ClientSearch />
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="grow" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="10">
+            <c:SO_ClientSearchResult pageSize="16" />
+        </lightning:layoutItem>
+    </lightning:layout>
+
+    <!--div class="slds-grid">
+        <div class="slds-col slds-size- -1-of-6 template">
+            <c:SO_ClientSearch />
+        </div>
+        <div class="slds-col slds-size- -5-of-6 template">
+            <c:SO_ClientSearchResult pageSize="16" aura:id="result"/>
+        </div>
+    </div-->
+    
+</aura:component>

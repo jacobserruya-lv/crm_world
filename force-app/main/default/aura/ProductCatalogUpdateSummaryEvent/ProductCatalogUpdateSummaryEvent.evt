@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template" >
+	<aura:attribute name="selectedStore" type="List"/>
+	<aura:attribute name="productClicked" type="Boolean"/>
+	<aura:attribute name="recordId" type="String"/>
+</aura:event>

@@ -1,0 +1,42 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="Ctrl_ProductCatalog" access="global">
+    <aura:attribute name="ManagementZoneLevelMap" type="Map" />
+    <aura:attribute name="currentUserData" type="Object" />
+    <aura:attribute name="MANAGEMENT_ZONE_LEVEL__c_List" type="List" />
+    <aura:attribute name="MGMT_ZONE_SUB_LEVEL1__c_List" type="List" />
+    <aura:attribute name="MGMT_ZONE_SUB_LEVEL2__c_List" type="List" />
+    <aura:attribute name="MGMT_ZONE_SUB_LEVEL3__c_List" type="List" />
+    <aura:attribute name="Countries" type="List" />
+    
+    <aura:attribute name="selectedZoneLevel" type="List" />
+    <aura:attribute name="selectedZoneLevel1" type="List" />
+    <aura:attribute name="selectedZoneLevel2" type="List" />
+    <aura:attribute name="selectedZoneLevel3" type="List" />
+
+    <aura:attribute name="userStores" type="Object" />
+    <aura:attribute name="physicalStores" type="List" default="[]" />
+    <aura:attribute name="selectedPhysicalStores" type="List" default="[]" />
+    <aura:attribute name="mySelectedList" type="List" default="[]" />
+    <aura:attribute name="myList" type="List" default="[]" />
+    <aura:attribute name="maxMyList" type="Integer" />
+    <aura:attribute name="disabledApply" type="boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.setupLists}"/>
+
+    <aura:handler name="change" value="{!v.ManagementZoneLevelMap}" action="{!c.setupLists}"/>
+    <aura:handler name="change" value="{!v.currentUserData}" action="{!c.setupLists}"/>
+
+    <aura:handler event="c:ProductCatalog3_SetupStoreMultiPicklistSelectEvent" action="{!c.storeSelectionChange}" />
+
+    <c:ProductCatalog3_selectStoresMultiPicklist type="region" name="ZoneLevel" title="Management Zone Level" multiSelect="true" 
+    items="{!v.MANAGEMENT_ZONE_LEVEL__c_List}" selectItem="{!v.selectedZoneLevel}" setup="true"/>
+    <c:ProductCatalog3_selectStoresMultiPicklist type="region" name="ZoneLevel3" title="Country" multiSelect="true" 
+    items="{!v.MGMT_ZONE_SUB_LEVEL3__c_List}" selectItem="{!v.selectedZoneLevel3}" setup="true"/>
+    <c:ProductCatalog3_selectStoresMultiPicklist type="store" name="physicalStores" title="Stores" multiSelect="true" 
+    items="{!v.physicalStores}" selectItem="{!v.mySelectedList}" mySelectedList="{!v.mySelectedList}" maxMyList="{!v.maxMyList}" setup="true"/>
+   <aura:if isTrue="{!(v.myList.length gt v.maxMyList)}">
+        <div class="pc3-storeSetup_maxstore">Max Stores:  {!v.maxMyList}</div>
+    </aura:if>
+    <lightning:button variant="brand" class="pc3-sidebar__btn" label="Apply" onclick="{!c.updateSetupStoreList}" disabled="{!(v.myList.length gt v.maxMyList?true:false)}"/>
+ 
+
+</aura:component>

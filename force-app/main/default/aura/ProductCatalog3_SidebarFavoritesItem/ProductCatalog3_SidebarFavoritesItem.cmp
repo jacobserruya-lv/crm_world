@@ -1,0 +1,19 @@
+<aura:component  controller="Ctrl_ProductCatalog" access="global">
+    <aura:attribute name="favorite" type="Object" />
+
+    <aura:registerEvent name="openProductDetailsEvent" type="c:ProductCatalog3_productClickEvent"/>
+
+        <li class="pc3-sidebar__favorite" onclick="{!c.openFavorite}">
+            <img class="pc3-sidebar__fav-img" src="{!v.favorite.image1Url}" alt="" />
+            <div class="pc3-sidebar__fav-name">{!v.favorite.name}</div>
+            <div class="pc3-sidebar__fav-sku">{!v.favorite.sku}</div>
+            <lightning:button class="pc3-sidebar__fav-btn" variant="bare" onclick="{!c.favorite}"> 
+                <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#star-filled'}"
+                    class="pc3-sidebar__fav-icon" size="x-small"
+                    alternativeText="Remove from Favorites" />
+            </lightning:button>
+            
+        </li>
+   
+
+</aura:component>

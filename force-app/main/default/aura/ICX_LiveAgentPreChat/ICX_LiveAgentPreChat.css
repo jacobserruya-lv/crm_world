@@ -1,0 +1,35 @@
+.THIS.icx-pre-chat {
+  height: 100%;
+  text-align: left;
+}
+.THIS .icx-pre-chat__logo-head {
+  height: 6.5rem;
+  background-color: #F6F5F3;
+  background-image: url(https://louisvuitton.file.force.com/servlet/servlet.ImageServer?id=0150H00000Gh5Yg&oid=00Di0000000HF7A&lastMod=1557234612000);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20rem;
+  color: white;
+}
+.THIS .icx-pre-chat__main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 6.5rem);
+  padding: 1rem 1.5rem;
+}
+.THIS .icx-pre-chat__form {
+  flex-grow: 1;
+}
+.THIS .icx-pre-chat__notice {
+  padding: 0.2rem 0rem 0.2rem 0.2rem;
+  color: #19110b;
+  font-size: 0.75rem;
+  text-align: center;
+}
+.THIS .icx-pre-chat__btn.slds-button_brand {
+  border-color: #19120c;
+  background-color: #19120c;
+}
+.THIS .icx-pre-chat__btn.slds-button_brand:hover, .THIS .icx-pre-chat__btn.slds-button_brand:focus, .THIS .icx-pre-chat__btn.slds-button_brand:active {
+  background-color: black;
+}

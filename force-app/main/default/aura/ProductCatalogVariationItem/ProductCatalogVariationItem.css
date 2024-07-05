@@ -1,0 +1,39 @@
+.THIS {
+    border: 1px solid transparent;
+    outline: 1px solid transparent;
+    position: relative;
+}
+
+.THIS.pc-var-item_selected {
+    border-color: #fff;
+    outline-color: #c8a985;
+}
+.THIS.pc-var-item_unavailable {
+    opacity: 0.5;
+}
+
+.THIS.pc-var-item_unavailable::before {
+    content: '';
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.25) calc(50% - 1px), #000, rgba(255,255,255,0.25) calc(50% + 1px));
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}
+
+.THIS .circle {
+    border-radius: 50%;
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    font-size: 11px;
+    color: #fff;
+    text-align: center;
+    padding: 2px;
+    margin: 1px 10px;
+}
+.THIS #circle-green {
+    background: green;
+}

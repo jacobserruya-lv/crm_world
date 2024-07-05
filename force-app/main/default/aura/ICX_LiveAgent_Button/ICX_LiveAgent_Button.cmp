@@ -1,0 +1,34 @@
+<aura:component implements="force:hasRecordId,lightning:actionOverride,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName">
+    
+    <!--aura:attribute name="openRequestModal" type="Boolean" default="false"/>
+    <lightning:overlayLibrary aura:id="popuplib"/>
+    <lightning:quickActionAPI aura:id="quickActionAPI" /-->
+    <lightning:workspaceAPI aura:id="workspace" />
+
+    <lightning:card>
+        <p class="slds-p-horizontal_small buttonRight">
+            <lightning:buttonGroup>
+                <lightning:button label="New Request" onclick="{!c.onNewRequest}" />
+            </lightning:buttonGroup>
+        </p>
+    </lightning:card>
+    
+    <!--div role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="Modalbox" class="slds-modal slds-modal_large">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <lightning:buttonIcon iconName="utility:close"
+                                      onclick="{! c.closeModal }"
+                                      alternativeText="Close"
+                                      variant="bare-inverse"
+                                      class="slds-modal__close"/>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium">
+                <div>
+                    <lightning:flow aura:id="flowData" onstatuschange="{!c.statusChange}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-backdrop " aura:id="Modalbackdrop"></div-->
+    
+</aura:component>

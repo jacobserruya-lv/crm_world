@@ -1,0 +1,79 @@
+/** LEGACY **/
+
+/*
+.THIS {
+    margin: 2px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.THIS .left {
+
+}
+
+.THIS .right {
+    text-align: right;
+}
+
+.THIS .centered {
+    color: #999999;
+    font-size: 0.9rem;
+    text-align: center;
+	align-self: center;
+    padding: 0 12px;
+}
+*/
+
+/** Redesign March 2018 **/
+.THIS {
+    font-size: .825rem;
+    text-transform: uppercase;
+    margin-bottom: .75rem;
+}
+
+.THIS .pc-paginator__prod-count {
+    font-weight: 500;
+    color: #61534c;
+    padding-right: .75rem;
+}
+
+.THIS .pc-paginator__page-count {
+    margin-left: .75rem;
+    font-weight: 300;
+    color: #c1a99e;
+    margin-right: .75rem;
+}
+
+.THIS .pc-paginator__nav-btn {
+    color: #bea498;
+    vertical-align: text-bottom;
+}
+
+.THIS .pc-paginator-btn__last{
+    /*padding: 0 0.5rem;*/
+    border-radius: 0;
+    border-color: transparent;
+    background-color: #9c7663;
+    color: #f3efed;
+    /*font-size: .875rem;*/
+}
+
+.THIS .pc-paginator-btn__first{
+    margin-left: .75rem;
+    border-radius: 0;
+    border-color: transparent;
+    background-color: #9c7663;
+    color: #f3efed;
+}
+
+.THIS .pc-paginator-btn__first .label , .THIS .pc-paginator-btn__last .label{
+    display: inline;
+    text-transform: uppercase;
+    vertical-align: top;
+}

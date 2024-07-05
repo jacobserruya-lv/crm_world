@@ -1,0 +1,30 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,force:lightningQuickActionWithoutHeader" access="global" >
+	 <aura:html tag="style">
+        .slds-modal__container{
+        max-width: 100rem !important;
+        width:100% !important;
+       position: relative;
+       
+        }
+    </aura:html>
+    <aura:attribute name="selectedAccount" type="String"/>
+    <aura:attribute name="account" type="Account" />
+    <aura:handler name="clientEvent" event="c:SO_ClientSearchResultEvent" action="{!c.handleClientSelected}"/>
+    <aura:handler name="change" value="{!v.refreshView}" action="{!c.refresh}"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <aura:attribute name="CardFooter" type="Aura.Component[]"> 
+        <lightning:button label="Add Account" title="Neutral action" onclick="{! c.handleClick }"/>
+   </aura:attribute>
+    
+    
+     
+    <lightning:card variant="Narrow" title="Search Account" iconName="standard:account" footer="{!v.CardFooter}" class="slds-is-absolute">
+        <c:ICX_Flow_Account aura:id="FlowAccount" recordId ="{!v.recordId}" accountNotVerified ="true" ismodal="true"></c:ICX_Flow_Account>
+    </lightning:card>
+        
+    
+    
+              
+</aura:component>

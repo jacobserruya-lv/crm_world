@@ -1,0 +1,120 @@
+<aura:component access="global">
+
+    <aura:attribute name="slideIndex" type="Integer" default="0"/>
+    <aura:attribute name="slideWidth" type="Integer" default="0"/>
+    <aura:attribute name="slides" type="Object[]"/>
+    <aura:attribute name="details" type="string" />
+    <aura:attribute name="productData" type="Object" />
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="statusText" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+	
+    <div aura:id="gallery" class="pc-fullscreen-pic-carousel">
+        <lightning:buttonIcon iconName="utility:close"
+                              variant="bare"
+                              onclick="{! c.handleClose }"
+                              alternativeText="Close window."
+                              size="large"
+                              class="pc-fullscreen-pic-carousel__close-btn"
+        />
+        <aura:if isTrue="{!and(v.product.status,v.statusText)}">
+            <lightning:layoutItem class="{!'pc-fullscreen-pic-carousel__tag pc-fullscreen-pic-carousel__tag_Product_Referantial_Status_'+v.product.status}">
+            {!v.statusText}
+             </lightning:layoutItem>
+        </aura:if>
+        <div class="pc-fullscreen-pic-carousel__wrap" style="{!'left: ' + (v.slideIndex * -100) + '%;'}">
+            <lightning:layout class="pc-fullscreen-pic-carousel__slide-strip">
+                <aura:iteration items="{!v.slides}" var="slide" indexVar="idx">
+                    <lightning:layoutItem size="12" class="pc-fullscreen-pic-carousel__slide">
+                        <div class="pc-fullscreen-pic-carousel__slide-img" style="{!'background-image:url(' + slide + ')'}"></div>
+                    </lightning:layoutItem>
+                </aura:iteration>
+            </lightning:layout>
+        </div>
+        <lightning:layout horizontalAlign="center" class="pc-fullscreen-pic-carousel__pagination">
+            <aura:iteration items="{!v.slides}" var="slide" indexVar="idx">
+                <lightning:layoutItem >
+                    <lightning:button variant="base"
+                                      class="{!
+                                              'pc-fullscreen-pic-carousel__page-btn' +
+                                                      (v.slideIndex == idx ? ' pc-fullscreen-pic-carousel__page-btn_active' : '')
+                                              }"
+                                      value="{!idx}"
+                                      onclick="{!c.changeScreens}"
+                    />
+                </lightning:layoutItem>
+            </aura:iteration>
+        </lightning:layout>
+        <aura:if isTrue="{!not(empty(v.productData))}">
+            <lightning:layout class="pc-fullscreen-pic-carousel__prod-data" multipleRows="true">
+                <lightning:layoutItem size="12" class="pc-fullscreen-pic-carousel__desc-short" padding="around-large">
+                    <aura:if isTrue="{!not(empty(v.productData.Description))}" >
+                        <ui:outputRichText value="{!v.productData.Description}" />
+                    </aura:if>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="12" class="pc-fullscreen-pic-carousel__feat-header" padding="around-medium">
+                    Detailed Features
+                </lightning:layoutItem>
+                <aura:if isTrue="{!v.productData}">
+                    <aura:if isTrue="{!and(v.productData,and(and(v.productData.Length,v.productData.Height),v.productData.Width))}">
+                        <lightning:layoutItem size="4" class="pc-fullscreen-pic-carousel__prod-size" padding="horizontal-medium">
+                            {!v.productData.Length} x {!v.productData.Height} x {!v.productData.Width} {!v.productData.DimensionsUnit}
+                        </lightning:layoutItem>
+                    </aura:if>
+                </aura:if>
+                <lightning:layoutItem size="5" class="pc-fullscreen-pic-carousel__desc-long" padding="horizontal-medium">
+                    <aura:if isTrue="{!not(empty(v.productData.LongDescription))}">
+                        <ui:outputRichText value="{!v.productData.LongDescription}"/>
+                    </aura:if>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:if>
+        <aura:if isTrue="{!v.slides.length > 1}">
+            <lightning:buttonIcon variant="bare"
+                                  iconName="utility:chevronleft"
+                                  alternativeText="Previous"
+                                  disabled="{!v.slideIndex == 0}"
+                                  class="pc-fullscreen-pic-carousel__arrow pc-fullscreen-pic-carousel__arrow_dir_left"
+                                  value="prev"
+                                  onclick="{!c.changeScreens}"
+                                  size="large"
+            />
+
+            <lightning:buttonIcon variant="bare"
+                                  iconName="utility:chevronright"
+                                  alternativeText="Next"
+                                  disabled="{!v.slideIndex == (v.slides.length - 1)}"
+                                  class="pc-fullscreen-pic-carousel__arrow pc-fullscreen-pic-carousel__arrow_dir_right"
+                                  value="next"
+                                  onclick="{!c.changeScreens}"
+                                  size="large"
+            />
+        </aura:if>
+        <aura:if isTrue="{!empty(v.productData)}">
+            <lightning:layout class="pc-fullscreen-pic-carousel__prod-data" multipleRows="true">
+                <lightning:layoutItem size="12" class="pc-fullscreen-pic-carousel__desc-short" padding="around-large">
+                   <ui:outputRichText value="{!v.product.description}" />
+                </lightning:layoutItem>
+                <lightning:layoutItem size="12" class="pc-fullscreen-pic-carousel__feat-header" padding="around-medium">
+                    Detailed Features
+                </lightning:layoutItem>
+
+                    <aura:if isTrue="{!and(and(not(empty(v.product.heightCm)),not(empty(v.product.lengthCm))),not(empty(v.product.widthCm)))}">
+                        <lightning:layoutItem size="4" class="pc-fullscreen-pic-carousel__prod-size" padding="horizontal-medium">
+                        {!v.product.lengthCm} x {!v.product.heightCm} x {!v.product.widthCm} cm
+                        </lightning:layoutItem>
+                    </aura:if>
+
+                <lightning:layoutItem size="5" class="pc-fullscreen-pic-carousel__desc-long" padding="horizontal-medium">
+
+                            <ui:outputRichText value="{!v.product.detailedDescription}" />
+
+
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:if>
+    </div>
+</aura:component>

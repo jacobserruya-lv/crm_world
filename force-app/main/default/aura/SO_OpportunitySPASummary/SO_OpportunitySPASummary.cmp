@@ -1,0 +1,50 @@
+<aura:component controller="SO_OpportunitySPAController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" >
+
+    <aura:attribute name="opp" type="Opportunity" access="global"/>
+    <aura:attribute name="account" type="Account" access="global"/>
+    <aura:attribute name="product" type="ProductReferential__c" access="global"/>
+    <aura:attribute name="store" type="Store__c" access="global"/>
+    <aura:attribute name="briefFiles" type="SO_OpportunitySPAController.FileContent[]"/>
+    <aura:attribute name="dimensionsFiles" type="SO_OpportunitySPAController.FileContent[]"/>
+    <aura:attribute name="buttonClicked" type="String" />
+    <aura:attribute name="buttonDisabled" type="Boolean" default="False" />
+    <aura:attribute name="isMTO" type="Boolean" default="false"/>
+    
+
+    <aura:registerEvent name="bubblingEvent" type="c:SO_OpportunityCreationSPAEvent" /> 
+    
+    <aura:registerEvent name="customToast" type="c:SO_CustomToastEvent"/>
+    <aura:handler event="c:SO_OpportunitySPAEvent" action="{!c.handleApplicationEvent}"/>
+	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:method name="previous" action="{!c.goBack}" description="Tab before Summary for Path"/> 
+
+    <div class="slds-container--fluid">
+        <lightning:spinner aura:id="spinner" class="slds-hide" alternativeText="Searching..."/>
+        
+        <div> 
+            <div>
+                <c:SO_OpportunitySPAPersonalization view="Read" isMTO="{! v.isMTO }" opp="{!v.opp}" product="{!v.product}" account="{!v.account}" store="{!v.store}" tab="summary" briefFiles="{! v.briefFiles }" dimensionsFiles="{! v.dimensionsFiles }"/>
+            </div>
+            
+            
+            <aura:if isTrue="{!empty(v.recordId)}">
+                <!--div class="buttonFixed"-->
+                <div class="slds-docked-form-footer">
+                    <lightning:button label="{!$Label.c.IC_Btn_Previous}" onclick="{!c.goBack}" />
+                    <!-- <lightning:button label="Print" variant="brand" /> --> <!--button onclick="window.print();">Print</button-->
+                    <aura:if isTrue="{! v.isMTO }">
+
+                        <lightning:button aura:id="saveForMTO" label="{! v.opp.SPO_DisplayOrder__c ? $Label.c.LV_SO_MTO_SaveAndSendProd : $Label.c.LV_SO_MTO_Save }" onclick="{! c.saveMTO }" disabled="{! v.buttonDisabled || empty(v.opp.Amount) }" class="slds-button--success" />
+
+                        <aura:set attribute="else">
+                            <lightning:button aura:id="validaterequest" label="{!$Label.c.LV_SO_ValidateForQuotation}" onclick="{!c.save}" disabled="{!v.buttonDisabled}" class="slds-button--success" />
+                            <lightning:button aura:id="validate" label="{!$Label.c.LV_SO_Validate}" onclick="{!c.save}" disabled="{!v.buttonDisabled}"  class="slds-button--success" />
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

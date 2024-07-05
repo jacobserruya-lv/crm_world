@@ -1,0 +1,13 @@
+<aura:event type="COMPONENT" description="Color changed">
+<!--aura:event type="APPLICATION" description="Color changed"-->
+    <!--aura:attribute name="color" type="String"/-->
+    <aura:attribute name="colorUrl" type="String"/>
+    <aura:attribute name="colorBackground" type="String"/>
+
+    <aura:attribute name="color" type="SPO_Colors__c"/>
+
+    <aura:attribute name="material" type="String"/>
+
+	<!-- need to know which field is used for listeners components: INTERIOR1 / INTERIOR2 / EXTERIOR1 / EXTERIOR2 / EXTERIOR3 -->
+    <aura:attribute name="type" type="String" /> 
+</aura:event>

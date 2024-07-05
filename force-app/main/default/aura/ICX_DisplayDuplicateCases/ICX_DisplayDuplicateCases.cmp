@@ -1,0 +1,35 @@
+<aura:component implements="flexipage:availableForRecordHome,lightning:availableForFlowScreens" access="global" >
+    
+    <aura:attribute name="shippingGroup" type="string"/>
+    <aura:attribute name="accountId"   type= "string" default=""/>
+    <aura:attribute name="canFinish" type= "Boolean" default="false"/>
+    <aura:attribute name="continue" type= "Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.OnInit}"/>
+    <aura:attribute name="validate" type="Aura.Action" description="Custom validation function"/>
+    <div class="slds-p-bottom_medium ">
+       
+        <div  class="slds-grid">
+  			<div>
+    			<lightning:helptext content="{!$Label.c.ICX_ToolTipShippingGroup}"/>
+  			</div>
+  			<div >
+    		    <lightning:input aura:id="enter-search"  name="enter-search" label="Shipping Group" required="true" maxlength="11"/>
+  			</div>
+  			<div class="slds-p-top_large slds-p-horizontal_small ">
+    			<lightning:buttonIcon iconName="utility:search"  onclick="{! c.handleKeyUp }" alternativeText="Search"  />
+  			</div>
+     	</div>
+        <br/>
+        <c:ICX_ListDuplicateCases shippingGroup="{!v.shippingGroup}" accountId="{!v.accountId}" />
+        <aura:if isTrue="{!not(empty(v.shippingGroup))}">
+            <br/>
+        <lightning:input type="checkbox" label="I still want to create a request" aura:id="IsCheck" name="IsCheck" onchange="{!c.IsChecked}"/>
+            
+        </aura:if>
+        <br/>
+        <div style="border-top: 1px solid rgb(221, 219, 218);"></div>
+
+     </div>
+
+</aura:component>

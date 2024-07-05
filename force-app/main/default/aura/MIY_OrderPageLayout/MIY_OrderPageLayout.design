@@ -1,0 +1,6 @@
+<design:component label="Two-Column layout for Order follow-up">
+    <flexipage:template >
+        <flexipage:region name="left" defaultWidth="MEDIUM"/>
+        <flexipage:region name="right" defaultWidth="SMALL"/>
+    </flexipage:template>
+</design:component>

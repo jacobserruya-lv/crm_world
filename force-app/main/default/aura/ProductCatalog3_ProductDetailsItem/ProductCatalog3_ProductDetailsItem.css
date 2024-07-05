@@ -1,0 +1,100 @@
+.THIS {
+    padding: 1.5rem 2rem;
+}
+.THIS .pc3-details-item__header {
+    display: flex;
+    align-items: center;
+    padding-left: 6.25rem;
+}
+
+.THIS .pc3-details-item__back-btn {
+    border-radius: 0;
+    width: 4rem;
+    height: 4rem;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+}
+.THIS .pc3-details-item__header-btn-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    box-shadow: t(lvdsShadow1);
+    border-radius: 50%;
+    margin-left: 0.75rem;
+    color: t(lvdsEternity);
+    justify-content: center;
+}
+.THIS.personalizedButton
+{
+    width:50px;
+    color:aqua;
+}
+
+.THIS .pc3-details-item__header-img {
+    /* margin: 0 0.25rem; */
+    /* min-width: 1rem; */
+    height: 2.25rem;
+    flex-shrink: 0;
+}
+
+.THIS .pc3-details-item__header-title {
+    flex-grow: 1;
+    display: inline-flex;
+    flex-direction: column;
+    text-transform: uppercase;
+}
+
+.THIS .pc3-details-item__sku {
+    font: t(lvdsListItemMReg);
+}
+
+.THIS .pc3-details-item__name {
+    font: t(lvdsHeading3);
+}
+.THIS .pc3-details-item__price {
+    font: t(lvdsHeading5);
+    min-height: 2em;
+    font-weight: 600;
+    line-height: 2;
+}
+.THIS .pc3-details-item__product-img-section {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 0.25rem 0 1.5rem;
+}
+.THIS .pc3-details-item__current-img {
+    height: 22rem;
+}
+.THIS .pc3-details-item__product-img-thumbs {
+    position: absolute;
+    left: 4rem;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+}
+.THIS .pc3-details-item__product-img-thumbs .slds-button {
+    padding: 0;
+    margin: 0.25rem 0;
+}
+.THIS .pc3-details-item__product-img-thumb {
+    height: 3.5rem;
+    width: 3.5rem;
+}
+.THIS .pc3-details-item__product-img-thumb:not(.pc3-details-item__product-img-thumb_current) {
+    opacity: 0.3;
+}
+.THIS .pc3-details-item__product-badges {
+    position: absolute;
+    right: 1rem;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+.THIS .pc3-details-item__product-badges .pc3-product-badge+.pc3-product-badge {
+    margin-top: 0.625rem;
+}

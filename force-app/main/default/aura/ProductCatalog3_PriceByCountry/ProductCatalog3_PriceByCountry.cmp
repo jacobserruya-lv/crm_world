@@ -1,0 +1,37 @@
+<aura:component >
+    <aura:attribute name="selectedProductPrices" type="List" default="[]"/>
+    <aura:attribute name="countryPrices" type="List" default="[]" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.getPrices}"/>
+    <aura:handler name="change" value="{!v.selectedProductPrices}" action="{!c.getPrices}"/>
+
+    <div class="pc-price">
+        <div class="pc-price__header">Price By Country</div>
+        <div class="pc-price__summary">
+            <table class="pc-price__table">
+                <thead>
+                <tr class="pc-price__table-header">
+                    <th class="pc-price__table-cell pc-price__table-cell_col_stock">Country</th>
+                    <th class="pc-price__table-cell pc-price__table-cell_col_transit">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.countryPrices}" indexVar="index" var="countryPrice">
+                    <tr class="pc-price__table-row">
+                        <td class="pc-price__table-cell pc-price__table-cell_col_stock">{!countryPrice.Country} ({!countryPrice.CountryCode})</td>
+                        <td class="pc-price__table-cell pc-price__table-cell_col_stock">
+                            <lightning:formattedNumber class="pc-price__price"
+                                                       value="{!countryPrice.price}"
+                                                       style="currency"
+                                                       currencyCode="{!countryPrice.currencyCoin}"
+                                                       minimumFractionDigits="0"
+                                                       maximumFractionDigits="0"
+                            />
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</aura:component>

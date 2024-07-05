@@ -1,0 +1,137 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-04-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog"
+    access="global">
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="selectedStores" type="List" />
+    <aura:attribute name="isShowEnvironmentalSection" type="Boolean" />
+    <aura:attribute name="pdfLink" type="String" />
+    <aura:attribute name="plasticContain" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="pc3-info">
+        <lightning:tabset class="pc3-info__tabs">
+            <lightning:tab label="Product Description" id="description">{!v.product.description}</lightning:tab>
+            <lightning:tab label="Detailed Dimensions" id="dimensions" class="pc3-info__dimensions">
+                <dl class="slds-dl_horizontal">
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Height">Height:</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail">
+                        <p class="slds-truncate" title="{!v.product.heightCm +' | ' + v.product.heightInch}">
+                            <aura:if isTrue="{!v.product.heightCm}"> {!v.product.heightCm + ' cm'} </aura:if>
+                            |
+                            <aura:if isTrue="{!v.product.heightInch}"> {!v.product.heightInch + ' inch'} </aura:if>
+                        </p>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Width">Width:</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail">
+                        <p class="slds-truncate" title="{!v.product.widthCm + ' | ' + v.product.widthInch}">
+                            <aura:if isTrue="{!v.product.widthCm}"> {!v.product.widthCm + ' cm'} </aura:if>
+                            |
+                            <aura:if isTrue="{!v.product.widthInch}"> {!v.product.widthInch + ' inch'} </aura:if>
+                        </p>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Length">Length:</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail">
+                        <p class="slds-truncate" title="{!v.product.lengthCm +' | '+ v.product.lengthInch}">
+                            <aura:if isTrue="{!v.product.lengthCm}"> {!v.product.lengthCm + ' cm'} </aura:if>
+                            |
+                            <aura:if isTrue="{!v.product.lengthInch}"> {!v.product.lengthInch + ' inch'} </aura:if>
+                        </p>
+                    </dd>
+                </dl>
+            </lightning:tab>
+            <lightning:tab label="Characteristics" id="characteristics">
+                <aura:unescapedHtml value="{!v.product.detailedDescription}"></aura:unescapedHtml>
+            </lightning:tab>
+
+            <!--Start section environmental qualities-->
+            <aura:if isTrue="{!v.isShowEnvironmentalSection}">
+                <lightning:tab label="Caractéristiques Environnementales" id="environmental">
+                    <div class="environemental__container">
+
+                        <div class="slds-tile environemental__container--tile">
+                            <h2> <b>Traçabilité</b> </h2>
+                            <div class="slds-tile__detail">
+                                <ul class="slds-list_dotted">
+                                    <!-- <li>Référence matière: {!empty(v.product.ModelMaterial) ? 'N/A' :
+                                        v.product.ModelMaterial}</li> -->
+                                    <aura:if isTrue="{!not(empty(v.product.Weaving))}">
+                                        <li>Pays de Tissage: {!v.product.Weaving}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(empty(v.product.Dyeingprinting))}">
+                                        <li>Pays de Teinture ou Impression:: {!v.product.Dyeingprinting}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(empty(v.product.Manufacturingfp))}">
+                                        <li>Pays de Confection: {!v.product.Manufacturingfp}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(empty(v.product.Stiching))}">
+                                        <li>Pays de Piquage: {!v.product.Stiching}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(empty(v.product.Assembly))}">
+                                        <li>Pays de Montage: {!v.product.Assembly}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(empty(v.product.Finition))}">
+                                        <li>Pays de Finition: {!v.product.Finition}</li>
+                                    </aura:if>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="environemental__container--tile">
+                            <h2> <b>Matières</b> </h2>
+                            <div class="slds-tile__detail">
+                                <ul class="slds-list_dotted">
+                                    <aura:if isTrue="{!v.plasticContain}">
+                                        <li>Matières Plastiques: {!v.plasticContain}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!not(empty(v.product.Dangeroussubstances))}">
+                                        <li>Substances dangereuses: {!v.product.Dangeroussubstances}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.product.Preciousmetals > 0}">
+                                        <li>Métaux précieux: {!v.product.Preciousmetals + 'mg'}</li>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.product.Rareearth > 0}">
+                                        <li>Terres rares: {!v.product.Rareearth + 'mg'}</li>
+                                    </aura:if>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="environemental__container--tile">
+                        <h2> <b>Recyclabilité</b> </h2>
+                        <div class="slds-tile__detail">
+                            <ul class="slds-list_dotted">
+                                <aura:if isTrue="{!v.product.Recycledfp > 0 }">
+                                    <li>Matières Recyclées: {!v.product.Recycledfp + '%'}</li>
+                                </aura:if>
+                                <aura:if
+                                    isTrue="{!and(v.product.Recyclabilityfp > 0,v.product.Recyclabilityfp != null)  }">
+                                    <li>Recyclabilité: {!v.product.isRecyclable}</li>
+                                </aura:if>
+                            </ul>
+                        </div>
+                    </div>
+
+                </lightning:tab>
+            </aura:if>
+            <!-- End section environmental qualities-->
+        </lightning:tabset>
+        <div class="pc3-info__prod-sheet-btn-wrap slds-tabs_default__nav">
+            <aura:if isTrue="{!v.pdfLink}">
+                <lightning:button label="Product Sheet" onclick="{!c.getFiche}" />
+            </aura:if>
+        </div>
+    </div>
+
+</aura:component>

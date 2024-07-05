@@ -1,0 +1,114 @@
+.THIS .slds-picklist__label {
+	height: 32px;
+    /*top: 19px;*/
+}
+
+.THIS .slds-dropdown-trigger--click.slds-is-open .slds-dropdown {
+	/*top: 49px;*/
+	z-index: 10000; 
+}
+
+.THIS .slds-picklist__label .slds-icon {
+	right: 0.2rem;
+}
+.THIS .slds-picklist .slds-dropdown {
+    min-width: 177px;
+}
+
+.THIS .slds-picklist {
+    /*top: 3px;*/
+}
+
+.THIS .slds-picklist__label {
+    width: auto;
+}
+
+.THIS .width-240 {
+	min-width: 240px;
+    max-width: 320px;
+}
+
+.THIS .width-230 {
+	min-width: 230px;
+    max-width: 320px;
+}
+
+.THIS .width-150 {
+	min-width: 150px;
+    max-width: 220px;
+}
+
+.THIS.slds-dropdown-trigger--click.slds-is-open .slds-dropdown {
+	width: auto;
+	min-width: 100%;
+	max-width: none;
+}
+
+.THIS .width-240 ~ .slds-dropdown {
+	min-width: 240px;
+}
+
+.THIS .width-230 ~ .slds-dropdown {
+	min-width: 230px;
+}
+
+.THIS .width-150 ~ .slds-dropdown {
+	min-width: 150px;
+}
+
+.THIS .slds-dropdown__item {
+	align-item: center;
+	display: flex;
+}
+
+.THIS .slds-dropdown__item > a {
+	flex-grow: 1;
+}
+
+.THIS .pc-multi-picklist__item.pc-multi-picklist__item_in-my-list .slds-button {
+	color:#09D261;
+}
+
+
+.THIS .subzone-info-icon {
+	bottom: 1px;
+}
+
+.THIS .mylist {
+	color: green;
+}
+
+.THIS svg {
+	width: 18px;
+    height: 18px;
+    position: relative;
+}
+
+/** Redesign March 2018 **/
+.THIS.pc-multi-picklist {
+	width: 100%;
+}
+.THIS.slds-is-open::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -0.5rem;
+	right: -0.5rem;
+	height: calc((((0.8125rem * 1.5) + 1rem) * 10) + 6rem);
+}
+.THIS .pc-multi-picklist__title {
+	font-weight: 300;
+	font-size: .925rem;
+	color: #1c1516;
+	margin-bottom: 0.5rem;
+}
+.THIS .pc-multi-picklist__btn {
+	background-color: transparent;
+	border-color: rgba(207, 201, 201, 0.5);
+	color: #9c7663;
+	font-weight: 300;
+	border-radius: 0;
+	height: 2.25rem;
+	width: 100%;
+	justify-content: flex-start;
+}

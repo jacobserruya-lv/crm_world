@@ -1,0 +1,8 @@
+.THIS .miy-exo-mat-modal__picklist .slds-listbox__option:not([data-value]) {
+  opacity: 0.25;
+  pointer-events: none;
+}
+.THIS.slds-modal .slds-modal__content {
+  padding: 0.75rem 3rem;
+  overflow: visible;
+}

@@ -1,0 +1,82 @@
+<aura:component >
+
+    <aura:attribute name="width" type="String"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="translatedLabel" type="String" />
+    <aura:attribute name="required" type="Boolean" default="false" />
+    <aura:attribute name="selection" type="String" />
+    <aura:attribute name="selectionLabel" type="String" />
+    <aura:attribute name="object" type="String" />
+    <aura:attribute name="recordTypeId" type="String" />
+    <aura:attribute name="hierarchyDependantFields" type="List" description="Full hierarchy of the parent dependant picklists (ex: ['Nature__c', 'Category__c', 'Domaine__c']). If Category, just ['Nature__c', 'Category__c]" />
+    
+    <aura:attribute name="field" type="String" />
+    <aura:attribute name="showList" type="Boolean" default="false" />
+    <aura:attribute name="showButton" type="Boolean" default="false" />
+    <aura:attribute name="controllingField" type="String" />
+    <aura:attribute name="controllingValue" type="String" />
+    <aura:attribute name="level" type="Integer" description="Level for dependant picklist" />
+    
+    <aura:attribute name="noResult" type="Boolean" />
+
+    <aura:attribute name="picklistFieldValues" type="Object" access="public" description="Qualification list with dependant picklists"/>
+
+    <!--aura:handler name="change" value="{!v.selection}" action="{!c.selectionChanged}"/-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="onPickerSelected" event="c:ICX_VisualPickerEvent" action="{!c.handleSelection}"/>
+    <aura:registerEvent name="onQualificationSelected" type="c:ICX_Flow_QualificationEvent" />
+
+    <div>
+        <!--div class="slds-page-header" style="padding-left: .75rem;"-->
+        <div class="slds-p-bottom_xx-small" style="">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="solution-finder-tab-title-wrapper">
+                        <h2 class="solution-finder-tab-title" style="line-height: 1.4;font-size: 1rem;">
+                        <dl class="{! (v.width == 'SMALL' ? 'horizontalSmall ' : '') + 'slds-list_horizontal slds-wrap'}">
+                            <dt class="slds-item_label slds-form-element__label slds-p-top_none slds-m-bottom_none" title="">
+                                <abbr class="{!v.required ? 'required2' : 'slds-hide'}" title="required">*</abbr>
+                                    {!v.translatedLabel}
+                            </dt>
+                            <dd class="slds-item_detail slds-truncate" title="">
+                                <span class="" style="{! 'font-weight: 600;' + (v.width == 'SMALL' ? '' : 'margin-left: 5rem;')}">{!empty(v.selectionLabel) ? '' : v.selectionLabel}</span>
+                            </dd>
+                        </dl>
+                            </h2>
+                        <!--h2 class="solution-finder-tab-title" style="line-height: 1.4;font-size: 1rem;">
+                            {!v.label}
+                            <span class="" style="font-weight: 600;margin-left: 5rem;">{!empty(v.selection) ? '' : v.selection}</span>
+                        </h2-->
+                        <!--div style="font-size: 13px;" class="solution-finder-tab-subtitle">
+                            {!empty(v.selection) ? '' : ': ' + v.selection}
+                        </div-->
+                    </div>
+                </div>
+                <!--div class="{!'slds-page-header__col-actions ' + (v.showButton == false ? 'slds-hide' : '')}"-->
+                <div class="{!(or(empty(v.selection), v.showButton == false) ? 'slds-hide' : '')}">
+                    <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <ul class="slds-button-group-list">
+                                <li>
+                                    <!--button class="{!'slds-button slds-button_neutral ' + (empty(v.nature) ? 'slds-hide' : '')}" style="padding: .25rem 2rem .25rem;">Change</button-->
+                                    <lightning:button class="buttonCustom" variant="neutral" label="{!$Label.c.ICX_Flow_Qualification_ChangeButton}" onclick="{! c.handleChangeClick }" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <aura:if isTrue="{!v.showList == true}">
+            <div class="{!'slds-page-header__col-details ' + (v.showList == true ? '' : 'slds-hide')}" style="padding-bottom: .75rem;"><!--background: rgb(243, 242, 242);"-->
+                <c:PicklistFlow picklistFieldValues="{!v.picklistFieldValues}" hierarchyDependantFields="{!v.hierarchyDependantFields}"
+                                recordTypeId="{v.recordTypeId}"
+                                field="{!v.field}" visual="Picker" object="{!v.object}" selectedValue="{!v.selection}" selectedLabel="{!v.selectionLabel}" 
+                                controllingField="{!v.controllingField}" controllingValue="{!v.controllingValue}" noResult="{!v.noResult}"/>
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

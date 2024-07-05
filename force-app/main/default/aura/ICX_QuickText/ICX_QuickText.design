@@ -1,0 +1,5 @@
+<design:component>
+    <design:attribute name="channel" description="Filter Quick text depending on the channel : Email / Live Agent / Messaging. Mix several with ';' (for example: Email;Messaging)" />
+    <design:attribute name="recordId" description="Current record id" />
+
+</design:component>

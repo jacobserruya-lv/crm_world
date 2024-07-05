@@ -1,0 +1,74 @@
+.THIS.slds-modal, .THIS.slds-modal input, .THIS.slds-modal textarea, .THIS.slds-modal select, .THIS.slds-modal button {
+  font-size: .875rem;
+}
+.THIS.slds-modal .miy-fancy-prompt__icon {
+  margin: 0.325rem 0 1.25rem;
+}
+.THIS.slds-modal .miy-fancy-prompt__icon .slds-icon {
+  width: 5.5rem;
+  height: 6.5rem;
+}
+.THIS.slds-modal .miy-fancy-prompt__subheader {
+  color: #616161;
+  font-size: 1.125rem;
+  font-weight: 300;
+  white-space: pre-line;
+}
+.THIS.slds-modal .slds-button_brand, .THIS.slds-modal .slds-button--brand {
+  border-color: #3a9eff;
+  background-color: #3a9eff;
+  color: white;
+}
+.THIS.slds-modal .slds-button_brand:hover, .THIS.slds-modal .slds-button_brand:focus, .THIS.slds-modal .slds-button_brand:active, .THIS.slds-modal .slds-button--brand:hover, .THIS.slds-modal .slds-button--brand:focus, .THIS.slds-modal .slds-button--brand:active {
+  border-color: #1b8fff;
+  background-color: #1b8fff;
+}
+.THIS.slds-modal .slds-button_brand[disabled], .THIS.slds-modal .slds-button--brand[disabled] {
+  border-color: #c9c7c5;
+  background: #c9c7c5;
+}
+.THIS.slds-modal .slds-button_brand .slds-spinner_container, .THIS.slds-modal .slds-button--brand .slds-spinner_container {
+  border-radius: .25rem;
+  background-color: rgba(201, 199, 197, 0.75);
+}
+.THIS .slds-modal__header {
+  padding: 1rem .875rem 0;
+  border: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: #ffffff;
+  color: #616161;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.THIS .slds-modal__close {
+  display: inline-block;
+  top: 0.125rem;
+  right: 0.66rem;
+  color: rgba(51, 50, 56, 0.53);
+}
+.THIS .slds-modal__close .slds-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.THIS .slds-modal__content {
+  position: relative;
+  padding: 2rem 6.375rem;
+  background-color: #ffffff;
+  color: #848484;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.64;
+  text-align: center;
+  white-space: pre-line;
+}
+.THIS .slds-modal__footer {
+  padding: 2rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #ffffff;
+}
+.THIS .slds-modal__footer .ladda-lightning-button__label {
+  display: inline-block;
+  min-width: 9rem;
+}

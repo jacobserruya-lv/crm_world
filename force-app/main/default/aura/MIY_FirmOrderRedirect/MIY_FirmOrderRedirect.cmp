@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForRecordHome,lightning:actionOverride,force:hasRecordId,force:hasSObjectName,force:appHostable,force:lightningQuickAction"
+                access="global"
+                controller="MIY_OrderPageController"
+>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:card title="{!$Label.c.MIY_Firm_Order_Redirect_Title}">
+        <div class="slds-is-relative slds-p-around_large">
+            <lightning:spinner alternativeText="{!$Label.c.MIY_Firm_Order_Redirect_Title}"
+                               size="large"
+                               variant="brand"
+            />
+        </div>
+    </lightning:card>
+</aura:component>

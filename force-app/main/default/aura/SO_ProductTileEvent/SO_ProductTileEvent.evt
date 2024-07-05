@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Event for SPA New Brief">
+    <aura:attribute name="product" type="ProductReferential__c"/>
+</aura:event>

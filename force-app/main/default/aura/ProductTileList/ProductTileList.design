@@ -1,0 +1,4 @@
+<design:component label="Product Tile List">
+    <design:attribute name="pageSize" label="Products per page" default="6" description="Number of products per page" />
+    <design:attribute name="tileSize" label="Tile width (in pixels)" default="200" description="Tile size" />
+</design:component>

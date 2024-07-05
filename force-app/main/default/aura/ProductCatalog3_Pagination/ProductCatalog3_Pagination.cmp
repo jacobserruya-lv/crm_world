@@ -1,0 +1,67 @@
+<aura:component>
+    <aura:attribute name="currentPage" type="Integer" />
+    <aura:attribute name="pageCount" type="Integer" />
+    <aura:attribute name="countPerPage" type="Integer" />
+    <aura:attribute name="countPerPageOptions" type="List" default="[
+        {'label': '10 per page', 'value': 10},
+        {'label': '20 per page', 'value': 20},
+        {'label': '30 per page', 'value': 30},
+    ]" />
+
+    <aura:registerEvent name="productCountPerPageChange" type="c:ProductCatalog3_PaginationCountPerPageEvent" />
+    <aura:registerEvent name="productChangePageChange" type="c:ProductCatalog3_PaginationChangeCurrentPageEvent" />
+
+    <div class="pc3-pagination">
+        <lightning:combobox class="pc3-pagination__per-page slds-m-horizontal_large" name="countPerPage"
+            label="# Results per page" options="{! v.countPerPageOptions }" value="{# v.countPerPage }"
+            variant="label-hidden" onchange="{!c.changeCountPerPage}" />
+
+        <aura:if isTrue="{!greaterthan(v.pageCount,1)}">
+
+            <div class="slds-form_inline">
+                <lightning:input class="pc3-pagination__go-to" type="number" name="input1" label="Go to"
+                    max="{!v.pageCount}" min="1" oncommit="{!c.changePage}"/>
+            </div>
+
+
+            <!-- First page -->
+            <lightning:button
+                class="{!'pc3-pagination__page-btn' + (v.currentPage == 1 ? ' pc3-pagination__page-btn_active' : '')}"
+                label="1" title="Page 1" variant="bare" value="1" onclick="{!c.changePage}" />
+
+
+            <!-- Potential 2nd page ellipsis -->
+            <aura:if isTrue="{!or(greaterthan(v.currentPage, 3), greaterthan(v.currentPage+2, v.pageCount))}">
+                <lightning:icon iconName="utility:threedots" size="xx-small" class="slds-p-horizontal_small" />
+            </aura:if>
+
+            <!-- Current page back/current/forward -->
+            <aura:if isTrue="{!and(greaterthan(v.currentPage, 2),lessthan(v.currentPage - 1, v.pageCount))}">
+                <lightning:button class="pc3-pagination__page-btn" label="{!v.currentPage - 1}"
+                    title="{!'Page ' + (v.currentPage - 1)}" variant="bare" value="{!v.currentPage - 1}"
+                    onclick="{!c.changePage}" />
+            </aura:if>
+            <aura:if isTrue="{!and(greaterthan(v.currentPage, 1),lessthan(v.currentPage, v.pageCount))}">
+                <lightning:button class="pc3-pagination__page-btn pc3-pagination__page-btn_active"
+                    label="{!v.currentPage}" title="{!'Page ' + v.currentPage}" variant="bare" value="{!v.currentPage}"
+                    onclick="{!c.changePage}" />
+            </aura:if>
+            <aura:if isTrue="{!and(greaterthan(v.currentPage, 0),lessthan(v.currentPage+1, v.pageCount))}">
+                <lightning:button class="pc3-pagination__page-btn" label="{!v.currentPage + 1}"
+                    title="{!'Page ' + (v.currentPage + 1)}" variant="bare" value="{!v.currentPage + 1}"
+                    onclick="{!c.changePage}" />
+            </aura:if>
+
+            <!-- Potential ending ellipsis -->
+            <aura:if isTrue="{!lessthan(v.currentPage+2, v.pageCount)}">
+                <lightning:icon iconName="utility:threedots" size="xx-small" class="slds-p-horizontal_small" />
+            </aura:if>
+
+            <!-- Last page -->
+            <lightning:button
+                class="{!'pc3-pagination__page-btn' + (v.currentPage == v.pageCount ? ' pc3-pagination__page-btn_active' : '')}"
+                label="{!v.pageCount}" title="{!'Page ' + v.pageCount}" variant="bare" value="{!v.pageCount}"
+                onclick="{!c.changePage}" />
+        </aura:if>
+    </div>
+</aura:component>

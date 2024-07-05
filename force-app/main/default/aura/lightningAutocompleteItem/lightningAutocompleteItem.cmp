@@ -1,0 +1,45 @@
+<aura:component>
+    <aura:attribute name="onclick" type="Aura.Action"/>
+    <aura:attribute name="value" type="Object" />
+    <aura:attribute name="selectedValue" type="Object" />
+    <aura:attribute name="isLookup" type="boolean" />
+    <aura:attribute name="label" type="String" required="true"/>
+    <aura:attribute name="meta" type="String" />
+    <aura:attribute name="iconName" type="String"/>
+    <aura:attribute name="mainId" type="String"/>
+    <aura:attribute name="optionNum" type="Integer"/>
+
+    <li role="presentation" class="slds-listbox__item" onclick="{!v.onclick}">
+        <lightning:button onclick="{!c.handleItemClick}"
+                          variant="base"
+                          value="{!v.value}"
+                          class="slds-button_full-width slds-show"
+        >
+        <div id="{!v.mainId + '_option' + v.optionNum}"
+             class="{!join(' ','slds-media','slds-listbox__option','slds-media_small',
+                     (v.isLookup ? 'slds-listbox__option_entity' : 'slds-listbox__option_plain'),
+                     (empty(v.meta) ? null : 'slds-listbox__option_has-meta')
+                     )}"
+             role="option"
+        >
+            <span class="slds-media__figure slds-listbox__option-icon">
+                <aura:if isTrue="{!not(empty(v.iconName))}">
+                        <lightning:icon iconName="{!v.iconName}" size="small" />
+                </aura:if>
+            </span>
+            <span class="slds-media__body">
+                <aura:if isTrue="{!v.isLookup}">
+                    <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!v.label}</span>
+                    <aura:if isTrue="{!not(empty(v.meta))}">
+                        <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{!v.meta}</span>
+                    </aura:if>
+
+                    <aura:set attribute="else">
+                        <span class="slds-truncate" title="{!v.label}">{!' ' + v.label}</span>
+                    </aura:set>
+                </aura:if>
+            </span>
+        </div>
+        </lightning:button>
+    </li>
+</aura:component>

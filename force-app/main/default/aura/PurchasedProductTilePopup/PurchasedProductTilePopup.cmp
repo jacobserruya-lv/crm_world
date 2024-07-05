@@ -1,0 +1,82 @@
+<aura:component >
+
+    <aura:attribute name="item" type="PPR_PurchProduct__c"/>
+
+    <aura:method name="showPopup" action="{!c.showPopup}"> 
+        <aura:attribute name="item" type="PPR_PurchProduct__c"/> 
+    </aura:method>
+
+    <aura:method name="hidePopup" action="{!c.hidePopup}"/> 
+
+    <section aura:id="popup" class="slds-popover slds-nubbin_top slds-hide" role="dialog">
+        <div class="slds-popover__body">
+            <!--get the store name and not the code using recordViewForm + outputField -->
+            <lightning:recordViewForm recordId="{!v.item.Id}" objectApiName="PPR_PurchProduct__c">
+                <lightning:layout >
+                    <lightning:layoutitem padding="">
+                        <img src="{#v.item.Image_Url__c + '?wid=300&amp;hei=300'}" class="zoom"/>
+                    </lightning:layoutitem>
+                    <lightning:layoutItem class="alignOutputField">
+
+                        <h3 class="slds-section__title">{#v.item.Name}</h3>
+                        <p>
+                            <span class="slds-form-element__label">SKU</span>
+                            <span class="slds-form-element__static">{#v.item.SKU__c}</span>
+                        </p>
+
+                        <!--p><lightning:outputField fieldName="SKU__c" variant=""/></p-->
+                        <aura:if isTrue="{!not(empty(v.item.ProductLine__c))}">
+                            <!--p class="slds-p-bottom_xx-small"><span class="slds-form-element__label">Product category</span>{#v.item.ProductLine__c}</p-->
+                            <!--p class="slds-p-bottom_xx-small"><lightning:outputField fieldName="ProductLine__c" variant=""/></p-->
+                            <p class="slds-p-bottom_xx-small">
+                                <span class="slds-form-element__label">Product category</span>
+                                <span class="slds-form-element__static">{#v.item.ProductLine__c}</span>
+                            </p>
+                        </aura:if>
+                        <p>
+                            <span class="slds-form-element__label">Price</span>
+                            <span class="slds-form-element__static">{#v.item.Amount__c}&nbsp;{#v.item.CurrencyCode__c}</span>
+                            <!--p class="alignOutputField"><lightning:outputField fieldName="Amount__c" variant=""/>&nbsp;<lightning:outputField fieldName="CurrencyCode__c" variant="label-hidden"/></p>
+	                        <p><lightning:formattedNumber value="{#v.item.Amount__c}" style="currency" currencyCode="{#v.item.CurrencyCode__c}"/></p-->
+                        </p>
+
+                        <aura:if isTrue="{!v.item.Quantity__c != 1}">
+                            <!--p><lightning:outputField fieldName="Quantity__c" variant=""/></p-->
+                            <p>
+                                <span class="slds-form-element__label">Quantity</span>
+                                <span class="slds-form-element__static">{#v.item.Quantity__c}</span>
+                            </p>
+                        </aura:if>
+                        <!--p>Store: {#v.item.Store__c}</p-->
+                        <p><lightning:outputField fieldName="Store__c" variant=""/></p>
+                        <p>
+                            <span class="slds-form-element__label">Purchased date</span>
+                            <span class="slds-form-element__static"><lightning:formattedDateTime value="{#v.item.PurchasedDate__c}"/></span>
+                        </p>
+                        <!--p><lightning:outputField fieldName="PurchasedDate__c" variant=""/></p-->
+                        <!--lightning:layout class="matrix">
+                        <lightning:layoutItem flexibility="grow" padding="around-small" class="center-text border-right">
+                            <div class="slds-text-title">Amount</div>
+                            <p aura:id="ytd" class="return">{!v.item.Amount__c}</p>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility="grow" padding="around-small" class="center-text border-right">
+                            <div class="slds-text-title">Currency</div>
+                            <p aura:id="oneYear" class="return">{!v.item.CurrencyCode__c}</p>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility="grow" padding="around-small" class="center-text border-right">
+                            <div class="slds-text-title">Store</div>
+                            <p aura:id="twoYear" class="return">{!v.item.Store__c}</p>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility="grow" padding="around-small" class="center-text">
+                            <div class="slds-text-title">Country</div>
+                            <p aura:id="fiveYear" class="return">{!v.item.PurchaseCountry__c}</p>
+                        </lightning:layoutItem>
+                    </lightning:layout-->
+                        
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:recordViewForm>
+        </div>
+    </section>
+
+</aura:component>

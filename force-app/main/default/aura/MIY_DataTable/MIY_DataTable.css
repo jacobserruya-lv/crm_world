@@ -1,0 +1,25 @@
+.THIS .sort-icon {
+    visibility: hidden
+}
+.THIS .slds-is-sortable .slds-th__action:hover .sort-icon,
+.THIS .slds-is-sortable .slds-th__action:focus .sort-icon,
+.THIS .slds-is-sortable.slds-has-focus .slds-th__action .sort-icon,
+.THIS .slds-is-sortable.slds-has-focus .slds-th__action:hover .sort-icon,
+.THIS .slds-is-sortable.slds-has-focus .slds-th__action:focus .sort-icon {
+    visibility: visible
+}
+.THIS.miy-data-table {
+    table-layout: fixed;
+}
+.THIS .miy-data-table__cell_type_Date {
+    width: 6.25rem;
+}
+.THIS .miy-data-table__cell_type_Icon {
+    width: 2rem;
+}
+.THIS .miy-data-table__cell_col_Status {
+    width: 5rem;
+}
+.THIS .slds-th__action {
+    padding: 0;
+}

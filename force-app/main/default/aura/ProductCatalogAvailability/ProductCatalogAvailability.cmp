@@ -1,0 +1,397 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:lightningQuickAction"
+                controller="Ctrl_ProductCatalog">
+
+    <aura:attribute name="product" type="Object"/>
+    <aura:attribute name="selectedStores" type="List"/>
+    <aura:attribute name="userStores" type="Object"/>
+    <aura:attribute name="lastSelectedStore" type="String"/>
+    <aura:attribute name="defaultAvailability" type="Object"/>
+    <aura:attribute name="nearbyAvailabilities" type="List"/>
+    <aura:attribute name="selectedAvailabilities" type="List" default="[]"/>
+    <aura:attribute name="nearbyAvailabilitiesFilterd" type="List"/>
+    <aura:attribute name="selectedAvailabilitiesFilterd" type="List" default="[]"/>
+    <aura:attribute name="showNearbyStores" type="Boolean" default="false"/>
+    <aura:attribute name="noProductAvailabilities" type="Boolean" default="false"/>
+    <aura:attribute name="noStoresSelected" type="Boolean" default="false"/>
+    <aura:attribute name="showSelectedStores" type="Boolean" default="false"/>
+    <aura:attribute name="toggleSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="currentOpeningDays" type="List"/>
+    <aura:attribute name="productsStock" type="Map"/>
+    <aura:attribute name="productsPrices" type="Map"/>
+    <aura:attribute name="digitalPrice" type="Double" default="-1"/>
+    <aura:attribute name="digitalCurrency" type="String" default=""/>
+    <aura:attribute name="selectedProductPrices" type="List" default="[]"/>
+    <aura:attribute name="showOnlyAvailable" type="Boolean" default="false" />
+    <aura:attribute name="searchStore" type="String" default="" />
+
+
+
+    <aura:handler event="c:ProductCatalogGetAvailabilityEvent" action="{!c.getProductCatalogAvailability}"/>
+    <aura:handler event="c:ProductCatalogUpdateDigitalPriceEvent" action="{!c.updateDigitalPrice}"/>
+    <aura:handler event="c:ProductCatalogAvailabilitySpinnerEvent" action="{!c.handleSpinner}"/>
+
+    <!-- <aura:registerEvent name="updateSummaryPriceEvent" type="c:ProductCatalogUpdateSummaryPriceEvent" /> -->
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!--<aura:handler name="change" value="{!v.digitalPrice}" action="{!c.getProductCatalogAvailability}"/>-->
+
+
+    <div class="pc-availability">
+        <div class="pc-availability__header">
+            <div class="pc-availability__title">Product Availability</div>
+            <aura:if isTrue="{!and(and(and(v.defaultAvailability != null, v.toggleSpinner == false),v.product), !v.product.persoProduct)}">
+                <div>
+                    <lightning:layoutItem class="pc-availability__show-stock" size="12">
+                        <ui:button label="{!v.showOnlyAvailable == true? 'Show All' : 'Show Available'}"
+                                   press="{!c.showAvailable}"
+                                   class="pc-availability__show-stock-btn"
+                        />
+                    </lightning:layoutItem>
+                </div>
+            </aura:if>
+        </div>
+        <aura:if isTrue="{!v.toggleSpinner}">
+            <div class="pc-availability__placeholder pc-availability__spinner">
+                <lightning:spinner variant="brand" size="medium"/>
+            </div>
+
+        </aura:if>
+
+        <aura:if isTrue="{! and(and(!v.product, !v.productsStock), v.toggleSpinner == false)}">
+            <div aura:id="selectSection" class="pc-availability__placeholder">
+                <ui:outputRichText value="{!$Label.c.defaultTextAvailability}"/>
+            </div>
+        </aura:if>
+
+         <aura:if isTrue="{!and(v.product.isPersoProduct , v.product.stockRequest == false)}">
+            <div aura:id="selectSection" class="pc-availability__placeholder">
+                <ui:outputRichText value="{!$Label.c.CatalogNoPurchase}"/>
+            </div>
+            <c:ProductCatalogPriceByCountry selectedProductPrices="{!v.selectedProductPrices}" />
+         </aura:if>
+
+        <aura:if isTrue="{!and(and(and(v.defaultAvailability != null, v.toggleSpinner == false),v.product), !v.product.persoProduct)}">
+            <div class="pc-availability__summary">
+                <table class="pc-availability__table pc-availability__table_type_digital">
+                    <thead>
+                    <tr class="pc-availability__table-header">
+                        <th class="pc-availability__table-cell pc-availability__table-cell_col_expand"/>
+                        <aura:if isTrue="{!v.userStores.defaultStore != v.userStores.lastDigitalStore}">
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_name">Selected Digital Store</th>
+                            <aura:set attribute="else">
+                                <th class="pc-availability__table-cell pc-availability__table-cell_col_name">My Store</th>
+                            </aura:set>
+                        </aura:if>
+                        <th class="pc-availability__table-cell pc-availability__table-cell_col_transit">Csc</th>
+                        <th class="pc-availability__table-cell pc-availability__table-cell_col_stock">Lv.com</th>
+                        <th class="pc-availability__table-cell pc-availability__table-cell_col_price">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="{!
+                            'pc-availability__table-row' +
+                                    (!v.defaultAvailability.csc
+                                            ? (v.defaultAvailability.haveAvailabilities
+                                                ? ' pc-availability__table-row_stock_0'
+                                                : ' pc-availability__table-row_stock_na')
+                                            : '') +
+                                    (!v.defaultAvailability.online
+                                            ? (v.defaultAvailability.haveAvailabilities
+                                            ? ' pc-availability__table-row_transit_0'
+                                            : ' pc-availability__table-row_transit_na')
+                                            : '')
+                            }"
+                    >
+
+                    <td class="pc-availability__table-cell pc-availability__table-cell_col_expand"></td>
+                        <td class="pc-availability__table-cell pc-availability__table-cell_col_name">
+                            <span class="pc-availability__table-cell_name_code">({!v.defaultAvailability.store.retailStoreId})</span> {!v.defaultAvailability.storeName}
+                        </td>
+                        <td class="pc-availability__table-cell pc-availability__table-cell_col_transit">
+                            <!--<div class="pc-availability__availability-circle" />-->
+                            <aura:if isTrue="{!v.defaultAvailability.csc == true}">
+                                <span class="label"> Available</span>
+                            </aura:if>
+                            <aura:if isTrue="{!and (v.defaultAvailability.csc == false, v.defaultAvailability.haveAvailabilities == true)}">
+                                <span class="label">Not Available</span>
+                            </aura:if>
+                            <aura:if isTrue="{!and (v.defaultAvailability.csc == false, v.defaultAvailability.haveAvailabilities == false)}">
+                               <span class="label"> No Data</span>
+                            </aura:if>
+                        </td>
+                        <td class="pc-availability__table-cell pc-availability__table-cell_col_stock">
+                            <!--<div class="pc-availability__availability-circle" />-->
+                            <aura:if isTrue="{!v.defaultAvailability.online == true}">
+                                <span class="label"> Available </span>
+                            </aura:if>
+                            <aura:if isTrue="{!and (v.defaultAvailability.online == false, v.defaultAvailability.haveAvailabilities == true)}">
+                                <span class="label"> Not Available</span>
+                            </aura:if>
+                            <aura:if isTrue="{!and (v.defaultAvailability.online == false, v.defaultAvailability.haveAvailabilities == false)}">
+                                <span class="label"> No Data</span>
+                            </aura:if>
+                        </td>
+                        <td class="pc-availability__table-cell pc-availability__table-cell_col_price">
+                            <aura:if isTrue="{!v.defaultAvailability.price > 0}">
+                                <lightning:formattedNumber class="pc-availability__price"
+                                                           value="{!v.defaultAvailability.price}"
+                                                           style="currency"
+                                                           currencyCode="{!v.defaultAvailability.currencyCoin}"
+                                                           minimumFractionDigits="0"
+                                                           maximumFractionDigits="0"
+                                />
+
+                            </aura:if>
+                                <!--{!v.defaultAvailability.store.currencyCoin}-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <aura:if isTrue="{!v.showSelectedStores}">
+                    <table class="pc-availability__table pc-availability__table_type_physical">
+                        <thead>
+                        <tr class="pc-availability__table-header">
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_expand" />
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_name">
+                                Selected Physical Stores
+                            </th>
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_transit">&nbsp;</th>
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_stock">Stock</th>
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_price">Price</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_expand" />
+                            <td colspan="4">
+                                <lightning:input label=" "
+                                                 name="search"
+                                                 value="{!v.searchStore}"
+                                                 placeholder="Store Name"
+                                                 variant="label-hidden"
+                                                 onchange="{!c.storeNameChange}"
+                                                 class="pc-availability__search"
+                                />
+                            </td>
+                        </tr>
+                        <aura:iteration items="{!v.selectedAvailabilitiesFilterd}" var="stock">
+                            <aura:if isTrue="{!or(stock.inStock > 0 , v.showOnlyAvailable == false)}">
+                                <!--<tr class="{!
+                                        'pc-availability__table-row' +
+                                                ((stock.inStock == 0)
+                                                        ? (stock.haveAvailabilities
+                                                            ? ' pc-availability__table-row_stock_0 pc-availability__table-row_transit_0'
+                                                            : ' pc-availability__table-row_stock_na pc-availability__table-row_transit_na')
+                                                        : '')
+                                        }"
+                                >-->
+                                <tr class="{!
+                                        'pc-availability__table-row' +
+                                                (stock.inStock == 0
+                                                        ? ' pc-availability__table-row_stock_0 pc-availability__table-row_transit_0':'')
+                                        }"
+                                >
+                                    <td class="pc-availability__table-cell pc-availability__table-cell_col_expand">
+                                        <aura:if isTrue="{!(!stock.isDigital)}">
+                                            <div class="flex-display">
+                                                <lightning:buttonIcon iconName="utility:chevronright"
+                                                                      alternativeText="Click for more information"
+                                                                      onclick="{!c.toggleStoreDisplay}"
+                                                                      variant="bare"
+                                                                      name="selectedAvailabilitiesFilterd"
+                                                                      value="{!stock.storeName}"
+                                                                      size="small"
+                                                                      class="{!
+                                                                              'pc-availability__stores-expand-btn' +
+                                                                              (stock.displayPopover ? ' pc-availability__stores-expand-btn_expanded': '')
+                                                                              }"
+                                                />
+                                            </div>
+                                        </aura:if>
+                                    </td>
+                                    <td colspan="2" class="pc-availability__table-cell pc-availability__table-cell_col_name">
+                                        <span class="pc-availability__table-cell_name_code">({!stock.store.retailStoreId})</span> {!stock.storeName}
+                                    </td>
+                                    <td class="pc-availability__table-cell pc-availability__table-cell_col_stock">
+                                        <aura:if isTrue="{!stock.inStock >= 1}">
+                                            {!stock.inStock}
+
+                                        </aura:if>
+                                        <aura:if isTrue="{!stock.inStock le 0}">
+                                            &nbsp;0
+                                        </aura:if>
+                                        <!--
+                                            0
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(stock.inStock le 0, stock.haveAvailabilities == false)}">
+                                            &nbsp;
+                                        </aura:if>-->
+                                    </td>
+                                   <!--<td class="pc-availability__table-cell pc-availability__table-cell_col_transit">&nbsp;</td>-->
+                                    <td class="pc-availability__table-cell pc-availability__table-cell_col_price">
+                                        <aura:if isTrue="{!stock.price > 0}">
+                                            <lightning:formattedNumber class="pc-availability__price"
+                                                                       value="{!stock.price}"
+                                                                       style="currency"
+                                                                       currencyCode="{!stock.currencyCoin}"
+                                                                       minimumFractionDigits="0"
+                                                                       maximumFractionDigits="0"
+                                            />
+                                        </aura:if>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="{!'pc-availability__stores' + (stock.displayPopover ? ' pc-availability__stores_expanded': '')}">
+                                            <div class="pc-availability__stores-title">Opening Hours</div>
+                                            <table class="pc-availability__stores-table">
+                                                <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <aura:iteration items="{!v.currentOpeningDays}" var="day">
+                                                    <tr>
+                                                        <td>{!day.day}:</td>
+                                                        <td>{!day.openingHours}</td>
+                                                    </tr>
+                                                </aura:iteration>
+                                                </tbody>
+                                            </table>
+                                            <div class="pc-availability__stores-map">
+                                                <a onclick="{!c.openMapView}"
+                                                   data-link="{!stock.googleMapLink}">Store map view</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </aura:if>
+                        </aura:iteration>
+                        </tbody>
+                    </table>
+                </aura:if>
+
+                <aura:if isTrue="{!v.showNearbyStores}">
+                    <table class="pc-availability__table pc-availability__table_type_nearby">
+                        <thead>
+                        <tr class="pc-availability__table-header">
+                            <th class="pc-availability__table-cell pc-availability__table-cell_col_expand"/>
+                            <th colspan="4" class="pc-availability__table-cell pc-availability__table-cell_col_name">
+                                <div>Nearby Stores</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <aura:iteration items="{!v.nearbyAvailabilitiesFilterd}" var="stock">
+                            <aura:if isTrue="{!or(stock.inStock > 0 , v.showOnlyAvailable == false)}">
+                                <!--<tr class="{!
+                                        'pc-availability__table-row' +
+                                                ((stock.inStock == 0)
+                                                        ? (stock.haveAvailabilities
+                                                        ? ' pc-availability__table-row_stock_0 pc-availability__table-row_transit_0'
+                                                        : ' pc-availability__table-row_stock_na pc-availability__table-row_transit_na')
+                                                        : '')
+                                        }"
+                                >-->
+                                <tr class="{!
+                                        'pc-availability__table-row' +
+                                                (stock.inStock == 0
+                                                        ? ' pc-availability__table-row_stock_0 pc-availability__table-row_transit_0' : '')
+                                        }"
+                                >
+                                    <td class="pc-availability__table-cell pc-availability__table-cell_col_expand">
+                                        <aura:if isTrue="{!(!stock.isDigital)}">
+                                            <div class="flex-display">
+                                                <lightning:buttonIcon iconName="utility:chevronright"
+                                                                      alternativeText="Click for more information"
+                                                                      onclick="{!c.toggleStoreDisplay}"
+                                                                      variant="bare"
+                                                                      name="nearbyAvailabilitiesFilterd"
+                                                                      value="{!stock.storeName}"
+                                                                      size="small"
+                                                                      class="{!
+                                                                              'pc-availability__stores-expand-btn' +
+                                                                              (stock.displayPopover ? ' pc-availability__stores-expand-btn_expanded': '')
+                                                                              }"
+                                                />
+                                            </div>
+                                        </aura:if>
+                                    </td>
+                                    <td class="pc-availability__table-cell pc-availability__table-cell_col_name">
+                                        <span class="pc-availability__table-cell_name_code">({!stock.store.retailStoreId})</span> {!stock.storeName}
+                                    </td>
+                                    <td colspan="2" class="pc-availability__table-cell pc-availability__table-cell_col_stock">
+                                        <aura:if isTrue="{!stock.inStock >= 1}">
+                                            {!stock.inStock}
+
+                                        </aura:if>
+                                        <aura:if isTrue="{!stock.inStock le 0}">
+                                            &nbsp;0
+                                        </aura:if>
+                                       <!-- <aura:if isTrue="{!and(stock.inStock le 0, stock.haveAvailabilities == true)}">
+                                            0
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(stock.inStock le 0, stock.haveAvailabilities == false)}">
+                                            &nbsp;
+                                        </aura:if>-->
+                                    </td>
+                                   <!-- <td class="pc-availability__table-cell pc-availability__table-cell_col_transit">&nbsp;</td>-->
+                                    <td class="pc-availability__table-cell pc-availability__table-cell_col_price">
+                                        <aura:if isTrue="{!stock.price > 0}">
+                                            <lightning:formattedNumber class="pc-availability__price"
+                                                                       value="{!stock.price}"
+                                                                       style="currency"
+                                                                       currencyCode="{!stock.currencyCoin}"
+                                                                       minimumFractionDigits="0"
+                                                                       maximumFractionDigits="0"
+                                            />
+                                        </aura:if>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="{!'pc-availability__stores' + (stock.displayPopover ? ' pc-availability__stores_expanded': '')}">
+                                            <div class="pc-availability__stores-title">Opening Hours</div>
+                                            <table class="pc-availability__stores-table">
+                                                <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <aura:iteration items="{!v.currentOpeningDays}" var="day">
+                                                    <tr>
+                                                        <td>{!day.day}:</td>
+                                                        <td>{!day.openingHours}</td>
+                                                    </tr>
+                                                </aura:iteration>
+                                                </tbody>
+                                            </table>
+                                            <div class="pc-availability__stores-map">
+                                                <a onclick="{!c.openMapView}"
+                                                   data-link="{!stock.googleMapLink}">Store map view</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </aura:if>
+                        </aura:iteration>
+                        </tbody>
+                    </table>
+                </aura:if>
+            </div>
+            <div>
+
+                <!--<ui:button label="Product Request" press="{!c.productRequest}"
+                           class="slds-button slds-button_brand pc-availability__stock-req-btn"
+                />-->
+
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

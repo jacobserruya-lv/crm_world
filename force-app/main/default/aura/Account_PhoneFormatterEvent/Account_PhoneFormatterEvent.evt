@@ -1,0 +1,8 @@
+<aura:event type="COMPONENT" description="Event for Account_PhoneFormatter">
+
+    <aura:attribute type="String" name="type" default="" description="MOBILE / WORK / HOME"/>
+    <aura:attribute type="String" name="countryCode" 		default="" description="ISO2 country code (ex: FR for France)"/>
+    <aura:attribute type="String" name="localePhone" 		default="" description="Local phone (ex: 0611223344 for country FR)"/>
+    <aura:attribute type="String" name="internationalPhone" default="" description="International phone (ex: +33611223344 for country FR)"/>
+
+</aura:event>

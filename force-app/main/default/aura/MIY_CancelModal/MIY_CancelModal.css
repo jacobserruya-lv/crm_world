@@ -1,0 +1,98 @@
+.THIS.slds-modal, .THIS.slds-modal input, .THIS.slds-modal textarea, .THIS.slds-modal select, .THIS.slds-modal button {
+  font-size: 0.875rem;
+}
+.THIS.slds-modal .cancel-modal__notice {
+  color: #979ba0;
+  font-weight: 300;
+  line-height: 1.6;
+  text-align: center;
+}
+.THIS.slds-modal .cancel-modal__notice-field {
+  font-weight: 600;
+}
+.THIS.slds-modal .cancel-modal__notice-field_warning {
+  color: #fa424a;
+}
+.THIS.slds-modal .cancel-modal__time-remaining {
+  color: #006fd1;
+}
+.THIS.slds-modal .slds-combobox__input {
+  padding-left: 1.125rem;
+}
+.THIS.slds-modal .slds-textarea {
+  height: 6rem;
+  padding: 0.5rem 1.125rem;
+}
+.THIS.slds-modal input, .THIS.slds-modal textarea {
+  color: #54698d;
+  font-weight: 500;
+}
+.THIS.slds-modal input::-webkit-input-placeholder, .THIS.slds-modal textarea::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: rgba(168, 183, 199, 0.66);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.THIS.slds-modal input::-moz-placeholder, .THIS.slds-modal textarea::-moz-placeholder {
+  /* Firefox 19+ */
+  color: rgba(168, 183, 199, 0.66);
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 1;
+}
+.THIS.slds-modal input:-moz-placeholder, .THIS.slds-modal textarea:-moz-placeholder {
+  /* Firefox 18- */
+  color: rgba(168, 183, 199, 0.66);
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 1;
+}
+.THIS.slds-modal input:-ms-input-placeholder, .THIS.slds-modal textarea:-ms-input-placeholder {
+  /* IE 10+ */
+  color: rgba(168, 183, 199, 0.66);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.THIS.slds-modal .slds-button_brand, .THIS.slds-modal .slds-button--brand {
+  border-color: #006fd1;
+  background-color: #006fd1;
+  color: white;
+}
+.THIS.slds-modal .slds-button_brand:hover, .THIS.slds-modal .slds-button_brand:focus, .THIS.slds-modal .slds-button_brand:active, .THIS.slds-modal .slds-button--brand:hover, .THIS.slds-modal .slds-button--brand:focus, .THIS.slds-modal .slds-button--brand:active {
+  border-color: #005fb2;
+  background-color: #005fb2;
+}
+.THIS.slds-modal .slds-button_brand[disabled], .THIS.slds-modal .slds-button--brand[disabled] {
+  border-color: #c9c7c5;
+  background: #c9c7c5;
+}
+.THIS .slds-modal__container {
+  border-radius: 0.5rem;
+}
+.THIS .slds-modal__header {
+  padding: 0.875rem;
+  border: none;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+}
+.THIS .slds-modal__close {
+  top: 0;
+  right: 0;
+  color: white;
+}
+.THIS .slds-modal__content {
+  padding: 1rem 2rem;
+  overflow: visible;
+}
+.THIS .slds-modal__footer {
+  padding: 0.75rem 2rem;
+  border-top: solid 1px #eef1f6;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  background-color: #f7f9fb;
+}
