@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Client_Request_Creation</fullName>
+    <availability>online</availability>
+    <description>Create a Client request from the calling Campaign Order</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Request to Store</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/lightning/cmp/c__ICX_CaseCreation?c__recordId={!Calling_Campaign_Order__c.Id}&amp;c__sObject=Calling_Campaign_Order__c</url>
+</WebLink>

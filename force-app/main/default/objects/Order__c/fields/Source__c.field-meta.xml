@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source__c</fullName>
+    <externalId>false</externalId>
+    <label>Source</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ATG</fullName>
+                <default>false</default>
+                <label>ATG</label>
+            </value>
+            <value>
+                <fullName>KBRW</fullName>
+                <default>false</default>
+                <label>KBRW</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HasOtherValue__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>true if the country&apos;s value has no ISO3 code
+(ex: StoreDB system has no ISO3 code for some values : ISO3 code will be USA for HAWAII, GBR for England, MNP for SAIPAN, KOR for &apos;KOREA (DOM)&apos;...)</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>true if the country&apos;s value has no ISO3 code
+(ex: StoreDB system has no ISO3 code for some values : ISO3 code will be USA for HAWAII, GBR for England, MNP for SAIPAN, KOR for &apos;KOREA (DOM)&apos;...)</inlineHelpText>
+    <label>Has Other Value</label>
+    <type>Checkbox</type>
+</CustomField>

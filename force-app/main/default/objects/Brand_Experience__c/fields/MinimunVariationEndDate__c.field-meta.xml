@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MinimunVariationEndDate__c</fullName>
+    <description>This Field display the minimum end date of the Variations</description>
+    <externalId>false</externalId>
+    <label>Minimun Variation End Date</label>
+    <summarizedField>Brand_Experience_Variation__c.EndDateTime__c</summarizedField>
+    <summaryForeignKey>Brand_Experience_Variation__c.Brand_Experience__c</summaryForeignKey>
+    <summaryOperation>min</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

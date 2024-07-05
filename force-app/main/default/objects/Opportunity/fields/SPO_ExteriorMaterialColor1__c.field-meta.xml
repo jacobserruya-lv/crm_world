@@ -1,0 +1,2669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_ExteriorMaterialColor1__c</fullName>
+    <externalId>false</externalId>
+    <label>Exterior material color 1</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>SPO_ExteriorMaterial1__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Alligator Brillant (Exo) Bleu Canard</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Bleu Marine</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Capucine</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Capucine</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Grenade</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Grenade</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Iris Noir</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Kiwi</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Kiwi</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Mandarine</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Mandarine</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Moka</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Moka</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Noir</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Noir</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Ocre</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Ocre</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Rouge</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Rouge</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Tabac</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Tabac</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Taupe</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Taupe</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Vert Foret</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Violet</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Violet</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Bleu Canard</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Bleu Marine</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Capucine</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Capucine</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Grenade</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Grenade</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Iris Noir</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Kiwi</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Kiwi</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Mandarine</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Mandarine</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Moka</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Moka</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Noir</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Noir</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Ocre</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Ocre</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Rouge</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Rouge</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Tabac</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Tabac</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Taupe</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Taupe</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Vert Foret</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Violet</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Violet</label>
+            </value>
+            <value>
+                <fullName>Autruche (Exo) Asphalte</fullName>
+                <default>false</default>
+                <label>Autruche (Exo) Asphalte</label>
+            </value>
+            <value>
+                <fullName>Autruche (Exo) Navy</fullName>
+                <default>false</default>
+                <label>Autruche (Exo) Navy</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Blanc</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Blanc</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Bleu Marine</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Grenade</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Grenade</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Gris Souris</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Gris Souris</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Kiwi</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Kiwi</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Moka</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Moka</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Noir</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Noir</label>
+            </value>
+            <value>
+                <fullName>Chevre Frisson Rouge</fullName>
+                <default>false</default>
+                <label>Chevre Frisson Rouge</label>
+            </value>
+            <value>
+                <fullName>Constellation</fullName>
+                <default>false</default>
+                <label>Constellation</label>
+            </value>
+            <value>
+                <fullName>Damier Azur</fullName>
+                <default>false</default>
+                <label>Damier Azur</label>
+            </value>
+            <value>
+                <fullName>Damier Cobalt</fullName>
+                <default>false</default>
+                <label>Damier Cobalt</label>
+            </value>
+            <value>
+                <fullName>Damier Ebene</fullName>
+                <default>false</default>
+                <label>Damier Ebene</label>
+            </value>
+            <value>
+                <fullName>Damier Ebene Mini</fullName>
+                <default>false</default>
+                <label>Damier Ebene Mini</label>
+            </value>
+            <value>
+                <fullName>Damier Graphite</fullName>
+                <default>false</default>
+                <label>Damier Graphite</label>
+            </value>
+            <value>
+                <fullName>Damier Infini Cosmos</fullName>
+                <default>false</default>
+                <label>Damier Infini Cosmos</label>
+            </value>
+            <value>
+                <fullName>Damier Infini Onyx</fullName>
+                <default>false</default>
+                <label>Damier Infini Onyx</label>
+            </value>
+            <value>
+                <fullName>Epi Bleu Celeste</fullName>
+                <default>false</default>
+                <label>Epi Bleu Celeste</label>
+            </value>
+            <value>
+                <fullName>Epi Bleu Marine</fullName>
+                <default>false</default>
+                <label>Epi Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Epi Coquelicot</fullName>
+                <default>false</default>
+                <label>Epi Coquelicot</label>
+            </value>
+            <value>
+                <fullName>Epi Dune</fullName>
+                <default>false</default>
+                <label>Epi Dune</label>
+            </value>
+            <value>
+                <fullName>Epi Figue</fullName>
+                <default>false</default>
+                <label>Epi Figue</label>
+            </value>
+            <value>
+                <fullName>Epi Fuchsia</fullName>
+                <default>false</default>
+                <label>Epi Fuchsia</label>
+            </value>
+            <value>
+                <fullName>Epi Indigo</fullName>
+                <default>false</default>
+                <label>Epi Indigo</label>
+            </value>
+            <value>
+                <fullName>Epi Ivoire</fullName>
+                <default>false</default>
+                <label>Epi Ivoire</label>
+            </value>
+            <value>
+                <fullName>Epi Mimosa</fullName>
+                <default>false</default>
+                <label>Epi Mimosa</label>
+            </value>
+            <value>
+                <fullName>Epi Noir</fullName>
+                <default>false</default>
+                <label>Epi Noir</label>
+            </value>
+            <value>
+                <fullName>Epi Noir Electric</fullName>
+                <default>false</default>
+                <label>Epi Noir Electric</label>
+            </value>
+            <value>
+                <fullName>Epi Piment</fullName>
+                <default>false</default>
+                <label>Epi Piment</label>
+            </value>
+            <value>
+                <fullName>Epi Rose Ballerine</fullName>
+                <default>false</default>
+                <label>Epi Rose Ballerine</label>
+            </value>
+            <value>
+                <fullName>Lezard (Exo)</fullName>
+                <default>false</default>
+                <label>Lezard (Exo)</label>
+            </value>
+            <value>
+                <fullName>Metal Aluminium</fullName>
+                <default>false</default>
+                <label>Metal Aluminium</label>
+            </value>
+            <value>
+                <fullName>Metal Cuivre</fullName>
+                <default>false</default>
+                <label>Metal Cuivre</label>
+            </value>
+            <value>
+                <fullName>Metal Laiton</fullName>
+                <default>false</default>
+                <label>Metal Laiton</label>
+            </value>
+            <value>
+                <fullName>Metal Zinc</fullName>
+                <default>false</default>
+                <label>Metal Zinc</label>
+            </value>
+            <value>
+                <fullName>Monogram</fullName>
+                <default>false</default>
+                <label>Monogram</label>
+            </value>
+            <value>
+                <fullName>Monogram Eclipse</fullName>
+                <default>false</default>
+                <label>Monogram Eclipse</label>
+            </value>
+            <value>
+                <fullName>Monogram Empreinte Cerise</fullName>
+                <default>false</default>
+                <label>Monogram Empreinte Cerise</label>
+            </value>
+            <value>
+                <fullName>Monogram Empreinte Dune</fullName>
+                <default>false</default>
+                <label>Monogram Empreinte Dune</label>
+            </value>
+            <value>
+                <fullName>Monogram Empreinte Noir</fullName>
+                <default>false</default>
+                <label>Monogram Empreinte Noir</label>
+            </value>
+            <value>
+                <fullName>Monogram Empreinte Terre</fullName>
+                <default>false</default>
+                <label>Monogram Empreinte Terre</label>
+            </value>
+            <value>
+                <fullName>Monogram Macassar</fullName>
+                <default>false</default>
+                <label>Monogram Macassar</label>
+            </value>
+            <value>
+                <fullName>Monogram Mini</fullName>
+                <default>false</default>
+                <label>Monogram Mini</label>
+            </value>
+            <value>
+                <fullName>Monogram Multicolor Blanc</fullName>
+                <default>false</default>
+                <label>Monogram Multicolor Blanc</label>
+            </value>
+            <value>
+                <fullName>Monogram Multicolor Noir</fullName>
+                <default>false</default>
+                <label>Monogram Multicolor Noir</label>
+            </value>
+            <value>
+                <fullName>Monogram  Vernis Amarante</fullName>
+                <default>false</default>
+                <label>Monogram  Vernis Amarante</label>
+            </value>
+            <value>
+                <fullName>Monogram  Vernis Cerise</fullName>
+                <default>false</default>
+                <label>Monogram  Vernis Cerise</label>
+            </value>
+            <value>
+                <fullName>Monogram  Vernis Dune</fullName>
+                <default>false</default>
+                <label>Monogram  Vernis Dune</label>
+            </value>
+            <value>
+                <fullName>Monogram  Vernis Magenta</fullName>
+                <default>false</default>
+                <label>Monogram  Vernis Magenta</label>
+            </value>
+            <value>
+                <fullName>Monogram  Vernis Noir</fullName>
+                <default>false</default>
+                <label>Monogram  Vernis Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Bleu Canard</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Bleu Canard</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Bleu Marine</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Bleu Marine</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Capucine</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Capucine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Capucine</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Capucine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Grenade</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Grenade</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Grenade</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Grenade</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Iris Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Iris Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Kiwi</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Kiwi</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Kiwi</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Kiwi</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Mandarine</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Mandarine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Mandarine</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Mandarine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Moka</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Moka</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Moka</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Moka</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Ocre</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Ocre</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Ocre</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Ocre</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Rouge</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Rouge</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Rouge</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Rouge</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Tabac</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Tabac</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Tabac</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Tabac</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Taupe</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Taupe</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Taupe</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Taupe</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Vert Foret</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Vert Foret</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Violet</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Violet</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo)  Violet</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo)  Violet</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Bleu Canard</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Bleu Canard</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Bleu Marine</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Bleu Marine</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Capucine</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Capucine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Capucine</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Capucine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Grenade</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Grenade</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Grenade</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Grenade</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Iris Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Iris Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Kiwi</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Kiwi</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Kiwi</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Kiwi</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Mandarine</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Mandarine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Mandarine</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Mandarine</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Moka</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Moka</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Moka</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Moka</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Noir</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Noir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Ocre</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Ocre</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Ocre</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Ocre</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Rouge</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Rouge</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Rouge</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Rouge</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Tabac</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Tabac</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Tabac</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Tabac</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Taupe</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Taupe</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Taupe</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Taupe</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Vert Foret</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Vert Foret</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Violet</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Violet</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo)  Violet</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo)  Violet</label>
+            </value>
+            <value>
+                <fullName>Ombre Acajou</fullName>
+                <default>false</default>
+                <label>Ombre Acajou</label>
+            </value>
+            <value>
+                <fullName>Ombre Anthracite</fullName>
+                <default>false</default>
+                <label>Ombre Anthracite</label>
+            </value>
+            <value>
+                <fullName>Ombre Encre</fullName>
+                <default>false</default>
+                <label>Ombre Encre</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Bleu Canard</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Bleu Marine</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Capucine</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Capucine</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Grenade</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Grenade</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Iris Noir</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Kiwi</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Kiwi</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Mandarine</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Mandarine</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Moka</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Moka</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Noir</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Noir</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Ocre</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Ocre</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Rouge</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Rouge</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Tabac</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Tabac</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Taupe</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Taupe</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Vert Foret</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Violet</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Violet</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Bleu Canard</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Bleu Marine</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Capucine</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Capucine</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Grenade</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Grenade</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Iris Noir</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Kiwi</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Kiwi</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Mandarine</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Mandarine</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Moka</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Moka</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Noir</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Noir</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Ocre</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Ocre</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Rouge</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Rouge</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Tabac</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Tabac</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Taupe</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Taupe</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Vert Foret</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Violet</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Violet</label>
+            </value>
+            <value>
+                <fullName>Python (Exo)</fullName>
+                <default>false</default>
+                <label>Python (Exo)</label>
+            </value>
+            <value>
+                <fullName>Taiga Ardoise</fullName>
+                <default>false</default>
+                <label>Taiga Ardoise</label>
+            </value>
+            <value>
+                <fullName>Taiga Glacier</fullName>
+                <default>false</default>
+                <label>Taiga Glacier</label>
+            </value>
+            <value>
+                <fullName>Taiga Ocean</fullName>
+                <default>false</default>
+                <label>Taiga Ocean</label>
+            </value>
+            <value>
+                <fullName>Taiga Ocean A23084</fullName>
+                <default>false</default>
+                <label>Taiga Ocean A23084</label>
+            </value>
+            <value>
+                <fullName>Taurillon Anthracite</fullName>
+                <default>false</default>
+                <label>Taurillon Anthracite</label>
+            </value>
+            <value>
+                <fullName>Taurillon Noir</fullName>
+                <default>false</default>
+                <label>Taurillon Noir</label>
+            </value>
+            <value>
+                <fullName>Utah Basalte</fullName>
+                <default>false</default>
+                <label>Utah Basalte</label>
+            </value>
+            <value>
+                <fullName>Utah Cafe</fullName>
+                <default>false</default>
+                <label>Utah Cafe</label>
+            </value>
+            <value>
+                <fullName>Vachette Nomade Cognac</fullName>
+                <default>false</default>
+                <label>Vachette Nomade Cognac</label>
+            </value>
+            <value>
+                <fullName>Vachette Nomade Iris Noir</fullName>
+                <default>false</default>
+                <label>Vachette Nomade Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Vachette Nomade Moka</fullName>
+                <default>false</default>
+                <label>Vachette Nomade Moka</label>
+            </value>
+            <value>
+                <fullName>Vachette Nomade Noir</fullName>
+                <default>false</default>
+                <label>Vachette Nomade Noir</label>
+            </value>
+            <value>
+                <fullName>Vachette Nomade Tabac</fullName>
+                <default>false</default>
+                <label>Vachette Nomade Tabac</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Aubergine</fullName>
+                <default>false</default>
+                <label>Veau Bougie Aubergine</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Blanc</fullName>
+                <default>false</default>
+                <label>Veau Bougie Blanc</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Blanc Casse</fullName>
+                <default>false</default>
+                <label>Veau Bougie Blanc Casse</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Bleu Azur</fullName>
+                <default>false</default>
+                <label>Veau Bougie Bleu Azur</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Bleu Canard</fullName>
+                <default>false</default>
+                <label>Veau Bougie Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Bleu Marine</fullName>
+                <default>false</default>
+                <label>Veau Bougie Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Veau Bougie Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Brun</fullName>
+                <default>false</default>
+                <label>Veau Bougie Brun</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Capucine</fullName>
+                <default>false</default>
+                <label>Veau Bougie Capucine</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Caramel</fullName>
+                <default>false</default>
+                <label>Veau Bougie Caramel</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Cassis</fullName>
+                <default>false</default>
+                <label>Veau Bougie Cassis</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Grenade</fullName>
+                <default>false</default>
+                <label>Veau Bougie Grenade</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Gris Souris</fullName>
+                <default>false</default>
+                <label>Veau Bougie Gris Souris</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Iris Noir</fullName>
+                <default>false</default>
+                <label>Veau Bougie Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Kiwi</fullName>
+                <default>false</default>
+                <label>Veau Bougie Kiwi</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Mandarine</fullName>
+                <default>false</default>
+                <label>Veau Bougie Mandarine</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Moka</fullName>
+                <default>false</default>
+                <label>Veau Bougie Moka</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Noir</fullName>
+                <default>false</default>
+                <label>Veau Bougie Noir</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Ocre</fullName>
+                <default>false</default>
+                <label>Veau Bougie Ocre</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Pistache</fullName>
+                <default>false</default>
+                <label>Veau Bougie Pistache</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Pomme</fullName>
+                <default>false</default>
+                <label>Veau Bougie Pomme</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Rouge</fullName>
+                <default>false</default>
+                <label>Veau Bougie Rouge</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Tabac</fullName>
+                <default>false</default>
+                <label>Veau Bougie Tabac</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Taupe</fullName>
+                <default>false</default>
+                <label>Veau Bougie Taupe</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Vert Foret</fullName>
+                <default>false</default>
+                <label>Veau Bougie Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Veau Bougie Violet</fullName>
+                <default>false</default>
+                <label>Veau Bougie Violet</label>
+            </value>
+            <value>
+                <fullName>Veau Box Bleu Marine</fullName>
+                <default>false</default>
+                <label>Veau Box Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Veau Box Iris Noir</fullName>
+                <default>false</default>
+                <label>Veau Box Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Veau Box Moka</fullName>
+                <default>false</default>
+                <label>Veau Box Moka</label>
+            </value>
+            <value>
+                <fullName>Veau Box Rouge</fullName>
+                <default>false</default>
+                <label>Veau Box Rouge</label>
+            </value>
+            <value>
+                <fullName>Veau Box Tabac</fullName>
+                <default>false</default>
+                <label>Veau Box Tabac</label>
+            </value>
+            <value>
+                <fullName>Veau Cachemire (Sofia Coppola) Bordeaux</fullName>
+                <default>false</default>
+                <label>Veau Cachemire (Sofia Coppola) Bordeaux</label>
+            </value>
+            <value>
+                <fullName>Veau Cachemire (Sofia Coppola) Cherry</fullName>
+                <default>false</default>
+                <label>Veau Cachemire (Sofia Coppola) Cherry</label>
+            </value>
+            <value>
+                <fullName>Veau Cachemire (Sofia Coppola) Cobalt</fullName>
+                <default>false</default>
+                <label>Veau Cachemire (Sofia Coppola) Cobalt</label>
+            </value>
+            <value>
+                <fullName>Veau Cachemire (Sofia Coppola) Galet</fullName>
+                <default>false</default>
+                <label>Veau Cachemire (Sofia Coppola) Galet</label>
+            </value>
+            <value>
+                <fullName>Veau Cachemire (Sofia Coppola) Jasper</fullName>
+                <default>false</default>
+                <label>Veau Cachemire (Sofia Coppola) Jasper</label>
+            </value>
+            <value>
+                <fullName>Veau Cachemire (Sofia Coppola) Noir</fullName>
+                <default>false</default>
+                <label>Veau Cachemire (Sofia Coppola) Noir</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Aubergine</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Aubergine</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Blanc</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Blanc</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Blanc Casse</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Blanc Casse</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Bleuazur</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Bleuazur</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Bleu Canard</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Bleu Marine</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Brun</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Brun</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Capucine</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Capucine</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Caramel</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Caramel</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Cassis</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Cassis</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Grenade</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Grenade</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Gris Souris</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Gris Souris</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Iris Noir</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Kiwi</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Kiwi</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Mandarine</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Mandarine</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Moka</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Moka</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Noir</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Noir</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Ocre</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Ocre</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Pistache</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Pistache</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Pomme</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Pomme</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Rouge</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Rouge</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Tabac</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Tabac</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Taupe</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Taupe</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Vert Foret</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Veau  Ecorce Violet</fullName>
+                <default>false</default>
+                <label>Veau  Ecorce Violet</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Aubergine</fullName>
+                <default>false</default>
+                <label>Veau Soie Aubergine</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Blanc</fullName>
+                <default>false</default>
+                <label>Veau Soie Blanc</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Blanc Casse</fullName>
+                <default>false</default>
+                <label>Veau Soie Blanc Casse</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Bleuazur</fullName>
+                <default>false</default>
+                <label>Veau Soie Bleuazur</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Bleu Canard</fullName>
+                <default>false</default>
+                <label>Veau Soie Bleu Canard</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Bleu Marine</fullName>
+                <default>false</default>
+                <label>Veau Soie Bleu Marine</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Bleu Ocean</fullName>
+                <default>false</default>
+                <label>Veau Soie Bleu Ocean</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Brun</fullName>
+                <default>false</default>
+                <label>Veau Soie Brun</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Capucine</fullName>
+                <default>false</default>
+                <label>Veau Soie Capucine</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Caramel</fullName>
+                <default>false</default>
+                <label>Veau Soie Caramel</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Cassis</fullName>
+                <default>false</default>
+                <label>Veau Soie Cassis</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Grenade</fullName>
+                <default>false</default>
+                <label>Veau Soie Grenade</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Gris Souris</fullName>
+                <default>false</default>
+                <label>Veau Soie Gris Souris</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Iris Noir</fullName>
+                <default>false</default>
+                <label>Veau Soie Iris Noir</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Kiwi</fullName>
+                <default>false</default>
+                <label>Veau Soie Kiwi</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Mandarine</fullName>
+                <default>false</default>
+                <label>Veau Soie Mandarine</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Moka</fullName>
+                <default>false</default>
+                <label>Veau Soie Moka</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Noir</fullName>
+                <default>false</default>
+                <label>Veau Soie Noir</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Ocre</fullName>
+                <default>false</default>
+                <label>Veau Soie Ocre</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Pistache</fullName>
+                <default>false</default>
+                <label>Veau Soie Pistache</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Pomme</fullName>
+                <default>false</default>
+                <label>Veau Soie Pomme</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Rouge</fullName>
+                <default>false</default>
+                <label>Veau Soie Rouge</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Tabac</fullName>
+                <default>false</default>
+                <label>Veau Soie Tabac</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Taupe</fullName>
+                <default>false</default>
+                <label>Veau Soie Taupe</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Vert Foret</fullName>
+                <default>false</default>
+                <label>Veau Soie Vert Foret</label>
+            </value>
+            <value>
+                <fullName>Veau Soie Violet</fullName>
+                <default>false</default>
+                <label>Veau Soie Violet</label>
+            </value>
+            <value>
+                <fullName>VVN</fullName>
+                <default>false</default>
+                <label>VVN</label>
+            </value>
+            <value>
+                <fullName>Vvt Caramel</fullName>
+                <default>false</default>
+                <label>Vvt Caramel</label>
+            </value>
+            <value>
+                <fullName>Other (free text)</fullName>
+                <default>false</default>
+                <label>Other (free text)</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Bordeaux</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Bordeaux</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Saphir</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Saphir</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Emeraude</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Emeraude</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Jaune Or</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Jaune Or</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Fauve</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Fauve</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Raisin</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Raisin</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Cactus</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Cactus</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Topaze Imperiale</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Topaze Imperiale</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Rose Spinelle</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Rose Spinelle</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Gris Perle</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Gris Perle</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Rubis</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Rubis</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Sienne</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Sienne</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Blanc</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Blanc</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Rose Peony</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Rose Peony</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Rose Tourmaline</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Rose Tourmaline</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Amethyste</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Amethyste</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Bleu Santorin</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Bleu Santorin</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Fushia</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Fushia</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Kaki</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Kaki</label>
+            </value>
+            <value>
+                <fullName>Alligator Brillant (Exo) Rouge Carmin</fullName>
+                <default>false</default>
+                <label>Alligator Brillant (Exo) Rouge Carmin</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Gris</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Gris</label>
+            </value>
+            <value>
+                <fullName>Alligator Mat (Exo) Latte</fullName>
+                <default>false</default>
+                <label>Alligator Mat (Exo) Latte</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Bordeaux</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Bordeaux</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Saphir</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Saphir</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Emeraude</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Emeraude</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Fauve</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Fauve</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Raisin</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Raisin</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Cactus</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Cactus</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Gris Perle</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Gris Perle</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Rubis</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Rubis</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Sienne</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Sienne</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Blanc</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Blanc</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Rose Tourmaline</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Rose Tourmaline</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Amethyste</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Amethyste</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Bleu Santorin</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Bleu Santorin</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Kaki</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Kaki</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Fushia</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Fushia</label>
+            </value>
+            <value>
+                <fullName>Niloticus Brillant (Exo) Rouge Carmin</fullName>
+                <default>false</default>
+                <label>Niloticus Brillant (Exo) Rouge Carmin</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Gris</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Gris</label>
+            </value>
+            <value>
+                <fullName>Niloticus Mat (Exo) Latte</fullName>
+                <default>false</default>
+                <label>Niloticus Mat (Exo) Latte</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Bordeaux</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Bordeaux</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Saphir</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Saphir</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Emeraude</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Emeraude</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Fauve</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Fauve</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Raisin</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Raisin</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Cactus</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Cactus</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Gris Perle</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Gris Perle</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Rubis</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Rubis</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Sienne</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Sienne</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Blanc</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Blanc</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Rose Tourmaline</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Rose Tourmaline</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Amethyste</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Amethyste</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Bleu Santorin</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Bleu Santorin</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Kaki</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Kaki</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Latte</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Latte</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Fushia</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Fushia</label>
+            </value>
+            <value>
+                <fullName>Porosus Brillant (Exo) Rouge Carmin</fullName>
+                <default>false</default>
+                <label>Porosus Brillant (Exo) Rouge Carmin</label>
+            </value>
+            <value>
+                <fullName>Porosus Mat (Exo) Gris</fullName>
+                <default>false</default>
+                <label>Porosus Mat (Exo) Gris</label>
+            </value>
+            <value>
+                <fullName>Epi Pistache</fullName>
+                <default>false</default>
+                <label>Epi Pistache</label>
+            </value>
+            <value>
+                <fullName>Epi Carmin</fullName>
+                <default>false</default>
+                <label>Epi Carmin</label>
+            </value>
+            <value>
+                <fullName>Epi Saphir</fullName>
+                <default>false</default>
+                <label>Epi Saphir</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Taurillon</controllingFieldValue>
+            <valueName>Taurillon Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Taurillon</controllingFieldValue>
+            <controllingFieldValue>Utah</controllingFieldValue>
+            <controllingFieldValue>Vachette Nomade</controllingFieldValue>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <controllingFieldValue>Veau Box</controllingFieldValue>
+            <controllingFieldValue>Veau Cachemire (Sofia Coppola)</controllingFieldValue>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <controllingFieldValue>VVN</controllingFieldValue>
+            <controllingFieldValue>VVT</controllingFieldValue>
+            <controllingFieldValue>Agneau</controllingFieldValue>
+            <controllingFieldValue>Monogram</controllingFieldValue>
+            <controllingFieldValue>Chevre</controllingFieldValue>
+            <controllingFieldValue>Monogram Empreinte</controllingFieldValue>
+            <controllingFieldValue>Microfibre</controllingFieldValue>
+            <controllingFieldValue>Monogram  Vernis</controllingFieldValue>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <controllingFieldValue>Niloticus Mat (Exo)</controllingFieldValue>
+            <controllingFieldValue>Ombre</controllingFieldValue>
+            <controllingFieldValue>Other (free text)</controllingFieldValue>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <controllingFieldValue>Porosus Mat (Exo)</controllingFieldValue>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <controllingFieldValue>Alligator Mat (Exo)</controllingFieldValue>
+            <controllingFieldValue>Autruche (Exo)</controllingFieldValue>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <controllingFieldValue>Damier</controllingFieldValue>
+            <controllingFieldValue>Damier Infini</controllingFieldValue>
+            <controllingFieldValue>Taiga</controllingFieldValue>
+            <valueName>Other (free text)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Utah</controllingFieldValue>
+            <valueName>Utah Basalte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Utah</controllingFieldValue>
+            <valueName>Utah Cafe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vachette Nomade</controllingFieldValue>
+            <valueName>Vachette Nomade Cognac</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vachette Nomade</controllingFieldValue>
+            <valueName>Vachette Nomade Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Aubergine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Blanc</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Blanc Casse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Bleu Azur</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Bleu Canard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Bleu Marine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Bleu Ocean</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Brun</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Capucine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Caramel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Cassis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Grenade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Gris Souris</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Iris Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Kiwi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Mandarine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Ocre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Pistache</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Pomme</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Rouge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Tabac</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Vert Foret</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Bougie</controllingFieldValue>
+            <valueName>Veau Bougie Violet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Box</controllingFieldValue>
+            <valueName>Veau Box Bleu Marine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Box</controllingFieldValue>
+            <valueName>Veau Box Iris Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Box</controllingFieldValue>
+            <valueName>Veau Box Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Box</controllingFieldValue>
+            <valueName>Veau Box Rouge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Box</controllingFieldValue>
+            <valueName>Veau Box Tabac</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Cachemire (Sofia Coppola)</controllingFieldValue>
+            <valueName>Veau Cachemire (Sofia Coppola) Bordeaux</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Cachemire (Sofia Coppola)</controllingFieldValue>
+            <valueName>Veau Cachemire (Sofia Coppola) Cherry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Cachemire (Sofia Coppola)</controllingFieldValue>
+            <valueName>Veau Cachemire (Sofia Coppola) Cobalt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Cachemire (Sofia Coppola)</controllingFieldValue>
+            <valueName>Veau Cachemire (Sofia Coppola) Galet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Cachemire (Sofia Coppola)</controllingFieldValue>
+            <valueName>Veau Cachemire (Sofia Coppola) Jasper</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Cachemire (Sofia Coppola)</controllingFieldValue>
+            <valueName>Veau Cachemire (Sofia Coppola) Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Aubergine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Blanc</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Blanc Casse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Bleuazur</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Bleu Canard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Bleu Marine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Bleu Ocean</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Brun</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Capucine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Caramel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Cassis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Grenade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Gris Souris</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Iris Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Kiwi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Mandarine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Ocre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Pistache</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Pomme</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Rouge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Tabac</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Vert Foret</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau  Ecorce</controllingFieldValue>
+            <valueName>Veau  Ecorce Violet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Aubergine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Blanc</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Blanc Casse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Bleuazur</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Bleu Canard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Bleu Marine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Bleu Ocean</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Brun</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Capucine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Caramel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Cassis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Grenade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Gris Souris</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Iris Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Kiwi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Mandarine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Ocre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Pistache</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Pomme</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Rouge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Tabac</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Vert Foret</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Veau Soie</controllingFieldValue>
+            <valueName>Veau Soie Violet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VVN</controllingFieldValue>
+            <valueName>VVN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VVT</controllingFieldValue>
+            <valueName>Vvt Caramel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram</controllingFieldValue>
+            <valueName>Monogram</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram</controllingFieldValue>
+            <valueName>Monogram Eclipse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram</controllingFieldValue>
+            <valueName>Monogram Macassar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram Empreinte</controllingFieldValue>
+            <valueName>Monogram Empreinte Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram  Vernis</controllingFieldValue>
+            <valueName>Monogram  Vernis Amarante</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram  Vernis</controllingFieldValue>
+            <valueName>Monogram  Vernis Cerise</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram  Vernis</controllingFieldValue>
+            <valueName>Monogram  Vernis Dune</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram  Vernis</controllingFieldValue>
+            <valueName>Monogram  Vernis Magenta</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Monogram  Vernis</controllingFieldValue>
+            <valueName>Monogram  Vernis Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Coquelicot</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Dune</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Figue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Fuchsia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Indigo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Ivoire</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Noir Electric</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Piment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Rose Ballerine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Pistache</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Carmin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Epi H</controllingFieldValue>
+            <controllingFieldValue>Epi S</controllingFieldValue>
+            <valueName>Epi Saphir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Bleu Canard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Bleu Ocean</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Bordeaux</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Saphir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Emeraude</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Fauve</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Raisin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Cactus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Gris Perle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Rubis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Sienne</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Blanc</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Rose Tourmaline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Amethyste</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Bleu Santorin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Kaki</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Fushia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Brillant (Exo)</controllingFieldValue>
+            <valueName>Niloticus Brillant (Exo) Rouge Carmin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Mat (Exo)</controllingFieldValue>
+            <valueName>Niloticus Mat (Exo) Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Mat (Exo)</controllingFieldValue>
+            <valueName>Niloticus Mat (Exo) Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Mat (Exo)</controllingFieldValue>
+            <valueName>Niloticus Mat (Exo) Gris</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Niloticus Mat (Exo)</controllingFieldValue>
+            <valueName>Niloticus Mat (Exo) Latte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ombre</controllingFieldValue>
+            <valueName>Ombre Acajou</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ombre</controllingFieldValue>
+            <valueName>Ombre Anthracite</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ombre</controllingFieldValue>
+            <valueName>Ombre Encre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Bordeaux</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Saphir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Emeraude</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Fauve</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Raisin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Cactus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Gris Perle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Rubis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Sienne</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Blanc</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Rose Tourmaline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Amethyste</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Bleu Santorin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Kaki</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Fushia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Brillant (Exo)</controllingFieldValue>
+            <valueName>Porosus Brillant (Exo) Rouge Carmin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Mat (Exo)</controllingFieldValue>
+            <valueName>Porosus Mat (Exo) Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Mat (Exo)</controllingFieldValue>
+            <valueName>Porosus Mat (Exo) Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Mat (Exo)</controllingFieldValue>
+            <valueName>Porosus Mat (Exo) Latte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Porosus Mat (Exo)</controllingFieldValue>
+            <valueName>Porosus Mat (Exo) Gris</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Bleu Canard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Bleu Ocean</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Bordeaux</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Saphir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Emeraude</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Jaune Or</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Fauve</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Raisin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Cactus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Topaze Imperiale</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Rose Spinelle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Gris Perle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Rubis</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Sienne</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Blanc</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Rose Peony</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Rose Tourmaline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Amethyste</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Bleu Santorin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Fushia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Kaki</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Brillant (Exo)</controllingFieldValue>
+            <valueName>Alligator Brillant (Exo) Rouge Carmin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Mat (Exo)</controllingFieldValue>
+            <valueName>Alligator Mat (Exo) Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Mat (Exo)</controllingFieldValue>
+            <valueName>Alligator Mat (Exo) Taupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Mat (Exo)</controllingFieldValue>
+            <valueName>Alligator Mat (Exo) Gris</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Alligator Mat (Exo)</controllingFieldValue>
+            <valueName>Alligator Mat (Exo) Latte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Autruche (Exo)</controllingFieldValue>
+            <valueName>Autruche (Exo) Asphalte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Autruche (Exo)</controllingFieldValue>
+            <valueName>Autruche (Exo) Navy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Blanc</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Bleu Marine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Grenade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Gris Souris</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Kiwi</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Moka</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Noir</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chevre Frisson</controllingFieldValue>
+            <valueName>Chevre Frisson Rouge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Damier</controllingFieldValue>
+            <valueName>Damier Azur</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Damier</controllingFieldValue>
+            <valueName>Damier Ebene</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Damier</controllingFieldValue>
+            <valueName>Damier Graphite</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Damier Infini</controllingFieldValue>
+            <valueName>Damier Infini Cosmos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Damier Infini</controllingFieldValue>
+            <valueName>Damier Infini Onyx</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Taiga</controllingFieldValue>
+            <valueName>Taiga Ardoise</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Taiga</controllingFieldValue>
+            <valueName>Taiga Glacier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Taiga</controllingFieldValue>
+            <valueName>Taiga Ocean A23084</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

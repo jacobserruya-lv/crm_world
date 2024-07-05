@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Messaging_China_MessagingSession</fullName>
+    <booleanFilter>1 AND 2</booleanFilter>
+    <columns>Name</columns>
+    <columns>MessagingChannel</columns>
+    <columns>MessagingEndUser</columns>
+    <columns>Owner</columns>
+    <columns>Status</columns>
+    <columns>StartTime</columns>
+    <columns>EndTime</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>0,2</value>
+    </filters>
+    <filters>
+        <field>Queue_Developper_Name__c</field>
+        <operation>equals</operation>
+        <value>Messaging_China</value>
+    </filters>
+    <label>Messaging China</label>
+    <sharedTo>
+        <group>Chat_China</group>
+        <role>Corporate_Digital</role>
+    </sharedTo>
+</ListView>

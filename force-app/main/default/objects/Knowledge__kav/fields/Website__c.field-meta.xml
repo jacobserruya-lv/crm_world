@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Website__c</fullName>
+    <externalId>false</externalId>
+    <label>Website</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>en_sg</fullName>
+                <default>false</default>
+                <label>APAC</label>
+            </value>
+            <value>
+                <fullName>en_au</fullName>
+                <default>false</default>
+                <label>Australia</label>
+            </value>
+            <value>
+                <fullName>pt_br</fullName>
+                <default>false</default>
+                <label>Brazil</label>
+            </value>
+            <value>
+                <fullName>en_ca</fullName>
+                <default>false</default>
+                <label>Canada Eng</label>
+            </value>
+            <value>
+                <fullName>fr_ca</fullName>
+                <default>false</default>
+                <label>Canada Fra</label>
+            </value>
+            <value>
+                <fullName>zh_cn</fullName>
+                <default>false</default>
+                <label>China</label>
+            </value>
+            <value>
+                <fullName>en_e1</fullName>
+                <default>false</default>
+                <label>English International</label>
+            </value>
+            <value>
+                <fullName>en_nl</fullName>
+                <default>false</default>
+                <label>Euroland</label>
+            </value>
+            <value>
+                <fullName>fr_fr</fullName>
+                <default>false</default>
+                <label>France</label>
+            </value>
+            <value>
+                <fullName>de_de</fullName>
+                <default>false</default>
+                <label>Germany</label>
+            </value>
+            <value>
+                <fullName>en_hk</fullName>
+                <default>false</default>
+                <label>Hong-Kong Eng</label>
+            </value>
+            <value>
+                <fullName>zh_hk</fullName>
+                <default>false</default>
+                <label>Hong-Kong Zht</label>
+            </value>
+            <value>
+                <fullName>en_in</fullName>
+                <default>false</default>
+                <label>India</label>
+            </value>
+            <value>
+                <fullName>en_id</fullName>
+                <default>false</default>
+                <label>Indonesia Eng</label>
+            </value>
+            <value>
+                <fullName>id_id</fullName>
+                <default>false</default>
+                <label>Indonesia Ind</label>
+            </value>
+            <value>
+                <fullName>it_it</fullName>
+                <default>false</default>
+                <label>Italy</label>
+            </value>
+            <value>
+                <fullName>ja_jp</fullName>
+                <default>false</default>
+                <label>Japan</label>
+            </value>
+            <value>
+                <fullName>ko_kr</fullName>
+                <default>false</default>
+                <label>Korea</label>
+            </value>
+            <value>
+                <fullName>sa_ar</fullName>
+                <default>false</default>
+                <label>KSA (Arab) (المملكة العربية السعودية (العربية</label>
+            </value>
+            <value>
+                <fullName>sa_en</fullName>
+                <default>false</default>
+                <label>KSA (English)</label>
+            </value>
+            <value>
+                <fullName>kw_ar</fullName>
+                <default>false</default>
+                <label>Kuwait (Arab) (الكويت (العربية</label>
+            </value>
+            <value>
+                <fullName>kw_en</fullName>
+                <default>false</default>
+                <label>Kuwait (English)</label>
+            </value>
+            <value>
+                <fullName>es_mx</fullName>
+                <default>false</default>
+                <label>Mexico</label>
+            </value>
+            <value>
+                <fullName>ar_ae</fullName>
+                <default>false</default>
+                <label>Middle East Ara</label>
+            </value>
+            <value>
+                <fullName>en_ae</fullName>
+                <default>false</default>
+                <label>Middle East Eng</label>
+            </value>
+            <value>
+                <fullName>qa_ar</fullName>
+                <default>false</default>
+                <label>Qatar (Arab) (قطر (العربية</label>
+            </value>
+            <value>
+                <fullName>qa_en</fullName>
+                <default>false</default>
+                <label>Qatar (English)</label>
+            </value>
+            <value>
+                <fullName>ru_ru</fullName>
+                <default>false</default>
+                <label>Russia</label>
+            </value>
+            <value>
+                <fullName>es_es</fullName>
+                <default>false</default>
+                <label>Spain</label>
+            </value>
+            <value>
+                <fullName>zh_tw</fullName>
+                <default>false</default>
+                <label>Taiwan</label>
+            </value>
+            <value>
+                <fullName>th_th</fullName>
+                <default>false</default>
+                <label>Thailand</label>
+            </value>
+            <value>
+                <fullName>ae_ar</fullName>
+                <default>false</default>
+                <label>UAE (Arab) (الإمارات العربية المتحدة (العربية</label>
+            </value>
+            <value>
+                <fullName>ae_en</fullName>
+                <default>false</default>
+                <label>UAE (English)</label>
+            </value>
+            <value>
+                <fullName>en_gb</fullName>
+                <default>false</default>
+                <label>UK</label>
+            </value>
+            <value>
+                <fullName>en_us</fullName>
+                <default>false</default>
+                <label>US</label>
+            </value>
+            <value>
+                <fullName>vi_vn</fullName>
+                <default>false</default>
+                <label>Vietnam</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

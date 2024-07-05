@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Exotics_ALLIGATOR</fullName>
+    <booleanFilter>1 AND 2</booleanFilter>
+    <columns>NAME</columns>
+    <columns>SKU__c</columns>
+    <columns>FluidRecipeId__c</columns>
+    <columns>FluidImageRecipeId__c</columns>
+    <columns>LeadTimeApproval__c</columns>
+    <columns>LeadTimeDistribution__c</columns>
+    <columns>LeadTimeManufacturing__c</columns>
+    <columns>Generic_SKU__c</columns>
+    <columns>Exotic_Leather__c</columns>
+    <columns>Exotic__c</columns>
+    <columns>ReportingCategory__c</columns>
+    <columns>Workshop__c</columns>
+    <columns>Category__c</columns>
+    <columns>PDF_Views__c</columns>
+    <columns>Available_In_Stores__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Exotic_Leather__c</field>
+        <operation>equals</operation>
+        <value>Alligator</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>equals</operation>
+        <value>Women City Bags</value>
+    </filters>
+    <label>All Exotics ALLIGATOR</label>
+</ListView>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Domaine__c</fullName>
+    <externalId>false</externalId>
+    <label>Domaine</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cruise</fullName>
+                <default>false</default>
+                <label>Cruise</label>
+            </value>
+            <value>
+                <fullName>FW</fullName>
+                <default>false</default>
+                <label>FW</label>
+            </value>
+            <value>
+                <fullName>In Store</fullName>
+                <default>false</default>
+                <label>In Store</label>
+            </value>
+            <value>
+                <fullName>LV Policy</fullName>
+                <default>false</default>
+                <label>LV Policy</label>
+            </value>
+            <value>
+                <fullName>Mistake/Bugs</fullName>
+                <default>false</default>
+                <label>Mistake/Bugs</label>
+            </value>
+            <value>
+                <fullName>Modification</fullName>
+                <default>false</default>
+                <label>Modification</label>
+            </value>
+            <value>
+                <fullName>Modify</fullName>
+                <default>false</default>
+                <label>Modify</label>
+            </value>
+            <value>
+                <fullName>MyLV</fullName>
+                <default>false</default>
+                <label>MyLV</label>
+            </value>
+            <value>
+                <fullName>Product on Demand</fullName>
+                <default>false</default>
+                <label>Product on Demand</label>
+            </value>
+            <value>
+                <fullName>Navigation</fullName>
+                <default>false</default>
+                <label>Navigation</label>
+            </value>
+            <value>
+                <fullName>Payment</fullName>
+                <default>false</default>
+                <label>Payment</label>
+            </value>
+            <value>
+                <fullName>Place</fullName>
+                <default>false</default>
+                <label>Place</label>
+            </value>
+            <value>
+                <fullName>Precision</fullName>
+                <default>false</default>
+                <label>Precision</label>
+            </value>
+            <value>
+                <fullName>Price</fullName>
+                <default>false</default>
+                <label>Price</label>
+            </value>
+            <value>
+                <fullName>Procedure</fullName>
+                <default>false</default>
+                <label>Procedure</label>
+            </value>
+            <value>
+                <fullName>Procedure &amp; Options</fullName>
+                <default>false</default>
+                <label>Procedure &amp; Options</label>
+            </value>
+            <value>
+                <fullName>Refund Amount</fullName>
+                <default>false</default>
+                <label>Refund Amount</label>
+            </value>
+            <value>
+                <fullName>Rejected Order</fullName>
+                <default>false</default>
+                <label>Rejected Order</label>
+            </value>
+            <value>
+                <fullName>SS</fullName>
+                <default>false</default>
+                <label>SS</label>
+            </value>
+            <value>
+                <fullName>Status</fullName>
+                <default>false</default>
+                <label>Status</label>
+            </value>
+            <value>
+                <fullName>Status/Tracking</fullName>
+                <default>false</default>
+                <label>Status/Tracking</label>
+            </value>
+            <value>
+                <fullName>Tax Form Missing</fullName>
+                <default>false</default>
+                <label>Tax Form Missing</label>
+            </value>
+            <value>
+                <fullName>Client wants a duplicate</fullName>
+                <default>false</default>
+                <label>Client wants a duplicate</label>
+            </value>
+            <value>
+                <fullName>Client can not download the invoice in MyLV</fullName>
+                <default>false</default>
+                <label>Client can not download the invoice in MyLV</label>
+            </value>
+            <value>
+                <fullName>MyPR</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>MyPR</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Fashion show men</controllingFieldValue>
+            <controllingFieldValue>Fashion show women</controllingFieldValue>
+            <valueName>FW</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fashion show men</controllingFieldValue>
+            <controllingFieldValue>Fashion show women</controllingFieldValue>
+            <valueName>SS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fashion show women</controllingFieldValue>
+            <valueName>Cruise</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice duplicate</controllingFieldValue>
+            <valueName>Client wants a duplicate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice duplicate</controllingFieldValue>
+            <valueName>Client can not download the invoice in MyLV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Modification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Procedure &amp; Options</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Status/Tracking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Modify</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Place</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Rejected Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Price</controllingFieldValue>
+            <valueName>LV Policy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Price</controllingFieldValue>
+            <valueName>Precision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Repair and Care advice</controllingFieldValue>
+            <valueName>Price</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Repair and Care advice</controllingFieldValue>
+            <valueName>Procedure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Repair and Care advice</controllingFieldValue>
+            <valueName>Status</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reservation</controllingFieldValue>
+            <valueName>In Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reservation</controllingFieldValue>
+            <valueName>Product on Demand</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tax refund</controllingFieldValue>
+            <valueName>Refund Amount</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tax refund</controllingFieldValue>
+            <valueName>Tax Form Missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website&amp;App</controllingFieldValue>
+            <valueName>Mistake/Bugs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website&amp;App</controllingFieldValue>
+            <valueName>MyLV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website&amp;App</controllingFieldValue>
+            <valueName>Navigation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

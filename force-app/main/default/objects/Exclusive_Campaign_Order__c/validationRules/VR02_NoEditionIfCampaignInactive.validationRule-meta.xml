@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR02_NoEditionIfCampaignInactive</fullName>
+    <active>false</active>
+    <description>Don&apos;t allow to edit records if Exclusive Campaign is inactive</description>
+    <errorConditionFormula>AND(
+Not(Exclusive_Campaign__r.Active__c),
+NOT(ISNEW()),
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to edit orders attached to inactive Campaign.</errorMessage>
+</ValidationRule>

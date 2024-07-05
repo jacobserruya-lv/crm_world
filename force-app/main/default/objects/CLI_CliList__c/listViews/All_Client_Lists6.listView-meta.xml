@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Client_Lists6</fullName>
+    <columns>NAME</columns>
+    <columns>Active__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Owner_Default_Store__c</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Client Lists</label>
+    <sharedTo>
+        <role>Corporate</role>
+        <role>Corporate_Central</role>
+        <role>Corporate_Digital</role>
+    </sharedTo>
+</ListView>

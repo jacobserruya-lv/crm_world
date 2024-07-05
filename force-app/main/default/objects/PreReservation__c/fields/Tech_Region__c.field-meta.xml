@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tech_Region__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+   AND(
+       TEXT(Store__r.MANAGEMENT_ZONE_LEVEL__c) = &apos;13&apos;,
+       Store_Country__c == &apos;KOREA&apos;),
+   &apos;KOREA&apos;,
+IF( TEXT(Store__r.MANAGEMENT_ZONE_LEVEL__c) = &apos;13&apos;,
+    &apos;ASIA NORTH&apos;,
+IF( TEXT(Store__r.MANAGEMENT_ZONE_LEVEL__c) = &apos;2&apos; ,
+    &apos;JAPAN&apos;,
+IF( TEXT(Store__r.MANAGEMENT_ZONE_LEVEL__c) = &apos;17&apos; ,
+    &apos;MAINLAND CHINA&apos;,
+IF( 
+    TEXT(Store__r.MANAGEMENT_ZONE_LEVEL__c) != &apos;3&apos; ,
+    Store__r.ManagementLevel2__r.Name,
+
+
+    IF(
+       Store__r.ManagementLevel2__r.Level2Id__c = &apos;219&apos;,
+       &apos;MIDWEST &amp; MIDATLANTIC&apos;,
+
+       IF(
+          Store__r.ManagementLevel2__r.Level2Id__c = &apos;259&apos;, 
+          &apos;NORTHEAST&apos;,
+
+          IF(
+             Store__r.ManagementLevel2__r.Level2Id__c = &apos;68&apos;, 
+             &apos;WEST COAST&apos;,
+
+             IF(
+                Store__r.ManagementLevel2__r.Level2Id__c = &apos;69&apos;, 
+                &apos;SOUTHEAST&apos;,
+     
+                IF(
+                   Store__r.ManagementLevel2__r.Level2Id__c = &apos;63&apos;, 
+                   &apos;USA DIGITAL&apos;,
+ 
+                   IF(
+                      Store__r.ManagementLevel2__r.Level2Id__c = &apos;22&apos;, 
+                      &apos;HAWAII&apos;,
+
+                      IF(
+                         Store__r.ManagementLevel2__r.Level2Id__c = &apos;53&apos;, 
+                         &apos;CENTRAL&apos;,
+
+                         IF(
+                            Store__r.ManagementLevel2__r.Level2Id__c = &apos;940&apos;, 
+                            &apos;NORTHWEST&apos;,
+
+                            IF(
+                               OR(
+                                  Store__r.ManagementLevel2__r.Level2Id__c = &apos;419&apos;, /*COLOMBIA*/
+                                  Store__r.ManagementLevel2__r.Level2Id__c = &apos;5&apos;, /*CHILE*/
+                                  Store__r.ManagementLevel2__r.Level2Id__c = &apos;3&apos;, /*BRAZIL*/
+                                  Store__r.ManagementLevel2__r.Level2Id__c = &apos;4&apos;, /*BRAZIL DIGITAL*/
+                                  Store__r.ManagementLevel2__r.Level2Id__c = &apos;87&apos;, /*ARGENTINA*/
+                                  Store__r.ManagementLevel2__r.Level2Id__c = &apos;6&apos;, /*URUGUAY*/
+                                  Store__r.ManagementLevel2__r.Level2Id__c = &apos;859&apos;), /*PERU*/
+                               &apos;SOUTH AMERICA&apos;,
+
+                               IF(
+                                  OR(
+                                     Store__r.ManagementLevel2__r.Level2Id__c = &apos;7&apos;, /*CANADA DIGITAL*/
+                                     Store__r.ManagementLevel2__r.Level2Id__c = &apos;89&apos;, /*BERMUDA*/
+                                     Store__r.ManagementLevel2__r.Level2Id__c = &apos;88&apos;), /*CANADA*/
+                                  &apos;CANADA&apos;,
+
+                                  IF(      
+                                     OR(
+                                        Store__r.ManagementLevel2__r.Level2Id__c = &apos;179&apos;, /*CARIBBEAN/CENTRAL AMERICA*/
+                                        Store__r.ManagementLevel2__r.Level2Id__c = &apos;979&apos;, /*MEXICO DIGITAL*/
+                                        Store__r.ManagementLevel2__r.Level2Id__c = &apos;54&apos; /*MEXICO*/
+                                        ),
+                                     &apos;MEXICO/CARIBBEAN&apos;,
+                                     Store__r.ManagementLevel2__r.Name
+                                  )
+                               )
+                            )
+                         )
+                      )
+                   )
+                )
+             )
+          )
+       )
+    )
+)
+))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Tech_Region</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

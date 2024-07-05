@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsParticipated__c</fullName>
+    <description>Display true if the member is participating in the variation according to the participation startDateTime (uses also in the participation roolup summery field on the variation level)</description>
+    <externalId>false</externalId>
+    <formula>NOT ISNULL(ParticipationStartDateTime__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Participated</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

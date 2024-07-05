@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isOECreatedbyMyStore__c</fullName>
+    <externalId>false</externalId>
+    <formula>CONTAINS(&apos;ICON_SA&apos;,  Owner:User.Profile.Name) &amp;&amp; TEXT(Owner:User.DefaultStore__c ) = TEXT( $User.DefaultStore__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>isOECreatedbyMyStore</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

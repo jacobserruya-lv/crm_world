@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CTI_AfterCallDate__c</fullName>
+    <description>[ICONiCS] wraped up start date after a call (data from CTI connector)</description>
+    <externalId>false</externalId>
+    <label>After Call Date</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

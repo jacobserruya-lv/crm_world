@@ -4,6 +4,7 @@
     <defaultValue>false</defaultValue>
     <description>Accounts with CandidateToDeletion = true are sent to Dream for deletion. It concerns Accounts from Online Appointment.
 Dream checks if OK to delete the account, if yes, Dream update field ToDelete to true in SF and deletion batch is launched.</description>
+    <externalId>false</externalId>
     <label>TECH_CandidateToDeletion</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

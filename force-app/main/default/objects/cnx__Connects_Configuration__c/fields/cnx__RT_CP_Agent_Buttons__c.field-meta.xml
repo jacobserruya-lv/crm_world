@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__RT_CP_Agent_Buttons__c</fullName>
+    <defaultValue>&quot;pause;resume;segmentSave;segmentDelete&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Agent Buttons</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>pause</fullName>
+                <default>false</default>
+                <label>pause</label>
+            </value>
+            <value>
+                <fullName>resume</fullName>
+                <default>false</default>
+                <label>resume</label>
+            </value>
+            <value>
+                <fullName>segmentSave</fullName>
+                <default>false</default>
+                <label>segmentSave</label>
+            </value>
+            <value>
+                <fullName>segmentDelete</fullName>
+                <default>false</default>
+                <label>segmentDelete</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

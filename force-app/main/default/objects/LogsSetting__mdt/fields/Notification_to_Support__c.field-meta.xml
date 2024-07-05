@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notification_to_Support__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>A weekly batch send by email all error logs created in the week, to LV Factory Team.
+Only log with ERROR level will be sent.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Notification to Support</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderNumber__c</fullName>
+    <description>Holds the parent order number (if it exists). This field is populated by SAP on SKU starting with &apos;S&apos;. It is used by datastage in order to find the order (opportunity) which generated the creation of this S code SKU.</description>
+    <externalId>false</externalId>
+    <label>Order Number</label>
+    <length>12</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

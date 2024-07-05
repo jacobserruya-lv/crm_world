@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Key__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Helps determine the uniqueness of a locale per product. Follows the format: &quot;product code-locale&quot;</description>
+    <externalId>true</externalId>
+    <inlineHelpText>product code-locale</inlineHelpText>
+    <label>Key</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

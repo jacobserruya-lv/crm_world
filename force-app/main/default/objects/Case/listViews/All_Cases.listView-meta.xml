@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Cases</fullName>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>Resolution__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Priority_Flag__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>Case_Origin_IMG__c</columns>
+    <columns>CASES.RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Call_Case,Case.Chat,Case.Clienteling,Case.InboundCall,Case.Operation_Exception,Case.Product_on_Demand_without_sku,Case.Product_On_Demand_with_sku,Case.Web_Email_Case</value>
+    </filters>
+    <label>All Open Requests</label>
+    <sharedTo>
+        <group>admin</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Force_Mobile_Agent_Connection__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Force &apos;Nailed Connection&apos; (N) or &apos;Call-By-Call&apos; (C).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Choses the Mobile Agent mode.</inlineHelpText>
+    <label>Force Mobile Agent Connection</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AGENT_CHOOSES</fullName>
+                <default>true</default>
+                <label>Agent chooses</label>
+            </value>
+            <value>
+                <fullName>NAILED_CONNECTION</fullName>
+                <default>false</default>
+                <label>Nailed Connection</label>
+            </value>
+            <value>
+                <fullName>CALL_BY_CALL</fullName>
+                <default>false</default>
+                <label>Call By Call</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

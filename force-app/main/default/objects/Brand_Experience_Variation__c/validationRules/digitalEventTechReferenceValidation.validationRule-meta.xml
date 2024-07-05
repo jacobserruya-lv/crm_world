@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>digitalEventTechReferenceValidation</fullName>
+    <active>true</active>
+    <errorConditionFormula>Brand_Experience__r.RecordType.DeveloperName = &apos;Club_Experience&apos; &amp;&amp;
+RecordType.Name != &apos;Digital Event&apos; &amp;&amp;  DigitalEventTechReference__c != null</errorConditionFormula>
+    <errorDisplayField>DigitalEventTechReference__c</errorDisplayField>
+    <errorMessage>digitalEventTechReference cannot be set when recordType IS NOT “Digital Event”</errorMessage>
+</ValidationRule>

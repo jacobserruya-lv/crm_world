@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR12_OperationException_Store</fullName>
+    <active>true</active>
+    <description>When Store New/Store Pending Statuses in OE request, CA has to filled field Store</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;Operation_Exception&apos;,
+NOT( $User.BypassVR__c ),
+OR(ISPICKVAL(Status, &apos;Store New&apos;),
+   ISPICKVAL(Status, &apos;Store Pending&apos;)),
+OR(ISBLANK(Store__c),
+   ISNULL(Store__c))
+ )</errorConditionFormula>
+    <errorMessage>Please complete the Store field!</errorMessage>
+</ValidationRule>

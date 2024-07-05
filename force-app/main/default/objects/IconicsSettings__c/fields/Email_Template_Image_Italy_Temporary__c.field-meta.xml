@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Template_Image_Italy_Temporary__c</fullName>
+    <description>Image used to promote an exhibition. Italy Template only</description>
+    <externalId>false</externalId>
+    <label>Email Template Image Italy Temporary OLD</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DCS_AU_Payment_Received</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>TransactionId__c</columns>
+    <columns>Client__c</columns>
+    <columns>ICONiCS_Status_Detail__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Assigned_To__c</columns>
+    <columns>destination__c</columns>
+    <columns>Current_Status_Age__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CareService__c.DistantCareService</value>
+    </filters>
+    <filters>
+        <field>StoreRetailCode__c</field>
+        <operation>equals</operation>
+        <value>L48</value>
+    </filters>
+    <filters>
+        <field>ICONiCS_Status_Detail__c</field>
+        <operation>equals</operation>
+        <value>Payment Received</value>
+    </filters>
+    <label>[DCS] AU Payment Received</label>
+    <sharedTo>
+        <group>CSC_Care_Service_AU</group>
+        <roleAndSubordinatesInternal>APAC_CSC_AU_NE_Manager</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

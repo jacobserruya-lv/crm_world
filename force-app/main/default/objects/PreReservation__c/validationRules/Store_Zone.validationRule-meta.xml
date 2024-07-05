@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store_Zone</fullName>
+    <active>false</active>
+    <errorConditionFormula>TEXT(Store__r.MANAGEMENT_ZONE_LEVEL__c) &lt;&gt; TEXT(CreatedBy.MANAGEMENT_ZONE_LEVEL__c)</errorConditionFormula>
+    <errorDisplayField>Store__c</errorDisplayField>
+    <errorMessage>Please select a Store in your zone</errorMessage>
+</ValidationRule>

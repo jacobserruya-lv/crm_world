@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ManagementLevel2</fullName>
+    <active>true</active>
+    <description>Recordtype for Management Level 2</description>
+    <label>Management Level 2</label>
+</RecordType>

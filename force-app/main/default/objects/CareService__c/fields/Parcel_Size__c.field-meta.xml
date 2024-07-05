@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parcel_Size__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Small size Box: 11 x 7 x 3 in.     
+Medium size Box: 18 x 14 x 6 in.    
+Large size Box: 19 x 18 x 3 ½ in.    
+Travel size Box: 23 x 17 x 9 in.</inlineHelpText>
+    <label>Box Size</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Small size</fullName>
+                <default>false</default>
+                <label>Small size</label>
+            </value>
+            <value>
+                <fullName>Medium size</fullName>
+                <default>false</default>
+                <label>Medium size</label>
+            </value>
+            <value>
+                <fullName>Large size</fullName>
+                <default>false</default>
+                <label>Large size</label>
+            </value>
+            <value>
+                <fullName>Travel size</fullName>
+                <default>false</default>
+                <label>Travel size</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

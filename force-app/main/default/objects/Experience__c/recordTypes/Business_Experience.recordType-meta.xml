@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Experience</fullName>
+    <active>true</active>
+    <label>Business Experience</label>
+    <picklistValues>
+        <picklist>Experience_Name__c</picklist>
+        <values>
+            <fullName>Asnières</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Beauty %26 Spa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cultural</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dining</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fiesso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Jewellry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>La Fabrique du Temps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>La Fondation Louis Vuitton</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Shopping</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wines and spirits</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

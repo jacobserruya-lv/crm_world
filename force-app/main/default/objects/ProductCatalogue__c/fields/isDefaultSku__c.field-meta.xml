@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isDefaultSku__c</fullName>
+    <externalId>false</externalId>
+    <formula>SKU__c = defaultSku__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>isDefaultSku</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

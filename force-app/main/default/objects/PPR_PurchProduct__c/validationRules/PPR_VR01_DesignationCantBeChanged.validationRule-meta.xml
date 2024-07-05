@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PPR_VR01_DesignationCantBeChanged</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT($User.BypassVR__c ) 
+&amp;&amp; 
+ISCHANGED( Name ) 
+&amp;&amp; 
+$Profile.Name &lt;&gt; &quot;LV_Interface_Datastage&quot;</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>You don&apos;t have the right to edit Purchased Product Designation.</errorMessage>
+</ValidationRule>

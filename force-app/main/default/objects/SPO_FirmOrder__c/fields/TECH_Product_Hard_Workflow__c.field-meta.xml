@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_Product_Hard_Workflow__c</fullName>
+    <externalId>false</externalId>
+    <formula>/*AND(ProductCatalogue__r.Category__r.Category_Hardsided__c == true,OR (ProductCatalogue__r.Workflow__c,SPO_BriefName__r.SPO_DisplayOrder__c))*/
+
+/*MIY-1721*/
+AND(ProductCatalogue__r.ReportingCategory__r.Category_Hardsided__c == true,
+OR (ProductCatalogue__r.Workflow__c,SPO_BriefName__r.SPO_DisplayOrder__c),
+NOT(ProductCatalogue__r.StockRequest__c == true))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TECH Product Hard Workflow</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

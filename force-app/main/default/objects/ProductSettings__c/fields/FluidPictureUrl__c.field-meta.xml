@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FluidPictureUrl__c</fullName>
+    <description>Absolute path to get Fluid URL to display pictures (used in formula fields in Productatalogue__c, Favorite__c)
+For example: &apos;https://configure-imagecomposer.fluidretail.net/recipe/&apos; + (recipe id) 33858728 + &apos;/image/&apos; + Front.jpg</description>
+    <externalId>false</externalId>
+    <label>Fluid Picture Url</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BadgeSubTypeValidity</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL(badgeType__c , &apos;Global Engagement&apos;) &amp;&amp;  ISBLANK(TEXT  (BadgeSubType__c))</errorConditionFormula>
+    <errorDisplayField>BadgeSubType__c</errorDisplayField>
+    <errorMessage>BadgeSubType__c must be filled when BadgeType__c is Global Engagement</errorMessage>
+</ValidationRule>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>eCommerceClientCountry__c</fullName>
+    <externalId>false</externalId>
+    <formula>CONTAINS(
+ &quot;BEL,DNK,FIN,LUX,MCO,NLD,AUT,SWE,IRL,GBR,ESP,ITA,DEU,FRA,SAU,ARE,JPN,USA,CAN,BRA,MEX,KOR,TWN,HKG,AUS,MYS,SGP,NZL,THA,CHN&quot;,
+  TEXT(clientId__r.SPO_Country_code__pc)
+) || (
+ TEXT(clientId__r.SPO_Country_code__pc) = null &amp;&amp;
+ CONTAINS(
+ &quot;BEL,DNK,FIN,LUX,MCO,NLD,AUT,SWE,IRL,GBR,ESP,ITA,DEU,FRA,SAU,ARE,JPN,USA,CAN,BRA,MEX,KOR,TWN,HKG,AUS,MYS,SGP,NZL,THA,CHN&quot;,
+  clientId__r.TECH_AttachedStoreCountry__c
+ )
+)</formula>
+    <label>Client Residency Country is eCommerce</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

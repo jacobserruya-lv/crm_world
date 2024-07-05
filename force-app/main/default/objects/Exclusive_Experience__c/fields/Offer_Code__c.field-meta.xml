@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Offer_Code__c</fullName>
+    <externalId>false</externalId>
+    <label>Offer Code</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Typology__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>XXPR_Offer_Code</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>NBA Regular</controllingFieldValue>
+            <controllingFieldValue>NBA MSG Experience</controllingFieldValue>
+            <controllingFieldValue>Collectibles</controllingFieldValue>
+            <valueName>exclu_nba_1_2020</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>NBA Regular</controllingFieldValue>
+            <valueName>exclu_nba_1_2020.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>test_exclusive_sale</controllingFieldValue>
+            <valueName>test_exclusive_sale</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collectibles</controllingFieldValue>
+            <valueName>digital_collectibles_speedy40_july23</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collectibles</controllingFieldValue>
+            <valueName>digital_collectibles_wave_1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collectibles</controllingFieldValue>
+            <valueName>digital_collectibles_wave_2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collectibles</controllingFieldValue>
+            <valueName>exclu_offer_collectibles_ff</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

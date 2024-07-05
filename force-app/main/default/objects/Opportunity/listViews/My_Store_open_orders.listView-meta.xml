@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Store_open_orders</fullName>
+    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+    <columns>OrderNumber__c</columns>
+    <columns>Product_SKU__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>AmountNoCurrency__c</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>Final_Delivery_Date__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>SPO_StoreCode__c</columns>
+    <columns>SPO_CACode__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Brief in progress,Quotation in progress,Quotation submitted</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Quotation accepted,Creation in progress,Production to be launched,In progress,Production in progress,Distribution in Progress</value>
+    </filters>
+    <filters>
+        <field>My_Store__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>0- My Store open orders</label>
+    <sharedTo>
+        <roleAndSubordinates>CORP_AMERICAS</roleAndSubordinates>
+        <roleAndSubordinates>CORP_CHINA</roleAndSubordinates>
+        <roleAndSubordinates>CORP_EUROPE</roleAndSubordinates>
+        <roleAndSubordinates>CORP_JAPAN</roleAndSubordinates>
+        <roleAndSubordinates>CORP_NORTH_ASIA</roleAndSubordinates>
+        <roleAndSubordinates>CORP_SOUTH_ASIA</roleAndSubordinates>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_AMERICAS</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_APAC</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_BRAZIL</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_CHINA</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_EUROPE</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_JAPAN</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_MIDDLE_EAST</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

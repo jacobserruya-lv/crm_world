@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalation_ListView</fullName>
+    <columns>Escalation_Opening_Date__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>Transaction_Id__c</columns>
+    <columns>Category__c</columns>
+    <columns>Escalation_Status__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Assigned_To_Escalation__c</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>Escalation_Age__c</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Escalation_Type__c</field>
+        <operation>equals</operation>
+        <value>Manual</value>
+    </filters>
+    <filters>
+        <field>Escalation_Status__c</field>
+        <operation>equals</operation>
+        <value>New,Awaiting</value>
+    </filters>
+    <label>My Request Escalated</label>
+</ListView>

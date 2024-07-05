@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_Do_not_change_manually_the_stage</fullName>
+    <active>true</active>
+    <description>Prevent users from changing the stage through the layout. They should use the green buttons instead.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(StageName),
+    OR(
+       AND(
+           ISPICKVAL(StageName, &apos;Quotation in progress&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Quotation_in_progress__c)),
+           ISBLANK(SPO_Date_Quotation_in_progress__c)
+       ),
+       AND(
+           ISPICKVAL(StageName, &apos;Quotation available&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Quotation_submitted__c)),
+           ISBLANK(SPO_Date_Quotation_submitted__c)
+       ),
+       AND(
+           ISPICKVAL(StageName, &apos;Quotation accepted&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Quotation_accepted__c)),
+           ISBLANK(SPO_Date_Quotation_accepted__c)
+       ),
+       AND(
+           ISPICKVAL(StageName, &apos;Creation in progress&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Creation_in_progress__c)),
+           ISBLANK(SPO_Date_Creation_in_progress__c)
+       ),
+       AND(
+           ISPICKVAL(StageName, &apos;In progress&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_In_progress__c)),
+           ISBLANK(SPO_Date_In_progress__c)
+       ),
+       AND(
+           ISPICKVAL(StageName, &apos;Distribution in Progress&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Distribution_in_Progress__c)),
+           ISBLANK(SPO_Date_Distribution_in_Progress__c)
+       ),
+/* Creates issues for v4.11.0 - can be restored in hotfix or later version
+       AND(
+           ISPICKVAL(StageName, &apos;Received in store&apos;),
+           ISBLANK(PRIORVALUE(Received_in_Store_Date__c)),
+           ISBLANK(Received_in_Store_Date__c)
+       ),
+       AND(
+           ISPICKVAL(StageName, &apos;Closed Won&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Closed_Won__c)),
+           ISBLANK(SPO_Date_Closed_Won__c)
+       ),
+*/
+       AND(
+           ISPICKVAL(StageName, &apos;Cancelled by store&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Cancelled_by_store__c)),
+           ISBLANK(SPO_Date_Cancelled_by_store__c)
+       ),
+       AND(
+           ISPICKVAL(StageName, &apos;Cancelled by production&apos;),
+           ISBLANK(PRIORVALUE(SPO_Date_Cancelled_by_Production__c)),
+           ISBLANK(SPO_Date_Cancelled_by_Production__c)
+       )
+    ),
+    NOT($User.BypassVR__c)
+)</errorConditionFormula>
+    <errorMessage>You cannot manually change the stage. Please use the appropriate buttons.</errorMessage>
+</ValidationRule>

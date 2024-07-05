@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Presence_State_Available_All__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Record ID of the Salesforce Omni-Channel presence status in which all channels are available.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Record ID of the Salesforce Omni-Channel presence status in which all channels are available</inlineHelpText>
+    <label>Presence State Available All</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

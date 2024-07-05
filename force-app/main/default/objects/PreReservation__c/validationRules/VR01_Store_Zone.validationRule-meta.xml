@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_Store_Zone</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND (
+	NOT( $Permission.Corps_Access ), 
+	OR(
+		
+		AND ( 	
+			ISPICKVAL($User.Country__c,&apos;KOREA&apos;) , 
+ 			NOT(
+				ISPICKVAL(Store__r.StoreCountry__c, &apos;KOREA&apos;)
+			)
+		),
+
+		AND ( 
+			ISPICKVAL( $User.MANAGEMENT_ZONE_LEVEL__c , &apos;13&apos;), 
+			
+			NOT(ISPICKVAL($User.Country__c,&apos;KOREA&apos;)), 
+
+			ISPICKVAL(  Store__r.StoreCountry__c  , &apos;KOREA&apos;)
+			
+		),
+
+		NOT(
+			TEXT( $User.MANAGEMENT_ZONE_LEVEL__c) == TEXT( Store__r.MANAGEMENT_ZONE_LEVEL__c) 
+		)
+	)
+)</errorConditionFormula>
+    <errorDisplayField>Store__c</errorDisplayField>
+    <errorMessage>Please select a Store in your zone (VR)</errorMessage>
+</ValidationRule>

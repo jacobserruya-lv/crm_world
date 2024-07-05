@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Finesse_SSO_Frame_URL_v2__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Relative path to SSO Frame on Finesse.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Relative path to the Finesse SSO Frame.</inlineHelpText>
+    <label>Finesse SSO Frame URL</label>
+    <length>2000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>2</visibleLines>
+</CustomField>

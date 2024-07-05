@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SkinMaterial__c</fullName>
+    <externalId>false</externalId>
+    <label>Skin Material</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MAINMATERIAL2Z0226</fullName>
+                <default>false</default>
+                <label>NILOTICUS</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0004</fullName>
+                <default>false</default>
+                <label>WOOD</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0018</fullName>
+                <default>false</default>
+                <label>CALF</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0026</fullName>
+                <default>false</default>
+                <label>TAURILLON</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0027</fullName>
+                <default>false</default>
+                <label>ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0037</fullName>
+                <default>false</default>
+                <label>CROCODILE</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0045</fullName>
+                <default>false</default>
+                <label>LIZARD</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0038</fullName>
+                <default>false</default>
+                <label>POROSUS</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0216</fullName>
+                <default>false</default>
+                <label>EXOTIC LEATHER_TBD</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0209</fullName>
+                <default>false</default>
+                <label>COATED CANVAS</label>
+            </value>
+            <value>
+                <fullName>MAINMATERIAL2Z0028</fullName>
+                <default>false</default>
+                <label>ALLIGATOR MISSISSIPIENSIS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

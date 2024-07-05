@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Enable_Agent_Owned__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Routes interactions to assigned agents. Setting cannot be changed while Genesys Cloud campaigns are associated.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Routes interactions to assigned agents. Setting cannot be changed while Genesys Cloud campaigns are associated.</inlineHelpText>
+    <label>Enable Agent Owned Dialing</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ICX_Country__c</fullName>
+    <description>[ICONiCS] Country called. ICX_CTI_Header Visualforce page updates this field (based on the country of the store object and the CountryMapping Custom Metadata Type)</description>
+    <externalId>false</externalId>
+    <label>Country / Region</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Country</valueSetName>
+    </valueSet>
+</CustomField>

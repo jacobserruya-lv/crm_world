@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Setting__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Setting</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Currency Code</fullName>
+                <default>true</default>
+                <label>Currency Code</label>
+            </value>
+            <value>
+                <fullName>Mobile Phone Country Code</fullName>
+                <default>false</default>
+                <label>Mobile Phone Country Code</label>
+            </value>
+            <value>
+                <fullName>Page Direction</fullName>
+                <default>false</default>
+                <label>Page Direction</label>
+            </value>
+            <value>
+                <fullName>Link Switch To Language</fullName>
+                <default>false</default>
+                <label>Link Switch To Language</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

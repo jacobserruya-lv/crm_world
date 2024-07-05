@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Personalizable__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Some categories are used to be displayed in Perso App (SKU with Fluid id) and others categories are not personalizable but must be displayed in Perso app (Trunks products which have no Fluid id)</description>
+    <externalId>false</externalId>
+    <label>Personalizable</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

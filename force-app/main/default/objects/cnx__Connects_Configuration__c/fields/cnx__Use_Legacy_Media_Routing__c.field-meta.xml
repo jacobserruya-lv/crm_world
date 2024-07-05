@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Use_Legacy_Media_Routing__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Use of Legacy Media Routing is required for CCE 11.0 or older.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Required for CCE 11.0 or older.</inlineHelpText>
+    <label>Use Legacy Cisco Universal Queue</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

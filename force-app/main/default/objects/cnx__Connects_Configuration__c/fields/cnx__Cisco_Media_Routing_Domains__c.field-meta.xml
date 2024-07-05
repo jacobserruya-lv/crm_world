@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Cisco_Media_Routing_Domains__c</fullName>
+    <defaultValue>&quot;[]&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Configuration of one or two media channels.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Configuration of one or two media channels</inlineHelpText>
+    <label>Media Routing Domain Settings</label>
+    <length>10000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

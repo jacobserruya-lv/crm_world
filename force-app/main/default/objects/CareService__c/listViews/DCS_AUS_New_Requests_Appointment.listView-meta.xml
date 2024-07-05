@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DCS_AUS_New_Requests_Appointment</fullName>
+    <columns>NAME</columns>
+    <columns>TransactionId__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Client__c</columns>
+    <columns>ICONiCS_Status_Detail__c</columns>
+    <columns>Origin__c</columns>
+    <columns>Appointement_DateTime__c</columns>
+    <columns>Assigned_To__c</columns>
+    <columns>destination__c</columns>
+    <columns>Category__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Unread_email__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CareService__c.DistantCareService</value>
+    </filters>
+    <filters>
+        <field>ICONiCS_Status_Detail__c</field>
+        <operation>equals</operation>
+        <value>New Request</value>
+    </filters>
+    <filters>
+        <field>StoreRetailCode__c</field>
+        <operation>equals</operation>
+        <value>L48</value>
+    </filters>
+    <filters>
+        <field>Origin__c</field>
+        <operation>equals</operation>
+        <value>LV App-Appointment Call,LV App-Appointment Video Call</value>
+    </filters>
+    <label>[DCS] AU New Requests - Appointment</label>
+    <sharedTo>
+        <group>CSC_Care_Service_AU</group>
+        <role>Corporate</role>
+        <roleAndSubordinatesInternal>APAC_CSC_AU_NE_Manager</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

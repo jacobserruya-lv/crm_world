@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_Owner_is_Active_User__c</fullName>
+    <description>Checkbox that displays if a Request owner is an active user. Used in some reports. Hidden field for all profiles except Admin</description>
+    <externalId>false</externalId>
+    <formula>Owner:User.IsActive</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TECH Owner is Active User</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

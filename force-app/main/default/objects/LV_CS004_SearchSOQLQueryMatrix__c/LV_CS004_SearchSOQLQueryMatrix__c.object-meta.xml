@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>LV : According to the criteria defined here the service will determine whether to run a SOQL or a SOSL</description>
+    <enableFeeds>false</enableFeeds>
+    <label>LV_CS004_SearchSOQLQueryMatrix</label>
+    <visibility>Public</visibility>
+</CustomObject>

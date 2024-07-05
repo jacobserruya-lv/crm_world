@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequestType__c</fullName>
+    <externalId>false</externalId>
+    <label>Request Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>RequestToStore</fullName>
+                <default>false</default>
+                <label>Request To Store</label>
+            </value>
+            <value>
+                <fullName>PODWithSKU</fullName>
+                <default>false</default>
+                <label>Product on Demand (with SKU)</label>
+            </value>
+            <value>
+                <fullName>PODWithoutSku</fullName>
+                <default>false</default>
+                <label>Product on Demand (without SKU)</label>
+            </value>
+            <value>
+                <fullName>OperationException</fullName>
+                <default>false</default>
+                <label>Operation Exception</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

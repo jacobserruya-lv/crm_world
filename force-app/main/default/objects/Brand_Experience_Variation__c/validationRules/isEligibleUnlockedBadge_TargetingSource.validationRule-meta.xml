@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isEligibleUnlockedBadge_TargetingSource</fullName>
+    <active>true</active>
+    <errorConditionFormula>Brand_Experience__r.RecordType.DeveloperName = &apos;Club_Experience&apos; &amp;&amp;
+EligibleUnlockedBadge__c != null &amp;&amp; NOT ISPICKVAL( TargetingMethod__c , &apos;Dynamic&apos;)</errorConditionFormula>
+    <errorDisplayField>EligibleUnlockedBadge__c</errorDisplayField>
+    <errorMessage>isEligibleUnlockedBadge can be used only if TargetingMethod__c  is &quot;Dynamic&quot;</errorMessage>
+</ValidationRule>

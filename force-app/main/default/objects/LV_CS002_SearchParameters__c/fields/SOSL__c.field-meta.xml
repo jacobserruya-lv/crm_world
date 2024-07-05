@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SOSL__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This determines whether the query from LV_ClientSearchService.cls will be a SOSL query by default. 
+Important notice!! When this record is checked, all other records in the custom settings must be unchecked.</description>
+    <externalId>false</externalId>
+    <label>SOSL</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

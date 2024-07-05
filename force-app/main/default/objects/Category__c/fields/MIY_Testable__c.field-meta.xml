@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MIY_Testable__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used to indicate if this category should be visible to Tester Users. This way, caterogies can be hidden from any users except testers</description>
+    <externalId>false</externalId>
+    <label>NY Testable</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

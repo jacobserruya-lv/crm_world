@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Artycap_2021_My_Zone_Reserved_Orders</fullName>
+    <columns>NAME</columns>
+    <columns>Product__c</columns>
+    <columns>Serial_Number_Product__c</columns>
+    <columns>Client__c</columns>
+    <columns>Store__c</columns>
+    <columns>Client_Advisor__c</columns>
+    <columns>Deposit_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Reserved__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Exclusive_Campaign__c</field>
+        <operation>equals</operation>
+        <value>Artycapucines 2021</value>
+    </filters>
+    <filters>
+        <field>My_Management_Zone_Level__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Artycap 2021 - My Zone Reserved Orders</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Salesforce_AMS</group>
+        <role>Corporate</role>
+        <role>Corporate_Central</role>
+        <role>Corporate_Digital</role>
+    </sharedTo>
+</ListView>

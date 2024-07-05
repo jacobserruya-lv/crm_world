@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_Nb_FO_Sent_to_MyPR__c</fullName>
+    <description>Count number of Firm Order with Status of Sent to MyPR</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Count number of Firm Order with Status of Sent to MyPR</inlineHelpText>
+    <label>TECH Nb FO Sent to MyPR</label>
+    <summaryFilterItems>
+        <field>SPO_FirmOrder__c.SPO_FirmOrderStatus__c</field>
+        <operation>equals</operation>
+        <value>Sent to MyPR</value>
+    </summaryFilterItems>
+    <summaryForeignKey>SPO_FirmOrder__c.SPO_BriefName__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

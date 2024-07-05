@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store_Region__c</fullName>
+    <externalId>false</externalId>
+    <label>Store_Region</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>StoreCountry__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LV1</fullName>
+                <default>false</default>
+                <label>EMEA</label>
+            </value>
+            <value>
+                <fullName>LV2</fullName>
+                <default>false</default>
+                <label>North America</label>
+            </value>
+            <value>
+                <fullName>LV3</fullName>
+                <default>false</default>
+                <label>North Asia</label>
+            </value>
+            <value>
+                <fullName>LV4</fullName>
+                <default>false</default>
+                <label>South Asia</label>
+            </value>
+            <value>
+                <fullName>LV5</fullName>
+                <default>false</default>
+                <label>Japan</label>
+            </value>
+            <value>
+                <fullName>LV6</fullName>
+                <default>false</default>
+                <label>Middle East</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>PHILIPPINES</controllingFieldValue>
+            <controllingFieldValue>SAIPAN</controllingFieldValue>
+            <controllingFieldValue>SINGAPORE</controllingFieldValue>
+            <controllingFieldValue>THAILAND</controllingFieldValue>
+            <controllingFieldValue>AUSTRALIA</controllingFieldValue>
+            <controllingFieldValue>GUAM</controllingFieldValue>
+            <controllingFieldValue>VIETNAM</controllingFieldValue>
+            <controllingFieldValue>KOREA</controllingFieldValue>
+            <controllingFieldValue>INDIA</controllingFieldValue>
+            <controllingFieldValue>INDONESIA</controllingFieldValue>
+            <controllingFieldValue>MALAYSIA</controllingFieldValue>
+            <controllingFieldValue>NEW ZEALAND</controllingFieldValue>
+            <valueName>LV4</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>POLAND</controllingFieldValue>
+            <controllingFieldValue>PORTUGAL</controllingFieldValue>
+            <controllingFieldValue>ROMANIA</controllingFieldValue>
+            <controllingFieldValue>RUSSIAN FEDERATION</controllingFieldValue>
+            <controllingFieldValue>SOUTH AFRICA</controllingFieldValue>
+            <controllingFieldValue>CHILE</controllingFieldValue>
+            <controllingFieldValue>SPAIN</controllingFieldValue>
+            <controllingFieldValue>SWEDEN</controllingFieldValue>
+            <controllingFieldValue>COLOMBIA</controllingFieldValue>
+            <controllingFieldValue>SWITZERLAND</controllingFieldValue>
+            <controllingFieldValue>CZECH REPUBLIC</controllingFieldValue>
+            <controllingFieldValue>DENMARK</controllingFieldValue>
+            <controllingFieldValue>TURKEY</controllingFieldValue>
+            <controllingFieldValue>DOMINICAIN REPUBLIC</controllingFieldValue>
+            <controllingFieldValue>FINLAND</controllingFieldValue>
+            <controllingFieldValue>FRANCE</controllingFieldValue>
+            <controllingFieldValue>GERMANY</controllingFieldValue>
+            <controllingFieldValue>ARGENTINA</controllingFieldValue>
+            <controllingFieldValue>ARUBA</controllingFieldValue>
+            <controllingFieldValue>AUSTRIA</controllingFieldValue>
+            <controllingFieldValue>BELGIUM</controllingFieldValue>
+            <controllingFieldValue>BRAZIL</controllingFieldValue>
+            <controllingFieldValue>UKRAINE</controllingFieldValue>
+            <controllingFieldValue>UNITED KINGDOM</controllingFieldValue>
+            <controllingFieldValue>GREECE</controllingFieldValue>
+            <controllingFieldValue>HUNGARY</controllingFieldValue>
+            <controllingFieldValue>IRELAND</controllingFieldValue>
+            <controllingFieldValue>ISRAEL</controllingFieldValue>
+            <controllingFieldValue>ITALY</controllingFieldValue>
+            <controllingFieldValue>MONACO</controllingFieldValue>
+            <controllingFieldValue>KAZAKHSTAN</controllingFieldValue>
+            <controllingFieldValue>LUXEMBOURG</controllingFieldValue>
+            <controllingFieldValue>MEXICO</controllingFieldValue>
+            <controllingFieldValue>MOROCCO</controllingFieldValue>
+            <controllingFieldValue>NETHERLANDS</controllingFieldValue>
+            <controllingFieldValue>NORWAY</controllingFieldValue>
+            <controllingFieldValue>PANAMA</controllingFieldValue>
+            <valueName>LV1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>QATAR</controllingFieldValue>
+            <controllingFieldValue>SAUDI ARABIA</controllingFieldValue>
+            <controllingFieldValue>BAHRAIN</controllingFieldValue>
+            <controllingFieldValue>UNITED ARAB EMIRATES</controllingFieldValue>
+            <controllingFieldValue>JORDAN</controllingFieldValue>
+            <controllingFieldValue>KUWAIT</controllingFieldValue>
+            <controllingFieldValue>LEBANON</controllingFieldValue>
+            <valueName>LV6</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CHINA</controllingFieldValue>
+            <controllingFieldValue>TAIWAN</controllingFieldValue>
+            <controllingFieldValue>HONG KONG</controllingFieldValue>
+            <controllingFieldValue>MACAU</controllingFieldValue>
+            <valueName>LV3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CANADA</controllingFieldValue>
+            <controllingFieldValue>USA</controllingFieldValue>
+            <valueName>LV2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>JAPAN</controllingFieldValue>
+            <valueName>LV5</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

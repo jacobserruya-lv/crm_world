@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Store</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>(1 AND 2) OR (3 AND 4 AND 5) OR (3 AND 6 AND 7 AND 8) OR 9</booleanFilter>
+        <errorMessage>Please select a Store in your Zone.</errorMessage>
+        <filterItems>
+            <field>$User.MANAGEMENT_ZONE_LEVEL__c</field>
+            <operation>equals</operation>
+            <valueField>Store__c.Zone__r.ZoneId__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$User.MANAGEMENT_ZONE_LEVEL__c</field>
+            <operation>notEqual</operation>
+            <value>ASIA NORTH</value>
+        </filterItems>
+        <filterItems>
+            <field>$User.MANAGEMENT_ZONE_LEVEL__c</field>
+            <operation>equals</operation>
+            <value>ASIA NORTH</value>
+        </filterItems>
+        <filterItems>
+            <field>$User.MGMT_ZONE_SUB_LEVEL1__c</field>
+            <operation>equals</operation>
+            <value>KOREA (DF), KOREA (DOM)</value>
+        </filterItems>
+        <filterItems>
+            <field>Store__c.StoreCountry__c</field>
+            <operation>contains</operation>
+            <value>KOREA</value>
+        </filterItems>
+        <filterItems>
+            <field>$User.MGMT_ZONE_SUB_LEVEL1__c</field>
+            <operation>notEqual</operation>
+            <value>KOREA (DF), KOREA (DOM)</value>
+        </filterItems>
+        <filterItems>
+            <field>Store__c.StoreCountry__c</field>
+            <operation>notContain</operation>
+            <value>KOREA</value>
+        </filterItems>
+        <filterItems>
+            <field>Store__c.Zone__r.ZoneId__c</field>
+            <operation>equals</operation>
+            <value>13</value>
+        </filterItems>
+        <filterItems>
+            <field>$Profile.Name</field>
+            <operation>equals</operation>
+            <value>System Administrator</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Store__c</referenceTo>
+    <relationshipLabel>Pre-Reservations</relationshipLabel>
+    <relationshipName>PreReservations</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

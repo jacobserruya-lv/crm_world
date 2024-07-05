@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Closed_Store_Client_requests</fullName>
+    <booleanFilter>2 AND 3 AND 4 AND 5 AND (1 OR 6)</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <columns>CA_Name__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Nature__c</columns>
+    <columns>Category__c</columns>
+    <columns>Resolution__c</columns>
+    <columns>Product_Sku__c</columns>
+    <columns>In_Store_Action__c</columns>
+    <columns>Priority_Flag__c</columns>
+    <columns>Is_Request_to_Store__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Resolution__c</field>
+        <operation>equals</operation>
+        <value>Reply Made,Request to Store</value>
+    </filters>
+    <filters>
+        <field>My_Store__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Store__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>In_Store_Status__c</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:7</value>
+    </filters>
+    <filters>
+        <field>Is_Request_to_Store__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Closed Store Client requests</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>Corporate</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Login_esp_es</fullName>
+    <columns>MasterLabel</columns>
+    <columns>Field__c</columns>
+    <columns>Is_Hidden__c</columns>
+    <columns>Value__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Context__c</field>
+        <operation>equals</operation>
+        <value>esp-es</value>
+    </filters>
+    <filters>
+        <field>Form__c</field>
+        <operation>equals</operation>
+        <value>Login</value>
+    </filters>
+    <label>Login esp-es</label>
+    <language>en_US</language>
+</ListView>

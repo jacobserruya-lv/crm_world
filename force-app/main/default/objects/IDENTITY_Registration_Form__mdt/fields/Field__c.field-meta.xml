@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Field__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Field</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>address1</fullName>
+                <default>false</default>
+                <label>address1</label>
+            </value>
+            <value>
+                <fullName>address2</fullName>
+                <default>false</default>
+                <label>address2</label>
+            </value>
+            <value>
+                <fullName>address3</fullName>
+                <default>false</default>
+                <label>address3</label>
+            </value>
+            <value>
+                <fullName>Analytics_TID</fullName>
+                <default>false</default>
+                <label>Analytics TID</label>
+            </value>
+            <value>
+                <fullName>ATG createConfirmation</fullName>
+                <default>false</default>
+                <label>ATG createConfirmation</label>
+            </value>
+            <value>
+                <fullName>ATG creation before SF</fullName>
+                <default>false</default>
+                <label>ATG creation before SF</label>
+            </value>
+            <value>
+                <fullName>birthdate</fullName>
+                <default>false</default>
+                <label>Birthdate</label>
+            </value>
+            <value>
+                <fullName>calling_code</fullName>
+                <default>false</default>
+                <label>Calling Code</label>
+            </value>
+            <value>
+                <fullName>city</fullName>
+                <default>false</default>
+                <label>city</label>
+            </value>
+            <value>
+                <fullName>country</fullName>
+                <default>false</default>
+                <label>Country</label>
+            </value>
+            <value>
+                <fullName>currency_code</fullName>
+                <default>false</default>
+                <label>Currency Code</label>
+            </value>
+            <value>
+                <fullName>default_site</fullName>
+                <default>false</default>
+                <label>Default Site</label>
+            </value>
+            <value>
+                <fullName>email</fullName>
+                <default>false</default>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>email_confirmation</fullName>
+                <default>false</default>
+                <label>Email Confirmation</label>
+            </value>
+            <value>
+                <fullName>email_template</fullName>
+                <default>false</default>
+                <label>Email Template</label>
+            </value>
+            <value>
+                <fullName>firstname</fullName>
+                <default>false</default>
+                <label>Firstname</label>
+            </value>
+            <value>
+                <fullName>firstname2</fullName>
+                <default>false</default>
+                <label>Firstname (Kana)</label>
+            </value>
+            <value>
+                <fullName>Kakao</fullName>
+                <default>false</default>
+                <label>Kakao</label>
+            </value>
+            <value>
+                <fullName>lastname</fullName>
+                <default>false</default>
+                <label>Lastname</label>
+            </value>
+            <value>
+                <fullName>lastname2</fullName>
+                <default>false</default>
+                <label>Lastname (Kana)</label>
+            </value>
+            <value>
+                <fullName>Line</fullName>
+                <default>false</default>
+                <label>Line</label>
+            </value>
+            <value>
+                <fullName>mobile_phone</fullName>
+                <default>false</default>
+                <label>Mobile Phone</label>
+            </value>
+            <value>
+                <fullName>Mx</fullName>
+                <default>false</default>
+                <label>Mx</label>
+            </value>
+            <value>
+                <fullName>name_max_length</fullName>
+                <default>false</default>
+                <label>Name Max Length</label>
+            </value>
+            <value>
+                <fullName>newsletter_agreement</fullName>
+                <default>false</default>
+                <label>Newsletter Agreement</label>
+            </value>
+            <value>
+                <fullName>page_direction</fullName>
+                <default>false</default>
+                <label>Page direction</label>
+            </value>
+            <value>
+                <fullName>postal_code</fullName>
+                <default>false</default>
+                <label>Postal Code</label>
+            </value>
+            <value>
+                <fullName>Prefer not to say</fullName>
+                <default>false</default>
+                <label>Prefer not to say</label>
+            </value>
+            <value>
+                <fullName>privacy_agreement</fullName>
+                <default>false</default>
+                <label>Privacy Policy Agreement</label>
+            </value>
+            <value>
+                <fullName>Russia creation before SF</fullName>
+                <default>false</default>
+                <label>Russia creation before SF</label>
+            </value>
+            <value>
+                <fullName>sender_email</fullName>
+                <default>false</default>
+                <label>Sender Email</label>
+            </value>
+            <value>
+                <fullName>sender_name</fullName>
+                <default>false</default>
+                <label>Sender Name</label>
+            </value>
+            <value>
+                <fullName>state</fullName>
+                <default>false</default>
+                <label>state</label>
+            </value>
+            <value>
+                <fullName>title</fullName>
+                <default>false</default>
+                <label>Title</label>
+            </value>
+            <value>
+                <fullName>WeChat</fullName>
+                <default>false</default>
+                <label>WeChat</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

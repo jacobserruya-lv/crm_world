@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Caller_ID_Number_Format</fullName>
+    <active>true</active>
+    <description>Phone number must be numbers only or E.164 format.</description>
+    <errorConditionFormula>NOT(REGEX( purecloud__Caller_ID_Number__c , &apos;^\\+?[1-9]\\d{1,14}$&apos;))</errorConditionFormula>
+    <errorDisplayField>purecloud__Caller_ID_Number__c</errorDisplayField>
+    <errorMessage>Phone number must be numbers only or E.164 format.</errorMessage>
+</ValidationRule>

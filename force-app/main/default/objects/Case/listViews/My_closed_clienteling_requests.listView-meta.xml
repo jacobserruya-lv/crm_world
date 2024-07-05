@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_closed_clienteling_requests</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Clienteling</value>
+    </filters>
+    <label>My closed clienteling requests</label>
+    <sharedTo>
+        <role>CSC_DIRECTOR_EUROPE</role>
+        <role>EUR_CSC_Fance_Benelux_SA</role>
+        <role>EUR_CSC_France_Benelux_Manager</role>
+        <role>EUR_CSC_Germany_Russia_Manager</role>
+        <role>EUR_CSC_Germany_Russia_SA</role>
+        <role>EUR_CSC_Spain_Italy_Manager</role>
+        <role>EUR_CSC_Spain_Italy_SA</role>
+        <role>EUR_CSC_UK_Nordics_Manager</role>
+        <role>EUR_CSC_UK_Nordics_SA</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Theme__c</fullName>
+    <externalId>false</externalId>
+    <label>Product Theme</label>
+    <referenceTo>Product_Theme__c</referenceTo>
+    <relationshipLabel>Products</relationshipLabel>
+    <relationshipName>Theme_Product_Associations</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

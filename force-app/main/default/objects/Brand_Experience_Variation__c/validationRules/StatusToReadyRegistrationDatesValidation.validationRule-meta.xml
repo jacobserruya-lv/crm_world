@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusToReadyRegistrationDatesValidation</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISCHANGED(Status__c) 
+&amp;&amp; 
+(
+    ISPICKVAL(Status__c, &apos;Ready&apos;)        
+				|| 
+    ISPICKVAL(Status__c, &apos;Preview&apos;)
+)
+&amp;&amp; 
+(
+  RegistrationEndDateTime__c &lt; NOW()     
+	
+)</errorConditionFormula>
+    <errorMessage>Registration dates must be in the future. Please modify Registration dates.</errorMessage>
+</ValidationRule>

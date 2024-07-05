@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DCS_CN_FOC_Zero_Refused_No_Repair</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>TransactionId__c</columns>
+    <columns>Client__c</columns>
+    <columns>ICONiCS_Status_Detail__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Assigned_To__c</columns>
+    <columns>Current_Status_Age__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ICONiCS_Status_Detail__c</field>
+        <operation>equals</operation>
+        <value>Repair finalized</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>CareService__c.DistantCareService</value>
+    </filters>
+    <filters>
+        <field>StoreRetailCode__c</field>
+        <operation>equals</operation>
+        <value>NY7</value>
+    </filters>
+    <filters>
+        <field>TotalAmount_Updated__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>[DCS] CN FOC, Zero, Refused, No Repair</label>
+    <sharedTo>
+        <group>CSC_Care_Service_China</group>
+        <role>Corporate</role>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_CHINA</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

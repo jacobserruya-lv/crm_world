@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_ImageLink5OtherView2__c</fullName>
+    <externalId>false</externalId>
+    <formula>$Setup.ProductSettings__c.BccLargePictureUrl__c + &apos;louis-vuitton--&apos; + SKUCode__c + &apos;_PM2_Other%20view.jpg&apos; 
+/*&apos;http://fr.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis%20vuitton--&apos; + SKUCode__c + 
+&apos;_PM1_&apos; + &apos;Focus_view.jpg&apos;
+&apos;_PM2_Other%20view.jpg&apos;
+&apos;http://fr.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis%20vuitton--&apos; + SKUCode__c + &apos;_PM2_&apos; + &apos;Other%20view.jpg&apos;
+&apos;http://fr.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis%20vuitton--&apos; + SKUCode__c + &apos;_PM2_&apos; + &apos;Other%20view2&apos; + &apos;.jpg&apos;*/</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Image Link 5 Other View 2</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

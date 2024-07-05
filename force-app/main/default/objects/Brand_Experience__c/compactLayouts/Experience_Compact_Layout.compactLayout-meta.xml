@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Experience_Compact_Layout</fullName>
+    <fields>Experience_StartDate__c</fields>
+    <fields>Experience_EndDate__c</fields>
+    <fields>Size_Of_Variations__c</fields>
+    <label>Experience Compact Layout</label>
+</CompactLayout>

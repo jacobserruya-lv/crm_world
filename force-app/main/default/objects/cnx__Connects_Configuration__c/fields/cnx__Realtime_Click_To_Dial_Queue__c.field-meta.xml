@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Realtime_Click_To_Dial_Queue__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This option allows linking a queue with a click-to-dial number. If a valid configuration exists, a button will appear on the right side in the queues list for that particular queue to execute the click-to-dial.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This option allows linking a queue with a click-to-dial number. If a valid configuration exists, a button will appear on the right side in the queues list for that particular queue to execute the click-to-dial.</inlineHelpText>
+    <label>Click-to-Dial Queue</label>
+    <length>1000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

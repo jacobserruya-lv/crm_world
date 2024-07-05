@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CLIENT_SERVICE_USA</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>SPO_Store__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SPO_StoreCode__c</field>
+        <operation>equals</operation>
+        <value>UEC</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>notEqual</operation>
+        <value>Closed Won,Cancelled by store,Cancelled by Production</value>
+    </filters>
+    <label>Client service USA</label>
+    <sharedTo>
+        <group>CSC_United_States</group>
+    </sharedTo>
+</ListView>

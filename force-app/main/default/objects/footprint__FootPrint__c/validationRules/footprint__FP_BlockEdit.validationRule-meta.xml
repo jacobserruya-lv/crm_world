@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>footprint__FP_BlockEdit</fullName>
+    <active>false</active>
+    <errorConditionFormula>PRIORVALUE( footprint__FootPrint_Filter__c ) != footprint__FootPrint_Filter__c</errorConditionFormula>
+    <errorDisplayField>footprint__FootPrint_Filter__c</errorDisplayField>
+    <errorMessage>You cannot edit This field</errorMessage>
+</ValidationRule>

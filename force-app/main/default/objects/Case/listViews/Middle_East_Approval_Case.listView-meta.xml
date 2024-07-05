@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Middle_East_Approval_Case</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Queue</filterScope>
+    <label>Middle East Approval</label>
+    <queue>Middle_East_Approval</queue>
+    <sharedTo>
+        <group>ICX_TWIST_UATGroup</group>
+        <role>CSC_DIRECTOR_EMEA</role>
+        <role>CSC_DIRECTOR_MIDDLE_EAST</role>
+        <role>MEA_CSC_Middle_East_Manager</role>
+        <role>MEA_CSC_Middle_East_SA</role>
+    </sharedTo>
+</ListView>

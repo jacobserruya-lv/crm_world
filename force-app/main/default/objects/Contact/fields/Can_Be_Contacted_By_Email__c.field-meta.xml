@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Can_Be_Contacted_By_Email__c</fullName>
+    <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
+    <label>Can Be Contacted By Email</label>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

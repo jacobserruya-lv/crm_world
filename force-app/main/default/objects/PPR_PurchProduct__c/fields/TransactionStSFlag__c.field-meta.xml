@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TransactionStSFlag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>The order is placed in store A and product is collected at store B</description>
+    <externalId>false</externalId>
+    <label>Transaction Store To Store</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

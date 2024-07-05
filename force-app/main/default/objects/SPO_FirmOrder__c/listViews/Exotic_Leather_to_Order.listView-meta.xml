@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exotic_Leather_to_Order</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>ProductSKU__c</columns>
+    <columns>SPO_FirmOrderStatus__c</columns>
+    <columns>ProductCatalogue__c</columns>
+    <columns>Product_Exotic_Leather__c</columns>
+    <columns>Undefined_Material__c</columns>
+    <columns>Init_Planned_Delivery_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Creation_Status__c</field>
+        <operation>equals</operation>
+        <value>Leather to Order</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>SPO_FirmOrder__c.Firm_Order</value>
+    </filters>
+    <filters>
+        <field>SPO_FirmOrderStatus__c</field>
+        <operation>notEqual</operation>
+        <value>Cancelled by production,Cancelled by store</value>
+    </filters>
+    <label>Exotic - Leather to Order</label>
+</ListView>

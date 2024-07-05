@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LineNumber__c</fullName>
+    <description>Line number for the Firm Order
+- if BriefName__r.ApplicationSource__c = &apos;SPO&apos;, value depends on brief quantity (example: if BriefName__r.SPO_SkuQuantity__c = 3, 3 firm orders will be created with LineNumber__c = 1, 2 or 3)
+- if BriefName__r.ApplicationSource__c = &apos;PERSO&apos;, value depends on products and their quantity (example: if 2 products are ordered with quantity =1 for Product1 and quantity=2 for Product2, 3 firm orders are created with LineNumber__c = 1, 2 or 3)</description>
+    <externalId>false</externalId>
+    <label>Line Number</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

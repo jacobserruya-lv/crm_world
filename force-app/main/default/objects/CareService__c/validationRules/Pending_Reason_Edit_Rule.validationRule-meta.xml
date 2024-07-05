@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Reason_Edit_Rule</fullName>
+    <active>true</active>
+    <description>When an DCS is in the status &quot;New Request&quot;, the field &quot;Pending Reason&quot; can&apos;t be modified.</description>
+    <errorConditionFormula>AND(
+ISCHANGED(  Pending_Reason__c  ) ,
+ISPICKVAL( ICONiCS_Status_Detail__c , &apos;New Request&apos;)
+)</errorConditionFormula>
+    <errorMessage>When an DCS is in the status &quot;New Request&quot;, the field &quot;Pending Reason&quot; can&apos;t be modified.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductLine__c</fullName>
+    <externalId>false</externalId>
+    <label>Product Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Accessories</fullName>
+                <default>false</default>
+                <label>Accessories</label>
+            </value>
+            <value>
+                <fullName>Jewelry</fullName>
+                <default>false</default>
+                <label>Jewelry</label>
+            </value>
+            <value>
+                <fullName>Leather Goods</fullName>
+                <default>false</default>
+                <label>Leather Goods</label>
+            </value>
+            <value>
+                <fullName>Perfume</fullName>
+                <default>false</default>
+                <label>Perfume</label>
+            </value>
+            <value>
+                <fullName>Ready To Wear</fullName>
+                <default>false</default>
+                <label>Ready To Wear</label>
+            </value>
+            <value>
+                <fullName>Shoes</fullName>
+                <default>false</default>
+                <label>Shoes</label>
+            </value>
+            <value>
+                <fullName>Watches</fullName>
+                <default>false</default>
+                <label>Watches</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

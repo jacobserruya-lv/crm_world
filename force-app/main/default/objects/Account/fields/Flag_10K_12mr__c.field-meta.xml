@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Flag_10K_12mr__c</fullName>
     <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
     <label>Flag 10K 12mr</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

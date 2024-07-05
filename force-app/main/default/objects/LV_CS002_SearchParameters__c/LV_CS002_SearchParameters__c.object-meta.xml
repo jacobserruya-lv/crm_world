@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>LV : This is where the SOSL/SOQL service can be determined to use SOQL, SOSL or Automatic choice</description>
+    <enableFeeds>false</enableFeeds>
+    <label>LV_CS002_SearchParameters</label>
+    <visibility>Public</visibility>
+</CustomObject>

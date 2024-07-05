@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exotic_Species_to_Choose</fullName>
+    <columns>NAME</columns>
+    <columns>Creation_Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>ProductSKU__c</columns>
+    <columns>ProductCatalogue__c</columns>
+    <columns>Product_Exotic_Leather__c</columns>
+    <columns>Undefined_Material__c</columns>
+    <columns>Init_Planned_Manufacturing_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Creation_Status__c</field>
+        <operation>equals</operation>
+        <value>Species to Choose</value>
+    </filters>
+    <filters>
+        <field>TECH_Product_Exo_Workflow__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>SPO_FirmOrder__c.Firm_Order</value>
+    </filters>
+    <filters>
+        <field>SPO_FirmOrderStatus__c</field>
+        <operation>notEqual</operation>
+        <value>Cancelled by production,Cancelled by store</value>
+    </filters>
+    <label>Exotic - Species to Choose</label>
+</ListView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR1_StoreNameChanged_ICONICS</fullName>
+    <active>true</active>
+    <description>Stop ICONICS profiles to modify Store Name. 
+They can only modify Internal Phone CSC</description>
+    <errorConditionFormula>AND( 
+NOT( $User.BypassVR__c ), 
+CONTAINS( $Profile.Name , &quot;ICONiCS&quot;), 
+ISCHANGED( Name ) 
+)</errorConditionFormula>
+    <errorMessage>You can&apos;t change the store name</errorMessage>
+</ValidationRule>

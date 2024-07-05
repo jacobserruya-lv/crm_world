@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application__c</fullName>
+    <externalId>false</externalId>
+    <label>Application</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MYLV</fullName>
+                <default>false</default>
+                <label>MYLV</label>
+            </value>
+            <value>
+                <fullName>LVAPP</fullName>
+                <default>false</default>
+                <label>LVAPP</label>
+            </value>
+            <value>
+                <fullName>Distant Care Service</fullName>
+                <default>false</default>
+                <label>Distant Care Service</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

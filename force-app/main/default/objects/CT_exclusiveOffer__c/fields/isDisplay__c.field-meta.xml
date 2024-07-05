@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isDisplay__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field determines whether the button to create an exclusive offer list will be displayed in the client target tool</description>
+    <externalId>false</externalId>
+    <label>isDisplay</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

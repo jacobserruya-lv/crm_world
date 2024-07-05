@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Issue_Report_URL_v2__c</fullName>
+    <defaultValue>&quot;mailto:support@mycompany.com?subject=Connects issue report&amp;body={message}&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Specifies an URL that is executed after the agent uploads log files to the Finesse server to report an issue.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specifies an URL that is executed after the agent uploads log files to the Finesse server to report an issue.</inlineHelpText>
+    <label>Issue Report URL</label>
+    <length>2000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>2</visibleLines>
+</CustomField>

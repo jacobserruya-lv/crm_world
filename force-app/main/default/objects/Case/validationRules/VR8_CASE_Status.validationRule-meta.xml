@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR8_CASE_Status</fullName>
+    <active>true</active>
+    <description>Status is automatically updated according to the resolution selected. This VR stops users to change manually status to closed</description>
+    <errorConditionFormula>AND(
+  NOT($User.BypassVR__c),
+
+		/* Profiles ICON&apos;s or ICONiCS&apos;s */
+  CONTAINS( UPPER($Profile.Name), &quot;ICON&quot;),								
+  ISPICKVAL ( Status , &quot;Closed&quot;),
+  OR(
+    ISPICKVAL ( Resolution__c , &quot;Reply to be made by CSC&quot;),
+    ISPICKVAL ( Resolution__c , &quot;Request to Store&quot;),
+    ISPICKVAL ( Resolution__c , &quot;Escalation&quot;)
+  )
+)</errorConditionFormula>
+    <errorMessage>Do not change the status manually, select the resolution and the status will be automatically updated.</errorMessage>
+</ValidationRule>

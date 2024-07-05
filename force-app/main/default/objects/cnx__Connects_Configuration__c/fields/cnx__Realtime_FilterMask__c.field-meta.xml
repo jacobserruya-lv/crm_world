@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Realtime_FilterMask__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This option will enable / disable the filters for the Team and the Queue View.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This option will enable / disable the filters for the Team and the Queue View.</inlineHelpText>
+    <label>Enable Filtering</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>TeamState</fullName>
+                <default>false</default>
+                <label>Team filter enabled</label>
+            </value>
+            <value>
+                <fullName>QueueStats</fullName>
+                <default>false</default>
+                <label>Queue filter enabled</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

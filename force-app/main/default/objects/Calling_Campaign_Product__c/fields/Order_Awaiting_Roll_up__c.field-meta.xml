@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Awaiting_Roll_up__c</fullName>
+    <description>Roll up of all awaiting orders of Calling Campaign products</description>
+    <externalId>false</externalId>
+    <label>Order Awaiting Roll up</label>
+    <summaryFilterItems>
+        <field>Calling_Campaign_Order__c.Status__c</field>
+        <operation>equals</operation>
+        <value>Awaiting</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Calling_Campaign_Order__c.Calling_Campaign_Product__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

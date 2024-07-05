@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hardsided_App_Catalog</fullName>
+    <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>SKU__c</columns>
+    <columns>PersonalisableSku__c</columns>
+    <columns>FluidRecipeId__c</columns>
+    <columns>MIY_Order__c</columns>
+    <columns>Category__c</columns>
+    <columns>ReportingCategory__c</columns>
+    <columns>StockRequest__c</columns>
+    <columns>Workshop__c</columns>
+    <columns>LeadTimeApproval__c</columns>
+    <columns>LeadTimeManufacturing__c</columns>
+    <columns>LeadTimeDistribution__c</columns>
+    <columns>Image1Name__c</columns>
+    <columns>Image2Name__c</columns>
+    <columns>Available_In_Stores__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Category__c</field>
+        <operation>contains</operation>
+        <value>AppCath ID Hidden</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>contains</operation>
+        <value>Seasonal</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>contains</operation>
+        <value>Events</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>equals</operation>
+        <value>HIgh End</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>equals</operation>
+        <value>Boxes</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>contains</operation>
+        <value>Suitcases</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>contains</operation>
+        <value>Trunks</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>contains</operation>
+        <value>Beauty</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>contains</operation>
+        <value>Gastrono</value>
+    </filters>
+    <label>Hardsided App Catalog</label>
+</ListView>

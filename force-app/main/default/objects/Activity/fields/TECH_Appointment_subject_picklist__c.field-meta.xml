@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_Appointment_subject_picklist__c</fullName>
+    <externalId>false</externalId>
+    <label>TECH Appointment subject picklist</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Product Presentation</fullName>
+                <default>false</default>
+                <label>Product Presentation</label>
+            </value>
+            <value>
+                <fullName>Birthday Anniversary</fullName>
+                <default>false</default>
+                <label>Birthday / Anniversary</label>
+            </value>
+            <value>
+                <fullName>Care Services</fullName>
+                <default>false</default>
+                <label>Care Services</label>
+            </value>
+            <value>
+                <fullName>In-store Animation</fullName>
+                <default>false</default>
+                <label>In-store Animation</label>
+            </value>
+            <value>
+                <fullName>Reservation Pick-up</fullName>
+                <default>false</default>
+                <label>Reservation Pick-up</label>
+            </value>
+            <value>
+                <fullName>Return Exchange</fullName>
+                <default>false</default>
+                <label>Return / Exchange</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Homewardrobing</fullName>
+                <default>false</default>
+                <label>Homewardrobing</label>
+            </value>
+            <value>
+                <fullName>L&apos;Apartment</fullName>
+                <default>false</default>
+                <label>L&apos;Apartment</label>
+            </value>
+            <value>
+                <fullName>STD Golden Appoitnment</fullName>
+                <default>false</default>
+                <label>STD Golden Appoitnment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

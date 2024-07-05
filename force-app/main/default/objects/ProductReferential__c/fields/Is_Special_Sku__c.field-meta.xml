@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Special_Sku__c</fullName>
+    <description>Indicates if a product results from a creation order and a codification request (starts with S followed by 5 numbers). This field helps preventing CA from selecting an S code SKU when placing a creation order</description>
+    <externalId>false</externalId>
+    <formula>AND 
+(
+      LEFT( SKUCode__c , 1) = &quot;S&quot;,
+      ISNUMBER(RIGHT(SKUCode__c, 5))
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Special Sku</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

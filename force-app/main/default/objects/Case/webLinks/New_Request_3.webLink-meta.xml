@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Request_3</fullName>
+    <availability>online</availability>
+    <description>Used for the creation of a request by flow</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>New Request</masterLabel>
+    <openType>noSidebar</openType>
+    <protected>false</protected>
+    <url>/lightning/cmp/c__ICX_CaseCreation?c__recordId={!Case.Id}&amp;c__sObject=Case</url>
+</WebLink>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Automatically_Display_Wrapup_Dropdown__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If set to yes, the Wrap-up dropdown is automatically displayed when Wrap-up state is entered.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If set to yes, the Wrap-up dropdown is automatically displayed when Wrap-up state is entered.</inlineHelpText>
+    <label>Automatically Display Wrapup Dropdown</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TECH_TEMP_ReassignedBYTCL__c</fullName>
     <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
     <label>TECH_TEMP_ReassignedBYTCL</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

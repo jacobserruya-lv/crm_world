@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HongKongQueueId__c</fullName>
+    <description>Used to update the Tech queue Id field of Case China routed to HKG</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used to update the Tech queue Id field of Case China routed to HKG</inlineHelpText>
+    <label>Hong Kong Queue ID</label>
+    <length>255</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

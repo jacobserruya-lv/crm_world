@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ICX_Past_Appointment_Modification</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+    ActivityDateTime + DurationInMinutes / 24 / 60 &lt; NOW(),
+    OR( ISCHANGED(ActivityDateTime),
+        ISCHANGED (DurationInMinutes),
+        ISCHANGED(WhoId)),
+    CONTAINS( $Profile.Name , &quot;ICONICS&quot;))</errorConditionFormula>
+    <errorMessage>The appointment is past and cannot longer be modified</errorMessage>
+</ValidationRule>

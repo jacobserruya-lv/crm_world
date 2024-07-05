@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Voice_New_Record_URL__c</fullName>
+    <defaultValue>&quot;[{\&quot;key\&quot;: \&quot;\&quot;, \&quot;value\&quot;: \&quot;00Q/e?Phone={ANI}\&quot;},{\&quot;key\&quot;: \&quot;\&quot;, \&quot;value\&quot;: \&quot;001/e?Phone={ANI}\&quot;},{\&quot;key\&quot;: \&quot;\&quot;, \&quot;value\&quot;: \&quot;003/e?Phone={ANI}\&quot;}]&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>New Record URLs are displayed on incoming calls.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>New Record URLs are displayed on incoming calls. These configuration settings are used for enabling and configuring these links.</inlineHelpText>
+    <label>New Record URLs</label>
+    <length>10000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>2</visibleLines>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Enable_Disconnect_on_Tab_Close__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Disconnect an interaction when an associated Salesforce object (tab) is closed in Salesforce Console mode.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Disconnect an interaction when an associated Salesforce object (tab) is closed in Salesforce Console mode.</inlineHelpText>
+    <label>Enable Disconnect on Tab Close</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

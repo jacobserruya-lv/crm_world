@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>block_mailer_Deamon</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND(
+ FromAddress = &apos;mailer-daemon@mx08-0024c501.pphosted.com&apos;,
+ Subject = &apos;Returned mail: see transcript for details&apos;
+)</errorConditionFormula>
+    <errorMessage>blocked  &apos;Returned mail: see transcript for details&apos;</errorMessage>
+</ValidationRule>

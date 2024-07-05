@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>dh_superclone__AllowCloningMultipleTimes__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Allow the user to enter the number of times a record will be cloned.</inlineHelpText>
+    <label>Allow Cloning Multiple Times</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

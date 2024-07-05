@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tracking_Identity_User__c</fullName>
+    <description>Permet de charger via un workflow tous les changements effectuer sur un user identity</description>
+    <externalId>false</externalId>
+    <label>Tracking Identity User</label>
+    <length>131072</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

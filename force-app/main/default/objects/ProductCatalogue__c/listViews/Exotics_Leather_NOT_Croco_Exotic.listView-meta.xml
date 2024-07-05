@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exotics_Leather_NOT_Croco_Exotic</fullName>
+    <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
+    <columns>MIY_Order__c</columns>
+    <columns>NAME</columns>
+    <columns>SKU__c</columns>
+    <columns>FluidRecipeId__c</columns>
+    <columns>FluidImageRecipeId__c</columns>
+    <columns>FluidProductId__c</columns>
+    <columns>LeadTimeApproval__c</columns>
+    <columns>LeadTimeManufacturing__c</columns>
+    <columns>Category__c</columns>
+    <columns>Exotic__c</columns>
+    <columns>ReportingCategory__c</columns>
+    <columns>Workshop__c</columns>
+    <columns>Image1Name__c</columns>
+    <columns>Available_In_Stores__c</columns>
+    <columns>Availability_is_Blacklist__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Category__c</field>
+        <operation>equals</operation>
+        <value>Women city bags</value>
+    </filters>
+    <filters>
+        <field>Category__c</field>
+        <operation>equals</operation>
+        <value>Women small leather goods</value>
+    </filters>
+    <filters>
+        <field>ReportingCategory__c</field>
+        <operation>contains</operation>
+        <value>Women Other</value>
+    </filters>
+    <filters>
+        <field>Exotic__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Exotics Leather NOT Croco Exotic</label>
+</ListView>

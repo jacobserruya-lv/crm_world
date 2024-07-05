@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClientName__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE (ClientDreamID__r.Salutation, 
+&quot;SF&quot;,&quot;Sama&quot;, 
+&quot;SM&quot;,&quot;sama&quot;, 
+&quot;01&quot;,&quot;Mrs &amp; Mr&quot;, 
+&quot;02&quot;,&quot;Mr&quot;, 
+&quot;03&quot;,&quot;Mrs&quot;, 
+&quot;04&quot;,&quot;Ms&quot;, 
+&quot;28F&quot;,&quot;Ms&quot;, 
+&quot;28B&quot;,&quot;Doctor&quot;, 
+&quot;28M&quot;,&quot;Doctor&quot;, 
+&quot;30M&quot;,&quot;Doctor &amp; Mrs&quot;, 
+&quot;78&quot;,&quot;Company&quot;, 
+&quot;87&quot;,&quot;Sirs&quot;, 
+&quot;88&quot;,&quot;Ladies&quot;, 
+&quot;&quot;) &amp; &apos; &apos; &amp; ClientDreamID__r.LastName &amp; &apos; &apos; &amp; ClientDreamID__r.FirstName</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Client Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -3,6 +3,7 @@
     <fullName>Flag_50K__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag 50K calculated by One Data on YTD since May 2022</description>
+    <externalId>false</externalId>
     <label>Flag 50K</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

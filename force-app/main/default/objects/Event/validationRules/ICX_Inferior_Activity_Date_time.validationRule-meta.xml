@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ICX_Inferior_Activity_Date_time</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ ISNEW() ,
+ CONTAINS( $Profile.Name , &quot;ICONICS&quot;),
+ ActivityDateTime &lt;=  NOW() + 2 / 24
+)</errorConditionFormula>
+    <errorMessage>An appointment should be booked at least 2 hours later from current date time</errorMessage>
+</ValidationRule>

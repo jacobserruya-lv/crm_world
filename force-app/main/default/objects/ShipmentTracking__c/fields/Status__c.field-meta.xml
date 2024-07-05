@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Shipment created</fullName>
+                <default>false</default>
+                <label>Shipment created</label>
+            </value>
+            <value>
+                <fullName>Shipment canceled</fullName>
+                <default>false</default>
+                <label>Shipment canceled</label>
+            </value>
+            <value>
+                <fullName>List created (closed)</fullName>
+                <default>false</default>
+                <label>List created (closed)</label>
+            </value>
+            <value>
+                <fullName>EDI data received</fullName>
+                <default>false</default>
+                <label>EDI data received</label>
+            </value>
+            <value>
+                <fullName>In Transport</fullName>
+                <default>false</default>
+                <label>In Transport</label>
+            </value>
+            <value>
+                <fullName>Carrier Pickup</fullName>
+                <default>false</default>
+                <label>Carrier Pickup</label>
+            </value>
+            <value>
+                <fullName>In Transit To Europe</fullName>
+                <default>false</default>
+                <label>In Transit To Europe</label>
+            </value>
+            <value>
+                <fullName>HUB Scan In</fullName>
+                <default>false</default>
+                <label>HUB Scan In</label>
+            </value>
+            <value>
+                <fullName>HUB Scan Out</fullName>
+                <default>false</default>
+                <label>HUB Scan Out</label>
+            </value>
+            <value>
+                <fullName>Customs Clearance</fullName>
+                <default>false</default>
+                <label>Customs Clearance</label>
+            </value>
+            <value>
+                <fullName>EU Customs Cleared</fullName>
+                <default>false</default>
+                <label>EU Customs Cleared</label>
+            </value>
+            <value>
+                <fullName>EU Transport</fullName>
+                <default>false</default>
+                <label>EU Transport</label>
+            </value>
+            <value>
+                <fullName>Arrived At EU Distribution HUB</fullName>
+                <default>false</default>
+                <label>Arrived At EU Distribution HUB</label>
+            </value>
+            <value>
+                <fullName>Forwarding</fullName>
+                <default>false</default>
+                <label>Forwarding</label>
+            </value>
+            <value>
+                <fullName>Impairment Of Performance</fullName>
+                <default>false</default>
+                <label>Impairment Of Performance</label>
+            </value>
+            <value>
+                <fullName>Shipment Damaged</fullName>
+                <default>false</default>
+                <label>Shipment Damaged</label>
+            </value>
+            <value>
+                <fullName>Shipment Lost</fullName>
+                <default>false</default>
+                <label>Shipment Lost</label>
+            </value>
+            <value>
+                <fullName>Wrong Address</fullName>
+                <default>false</default>
+                <label>Wrong Address</label>
+            </value>
+            <value>
+                <fullName>Shipment Refused</fullName>
+                <default>false</default>
+                <label>Shipment Refused</label>
+            </value>
+            <value>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+                <label>Delayed</label>
+            </value>
+            <value>
+                <fullName>No Pickup</fullName>
+                <default>false</default>
+                <label>No Pickup</label>
+            </value>
+            <value>
+                <fullName>Return To Sender</fullName>
+                <default>false</default>
+                <label>Return To Sender</label>
+            </value>
+            <value>
+                <fullName>Return Drop-Off</fullName>
+                <default>false</default>
+                <label>Return Drop-Off</label>
+            </value>
+            <value>
+                <fullName>Returned To Last HUB</fullName>
+                <default>false</default>
+                <label>Returned To Last HUB</label>
+            </value>
+            <value>
+                <fullName>Returned to Sender Address</fullName>
+                <default>false</default>
+                <label>Returned to Sender Address</label>
+            </value>
+            <value>
+                <fullName>Not Delivered</fullName>
+                <default>false</default>
+                <label>Not Delivered</label>
+            </value>
+            <value>
+                <fullName>Not Delivered Addressee Deceased</fullName>
+                <default>false</default>
+                <label>Not Delivered Addressee Deceased</label>
+            </value>
+            <value>
+                <fullName>Not Delivered Addressee Moved</fullName>
+                <default>false</default>
+                <label>Not Delivered Addressee Moved</label>
+            </value>
+            <value>
+                <fullName>Not Delivered Shipment Refused</fullName>
+                <default>false</default>
+                <label>Not Delivered Shipment Refused</label>
+            </value>
+            <value>
+                <fullName>Not Delivered Addressee Not Available</fullName>
+                <default>false</default>
+                <label>Not Delivered Addressee Not Available</label>
+            </value>
+            <value>
+                <fullName>Not Delivered Identity Verification Negative</fullName>
+                <default>false</default>
+                <label>Not Delivered Identity Verification Negative</label>
+            </value>
+            <value>
+                <fullName>Not Delivered Addressee Unknown</fullName>
+                <default>false</default>
+                <label>Not Delivered Addressee Unknown</label>
+            </value>
+            <value>
+                <fullName>Delivered</fullName>
+                <default>false</default>
+                <label>Delivered</label>
+            </value>
+            <value>
+                <fullName>Delivery Attempt</fullName>
+                <default>false</default>
+                <label>Delivery Attempt</label>
+            </value>
+            <value>
+                <fullName>Delivered To Post Box</fullName>
+                <default>false</default>
+                <label>Delivered To Post Box</label>
+            </value>
+            <value>
+                <fullName>Delivered To Post-Office</fullName>
+                <default>false</default>
+                <label>Delivered To Post-Office</label>
+            </value>
+            <value>
+                <fullName>Delivered To Pick-Up Point</fullName>
+                <default>false</default>
+                <label>Delivered To Pick-Up Point</label>
+            </value>
+            <value>
+                <fullName>Delivered To Other Address</fullName>
+                <default>false</default>
+                <label>Delivered To Other Address</label>
+            </value>
+            <value>
+                <fullName>In Delivery</fullName>
+                <default>false</default>
+                <label>In Delivery</label>
+            </value>
+            <value>
+                <fullName>DeliveredCOD Amount Transferred</fullName>
+                <default>false</default>
+                <label>DeliveredCOD Amount Transferred</label>
+            </value>
+            <value>
+                <fullName>Proof of Delivery</fullName>
+                <default>false</default>
+                <label>Proof of Delivery</label>
+            </value>
+            <value>
+                <fullName>Delivered Impairment Of Shipment</fullName>
+                <default>false</default>
+                <label>Delivered Impairment Of Shipment</label>
+            </value>
+            <value>
+                <fullName>No Track Event</fullName>
+                <default>false</default>
+                <label>No Track Event</label>
+            </value>
+            <value>
+                <fullName>Status Event not mapped or invalid</fullName>
+                <default>false</default>
+                <label>Status Event not mapped or invalid</label>
+            </value>
+            <value>
+                <fullName>Not Traceable</fullName>
+                <default>false</default>
+                <label>Not Traceable</label>
+            </value>
+            <value>
+                <fullName>System Information</fullName>
+                <default>false</default>
+                <label>System Information</label>
+            </value>
+            <value>
+                <fullName>1. Delivery Attempt</fullName>
+                <default>false</default>
+                <label>1. Delivery Attempt</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

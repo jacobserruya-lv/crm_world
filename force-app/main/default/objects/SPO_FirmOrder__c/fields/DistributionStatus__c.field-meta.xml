@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DistributionStatus__c</fullName>
+    <description>Track&amp;Trace status (transform by ETL)</description>
+    <externalId>false</externalId>
+    <label>Distribution Status</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sent from workshop</fullName>
+                <default>false</default>
+                <label>Sent from workshop</label>
+            </value>
+            <value>
+                <fullName>Received in central WH</fullName>
+                <default>false</default>
+                <label>Received in central WH</label>
+            </value>
+            <value>
+                <fullName>Sent from central WH</fullName>
+                <default>false</default>
+                <label>Sent from central WH</label>
+            </value>
+            <value>
+                <fullName>Received in regional WH</fullName>
+                <default>false</default>
+                <label>Received in regional WH</label>
+            </value>
+            <value>
+                <fullName>Sent from regional WH</fullName>
+                <default>false</default>
+                <label>Sent from regional WH</label>
+            </value>
+            <value>
+                <fullName>Received in store</fullName>
+                <default>false</default>
+                <label>Received in store</label>
+            </value>
+            <value>
+                <fullName>Sent to MyPR</fullName>
+                <default>false</default>
+                <label>Sent to MyPR</label>
+            </value>
+            <value>
+                <fullName>Directly shipped to store</fullName>
+                <default>false</default>
+                <label>Directly shipped to store</label>
+            </value>
+            <value>
+                <fullName>Stock Transferred by Supply</fullName>
+                <default>false</default>
+                <label>Stock Transferred by Supply</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

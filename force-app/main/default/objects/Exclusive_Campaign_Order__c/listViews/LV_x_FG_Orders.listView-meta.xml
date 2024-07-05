@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LV_x_FG_Orders</fullName>
+    <booleanFilter>(1 AND 2) OR (1 AND 3 AND 4) OR (1 AND 5) OR (6 AND 7)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Region__c</columns>
+    <columns>Tech_Country__c</columns>
+    <columns>TECH_Client_Dream_ID__c</columns>
+    <columns>TECH_Client_Name__c</columns>
+    <columns>TECH_SKU__c</columns>
+    <columns>TECH_Product_Name__c</columns>
+    <columns>TECH_Artist_Name__c</columns>
+    <columns>TECH_Product_Color__c</columns>
+    <columns>Serial_Number__c</columns>
+    <columns>TECH_Store_Name__c</columns>
+    <columns>CA_MANAGEMENT_ZONE_LEVEL__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Exclusive_Campaign_Name__c</field>
+        <operation>equals</operation>
+        <value>LV x FG</value>
+    </filters>
+    <filters>
+        <field>Corp__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Zone__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>My_Management_Level_Zone__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>My_Order__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Region_Manager__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>My_Region__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>LV x FG - Orders</label>
+</ListView>

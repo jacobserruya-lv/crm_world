@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApplicationTarget__c</fullName>
+    <description>Send orders to target application : MyPR (My Product Request) / FIESSO (SAP Fiesso for Shoes) / JDE (for Leather goods, Accessories or for Special order Belts or Leather goods)</description>
+    <externalId>false</externalId>
+    <formula>IF ( 
+/* for Perso Order */ 
+NOT(ISBLANK(ProductCatalogue__c)), 
+IF ( 
+AND ( 
+ProductCatalogue__r.StockRequest__c, 
+IsProductRequest__c 
+), 
+&apos;MYPR&apos;, 
+IF ( 
+UPPER(ProductCatalogue__r.ProductGroup__c) = UPPER(&apos;Souliers&apos;), 
+&apos;FIESSO&apos;, 
+IF ( 
+OR ( 
+/*UPPER(ProductCatalogue__r.ProductGroup__c) = UPPER(&apos;Accessoires&apos;), 
+UPPER(ProductCatalogue__r.ProductGroup__c )= UPPER(&apos;Leather Goods&apos;)*/ 
+UPPER(ProductCatalogue__r.SPO_Category__c) = UPPER(&apos;Accessories&apos;), 
+UPPER(ProductCatalogue__r.SPO_Category__c) = UPPER(&apos;Belts&apos;), 
+UPPER(ProductCatalogue__r.SPO_Category__c)= UPPER(&apos;Leather Goods&apos;) 
+), 
+&apos;JDE&apos;, 
+IF ( 
+OR(UPPER(ProductCatalogue__r.SPO_Category__c)= UPPER(&apos;Ready to wear&apos;), 
+   UPPER(ProductCatalogue__r.SPO_Category__c)=&apos;PAP&apos;), 
+&apos;SAP&apos;, 
+&apos;&apos; 
+)	     
+) 
+) 
+), 
+/* for Special Order */ 
+IF ( 
+AND ( 
+NOT(ISBLANK(SPO_BriefName__c)), 
+OR ( 
+SPO_BriefName__r.SPO_SpecialOrderSKUCodeRef__r.ItemDimensionGroup__c = &apos;BELTS&apos;, 
+ISPICKVAL(SPO_BriefName__r.SPO_SpecialOrderSKUCodeRef__r.ProductCategory__c, &apos;Leather goods&apos;) 
+) 
+), 
+&apos;JDE&apos;, 
+&apos;&apos; 
+) 
+)</formula>
+    <label>Target Application</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

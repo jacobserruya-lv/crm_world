@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ticketing_Requests</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Issue_Category__c</columns>
+    <columns>Sub_Category__c</columns>
+    <columns>Shipping_group__c</columns>
+    <columns>Shipping_Group_Number__c</columns>
+    <columns>Product_Sku__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>High_Priority__c</columns>
+    <columns>Priority_Flag__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>DeliveryType__c</columns>
+    <columns>SourceLocation__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Operation_Exception</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>My Operation Exceptions</label>
+</ListView>

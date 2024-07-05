@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>[ICONiCS] 
+1- Replace old @louisvuitton.com email queue by new @contact.louisvuitton.com email queue.
+Used for CSC (ICONiCS) users when they replied by email to not see in CC field (@louisvuitton.com)
+2- Find default Email Template for a queue</description>
+    <label>ICX Queue</label>
+    <pluralLabel>Queues</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

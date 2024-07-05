@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delete_CltList</fullName>
+    <availability>online</availability>
+    <description>Delete Custom Button</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Delete</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <url>/apex/IC_DeleteClientList?Id={!CLI_CliList__c.Id}</url>
+</WebLink>

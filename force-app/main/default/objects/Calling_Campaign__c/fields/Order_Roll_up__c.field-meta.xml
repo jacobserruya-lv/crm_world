@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Roll_up__c</fullName>
+    <description>Roll up summary of orders created. Is used in Validation. Only one order by Calling Campaign Item</description>
+    <externalId>false</externalId>
+    <label>Order Roll up</label>
+    <summaryForeignKey>Calling_Campaign_Order__c.Calling_Campaign_Item__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

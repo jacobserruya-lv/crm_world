@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_Estimated_date__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(SPO_OrderType__c,
+     &quot;MTO on Catalog (Hardsided)&quot;, SPO_EstimatedDistributionTime__c ,
+     SPO_EstimatedDistributionTime__c + SPO_EstimatedProductionTimeMonths__c)</formula>
+    <label>Estimated time (weeks)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

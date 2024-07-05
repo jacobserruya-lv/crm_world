@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calling_Campaign_1order_per_Item</fullName>
+    <active>false</active>
+    <description>You can have only one order per Calling Campaign Item</description>
+    <errorConditionFormula>Calling_Campaign_Item__r.Order_Roll_up__c &gt; 1</errorConditionFormula>
+    <errorMessage>You can have only one order per Calling Campaign Item</errorMessage>
+</ValidationRule>

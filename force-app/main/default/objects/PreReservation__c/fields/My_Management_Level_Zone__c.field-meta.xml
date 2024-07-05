@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Management_Level_Zone__c</fullName>
+    <externalId>false</externalId>
+    <formula>OR(
+AND(
+NOT( ISPICKVAL(MANAGEMENT_ZONE_LEVEL__c , &apos;13&apos;)),
+TEXT( $User.MANAGEMENT_ZONE_LEVEL__c) == TEXT( Store__r.MANAGEMENT_ZONE_LEVEL__c)),
+
+/*
+AND(
+ISPICKVAL(MANAGEMENT_ZONE_LEVEL__c , &apos;13&apos;),
+ISPICKVAL($User.Country__c,&apos;CHINA&apos;),
+Store_Country__c == &apos;CHINA&apos;),
+*/
+
+AND(
+ISPICKVAL(MANAGEMENT_ZONE_LEVEL__c , &apos;13&apos;),
+ISPICKVAL($User.Country__c,&apos;KOREA&apos;),
+Store_Country__c == &apos;KOREA&apos;),
+
+AND(
+ISPICKVAL(MANAGEMENT_ZONE_LEVEL__c , &apos;13&apos;),
+ISPICKVAL ($User.MANAGEMENT_ZONE_LEVEL__c, &apos;13&apos;),
+/*NOT(ISPICKVAL($User.Country__c,&apos;CHINA&apos;)),*/
+NOT(ISPICKVAL($User.Country__c,&apos;KOREA&apos;)),
+/*Store_Country__c &lt;&gt; &apos;CHINA&apos;,*/
+Store_Country__c &lt;&gt; &apos;KOREA&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>My Management Level Zone</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

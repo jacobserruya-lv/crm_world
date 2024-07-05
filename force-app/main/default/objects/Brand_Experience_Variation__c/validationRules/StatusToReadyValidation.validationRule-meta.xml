@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusToReadyValidation</fullName>
+    <active>true</active>
+    <errorConditionFormula>(ISNEW() &amp;&amp; ISPICKVAL(Status__c , &apos;Ready&apos;)) || (
+ ISCHANGED(Status__c) &amp;&amp;
+ ISPICKVAL(Status__c , &apos;Ready&apos;) &amp;&amp;
+ NOT ISPICKVAL(PRIORVALUE(Status__c) , &apos;Draft&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>You can only change the status to Ready when the status is Draft</errorMessage>
+</ValidationRule>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Messaging_Germany</fullName>
+    <columns>Owner</columns>
+    <columns>Name</columns>
+    <columns>MessagingChannel</columns>
+    <columns>MessagingEndUser</columns>
+    <columns>Status</columns>
+    <columns>StartTime</columns>
+    <columns>EndTime</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>0,2</value>
+    </filters>
+    <filters>
+        <field>Queue_Developper_Name__c</field>
+        <operation>equals</operation>
+        <value>Messaging_Germany</value>
+    </filters>
+    <label>Messaging Germany</label>
+    <sharedTo>
+        <group>Chat_Germany</group>
+        <role>Corporate_Digital</role>
+    </sharedTo>
+</ListView>

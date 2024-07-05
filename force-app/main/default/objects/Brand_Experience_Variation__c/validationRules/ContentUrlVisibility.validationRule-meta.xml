@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContentUrlVisibility</fullName>
+    <active>true</active>
+    <description>Visible IF type = Content</description>
+    <errorConditionFormula>Brand_Experience__r.RecordType.DeveloperName = &apos;Club_Experience&apos; &amp;&amp;
+RecordType.Name != &apos;Content&apos; &amp;&amp; ContentUrl__c != Null</errorConditionFormula>
+    <errorDisplayField>ContentUrl__c</errorDisplayField>
+    <errorMessage>ContentUrl cannot be set when the RecordType is not Content</errorMessage>
+</ValidationRule>

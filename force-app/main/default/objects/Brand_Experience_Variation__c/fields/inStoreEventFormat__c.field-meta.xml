@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>inStoreEventFormat__c</fullName>
+    <externalId>false</externalId>
+    <label>In Store Event Format</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Brunch</fullName>
+                <default>false</default>
+                <label>Brunch</label>
+            </value>
+            <value>
+                <fullName>Cocktail</fullName>
+                <default>false</default>
+                <label>Cocktail</label>
+            </value>
+            <value>
+                <fullName>Dinner</fullName>
+                <default>false</default>
+                <label>Dinner</label>
+            </value>
+            <value>
+                <fullName>Elevated OTO</fullName>
+                <default>false</default>
+                <label>Elevated OTO</label>
+            </value>
+            <value>
+                <fullName>Informal modelling</fullName>
+                <default>false</default>
+                <label>Informal modelling</label>
+            </value>
+            <value>
+                <fullName>Open door</fullName>
+                <default>false</default>
+                <label>Open door</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Runaway in store</fullName>
+                <default>false</default>
+                <label>Runaway in store</label>
+            </value>
+            <value>
+                <fullName>Show animation</fullName>
+                <default>false</default>
+                <label>Show animation</label>
+            </value>
+            <value>
+                <fullName>Styling session</fullName>
+                <default>false</default>
+                <label>Styling session</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

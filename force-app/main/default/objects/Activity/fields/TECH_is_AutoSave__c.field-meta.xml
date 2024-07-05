@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_is_AutoSave__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This Technical field is used to differentiate automatical and manual backup mode in order to bypass banned words when we are in automatical backup mode (when batch and worflows insert or update outreach, exceptional pusrshases, Birthday Reminders, anniversary reminders, etc... )</description>
+    <externalId>false</externalId>
+    <label>is AutoSave</label>
+    <type>Checkbox</type>
+</CustomField>

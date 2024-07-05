@@ -3,6 +3,7 @@
     <fullName>ProspectForDream__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Boolean that indicates if a prospect is new or has been modified (except by DREAM). Set to 1 when a user creates or modifies it. When DREAM retrieves the record, resets the value to 0. Not used on clients</description>
+    <externalId>false</externalId>
     <label>Prospect for Dream</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

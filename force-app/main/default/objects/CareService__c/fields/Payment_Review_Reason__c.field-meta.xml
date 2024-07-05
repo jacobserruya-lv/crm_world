@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Review_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Payment Review Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Old Process</fullName>
+                <default>false</default>
+                <label>Old Process</label>
+            </value>
+            <value>
+                <fullName>Expired PBL</fullName>
+                <default>false</default>
+                <label>Expired PBL</label>
+            </value>
+            <value>
+                <fullName>Refused Payment</fullName>
+                <default>false</default>
+                <label>Refused Payment</label>
+            </value>
+            <value>
+                <fullName>Payment Never Initiated</fullName>
+                <default>false</default>
+                <label>Payment Never Initiated</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

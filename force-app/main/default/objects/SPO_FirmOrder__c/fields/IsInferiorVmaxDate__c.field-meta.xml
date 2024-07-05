@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsInferiorVmaxDate__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( NOT(BEGINS( Name, &apos;SP&apos;)) ,NOW() &lt;= DATETIMEVALUE( ValidatedMaxDate__c ),NOW() &lt;= DATETIMEVALUE(CreatedDate) +3)
+
+
+/*IF ( NOT(BEGINS( Name, &apos;SP&apos;)) ,TODAY() &lt; DATEVALUE( ValidatedMaxDate__c ),TODAY()&lt; DATEVALUE(CreatedDate) +3)*/</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>IsInferiorVmaxDate</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

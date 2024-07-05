@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RelatedTo__c</fullName>
+    <description>[ICONiCS] As it&apos;s not possible to create a lookup for the Task object, this text field gets the Id of the Case or the Task.
+Note: length=50 where to match a value when the user is from the &quot;New&quot; button (Case list view). The value will be empty in the Case Creation flow.</description>
+    <externalId>false</externalId>
+    <label>Related To</label>
+    <length>50</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

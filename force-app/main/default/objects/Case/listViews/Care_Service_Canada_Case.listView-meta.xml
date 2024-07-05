@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Care_Service_Canada_Case</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.EMAIL</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>Case_Origin_IMG__c</columns>
+    <filterScope>Queue</filterScope>
+    <label>Care Service Canada</label>
+    <queue>Care_Service_Canada</queue>
+    <sharedTo>
+        <group>CSC_Care_Service_Canada</group>
+    </sharedTo>
+</ListView>

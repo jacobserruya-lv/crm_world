@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Program</fullName>
+    <active>true</active>
+    <label>Client Program</label>
+    <picklistValues>
+        <picklist>Inviting_Zone__c</picklist>
+        <values>
+            <fullName>AMERICAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EMEA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JAPAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KOREA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NORTH ASIA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOUTH ASIA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Attended</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Show</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

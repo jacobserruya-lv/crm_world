@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChosenProduct_Sku_or_UnknownSku</fullName>
+    <active>true</active>
+    <description>You have to complete the Sku or the Unknown sku</description>
+    <errorConditionFormula>AND(
+NOT( $User.BypassVR__c ),
+ISBLANK( Unknown_Sku__c),
+ISBLANK( Product_Name__c )
+)</errorConditionFormula>
+    <errorMessage>You have to complete the Sku or the Unknown sku</errorMessage>
+</ValidationRule>

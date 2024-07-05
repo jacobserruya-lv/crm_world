@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Disabled_Voice_Actions__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Disabled Actions disable specific action buttons.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Disabled Actions disable specific action buttons.</inlineHelpText>
+    <label>Disabled Voice Actions</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>ClickToDial</fullName>
+                <default>false</default>
+                <label>Click To Dial</label>
+            </value>
+            <value>
+                <fullName>Close</fullName>
+                <default>false</default>
+                <label>Close Preview Outbound Call</label>
+            </value>
+            <value>
+                <fullName>Conference</fullName>
+                <default>false</default>
+                <label>Conference Call</label>
+            </value>
+            <value>
+                <fullName>Dialpad</fullName>
+                <default>false</default>
+                <label>Dialpad</label>
+            </value>
+            <value>
+                <fullName>EndCallOnHold</fullName>
+                <default>false</default>
+                <label>End Call On Hold</label>
+            </value>
+            <value>
+                <fullName>Reject</fullName>
+                <default>false</default>
+                <label>Reject Preview Outbound Call</label>
+            </value>
+            <value>
+                <fullName>Transfer_SST</fullName>
+                <default>false</default>
+                <label>Single Step Transfer</label>
+            </value>
+            <value>
+                <fullName>SpeedDial</fullName>
+                <default>false</default>
+                <label>Speed Dial Buttons</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>7</visibleLines>
+</CustomField>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Collection__c</fullName>
+    <description>Field used for POD record types</description>
+    <externalId>false</externalId>
+    <label>Collection</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Precoll SS</fullName>
+                <default>false</default>
+                <label>Precoll SS</label>
+            </value>
+            <value>
+                <fullName>Spring Summer</fullName>
+                <default>false</default>
+                <label>Spring Summer</label>
+            </value>
+            <value>
+                <fullName>Prefall FW</fullName>
+                <default>false</default>
+                <label>Prefall FW</label>
+            </value>
+            <value>
+                <fullName>Precoll FW</fullName>
+                <default>false</default>
+                <label>Precoll FW</label>
+            </value>
+            <value>
+                <fullName>Fall Winter</fullName>
+                <default>false</default>
+                <label>Fall Winter</label>
+            </value>
+            <value>
+                <fullName>Capsule Collection</fullName>
+                <default>false</default>
+                <label>Capsule Collection</label>
+            </value>
+            <value>
+                <fullName>Others (Christmas, Chinese New Year)</fullName>
+                <default>false</default>
+                <label>Others (Christmas, Chinese New Year)</label>
+            </value>
+            <value>
+                <fullName>Permanent</fullName>
+                <default>false</default>
+                <label>Permanent</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

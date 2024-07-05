@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>afl__Unlike_Reason__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Feedback Reason Picklist Values</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>afl__Thumb_Vote__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>I have an idea how to make the article even better</fullName>
+                <default>false</default>
+                <label>I have an idea how to make the article even better</label>
+            </value>
+            <value>
+                <fullName>Thank you Knowledge team!</fullName>
+                <default>false</default>
+                <label>Thank you Knowledge team!</label>
+            </value>
+            <value>
+                <fullName>Information inaccurate</fullName>
+                <default>false</default>
+                <label>Information inaccurate</label>
+            </value>
+            <value>
+                <fullName>Not enough information</fullName>
+                <default>false</default>
+                <label>Not enough information</label>
+            </value>
+            <value>
+                <fullName>Please review style grammar spelling</fullName>
+                <default>false</default>
+                <label>Please review style, grammar, spelling</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Does not Work</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Does not Work</label>
+            </value>
+            <value>
+                <fullName>Link broken</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Link broken</label>
+            </value>
+            <value>
+                <fullName>Outdated</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Outdated</label>
+            </value>
+            <value>
+                <fullName>Outdated  (needs update)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Outdated  (needs update)</label>
+            </value>
+            <value>
+                <fullName>Poorly Written</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Poorly Written</label>
+            </value>
+            <value>
+                <fullName>Positive feedback</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Positive feedback</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Thumbs_up</controllingFieldValue>
+            <valueName>Thank you Knowledge team!</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Thumbs_up</controllingFieldValue>
+            <controllingFieldValue>Thumbs_down</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Thumbs_down</controllingFieldValue>
+            <valueName>I have an idea how to make the article even better</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Thumbs_down</controllingFieldValue>
+            <valueName>Information inaccurate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Thumbs_down</controllingFieldValue>
+            <valueName>Not enough information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Thumbs_down</controllingFieldValue>
+            <valueName>Please review style grammar spelling</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

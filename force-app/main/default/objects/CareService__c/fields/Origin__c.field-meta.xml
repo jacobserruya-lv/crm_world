@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Origin__c</fullName>
+    <externalId>false</externalId>
+    <label>Origin</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LV App-Appointment Call</fullName>
+                <default>false</default>
+                <label>LV App-Appointment Call</label>
+            </value>
+            <value>
+                <fullName>LV App-Appointment Video Call</fullName>
+                <default>false</default>
+                <label>LV App-Appointment Video Call</label>
+            </value>
+            <value>
+                <fullName>LV App-Form</fullName>
+                <default>false</default>
+                <label>LV App-Form</label>
+            </value>
+            <value>
+                <fullName>CSC Call</fullName>
+                <default>false</default>
+                <label>CSC Call</label>
+            </value>
+            <value>
+                <fullName>CSC Email</fullName>
+                <default>false</default>
+                <label>CSC Email</label>
+            </value>
+            <value>
+                <fullName>CSC Messaging</fullName>
+                <default>false</default>
+                <label>CSC Messaging</label>
+            </value>
+            <value>
+                <fullName>CSC Chat</fullName>
+                <default>false</default>
+                <label>CSC Chat</label>
+            </value>
+            <value>
+                <fullName>CSC Clone</fullName>
+                <default>false</default>
+                <label>CSC Clone</label>
+            </value>
+            <value>
+                <fullName>Wechat-Appointment Call</fullName>
+                <default>false</default>
+                <label>Wechat-Appointment Call</label>
+            </value>
+            <value>
+                <fullName>Wechat-Appointment Video Call</fullName>
+                <default>false</default>
+                <label>Wechat-Appointment Video Call</label>
+            </value>
+            <value>
+                <fullName>Wechat-Form</fullName>
+                <default>false</default>
+                <label>Wechat-Form</label>
+            </value>
+            <value>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Appointment</label>
+            </value>
+            <value>
+                <fullName>Chat</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Chat</label>
+            </value>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>LV App</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>LV App</label>
+            </value>
+            <value>
+                <fullName>Messaging</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Messaging</label>
+            </value>
+            <value>
+                <fullName>Phone</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Phone</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

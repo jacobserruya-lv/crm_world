@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductCategory__c</fullName>
+    <description>Product category depends on ProductCatalogue__c value (Perso order) or SPO
+Used for JDE/ETL</description>
+    <externalId>false</externalId>
+    <formula>IF 
+(
+	NOT(ISBLANK(ProductCatalogue__c)),
+	IF(ProductCatalogue__r.SPO_Category__c == &apos;BELTS&apos;, &apos;Accessories&apos;, ProductCatalogue__r.SPO_Category__c), 
+          /*PERSO: displaying Accessories instead of Belts in order to macth ETL query */
+	IF
+	(
+		ISPICKVAL(SPO_BriefName__r.SPO_ProductCategory__c, &apos;Belts&apos;), &apos;Accessories&apos;, 
+		TEXT(SPO_BriefName__r.SPO_ProductCategory__c)
+	) /* SPO: displaying Accessories instead of Belts in order to macth ETL query */
+)</formula>
+    <label>Product Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

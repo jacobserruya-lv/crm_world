@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Alias__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
     <label>Alias</label>
     <referenceTo>Alias__c</referenceTo>
     <relationshipLabel>Clients</relationshipLabel>

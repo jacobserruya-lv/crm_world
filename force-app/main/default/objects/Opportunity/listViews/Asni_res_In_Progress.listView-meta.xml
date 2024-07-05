@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Asni_res_In_Progress</fullName>
+    <columns>OrderNumber__c</columns>
+    <columns>SPO_Sku_Code_S__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>SPO_SkuQuantity__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>SPO_Store__c</columns>
+    <columns>SPO_CreationType__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SPO_DepositAmount__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>In progress</value>
+    </filters>
+    <filters>
+        <field>SPO_OrderType__c</field>
+        <operation>equals</operation>
+        <value>Creation (Hardsided &amp; Soft)</value>
+    </filters>
+    <filters>
+        <field>ApplicationSource__c</field>
+        <operation>equals</operation>
+        <value>SPO</value>
+    </filters>
+    <filters>
+        <field>SPO_ProductCategory__c</field>
+        <operation>equals</operation>
+        <value>Leather goods</value>
+    </filters>
+    <label>Asnières - En cours de fabrication</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>SPO_Production</group>
+    </sharedTo>
+</ListView>

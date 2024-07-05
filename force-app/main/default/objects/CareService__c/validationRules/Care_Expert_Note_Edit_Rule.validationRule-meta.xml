@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Care_Expert_Note_Edit_Rule</fullName>
+    <active>true</active>
+    <description>Care Expert Note is not editable anymore when status = Prelimary Quote Validated and following statuses</description>
+    <errorConditionFormula>AND( 
+ISCHANGED( Care_Expert_Note__c ) ,
+ NOT(
+ OR(
+ISPICKVAL( ICONiCS_Status_Detail__c , &apos;New Request&apos;),
+ISPICKVAL( ICONiCS_Status_Detail__c , &apos;Assigned&apos;),
+ISPICKVAL( ICONiCS_Status_Detail__c , &apos;Pending Customer information&apos;),
+ISPICKVAL( ICONiCS_Status_Detail__c , &apos;Initiated in MyRepairs as a Draft&apos;),
+ISPICKVAL( ICONiCS_Status_Detail__c , &apos;Created in MyRepairs&apos;),
+ISPICKVAL( ICONiCS_Status_Detail__c , &apos;Preliminary Quote Pending Validation&apos;)
+) )  )</errorConditionFormula>
+    <errorMessage>Care Expert’s note has already been approved by the Client, it can’t be modified anymore</errorMessage>
+</ValidationRule>

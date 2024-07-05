@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Upcoming_Anniversary__c</fullName>
+    <externalId>false</externalId>
     <formula>IF(AND(NOT(OR( 
 MOD( YEAR( TODAY() ), 400 ) = 0, 
 AND( 

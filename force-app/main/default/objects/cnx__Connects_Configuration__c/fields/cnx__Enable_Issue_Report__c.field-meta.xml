@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Enable_Issue_Report__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, the Send Report Issue item will be shown in agent&apos;s Softphone Settings menu.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, the Send Report Issue item will be shown in agent&apos;s Softphone Settings menu.</inlineHelpText>
+    <label>Enable Issue Report</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

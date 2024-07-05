@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__WCCAI_Tenant__c</fullName>
+    <defaultValue>&quot;us1&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The tenant to connect to in order to receive voice transcripts powered by WCCAI.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The tenant to connect to in order to receive voice transcripts powered by WCCAI.</inlineHelpText>
+    <label>WCCAI Tenant</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

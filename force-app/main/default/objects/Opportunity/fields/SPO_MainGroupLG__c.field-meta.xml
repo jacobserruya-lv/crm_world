@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_MainGroupLG__c</fullName>
+    <externalId>false</externalId>
+    <label>Main group LG</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>SPO_GroupLG__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BELTS</fullName>
+                <default>false</default>
+                <label>BELTS</label>
+            </value>
+            <value>
+                <fullName>BUSINESS</fullName>
+                <default>false</default>
+                <label>BUSINESS</label>
+            </value>
+            <value>
+                <fullName>CITY BAGS</fullName>
+                <default>false</default>
+                <label>CITY BAGS</label>
+            </value>
+            <value>
+                <fullName>LG ACCESSORIES</fullName>
+                <default>false</default>
+                <label>LG ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>OPTIONS</fullName>
+                <default>false</default>
+                <label>OPTIONS</label>
+            </value>
+            <value>
+                <fullName>REFILLS</fullName>
+                <default>false</default>
+                <label>REFILLS</label>
+            </value>
+            <value>
+                <fullName>TRAVEL</fullName>
+                <default>false</default>
+                <label>TRAVEL</label>
+            </value>
+            <value>
+                <fullName>WATCHES ACCESSORIES</fullName>
+                <default>false</default>
+                <label>WATCHES ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>WRITING</fullName>
+                <default>false</default>
+                <label>WRITING</label>
+            </value>
+            <value>
+                <fullName>DIARIES</fullName>
+                <default>false</default>
+                <label>DIARIES</label>
+            </value>
+            <value>
+                <fullName>HARDSIDED</fullName>
+                <default>false</default>
+                <label>HARDSIDED</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>HARDSIDED BOXES</controllingFieldValue>
+            <controllingFieldValue>HARDSIDED SUITCASE</controllingFieldValue>
+            <controllingFieldValue>HARDSIDED TRUNKS</controllingFieldValue>
+            <valueName>HARDSIDED</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BAGS OPTIONS</controllingFieldValue>
+            <controllingFieldValue>TRAVEL OPTIONS</controllingFieldValue>
+            <valueName>OPTIONS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BUSINESS ACCESSORIES REFILLS</controllingFieldValue>
+            <controllingFieldValue>DIARY REFILLS</controllingFieldValue>
+            <controllingFieldValue>OTHER REFILLS</controllingFieldValue>
+            <valueName>REFILLS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ROLLING LUGGAGE</controllingFieldValue>
+            <controllingFieldValue>SOFT LUGGAGE</controllingFieldValue>
+            <controllingFieldValue>TRAVEL ACCESSORIES</controllingFieldValue>
+            <controllingFieldValue>TRUNKS</controllingFieldValue>
+            <controllingFieldValue>HARDSIDE LUGGAGE</controllingFieldValue>
+            <valueName>TRAVEL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SMALL LEATHER GOODS</controllingFieldValue>
+            <controllingFieldValue>OPTIONAL ACCESSORIES</controllingFieldValue>
+            <controllingFieldValue>LEASURE</controllingFieldValue>
+            <valueName>LG ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LG WRITING ACCESSORIES</controllingFieldValue>
+            <controllingFieldValue>WRITING LG</controllingFieldValue>
+            <controllingFieldValue>WRITING TRUNKS</controllingFieldValue>
+            <valueName>WRITING</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BUSINESS ACCESSORIES</controllingFieldValue>
+            <controllingFieldValue>BUSINESS BAGS</controllingFieldValue>
+            <valueName>BUSINESS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CLUTCHES</controllingFieldValue>
+            <controllingFieldValue>DAILY BAGS</controllingFieldValue>
+            <controllingFieldValue>EVENING BAGS</controllingFieldValue>
+            <valueName>CITY BAGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DIARY COVERS</controllingFieldValue>
+            <valueName>DIARIES</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

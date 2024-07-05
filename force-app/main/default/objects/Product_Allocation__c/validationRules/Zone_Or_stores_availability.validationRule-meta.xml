@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zone_Or_stores_availability</fullName>
+    <active>true</active>
+    <description>Allocation can be defined for List of stores OR for a zone, not both</description>
+    <errorConditionFormula>OR(
+AND(
+ISBLANK(Available_In_Stores__c),
+ISPICKVAL( Zone__c, &quot;&quot;)
+),
+AND(
+NOT(ISBLANK(Available_In_Stores__c)),
+NOT(ISPICKVAL( Zone__c, &quot;&quot;))
+)
+)</errorConditionFormula>
+    <errorMessage>Allocation must be defined by Zone OR by Store (not both)</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ALL</fullName>
+    <columns>NAME</columns>
+    <columns>Workshop__c</columns>
+    <columns>Product_Category__c</columns>
+    <columns>Order_Type__c</columns>
+    <columns>Exotic__c</columns>
+    <columns>Creation_Type__c</columns>
+    <columns>Production_Time_In_Days__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>ALL</label>
+</ListView>

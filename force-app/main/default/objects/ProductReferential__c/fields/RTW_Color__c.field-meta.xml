@@ -1,0 +1,4256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RTW_Color__c</fullName>
+    <description>Ready to Wear color (RTW code from SAP)</description>
+    <externalId>false</externalId>
+    <label>Ready to Wear Color</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>000</fullName>
+                <default>false</default>
+                <label>BLANC OPTIQUE</label>
+            </value>
+            <value>
+                <fullName>001</fullName>
+                <default>false</default>
+                <label>BLANC</label>
+            </value>
+            <value>
+                <fullName>002</fullName>
+                <default>false</default>
+                <label>BLANC LAIT</label>
+            </value>
+            <value>
+                <fullName>003</fullName>
+                <default>false</default>
+                <label>BLANC CASSE</label>
+            </value>
+            <value>
+                <fullName>004</fullName>
+                <default>false</default>
+                <label>ECRU</label>
+            </value>
+            <value>
+                <fullName>005</fullName>
+                <default>false</default>
+                <label>IVOIRE</label>
+            </value>
+            <value>
+                <fullName>006</fullName>
+                <default>false</default>
+                <label>BEIGE</label>
+            </value>
+            <value>
+                <fullName>007</fullName>
+                <default>false</default>
+                <label>BEIGE ROSE</label>
+            </value>
+            <value>
+                <fullName>008</fullName>
+                <default>false</default>
+                <label>GREGE</label>
+            </value>
+            <value>
+                <fullName>009</fullName>
+                <default>false</default>
+                <label>CHAMPAGNE</label>
+            </value>
+            <value>
+                <fullName>00M</fullName>
+                <default>false</default>
+                <label>MONOGRAM BLANC</label>
+            </value>
+            <value>
+                <fullName>010</fullName>
+                <default>false</default>
+                <label>COQUILLE D OEUF</label>
+            </value>
+            <value>
+                <fullName>011</fullName>
+                <default>false</default>
+                <label>SABLE 2</label>
+            </value>
+            <value>
+                <fullName>012</fullName>
+                <default>false</default>
+                <label>CRAIE</label>
+            </value>
+            <value>
+                <fullName>013</fullName>
+                <default>false</default>
+                <label>BEIGE GRIS</label>
+            </value>
+            <value>
+                <fullName>014</fullName>
+                <default>false</default>
+                <label>PIERRE</label>
+            </value>
+            <value>
+                <fullName>015</fullName>
+                <default>false</default>
+                <label>INVISIBLE</label>
+            </value>
+            <value>
+                <fullName>016</fullName>
+                <default>false</default>
+                <label>BEIGE CHINE</label>
+            </value>
+            <value>
+                <fullName>017</fullName>
+                <default>false</default>
+                <label>BEIGE CLAIR F</label>
+            </value>
+            <value>
+                <fullName>018</fullName>
+                <default>false</default>
+                <label>CHAMPAGNE CHINE</label>
+            </value>
+            <value>
+                <fullName>019</fullName>
+                <default>false</default>
+                <label>BEIGE GRIS CHINE</label>
+            </value>
+            <value>
+                <fullName>01B</fullName>
+                <default>false</default>
+                <label>BLANC BRILLANT</label>
+            </value>
+            <value>
+                <fullName>01M</fullName>
+                <default>false</default>
+                <label>BLANC MAT</label>
+            </value>
+            <value>
+                <fullName>020</fullName>
+                <default>false</default>
+                <label>MINERAL</label>
+            </value>
+            <value>
+                <fullName>021</fullName>
+                <default>false</default>
+                <label>BEIGE MINERAL</label>
+            </value>
+            <value>
+                <fullName>022</fullName>
+                <default>false</default>
+                <label>GALET</label>
+            </value>
+            <value>
+                <fullName>023</fullName>
+                <default>false</default>
+                <label>GALET 2</label>
+            </value>
+            <value>
+                <fullName>024</fullName>
+                <default>false</default>
+                <label>BLANC GLACIER</label>
+            </value>
+            <value>
+                <fullName>025</fullName>
+                <default>false</default>
+                <label>VANILLE</label>
+            </value>
+            <value>
+                <fullName>026</fullName>
+                <default>false</default>
+                <label>BLANC / BLEU</label>
+            </value>
+            <value>
+                <fullName>027</fullName>
+                <default>false</default>
+                <label>BLANC / GRIS</label>
+            </value>
+            <value>
+                <fullName>028</fullName>
+                <default>false</default>
+                <label>BEIGE 2</label>
+            </value>
+            <value>
+                <fullName>029</fullName>
+                <default>false</default>
+                <label>BEIGE 3</label>
+            </value>
+            <value>
+                <fullName>02L</fullName>
+                <default>false</default>
+                <label>BLANC LAVE</label>
+            </value>
+            <value>
+                <fullName>030</fullName>
+                <default>false</default>
+                <label>BEIGE 4</label>
+            </value>
+            <value>
+                <fullName>031</fullName>
+                <default>false</default>
+                <label>BLANC CREME</label>
+            </value>
+            <value>
+                <fullName>032</fullName>
+                <default>false</default>
+                <label>SABLE 3</label>
+            </value>
+            <value>
+                <fullName>033</fullName>
+                <default>false</default>
+                <label>BEIGE CHAMPAGNE</label>
+            </value>
+            <value>
+                <fullName>034</fullName>
+                <default>false</default>
+                <label>BEIGE ROSE 2</label>
+            </value>
+            <value>
+                <fullName>035</fullName>
+                <default>false</default>
+                <label>BEIGE SABLE</label>
+            </value>
+            <value>
+                <fullName>036</fullName>
+                <default>false</default>
+                <label>BEIGE 5</label>
+            </value>
+            <value>
+                <fullName>037</fullName>
+                <default>false</default>
+                <label>CHAMPAGNE/GRIS</label>
+            </value>
+            <value>
+                <fullName>039</fullName>
+                <default>false</default>
+                <label>PHOSPHORESCENT</label>
+            </value>
+            <value>
+                <fullName>04A</fullName>
+                <default>false</default>
+                <label>CRYSTAL</label>
+            </value>
+            <value>
+                <fullName>050</fullName>
+                <default>false</default>
+                <label>A TEINDRE</label>
+            </value>
+            <value>
+                <fullName>051</fullName>
+                <default>false</default>
+                <label>TON SUR TON</label>
+            </value>
+            <value>
+                <fullName>052</fullName>
+                <default>false</default>
+                <label>TRANSLUCIDE</label>
+            </value>
+            <value>
+                <fullName>054</fullName>
+                <default>false</default>
+                <label>PAILLETTES</label>
+            </value>
+            <value>
+                <fullName>055</fullName>
+                <default>false</default>
+                <label>PAILLETTES BLANCHES</label>
+            </value>
+            <value>
+                <fullName>056</fullName>
+                <default>false</default>
+                <label>ECRUS CLAIR</label>
+            </value>
+            <value>
+                <fullName>05T</fullName>
+                <default>false</default>
+                <label>TRANSPARENT SHINY</label>
+            </value>
+            <value>
+                <fullName>070</fullName>
+                <default>false</default>
+                <label>NUAGE</label>
+            </value>
+            <value>
+                <fullName>071</fullName>
+                <default>false</default>
+                <label>NOIR /MASTIC</label>
+            </value>
+            <value>
+                <fullName>0B3</fullName>
+                <default>false</default>
+                <label>WHITE+GREY</label>
+            </value>
+            <value>
+                <fullName>0B6</fullName>
+                <default>false</default>
+                <label>WHITE+RED</label>
+            </value>
+            <value>
+                <fullName>0D1</fullName>
+                <default>false</default>
+                <label>PIERRE DESSIN</label>
+            </value>
+            <value>
+                <fullName>0D2</fullName>
+                <default>false</default>
+                <label>PIERRE DESSIN 2</label>
+            </value>
+            <value>
+                <fullName>0D3</fullName>
+                <default>false</default>
+                <label>BEIGE /DAMIER</label>
+            </value>
+            <value>
+                <fullName>0D7</fullName>
+                <default>false</default>
+                <label>BEIGE / DAMIER</label>
+            </value>
+            <value>
+                <fullName>0E2</fullName>
+                <default>false</default>
+                <label>ECRU 2</label>
+            </value>
+            <value>
+                <fullName>0I1</fullName>
+                <default>false</default>
+                <label>BLANC IMPRIME</label>
+            </value>
+            <value>
+                <fullName>0I6</fullName>
+                <default>false</default>
+                <label>BEIGE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>0I8</fullName>
+                <default>false</default>
+                <label>BEIGE ROSE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>0M1</fullName>
+                <default>false</default>
+                <label>BLANC IMPRESSION M</label>
+            </value>
+            <value>
+                <fullName>0M7</fullName>
+                <default>false</default>
+                <label>BEIGE/MONO</label>
+            </value>
+            <value>
+                <fullName>0R1</fullName>
+                <default>false</default>
+                <label>BLANC + RAYURE BEIGE</label>
+            </value>
+            <value>
+                <fullName>0R2</fullName>
+                <default>false</default>
+                <label>BLANC + RAYURE NOIRE</label>
+            </value>
+            <value>
+                <fullName>0R9</fullName>
+                <default>false</default>
+                <label>NOIR + RAYURE GRISE</label>
+            </value>
+            <value>
+                <fullName>0UN</fullName>
+                <default>false</default>
+                <label>PIERRE UNI</label>
+            </value>
+            <value>
+                <fullName>100</fullName>
+                <default>false</default>
+                <label>MASTIC</label>
+            </value>
+            <value>
+                <fullName>101</fullName>
+                <default>false</default>
+                <label>MASTIC GRIS</label>
+            </value>
+            <value>
+                <fullName>102</fullName>
+                <default>false</default>
+                <label>CAMEL</label>
+            </value>
+            <value>
+                <fullName>103</fullName>
+                <default>false</default>
+                <label>BEIGE CAMEL</label>
+            </value>
+            <value>
+                <fullName>104</fullName>
+                <default>false</default>
+                <label>AMBRE</label>
+            </value>
+            <value>
+                <fullName>105</fullName>
+                <default>false</default>
+                <label>BEIGE DORE</label>
+            </value>
+            <value>
+                <fullName>106</fullName>
+                <default>false</default>
+                <label>NATUREL</label>
+            </value>
+            <value>
+                <fullName>107</fullName>
+                <default>false</default>
+                <label>PAILLE</label>
+            </value>
+            <value>
+                <fullName>108</fullName>
+                <default>false</default>
+                <label>CREME</label>
+            </value>
+            <value>
+                <fullName>109</fullName>
+                <default>false</default>
+                <label>ROSE DES SABLES</label>
+            </value>
+            <value>
+                <fullName>110</fullName>
+                <default>false</default>
+                <label>CAMEL FONCE</label>
+            </value>
+            <value>
+                <fullName>111</fullName>
+                <default>false</default>
+                <label>GRES</label>
+            </value>
+            <value>
+                <fullName>125</fullName>
+                <default>false</default>
+                <label>SAVANE</label>
+            </value>
+            <value>
+                <fullName>126</fullName>
+                <default>false</default>
+                <label>SAVANE CLAIR</label>
+            </value>
+            <value>
+                <fullName>130</fullName>
+                <default>false</default>
+                <label>CARAMEL</label>
+            </value>
+            <value>
+                <fullName>131</fullName>
+                <default>false</default>
+                <label>CARAMEL CLAIR</label>
+            </value>
+            <value>
+                <fullName>132</fullName>
+                <default>false</default>
+                <label>METIS</label>
+            </value>
+            <value>
+                <fullName>134</fullName>
+                <default>false</default>
+                <label>CORDE</label>
+            </value>
+            <value>
+                <fullName>135</fullName>
+                <default>false</default>
+                <label>FICELLE</label>
+            </value>
+            <value>
+                <fullName>136</fullName>
+                <default>false</default>
+                <label>FICELLE METALIQUE</label>
+            </value>
+            <value>
+                <fullName>138</fullName>
+                <default>false</default>
+                <label>OCRE</label>
+            </value>
+            <value>
+                <fullName>139</fullName>
+                <default>false</default>
+                <label>CAMEL 2</label>
+            </value>
+            <value>
+                <fullName>13M</fullName>
+                <default>false</default>
+                <label>CAMEL MONOGRAME EXTERIEUR</label>
+            </value>
+            <value>
+                <fullName>140</fullName>
+                <default>false</default>
+                <label>CAMEL 3</label>
+            </value>
+            <value>
+                <fullName>141</fullName>
+                <default>false</default>
+                <label>FICELLE FONCEE</label>
+            </value>
+            <value>
+                <fullName>149</fullName>
+                <default>false</default>
+                <label>GRIS OTARIE</label>
+            </value>
+            <value>
+                <fullName>14W</fullName>
+                <default>false</default>
+                <label>PIERRE WATER-REPELLENT</label>
+            </value>
+            <value>
+                <fullName>150</fullName>
+                <default>false</default>
+                <label>MOKA</label>
+            </value>
+            <value>
+                <fullName>151</fullName>
+                <default>false</default>
+                <label>TAUPE</label>
+            </value>
+            <value>
+                <fullName>152</fullName>
+                <default>false</default>
+                <label>MOKA GLACE</label>
+            </value>
+            <value>
+                <fullName>153</fullName>
+                <default>false</default>
+                <label>CAFE.</label>
+            </value>
+            <value>
+                <fullName>155</fullName>
+                <default>false</default>
+                <label>MOUTARDE</label>
+            </value>
+            <value>
+                <fullName>156</fullName>
+                <default>false</default>
+                <label>LEOPARD</label>
+            </value>
+            <value>
+                <fullName>157</fullName>
+                <default>false</default>
+                <label>RENARD</label>
+            </value>
+            <value>
+                <fullName>158</fullName>
+                <default>false</default>
+                <label>TAUPE FONCE</label>
+            </value>
+            <value>
+                <fullName>175</fullName>
+                <default>false</default>
+                <label>ARGILE</label>
+            </value>
+            <value>
+                <fullName>176</fullName>
+                <default>false</default>
+                <label>MIEL</label>
+            </value>
+            <value>
+                <fullName>177</fullName>
+                <default>false</default>
+                <label>BRONZE BRUN</label>
+            </value>
+            <value>
+                <fullName>178</fullName>
+                <default>false</default>
+                <label>COGNAC</label>
+            </value>
+            <value>
+                <fullName>1B1</fullName>
+                <default>false</default>
+                <label>CAMEL AUBERGINE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B2</fullName>
+                <default>false</default>
+                <label>CAMEL ROUGE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B3</fullName>
+                <default>false</default>
+                <label>CAMEL BLEU   BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B4</fullName>
+                <default>false</default>
+                <label>CAMEL GRIS  BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B5</fullName>
+                <default>false</default>
+                <label>CAMEL ANTHRACITE  BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B6</fullName>
+                <default>false</default>
+                <label>CAMEL MARINE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B7</fullName>
+                <default>false</default>
+                <label>CAMEL VIOLET BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B8</fullName>
+                <default>false</default>
+                <label>CAMEL BEIGE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1B9</fullName>
+                <default>false</default>
+                <label>ROUGE VERT BICOLORE</label>
+            </value>
+            <value>
+                <fullName>1D9</fullName>
+                <default>false</default>
+                <label>CAMEL / DAMIER</label>
+            </value>
+            <value>
+                <fullName>1I0</fullName>
+                <default>false</default>
+                <label>CARAMEL IMPRIME</label>
+            </value>
+            <value>
+                <fullName>1I1</fullName>
+                <default>false</default>
+                <label>TAUPE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>1I9</fullName>
+                <default>false</default>
+                <label>CAMEL IMPRIME</label>
+            </value>
+            <value>
+                <fullName>1M9</fullName>
+                <default>false</default>
+                <label>CAMEL MONOGRAME INTERIEUR</label>
+            </value>
+            <value>
+                <fullName>1R5</fullName>
+                <default>false</default>
+                <label>RAYE BLANC ROUGE</label>
+            </value>
+            <value>
+                <fullName>1R7</fullName>
+                <default>false</default>
+                <label>RAYE BLANC GRIS</label>
+            </value>
+            <value>
+                <fullName>200</fullName>
+                <default>false</default>
+                <label>TERRE</label>
+            </value>
+            <value>
+                <fullName>201</fullName>
+                <default>false</default>
+                <label>CIGARE</label>
+            </value>
+            <value>
+                <fullName>204</fullName>
+                <default>false</default>
+                <label>OLIVE</label>
+            </value>
+            <value>
+                <fullName>205</fullName>
+                <default>false</default>
+                <label>BRONZE</label>
+            </value>
+            <value>
+                <fullName>206</fullName>
+                <default>false</default>
+                <label>BRONZE CHINE</label>
+            </value>
+            <value>
+                <fullName>207</fullName>
+                <default>false</default>
+                <label>KAKI CLAIR</label>
+            </value>
+            <value>
+                <fullName>208</fullName>
+                <default>false</default>
+                <label>ARGILE 2</label>
+            </value>
+            <value>
+                <fullName>209</fullName>
+                <default>false</default>
+                <label>SAUGE</label>
+            </value>
+            <value>
+                <fullName>210</fullName>
+                <default>false</default>
+                <label>KAKI</label>
+            </value>
+            <value>
+                <fullName>211</fullName>
+                <default>false</default>
+                <label>KAKI MILITAIRE</label>
+            </value>
+            <value>
+                <fullName>212</fullName>
+                <default>false</default>
+                <label>KAKI GRIS</label>
+            </value>
+            <value>
+                <fullName>213</fullName>
+                <default>false</default>
+                <label>KAKI CHINE</label>
+            </value>
+            <value>
+                <fullName>214</fullName>
+                <default>false</default>
+                <label>KAKI ARMY</label>
+            </value>
+            <value>
+                <fullName>215</fullName>
+                <default>false</default>
+                <label>KAKI FONCE</label>
+            </value>
+            <value>
+                <fullName>216</fullName>
+                <default>false</default>
+                <label>KAKI GRIS 2</label>
+            </value>
+            <value>
+                <fullName>217</fullName>
+                <default>false</default>
+                <label>KAKI I</label>
+            </value>
+            <value>
+                <fullName>218</fullName>
+                <default>false</default>
+                <label>KAKI MARRON</label>
+            </value>
+            <value>
+                <fullName>219</fullName>
+                <default>false</default>
+                <label>KAKI GRIS CHINE</label>
+            </value>
+            <value>
+                <fullName>220</fullName>
+                <default>false</default>
+                <label>KAKI NOIR AGN</label>
+            </value>
+            <value>
+                <fullName>221</fullName>
+                <default>false</default>
+                <label>KAKI FONCE CHINE</label>
+            </value>
+            <value>
+                <fullName>222</fullName>
+                <default>false</default>
+                <label>KAKY/NAVY</label>
+            </value>
+            <value>
+                <fullName>223</fullName>
+                <default>false</default>
+                <label>KAKI/CHOCO</label>
+            </value>
+            <value>
+                <fullName>224</fullName>
+                <default>false</default>
+                <label>OLIVE FONCE</label>
+            </value>
+            <value>
+                <fullName>225</fullName>
+                <default>false</default>
+                <label>KAKI CAMOUFLAGE</label>
+            </value>
+            <value>
+                <fullName>226</fullName>
+                <default>false</default>
+                <label>VERT KAKI</label>
+            </value>
+            <value>
+                <fullName>227</fullName>
+                <default>false</default>
+                <label>VERT KAKI CHINE</label>
+            </value>
+            <value>
+                <fullName>228</fullName>
+                <default>false</default>
+                <label>KAKI BEIGE</label>
+            </value>
+            <value>
+                <fullName>229</fullName>
+                <default>false</default>
+                <label>VERT FONCE</label>
+            </value>
+            <value>
+                <fullName>22M</fullName>
+                <default>false</default>
+                <label>KAKI MONOGRAME EXTERIEUR</label>
+            </value>
+            <value>
+                <fullName>22N</fullName>
+                <default>false</default>
+                <label>KAKI MONOGRAM INTERIEUR</label>
+            </value>
+            <value>
+                <fullName>230</fullName>
+                <default>false</default>
+                <label>KAKI METALLIQUE</label>
+            </value>
+            <value>
+                <fullName>231</fullName>
+                <default>false</default>
+                <label>VERT</label>
+            </value>
+            <value>
+                <fullName>232</fullName>
+                <default>false</default>
+                <label>KAKI DORE</label>
+            </value>
+            <value>
+                <fullName>233</fullName>
+                <default>false</default>
+                <label>VERT D EAU</label>
+            </value>
+            <value>
+                <fullName>234</fullName>
+                <default>false</default>
+                <label>VERT DE GRIS</label>
+            </value>
+            <value>
+                <fullName>235</fullName>
+                <default>false</default>
+                <label>MORDORE</label>
+            </value>
+            <value>
+                <fullName>236</fullName>
+                <default>false</default>
+                <label>VERT GRIS</label>
+            </value>
+            <value>
+                <fullName>237</fullName>
+                <default>false</default>
+                <label>OLIVE PALE</label>
+            </value>
+            <value>
+                <fullName>238</fullName>
+                <default>false</default>
+                <label>TORTUE</label>
+            </value>
+            <value>
+                <fullName>239</fullName>
+                <default>false</default>
+                <label>FENOUIL</label>
+            </value>
+            <value>
+                <fullName>23F</fullName>
+                <default>false</default>
+                <label>VERT FLUO</label>
+            </value>
+            <value>
+                <fullName>240</fullName>
+                <default>false</default>
+                <label>POIRE WILLIAMS</label>
+            </value>
+            <value>
+                <fullName>241</fullName>
+                <default>false</default>
+                <label>KIWI</label>
+            </value>
+            <value>
+                <fullName>242</fullName>
+                <default>false</default>
+                <label>KAKI TAUPE</label>
+            </value>
+            <value>
+                <fullName>243</fullName>
+                <default>false</default>
+                <label>VIGNE</label>
+            </value>
+            <value>
+                <fullName>244</fullName>
+                <default>false</default>
+                <label>THYM</label>
+            </value>
+            <value>
+                <fullName>245</fullName>
+                <default>false</default>
+                <label>THE VERT</label>
+            </value>
+            <value>
+                <fullName>246</fullName>
+                <default>false</default>
+                <label>KAKI GRISE</label>
+            </value>
+            <value>
+                <fullName>247</fullName>
+                <default>false</default>
+                <label>KAKI BLEUTE</label>
+            </value>
+            <value>
+                <fullName>248</fullName>
+                <default>false</default>
+                <label>PEUPLIER</label>
+            </value>
+            <value>
+                <fullName>2B1</fullName>
+                <default>false</default>
+                <label>VERT CAMEL BICOLORE</label>
+            </value>
+            <value>
+                <fullName>2B2</fullName>
+                <default>false</default>
+                <label>CAMEL NOIR BICOLORE</label>
+            </value>
+            <value>
+                <fullName>2B3</fullName>
+                <default>false</default>
+                <label>POMME LILA</label>
+            </value>
+            <value>
+                <fullName>2D5</fullName>
+                <default>false</default>
+                <label>KAKI FONCE/DAMIER</label>
+            </value>
+            <value>
+                <fullName>2I0</fullName>
+                <default>false</default>
+                <label>KAKI IMPRIME BEIGE MNG</label>
+            </value>
+            <value>
+                <fullName>2R0</fullName>
+                <default>false</default>
+                <label>RAYURES VERT</label>
+            </value>
+            <value>
+                <fullName>300</fullName>
+                <default>false</default>
+                <label>POMME</label>
+            </value>
+            <value>
+                <fullName>301</fullName>
+                <default>false</default>
+                <label>MENTHE</label>
+            </value>
+            <value>
+                <fullName>302</fullName>
+                <default>false</default>
+                <label>PISTACHE</label>
+            </value>
+            <value>
+                <fullName>303</fullName>
+                <default>false</default>
+                <label>TILLEUL</label>
+            </value>
+            <value>
+                <fullName>304</fullName>
+                <default>false</default>
+                <label>VERT MOUSSE H</label>
+            </value>
+            <value>
+                <fullName>305</fullName>
+                <default>false</default>
+                <label>VERT CLAIR</label>
+            </value>
+            <value>
+                <fullName>306</fullName>
+                <default>false</default>
+                <label>VERT OPALE</label>
+            </value>
+            <value>
+                <fullName>307</fullName>
+                <default>false</default>
+                <label>CHARTREUSE</label>
+            </value>
+            <value>
+                <fullName>308</fullName>
+                <default>false</default>
+                <label>AQUA</label>
+            </value>
+            <value>
+                <fullName>309</fullName>
+                <default>false</default>
+                <label>VERT PASTEL</label>
+            </value>
+            <value>
+                <fullName>310</fullName>
+                <default>false</default>
+                <label>AMANDE</label>
+            </value>
+            <value>
+                <fullName>311</fullName>
+                <default>false</default>
+                <label>JADE</label>
+            </value>
+            <value>
+                <fullName>312</fullName>
+                <default>false</default>
+                <label>AMANDE CLAIR</label>
+            </value>
+            <value>
+                <fullName>313</fullName>
+                <default>false</default>
+                <label>VERT FORET</label>
+            </value>
+            <value>
+                <fullName>314</fullName>
+                <default>false</default>
+                <label>VERT LAGON</label>
+            </value>
+            <value>
+                <fullName>315</fullName>
+                <default>false</default>
+                <label>VERT PRE</label>
+            </value>
+            <value>
+                <fullName>316</fullName>
+                <default>false</default>
+                <label>VERT BOUTEILLE</label>
+            </value>
+            <value>
+                <fullName>317</fullName>
+                <default>false</default>
+                <label>ETANG</label>
+            </value>
+            <value>
+                <fullName>318</fullName>
+                <default>false</default>
+                <label>NENUPHAR</label>
+            </value>
+            <value>
+                <fullName>319</fullName>
+                <default>false</default>
+                <label>LAURIER</label>
+            </value>
+            <value>
+                <fullName>31A</fullName>
+                <default>false</default>
+                <label>VERT PRE BLEACHED</label>
+            </value>
+            <value>
+                <fullName>31L</fullName>
+                <default>false</default>
+                <label>VERT LAVE</label>
+            </value>
+            <value>
+                <fullName>320</fullName>
+                <default>false</default>
+                <label>LIME</label>
+            </value>
+            <value>
+                <fullName>321</fullName>
+                <default>false</default>
+                <label>VERT JAPONAIS</label>
+            </value>
+            <value>
+                <fullName>322</fullName>
+                <default>false</default>
+                <label>VERT VIF</label>
+            </value>
+            <value>
+                <fullName>323</fullName>
+                <default>false</default>
+                <label>VERT ANIS</label>
+            </value>
+            <value>
+                <fullName>324</fullName>
+                <default>false</default>
+                <label>VERT PROFOND</label>
+            </value>
+            <value>
+                <fullName>325</fullName>
+                <default>false</default>
+                <label>VERT EMERAUDE</label>
+            </value>
+            <value>
+                <fullName>326</fullName>
+                <default>false</default>
+                <label>VERT FLUO 2</label>
+            </value>
+            <value>
+                <fullName>327</fullName>
+                <default>false</default>
+                <label>JASMIN</label>
+            </value>
+            <value>
+                <fullName>328</fullName>
+                <default>false</default>
+                <label>VERT SAPIN</label>
+            </value>
+            <value>
+                <fullName>329</fullName>
+                <default>false</default>
+                <label>VERT BRONZE</label>
+            </value>
+            <value>
+                <fullName>330</fullName>
+                <default>false</default>
+                <label>PESTO</label>
+            </value>
+            <value>
+                <fullName>331</fullName>
+                <default>false</default>
+                <label>VERT CANARD</label>
+            </value>
+            <value>
+                <fullName>332</fullName>
+                <default>false</default>
+                <label>OLIVE NOIRE</label>
+            </value>
+            <value>
+                <fullName>3B6</fullName>
+                <default>false</default>
+                <label>BLEU CIEL/CHAMPAGNE</label>
+            </value>
+            <value>
+                <fullName>3D1</fullName>
+                <default>false</default>
+                <label>JADE/DAMIER</label>
+            </value>
+            <value>
+                <fullName>3I0</fullName>
+                <default>false</default>
+                <label>VERT CLAIR IMPRIME</label>
+            </value>
+            <value>
+                <fullName>3I2</fullName>
+                <default>false</default>
+                <label>PISTACHE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>3I3</fullName>
+                <default>false</default>
+                <label>TILLEUL IMPRIME</label>
+            </value>
+            <value>
+                <fullName>400</fullName>
+                <default>false</default>
+                <label>ABRICOT</label>
+            </value>
+            <value>
+                <fullName>401</fullName>
+                <default>false</default>
+                <label>ORANGE</label>
+            </value>
+            <value>
+                <fullName>402</fullName>
+                <default>false</default>
+                <label>ORANGE VIF</label>
+            </value>
+            <value>
+                <fullName>403</fullName>
+                <default>false</default>
+                <label>SAUMON</label>
+            </value>
+            <value>
+                <fullName>404</fullName>
+                <default>false</default>
+                <label>SAUMON CLAIR</label>
+            </value>
+            <value>
+                <fullName>405</fullName>
+                <default>false</default>
+                <label>CHEDDAR</label>
+            </value>
+            <value>
+                <fullName>406</fullName>
+                <default>false</default>
+                <label>SAFRAN</label>
+            </value>
+            <value>
+                <fullName>407</fullName>
+                <default>false</default>
+                <label>PAPRIKA</label>
+            </value>
+            <value>
+                <fullName>408</fullName>
+                <default>false</default>
+                <label>MANDARINE</label>
+            </value>
+            <value>
+                <fullName>409</fullName>
+                <default>false</default>
+                <label>POTIRON</label>
+            </value>
+            <value>
+                <fullName>40M</fullName>
+                <default>false</default>
+                <label>ORANGE MONOGRAME</label>
+            </value>
+            <value>
+                <fullName>410</fullName>
+                <default>false</default>
+                <label>CITROUILLE</label>
+            </value>
+            <value>
+                <fullName>411</fullName>
+                <default>false</default>
+                <label>ROUILLE</label>
+            </value>
+            <value>
+                <fullName>412</fullName>
+                <default>false</default>
+                <label>PECHE</label>
+            </value>
+            <value>
+                <fullName>413</fullName>
+                <default>false</default>
+                <label>ORANGE FLUO</label>
+            </value>
+            <value>
+                <fullName>414</fullName>
+                <default>false</default>
+                <label>MARIGOLD</label>
+            </value>
+            <value>
+                <fullName>415</fullName>
+                <default>false</default>
+                <label>FLEUR DE VERVEINE</label>
+            </value>
+            <value>
+                <fullName>416</fullName>
+                <default>false</default>
+                <label>CANTALOUP</label>
+            </value>
+            <value>
+                <fullName>417</fullName>
+                <default>false</default>
+                <label>OISEAU DE PARADIS</label>
+            </value>
+            <value>
+                <fullName>418</fullName>
+                <default>false</default>
+                <label>JAUNE</label>
+            </value>
+            <value>
+                <fullName>419</fullName>
+                <default>false</default>
+                <label>JAUNE BLANCHI</label>
+            </value>
+            <value>
+                <fullName>420</fullName>
+                <default>false</default>
+                <label>JAUNE CLAIR</label>
+            </value>
+            <value>
+                <fullName>421</fullName>
+                <default>false</default>
+                <label>JAUNE VERT</label>
+            </value>
+            <value>
+                <fullName>422</fullName>
+                <default>false</default>
+                <label>JAUNE 2</label>
+            </value>
+            <value>
+                <fullName>423</fullName>
+                <default>false</default>
+                <label>JAUNE 3</label>
+            </value>
+            <value>
+                <fullName>424</fullName>
+                <default>false</default>
+                <label>CUIVRE.</label>
+            </value>
+            <value>
+                <fullName>425</fullName>
+                <default>false</default>
+                <label>JAUNE VIF</label>
+            </value>
+            <value>
+                <fullName>426</fullName>
+                <default>false</default>
+                <label>MIEL 2</label>
+            </value>
+            <value>
+                <fullName>427</fullName>
+                <default>false</default>
+                <label>NEON</label>
+            </value>
+            <value>
+                <fullName>430</fullName>
+                <default>false</default>
+                <label>YELLOW</label>
+            </value>
+            <value>
+                <fullName>431</fullName>
+                <default>false</default>
+                <label>JAUNE FLUO</label>
+            </value>
+            <value>
+                <fullName>432</fullName>
+                <default>false</default>
+                <label>JAUNE SAFRAN</label>
+            </value>
+            <value>
+                <fullName>433</fullName>
+                <default>false</default>
+                <label>BISCUIT</label>
+            </value>
+            <value>
+                <fullName>434</fullName>
+                <default>false</default>
+                <label>JAUNE PASTEL</label>
+            </value>
+            <value>
+                <fullName>435</fullName>
+                <default>false</default>
+                <label>SOLEIL</label>
+            </value>
+            <value>
+                <fullName>436</fullName>
+                <default>false</default>
+                <label>BOUTON D OR</label>
+            </value>
+            <value>
+                <fullName>437</fullName>
+                <default>false</default>
+                <label>ACACIA</label>
+            </value>
+            <value>
+                <fullName>438</fullName>
+                <default>false</default>
+                <label>JAUNE MUSCAT</label>
+            </value>
+            <value>
+                <fullName>439</fullName>
+                <default>false</default>
+                <label>CITRINE</label>
+            </value>
+            <value>
+                <fullName>440</fullName>
+                <default>false</default>
+                <label>CORAIL/NOIR</label>
+            </value>
+            <value>
+                <fullName>441</fullName>
+                <default>false</default>
+                <label>CITRON</label>
+            </value>
+            <value>
+                <fullName>442</fullName>
+                <default>false</default>
+                <label>AMBRE 2</label>
+            </value>
+            <value>
+                <fullName>443</fullName>
+                <default>false</default>
+                <label>POMELO</label>
+            </value>
+            <value>
+                <fullName>444</fullName>
+                <default>false</default>
+                <label>MIRABELLE</label>
+            </value>
+            <value>
+                <fullName>445</fullName>
+                <default>false</default>
+                <label>JAUNE FONCE</label>
+            </value>
+            <value>
+                <fullName>446</fullName>
+                <default>false</default>
+                <label>POLLEN</label>
+            </value>
+            <value>
+                <fullName>450</fullName>
+                <default>false</default>
+                <label>DORE</label>
+            </value>
+            <value>
+                <fullName>451</fullName>
+                <default>false</default>
+                <label>DORE CLAIR</label>
+            </value>
+            <value>
+                <fullName>4I0</fullName>
+                <default>false</default>
+                <label>CITROUILLE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>4I3</fullName>
+                <default>false</default>
+                <label>SAUMON IMPRIME</label>
+            </value>
+            <value>
+                <fullName>4I4</fullName>
+                <default>false</default>
+                <label>SAUMON CLAIR IMPRIME</label>
+            </value>
+            <value>
+                <fullName>4I9</fullName>
+                <default>false</default>
+                <label>JAUNE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>4M0</fullName>
+                <default>false</default>
+                <label>JAUNE IMPRESSION M</label>
+            </value>
+            <value>
+                <fullName>500</fullName>
+                <default>false</default>
+                <label>ROSE PALE</label>
+            </value>
+            <value>
+                <fullName>501</fullName>
+                <default>false</default>
+                <label>ROSE</label>
+            </value>
+            <value>
+                <fullName>502</fullName>
+                <default>false</default>
+                <label>ROUGE VIF</label>
+            </value>
+            <value>
+                <fullName>503</fullName>
+                <default>false</default>
+                <label>GRENAT</label>
+            </value>
+            <value>
+                <fullName>504</fullName>
+                <default>false</default>
+                <label>AUBERGINE</label>
+            </value>
+            <value>
+                <fullName>505</fullName>
+                <default>false</default>
+                <label>BORDEAUX L</label>
+            </value>
+            <value>
+                <fullName>506</fullName>
+                <default>false</default>
+                <label>ROUGE</label>
+            </value>
+            <value>
+                <fullName>507</fullName>
+                <default>false</default>
+                <label>AUBERGINE CHINE</label>
+            </value>
+            <value>
+                <fullName>508</fullName>
+                <default>false</default>
+                <label>ROUGE FONCE</label>
+            </value>
+            <value>
+                <fullName>509</fullName>
+                <default>false</default>
+                <label>ROUGE CHINE</label>
+            </value>
+            <value>
+                <fullName>50A</fullName>
+                <default>false</default>
+                <label>ROSE BLEACHED</label>
+            </value>
+            <value>
+                <fullName>50M</fullName>
+                <default>false</default>
+                <label>MONOGRAM ROSE</label>
+            </value>
+            <value>
+                <fullName>50P</fullName>
+                <default>false</default>
+                <label>ROSE POUDRE</label>
+            </value>
+            <value>
+                <fullName>50Z</fullName>
+                <default>false</default>
+                <label>ROSE ACIDULE</label>
+            </value>
+            <value>
+                <fullName>510</fullName>
+                <default>false</default>
+                <label>GRENAT FONCE</label>
+            </value>
+            <value>
+                <fullName>511</fullName>
+                <default>false</default>
+                <label>CORAIL</label>
+            </value>
+            <value>
+                <fullName>512</fullName>
+                <default>false</default>
+                <label>PRUNE</label>
+            </value>
+            <value>
+                <fullName>513</fullName>
+                <default>false</default>
+                <label>GRENAD CHINE</label>
+            </value>
+            <value>
+                <fullName>514</fullName>
+                <default>false</default>
+                <label>GRENAD/GRIS</label>
+            </value>
+            <value>
+                <fullName>515</fullName>
+                <default>false</default>
+                <label>GRENAD/CHOCO</label>
+            </value>
+            <value>
+                <fullName>516</fullName>
+                <default>false</default>
+                <label>AUBERGINE FONCE</label>
+            </value>
+            <value>
+                <fullName>517</fullName>
+                <default>false</default>
+                <label>ROSE VIOLET</label>
+            </value>
+            <value>
+                <fullName>518</fullName>
+                <default>false</default>
+                <label>ARGENT LAVANDE</label>
+            </value>
+            <value>
+                <fullName>519</fullName>
+                <default>false</default>
+                <label>RAISIN</label>
+            </value>
+            <value>
+                <fullName>51M</fullName>
+                <default>false</default>
+                <label>MONOGRAM ROSE BEIGE</label>
+            </value>
+            <value>
+                <fullName>520</fullName>
+                <default>false</default>
+                <label>ROSE POUDRE 2</label>
+            </value>
+            <value>
+                <fullName>521</fullName>
+                <default>false</default>
+                <label>ROSE BEIGE</label>
+            </value>
+            <value>
+                <fullName>522</fullName>
+                <default>false</default>
+                <label>ROUGE ORANGE</label>
+            </value>
+            <value>
+                <fullName>523</fullName>
+                <default>false</default>
+                <label>PRUNE/ROUGE</label>
+            </value>
+            <value>
+                <fullName>524</fullName>
+                <default>false</default>
+                <label>ROUGE BRIQUE</label>
+            </value>
+            <value>
+                <fullName>525</fullName>
+                <default>false</default>
+                <label>CORAIL CLAIR</label>
+            </value>
+            <value>
+                <fullName>526</fullName>
+                <default>false</default>
+                <label>ROSE VIF</label>
+            </value>
+            <value>
+                <fullName>527</fullName>
+                <default>false</default>
+                <label>FUSCHIA</label>
+            </value>
+            <value>
+                <fullName>528</fullName>
+                <default>false</default>
+                <label>ROSE FONCE</label>
+            </value>
+            <value>
+                <fullName>529</fullName>
+                <default>false</default>
+                <label>ROUGE FLUO</label>
+            </value>
+            <value>
+                <fullName>530</fullName>
+                <default>false</default>
+                <label>BLANC CORAIL</label>
+            </value>
+            <value>
+                <fullName>531</fullName>
+                <default>false</default>
+                <label>ROSE CLAIR</label>
+            </value>
+            <value>
+                <fullName>532</fullName>
+                <default>false</default>
+                <label>PRUNE/RED</label>
+            </value>
+            <value>
+                <fullName>533</fullName>
+                <default>false</default>
+                <label>LIE DE VIN</label>
+            </value>
+            <value>
+                <fullName>534</fullName>
+                <default>false</default>
+                <label>VIEUX ROSE</label>
+            </value>
+            <value>
+                <fullName>535</fullName>
+                <default>false</default>
+                <label>ROSE FLUO</label>
+            </value>
+            <value>
+                <fullName>536</fullName>
+                <default>false</default>
+                <label>ROUGE CERISE</label>
+            </value>
+            <value>
+                <fullName>537</fullName>
+                <default>false</default>
+                <label>ROSE / NOIR</label>
+            </value>
+            <value>
+                <fullName>538</fullName>
+                <default>false</default>
+                <label>CHAIR</label>
+            </value>
+            <value>
+                <fullName>539</fullName>
+                <default>false</default>
+                <label>ROSE GRENAT</label>
+            </value>
+            <value>
+                <fullName>540</fullName>
+                <default>false</default>
+                <label>ROSE GRIS</label>
+            </value>
+            <value>
+                <fullName>541</fullName>
+                <default>false</default>
+                <label>DRAGEE</label>
+            </value>
+            <value>
+                <fullName>542</fullName>
+                <default>false</default>
+                <label>PETALE DE ROSE</label>
+            </value>
+            <value>
+                <fullName>543</fullName>
+                <default>false</default>
+                <label>BONBON</label>
+            </value>
+            <value>
+                <fullName>544</fullName>
+                <default>false</default>
+                <label>BOURGOGNE</label>
+            </value>
+            <value>
+                <fullName>545</fullName>
+                <default>false</default>
+                <label>ROSE FLAMANT</label>
+            </value>
+            <value>
+                <fullName>546</fullName>
+                <default>false</default>
+                <label>BORDEAUX</label>
+            </value>
+            <value>
+                <fullName>547</fullName>
+                <default>false</default>
+                <label>ROSE BEGONIA</label>
+            </value>
+            <value>
+                <fullName>548</fullName>
+                <default>false</default>
+                <label>FUCHSIA CLAIR</label>
+            </value>
+            <value>
+                <fullName>549</fullName>
+                <default>false</default>
+                <label>FUCHSIA FONCE</label>
+            </value>
+            <value>
+                <fullName>54L</fullName>
+                <default>false</default>
+                <label>BORDEAUX LAVE</label>
+            </value>
+            <value>
+                <fullName>550</fullName>
+                <default>false</default>
+                <label>FRAMBOISE</label>
+            </value>
+            <value>
+                <fullName>551</fullName>
+                <default>false</default>
+                <label>BOIS DE ROSE</label>
+            </value>
+            <value>
+                <fullName>570</fullName>
+                <default>false</default>
+                <label>ROUGE CLAIR</label>
+            </value>
+            <value>
+                <fullName>571</fullName>
+                <default>false</default>
+                <label>FRAISE</label>
+            </value>
+            <value>
+                <fullName>572</fullName>
+                <default>false</default>
+                <label>VERMILLON</label>
+            </value>
+            <value>
+                <fullName>573</fullName>
+                <default>false</default>
+                <label>GERANIUM</label>
+            </value>
+            <value>
+                <fullName>574</fullName>
+                <default>false</default>
+                <label>CERISE</label>
+            </value>
+            <value>
+                <fullName>575</fullName>
+                <default>false</default>
+                <label>COQUELICOT</label>
+            </value>
+            <value>
+                <fullName>576</fullName>
+                <default>false</default>
+                <label>TOMETTE</label>
+            </value>
+            <value>
+                <fullName>577</fullName>
+                <default>false</default>
+                <label>PIVOINE</label>
+            </value>
+            <value>
+                <fullName>578</fullName>
+                <default>false</default>
+                <label>RUBIS</label>
+            </value>
+            <value>
+                <fullName>579</fullName>
+                <default>false</default>
+                <label>ROUGE CRAMOISI</label>
+            </value>
+            <value>
+                <fullName>580</fullName>
+                <default>false</default>
+                <label>BRIQUE</label>
+            </value>
+            <value>
+                <fullName>581</fullName>
+                <default>false</default>
+                <label>LIE DE VIN 2</label>
+            </value>
+            <value>
+                <fullName>582</fullName>
+                <default>false</default>
+                <label>ROUGE CASSIS</label>
+            </value>
+            <value>
+                <fullName>583</fullName>
+                <default>false</default>
+                <label>THEATRE</label>
+            </value>
+            <value>
+                <fullName>584</fullName>
+                <default>false</default>
+                <label>CERISIER JAPONAIS</label>
+            </value>
+            <value>
+                <fullName>585</fullName>
+                <default>false</default>
+                <label>POMMARD</label>
+            </value>
+            <value>
+                <fullName>586</fullName>
+                <default>false</default>
+                <label>SYRAH</label>
+            </value>
+            <value>
+                <fullName>587</fullName>
+                <default>false</default>
+                <label>CORAIL 2</label>
+            </value>
+            <value>
+                <fullName>588</fullName>
+                <default>false</default>
+                <label>ROUGE PERSAN</label>
+            </value>
+            <value>
+                <fullName>589</fullName>
+                <default>false</default>
+                <label>AIRELLE</label>
+            </value>
+            <value>
+                <fullName>590</fullName>
+                <default>false</default>
+                <label>ROUGE MINERAL</label>
+            </value>
+            <value>
+                <fullName>591</fullName>
+                <default>false</default>
+                <label>ROUGE RIO</label>
+            </value>
+            <value>
+                <fullName>5B1</fullName>
+                <default>false</default>
+                <label>ROUGE ANTHRACITE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>5B2</fullName>
+                <default>false</default>
+                <label>ROUGE ROSE</label>
+            </value>
+            <value>
+                <fullName>5B4</fullName>
+                <default>false</default>
+                <label>ROSE/GRIS</label>
+            </value>
+            <value>
+                <fullName>5B6</fullName>
+                <default>false</default>
+                <label>ROUGE/BLEU BICOLORE</label>
+            </value>
+            <value>
+                <fullName>5D2</fullName>
+                <default>false</default>
+                <label>ROUGE / DAMIER</label>
+            </value>
+            <value>
+                <fullName>5I0</fullName>
+                <default>false</default>
+                <label>ROSE POUDRE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>5I1</fullName>
+                <default>false</default>
+                <label>ROSE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>5I2</fullName>
+                <default>false</default>
+                <label>ROUGE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>5I7</fullName>
+                <default>false</default>
+                <label>ROSE VIOLET IMPRIME</label>
+            </value>
+            <value>
+                <fullName>5M2</fullName>
+                <default>false</default>
+                <label>ROUGE/MONO</label>
+            </value>
+            <value>
+                <fullName>5M7</fullName>
+                <default>false</default>
+                <label>FUCSHIA  IMRESSION MONOG BLANC</label>
+            </value>
+            <value>
+                <fullName>5R0</fullName>
+                <default>false</default>
+                <label>RAYURES ROSE</label>
+            </value>
+            <value>
+                <fullName>5R1</fullName>
+                <default>false</default>
+                <label>RAYURE ROUGE</label>
+            </value>
+            <value>
+                <fullName>600</fullName>
+                <default>false</default>
+                <label>BLEU CIEL</label>
+            </value>
+            <value>
+                <fullName>601</fullName>
+                <default>false</default>
+                <label>BLEU GLACIER</label>
+            </value>
+            <value>
+                <fullName>602</fullName>
+                <default>false</default>
+                <label>BLEU GRIS</label>
+            </value>
+            <value>
+                <fullName>603</fullName>
+                <default>false</default>
+                <label>BLEU ORAGE</label>
+            </value>
+            <value>
+                <fullName>604</fullName>
+                <default>false</default>
+                <label>BLEU AZUR</label>
+            </value>
+            <value>
+                <fullName>605</fullName>
+                <default>false</default>
+                <label>BLEU CLAIR</label>
+            </value>
+            <value>
+                <fullName>606</fullName>
+                <default>false</default>
+                <label>BLEU LAVANDE</label>
+            </value>
+            <value>
+                <fullName>607</fullName>
+                <default>false</default>
+                <label>BLEU TRES CLAIR</label>
+            </value>
+            <value>
+                <fullName>608</fullName>
+                <default>false</default>
+                <label>BLEU / NOIR</label>
+            </value>
+            <value>
+                <fullName>609</fullName>
+                <default>false</default>
+                <label>NAVY C</label>
+            </value>
+            <value>
+                <fullName>60C</fullName>
+                <default>false</default>
+                <label>CARREAUX BLEU</label>
+            </value>
+            <value>
+                <fullName>60S</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU</label>
+            </value>
+            <value>
+                <fullName>610</fullName>
+                <default>false</default>
+                <label>BLEU</label>
+            </value>
+            <value>
+                <fullName>611</fullName>
+                <default>false</default>
+                <label>BLEU OXFORD</label>
+            </value>
+            <value>
+                <fullName>612</fullName>
+                <default>false</default>
+                <label>NAVY/KAKY</label>
+            </value>
+            <value>
+                <fullName>613</fullName>
+                <default>false</default>
+                <label>MARINE FONCE</label>
+            </value>
+            <value>
+                <fullName>614</fullName>
+                <default>false</default>
+                <label>ENCRE</label>
+            </value>
+            <value>
+                <fullName>615</fullName>
+                <default>false</default>
+                <label>LAVANDOU</label>
+            </value>
+            <value>
+                <fullName>616</fullName>
+                <default>false</default>
+                <label>IRIS</label>
+            </value>
+            <value>
+                <fullName>617</fullName>
+                <default>false</default>
+                <label>OUTREMER</label>
+            </value>
+            <value>
+                <fullName>618</fullName>
+                <default>false</default>
+                <label>OCEAN FONCE</label>
+            </value>
+            <value>
+                <fullName>619</fullName>
+                <default>false</default>
+                <label>OCEAN</label>
+            </value>
+            <value>
+                <fullName>61M</fullName>
+                <default>false</default>
+                <label>BLEU NUIT MONOGRAME EXTERIEUR</label>
+            </value>
+            <value>
+                <fullName>620</fullName>
+                <default>false</default>
+                <label>BLEU DUR</label>
+            </value>
+            <value>
+                <fullName>621</fullName>
+                <default>false</default>
+                <label>BLEU ADONIS</label>
+            </value>
+            <value>
+                <fullName>622</fullName>
+                <default>false</default>
+                <label>BLEU GRISE</label>
+            </value>
+            <value>
+                <fullName>623</fullName>
+                <default>false</default>
+                <label>BLEU GRIS CHINE</label>
+            </value>
+            <value>
+                <fullName>624</fullName>
+                <default>false</default>
+                <label>TURQUOISE</label>
+            </value>
+            <value>
+                <fullName>625</fullName>
+                <default>false</default>
+                <label>PLOMB</label>
+            </value>
+            <value>
+                <fullName>626</fullName>
+                <default>false</default>
+                <label>BLEU ELECTRIQUE</label>
+            </value>
+            <value>
+                <fullName>627</fullName>
+                <default>false</default>
+                <label>BLEU CANARD</label>
+            </value>
+            <value>
+                <fullName>628</fullName>
+                <default>false</default>
+                <label>BLEU CANARD DBC</label>
+            </value>
+            <value>
+                <fullName>629</fullName>
+                <default>false</default>
+                <label>BLEU VIOLET</label>
+            </value>
+            <value>
+                <fullName>62M</fullName>
+                <default>false</default>
+                <label>BLEU MONOGRAME</label>
+            </value>
+            <value>
+                <fullName>630</fullName>
+                <default>false</default>
+                <label>BLEU PETROLE</label>
+            </value>
+            <value>
+                <fullName>631</fullName>
+                <default>false</default>
+                <label>BLEU NUIT</label>
+            </value>
+            <value>
+                <fullName>632</fullName>
+                <default>false</default>
+                <label>BLEU NUIT FONCE</label>
+            </value>
+            <value>
+                <fullName>633</fullName>
+                <default>false</default>
+                <label>BLEU NUIT FONCE CHINE</label>
+            </value>
+            <value>
+                <fullName>634</fullName>
+                <default>false</default>
+                <label>LILAS</label>
+            </value>
+            <value>
+                <fullName>635</fullName>
+                <default>false</default>
+                <label>BLEU ROSE</label>
+            </value>
+            <value>
+                <fullName>636</fullName>
+                <default>false</default>
+                <label>BLEU JAUNE</label>
+            </value>
+            <value>
+                <fullName>637</fullName>
+                <default>false</default>
+                <label>BLEU ELECTRIQUE ANTHRACITE</label>
+            </value>
+            <value>
+                <fullName>638</fullName>
+                <default>false</default>
+                <label>BLEU OPALE</label>
+            </value>
+            <value>
+                <fullName>639</fullName>
+                <default>false</default>
+                <label>HORTENSIA</label>
+            </value>
+            <value>
+                <fullName>640</fullName>
+                <default>false</default>
+                <label>BABY BLUE</label>
+            </value>
+            <value>
+                <fullName>641</fullName>
+                <default>false</default>
+                <label>MER DU SUD</label>
+            </value>
+            <value>
+                <fullName>642</fullName>
+                <default>false</default>
+                <label>OCEAN 2</label>
+            </value>
+            <value>
+                <fullName>643</fullName>
+                <default>false</default>
+                <label>PERVENCHE</label>
+            </value>
+            <value>
+                <fullName>644</fullName>
+                <default>false</default>
+                <label>BLEU FRANCE</label>
+            </value>
+            <value>
+                <fullName>645</fullName>
+                <default>false</default>
+                <label>BLEU GRAPHIQUE</label>
+            </value>
+            <value>
+                <fullName>646</fullName>
+                <default>false</default>
+                <label>COL VERT</label>
+            </value>
+            <value>
+                <fullName>647</fullName>
+                <default>false</default>
+                <label>BLEU ORIENTAL</label>
+            </value>
+            <value>
+                <fullName>648</fullName>
+                <default>false</default>
+                <label>BLEU MYRTILLE</label>
+            </value>
+            <value>
+                <fullName>649</fullName>
+                <default>false</default>
+                <label>BLEU TEMPETE</label>
+            </value>
+            <value>
+                <fullName>650</fullName>
+                <default>false</default>
+                <label>INDIGO</label>
+            </value>
+            <value>
+                <fullName>651</fullName>
+                <default>false</default>
+                <label>MARINE</label>
+            </value>
+            <value>
+                <fullName>652</fullName>
+                <default>false</default>
+                <label>MARINE NUIT</label>
+            </value>
+            <value>
+                <fullName>653</fullName>
+                <default>false</default>
+                <label>MARINE FONCE 2</label>
+            </value>
+            <value>
+                <fullName>654</fullName>
+                <default>false</default>
+                <label>MARINE CHINE</label>
+            </value>
+            <value>
+                <fullName>655</fullName>
+                <default>false</default>
+                <label>BLEU CHINE</label>
+            </value>
+            <value>
+                <fullName>656</fullName>
+                <default>false</default>
+                <label>GRIS CHINE BLEU</label>
+            </value>
+            <value>
+                <fullName>657</fullName>
+                <default>false</default>
+                <label>BLEU CHINE 2</label>
+            </value>
+            <value>
+                <fullName>658</fullName>
+                <default>false</default>
+                <label>BLEU CLAIR 2</label>
+            </value>
+            <value>
+                <fullName>659</fullName>
+                <default>false</default>
+                <label>BLEU PALE</label>
+            </value>
+            <value>
+                <fullName>65B</fullName>
+                <default>false</default>
+                <label>INDIGO BRODE MARRON</label>
+            </value>
+            <value>
+                <fullName>65L</fullName>
+                <default>false</default>
+                <label>INDIGO LAVE</label>
+            </value>
+            <value>
+                <fullName>65S</fullName>
+                <default>false</default>
+                <label>INDIGO STONE BLEACHED</label>
+            </value>
+            <value>
+                <fullName>660</fullName>
+                <default>false</default>
+                <label>PARME</label>
+            </value>
+            <value>
+                <fullName>661</fullName>
+                <default>false</default>
+                <label>VIOLET</label>
+            </value>
+            <value>
+                <fullName>662</fullName>
+                <default>false</default>
+                <label>VIOLINE</label>
+            </value>
+            <value>
+                <fullName>663</fullName>
+                <default>false</default>
+                <label>VIOLETTE</label>
+            </value>
+            <value>
+                <fullName>664</fullName>
+                <default>false</default>
+                <label>NUIT DOREE</label>
+            </value>
+            <value>
+                <fullName>665</fullName>
+                <default>false</default>
+                <label>VIOLET FONCE</label>
+            </value>
+            <value>
+                <fullName>666</fullName>
+                <default>false</default>
+                <label>STOCK 6666</label>
+            </value>
+            <value>
+                <fullName>670</fullName>
+                <default>false</default>
+                <label>GLYCINE</label>
+            </value>
+            <value>
+                <fullName>671</fullName>
+                <default>false</default>
+                <label>PENSEE</label>
+            </value>
+            <value>
+                <fullName>672</fullName>
+                <default>false</default>
+                <label>ULTRA VIOLET</label>
+            </value>
+            <value>
+                <fullName>673</fullName>
+                <default>false</default>
+                <label>VIOLETTE D AFRIQUE</label>
+            </value>
+            <value>
+                <fullName>674</fullName>
+                <default>false</default>
+                <label>LAVANDE POUDREE</label>
+            </value>
+            <value>
+                <fullName>675</fullName>
+                <default>false</default>
+                <label>LUPIN</label>
+            </value>
+            <value>
+                <fullName>676</fullName>
+                <default>false</default>
+                <label>ORCHIDEE</label>
+            </value>
+            <value>
+                <fullName>677</fullName>
+                <default>false</default>
+                <label>IMPATIENCE</label>
+            </value>
+            <value>
+                <fullName>678</fullName>
+                <default>false</default>
+                <label>JACINTHE</label>
+            </value>
+            <value>
+                <fullName>679</fullName>
+                <default>false</default>
+                <label>MADERE</label>
+            </value>
+            <value>
+                <fullName>680</fullName>
+                <default>false</default>
+                <label>CASSIS</label>
+            </value>
+            <value>
+                <fullName>681</fullName>
+                <default>false</default>
+                <label>GENTIANE</label>
+            </value>
+            <value>
+                <fullName>682</fullName>
+                <default>false</default>
+                <label>POURPRE</label>
+            </value>
+            <value>
+                <fullName>683</fullName>
+                <default>false</default>
+                <label>AMETHYSTE</label>
+            </value>
+            <value>
+                <fullName>684</fullName>
+                <default>false</default>
+                <label>DAHLIA</label>
+            </value>
+            <value>
+                <fullName>685</fullName>
+                <default>false</default>
+                <label>FIGUE</label>
+            </value>
+            <value>
+                <fullName>686</fullName>
+                <default>false</default>
+                <label>CHARDON</label>
+            </value>
+            <value>
+                <fullName>687</fullName>
+                <default>false</default>
+                <label>MURE</label>
+            </value>
+            <value>
+                <fullName>688</fullName>
+                <default>false</default>
+                <label>VIOLET NOIR</label>
+            </value>
+            <value>
+                <fullName>689</fullName>
+                <default>false</default>
+                <label>HORTENSIA 2</label>
+            </value>
+            <value>
+                <fullName>690</fullName>
+                <default>false</default>
+                <label>QUETSCHE</label>
+            </value>
+            <value>
+                <fullName>691</fullName>
+                <default>false</default>
+                <label>OMBRE BLEUE</label>
+            </value>
+            <value>
+                <fullName>698</fullName>
+                <default>false</default>
+                <label>GRIS BIS</label>
+            </value>
+            <value>
+                <fullName>699</fullName>
+                <default>false</default>
+                <label>GRIS 2</label>
+            </value>
+            <value>
+                <fullName>6B1</fullName>
+                <default>false</default>
+                <label>NAVY BLEU BICOLORE</label>
+            </value>
+            <value>
+                <fullName>6B2</fullName>
+                <default>false</default>
+                <label>BLEU ANTHRACITE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>6B3</fullName>
+                <default>false</default>
+                <label>NAVY/BLEU</label>
+            </value>
+            <value>
+                <fullName>6B4</fullName>
+                <default>false</default>
+                <label>BLEU SAUMON CLAIR</label>
+            </value>
+            <value>
+                <fullName>6B7</fullName>
+                <default>false</default>
+                <label>MARINE/GRIS</label>
+            </value>
+            <value>
+                <fullName>6D1</fullName>
+                <default>false</default>
+                <label>LILAS DESSIN</label>
+            </value>
+            <value>
+                <fullName>6D2</fullName>
+                <default>false</default>
+                <label>LILAS DESSIN 2</label>
+            </value>
+            <value>
+                <fullName>6I0</fullName>
+                <default>false</default>
+                <label>BLEU IMPRIME</label>
+            </value>
+            <value>
+                <fullName>6I1</fullName>
+                <default>false</default>
+                <label>PARME IMPRIME</label>
+            </value>
+            <value>
+                <fullName>6I5</fullName>
+                <default>false</default>
+                <label>BLEU CLAIR IMPRIME</label>
+            </value>
+            <value>
+                <fullName>6I6</fullName>
+                <default>false</default>
+                <label>VIOLET IMPRIME</label>
+            </value>
+            <value>
+                <fullName>6M1</fullName>
+                <default>false</default>
+                <label>MARINE IMPRIME BLANC</label>
+            </value>
+            <value>
+                <fullName>6UN</fullName>
+                <default>false</default>
+                <label>LILAS UNI</label>
+            </value>
+            <value>
+                <fullName>700</fullName>
+                <default>false</default>
+                <label>NUAGE 2</label>
+            </value>
+            <value>
+                <fullName>701</fullName>
+                <default>false</default>
+                <label>GRIS PERLE</label>
+            </value>
+            <value>
+                <fullName>702</fullName>
+                <default>false</default>
+                <label>GRIS</label>
+            </value>
+            <value>
+                <fullName>703</fullName>
+                <default>false</default>
+                <label>GRIS SOURIS</label>
+            </value>
+            <value>
+                <fullName>704</fullName>
+                <default>false</default>
+                <label>GRIS CLAIR</label>
+            </value>
+            <value>
+                <fullName>705</fullName>
+                <default>false</default>
+                <label>GRIS TONNERRE</label>
+            </value>
+            <value>
+                <fullName>706</fullName>
+                <default>false</default>
+                <label>GRIS FONCE D</label>
+            </value>
+            <value>
+                <fullName>707</fullName>
+                <default>false</default>
+                <label>GRIS CLAIR B</label>
+            </value>
+            <value>
+                <fullName>708</fullName>
+                <default>false</default>
+                <label>GRIS/BLANC</label>
+            </value>
+            <value>
+                <fullName>709</fullName>
+                <default>false</default>
+                <label>GRIS BEIGE</label>
+            </value>
+            <value>
+                <fullName>70L</fullName>
+                <default>false</default>
+                <label>GRIS LAVE</label>
+            </value>
+            <value>
+                <fullName>70M</fullName>
+                <default>false</default>
+                <label>MONOGRAM GRIS</label>
+            </value>
+            <value>
+                <fullName>70R</fullName>
+                <default>false</default>
+                <label>GRIS REFLECHISSANT</label>
+            </value>
+            <value>
+                <fullName>710</fullName>
+                <default>false</default>
+                <label>GRIS PLUIE</label>
+            </value>
+            <value>
+                <fullName>711</fullName>
+                <default>false</default>
+                <label>GRIS FONCE CHINE</label>
+            </value>
+            <value>
+                <fullName>712</fullName>
+                <default>false</default>
+                <label>CHARBON</label>
+            </value>
+            <value>
+                <fullName>713</fullName>
+                <default>false</default>
+                <label>GRIS TRES PALE</label>
+            </value>
+            <value>
+                <fullName>714</fullName>
+                <default>false</default>
+                <label>GRANIT</label>
+            </value>
+            <value>
+                <fullName>715</fullName>
+                <default>false</default>
+                <label>GRIS METAL</label>
+            </value>
+            <value>
+                <fullName>716</fullName>
+                <default>false</default>
+                <label>GRANIT 2</label>
+            </value>
+            <value>
+                <fullName>717</fullName>
+                <default>false</default>
+                <label>ECUME DE MER</label>
+            </value>
+            <value>
+                <fullName>718</fullName>
+                <default>false</default>
+                <label>GRIS METALISE</label>
+            </value>
+            <value>
+                <fullName>719</fullName>
+                <default>false</default>
+                <label>GRIS PROFOND</label>
+            </value>
+            <value>
+                <fullName>720</fullName>
+                <default>false</default>
+                <label>ARGENT</label>
+            </value>
+            <value>
+                <fullName>721</fullName>
+                <default>false</default>
+                <label>GRAPHITE</label>
+            </value>
+            <value>
+                <fullName>722</fullName>
+                <default>false</default>
+                <label>GRIS VERT</label>
+            </value>
+            <value>
+                <fullName>738</fullName>
+                <default>false</default>
+                <label>GRIS PERLE CHINE</label>
+            </value>
+            <value>
+                <fullName>739</fullName>
+                <default>false</default>
+                <label>GRIS FONCE</label>
+            </value>
+            <value>
+                <fullName>740</fullName>
+                <default>false</default>
+                <label>GRIS CHINE</label>
+            </value>
+            <value>
+                <fullName>741</fullName>
+                <default>false</default>
+                <label>GRIS CHINE BLEU 2</label>
+            </value>
+            <value>
+                <fullName>742</fullName>
+                <default>false</default>
+                <label>PALLADIUM CHINE</label>
+            </value>
+            <value>
+                <fullName>743</fullName>
+                <default>false</default>
+                <label>GRIS CLAIR CHINE</label>
+            </value>
+            <value>
+                <fullName>744</fullName>
+                <default>false</default>
+                <label>GRIS METALLIQUE</label>
+            </value>
+            <value>
+                <fullName>745</fullName>
+                <default>false</default>
+                <label>SOURIS</label>
+            </value>
+            <value>
+                <fullName>746</fullName>
+                <default>false</default>
+                <label>GRIS BLEU</label>
+            </value>
+            <value>
+                <fullName>747</fullName>
+                <default>false</default>
+                <label>MARMOTTE</label>
+            </value>
+            <value>
+                <fullName>749</fullName>
+                <default>false</default>
+                <label>GALET 3</label>
+            </value>
+            <value>
+                <fullName>751</fullName>
+                <default>false</default>
+                <label>MARRON KAKI</label>
+            </value>
+            <value>
+                <fullName>781</fullName>
+                <default>false</default>
+                <label>CORNE CLAIRE ZEBREE</label>
+            </value>
+            <value>
+                <fullName>7I3</fullName>
+                <default>false</default>
+                <label>GRIS PALE IMPRIME</label>
+            </value>
+            <value>
+                <fullName>7M3</fullName>
+                <default>false</default>
+                <label>GRIS IMPRESSION M</label>
+            </value>
+            <value>
+                <fullName>7M4</fullName>
+                <default>false</default>
+                <label>GRISFONCE IMPRESSION M</label>
+            </value>
+            <value>
+                <fullName>800</fullName>
+                <default>false</default>
+                <label>CHOCOLAT</label>
+            </value>
+            <value>
+                <fullName>801</fullName>
+                <default>false</default>
+                <label>HAVANES</label>
+            </value>
+            <value>
+                <fullName>802</fullName>
+                <default>false</default>
+                <label>MARRON NOIR</label>
+            </value>
+            <value>
+                <fullName>803</fullName>
+                <default>false</default>
+                <label>MARRON CHINE</label>
+            </value>
+            <value>
+                <fullName>804</fullName>
+                <default>false</default>
+                <label>MARRON J</label>
+            </value>
+            <value>
+                <fullName>805</fullName>
+                <default>false</default>
+                <label>MARRON GRIS</label>
+            </value>
+            <value>
+                <fullName>806</fullName>
+                <default>false</default>
+                <label>MARRON</label>
+            </value>
+            <value>
+                <fullName>807</fullName>
+                <default>false</default>
+                <label>MARRON TRANSPARENT</label>
+            </value>
+            <value>
+                <fullName>808</fullName>
+                <default>false</default>
+                <label>MARRON PAT</label>
+            </value>
+            <value>
+                <fullName>809</fullName>
+                <default>false</default>
+                <label>EBENE</label>
+            </value>
+            <value>
+                <fullName>80C</fullName>
+                <default>false</default>
+                <label>CARREAUX MARRON</label>
+            </value>
+            <value>
+                <fullName>810</fullName>
+                <default>false</default>
+                <label>MARRON FONCE</label>
+            </value>
+            <value>
+                <fullName>811</fullName>
+                <default>false</default>
+                <label>MARRON CHOCOLAT</label>
+            </value>
+            <value>
+                <fullName>812</fullName>
+                <default>false</default>
+                <label>MARRON/CORAIL</label>
+            </value>
+            <value>
+                <fullName>813</fullName>
+                <default>false</default>
+                <label>MARRON CLAIR</label>
+            </value>
+            <value>
+                <fullName>814</fullName>
+                <default>false</default>
+                <label>CAFE</label>
+            </value>
+            <value>
+                <fullName>815</fullName>
+                <default>false</default>
+                <label>DAIM</label>
+            </value>
+            <value>
+                <fullName>816</fullName>
+                <default>false</default>
+                <label>SIENNE</label>
+            </value>
+            <value>
+                <fullName>817</fullName>
+                <default>false</default>
+                <label>FAUVE</label>
+            </value>
+            <value>
+                <fullName>818</fullName>
+                <default>false</default>
+                <label>MARRON KAKI 2</label>
+            </value>
+            <value>
+                <fullName>819</fullName>
+                <default>false</default>
+                <label>MARRON BRIQUE</label>
+            </value>
+            <value>
+                <fullName>820</fullName>
+                <default>false</default>
+                <label>CHANTERELLE</label>
+            </value>
+            <value>
+                <fullName>821</fullName>
+                <default>false</default>
+                <label>SIROP D ERABLE</label>
+            </value>
+            <value>
+                <fullName>822</fullName>
+                <default>false</default>
+                <label>BRUN DORE</label>
+            </value>
+            <value>
+                <fullName>823</fullName>
+                <default>false</default>
+                <label>BRONZE 2</label>
+            </value>
+            <value>
+                <fullName>824</fullName>
+                <default>false</default>
+                <label>HENNE</label>
+            </value>
+            <value>
+                <fullName>825</fullName>
+                <default>false</default>
+                <label>BRUN MAROCAIN</label>
+            </value>
+            <value>
+                <fullName>826</fullName>
+                <default>false</default>
+                <label>NOIX DE COCO</label>
+            </value>
+            <value>
+                <fullName>827</fullName>
+                <default>false</default>
+                <label>BISON</label>
+            </value>
+            <value>
+                <fullName>828</fullName>
+                <default>false</default>
+                <label>MORILLE</label>
+            </value>
+            <value>
+                <fullName>829</fullName>
+                <default>false</default>
+                <label>SARRASIN</label>
+            </value>
+            <value>
+                <fullName>830</fullName>
+                <default>false</default>
+                <label>BRUN ACAJOU</label>
+            </value>
+            <value>
+                <fullName>831</fullName>
+                <default>false</default>
+                <label>CACAO</label>
+            </value>
+            <value>
+                <fullName>832</fullName>
+                <default>false</default>
+                <label>VISON</label>
+            </value>
+            <value>
+                <fullName>833</fullName>
+                <default>false</default>
+                <label>MARRON POIVRE</label>
+            </value>
+            <value>
+                <fullName>834</fullName>
+                <default>false</default>
+                <label>MARRON DBC</label>
+            </value>
+            <value>
+                <fullName>85M</fullName>
+                <default>false</default>
+                <label>MARRON MONOGRAMME</label>
+            </value>
+            <value>
+                <fullName>86D</fullName>
+                <default>false</default>
+                <label>DAMIER EXT CINZATO HAWAI</label>
+            </value>
+            <value>
+                <fullName>86M</fullName>
+                <default>false</default>
+                <label>MONOGRAM EXT GREUTER</label>
+            </value>
+            <value>
+                <fullName>87D</fullName>
+                <default>false</default>
+                <label>MARRON DAMIER</label>
+            </value>
+            <value>
+                <fullName>87M</fullName>
+                <default>false</default>
+                <label>IMPRIME MONOGRAM N2</label>
+            </value>
+            <value>
+                <fullName>888</fullName>
+                <default>false</default>
+                <label>VIOLET ROSE</label>
+            </value>
+            <value>
+                <fullName>898</fullName>
+                <default>false</default>
+                <label>ARGENT SABLE</label>
+            </value>
+            <value>
+                <fullName>899</fullName>
+                <default>false</default>
+                <label>OR JAUNE</label>
+            </value>
+            <value>
+                <fullName>8B1</fullName>
+                <default>false</default>
+                <label>CHOCOLAT/OCRE</label>
+            </value>
+            <value>
+                <fullName>8B3</fullName>
+                <default>false</default>
+                <label>MARRON/TAUPE</label>
+            </value>
+            <value>
+                <fullName>8B6</fullName>
+                <default>false</default>
+                <label>BLEU/MARRON</label>
+            </value>
+            <value>
+                <fullName>8B9</fullName>
+                <default>false</default>
+                <label>MARRON/GRIS</label>
+            </value>
+            <value>
+                <fullName>8D5</fullName>
+                <default>false</default>
+                <label>DAMIER INT</label>
+            </value>
+            <value>
+                <fullName>8M4</fullName>
+                <default>false</default>
+                <label>MONOGRAM</label>
+            </value>
+            <value>
+                <fullName>8M5</fullName>
+                <default>false</default>
+                <label>MONOGRAMME MARRON</label>
+            </value>
+            <value>
+                <fullName>8R0</fullName>
+                <default>false</default>
+                <label>PIED DE POULE MARRON</label>
+            </value>
+            <value>
+                <fullName>8T1</fullName>
+                <default>false</default>
+                <label>NOIR/VIOLET/GRIS TRICOLOR</label>
+            </value>
+            <value>
+                <fullName>900</fullName>
+                <default>false</default>
+                <label>NOIR</label>
+            </value>
+            <value>
+                <fullName>901</fullName>
+                <default>false</default>
+                <label>ANTHRACITE</label>
+            </value>
+            <value>
+                <fullName>902</fullName>
+                <default>false</default>
+                <label>GRIS NOIR</label>
+            </value>
+            <value>
+                <fullName>903</fullName>
+                <default>false</default>
+                <label>ANTHRACITE NOIR</label>
+            </value>
+            <value>
+                <fullName>904</fullName>
+                <default>false</default>
+                <label>NOIR/BLANC</label>
+            </value>
+            <value>
+                <fullName>905</fullName>
+                <default>false</default>
+                <label>ANTHRACITE CHINE</label>
+            </value>
+            <value>
+                <fullName>906</fullName>
+                <default>false</default>
+                <label>GRIS NOIR CHINE</label>
+            </value>
+            <value>
+                <fullName>907</fullName>
+                <default>false</default>
+                <label>GRIS / NOIR AGN</label>
+            </value>
+            <value>
+                <fullName>908</fullName>
+                <default>false</default>
+                <label>ANTHRACITE FONCE</label>
+            </value>
+            <value>
+                <fullName>909</fullName>
+                <default>false</default>
+                <label>NEGRE K</label>
+            </value>
+            <value>
+                <fullName>90D</fullName>
+                <default>false</default>
+                <label>NOIR PROFOND</label>
+            </value>
+            <value>
+                <fullName>90L</fullName>
+                <default>false</default>
+                <label>WASHED BLACK</label>
+            </value>
+            <value>
+                <fullName>90N</fullName>
+                <default>false</default>
+                <label>NOIR MAT</label>
+            </value>
+            <value>
+                <fullName>90P</fullName>
+                <default>false</default>
+                <label>NOIR PROFOND 2</label>
+            </value>
+            <value>
+                <fullName>90S</fullName>
+                <default>false</default>
+                <label>STRIPE GRIS</label>
+            </value>
+            <value>
+                <fullName>90T</fullName>
+                <default>false</default>
+                <label>NOIR BRILLANT</label>
+            </value>
+            <value>
+                <fullName>90W</fullName>
+                <default>false</default>
+                <label>NOIR WATER-REPELLENT</label>
+            </value>
+            <value>
+                <fullName>90X</fullName>
+                <default>false</default>
+                <label>NOIR/FUSHIA</label>
+            </value>
+            <value>
+                <fullName>90Y</fullName>
+                <default>false</default>
+                <label>NOIR/ROSE POUDRE</label>
+            </value>
+            <value>
+                <fullName>910</fullName>
+                <default>false</default>
+                <label>NOIR GRIS CHINE</label>
+            </value>
+            <value>
+                <fullName>911</fullName>
+                <default>false</default>
+                <label>ANTHRACITE/RAYURE MARINE</label>
+            </value>
+            <value>
+                <fullName>912</fullName>
+                <default>false</default>
+                <label>NAVY/RAYURE ANTHRACITE</label>
+            </value>
+            <value>
+                <fullName>913</fullName>
+                <default>false</default>
+                <label>GUN METAL CLAIR</label>
+            </value>
+            <value>
+                <fullName>914</fullName>
+                <default>false</default>
+                <label>RUTHENIUM</label>
+            </value>
+            <value>
+                <fullName>915</fullName>
+                <default>false</default>
+                <label>NOIR /ECRU</label>
+            </value>
+            <value>
+                <fullName>916</fullName>
+                <default>false</default>
+                <label>ANTHRACITE ET PLOMB</label>
+            </value>
+            <value>
+                <fullName>917</fullName>
+                <default>false</default>
+                <label>NOIR/OR</label>
+            </value>
+            <value>
+                <fullName>918</fullName>
+                <default>false</default>
+                <label>CORBEAU</label>
+            </value>
+            <value>
+                <fullName>919</fullName>
+                <default>false</default>
+                <label>RUTHENIUM VIEILLI</label>
+            </value>
+            <value>
+                <fullName>91S</fullName>
+                <default>false</default>
+                <label>STRIPE GRIS 2</label>
+            </value>
+            <value>
+                <fullName>920</fullName>
+                <default>false</default>
+                <label>PETROLE</label>
+            </value>
+            <value>
+                <fullName>921</fullName>
+                <default>false</default>
+                <label>GOMMO BLANC</label>
+            </value>
+            <value>
+                <fullName>923</fullName>
+                <default>false</default>
+                <label>GUN METAL PVD OPACO</label>
+            </value>
+            <value>
+                <fullName>924</fullName>
+                <default>false</default>
+                <label>PVD NOIR SABLE</label>
+            </value>
+            <value>
+                <fullName>92S</fullName>
+                <default>false</default>
+                <label>STRIPE GRIS 3</label>
+            </value>
+            <value>
+                <fullName>93D</fullName>
+                <default>false</default>
+                <label>OR ROSE</label>
+            </value>
+            <value>
+                <fullName>93N</fullName>
+                <default>false</default>
+                <label>OR 3N ANTIALLERGIQUE</label>
+            </value>
+            <value>
+                <fullName>943</fullName>
+                <default>false</default>
+                <label>CANON DE FUSIL MAT</label>
+            </value>
+            <value>
+                <fullName>948</fullName>
+                <default>false</default>
+                <label>LPO CUIR</label>
+            </value>
+            <value>
+                <fullName>949</fullName>
+                <default>false</default>
+                <label>LAITON POLI OXYDE</label>
+            </value>
+            <value>
+                <fullName>950</fullName>
+                <default>false</default>
+                <label>BRUNITO</label>
+            </value>
+            <value>
+                <fullName>951</fullName>
+                <default>false</default>
+                <label>VIEUX LAITON</label>
+            </value>
+            <value>
+                <fullName>952</fullName>
+                <default>false</default>
+                <label>GRIS/BLEU</label>
+            </value>
+            <value>
+                <fullName>953</fullName>
+                <default>false</default>
+                <label>CUIVRE VIEILLI</label>
+            </value>
+            <value>
+                <fullName>954</fullName>
+                <default>false</default>
+                <label>LAITON HISTORIQUE</label>
+            </value>
+            <value>
+                <fullName>955</fullName>
+                <default>false</default>
+                <label>ANTHRACITE/CORAIL</label>
+            </value>
+            <value>
+                <fullName>956</fullName>
+                <default>false</default>
+                <label>CUIVRE</label>
+            </value>
+            <value>
+                <fullName>957</fullName>
+                <default>false</default>
+                <label>LAITON HISTORIQUE 2</label>
+            </value>
+            <value>
+                <fullName>958</fullName>
+                <default>false</default>
+                <label>LAITON JAUNE</label>
+            </value>
+            <value>
+                <fullName>959</fullName>
+                <default>false</default>
+                <label>NOIR/CREME</label>
+            </value>
+            <value>
+                <fullName>960</fullName>
+                <default>false</default>
+                <label>BRASS</label>
+            </value>
+            <value>
+                <fullName>961</fullName>
+                <default>false</default>
+                <label>LAITON BRUT</label>
+            </value>
+            <value>
+                <fullName>962</fullName>
+                <default>false</default>
+                <label>ARGENT VIEILLI</label>
+            </value>
+            <value>
+                <fullName>963</fullName>
+                <default>false</default>
+                <label>ARGENT BLANCHI LAQUE</label>
+            </value>
+            <value>
+                <fullName>964</fullName>
+                <default>false</default>
+                <label>ARGENT VIEILLI LUMINEUX</label>
+            </value>
+            <value>
+                <fullName>965</fullName>
+                <default>false</default>
+                <label>GOMMO NOIR</label>
+            </value>
+            <value>
+                <fullName>966</fullName>
+                <default>false</default>
+                <label>NICKEL VIEILLI</label>
+            </value>
+            <value>
+                <fullName>967</fullName>
+                <default>false</default>
+                <label>ARGENT FUME BROSSE</label>
+            </value>
+            <value>
+                <fullName>968</fullName>
+                <default>false</default>
+                <label>ARGENT MAT</label>
+            </value>
+            <value>
+                <fullName>971</fullName>
+                <default>false</default>
+                <label>PALLADIUM VIEILLI</label>
+            </value>
+            <value>
+                <fullName>972</fullName>
+                <default>false</default>
+                <label>ORO SATINATO</label>
+            </value>
+            <value>
+                <fullName>973</fullName>
+                <default>false</default>
+                <label>BRONZE BRILLANT</label>
+            </value>
+            <value>
+                <fullName>974</fullName>
+                <default>false</default>
+                <label>METAL BRONZE</label>
+            </value>
+            <value>
+                <fullName>975</fullName>
+                <default>false</default>
+                <label>METAL GRIS CLAIR</label>
+            </value>
+            <value>
+                <fullName>976</fullName>
+                <default>false</default>
+                <label>METAL GRIS</label>
+            </value>
+            <value>
+                <fullName>977</fullName>
+                <default>false</default>
+                <label>METAL KAKI</label>
+            </value>
+            <value>
+                <fullName>978</fullName>
+                <default>false</default>
+                <label>METAL KAKI GRIS</label>
+            </value>
+            <value>
+                <fullName>979</fullName>
+                <default>false</default>
+                <label>METAL NOIR</label>
+            </value>
+            <value>
+                <fullName>980</fullName>
+                <default>false</default>
+                <label>CORNE NATUREL</label>
+            </value>
+            <value>
+                <fullName>981</fullName>
+                <default>false</default>
+                <label>CORNE MARRON CLAIR</label>
+            </value>
+            <value>
+                <fullName>982</fullName>
+                <default>false</default>
+                <label>CORNE MARRON FONCE</label>
+            </value>
+            <value>
+                <fullName>983</fullName>
+                <default>false</default>
+                <label>CORNE NOIR</label>
+            </value>
+            <value>
+                <fullName>984</fullName>
+                <default>false</default>
+                <label>CORNE GRISE</label>
+            </value>
+            <value>
+                <fullName>985</fullName>
+                <default>false</default>
+                <label>NACRE BLANCHE</label>
+            </value>
+            <value>
+                <fullName>986</fullName>
+                <default>false</default>
+                <label>NACRE NATUREL</label>
+            </value>
+            <value>
+                <fullName>987</fullName>
+                <default>false</default>
+                <label>NACRE GRISE</label>
+            </value>
+            <value>
+                <fullName>988</fullName>
+                <default>false</default>
+                <label>NACRE NOIRE</label>
+            </value>
+            <value>
+                <fullName>989</fullName>
+                <default>false</default>
+                <label>NACRE GRIS CLAIR</label>
+            </value>
+            <value>
+                <fullName>98A</fullName>
+                <default>false</default>
+                <label>CORNE MARRON FONCE 2</label>
+            </value>
+            <value>
+                <fullName>98B</fullName>
+                <default>false</default>
+                <label>CORNE CLAIRE</label>
+            </value>
+            <value>
+                <fullName>98C</fullName>
+                <default>false</default>
+                <label>NOUVELLE CORNE CLAIRE</label>
+            </value>
+            <value>
+                <fullName>990</fullName>
+                <default>false</default>
+                <label>OR</label>
+            </value>
+            <value>
+                <fullName>991</fullName>
+                <default>false</default>
+                <label>PALLADIUM</label>
+            </value>
+            <value>
+                <fullName>992</fullName>
+                <default>false</default>
+                <label>ARGENT BROSSE</label>
+            </value>
+            <value>
+                <fullName>993</fullName>
+                <default>false</default>
+                <label>CANON DE FUSIL</label>
+            </value>
+            <value>
+                <fullName>994</fullName>
+                <default>false</default>
+                <label>CANON DE FUSIL LAQUE</label>
+            </value>
+            <value>
+                <fullName>995</fullName>
+                <default>false</default>
+                <label>OR HIVER 99</label>
+            </value>
+            <value>
+                <fullName>996</fullName>
+                <default>false</default>
+                <label>INOX</label>
+            </value>
+            <value>
+                <fullName>997</fullName>
+                <default>false</default>
+                <label>OR 1N ANTIALLERGIQUE</label>
+            </value>
+            <value>
+                <fullName>998</fullName>
+                <default>false</default>
+                <label>NATUREL GRISE</label>
+            </value>
+            <value>
+                <fullName>999</fullName>
+                <default>false</default>
+                <label>NEUTRE</label>
+            </value>
+            <value>
+                <fullName>99B</fullName>
+                <default>false</default>
+                <label>PALLADIUM SATINE</label>
+            </value>
+            <value>
+                <fullName>99C</fullName>
+                <default>false</default>
+                <label>OR CLAIR</label>
+            </value>
+            <value>
+                <fullName>99D</fullName>
+                <default>false</default>
+                <label>PALLADIUM BROSSE</label>
+            </value>
+            <value>
+                <fullName>99F</fullName>
+                <default>false</default>
+                <label>OR FUME</label>
+            </value>
+            <value>
+                <fullName>9A0</fullName>
+                <default>false</default>
+                <label>ALUMINIUM BROSSE</label>
+            </value>
+            <value>
+                <fullName>9A1</fullName>
+                <default>false</default>
+                <label>BI-GALVA.PALLADIUM 991 LPO 949</label>
+            </value>
+            <value>
+                <fullName>9B1</fullName>
+                <default>false</default>
+                <label>NOIR GRIS FONCE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>9B2</fullName>
+                <default>false</default>
+                <label>ANTHRACITE GRIS FONCE BICOLORE</label>
+            </value>
+            <value>
+                <fullName>9B8</fullName>
+                <default>false</default>
+                <label>NOIR MARRON</label>
+            </value>
+            <value>
+                <fullName>9BN</fullName>
+                <default>false</default>
+                <label>BLANC NOIR</label>
+            </value>
+            <value>
+                <fullName>9C0</fullName>
+                <default>false</default>
+                <label>OR 1N ANTIALLERGIQUE CUIR</label>
+            </value>
+            <value>
+                <fullName>9C2</fullName>
+                <default>false</default>
+                <label>VIEUX LAITON ANTIALLERGIQUE CU</label>
+            </value>
+            <value>
+                <fullName>9C3</fullName>
+                <default>false</default>
+                <label>OR PATINE CUIR</label>
+            </value>
+            <value>
+                <fullName>9C4</fullName>
+                <default>false</default>
+                <label>OR 1N 1MIC CUIR ANTIALLERGIQUE</label>
+            </value>
+            <value>
+                <fullName>9C5</fullName>
+                <default>false</default>
+                <label>OR 1N 0.5MIC PLD 0.5MIC+OR 0.5</label>
+            </value>
+            <value>
+                <fullName>9C6</fullName>
+                <default>false</default>
+                <label>OR 1N 0.5MIC PLD 1MIC+OR 0.5MI</label>
+            </value>
+            <value>
+                <fullName>9C7</fullName>
+                <default>false</default>
+                <label>OR 1N 1MIC PLD 1MIC + OR 1MIC</label>
+            </value>
+            <value>
+                <fullName>9C8</fullName>
+                <default>false</default>
+                <label>OR 1N 1MIC PLD 1.5 MIC+OR 1MIC</label>
+            </value>
+            <value>
+                <fullName>9D0</fullName>
+                <default>false</default>
+                <label>NOIR / DAMIER</label>
+            </value>
+            <value>
+                <fullName>9E0</fullName>
+                <default>false</default>
+                <label>NOIR ENVERS</label>
+            </value>
+            <value>
+                <fullName>9F1</fullName>
+                <default>false</default>
+                <label>OR FUME 1MIC PLD + 0.5 MIC OR</label>
+            </value>
+            <value>
+                <fullName>9G2</fullName>
+                <default>false</default>
+                <label>ARGENT GALVA SEMI LUCIDO</label>
+            </value>
+            <value>
+                <fullName>9G3</fullName>
+                <default>false</default>
+                <label>GUN METAL GALVA SEMI LUCIDO</label>
+            </value>
+            <value>
+                <fullName>9I0</fullName>
+                <default>false</default>
+                <label>NOIR IMPRIME</label>
+            </value>
+            <value>
+                <fullName>9K5</fullName>
+                <default>false</default>
+                <label>OR 3N 0.5MIC PLD 0.5MIC+OR 0.5</label>
+            </value>
+            <value>
+                <fullName>9K6</fullName>
+                <default>false</default>
+                <label>OR 3N 0.5MIC PLD 1MIC+OR 0.5MI</label>
+            </value>
+            <value>
+                <fullName>9K7</fullName>
+                <default>false</default>
+                <label>OR 3N 1MIC PLD 1MIC +OR 1 MIC</label>
+            </value>
+            <value>
+                <fullName>9K8</fullName>
+                <default>false</default>
+                <label>OR 3N 1MIC PLD 1.5MIC +OR 1 MI</label>
+            </value>
+            <value>
+                <fullName>9M0</fullName>
+                <default>false</default>
+                <label>NOIR/MONO</label>
+            </value>
+            <value>
+                <fullName>9M1</fullName>
+                <default>false</default>
+                <label>PALLADIUM MAILLOT/BAIN</label>
+            </value>
+            <value>
+                <fullName>9M2</fullName>
+                <default>false</default>
+                <label>POIS VERTS</label>
+            </value>
+            <value>
+                <fullName>9M4</fullName>
+                <default>false</default>
+                <label>POIS ORANGES</label>
+            </value>
+            <value>
+                <fullName>9N1</fullName>
+                <default>false</default>
+                <label>ARGENT VELOURS</label>
+            </value>
+            <value>
+                <fullName>9NJ</fullName>
+                <default>false</default>
+                <label>BLANC NOIR NAVY</label>
+            </value>
+            <value>
+                <fullName>9P1</fullName>
+                <default>false</default>
+                <label>PALLADIUM ANTIALLERGIQUE</label>
+            </value>
+            <value>
+                <fullName>9PM</fullName>
+                <default>false</default>
+                <label>PALLADIUM MAT</label>
+            </value>
+            <value>
+                <fullName>9R0</fullName>
+                <default>false</default>
+                <label>PIED DE POULE NOIR</label>
+            </value>
+            <value>
+                <fullName>9S2</fullName>
+                <default>false</default>
+                <label>ARGENT PVD SEMI LUCIDO</label>
+            </value>
+            <value>
+                <fullName>9S3</fullName>
+                <default>false</default>
+                <label>GUN METAL PVD SEMI LUCIDO</label>
+            </value>
+            <value>
+                <fullName>9T1</fullName>
+                <default>false</default>
+                <label>MARRON FONCE/MOYEN/CLAIR</label>
+            </value>
+            <value>
+                <fullName>A01</fullName>
+                <default>false</default>
+                <label>BEIGE/MASTIC</label>
+            </value>
+            <value>
+                <fullName>A02</fullName>
+                <default>false</default>
+                <label>BLANC OPTIQUE 2</label>
+            </value>
+            <value>
+                <fullName>A03</fullName>
+                <default>false</default>
+                <label>BLANC LAINE</label>
+            </value>
+            <value>
+                <fullName>A04</fullName>
+                <default>false</default>
+                <label>ECRU LAINE VIERGE</label>
+            </value>
+            <value>
+                <fullName>ADF</fullName>
+                <default>false</default>
+                <label>A DEFINIR</label>
+            </value>
+            <value>
+                <fullName>B04</fullName>
+                <default>false</default>
+                <label>DEFILE FEMME</label>
+            </value>
+            <value>
+                <fullName>BH1</fullName>
+                <default>false</default>
+                <label>B HILLS TILLEUL</label>
+            </value>
+            <value>
+                <fullName>BH2</fullName>
+                <default>false</default>
+                <label>B HILLS PECHE</label>
+            </value>
+            <value>
+                <fullName>BPI</fullName>
+                <default>false</default>
+                <label>BLANC POUR IMPRESSION</label>
+            </value>
+            <value>
+                <fullName>C01</fullName>
+                <default>false</default>
+                <label>CARREAUX VARIANTE</label>
+            </value>
+            <value>
+                <fullName>C02</fullName>
+                <default>false</default>
+                <label>CARREAUX VARIANTE 2</label>
+            </value>
+            <value>
+                <fullName>C03</fullName>
+                <default>false</default>
+                <label>CARREAUX VARIANTE 3</label>
+            </value>
+            <value>
+                <fullName>C04</fullName>
+                <default>false</default>
+                <label>CARREAUX VARIANTE 4</label>
+            </value>
+            <value>
+                <fullName>C0B</fullName>
+                <default>false</default>
+                <label>CARREAU BEIGE</label>
+            </value>
+            <value>
+                <fullName>C31</fullName>
+                <default>false</default>
+                <label>CARREAUX TURQUOISE</label>
+            </value>
+            <value>
+                <fullName>C32</fullName>
+                <default>false</default>
+                <label>CARREAU VERT</label>
+            </value>
+            <value>
+                <fullName>C33</fullName>
+                <default>false</default>
+                <label>CARREAU KAKI</label>
+            </value>
+            <value>
+                <fullName>C41</fullName>
+                <default>false</default>
+                <label>CARREAU JAUNE</label>
+            </value>
+            <value>
+                <fullName>C50</fullName>
+                <default>false</default>
+                <label>CARREAUX VIOLETS</label>
+            </value>
+            <value>
+                <fullName>C51</fullName>
+                <default>false</default>
+                <label>CARREAU FREESIA</label>
+            </value>
+            <value>
+                <fullName>C54</fullName>
+                <default>false</default>
+                <label>CARREAUX ROUGES</label>
+            </value>
+            <value>
+                <fullName>C60</fullName>
+                <default>false</default>
+                <label>CARREAU BLEU</label>
+            </value>
+            <value>
+                <fullName>C61</fullName>
+                <default>false</default>
+                <label>CARREAU BLEU CLAIR</label>
+            </value>
+            <value>
+                <fullName>C65</fullName>
+                <default>false</default>
+                <label>CARREAU MARINE</label>
+            </value>
+            <value>
+                <fullName>C70</fullName>
+                <default>false</default>
+                <label>CARREAU GRIS</label>
+            </value>
+            <value>
+                <fullName>C71</fullName>
+                <default>false</default>
+                <label>CARREAU GRIS FONCE</label>
+            </value>
+            <value>
+                <fullName>C72</fullName>
+                <default>false</default>
+                <label>CARREAU GRIS PERLE</label>
+            </value>
+            <value>
+                <fullName>C80</fullName>
+                <default>false</default>
+                <label>CARREAU MARRON</label>
+            </value>
+            <value>
+                <fullName>C90</fullName>
+                <default>false</default>
+                <label>CARREAU NOIR</label>
+            </value>
+            <value>
+                <fullName>C95</fullName>
+                <default>false</default>
+                <label>CARREAU ANTHRACITE CHINE</label>
+            </value>
+            <value>
+                <fullName>C96</fullName>
+                <default>false</default>
+                <label>CARREAU BORDEAU</label>
+            </value>
+            <value>
+                <fullName>CE1</fullName>
+                <default>false</default>
+                <label>C ELYSEES CORAIL</label>
+            </value>
+            <value>
+                <fullName>CE2</fullName>
+                <default>false</default>
+                <label>C ELYSEES ECUME</label>
+            </value>
+            <value>
+                <fullName>D04</fullName>
+                <default>false</default>
+                <label>DEFILE HOMME</label>
+            </value>
+            <value>
+                <fullName>E04</fullName>
+                <default>false</default>
+                <label>FILLETTE</label>
+            </value>
+            <value>
+                <fullName>E61</fullName>
+                <default>false</default>
+                <label>BLEU NUIT CHINE</label>
+            </value>
+            <value>
+                <fullName>EO6</fullName>
+                <default>false</default>
+                <label>ENVERS BEIGE</label>
+            </value>
+            <value>
+                <fullName>F04</fullName>
+                <default>false</default>
+                <label>FORMEL HOMME</label>
+            </value>
+            <value>
+                <fullName>G04</fullName>
+                <default>false</default>
+                <label>DAMIER GRAPHITE</label>
+            </value>
+            <value>
+                <fullName>I01</fullName>
+                <default>false</default>
+                <label>IMPRIME</label>
+            </value>
+            <value>
+                <fullName>I02</fullName>
+                <default>false</default>
+                <label>IMPRIME 2</label>
+            </value>
+            <value>
+                <fullName>I03</fullName>
+                <default>false</default>
+                <label>IMPRIME 3</label>
+            </value>
+            <value>
+                <fullName>I04</fullName>
+                <default>false</default>
+                <label>IMPRIME 4</label>
+            </value>
+            <value>
+                <fullName>J04</fullName>
+                <default>false</default>
+                <label>CAPSULE YK</label>
+            </value>
+            <value>
+                <fullName>K01</fullName>
+                <default>false</default>
+                <label>ROUGE 2</label>
+            </value>
+            <value>
+                <fullName>K04</fullName>
+                <default>false</default>
+                <label>GARCON</label>
+            </value>
+            <value>
+                <fullName>K06</fullName>
+                <default>false</default>
+                <label>BLACK</label>
+            </value>
+            <value>
+                <fullName>K09</fullName>
+                <default>false</default>
+                <label>BLANC 2</label>
+            </value>
+            <value>
+                <fullName>K10</fullName>
+                <default>false</default>
+                <label>ROUGE UNIFORMES</label>
+            </value>
+            <value>
+                <fullName>K12</fullName>
+                <default>false</default>
+                <label>PINK</label>
+            </value>
+            <value>
+                <fullName>K17</fullName>
+                <default>false</default>
+                <label>ECRU 3</label>
+            </value>
+            <value>
+                <fullName>K20</fullName>
+                <default>false</default>
+                <label>NIGHT BLUE</label>
+            </value>
+            <value>
+                <fullName>K21</fullName>
+                <default>false</default>
+                <label>LIGHT BLUE</label>
+            </value>
+            <value>
+                <fullName>K26</fullName>
+                <default>false</default>
+                <label>LIGHT BLUE 2</label>
+            </value>
+            <value>
+                <fullName>K30</fullName>
+                <default>false</default>
+                <label>BEIGE 6</label>
+            </value>
+            <value>
+                <fullName>K34</fullName>
+                <default>false</default>
+                <label>BEIGE 7</label>
+            </value>
+            <value>
+                <fullName>K45</fullName>
+                <default>false</default>
+                <label>KAKI UNIFORMS</label>
+            </value>
+            <value>
+                <fullName>K50</fullName>
+                <default>false</default>
+                <label>GREY</label>
+            </value>
+            <value>
+                <fullName>K51</fullName>
+                <default>false</default>
+                <label>PEARL GREY</label>
+            </value>
+            <value>
+                <fullName>K52</fullName>
+                <default>false</default>
+                <label>GRIS ARDOISE</label>
+            </value>
+            <value>
+                <fullName>K53</fullName>
+                <default>false</default>
+                <label>DARK GREY</label>
+            </value>
+            <value>
+                <fullName>K81</fullName>
+                <default>false</default>
+                <label>BROWN</label>
+            </value>
+            <value>
+                <fullName>K82</fullName>
+                <default>false</default>
+                <label>GRIS CHINE.</label>
+            </value>
+            <value>
+                <fullName>K95</fullName>
+                <default>false</default>
+                <label>ANNULE</label>
+            </value>
+            <value>
+                <fullName>M04</fullName>
+                <default>false</default>
+                <label>PRECOLLECTION HOMME</label>
+            </value>
+            <value>
+                <fullName>MU1</fullName>
+                <default>false</default>
+                <label>MULTICO</label>
+            </value>
+            <value>
+                <fullName>MU2</fullName>
+                <default>false</default>
+                <label>MULTICO 2</label>
+            </value>
+            <value>
+                <fullName>MU3</fullName>
+                <default>false</default>
+                <label>MULTICO 3</label>
+            </value>
+            <value>
+                <fullName>MU4</fullName>
+                <default>false</default>
+                <label>MULTICO 4</label>
+            </value>
+            <value>
+                <fullName>MU5</fullName>
+                <default>false</default>
+                <label>MULTICO 5</label>
+            </value>
+            <value>
+                <fullName>MU6</fullName>
+                <default>false</default>
+                <label>MULTICO 6</label>
+            </value>
+            <value>
+                <fullName>MU7</fullName>
+                <default>false</default>
+                <label>MULTICO 7</label>
+            </value>
+            <value>
+                <fullName>MU8</fullName>
+                <default>false</default>
+                <label>MULTICO 8</label>
+            </value>
+            <value>
+                <fullName>N01</fullName>
+                <default>false</default>
+                <label>NOIR 1</label>
+            </value>
+            <value>
+                <fullName>N02</fullName>
+                <default>false</default>
+                <label>NOIR 2</label>
+            </value>
+            <value>
+                <fullName>N03</fullName>
+                <default>false</default>
+                <label>NOIR 3</label>
+            </value>
+            <value>
+                <fullName>N04</fullName>
+                <default>false</default>
+                <label>NOIR 6</label>
+            </value>
+            <value>
+                <fullName>N05</fullName>
+                <default>false</default>
+                <label>NOIR 7</label>
+            </value>
+            <value>
+                <fullName>N06</fullName>
+                <default>false</default>
+                <label>NOIR 8</label>
+            </value>
+            <value>
+                <fullName>N07</fullName>
+                <default>false</default>
+                <label>NOIR 9</label>
+            </value>
+            <value>
+                <fullName>NA1</fullName>
+                <default>false</default>
+                <label>NAGOYA CORAIL</label>
+            </value>
+            <value>
+                <fullName>NA2</fullName>
+                <default>false</default>
+                <label>NAGOYA TILLEUL</label>
+            </value>
+            <value>
+                <fullName>P01</fullName>
+                <default>false</default>
+                <label>PATCHWORK</label>
+            </value>
+            <value>
+                <fullName>P02</fullName>
+                <default>false</default>
+                <label>PATCHWORK 2</label>
+            </value>
+            <value>
+                <fullName>P03</fullName>
+                <default>false</default>
+                <label>PATCHWORK 3</label>
+            </value>
+            <value>
+                <fullName>P04</fullName>
+                <default>false</default>
+                <label>PATCHWORK 4</label>
+            </value>
+            <value>
+                <fullName>Q04</fullName>
+                <default>false</default>
+                <label>ICONES HOMME</label>
+            </value>
+            <value>
+                <fullName>R01</fullName>
+                <default>false</default>
+                <label>GRIS/TURQOISE</label>
+            </value>
+            <value>
+                <fullName>R02</fullName>
+                <default>false</default>
+                <label>KAKI FONCE / CORAIL</label>
+            </value>
+            <value>
+                <fullName>R03</fullName>
+                <default>false</default>
+                <label>GRIS/ BEIGE</label>
+            </value>
+            <value>
+                <fullName>R04</fullName>
+                <default>false</default>
+                <label>PLOMB/VERT PRE</label>
+            </value>
+            <value>
+                <fullName>R05</fullName>
+                <default>false</default>
+                <label>PETITE RAYURE MARINE</label>
+            </value>
+            <value>
+                <fullName>R06</fullName>
+                <default>false</default>
+                <label>RAYURE TENNIS MARINE</label>
+            </value>
+            <value>
+                <fullName>R07</fullName>
+                <default>false</default>
+                <label>CREAM + MILK</label>
+            </value>
+            <value>
+                <fullName>R08</fullName>
+                <default>false</default>
+                <label>CREAM + DIJON</label>
+            </value>
+            <value>
+                <fullName>R09</fullName>
+                <default>false</default>
+                <label>CREAM + DEEPSKY</label>
+            </value>
+            <value>
+                <fullName>R0A</fullName>
+                <default>false</default>
+                <label>RAYURE BLANCHE</label>
+            </value>
+            <value>
+                <fullName>R0B</fullName>
+                <default>false</default>
+                <label>RAYURE BEIGE</label>
+            </value>
+            <value>
+                <fullName>R10</fullName>
+                <default>false</default>
+                <label>CREAM + DOLPHIN</label>
+            </value>
+            <value>
+                <fullName>R11</fullName>
+                <default>false</default>
+                <label>CHERRY POP + DEEP SKY</label>
+            </value>
+            <value>
+                <fullName>R12</fullName>
+                <default>false</default>
+                <label>RAYURE</label>
+            </value>
+            <value>
+                <fullName>R13</fullName>
+                <default>false</default>
+                <label>RAYURE 2</label>
+            </value>
+            <value>
+                <fullName>R14</fullName>
+                <default>false</default>
+                <label>RAYURE 3</label>
+            </value>
+            <value>
+                <fullName>R15</fullName>
+                <default>false</default>
+                <label>RAYURE 4</label>
+            </value>
+            <value>
+                <fullName>R16</fullName>
+                <default>false</default>
+                <label>GRIS/VIOLET</label>
+            </value>
+            <value>
+                <fullName>R17</fullName>
+                <default>false</default>
+                <label>GREEN SKY FENDER PATAGONIA</label>
+            </value>
+            <value>
+                <fullName>R18</fullName>
+                <default>false</default>
+                <label>PINKSAND CARHART SKY PUMICE</label>
+            </value>
+            <value>
+                <fullName>R19</fullName>
+                <default>false</default>
+                <label>RAYURE BLEUE MARRON</label>
+            </value>
+            <value>
+                <fullName>R20</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU 2</label>
+            </value>
+            <value>
+                <fullName>R21</fullName>
+                <default>false</default>
+                <label>RAYURE MARRON</label>
+            </value>
+            <value>
+                <fullName>R22</fullName>
+                <default>false</default>
+                <label>RAYURE FOND BLANC</label>
+            </value>
+            <value>
+                <fullName>R23</fullName>
+                <default>false</default>
+                <label>RAYURE FOND GRIS</label>
+            </value>
+            <value>
+                <fullName>R24</fullName>
+                <default>false</default>
+                <label>RAYURE ROUGE BLEU</label>
+            </value>
+            <value>
+                <fullName>R25</fullName>
+                <default>false</default>
+                <label>RAYURES MARINE ROSE BEIGE</label>
+            </value>
+            <value>
+                <fullName>R26</fullName>
+                <default>false</default>
+                <label>RAYURES MARINE GRIS BLEU</label>
+            </value>
+            <value>
+                <fullName>R31</fullName>
+                <default>false</default>
+                <label>RAYURE TURQUOISE</label>
+            </value>
+            <value>
+                <fullName>R32</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU CLAIR/NOIR</label>
+            </value>
+            <value>
+                <fullName>R33</fullName>
+                <default>false</default>
+                <label>RAYURE TAUPE/VERT</label>
+            </value>
+            <value>
+                <fullName>R34</fullName>
+                <default>false</default>
+                <label>RAYURE TAUPE</label>
+            </value>
+            <value>
+                <fullName>R36</fullName>
+                <default>false</default>
+                <label>RAYURE VERTE</label>
+            </value>
+            <value>
+                <fullName>R40</fullName>
+                <default>false</default>
+                <label>RAYURE ORANGE</label>
+            </value>
+            <value>
+                <fullName>R41</fullName>
+                <default>false</default>
+                <label>RAYURE JAUNE</label>
+            </value>
+            <value>
+                <fullName>R50</fullName>
+                <default>false</default>
+                <label>RAYURE VIOLETTE</label>
+            </value>
+            <value>
+                <fullName>R51</fullName>
+                <default>false</default>
+                <label>RAYURE KAKI</label>
+            </value>
+            <value>
+                <fullName>R52</fullName>
+                <default>false</default>
+                <label>RAYURE LILAS</label>
+            </value>
+            <value>
+                <fullName>R53</fullName>
+                <default>false</default>
+                <label>RAYURE ROSE</label>
+            </value>
+            <value>
+                <fullName>R54</fullName>
+                <default>false</default>
+                <label>RAYURE ROUGE 2</label>
+            </value>
+            <value>
+                <fullName>R55</fullName>
+                <default>false</default>
+                <label>RAYURE BORDEAUX</label>
+            </value>
+            <value>
+                <fullName>R56</fullName>
+                <default>false</default>
+                <label>CORAL STRIPE</label>
+            </value>
+            <value>
+                <fullName>R60</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU 3</label>
+            </value>
+            <value>
+                <fullName>R61</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU CLAIR</label>
+            </value>
+            <value>
+                <fullName>R62</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU CANARD</label>
+            </value>
+            <value>
+                <fullName>R63</fullName>
+                <default>false</default>
+                <label>RAYURE GRISE</label>
+            </value>
+            <value>
+                <fullName>R65</fullName>
+                <default>false</default>
+                <label>RAYURE MARINE</label>
+            </value>
+            <value>
+                <fullName>R66</fullName>
+                <default>false</default>
+                <label>RAYURE VIOLET</label>
+            </value>
+            <value>
+                <fullName>R67</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU CIEL</label>
+            </value>
+            <value>
+                <fullName>R68</fullName>
+                <default>false</default>
+                <label>RAYURE BLEU GRIS</label>
+            </value>
+            <value>
+                <fullName>R70</fullName>
+                <default>false</default>
+                <label>RAYURE GRIS</label>
+            </value>
+            <value>
+                <fullName>R71</fullName>
+                <default>false</default>
+                <label>RAYURE GRIS CLAIRE</label>
+            </value>
+            <value>
+                <fullName>R80</fullName>
+                <default>false</default>
+                <label>RAYURE MARRON 2</label>
+            </value>
+            <value>
+                <fullName>R90</fullName>
+                <default>false</default>
+                <label>RAYURE NOIR</label>
+            </value>
+            <value>
+                <fullName>R95</fullName>
+                <default>false</default>
+                <label>RAYURE ANTHRACITE CHINE</label>
+            </value>
+            <value>
+                <fullName>TEC</fullName>
+                <default>false</default>
+                <label>TECHNIQUE</label>
+            </value>
+            <value>
+                <fullName>W04</fullName>
+                <default>false</default>
+                <label>ICONS FEMME</label>
+            </value>
+            <value>
+                <fullName>XXX</fullName>
+                <default>false</default>
+                <label>XXX SAV</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

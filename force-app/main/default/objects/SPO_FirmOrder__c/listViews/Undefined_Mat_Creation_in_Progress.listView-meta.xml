@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Undefined_Mat_Creation_in_Progress</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SPO_FirmOrderStatus__c</field>
+        <operation>equals</operation>
+        <value>Creation in progress</value>
+    </filters>
+    <filters>
+        <field>SPO_TechETLStatus__c</field>
+        <operation>equals</operation>
+        <value>V</value>
+    </filters>
+    <filters>
+        <field>Undefined_Material__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Creation in Progress - Undefined Mat.</label>
+</ListView>

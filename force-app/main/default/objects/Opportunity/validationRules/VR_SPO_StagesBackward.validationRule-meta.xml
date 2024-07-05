@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_SPO_StagesBackward</fullName>
+    <active>true</active>
+    <description>You can&apos;t change the stage of the order backward for Special or PERSO/ECO orders</description>
+    <errorConditionFormula>AND ( 
+    NOT($User.BypassVR__c), 
+    CASE (StageName, 
+        &quot;Brief in progress&quot;,        1, 
+        &quot;Quotation in progress&quot;,    2, 
+        &quot;Quotation submitted&quot;,      3, 
+        &quot;Quotation accepted&quot;,       4, 
+        &quot;Creation in progress&quot;,     5, 
+        &quot;In progress&quot;,              6, 
+        &quot;Distribution in Progress&quot;, 7,
+        &quot;Received in store&quot;,        8, 
+        &quot;Closed Won&quot;,               8, 
+        &quot;Cancelled by store&quot;,       8, 
+        &quot;Cancelled by production&quot;,  8, 
+        0
+    ) 
+    &lt; 
+    CASE (PRIORVALUE(StageName), 
+        &quot;Brief in progress&quot;,        1, 
+        &quot;Quotation in progress&quot;,    2, 
+        &quot;Quotation submitted&quot;,      3, 
+        &quot;Quotation accepted&quot;,       4, 
+        &quot;Creation in progress&quot;,     5, 
+        &quot;In progress&quot;,              6, 
+        &quot;Distribution in Progress&quot;, 7,
+        &quot;Received in store&quot;,        8, 
+        &quot;Closed Won&quot;,               8, 
+        &quot;Cancelled by store&quot;,       8, 
+        &quot;Cancelled by production&quot;,  8,
+        0
+    ) 
+)</errorConditionFormula>
+    <errorMessage>You can&apos;t change the stage of the order backward</errorMessage>
+</ValidationRule>

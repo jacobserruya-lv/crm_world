@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EMAIL_or_MOBILE</fullName>
+    <active>true</active>
+    <errorConditionFormula>Profile.Name == &apos;Identity User&apos; &amp;&amp; TECH_MobilePhone__c == &apos;&apos; &amp;&amp; TECH_Email__c == &apos;&apos;</errorConditionFormula>
+    <errorDisplayField>TECH_Email__c</errorDisplayField>
+    <errorMessage>REQUIRED_FIELD_MISSING</errorMessage>
+</ValidationRule>

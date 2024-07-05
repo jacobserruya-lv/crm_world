@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Enable_Client_Auto_Open_At_Acw__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Automatically open client if after-call work is required</description>
+    <externalId>false</externalId>
+    <label>Auto Open Client for After-Call Work</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

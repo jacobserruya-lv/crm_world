@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RegistrationDatesLimit</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL(RequiredClientRegistration__c, &apos;Mandatory&apos;)
+&amp;&amp; 
+ClientRegistrationDateLimit__c = True
+&amp;&amp; 
+(
+ISNULL(RegistrationStartDateTime__c) 
+				|| ISNULL(RegistrationEndDateTime__c)
+)</errorConditionFormula>
+    <errorMessage>Limit Client Registration Between Dates’ is set to True . Please add Registration Dates</errorMessage>
+</ValidationRule>

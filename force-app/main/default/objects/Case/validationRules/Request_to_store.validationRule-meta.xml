@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_to_store</fullName>
+    <active>true</active>
+    <description>If the resolution &apos;Request to store&apos; is selected, Client and Store are mandatory</description>
+    <errorConditionFormula>AND( 
+NOT( $User.BypassVR__c ), 
+ISPICKVAL( Resolution__c , &quot;Request to Store&quot;), 
+OR(ISBLANK( Store__c ), 
+ISBLANK ( AccountId ) 
+) 
+)</errorConditionFormula>
+    <errorMessage>If the resolution &apos;Request to store&apos; is selected, Client and Store are mandatory</errorMessage>
+</ValidationRule>

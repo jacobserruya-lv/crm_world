@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calling_Campaign_Exchange</fullName>
+    <active>true</active>
+    <description>If you select the client decision Exchange, you have to add an Exchanged Product to the item</description>
+    <errorConditionFormula>AND (
+ISPICKVAL( Client_Decision__c , &quot;Exchange&quot; ) ,
+ Nb_of_Chosen_Products__c = 0)</errorConditionFormula>
+    <errorMessage>You must enter at least one &quot;Chosen Product&quot; (on the right) before saving the client decision &quot;Exchange&quot;.</errorMessage>
+</ValidationRule>

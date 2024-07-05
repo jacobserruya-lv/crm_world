@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_OperationException_Status</fullName>
+    <active>true</active>
+    <description>If Store =&gt; status = &apos;store new&apos; mandatory</description>
+    <errorConditionFormula>AND(
+NOT( $User.BypassVR__c ),
+ISNEW(), 
+RecordType.DeveloperName = &apos;Operation_Exception&apos;,
+!ISBLANK(Store__c ) &amp;&amp; !ISPICKVAL( Status , &quot;Store New&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>You have to select status &apos;Store New&apos;</errorMessage>
+</ValidationRule>

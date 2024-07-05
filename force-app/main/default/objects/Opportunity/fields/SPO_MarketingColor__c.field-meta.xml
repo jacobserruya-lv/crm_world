@@ -1,0 +1,3461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_MarketingColor__c</fullName>
+    <externalId>false</externalId>
+    <label>Marketing Color</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>ABRICOT</fullName>
+                <default>false</default>
+                <label>ABRICOT</label>
+            </value>
+            <value>
+                <fullName>ABYSSE</fullName>
+                <default>false</default>
+                <label>ABYSSE</label>
+            </value>
+            <value>
+                <fullName>ACACIA</fullName>
+                <default>false</default>
+                <label>ACACIA</label>
+            </value>
+            <value>
+                <fullName>ACAJOU</fullName>
+                <default>false</default>
+                <label>ACAJOU</label>
+            </value>
+            <value>
+                <fullName>ACIER</fullName>
+                <default>false</default>
+                <label>ACIER</label>
+            </value>
+            <value>
+                <fullName>ALEZAN</fullName>
+                <default>false</default>
+                <label>ALEZAN</label>
+            </value>
+            <value>
+                <fullName>AMANDE</fullName>
+                <default>false</default>
+                <label>AMANDE</label>
+            </value>
+            <value>
+                <fullName>AMANDE ELECTRIC</fullName>
+                <default>false</default>
+                <label>AMANDE ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>AMANDE GLITTER</fullName>
+                <default>false</default>
+                <label>AMANDE GLITTER</label>
+            </value>
+            <value>
+                <fullName>AMARANTE</fullName>
+                <default>false</default>
+                <label>AMARANTE</label>
+            </value>
+            <value>
+                <fullName>AMARANTE RAYE</fullName>
+                <default>false</default>
+                <label>AMARANTE RAYE</label>
+            </value>
+            <value>
+                <fullName>AMARANTE ROSE</fullName>
+                <default>false</default>
+                <label>AMARANTE ROSE</label>
+            </value>
+            <value>
+                <fullName>AMBER</fullName>
+                <default>false</default>
+                <label>AMBER</label>
+            </value>
+            <value>
+                <fullName>AMETHYSTE</fullName>
+                <default>false</default>
+                <label>AMETHYSTE</label>
+            </value>
+            <value>
+                <fullName>ANIMAL</fullName>
+                <default>false</default>
+                <label>ANIMAL</label>
+            </value>
+            <value>
+                <fullName>ANIS</fullName>
+                <default>false</default>
+                <label>ANIS</label>
+            </value>
+            <value>
+                <fullName>ANTHRACITE NACRE</fullName>
+                <default>false</default>
+                <label>ANTHRACITE NACRE</label>
+            </value>
+            <value>
+                <fullName>ARCTIC</fullName>
+                <default>false</default>
+                <label>ARCTIC</label>
+            </value>
+            <value>
+                <fullName>ARDOISE</fullName>
+                <default>false</default>
+                <label>ARDOISE</label>
+            </value>
+            <value>
+                <fullName>ARGENT BRULE</fullName>
+                <default>false</default>
+                <label>ARGENT BRULE</label>
+            </value>
+            <value>
+                <fullName>ARGILE</fullName>
+                <default>false</default>
+                <label>ARGILE</label>
+            </value>
+            <value>
+                <fullName>ARMAGNAC</fullName>
+                <default>false</default>
+                <label>ARMAGNAC</label>
+            </value>
+            <value>
+                <fullName>ASPHALT</fullName>
+                <default>false</default>
+                <label>ASPHALT</label>
+            </value>
+            <value>
+                <fullName>AUBE</fullName>
+                <default>false</default>
+                <label>AUBE</label>
+            </value>
+            <value>
+                <fullName>AUBERGINE</fullName>
+                <default>false</default>
+                <label>AUBERGINE</label>
+            </value>
+            <value>
+                <fullName>AURORE</fullName>
+                <default>false</default>
+                <label>AURORE</label>
+            </value>
+            <value>
+                <fullName>AVENTURE</fullName>
+                <default>false</default>
+                <label>AVENTURE</label>
+            </value>
+            <value>
+                <fullName>AZUR</fullName>
+                <default>false</default>
+                <label>AZUR</label>
+            </value>
+            <value>
+                <fullName>BABY ROSE</fullName>
+                <default>false</default>
+                <label>BABY ROSE</label>
+            </value>
+            <value>
+                <fullName>BAMBOO INDIGO</fullName>
+                <default>false</default>
+                <label>BAMBOO INDIGO</label>
+            </value>
+            <value>
+                <fullName>BASALTE</fullName>
+                <default>false</default>
+                <label>BASALTE</label>
+            </value>
+            <value>
+                <fullName>BEIGE</fullName>
+                <default>false</default>
+                <label>BEIGE</label>
+            </value>
+            <value>
+                <fullName>BEIGE BLANC</fullName>
+                <default>false</default>
+                <label>BEIGE BLANC</label>
+            </value>
+            <value>
+                <fullName>BEIGE CAPUCCINO</fullName>
+                <default>false</default>
+                <label>BEIGE CAPUCCINO</label>
+            </value>
+            <value>
+                <fullName>BEIGE CLAIR</fullName>
+                <default>false</default>
+                <label>BEIGE CLAIR</label>
+            </value>
+            <value>
+                <fullName>BEIGE FLOWERS</fullName>
+                <default>false</default>
+                <label>BEIGE FLOWERS</label>
+            </value>
+            <value>
+                <fullName>BEIGE MARRON</fullName>
+                <default>false</default>
+                <label>BEIGE MARRON</label>
+            </value>
+            <value>
+                <fullName>BEIGE POUDRE</fullName>
+                <default>false</default>
+                <label>BEIGE POUDRE</label>
+            </value>
+            <value>
+                <fullName>BEIGE TRANSLUCIDE</fullName>
+                <default>false</default>
+                <label>BEIGE TRANSLUCIDE</label>
+            </value>
+            <value>
+                <fullName>BERMUDE</fullName>
+                <default>false</default>
+                <label>BERMUDE</label>
+            </value>
+            <value>
+                <fullName>BICHE</fullName>
+                <default>false</default>
+                <label>BICHE</label>
+            </value>
+            <value>
+                <fullName>BISCUIT</fullName>
+                <default>false</default>
+                <label>BISCUIT</label>
+            </value>
+            <value>
+                <fullName>BLACK</fullName>
+                <default>false</default>
+                <label>BLACK</label>
+            </value>
+            <value>
+                <fullName>BLACK.</fullName>
+                <default>false</default>
+                <label>BLACK.</label>
+            </value>
+            <value>
+                <fullName>BLACK BEIGE</fullName>
+                <default>false</default>
+                <label>BLACK BEIGE</label>
+            </value>
+            <value>
+                <fullName>BLACK BLUE</fullName>
+                <default>false</default>
+                <label>BLACK BLUE</label>
+            </value>
+            <value>
+                <fullName>BLACK CARMIN</fullName>
+                <default>false</default>
+                <label>BLACK CARMIN</label>
+            </value>
+            <value>
+                <fullName>BLACK DARK TORTOISE</fullName>
+                <default>false</default>
+                <label>BLACK DARK TORTOISE</label>
+            </value>
+            <value>
+                <fullName>BLACK GLITTER</fullName>
+                <default>false</default>
+                <label>BLACK GLITTER</label>
+            </value>
+            <value>
+                <fullName>BLACKMOON</fullName>
+                <default>false</default>
+                <label>BLACKMOON</label>
+            </value>
+            <value>
+                <fullName>BLACK RED</fullName>
+                <default>false</default>
+                <label>BLACK RED</label>
+            </value>
+            <value>
+                <fullName>BLACK YELLOW</fullName>
+                <default>false</default>
+                <label>BLACK YELLOW</label>
+            </value>
+            <value>
+                <fullName>BLANC CASSE</fullName>
+                <default>false</default>
+                <label>BLANC CASSE</label>
+            </value>
+            <value>
+                <fullName>BLANC CORAIL</fullName>
+                <default>false</default>
+                <label>BLANC CORAIL</label>
+            </value>
+            <value>
+                <fullName>BLANC GRIS</fullName>
+                <default>false</default>
+                <label>BLANC GRIS</label>
+            </value>
+            <value>
+                <fullName>BLANC GRIS NOIR</fullName>
+                <default>false</default>
+                <label>BLANC GRIS NOIR</label>
+            </value>
+            <value>
+                <fullName>BLANC MAT</fullName>
+                <default>false</default>
+                <label>BLANC MAT</label>
+            </value>
+            <value>
+                <fullName>BLEU</fullName>
+                <default>false</default>
+                <label>BLEU</label>
+            </value>
+            <value>
+                <fullName>BLEU ARDOISE</fullName>
+                <default>false</default>
+                <label>BLEU ARDOISE</label>
+            </value>
+            <value>
+                <fullName>BLEU AZUR V931</fullName>
+                <default>false</default>
+                <label>BLEU AZUR V931</label>
+            </value>
+            <value>
+                <fullName>BLEU BLANC ROUGE</fullName>
+                <default>false</default>
+                <label>BLEU BLANC ROUGE</label>
+            </value>
+            <value>
+                <fullName>BLEU BOREAL</fullName>
+                <default>false</default>
+                <label>BLEU BOREAL</label>
+            </value>
+            <value>
+                <fullName>BLEU CANARD</fullName>
+                <default>false</default>
+                <label>BLEU CANARD</label>
+            </value>
+            <value>
+                <fullName>BLEU CELESTE</fullName>
+                <default>false</default>
+                <label>BLEU CELESTE</label>
+            </value>
+            <value>
+                <fullName>BLEU CIEL</fullName>
+                <default>false</default>
+                <label>BLEU CIEL</label>
+            </value>
+            <value>
+                <fullName>BLEU CLAIR</fullName>
+                <default>false</default>
+                <label>BLEU CLAIR</label>
+            </value>
+            <value>
+                <fullName>BLEU DE FRANCE</fullName>
+                <default>false</default>
+                <label>BLEU DE FRANCE</label>
+            </value>
+            <value>
+                <fullName>BLEU DENIM DARK</fullName>
+                <default>false</default>
+                <label>BLEU DENIM DARK</label>
+            </value>
+            <value>
+                <fullName>BLEU DENIM LIGHT</fullName>
+                <default>false</default>
+                <label>BLEU DENIM LIGHT</label>
+            </value>
+            <value>
+                <fullName>BLEU DE SAXE</fullName>
+                <default>false</default>
+                <label>BLEU DE SAXE</label>
+            </value>
+            <value>
+                <fullName>BLEU ELECTRIC</fullName>
+                <default>false</default>
+                <label>BLEU ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>BLEUET</fullName>
+                <default>false</default>
+                <label>BLEUET</label>
+            </value>
+            <value>
+                <fullName>BLEU FONCE</fullName>
+                <default>false</default>
+                <label>BLEU FONCE</label>
+            </value>
+            <value>
+                <fullName>BLEU FONC PAILLETE</fullName>
+                <default>false</default>
+                <label>BLEU FONC PAILLETE</label>
+            </value>
+            <value>
+                <fullName>BLEU FUCHSIA</fullName>
+                <default>false</default>
+                <label>BLEU FUCHSIA</label>
+            </value>
+            <value>
+                <fullName>BLEU GALACTIC</fullName>
+                <default>false</default>
+                <label>BLEU GALACTIC</label>
+            </value>
+            <value>
+                <fullName>BLEU GLACIAL</fullName>
+                <default>false</default>
+                <label>BLEU GLACIAL</label>
+            </value>
+            <value>
+                <fullName>BLEU GRIS</fullName>
+                <default>false</default>
+                <label>BLEU GRIS</label>
+            </value>
+            <value>
+                <fullName>BLEU IKAT</fullName>
+                <default>false</default>
+                <label>BLEU IKAT</label>
+            </value>
+            <value>
+                <fullName>BLEU INFINI</fullName>
+                <default>false</default>
+                <label>BLEU INFINI</label>
+            </value>
+            <value>
+                <fullName>BLEU JAUNE</fullName>
+                <default>false</default>
+                <label>BLEU JAUNE</label>
+            </value>
+            <value>
+                <fullName>BLEU JEAN</fullName>
+                <default>false</default>
+                <label>BLEU JEAN</label>
+            </value>
+            <value>
+                <fullName>BLEU LAGON</fullName>
+                <default>false</default>
+                <label>BLEU LAGON</label>
+            </value>
+            <value>
+                <fullName>BLEU MARIN</fullName>
+                <default>false</default>
+                <label>BLEU MARIN</label>
+            </value>
+            <value>
+                <fullName>BLEU MARINA</fullName>
+                <default>false</default>
+                <label>BLEU MARINA</label>
+            </value>
+            <value>
+                <fullName>BLEU MARINE</fullName>
+                <default>false</default>
+                <label>BLEU MARINE</label>
+            </value>
+            <value>
+                <fullName>BLEU MOYEN</fullName>
+                <default>false</default>
+                <label>BLEU MOYEN</label>
+            </value>
+            <value>
+                <fullName>BLEU NOIR</fullName>
+                <default>false</default>
+                <label>BLEU NOIR</label>
+            </value>
+            <value>
+                <fullName>BLEU NUIT</fullName>
+                <default>false</default>
+                <label>BLEU NUIT</label>
+            </value>
+            <value>
+                <fullName>BLEU OCEAN</fullName>
+                <default>false</default>
+                <label>BLEU OCEAN</label>
+            </value>
+            <value>
+                <fullName>BLEU PETROLE</fullName>
+                <default>false</default>
+                <label>BLEU PETROLE</label>
+            </value>
+            <value>
+                <fullName>BLEU PIMENT</fullName>
+                <default>false</default>
+                <label>BLEU PIMENT</label>
+            </value>
+            <value>
+                <fullName>BLEU POP</fullName>
+                <default>false</default>
+                <label>BLEU POP</label>
+            </value>
+            <value>
+                <fullName>BLEU ROI</fullName>
+                <default>false</default>
+                <label>BLEU ROI</label>
+            </value>
+            <value>
+                <fullName>BLEU ROI V925</fullName>
+                <default>false</default>
+                <label>BLEU ROI V925</label>
+            </value>
+            <value>
+                <fullName>BLEU ROYAL</fullName>
+                <default>false</default>
+                <label>BLEU ROYAL</label>
+            </value>
+            <value>
+                <fullName>BLEU TAN</fullName>
+                <default>false</default>
+                <label>BLEU TAN</label>
+            </value>
+            <value>
+                <fullName>BLEU TOUAREG</fullName>
+                <default>false</default>
+                <label>BLEU TOUAREG</label>
+            </value>
+            <value>
+                <fullName>BLEU V917</fullName>
+                <default>false</default>
+                <label>BLEU V917</label>
+            </value>
+            <value>
+                <fullName>BLEU VERT</fullName>
+                <default>false</default>
+                <label>BLEU VERT</label>
+            </value>
+            <value>
+                <fullName>BLUE</fullName>
+                <default>false</default>
+                <label>BLUE</label>
+            </value>
+            <value>
+                <fullName>BLUEBERRY</fullName>
+                <default>false</default>
+                <label>BLUEBERRY</label>
+            </value>
+            <value>
+                <fullName>BLUE FLOWERS</fullName>
+                <default>false</default>
+                <label>BLUE FLOWERS</label>
+            </value>
+            <value>
+                <fullName>BLUE NM</fullName>
+                <default>false</default>
+                <label>BLUE NM</label>
+            </value>
+            <value>
+                <fullName>BLUE TONE ON TONE</fullName>
+                <default>false</default>
+                <label>BLUE TONE ON TONE</label>
+            </value>
+            <value>
+                <fullName>BLUSH</fullName>
+                <default>false</default>
+                <label>BLUSH</label>
+            </value>
+            <value>
+                <fullName>BLUSH GLITTER</fullName>
+                <default>false</default>
+                <label>BLUSH GLITTER</label>
+            </value>
+            <value>
+                <fullName>BORDEAUX GLITTER</fullName>
+                <default>false</default>
+                <label>BORDEAUX GLITTER</label>
+            </value>
+            <value>
+                <fullName>BORDEAUX GRIS</fullName>
+                <default>false</default>
+                <label>BORDEAUX GRIS</label>
+            </value>
+            <value>
+                <fullName>BORDEAUX VERT</fullName>
+                <default>false</default>
+                <label>BORDEAUX VERT</label>
+            </value>
+            <value>
+                <fullName>BORDEAUX VIOLET</fullName>
+                <default>false</default>
+                <label>BORDEAUX VIOLET</label>
+            </value>
+            <value>
+                <fullName>BOREAL</fullName>
+                <default>false</default>
+                <label>BOREAL</label>
+            </value>
+            <value>
+                <fullName>BOURGOGNE</fullName>
+                <default>false</default>
+                <label>BOURGOGNE</label>
+            </value>
+            <value>
+                <fullName>BOUTON D OR</fullName>
+                <default>false</default>
+                <label>BOUTON D OR</label>
+            </value>
+            <value>
+                <fullName>BRIQUE</fullName>
+                <default>false</default>
+                <label>BRIQUE</label>
+            </value>
+            <value>
+                <fullName>BRIQUE BLEU CLAIR</fullName>
+                <default>false</default>
+                <label>BRIQUE BLEU CLAIR</label>
+            </value>
+            <value>
+                <fullName>BRONZE</fullName>
+                <default>false</default>
+                <label>BRONZE</label>
+            </value>
+            <value>
+                <fullName>BROWN</fullName>
+                <default>false</default>
+                <label>BROWN</label>
+            </value>
+            <value>
+                <fullName>BROWN / PINK</fullName>
+                <default>false</default>
+                <label>BROWN / PINK</label>
+            </value>
+            <value>
+                <fullName>BROWN.</fullName>
+                <default>false</default>
+                <label>BROWN.</label>
+            </value>
+            <value>
+                <fullName>BROWN GLITTER</fullName>
+                <default>false</default>
+                <label>BROWN GLITTER</label>
+            </value>
+            <value>
+                <fullName>BRUME</fullName>
+                <default>false</default>
+                <label>BRUME</label>
+            </value>
+            <value>
+                <fullName>BRUN</fullName>
+                <default>false</default>
+                <label>BRUN</label>
+            </value>
+            <value>
+                <fullName>BRUN CAMEL</fullName>
+                <default>false</default>
+                <label>BRUN CAMEL</label>
+            </value>
+            <value>
+                <fullName>BRUN HAVANE</fullName>
+                <default>false</default>
+                <label>BRUN HAVANE</label>
+            </value>
+            <value>
+                <fullName>BRUN TRANSLUCIDE</fullName>
+                <default>false</default>
+                <label>BRUN TRANSLUCIDE</label>
+            </value>
+            <value>
+                <fullName>BUBBLE GUM</fullName>
+                <default>false</default>
+                <label>BUBBLE GUM</label>
+            </value>
+            <value>
+                <fullName>BUNNY PINK</fullName>
+                <default>false</default>
+                <label>BUNNY PINK</label>
+            </value>
+            <value>
+                <fullName>BURGUNDY</fullName>
+                <default>false</default>
+                <label>BURGUNDY</label>
+            </value>
+            <value>
+                <fullName>CACAO</fullName>
+                <default>false</default>
+                <label>CACAO</label>
+            </value>
+            <value>
+                <fullName>CAMEL</fullName>
+                <default>false</default>
+                <label>CAMEL</label>
+            </value>
+            <value>
+                <fullName>CAMEL ROSE</fullName>
+                <default>false</default>
+                <label>CAMEL ROSE</label>
+            </value>
+            <value>
+                <fullName>CAMOUFLAGE</fullName>
+                <default>false</default>
+                <label>CAMOUFLAGE</label>
+            </value>
+            <value>
+                <fullName>CANNELLE</fullName>
+                <default>false</default>
+                <label>CANNELLE</label>
+            </value>
+            <value>
+                <fullName>CAPPUCCINO</fullName>
+                <default>false</default>
+                <label>CAPPUCCINO</label>
+            </value>
+            <value>
+                <fullName>CAPUCINE</fullName>
+                <default>false</default>
+                <label>CAPUCINE</label>
+            </value>
+            <value>
+                <fullName>CAPUCINE TAN</fullName>
+                <default>false</default>
+                <label>CAPUCINE TAN</label>
+            </value>
+            <value>
+                <fullName>CARAMEL</fullName>
+                <default>false</default>
+                <label>CARAMEL</label>
+            </value>
+            <value>
+                <fullName>CARAMEL VVN</fullName>
+                <default>false</default>
+                <label>CARAMEL VVN</label>
+            </value>
+            <value>
+                <fullName>CARBONE</fullName>
+                <default>false</default>
+                <label>CARBONE</label>
+            </value>
+            <value>
+                <fullName>CARMINE</fullName>
+                <default>false</default>
+                <label>CARMINE</label>
+            </value>
+            <value>
+                <fullName>CARMIN GLITTER</fullName>
+                <default>false</default>
+                <label>CARMIN GLITTER</label>
+            </value>
+            <value>
+                <fullName>CASSIS</fullName>
+                <default>false</default>
+                <label>CASSIS</label>
+            </value>
+            <value>
+                <fullName>CASTOR</fullName>
+                <default>false</default>
+                <label>CASTOR</label>
+            </value>
+            <value>
+                <fullName>CEDRE</fullName>
+                <default>false</default>
+                <label>CEDRE</label>
+            </value>
+            <value>
+                <fullName>CELESTE</fullName>
+                <default>false</default>
+                <label>CELESTE</label>
+            </value>
+            <value>
+                <fullName>CHAIR</fullName>
+                <default>false</default>
+                <label>CHAIR</label>
+            </value>
+            <value>
+                <fullName>CHAMEAU</fullName>
+                <default>false</default>
+                <label>CHAMEAU</label>
+            </value>
+            <value>
+                <fullName>CHAMPAGNE</fullName>
+                <default>false</default>
+                <label>CHAMPAGNE</label>
+            </value>
+            <value>
+                <fullName>CHARCOAL GREY</fullName>
+                <default>false</default>
+                <label>CHARCOAL GREY</label>
+            </value>
+            <value>
+                <fullName>CHATAIGNE</fullName>
+                <default>false</default>
+                <label>CHATAIGNE</label>
+            </value>
+            <value>
+                <fullName>CHENE NATUREL</fullName>
+                <default>false</default>
+                <label>CHENE NATUREL</label>
+            </value>
+            <value>
+                <fullName>CHENE PATINE</fullName>
+                <default>false</default>
+                <label>CHENE PATINE</label>
+            </value>
+            <value>
+                <fullName>CHERRY</fullName>
+                <default>false</default>
+                <label>CHERRY</label>
+            </value>
+            <value>
+                <fullName>CHERRY.</fullName>
+                <default>false</default>
+                <label>CHERRY.</label>
+            </value>
+            <value>
+                <fullName>CHOCOLATE</fullName>
+                <default>false</default>
+                <label>CHOCOLATE</label>
+            </value>
+            <value>
+                <fullName>CHOCOLAT MARINE</fullName>
+                <default>false</default>
+                <label>CHOCOLAT MARINE</label>
+            </value>
+            <value>
+                <fullName>CHROME</fullName>
+                <default>false</default>
+                <label>CHROME</label>
+            </value>
+            <value>
+                <fullName>CHROME CARAMEL</fullName>
+                <default>false</default>
+                <label>CHROME CARAMEL</label>
+            </value>
+            <value>
+                <fullName>CIEL</fullName>
+                <default>false</default>
+                <label>CIEL</label>
+            </value>
+            <value>
+                <fullName>CIGARE</fullName>
+                <default>false</default>
+                <label>CIGARE</label>
+            </value>
+            <value>
+                <fullName>CIMENT</fullName>
+                <default>false</default>
+                <label>CIMENT</label>
+            </value>
+            <value>
+                <fullName>CITRINE</fullName>
+                <default>false</default>
+                <label>CITRINE</label>
+            </value>
+            <value>
+                <fullName>CITRON</fullName>
+                <default>false</default>
+                <label>CITRON</label>
+            </value>
+            <value>
+                <fullName>CLAY</fullName>
+                <default>false</default>
+                <label>CLAY</label>
+            </value>
+            <value>
+                <fullName>CLEAR TORTOISE</fullName>
+                <default>false</default>
+                <label>CLEAR TORTOISE</label>
+            </value>
+            <value>
+                <fullName>CLEMENTINE</fullName>
+                <default>false</default>
+                <label>CLEMENTINE</label>
+            </value>
+            <value>
+                <fullName>CLEMENTINE TAN</fullName>
+                <default>false</default>
+                <label>CLEMENTINE TAN</label>
+            </value>
+            <value>
+                <fullName>COAL</fullName>
+                <default>false</default>
+                <label>COAL</label>
+            </value>
+            <value>
+                <fullName>COBALT</fullName>
+                <default>false</default>
+                <label>COBALT</label>
+            </value>
+            <value>
+                <fullName>COBALT FUCHSIA</fullName>
+                <default>false</default>
+                <label>COBALT FUCHSIA</label>
+            </value>
+            <value>
+                <fullName>COCO</fullName>
+                <default>false</default>
+                <label>COCO</label>
+            </value>
+            <value>
+                <fullName>COCONUT</fullName>
+                <default>false</default>
+                <label>COCONUT</label>
+            </value>
+            <value>
+                <fullName>COFFEE</fullName>
+                <default>false</default>
+                <label>COFFEE</label>
+            </value>
+            <value>
+                <fullName>COGNAC</fullName>
+                <default>false</default>
+                <label>COGNAC</label>
+            </value>
+            <value>
+                <fullName>COPPER</fullName>
+                <default>false</default>
+                <label>COPPER</label>
+            </value>
+            <value>
+                <fullName>COQUELICOT</fullName>
+                <default>false</default>
+                <label>COQUELICOT</label>
+            </value>
+            <value>
+                <fullName>COQUILLE</fullName>
+                <default>false</default>
+                <label>COQUILLE</label>
+            </value>
+            <value>
+                <fullName>CORAIL</fullName>
+                <default>false</default>
+                <label>CORAIL</label>
+            </value>
+            <value>
+                <fullName>CORAL MIRROR</fullName>
+                <default>false</default>
+                <label>CORAL MIRROR</label>
+            </value>
+            <value>
+                <fullName>CORNE</fullName>
+                <default>false</default>
+                <label>CORNE</label>
+            </value>
+            <value>
+                <fullName>COSMOS</fullName>
+                <default>false</default>
+                <label>COSMOS</label>
+            </value>
+            <value>
+                <fullName>CRANBERRY</fullName>
+                <default>false</default>
+                <label>CRANBERRY</label>
+            </value>
+            <value>
+                <fullName>CREAM.</fullName>
+                <default>false</default>
+                <label>CREAM.</label>
+            </value>
+            <value>
+                <fullName>CREME</fullName>
+                <default>false</default>
+                <label>CREME</label>
+            </value>
+            <value>
+                <fullName>CRYSTAL</fullName>
+                <default>false</default>
+                <label>CRYSTAL</label>
+            </value>
+            <value>
+                <fullName>CRYSTAL PINK</fullName>
+                <default>false</default>
+                <label>CRYSTAL PINK</label>
+            </value>
+            <value>
+                <fullName>CYAN</fullName>
+                <default>false</default>
+                <label>CYAN</label>
+            </value>
+            <value>
+                <fullName>CYCLAMEN</fullName>
+                <default>false</default>
+                <label>CYCLAMEN</label>
+            </value>
+            <value>
+                <fullName>DAHLIA</fullName>
+                <default>false</default>
+                <label>DAHLIA</label>
+            </value>
+            <value>
+                <fullName>DAMIER</fullName>
+                <default>false</default>
+                <label>DAMIER</label>
+            </value>
+            <value>
+                <fullName>DAMIER BLEU</fullName>
+                <default>false</default>
+                <label>DAMIER BLEU</label>
+            </value>
+            <value>
+                <fullName>DAMIER NOIR GRIS</fullName>
+                <default>false</default>
+                <label>DAMIER NOIR GRIS</label>
+            </value>
+            <value>
+                <fullName>DARK GLITTER HONEY</fullName>
+                <default>false</default>
+                <label>DARK GLITTER HONEY</label>
+            </value>
+            <value>
+                <fullName>DARK GREY</fullName>
+                <default>false</default>
+                <label>DARK GREY</label>
+            </value>
+            <value>
+                <fullName>DARK GREY GLITTER</fullName>
+                <default>false</default>
+                <label>DARK GREY GLITTER</label>
+            </value>
+            <value>
+                <fullName>DARK LEOPARD</fullName>
+                <default>false</default>
+                <label>DARK LEOPARD</label>
+            </value>
+            <value>
+                <fullName>DARK SILVER PERLE NACRE</fullName>
+                <default>false</default>
+                <label>DARK SILVER PERLE NACRE</label>
+            </value>
+            <value>
+                <fullName>DARK TORTOISE</fullName>
+                <default>false</default>
+                <label>DARK TORTOISE</label>
+            </value>
+            <value>
+                <fullName>DENIM</fullName>
+                <default>false</default>
+                <label>DENIM</label>
+            </value>
+            <value>
+                <fullName>DENIM CREME</fullName>
+                <default>false</default>
+                <label>DENIM CREME</label>
+            </value>
+            <value>
+                <fullName>DRAGEE</fullName>
+                <default>false</default>
+                <label>DRAGEE</label>
+            </value>
+            <value>
+                <fullName>DUNE</fullName>
+                <default>false</default>
+                <label>DUNE</label>
+            </value>
+            <value>
+                <fullName>EARTH</fullName>
+                <default>false</default>
+                <label>EARTH</label>
+            </value>
+            <value>
+                <fullName>EBONY</fullName>
+                <default>false</default>
+                <label>EBONY</label>
+            </value>
+            <value>
+                <fullName>EBONY.</fullName>
+                <default>false</default>
+                <label>EBONY.</label>
+            </value>
+            <value>
+                <fullName>ECAILLE</fullName>
+                <default>false</default>
+                <label>ECAILLE</label>
+            </value>
+            <value>
+                <fullName>ECAILLE CL</fullName>
+                <default>false</default>
+                <label>ECAILLE CL</label>
+            </value>
+            <value>
+                <fullName>ECAILLE CLAIR</fullName>
+                <default>false</default>
+                <label>ECAILLE CLAIR</label>
+            </value>
+            <value>
+                <fullName>ECAILLE CL LV FLOTTANT</fullName>
+                <default>false</default>
+                <label>ECAILLE CL LV FLOTTANT</label>
+            </value>
+            <value>
+                <fullName>ECAILLE DORE</fullName>
+                <default>false</default>
+                <label>ECAILLE DORE</label>
+            </value>
+            <value>
+                <fullName>ECAILLE FC</fullName>
+                <default>false</default>
+                <label>ECAILLE FC</label>
+            </value>
+            <value>
+                <fullName>ECORCE</fullName>
+                <default>false</default>
+                <label>ECORCE</label>
+            </value>
+            <value>
+                <fullName>ECRU</fullName>
+                <default>false</default>
+                <label>ECRU</label>
+            </value>
+            <value>
+                <fullName>EGLANTINE</fullName>
+                <default>false</default>
+                <label>EGLANTINE</label>
+            </value>
+            <value>
+                <fullName>ELEPHANT GREY</fullName>
+                <default>false</default>
+                <label>ELEPHANT GREY</label>
+            </value>
+            <value>
+                <fullName>EMERAUDE</fullName>
+                <default>false</default>
+                <label>EMERAUDE</label>
+            </value>
+            <value>
+                <fullName>ENCRE</fullName>
+                <default>false</default>
+                <label>ENCRE</label>
+            </value>
+            <value>
+                <fullName>EPICE</fullName>
+                <default>false</default>
+                <label>EPICE</label>
+            </value>
+            <value>
+                <fullName>ERABLE</fullName>
+                <default>false</default>
+                <label>ERABLE</label>
+            </value>
+            <value>
+                <fullName>ESCALE</fullName>
+                <default>false</default>
+                <label>ESCALE</label>
+            </value>
+            <value>
+                <fullName>ESPRESSO</fullName>
+                <default>false</default>
+                <label>ESPRESSO</label>
+            </value>
+            <value>
+                <fullName>ETINCELLE</fullName>
+                <default>false</default>
+                <label>ETINCELLE</label>
+            </value>
+            <value>
+                <fullName>FAUVE GLITTER</fullName>
+                <default>false</default>
+                <label>FAUVE GLITTER</label>
+            </value>
+            <value>
+                <fullName>FAWN</fullName>
+                <default>false</default>
+                <label>FAWN</label>
+            </value>
+            <value>
+                <fullName>FER</fullName>
+                <default>false</default>
+                <label>FER</label>
+            </value>
+            <value>
+                <fullName>FIGUE</fullName>
+                <default>false</default>
+                <label>FIGUE</label>
+            </value>
+            <value>
+                <fullName>FIGUE FUCHSIA INDIGO</fullName>
+                <default>false</default>
+                <label>FIGUE FUCHSIA INDIGO</label>
+            </value>
+            <value>
+                <fullName>FIR TREE</fullName>
+                <default>false</default>
+                <label>FIR TREE</label>
+            </value>
+            <value>
+                <fullName>FLAMINGO</fullName>
+                <default>false</default>
+                <label>FLAMINGO</label>
+            </value>
+            <value>
+                <fullName>FLAMME</fullName>
+                <default>false</default>
+                <label>FLAMME</label>
+            </value>
+            <value>
+                <fullName>FLESH COLOURED / RED</fullName>
+                <default>false</default>
+                <label>FLESH COLOURED / RED</label>
+            </value>
+            <value>
+                <fullName>FLUORESCENT CORAL</fullName>
+                <default>false</default>
+                <label>FLUORESCENT CORAL</label>
+            </value>
+            <value>
+                <fullName>FLUORESCENT GREEN</fullName>
+                <default>false</default>
+                <label>FLUORESCENT GREEN</label>
+            </value>
+            <value>
+                <fullName>FLUORESCENT ORANGE</fullName>
+                <default>false</default>
+                <label>FLUORESCENT ORANGE</label>
+            </value>
+            <value>
+                <fullName>FLUORESCENT PINK</fullName>
+                <default>false</default>
+                <label>FLUORESCENT PINK</label>
+            </value>
+            <value>
+                <fullName>FRAGOLA</fullName>
+                <default>false</default>
+                <label>FRAGOLA</label>
+            </value>
+            <value>
+                <fullName>FUCHSIA</fullName>
+                <default>false</default>
+                <label>FUCHSIA</label>
+            </value>
+            <value>
+                <fullName>FUCHSIA GLITTER</fullName>
+                <default>false</default>
+                <label>FUCHSIA GLITTER</label>
+            </value>
+            <value>
+                <fullName>FUCHSIA IKAT</fullName>
+                <default>false</default>
+                <label>FUCHSIA IKAT</label>
+            </value>
+            <value>
+                <fullName>FUCHSIA ORANGE VIOLET</fullName>
+                <default>false</default>
+                <label>FUCHSIA ORANGE VIOLET</label>
+            </value>
+            <value>
+                <fullName>FUMEE</fullName>
+                <default>false</default>
+                <label>FUMEE</label>
+            </value>
+            <value>
+                <fullName>FUSAIN</fullName>
+                <default>false</default>
+                <label>FUSAIN</label>
+            </value>
+            <value>
+                <fullName>FUSION</fullName>
+                <default>false</default>
+                <label>FUSION</label>
+            </value>
+            <value>
+                <fullName>GALAXIE</fullName>
+                <default>false</default>
+                <label>GALAXIE</label>
+            </value>
+            <value>
+                <fullName>GALET</fullName>
+                <default>false</default>
+                <label>GALET</label>
+            </value>
+            <value>
+                <fullName>GALET CORAIL</fullName>
+                <default>false</default>
+                <label>GALET CORAIL</label>
+            </value>
+            <value>
+                <fullName>GALET LITCHI</fullName>
+                <default>false</default>
+                <label>GALET LITCHI</label>
+            </value>
+            <value>
+                <fullName>GALETS</fullName>
+                <default>false</default>
+                <label>GALETS</label>
+            </value>
+            <value>
+                <fullName>GERANIUM</fullName>
+                <default>false</default>
+                <label>GERANIUM</label>
+            </value>
+            <value>
+                <fullName>GIVRE</fullName>
+                <default>false</default>
+                <label>GIVRE</label>
+            </value>
+            <value>
+                <fullName>GIVRE TAIGA</fullName>
+                <default>false</default>
+                <label>GIVRE TAIGA</label>
+            </value>
+            <value>
+                <fullName>GLACIER</fullName>
+                <default>false</default>
+                <label>GLACIER</label>
+            </value>
+            <value>
+                <fullName>GOLD</fullName>
+                <default>false</default>
+                <label>GOLD</label>
+            </value>
+            <value>
+                <fullName>GOLDEN</fullName>
+                <default>false</default>
+                <label>GOLDEN</label>
+            </value>
+            <value>
+                <fullName>GRAND BLEU</fullName>
+                <default>false</default>
+                <label>GRAND BLEU</label>
+            </value>
+            <value>
+                <fullName>GRAND BLEU IKAT</fullName>
+                <default>false</default>
+                <label>GRAND BLEU IKAT</label>
+            </value>
+            <value>
+                <fullName>GRANIT</fullName>
+                <default>false</default>
+                <label>GRANIT</label>
+            </value>
+            <value>
+                <fullName>GRAPE</fullName>
+                <default>false</default>
+                <label>GRAPE</label>
+            </value>
+            <value>
+                <fullName>GRAPE VENUS MASTIC</fullName>
+                <default>false</default>
+                <label>GRAPE VENUS MASTIC</label>
+            </value>
+            <value>
+                <fullName>GRAPHITE</fullName>
+                <default>false</default>
+                <label>GRAPHITE</label>
+            </value>
+            <value>
+                <fullName>GRAPHITE NACRE</fullName>
+                <default>false</default>
+                <label>GRAPHITE NACRE</label>
+            </value>
+            <value>
+                <fullName>GRAY</fullName>
+                <default>false</default>
+                <label>GRAY</label>
+            </value>
+            <value>
+                <fullName>GREEN</fullName>
+                <default>false</default>
+                <label>GREEN</label>
+            </value>
+            <value>
+                <fullName>GREEN.</fullName>
+                <default>false</default>
+                <label>GREEN.</label>
+            </value>
+            <value>
+                <fullName>GREEN FLOWER</fullName>
+                <default>false</default>
+                <label>GREEN FLOWER</label>
+            </value>
+            <value>
+                <fullName>GREEN GLITTER</fullName>
+                <default>false</default>
+                <label>GREEN GLITTER</label>
+            </value>
+            <value>
+                <fullName>GREIGE</fullName>
+                <default>false</default>
+                <label>GREIGE</label>
+            </value>
+            <value>
+                <fullName>GRENADE</fullName>
+                <default>false</default>
+                <label>GRENADE</label>
+            </value>
+            <value>
+                <fullName>GRENADINE</fullName>
+                <default>false</default>
+                <label>GRENADINE</label>
+            </value>
+            <value>
+                <fullName>GRENAT</fullName>
+                <default>false</default>
+                <label>GRENAT</label>
+            </value>
+            <value>
+                <fullName>GRENAT DAHLIA</fullName>
+                <default>false</default>
+                <label>GRENAT DAHLIA</label>
+            </value>
+            <value>
+                <fullName>GRENAT FUCHSIA</fullName>
+                <default>false</default>
+                <label>GRENAT FUCHSIA</label>
+            </value>
+            <value>
+                <fullName>GRES</fullName>
+                <default>false</default>
+                <label>GRES</label>
+            </value>
+            <value>
+                <fullName>GRES ROSE</fullName>
+                <default>false</default>
+                <label>GRES ROSE</label>
+            </value>
+            <value>
+                <fullName>GREY</fullName>
+                <default>false</default>
+                <label>GREY</label>
+            </value>
+            <value>
+                <fullName>GREY TORTOISE</fullName>
+                <default>false</default>
+                <label>GREY TORTOISE</label>
+            </value>
+            <value>
+                <fullName>GRIOTTE</fullName>
+                <default>false</default>
+                <label>GRIOTTE</label>
+            </value>
+            <value>
+                <fullName>GRIS</fullName>
+                <default>false</default>
+                <label>GRIS</label>
+            </value>
+            <value>
+                <fullName>GRIS ART DECO</fullName>
+                <default>false</default>
+                <label>GRIS ART DECO</label>
+            </value>
+            <value>
+                <fullName>GRIS ASPHALT</fullName>
+                <default>false</default>
+                <label>GRIS ASPHALT</label>
+            </value>
+            <value>
+                <fullName>GRIS BLEU</fullName>
+                <default>false</default>
+                <label>GRIS BLEU</label>
+            </value>
+            <value>
+                <fullName>GRIS CENDRE</fullName>
+                <default>false</default>
+                <label>GRIS CENDRE</label>
+            </value>
+            <value>
+                <fullName>GRIS FUCHSIA</fullName>
+                <default>false</default>
+                <label>GRIS FUCHSIA</label>
+            </value>
+            <value>
+                <fullName>GRIS MARINE</fullName>
+                <default>false</default>
+                <label>GRIS MARINE</label>
+            </value>
+            <value>
+                <fullName>GRIS NEON</fullName>
+                <default>false</default>
+                <label>GRIS NEON</label>
+            </value>
+            <value>
+                <fullName>GRIS NOIR</fullName>
+                <default>false</default>
+                <label>GRIS NOIR</label>
+            </value>
+            <value>
+                <fullName>GRIS ORAGE</fullName>
+                <default>false</default>
+                <label>GRIS ORAGE</label>
+            </value>
+            <value>
+                <fullName>GRIS ORANGE</fullName>
+                <default>false</default>
+                <label>GRIS ORANGE</label>
+            </value>
+            <value>
+                <fullName>GRIS PAILLETE</fullName>
+                <default>false</default>
+                <label>GRIS PAILLETE</label>
+            </value>
+            <value>
+                <fullName>GRIS PERLE</fullName>
+                <default>false</default>
+                <label>GRIS PERLE</label>
+            </value>
+            <value>
+                <fullName>GRIS PIMENT</fullName>
+                <default>false</default>
+                <label>GRIS PIMENT</label>
+            </value>
+            <value>
+                <fullName>GRIS PRUNE</fullName>
+                <default>false</default>
+                <label>GRIS PRUNE</label>
+            </value>
+            <value>
+                <fullName>GRIS ROSE</fullName>
+                <default>false</default>
+                <label>GRIS ROSE</label>
+            </value>
+            <value>
+                <fullName>GRIS ROUGE</fullName>
+                <default>false</default>
+                <label>GRIS ROUGE</label>
+            </value>
+            <value>
+                <fullName>GRIS SOURIS</fullName>
+                <default>false</default>
+                <label>GRIS SOURIS</label>
+            </value>
+            <value>
+                <fullName>GRIS TRANSLUCIDE</fullName>
+                <default>false</default>
+                <label>GRIS TRANSLUCIDE</label>
+            </value>
+            <value>
+                <fullName>GRIZZLI</fullName>
+                <default>false</default>
+                <label>GRIZZLI</label>
+            </value>
+            <value>
+                <fullName>GROSEILLE</fullName>
+                <default>false</default>
+                <label>GROSEILLE</label>
+            </value>
+            <value>
+                <fullName>GUN</fullName>
+                <default>false</default>
+                <label>GUN</label>
+            </value>
+            <value>
+                <fullName>HAVANE</fullName>
+                <default>false</default>
+                <label>HAVANE</label>
+            </value>
+            <value>
+                <fullName>HAZELNUT</fullName>
+                <default>false</default>
+                <label>HAZELNUT</label>
+            </value>
+            <value>
+                <fullName>HIBISCUS</fullName>
+                <default>false</default>
+                <label>HIBISCUS</label>
+            </value>
+            <value>
+                <fullName>HIBISCUS FLAMINGO</fullName>
+                <default>false</default>
+                <label>HIBISCUS FLAMINGO</label>
+            </value>
+            <value>
+                <fullName>HONEY TORTOISE</fullName>
+                <default>false</default>
+                <label>HONEY TORTOISE</label>
+            </value>
+            <value>
+                <fullName>HOT PINK</fullName>
+                <default>false</default>
+                <label>HOT PINK</label>
+            </value>
+            <value>
+                <fullName>ICE</fullName>
+                <default>false</default>
+                <label>ICE</label>
+            </value>
+            <value>
+                <fullName>ICEBERG</fullName>
+                <default>false</default>
+                <label>ICEBERG</label>
+            </value>
+            <value>
+                <fullName>INDIGO BLUE</fullName>
+                <default>false</default>
+                <label>INDIGO BLUE</label>
+            </value>
+            <value>
+                <fullName>INDIGO NV</fullName>
+                <default>false</default>
+                <label>INDIGO NV</label>
+            </value>
+            <value>
+                <fullName>INDIGO ROSE</fullName>
+                <default>false</default>
+                <label>INDIGO ROSE</label>
+            </value>
+            <value>
+                <fullName>INFINI</fullName>
+                <default>false</default>
+                <label>INFINI</label>
+            </value>
+            <value>
+                <fullName>INFINITY NETS YK JAUNE</fullName>
+                <default>false</default>
+                <label>INFINITY NETS YK JAUNE</label>
+            </value>
+            <value>
+                <fullName>INFINITY NETS YK ROUGE</fullName>
+                <default>false</default>
+                <label>INFINITY NETS YK ROUGE</label>
+            </value>
+            <value>
+                <fullName>IRIS</fullName>
+                <default>false</default>
+                <label>IRIS</label>
+            </value>
+            <value>
+                <fullName>IRIS NOIR</fullName>
+                <default>false</default>
+                <label>IRIS NOIR</label>
+            </value>
+            <value>
+                <fullName>IVORY</fullName>
+                <default>false</default>
+                <label>IVORY</label>
+            </value>
+            <value>
+                <fullName>JADE</fullName>
+                <default>false</default>
+                <label>JADE</label>
+            </value>
+            <value>
+                <fullName>JAIPUR</fullName>
+                <default>false</default>
+                <label>JAIPUR</label>
+            </value>
+            <value>
+                <fullName>JAPONAIS</fullName>
+                <default>false</default>
+                <label>JAPONAIS</label>
+            </value>
+            <value>
+                <fullName>JASPER</fullName>
+                <default>false</default>
+                <label>JASPER</label>
+            </value>
+            <value>
+                <fullName>JAUNE BLANC</fullName>
+                <default>false</default>
+                <label>JAUNE BLANC</label>
+            </value>
+            <value>
+                <fullName>JAUNE CHROME</fullName>
+                <default>false</default>
+                <label>JAUNE CHROME</label>
+            </value>
+            <value>
+                <fullName>JAUNE ELECTRIC</fullName>
+                <default>false</default>
+                <label>JAUNE ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>JAUNE FLUO</fullName>
+                <default>false</default>
+                <label>JAUNE FLUO</label>
+            </value>
+            <value>
+                <fullName>JAUNE IMPERIAL</fullName>
+                <default>false</default>
+                <label>JAUNE IMPERIAL</label>
+            </value>
+            <value>
+                <fullName>JAUNE PALE</fullName>
+                <default>false</default>
+                <label>JAUNE PALE</label>
+            </value>
+            <value>
+                <fullName>JAUNE PASSION</fullName>
+                <default>false</default>
+                <label>JAUNE PASSION</label>
+            </value>
+            <value>
+                <fullName>JONQUILLE</fullName>
+                <default>false</default>
+                <label>JONQUILLE</label>
+            </value>
+            <value>
+                <fullName>KAKI BLANC</fullName>
+                <default>false</default>
+                <label>KAKI BLANC</label>
+            </value>
+            <value>
+                <fullName>KAKI GLITTER</fullName>
+                <default>false</default>
+                <label>KAKI GLITTER</label>
+            </value>
+            <value>
+                <fullName>KAKI MARINE</fullName>
+                <default>false</default>
+                <label>KAKI MARINE</label>
+            </value>
+            <value>
+                <fullName>KAKI MARRON</fullName>
+                <default>false</default>
+                <label>KAKI MARRON</label>
+            </value>
+            <value>
+                <fullName>KAKI VANILLE</fullName>
+                <default>false</default>
+                <label>KAKI VANILLE</label>
+            </value>
+            <value>
+                <fullName>KHAKI</fullName>
+                <default>false</default>
+                <label>KHAKI</label>
+            </value>
+            <value>
+                <fullName>KHAKI TONE ON TONE</fullName>
+                <default>false</default>
+                <label>KHAKI TONE ON TONE</label>
+            </value>
+            <value>
+                <fullName>KHOL</fullName>
+                <default>false</default>
+                <label>KHOL</label>
+            </value>
+            <value>
+                <fullName>KIWI</fullName>
+                <default>false</default>
+                <label>KIWI</label>
+            </value>
+            <value>
+                <fullName>KRAFT</fullName>
+                <default>false</default>
+                <label>KRAFT</label>
+            </value>
+            <value>
+                <fullName>LAGON</fullName>
+                <default>false</default>
+                <label>LAGON</label>
+            </value>
+            <value>
+                <fullName>LAGON NOIR</fullName>
+                <default>false</default>
+                <label>LAGON NOIR</label>
+            </value>
+            <value>
+                <fullName>LATTE</fullName>
+                <default>false</default>
+                <label>LATTE</label>
+            </value>
+            <value>
+                <fullName>LATTE MAGNOLIA</fullName>
+                <default>false</default>
+                <label>LATTE MAGNOLIA</label>
+            </value>
+            <value>
+                <fullName>LAVENDER</fullName>
+                <default>false</default>
+                <label>LAVENDER</label>
+            </value>
+            <value>
+                <fullName>LEOPARD</fullName>
+                <default>false</default>
+                <label>LEOPARD</label>
+            </value>
+            <value>
+                <fullName>LEOPARD BLANC CORAIL</fullName>
+                <default>false</default>
+                <label>LEOPARD BLANC CORAIL</label>
+            </value>
+            <value>
+                <fullName>LEOPARD BLEU INFINI</fullName>
+                <default>false</default>
+                <label>LEOPARD BLEU INFINI</label>
+            </value>
+            <value>
+                <fullName>LEOPARD ROUGE FAUVISTE</fullName>
+                <default>false</default>
+                <label>LEOPARD ROUGE FAUVISTE</label>
+            </value>
+            <value>
+                <fullName>LICHEN</fullName>
+                <default>false</default>
+                <label>LICHEN</label>
+            </value>
+            <value>
+                <fullName>LIGHT BLUE</fullName>
+                <default>false</default>
+                <label>LIGHT BLUE</label>
+            </value>
+            <value>
+                <fullName>LIGHT BLUE V948</fullName>
+                <default>false</default>
+                <label>LIGHT BLUE V948</label>
+            </value>
+            <value>
+                <fullName>LIGHT GLITTER HONEY</fullName>
+                <default>false</default>
+                <label>LIGHT GLITTER HONEY</label>
+            </value>
+            <value>
+                <fullName>LIGHT GREY</fullName>
+                <default>false</default>
+                <label>LIGHT GREY</label>
+            </value>
+            <value>
+                <fullName>LIGHT PINK</fullName>
+                <default>false</default>
+                <label>LIGHT PINK</label>
+            </value>
+            <value>
+                <fullName>LILAC</fullName>
+                <default>false</default>
+                <label>LILAC</label>
+            </value>
+            <value>
+                <fullName>LILA GLITTER</fullName>
+                <default>false</default>
+                <label>LILA GLITTER</label>
+            </value>
+            <value>
+                <fullName>LILAS DARK SILVER NACRE</fullName>
+                <default>false</default>
+                <label>LILAS DARK SILVER NACRE</label>
+            </value>
+            <value>
+                <fullName>LILAS MANGUE</fullName>
+                <default>false</default>
+                <label>LILAS MANGUE</label>
+            </value>
+            <value>
+                <fullName>LILAS NACRE</fullName>
+                <default>false</default>
+                <label>LILAS NACRE</label>
+            </value>
+            <value>
+                <fullName>LIME GREEN</fullName>
+                <default>false</default>
+                <label>LIME GREEN</label>
+            </value>
+            <value>
+                <fullName>LIN</fullName>
+                <default>false</default>
+                <label>LIN</label>
+            </value>
+            <value>
+                <fullName>LIPSTICK</fullName>
+                <default>false</default>
+                <label>LIPSTICK</label>
+            </value>
+            <value>
+                <fullName>LITCHI</fullName>
+                <default>false</default>
+                <label>LITCHI</label>
+            </value>
+            <value>
+                <fullName>LIT DE VIN</fullName>
+                <default>false</default>
+                <label>LIT DE VIN</label>
+            </value>
+            <value>
+                <fullName>MAGENTA</fullName>
+                <default>false</default>
+                <label>MAGENTA</label>
+            </value>
+            <value>
+                <fullName>MAGMA</fullName>
+                <default>false</default>
+                <label>MAGMA</label>
+            </value>
+            <value>
+                <fullName>MAGNOLIA</fullName>
+                <default>false</default>
+                <label>MAGNOLIA</label>
+            </value>
+            <value>
+                <fullName>MAIS</fullName>
+                <default>false</default>
+                <label>MAIS</label>
+            </value>
+            <value>
+                <fullName>MANDARIN</fullName>
+                <default>false</default>
+                <label>MANDARIN</label>
+            </value>
+            <value>
+                <fullName>MANGUE</fullName>
+                <default>false</default>
+                <label>MANGUE</label>
+            </value>
+            <value>
+                <fullName>MARA</fullName>
+                <default>false</default>
+                <label>MARA</label>
+            </value>
+            <value>
+                <fullName>MARINE BEIGE</fullName>
+                <default>false</default>
+                <label>MARINE BEIGE</label>
+            </value>
+            <value>
+                <fullName>MARINE BLEU</fullName>
+                <default>false</default>
+                <label>MARINE BLEU</label>
+            </value>
+            <value>
+                <fullName>MARINE BORDEAUX</fullName>
+                <default>false</default>
+                <label>MARINE BORDEAUX</label>
+            </value>
+            <value>
+                <fullName>MARINE GRIS</fullName>
+                <default>false</default>
+                <label>MARINE GRIS</label>
+            </value>
+            <value>
+                <fullName>MARINE MARRON</fullName>
+                <default>false</default>
+                <label>MARINE MARRON</label>
+            </value>
+            <value>
+                <fullName>MARINE NOIR</fullName>
+                <default>false</default>
+                <label>MARINE NOIR</label>
+            </value>
+            <value>
+                <fullName>MARINE ORANGE</fullName>
+                <default>false</default>
+                <label>MARINE ORANGE</label>
+            </value>
+            <value>
+                <fullName>MARINE PETROLE</fullName>
+                <default>false</default>
+                <label>MARINE PETROLE</label>
+            </value>
+            <value>
+                <fullName>MARINE ROUGE</fullName>
+                <default>false</default>
+                <label>MARINE ROUGE</label>
+            </value>
+            <value>
+                <fullName>MARINE VERT</fullName>
+                <default>false</default>
+                <label>MARINE VERT</label>
+            </value>
+            <value>
+                <fullName>MARRON BEIGE</fullName>
+                <default>false</default>
+                <label>MARRON BEIGE</label>
+            </value>
+            <value>
+                <fullName>MARRON BLANC</fullName>
+                <default>false</default>
+                <label>MARRON BLANC</label>
+            </value>
+            <value>
+                <fullName>MARRON CLAIR</fullName>
+                <default>false</default>
+                <label>MARRON CLAIR</label>
+            </value>
+            <value>
+                <fullName>MARRON FONCE</fullName>
+                <default>false</default>
+                <label>MARRON FONCE</label>
+            </value>
+            <value>
+                <fullName>MARRON GRIS</fullName>
+                <default>false</default>
+                <label>MARRON GRIS</label>
+            </value>
+            <value>
+                <fullName>MARRON JAUNE</fullName>
+                <default>false</default>
+                <label>MARRON JAUNE</label>
+            </value>
+            <value>
+                <fullName>MARRON MARINE</fullName>
+                <default>false</default>
+                <label>MARRON MARINE</label>
+            </value>
+            <value>
+                <fullName>MARRON POP</fullName>
+                <default>false</default>
+                <label>MARRON POP</label>
+            </value>
+            <value>
+                <fullName>MARRON VERT</fullName>
+                <default>false</default>
+                <label>MARRON VERT</label>
+            </value>
+            <value>
+                <fullName>MARRON VIOLET</fullName>
+                <default>false</default>
+                <label>MARRON VIOLET</label>
+            </value>
+            <value>
+                <fullName>MARSHMALLOW</fullName>
+                <default>false</default>
+                <label>MARSHMALLOW</label>
+            </value>
+            <value>
+                <fullName>MASAI</fullName>
+                <default>false</default>
+                <label>MASAI</label>
+            </value>
+            <value>
+                <fullName>MASALA</fullName>
+                <default>false</default>
+                <label>MASALA</label>
+            </value>
+            <value>
+                <fullName>MASTIC</fullName>
+                <default>false</default>
+                <label>MASTIC</label>
+            </value>
+            <value>
+                <fullName>MATISSE</fullName>
+                <default>false</default>
+                <label>MATISSE</label>
+            </value>
+            <value>
+                <fullName>MAUVE</fullName>
+                <default>false</default>
+                <label>MAUVE</label>
+            </value>
+            <value>
+                <fullName>MAUVE GLITTER</fullName>
+                <default>false</default>
+                <label>MAUVE GLITTER</label>
+            </value>
+            <value>
+                <fullName>MAUVE OPAQUE</fullName>
+                <default>false</default>
+                <label>MAUVE OPAQUE</label>
+            </value>
+            <value>
+                <fullName>MEDOC</fullName>
+                <default>false</default>
+                <label>MEDOC</label>
+            </value>
+            <value>
+                <fullName>MENTHE</fullName>
+                <default>false</default>
+                <label>MENTHE</label>
+            </value>
+            <value>
+                <fullName>MENTHE PIMENT INDIGO</fullName>
+                <default>false</default>
+                <label>MENTHE PIMENT INDIGO</label>
+            </value>
+            <value>
+                <fullName>MERCURE</fullName>
+                <default>false</default>
+                <label>MERCURE</label>
+            </value>
+            <value>
+                <fullName>METEOR</fullName>
+                <default>false</default>
+                <label>METEOR</label>
+            </value>
+            <value>
+                <fullName>MIDNIGHT BLUE</fullName>
+                <default>false</default>
+                <label>MIDNIGHT BLUE</label>
+            </value>
+            <value>
+                <fullName>MIEL</fullName>
+                <default>false</default>
+                <label>MIEL</label>
+            </value>
+            <value>
+                <fullName>MIEL CLAIR</fullName>
+                <default>false</default>
+                <label>MIEL CLAIR</label>
+            </value>
+            <value>
+                <fullName>MIEL FONCE</fullName>
+                <default>false</default>
+                <label>MIEL FONCE</label>
+            </value>
+            <value>
+                <fullName>MILK</fullName>
+                <default>false</default>
+                <label>MILK</label>
+            </value>
+            <value>
+                <fullName>MILK MAGNOLIA</fullName>
+                <default>false</default>
+                <label>MILK MAGNOLIA</label>
+            </value>
+            <value>
+                <fullName>MIMOSA</fullName>
+                <default>false</default>
+                <label>MIMOSA</label>
+            </value>
+            <value>
+                <fullName>MIRABELLE</fullName>
+                <default>false</default>
+                <label>MIRABELLE</label>
+            </value>
+            <value>
+                <fullName>MIROIR</fullName>
+                <default>false</default>
+                <label>MIROIR</label>
+            </value>
+            <value>
+                <fullName>MOCHA</fullName>
+                <default>false</default>
+                <label>MOCHA</label>
+            </value>
+            <value>
+                <fullName>MOKA</fullName>
+                <default>false</default>
+                <label>MOKA</label>
+            </value>
+            <value>
+                <fullName>MONOGRAM</fullName>
+                <default>false</default>
+                <label>MONOGRAM</label>
+            </value>
+            <value>
+                <fullName>MONOGRAM WAVES YK BLANC</fullName>
+                <default>false</default>
+                <label>MONOGRAM WAVES YK BLANC</label>
+            </value>
+            <value>
+                <fullName>MONOGRAM WAVES YK JAUNE</fullName>
+                <default>false</default>
+                <label>MONOGRAM WAVES YK JAUNE</label>
+            </value>
+            <value>
+                <fullName>MONOGRAM WAVES YK ROUGE</fullName>
+                <default>false</default>
+                <label>MONOGRAM WAVES YK ROUGE</label>
+            </value>
+            <value>
+                <fullName>MORDORE</fullName>
+                <default>false</default>
+                <label>MORDORE</label>
+            </value>
+            <value>
+                <fullName>MOUTARDE</fullName>
+                <default>false</default>
+                <label>MOUTARDE</label>
+            </value>
+            <value>
+                <fullName>MULE</fullName>
+                <default>false</default>
+                <label>MULE</label>
+            </value>
+            <value>
+                <fullName>MULTICOLORE</fullName>
+                <default>false</default>
+                <label>MULTICOLORE</label>
+            </value>
+            <value>
+                <fullName>MUSCADE</fullName>
+                <default>false</default>
+                <label>MUSCADE</label>
+            </value>
+            <value>
+                <fullName>MYOSOTIS</fullName>
+                <default>false</default>
+                <label>MYOSOTIS</label>
+            </value>
+            <value>
+                <fullName>MYRTILLE</fullName>
+                <default>false</default>
+                <label>MYRTILLE</label>
+            </value>
+            <value>
+                <fullName>NACRE</fullName>
+                <default>false</default>
+                <label>NACRE</label>
+            </value>
+            <value>
+                <fullName>NATURAL</fullName>
+                <default>false</default>
+                <label>NATURAL</label>
+            </value>
+            <value>
+                <fullName>NAVY</fullName>
+                <default>false</default>
+                <label>NAVY</label>
+            </value>
+            <value>
+                <fullName>NAVY.</fullName>
+                <default>false</default>
+                <label>NAVY.</label>
+            </value>
+            <value>
+                <fullName>NAVY GLITTER</fullName>
+                <default>false</default>
+                <label>NAVY GLITTER</label>
+            </value>
+            <value>
+                <fullName>NAVY MAUVE</fullName>
+                <default>false</default>
+                <label>NAVY MAUVE</label>
+            </value>
+            <value>
+                <fullName>NAVY STRIPED</fullName>
+                <default>false</default>
+                <label>NAVY STRIPED</label>
+            </value>
+            <value>
+                <fullName>NAVY TRANSLUCIDE</fullName>
+                <default>false</default>
+                <label>NAVY TRANSLUCIDE</label>
+            </value>
+            <value>
+                <fullName>NEIGE</fullName>
+                <default>false</default>
+                <label>NEIGE</label>
+            </value>
+            <value>
+                <fullName>NEPTUNE</fullName>
+                <default>false</default>
+                <label>NEPTUNE</label>
+            </value>
+            <value>
+                <fullName>NEW CAMEL</fullName>
+                <default>false</default>
+                <label>NEW CAMEL</label>
+            </value>
+            <value>
+                <fullName>NEW GREY GLITTER</fullName>
+                <default>false</default>
+                <label>NEW GREY GLITTER</label>
+            </value>
+            <value>
+                <fullName>NEW GREY GLITTER.</fullName>
+                <default>false</default>
+                <label>NEW GREY GLITTER.</label>
+            </value>
+            <value>
+                <fullName>NOIR / OR</fullName>
+                <default>false</default>
+                <label>NOIR / OR</label>
+            </value>
+            <value>
+                <fullName>NOIR AR</fullName>
+                <default>false</default>
+                <label>NOIR AR</label>
+            </value>
+            <value>
+                <fullName>NOIR BEIGE</fullName>
+                <default>false</default>
+                <label>NOIR BEIGE</label>
+            </value>
+            <value>
+                <fullName>NOIR BLANC</fullName>
+                <default>false</default>
+                <label>NOIR BLANC</label>
+            </value>
+            <value>
+                <fullName>NOIR BLEU</fullName>
+                <default>false</default>
+                <label>NOIR BLEU</label>
+            </value>
+            <value>
+                <fullName>NOIR BORDEAUX</fullName>
+                <default>false</default>
+                <label>NOIR BORDEAUX</label>
+            </value>
+            <value>
+                <fullName>NOIR ELECTRIC</fullName>
+                <default>false</default>
+                <label>NOIR ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>NOIR FLAMINGO</fullName>
+                <default>false</default>
+                <label>NOIR FLAMINGO</label>
+            </value>
+            <value>
+                <fullName>NOIR GRIS</fullName>
+                <default>false</default>
+                <label>NOIR GRIS</label>
+            </value>
+            <value>
+                <fullName>NOIR MAGNETIQUE</fullName>
+                <default>false</default>
+                <label>NOIR MAGNETIQUE</label>
+            </value>
+            <value>
+                <fullName>NOIR MARINE</fullName>
+                <default>false</default>
+                <label>NOIR MARINE</label>
+            </value>
+            <value>
+                <fullName>NOIR MARRON</fullName>
+                <default>false</default>
+                <label>NOIR MARRON</label>
+            </value>
+            <value>
+                <fullName>NOIR MAT</fullName>
+                <default>false</default>
+                <label>NOIR MAT</label>
+            </value>
+            <value>
+                <fullName>NOIR PETALE</fullName>
+                <default>false</default>
+                <label>NOIR PETALE</label>
+            </value>
+            <value>
+                <fullName>NOIR PROFOND</fullName>
+                <default>false</default>
+                <label>NOIR PROFOND</label>
+            </value>
+            <value>
+                <fullName>NOIR SATIN</fullName>
+                <default>false</default>
+                <label>NOIR SATIN</label>
+            </value>
+            <value>
+                <fullName>NOIR VERT ACIDE</fullName>
+                <default>false</default>
+                <label>NOIR VERT ACIDE</label>
+            </value>
+            <value>
+                <fullName>NON DEFINI</fullName>
+                <default>false</default>
+                <label>NON DEFINI</label>
+            </value>
+            <value>
+                <fullName>NOUGAT</fullName>
+                <default>false</default>
+                <label>NOUGAT</label>
+            </value>
+            <value>
+                <fullName>NUAGE</fullName>
+                <default>false</default>
+                <label>NUAGE</label>
+            </value>
+            <value>
+                <fullName>NUDE</fullName>
+                <default>false</default>
+                <label>NUDE</label>
+            </value>
+            <value>
+                <fullName>NUDE GLITTER</fullName>
+                <default>false</default>
+                <label>NUDE GLITTER</label>
+            </value>
+            <value>
+                <fullName>NUIT</fullName>
+                <default>false</default>
+                <label>NUIT</label>
+            </value>
+            <value>
+                <fullName>NUIT NOIR</fullName>
+                <default>false</default>
+                <label>NUIT NOIR</label>
+            </value>
+            <value>
+                <fullName>OAK</fullName>
+                <default>false</default>
+                <label>OAK</label>
+            </value>
+            <value>
+                <fullName>OCEAN</fullName>
+                <default>false</default>
+                <label>OCEAN</label>
+            </value>
+            <value>
+                <fullName>OCRE</fullName>
+                <default>false</default>
+                <label>OCRE</label>
+            </value>
+            <value>
+                <fullName>OCRE GLITTER</fullName>
+                <default>false</default>
+                <label>OCRE GLITTER</label>
+            </value>
+            <value>
+                <fullName>OFFWHITE &amp; BEIGE</fullName>
+                <default>false</default>
+                <label>OFFWHITE &amp; BEIGE</label>
+            </value>
+            <value>
+                <fullName>OLIVE</fullName>
+                <default>false</default>
+                <label>OLIVE</label>
+            </value>
+            <value>
+                <fullName>OMBRE</fullName>
+                <default>false</default>
+                <label>OMBRE</label>
+            </value>
+            <value>
+                <fullName>ONYX</fullName>
+                <default>false</default>
+                <label>ONYX</label>
+            </value>
+            <value>
+                <fullName>OPAL</fullName>
+                <default>false</default>
+                <label>OPAL</label>
+            </value>
+            <value>
+                <fullName>OPALIN</fullName>
+                <default>false</default>
+                <label>OPALIN</label>
+            </value>
+            <value>
+                <fullName>OR</fullName>
+                <default>false</default>
+                <label>OR</label>
+            </value>
+            <value>
+                <fullName>ORAGE</fullName>
+                <default>false</default>
+                <label>ORAGE</label>
+            </value>
+            <value>
+                <fullName>ORANGE</fullName>
+                <default>false</default>
+                <label>ORANGE</label>
+            </value>
+            <value>
+                <fullName>ORANGE ARAGOSTA</fullName>
+                <default>false</default>
+                <label>ORANGE ARAGOSTA</label>
+            </value>
+            <value>
+                <fullName>ORANGE FEU</fullName>
+                <default>false</default>
+                <label>ORANGE FEU</label>
+            </value>
+            <value>
+                <fullName>ORANGE GLITTER</fullName>
+                <default>false</default>
+                <label>ORANGE GLITTER</label>
+            </value>
+            <value>
+                <fullName>ORANGE SUNSET</fullName>
+                <default>false</default>
+                <label>ORANGE SUNSET</label>
+            </value>
+            <value>
+                <fullName>OR BLANC</fullName>
+                <default>false</default>
+                <label>OR BLANC</label>
+            </value>
+            <value>
+                <fullName>OR BLANC GRAPHITE NACRE</fullName>
+                <default>false</default>
+                <label>OR BLANC GRAPHITE NACRE</label>
+            </value>
+            <value>
+                <fullName>OR BLANC NACRE</fullName>
+                <default>false</default>
+                <label>OR BLANC NACRE</label>
+            </value>
+            <value>
+                <fullName>ORIENT</fullName>
+                <default>false</default>
+                <label>ORIENT</label>
+            </value>
+            <value>
+                <fullName>OR ROSE</fullName>
+                <default>false</default>
+                <label>OR ROSE</label>
+            </value>
+            <value>
+                <fullName>OR VIEILLI</fullName>
+                <default>false</default>
+                <label>OR VIEILLI</label>
+            </value>
+            <value>
+                <fullName>OURAL</fullName>
+                <default>false</default>
+                <label>OURAL</label>
+            </value>
+            <value>
+                <fullName>OURSIN</fullName>
+                <default>false</default>
+                <label>OURSIN</label>
+            </value>
+            <value>
+                <fullName>OUTREMER</fullName>
+                <default>false</default>
+                <label>OUTREMER</label>
+            </value>
+            <value>
+                <fullName>OXYGENE</fullName>
+                <default>false</default>
+                <label>OXYGENE</label>
+            </value>
+            <value>
+                <fullName>PALLADIUM</fullName>
+                <default>false</default>
+                <label>PALLADIUM</label>
+            </value>
+            <value>
+                <fullName>PAPARACHA</fullName>
+                <default>false</default>
+                <label>PAPARACHA</label>
+            </value>
+            <value>
+                <fullName>PAPRIKA</fullName>
+                <default>false</default>
+                <label>PAPRIKA</label>
+            </value>
+            <value>
+                <fullName>PARME</fullName>
+                <default>false</default>
+                <label>PARME</label>
+            </value>
+            <value>
+                <fullName>PASSION</fullName>
+                <default>false</default>
+                <label>PASSION</label>
+            </value>
+            <value>
+                <fullName>PASSION FUCHSIA</fullName>
+                <default>false</default>
+                <label>PASSION FUCHSIA</label>
+            </value>
+            <value>
+                <fullName>PASTEL</fullName>
+                <default>false</default>
+                <label>PASTEL</label>
+            </value>
+            <value>
+                <fullName>PEACH</fullName>
+                <default>false</default>
+                <label>PEACH</label>
+            </value>
+            <value>
+                <fullName>PEARL</fullName>
+                <default>false</default>
+                <label>PEARL</label>
+            </value>
+            <value>
+                <fullName>PEARL GLITTER</fullName>
+                <default>false</default>
+                <label>PEARL GLITTER</label>
+            </value>
+            <value>
+                <fullName>PEPPER</fullName>
+                <default>false</default>
+                <label>PEPPER</label>
+            </value>
+            <value>
+                <fullName>PEPPERMINT</fullName>
+                <default>false</default>
+                <label>PEPPERMINT</label>
+            </value>
+            <value>
+                <fullName>PERLE NACRE</fullName>
+                <default>false</default>
+                <label>PERLE NACRE</label>
+            </value>
+            <value>
+                <fullName>PERLE ROSE</fullName>
+                <default>false</default>
+                <label>PERLE ROSE</label>
+            </value>
+            <value>
+                <fullName>PERSONNALISABLE</fullName>
+                <default>false</default>
+                <label>PERSONNALISABLE</label>
+            </value>
+            <value>
+                <fullName>PETALE</fullName>
+                <default>false</default>
+                <label>PETALE</label>
+            </value>
+            <value>
+                <fullName>PETROLE</fullName>
+                <default>false</default>
+                <label>PETROLE</label>
+            </value>
+            <value>
+                <fullName>PETROL GLITTER</fullName>
+                <default>false</default>
+                <label>PETROL GLITTER</label>
+            </value>
+            <value>
+                <fullName>PIERRE</fullName>
+                <default>false</default>
+                <label>PIERRE</label>
+            </value>
+            <value>
+                <fullName>PIMENT</fullName>
+                <default>false</default>
+                <label>PIMENT</label>
+            </value>
+            <value>
+                <fullName>PIMENT SAPHIR</fullName>
+                <default>false</default>
+                <label>PIMENT SAPHIR</label>
+            </value>
+            <value>
+                <fullName>PINK</fullName>
+                <default>false</default>
+                <label>PINK</label>
+            </value>
+            <value>
+                <fullName>PINK / PINK</fullName>
+                <default>false</default>
+                <label>PINK / PINK</label>
+            </value>
+            <value>
+                <fullName>PINK.</fullName>
+                <default>false</default>
+                <label>PINK.</label>
+            </value>
+            <value>
+                <fullName>PISTACHE</fullName>
+                <default>false</default>
+                <label>PISTACHE</label>
+            </value>
+            <value>
+                <fullName>PISTACHE BLEU TAN</fullName>
+                <default>false</default>
+                <label>PISTACHE BLEU TAN</label>
+            </value>
+            <value>
+                <fullName>PISTACHE TAN</fullName>
+                <default>false</default>
+                <label>PISTACHE TAN</label>
+            </value>
+            <value>
+                <fullName>PIVOINE</fullName>
+                <default>false</default>
+                <label>PIVOINE</label>
+            </value>
+            <value>
+                <fullName>PIVOINE VIOLET</fullName>
+                <default>false</default>
+                <label>PIVOINE VIOLET</label>
+            </value>
+            <value>
+                <fullName>PLATINE</fullName>
+                <default>false</default>
+                <label>PLATINE</label>
+            </value>
+            <value>
+                <fullName>PLUM</fullName>
+                <default>false</default>
+                <label>PLUM</label>
+            </value>
+            <value>
+                <fullName>PLUME</fullName>
+                <default>false</default>
+                <label>PLUME</label>
+            </value>
+            <value>
+                <fullName>POLAIRE</fullName>
+                <default>false</default>
+                <label>POLAIRE</label>
+            </value>
+            <value>
+                <fullName>POMME</fullName>
+                <default>false</default>
+                <label>POMME</label>
+            </value>
+            <value>
+                <fullName>POMME D&apos;AMOUR</fullName>
+                <default>false</default>
+                <label>POMME D&apos;AMOUR</label>
+            </value>
+            <value>
+                <fullName>POMME D AMOUR RAYE</fullName>
+                <default>false</default>
+                <label>POMME D AMOUR RAYE</label>
+            </value>
+            <value>
+                <fullName>POPPY</fullName>
+                <default>false</default>
+                <label>POPPY</label>
+            </value>
+            <value>
+                <fullName>POPPY DENIM</fullName>
+                <default>false</default>
+                <label>POPPY DENIM</label>
+            </value>
+            <value>
+                <fullName>POUDRE</fullName>
+                <default>false</default>
+                <label>POUDRE</label>
+            </value>
+            <value>
+                <fullName>POURPRE</fullName>
+                <default>false</default>
+                <label>POURPRE</label>
+            </value>
+            <value>
+                <fullName>PRALINE</fullName>
+                <default>false</default>
+                <label>PRALINE</label>
+            </value>
+            <value>
+                <fullName>PROMENADE</fullName>
+                <default>false</default>
+                <label>PROMENADE</label>
+            </value>
+            <value>
+                <fullName>PRUNE ELECTRIC</fullName>
+                <default>false</default>
+                <label>PRUNE ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>PRUNE ORIENT</fullName>
+                <default>false</default>
+                <label>PRUNE ORIENT</label>
+            </value>
+            <value>
+                <fullName>PRUNE PETROLE</fullName>
+                <default>false</default>
+                <label>PRUNE PETROLE</label>
+            </value>
+            <value>
+                <fullName>PRUNILLE</fullName>
+                <default>false</default>
+                <label>PRUNILLE</label>
+            </value>
+            <value>
+                <fullName>PURPLE</fullName>
+                <default>false</default>
+                <label>PURPLE</label>
+            </value>
+            <value>
+                <fullName>PURPLE FLOWER</fullName>
+                <default>false</default>
+                <label>PURPLE FLOWER</label>
+            </value>
+            <value>
+                <fullName>PUTTY COLOURED</fullName>
+                <default>false</default>
+                <label>PUTTY COLOURED</label>
+            </value>
+            <value>
+                <fullName>QUETSCHE</fullName>
+                <default>false</default>
+                <label>QUETSCHE</label>
+            </value>
+            <value>
+                <fullName>RAINBOW</fullName>
+                <default>false</default>
+                <label>RAINBOW</label>
+            </value>
+            <value>
+                <fullName>RAISIN</fullName>
+                <default>false</default>
+                <label>RAISIN</label>
+            </value>
+            <value>
+                <fullName>RASPBERRY</fullName>
+                <default>false</default>
+                <label>RASPBERRY</label>
+            </value>
+            <value>
+                <fullName>RED</fullName>
+                <default>false</default>
+                <label>RED</label>
+            </value>
+            <value>
+                <fullName>RED NM</fullName>
+                <default>false</default>
+                <label>RED NM</label>
+            </value>
+            <value>
+                <fullName>RED TORTOISE</fullName>
+                <default>false</default>
+                <label>RED TORTOISE</label>
+            </value>
+            <value>
+                <fullName>REGLISSE</fullName>
+                <default>false</default>
+                <label>REGLISSE</label>
+            </value>
+            <value>
+                <fullName>RENARD</fullName>
+                <default>false</default>
+                <label>RENARD</label>
+            </value>
+            <value>
+                <fullName>RESINE</fullName>
+                <default>false</default>
+                <label>RESINE</label>
+            </value>
+            <value>
+                <fullName>ROSE / KAKI</fullName>
+                <default>false</default>
+                <label>ROSE / KAKI</label>
+            </value>
+            <value>
+                <fullName>ROSE ANGELIQUE</fullName>
+                <default>false</default>
+                <label>ROSE ANGELIQUE</label>
+            </value>
+            <value>
+                <fullName>ROSE BALLERINE</fullName>
+                <default>false</default>
+                <label>ROSE BALLERINE</label>
+            </value>
+            <value>
+                <fullName>ROSE BALLERINE COQUELICOT</fullName>
+                <default>false</default>
+                <label>ROSE BALLERINE COQUELICOT</label>
+            </value>
+            <value>
+                <fullName>ROSE BLANC</fullName>
+                <default>false</default>
+                <label>ROSE BLANC</label>
+            </value>
+            <value>
+                <fullName>ROSE CAMEL</fullName>
+                <default>false</default>
+                <label>ROSE CAMEL</label>
+            </value>
+            <value>
+                <fullName>ROSE CLAIR PISTACHE</fullName>
+                <default>false</default>
+                <label>ROSE CLAIR PISTACHE</label>
+            </value>
+            <value>
+                <fullName>ROSE CORAIL</fullName>
+                <default>false</default>
+                <label>ROSE CORAIL</label>
+            </value>
+            <value>
+                <fullName>ROSEE</fullName>
+                <default>false</default>
+                <label>ROSEE</label>
+            </value>
+            <value>
+                <fullName>ROSE FLORENTIN</fullName>
+                <default>false</default>
+                <label>ROSE FLORENTIN</label>
+            </value>
+            <value>
+                <fullName>ROSE FLOWER</fullName>
+                <default>false</default>
+                <label>ROSE FLOWER</label>
+            </value>
+            <value>
+                <fullName>ROSE FONCE</fullName>
+                <default>false</default>
+                <label>ROSE FONCE</label>
+            </value>
+            <value>
+                <fullName>ROSE GLITTER</fullName>
+                <default>false</default>
+                <label>ROSE GLITTER</label>
+            </value>
+            <value>
+                <fullName>ROSE GRAPHITE NACRE</fullName>
+                <default>false</default>
+                <label>ROSE GRAPHITE NACRE</label>
+            </value>
+            <value>
+                <fullName>ROSE IKAT</fullName>
+                <default>false</default>
+                <label>ROSE IKAT</label>
+            </value>
+            <value>
+                <fullName>ROSE INDIEN</fullName>
+                <default>false</default>
+                <label>ROSE INDIEN</label>
+            </value>
+            <value>
+                <fullName>ROSE INDIEN IKAT</fullName>
+                <default>false</default>
+                <label>ROSE INDIEN IKAT</label>
+            </value>
+            <value>
+                <fullName>ROSE LITCHI</fullName>
+                <default>false</default>
+                <label>ROSE LITCHI</label>
+            </value>
+            <value>
+                <fullName>ROSE METALLIQUE</fullName>
+                <default>false</default>
+                <label>ROSE METALLIQUE</label>
+            </value>
+            <value>
+                <fullName>ROSE NACRE</fullName>
+                <default>false</default>
+                <label>ROSE NACRE</label>
+            </value>
+            <value>
+                <fullName>ROSE PALE</fullName>
+                <default>false</default>
+                <label>ROSE PALE</label>
+            </value>
+            <value>
+                <fullName>ROSE PETALE</fullName>
+                <default>false</default>
+                <label>ROSE PETALE</label>
+            </value>
+            <value>
+                <fullName>ROSE POP</fullName>
+                <default>false</default>
+                <label>ROSE POP</label>
+            </value>
+            <value>
+                <fullName>ROSE POUDRE</fullName>
+                <default>false</default>
+                <label>ROSE POUDRE</label>
+            </value>
+            <value>
+                <fullName>ROSE PRUNE</fullName>
+                <default>false</default>
+                <label>ROSE PRUNE</label>
+            </value>
+            <value>
+                <fullName>ROSE ROUGE</fullName>
+                <default>false</default>
+                <label>ROSE ROUGE</label>
+            </value>
+            <value>
+                <fullName>ROSE THE</fullName>
+                <default>false</default>
+                <label>ROSE THE</label>
+            </value>
+            <value>
+                <fullName>ROSE VELOURS</fullName>
+                <default>false</default>
+                <label>ROSE VELOURS</label>
+            </value>
+            <value>
+                <fullName>ROSE VELOURS IKAT</fullName>
+                <default>false</default>
+                <label>ROSE VELOURS IKAT</label>
+            </value>
+            <value>
+                <fullName>ROUGE BLANC</fullName>
+                <default>false</default>
+                <label>ROUGE BLANC</label>
+            </value>
+            <value>
+                <fullName>ROUGE BLEU</fullName>
+                <default>false</default>
+                <label>ROUGE BLEU</label>
+            </value>
+            <value>
+                <fullName>ROUGE BRIQUE</fullName>
+                <default>false</default>
+                <label>ROUGE BRIQUE</label>
+            </value>
+            <value>
+                <fullName>ROUGE CARMIN</fullName>
+                <default>false</default>
+                <label>ROUGE CARMIN</label>
+            </value>
+            <value>
+                <fullName>ROUGE ELECTRIC</fullName>
+                <default>false</default>
+                <label>ROUGE ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>ROUGE FAUVISTE</fullName>
+                <default>false</default>
+                <label>ROUGE FAUVISTE</label>
+            </value>
+            <value>
+                <fullName>ROUGE FETICHE</fullName>
+                <default>false</default>
+                <label>ROUGE FETICHE</label>
+            </value>
+            <value>
+                <fullName>ROUGE FUSION</fullName>
+                <default>false</default>
+                <label>ROUGE FUSION</label>
+            </value>
+            <value>
+                <fullName>ROUGE GRENADINE</fullName>
+                <default>false</default>
+                <label>ROUGE GRENADINE</label>
+            </value>
+            <value>
+                <fullName>ROUGE MARRON</fullName>
+                <default>false</default>
+                <label>ROUGE MARRON</label>
+            </value>
+            <value>
+                <fullName>ROUGE MOTEL</fullName>
+                <default>false</default>
+                <label>ROUGE MOTEL</label>
+            </value>
+            <value>
+                <fullName>ROUGE NOIR</fullName>
+                <default>false</default>
+                <label>ROUGE NOIR</label>
+            </value>
+            <value>
+                <fullName>ROUGE OPAQUE</fullName>
+                <default>false</default>
+                <label>ROUGE OPAQUE</label>
+            </value>
+            <value>
+                <fullName>ROUGE OPERA</fullName>
+                <default>false</default>
+                <label>ROUGE OPERA</label>
+            </value>
+            <value>
+                <fullName>ROUGE ORANGE</fullName>
+                <default>false</default>
+                <label>ROUGE ORANGE</label>
+            </value>
+            <value>
+                <fullName>ROUGE POMODORO</fullName>
+                <default>false</default>
+                <label>ROUGE POMODORO</label>
+            </value>
+            <value>
+                <fullName>ROUGE RUBIS</fullName>
+                <default>false</default>
+                <label>ROUGE RUBIS</label>
+            </value>
+            <value>
+                <fullName>ROUGE TRANSLUCIDE</fullName>
+                <default>false</default>
+                <label>ROUGE TRANSLUCIDE</label>
+            </value>
+            <value>
+                <fullName>ROUGE VERT OR</fullName>
+                <default>false</default>
+                <label>ROUGE VERT OR</label>
+            </value>
+            <value>
+                <fullName>RUBIS</fullName>
+                <default>false</default>
+                <label>RUBIS</label>
+            </value>
+            <value>
+                <fullName>RUSTY</fullName>
+                <default>false</default>
+                <label>RUSTY</label>
+            </value>
+            <value>
+                <fullName>RUTHENIUM</fullName>
+                <default>false</default>
+                <label>RUTHENIUM</label>
+            </value>
+            <value>
+                <fullName>SAFRAN</fullName>
+                <default>false</default>
+                <label>SAFRAN</label>
+            </value>
+            <value>
+                <fullName>SANDY</fullName>
+                <default>false</default>
+                <label>SANDY</label>
+            </value>
+            <value>
+                <fullName>SAPHIR</fullName>
+                <default>false</default>
+                <label>SAPHIR</label>
+            </value>
+            <value>
+                <fullName>SAUMON</fullName>
+                <default>false</default>
+                <label>SAUMON</label>
+            </value>
+            <value>
+                <fullName>SEPIA</fullName>
+                <default>false</default>
+                <label>SEPIA</label>
+            </value>
+            <value>
+                <fullName>SIENNE</fullName>
+                <default>false</default>
+                <label>SIENNE</label>
+            </value>
+            <value>
+                <fullName>SILVER</fullName>
+                <default>false</default>
+                <label>SILVER</label>
+            </value>
+            <value>
+                <fullName>SILVER.</fullName>
+                <default>false</default>
+                <label>SILVER.</label>
+            </value>
+            <value>
+                <fullName>SILVER BLACK</fullName>
+                <default>false</default>
+                <label>SILVER BLACK</label>
+            </value>
+            <value>
+                <fullName>SILVER LIGHT</fullName>
+                <default>false</default>
+                <label>SILVER LIGHT</label>
+            </value>
+            <value>
+                <fullName>SOLAR</fullName>
+                <default>false</default>
+                <label>SOLAR</label>
+            </value>
+            <value>
+                <fullName>SPRUCE</fullName>
+                <default>false</default>
+                <label>SPRUCE</label>
+            </value>
+            <value>
+                <fullName>SPRUCE PAL</fullName>
+                <default>false</default>
+                <label>SPRUCE PAL</label>
+            </value>
+            <value>
+                <fullName>STEPPE</fullName>
+                <default>false</default>
+                <label>STEPPE</label>
+            </value>
+            <value>
+                <fullName>STRASS GOLD</fullName>
+                <default>false</default>
+                <label>STRASS GOLD</label>
+            </value>
+            <value>
+                <fullName>STRASS PINK</fullName>
+                <default>false</default>
+                <label>STRASS PINK</label>
+            </value>
+            <value>
+                <fullName>SUGAR PINK</fullName>
+                <default>false</default>
+                <label>SUGAR PINK</label>
+            </value>
+            <value>
+                <fullName>SUN</fullName>
+                <default>false</default>
+                <label>SUN</label>
+            </value>
+            <value>
+                <fullName>TABAC</fullName>
+                <default>false</default>
+                <label>TABAC</label>
+            </value>
+            <value>
+                <fullName>TAN</fullName>
+                <default>false</default>
+                <label>TAN</label>
+            </value>
+            <value>
+                <fullName>TANAMI</fullName>
+                <default>false</default>
+                <label>TANAMI</label>
+            </value>
+            <value>
+                <fullName>TANGERINE</fullName>
+                <default>false</default>
+                <label>TANGERINE</label>
+            </value>
+            <value>
+                <fullName>TANNED</fullName>
+                <default>false</default>
+                <label>TANNED</label>
+            </value>
+            <value>
+                <fullName>TANZANITE</fullName>
+                <default>false</default>
+                <label>TANZANITE</label>
+            </value>
+            <value>
+                <fullName>TAUPE</fullName>
+                <default>false</default>
+                <label>TAUPE</label>
+            </value>
+            <value>
+                <fullName>TAUPE MAGNOLIA</fullName>
+                <default>false</default>
+                <label>TAUPE MAGNOLIA</label>
+            </value>
+            <value>
+                <fullName>TAUPE PETALE</fullName>
+                <default>false</default>
+                <label>TAUPE PETALE</label>
+            </value>
+            <value>
+                <fullName>TC</fullName>
+                <default>false</default>
+                <label>TC</label>
+            </value>
+            <value>
+                <fullName>TECK</fullName>
+                <default>false</default>
+                <label>TECK</label>
+            </value>
+            <value>
+                <fullName>TERRACOTA</fullName>
+                <default>false</default>
+                <label>TERRACOTA</label>
+            </value>
+            <value>
+                <fullName>TERRACOTA.</fullName>
+                <default>false</default>
+                <label>TERRACOTA.</label>
+            </value>
+            <value>
+                <fullName>TERRE D&apos;OMBRE</fullName>
+                <default>false</default>
+                <label>TERRE D&apos;OMBRE</label>
+            </value>
+            <value>
+                <fullName>TOPAZE</fullName>
+                <default>false</default>
+                <label>TOPAZE</label>
+            </value>
+            <value>
+                <fullName>TORTURA</fullName>
+                <default>false</default>
+                <label>TORTURA</label>
+            </value>
+            <value>
+                <fullName>TOUNDRA</fullName>
+                <default>false</default>
+                <label>TOUNDRA</label>
+            </value>
+            <value>
+                <fullName>TOURNESOL</fullName>
+                <default>false</default>
+                <label>TOURNESOL</label>
+            </value>
+            <value>
+                <fullName>TOURTERELLE</fullName>
+                <default>false</default>
+                <label>TOURTERELLE</label>
+            </value>
+            <value>
+                <fullName>TRANSPARENT</fullName>
+                <default>false</default>
+                <label>TRANSPARENT</label>
+            </value>
+            <value>
+                <fullName>TRANSPARENT ARGENT</fullName>
+                <default>false</default>
+                <label>TRANSPARENT ARGENT</label>
+            </value>
+            <value>
+                <fullName>TRICOLOR</fullName>
+                <default>false</default>
+                <label>TRICOLOR</label>
+            </value>
+            <value>
+                <fullName>TRICOLORE FIGUE</fullName>
+                <default>false</default>
+                <label>TRICOLORE FIGUE</label>
+            </value>
+            <value>
+                <fullName>TRICOLORE MENTHE</fullName>
+                <default>false</default>
+                <label>TRICOLORE MENTHE</label>
+            </value>
+            <value>
+                <fullName>TURQUOISE</fullName>
+                <default>false</default>
+                <label>TURQUOISE</label>
+            </value>
+            <value>
+                <fullName>TURQUOISE MIRROR</fullName>
+                <default>false</default>
+                <label>TURQUOISE MIRROR</label>
+            </value>
+            <value>
+                <fullName>VANILLA</fullName>
+                <default>false</default>
+                <label>VANILLA</label>
+            </value>
+            <value>
+                <fullName>VANILLE</fullName>
+                <default>false</default>
+                <label>VANILLE</label>
+            </value>
+            <value>
+                <fullName>VANILLE NOIR</fullName>
+                <default>false</default>
+                <label>VANILLE NOIR</label>
+            </value>
+            <value>
+                <fullName>VENUS</fullName>
+                <default>false</default>
+                <label>VENUS</label>
+            </value>
+            <value>
+                <fullName>VENUS NOIR MASTIC</fullName>
+                <default>false</default>
+                <label>VENUS NOIR MASTIC</label>
+            </value>
+            <value>
+                <fullName>VERMILLON</fullName>
+                <default>false</default>
+                <label>VERMILLON</label>
+            </value>
+            <value>
+                <fullName>VERONE</fullName>
+                <default>false</default>
+                <label>VERONE</label>
+            </value>
+            <value>
+                <fullName>VERT ACIDE</fullName>
+                <default>false</default>
+                <label>VERT ACIDE</label>
+            </value>
+            <value>
+                <fullName>VERT AMANDE</fullName>
+                <default>false</default>
+                <label>VERT AMANDE</label>
+            </value>
+            <value>
+                <fullName>VERT ANGLAIS</fullName>
+                <default>false</default>
+                <label>VERT ANGLAIS</label>
+            </value>
+            <value>
+                <fullName>VERT BLANC</fullName>
+                <default>false</default>
+                <label>VERT BLANC</label>
+            </value>
+            <value>
+                <fullName>VERT BRONZE</fullName>
+                <default>false</default>
+                <label>VERT BRONZE</label>
+            </value>
+            <value>
+                <fullName>VERT CANARD</fullName>
+                <default>false</default>
+                <label>VERT CANARD</label>
+            </value>
+            <value>
+                <fullName>VERT CLAIR V910</fullName>
+                <default>false</default>
+                <label>VERT CLAIR V910</label>
+            </value>
+            <value>
+                <fullName>VERT D EAU</fullName>
+                <default>false</default>
+                <label>VERT D EAU</label>
+            </value>
+            <value>
+                <fullName>VERT EAU</fullName>
+                <default>false</default>
+                <label>VERT EAU</label>
+            </value>
+            <value>
+                <fullName>VERT ELECTRIC</fullName>
+                <default>false</default>
+                <label>VERT ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>VERT FONCE</fullName>
+                <default>false</default>
+                <label>VERT FONCE</label>
+            </value>
+            <value>
+                <fullName>VERT FONCE DORE</fullName>
+                <default>false</default>
+                <label>VERT FONCE DORE</label>
+            </value>
+            <value>
+                <fullName>VERT FORET</fullName>
+                <default>false</default>
+                <label>VERT FORET</label>
+            </value>
+            <value>
+                <fullName>VERT FUSIL</fullName>
+                <default>false</default>
+                <label>VERT FUSIL</label>
+            </value>
+            <value>
+                <fullName>VERT GRIS</fullName>
+                <default>false</default>
+                <label>VERT GRIS</label>
+            </value>
+            <value>
+                <fullName>VERT IMPERIAL</fullName>
+                <default>false</default>
+                <label>VERT IMPERIAL</label>
+            </value>
+            <value>
+                <fullName>VERT IMPRESSION</fullName>
+                <default>false</default>
+                <label>VERT IMPRESSION</label>
+            </value>
+            <value>
+                <fullName>VERT MENTHE</fullName>
+                <default>false</default>
+                <label>VERT MENTHE</label>
+            </value>
+            <value>
+                <fullName>VERT OLIVE</fullName>
+                <default>false</default>
+                <label>VERT OLIVE</label>
+            </value>
+            <value>
+                <fullName>VERT PALE</fullName>
+                <default>false</default>
+                <label>VERT PALE</label>
+            </value>
+            <value>
+                <fullName>VERT TONIC</fullName>
+                <default>false</default>
+                <label>VERT TONIC</label>
+            </value>
+            <value>
+                <fullName>VERT VIOLET</fullName>
+                <default>false</default>
+                <label>VERT VIOLET</label>
+            </value>
+            <value>
+                <fullName>VIEUX ROSE</fullName>
+                <default>false</default>
+                <label>VIEUX ROSE</label>
+            </value>
+            <value>
+                <fullName>VIEUX ROSE PISTACHE</fullName>
+                <default>false</default>
+                <label>VIEUX ROSE PISTACHE</label>
+            </value>
+            <value>
+                <fullName>VIOLET FONCE</fullName>
+                <default>false</default>
+                <label>VIOLET FONCE</label>
+            </value>
+            <value>
+                <fullName>VIOLET FUCHSIA</fullName>
+                <default>false</default>
+                <label>VIOLET FUCHSIA</label>
+            </value>
+            <value>
+                <fullName>VIOLET GLITTER</fullName>
+                <default>false</default>
+                <label>VIOLET GLITTER</label>
+            </value>
+            <value>
+                <fullName>VIOLET SAINT VALENTIN</fullName>
+                <default>false</default>
+                <label>VIOLET SAINT VALENTIN</label>
+            </value>
+            <value>
+                <fullName>VIOLETTE</fullName>
+                <default>false</default>
+                <label>VIOLETTE</label>
+            </value>
+            <value>
+                <fullName>VIOLINE</fullName>
+                <default>false</default>
+                <label>VIOLINE</label>
+            </value>
+            <value>
+                <fullName>VVT</fullName>
+                <default>false</default>
+                <label>VVT</label>
+            </value>
+            <value>
+                <fullName>WCHAMP29R</fullName>
+                <default>false</default>
+                <label>WCHAMP29R</label>
+            </value>
+            <value>
+                <fullName>WHITE</fullName>
+                <default>false</default>
+                <label>WHITE</label>
+            </value>
+            <value>
+                <fullName>WINE</fullName>
+                <default>false</default>
+                <label>WINE</label>
+            </value>
+            <value>
+                <fullName>YELLOW</fullName>
+                <default>false</default>
+                <label>YELLOW</label>
+            </value>
+            <value>
+                <fullName>YELLOW.</fullName>
+                <default>false</default>
+                <label>YELLOW.</label>
+            </value>
+            <value>
+                <fullName>YELLOW NM</fullName>
+                <default>false</default>
+                <label>YELLOW NM</label>
+            </value>
+            <value>
+                <fullName>ZZZGREY.</fullName>
+                <default>false</default>
+                <label>ZZZGREY.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

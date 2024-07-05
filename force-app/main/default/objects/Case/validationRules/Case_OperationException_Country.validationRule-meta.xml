@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_OperationException_Country</fullName>
+    <active>true</active>
+    <description>Country is mandatory for record type Operation Exception for all profiles except ICONICS_Warehouse</description>
+    <errorConditionFormula>AND(
+NOT( $User.BypassVR__c ),
+NOT( $User.ProfileId = $Setup.IconicsSettings__c.ICONICSWarehouseProfileID__c),
+RecordType.DeveloperName = &quot;Operation_Exception&quot;,
+ISPICKVAL(Country__c , &quot;&quot;), 
+ISPICKVAL(TECH_Country__c , &quot;&quot;) 
+)</errorConditionFormula>
+    <errorDisplayField>Country__c</errorDisplayField>
+    <errorMessage>You have to complete the country</errorMessage>
+</ValidationRule>

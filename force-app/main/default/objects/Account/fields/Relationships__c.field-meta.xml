@@ -3,6 +3,7 @@
     <fullName>Relationships__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Relationship between different accounts, since standard doesn&apos;t work for person account</description>
+    <externalId>false</externalId>
     <label>Relationships</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Relationships</relationshipLabel>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsProductRequest__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>[MakeItYours] Make It Yours app edits this field. If Yes, then the Firm Order should be sent to MyPR system</description>
+    <externalId>false</externalId>
+    <label>Is Product Request</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

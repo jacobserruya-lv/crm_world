@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>destination__c</fullName>
+    <externalId>false</externalId>
+    <label>Destination</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>TechStoreRetailCode__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>156RASS</fullName>
+                <default>false</default>
+                <label>After Sales Center Ontario</label>
+            </value>
+            <value>
+                <fullName>156RAS2</fullName>
+                <default>false</default>
+                <label>After Sales Center Piscataway</label>
+            </value>
+            <value>
+                <fullName>156RAS3</fullName>
+                <default>false</default>
+                <label>After Sales Center Legacy 1854</label>
+            </value>
+            <value>
+                <fullName>101RASS</fullName>
+                <default>false</default>
+                <label>After Sales Center Cergy</label>
+            </value>
+            <value>
+                <fullName>F92HUB</fullName>
+                <default>false</default>
+                <label>UK Local Repair Center</label>
+            </value>
+            <value>
+                <fullName>179RASS</fullName>
+                <default>false</default>
+                <label>After Sales Center Shanghai</label>
+            </value>
+            <value>
+                <fullName>172RASS</fullName>
+                <default>false</default>
+                <label>After Sales Center Singapore</label>
+            </value>
+            <value>
+                <fullName>L48HUB</fullName>
+                <default>false</default>
+                <label>AU Local Repair Center</label>
+            </value>
+            <value>
+                <fullName>186RASS</fullName>
+                <default>false</default>
+                <label>After Sales Center Seoul</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>UE4</controllingFieldValue>
+            <valueName>156RASS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>UE4</controllingFieldValue>
+            <valueName>156RAS2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>UE4</controllingFieldValue>
+            <valueName>156RAS3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>F92</controllingFieldValue>
+            <controllingFieldValue>J91</controllingFieldValue>
+            <controllingFieldValue>H91</controllingFieldValue>
+            <controllingFieldValue>K91</controllingFieldValue>
+            <valueName>101RASS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>F92</controllingFieldValue>
+            <valueName>F92HUB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>NY7</controllingFieldValue>
+            <valueName>179RASS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>L48</controllingFieldValue>
+            <valueName>172RASS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>L48</controllingFieldValue>
+            <valueName>L48HUB</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

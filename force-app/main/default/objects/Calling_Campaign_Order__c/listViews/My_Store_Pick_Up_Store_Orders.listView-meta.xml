@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Store_Pick_Up_Store_Orders</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Calling_Campaign_Item__c</columns>
+    <columns>Client_Name__c</columns>
+    <columns>Calling_Campaign_Product__c</columns>
+    <columns>Sku_Order__c</columns>
+    <columns>Status__c</columns>
+    <columns>Pick_up_Store__c</columns>
+    <columns>Received_in_Store__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>My_Pick_Up_Store__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Received_in_Store__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>My Pick Up Store Orders</label>
+</ListView>

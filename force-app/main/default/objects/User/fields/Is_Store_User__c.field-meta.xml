@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Store_User__c</fullName>
+    <externalId>false</externalId>
+    <formula>AND( Profile.Name &lt;&gt;  &apos;Identity User&apos;  , OR (LOWER(LEFT(FirstName, 5))==&apos;store&apos;   , LOWER(LEFT(LastName, 6))==&apos;store &apos;))</formula>
+    <label>Is Store User</label>
+    <type>Checkbox</type>
+</CustomField>

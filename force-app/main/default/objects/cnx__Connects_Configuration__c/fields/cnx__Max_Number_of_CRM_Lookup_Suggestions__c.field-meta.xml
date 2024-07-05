@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Max_Number_of_CRM_Lookup_Suggestions__c</fullName>
+    <defaultValue>5</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Specifies the max number of lookup entries shown on the call work item.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specifies the max number of lookup entries shown on the call work item.</inlineHelpText>
+    <label>Max Number of CRM Lookup Suggestions</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

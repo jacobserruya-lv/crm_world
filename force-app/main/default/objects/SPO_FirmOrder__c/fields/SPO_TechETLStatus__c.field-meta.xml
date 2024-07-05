@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_TechETLStatus__c</fullName>
+    <description>ETL status for JDE/Fiesso(SAP Shoes)/MyPR
+
+&quot;V&quot; : Validated (for Perso orders only). Pending orders to wait 3 days as the client can cancel his order.
+&quot;STOCK&quot;: Perso Order ready to be sent to MyPR (after V status)
+&quot;S&quot; : Perso order (Souliers product) ready to be sent to SAP Fiesso (after V status)
+
+ETL execution in 3 steps for JDE: Batch creation =&gt; Order creation =&gt; Purchase creation
+&quot;A&quot;: Order ready to be sent to JDE (when Opportunity.stageName becomes &apos;Creation in progress&apos; for SPO or 3 days after creation for Perso orders)
+&quot;B&quot;: ETL return: Batch creation failure
+&quot;C&quot;: ETL return: Batch created with success
+&quot;D&quot;: ETL return: Order creation failure
+&quot;E&quot;: ETL return: Order created with success
+&quot;F&quot;: ETL return: Purchase creation failure
+&quot;I&quot;: incorrect/incomplete order for JDE
+&quot;Y&quot;: ETL Success (creation in success for JDE / Fiesso / MyPR)
+&quot;PAP_ART&quot;: ETL return: Order article sent to SAP
+&quot;PAP_ARTE&quot;: ETL return: Sending of article to SAP failed</description>
+    <externalId>false</externalId>
+    <label>ETL Status</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>A</fullName>
+                <default>false</default>
+                <label>Order ready to be sent to JDE and SAP FMS</label>
+            </value>
+            <value>
+                <fullName>B</fullName>
+                <default>false</default>
+                <label>ETL/JDE: Batch creation failure</label>
+            </value>
+            <value>
+                <fullName>C</fullName>
+                <default>false</default>
+                <label>ETL/JDE: Batch created with success</label>
+            </value>
+            <value>
+                <fullName>D</fullName>
+                <default>false</default>
+                <label>ETL/JDE: Sale order creation failure</label>
+            </value>
+            <value>
+                <fullName>E</fullName>
+                <default>false</default>
+                <label>ETL/JDE: Sale order created with success</label>
+            </value>
+            <value>
+                <fullName>V</fullName>
+                <default>false</default>
+                <label>Perso order validated</label>
+            </value>
+            <value>
+                <fullName>STOCK</fullName>
+                <default>false</default>
+                <label>Perso order ready to be sent to MyPR</label>
+            </value>
+            <value>
+                <fullName>S</fullName>
+                <default>false</default>
+                <label>S - Perso order (Shoes) ready to be sent to SAP Fiesso</label>
+            </value>
+            <value>
+                <fullName>Y</fullName>
+                <default>false</default>
+                <label>Order sent with success</label>
+            </value>
+            <value>
+                <fullName>I</fullName>
+                <default>false</default>
+                <label>Incorrect Order for JDE</label>
+            </value>
+            <value>
+                <fullName>LG_SOE</fullName>
+                <default>false</default>
+                <label>LG_SOE Error during export to SAP FMS</label>
+            </value>
+            <value>
+                <fullName>R</fullName>
+                <default>false</default>
+                <label>R - Reprint order for Shoes</label>
+            </value>
+            <value>
+                <fullName>J</fullName>
+                <default>false</default>
+                <label>J - SKU does not exist on SPP</label>
+            </value>
+            <value>
+                <fullName>LG_SO</fullName>
+                <default>false</default>
+                <label>LG_SO - Printing order sent to SAP FMS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

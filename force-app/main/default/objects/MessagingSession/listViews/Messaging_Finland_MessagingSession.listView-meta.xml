@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Messaging_Finland_MessagingSession</fullName>
+    <columns>Name</columns>
+    <columns>MessagingChannel</columns>
+    <columns>MessagingEndUser</columns>
+    <columns>Owner</columns>
+    <columns>Status</columns>
+    <columns>StartTime</columns>
+    <columns>EndTime</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Queue_Developper_Name__c</field>
+        <operation>equals</operation>
+        <value>Messaging_Finland</value>
+    </filters>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>0,2</value>
+    </filters>
+    <label>Messaging Finland</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+        <group>Chat_Finland</group>
+    </sharedTo>
+</ListView>

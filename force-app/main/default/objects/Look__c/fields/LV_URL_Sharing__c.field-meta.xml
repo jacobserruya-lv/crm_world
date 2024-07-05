@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LV_URL_Sharing__c</fullName>
+    <externalId>false</externalId>
+    <formula>/*IF(BLANKVALUE(TECH_LV_LOCALE__c,&apos;eng-e1&apos;) == &apos;zhs-cn&apos;, $CustomMetadata.WRDB_LVCOM_URL__mdt.LVCOM_HOST_URL_CHINA.Path__c ,  $CustomMetadata.WRDB_LVCOM_URL__mdt.LVCOM_HOST_URL_WW.Path__c ) + &apos;/&apos;+  BLANKVALUE(TECH_LV_LOCALE__c,&apos;eng-e1&apos;)+ &apos;/&apos;+  $CustomMetadata.WRDB_LVCOM_URL__mdt.LVCOM_PATH.Path__c   + &apos;/&apos; +  BLANKVALUE( TECH_LV_PAGE_NAME__c ,&apos;recommendations&apos;) + &apos;/&apos; +  CASESAFEID(Id) +IF(ISBLANK(TECH_LV_DISPATCH_COUNTRY__c),&apos;&apos;, &apos;?dispatchCountry=&apos;+TECH_LV_DISPATCH_COUNTRY__c ) +&apos;&amp;campaign=look_&apos;+Id+&apos;&amp;A=DreamId&apos;*/
+
+
+IF(BLANKVALUE(TECH_LV_LOCALE__c,&apos;eng-e1&apos;)==&apos;zhs-cn&apos;,$CustomMetadata.WRDB_LVCOM_URL__mdt.LVCOM_HOST_URL_CHINA.Path__c , $CustomMetadata.WRDB_LVCOM_URL__mdt.LVCOM_HOST_URL_WW.Path__c ) + &apos;/&apos;+ BLANKVALUE(TECH_LV_LOCALE__c,&apos;eng-e1&apos;)+ &apos;/&apos;+ $CustomMetadata.WRDB_LVCOM_URL__mdt.LVCOM_PATH.Path__c + &apos;/&apos; + BLANKVALUE( TECH_LV_PAGE_NAME__c ,&apos;recommendations&apos;) + &apos;/&apos; + BLANKVALUE(TECH_EnCrypted_LookId__c, CASESAFEID(Id)) +IF(ISBLANK(TECH_LV_DISPATCH_COUNTRY__c),&apos;&apos;, &apos;?dispatchCountry=&apos;+TECH_LV_DISPATCH_COUNTRY__c ) +&apos;&amp;campaign=look_&apos;+TECH_EnCrypted_LookId__c+&apos;&amp;A=DreamId&apos;</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>LV URL Sharing</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

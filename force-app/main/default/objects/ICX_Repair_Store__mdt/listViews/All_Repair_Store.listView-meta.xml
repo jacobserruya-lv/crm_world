@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Repair_Store</fullName>
+    <columns>MasterLabel</columns>
+    <columns>DeveloperName</columns>
+    <columns>Store_Country__c</columns>
+    <columns>API_Key_Ixopay__c</columns>
+    <columns>Shared_Secret_Ixopay__c</columns>
+    <columns>Integrated_PBL__c</columns>
+    <columns>LanguageLocaleKey__c</columns>
+    <columns>Username__c</columns>
+    <columns>Password__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Repair Store</label>
+    <language>en_US</language>
+</ListView>

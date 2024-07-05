@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Variable_for_Record_Sharing__c</fullName>
+    <defaultValue>&quot;PV10&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The peripheral variable (PV1-PV10) or ECC variable that is used to transport shared record information to the consulted agent.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The peripheral variable (PV1-PV10) or ECC variable that is used to transport shared record information to the
+        consulted agent.</inlineHelpText>
+    <label>Variable for Record Sharing</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

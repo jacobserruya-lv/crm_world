@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShippingNumber__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>KBRW=request id
+ATG=shipping group</description>
+    <externalId>true</externalId>
+    <label>Shipping Number</label>
+    <length>50</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

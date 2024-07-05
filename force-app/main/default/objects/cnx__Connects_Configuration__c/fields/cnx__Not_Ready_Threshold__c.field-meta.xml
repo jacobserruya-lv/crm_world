@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Not_Ready_Threshold__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Channels that are “Not Ready” change the color when the agent stays in a Not Ready state for more than the given amount of seconds. Leave empty to disable this feature.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Channels that are “Not Ready” change the color when the agent stays in a Not Ready state for more than the given amount of seconds. Leave empty to disable this feature.</inlineHelpText>
+    <label>Not Ready Threshold</label>
+    <precision>6</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

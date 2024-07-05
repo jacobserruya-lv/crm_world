@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_MacroFamilyLG__c</fullName>
+    <externalId>false</externalId>
+    <label>Macro Family LG</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>SPO_MainGroupLG__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LG ECRITURE</fullName>
+                <default>false</default>
+                <label>LG ECRITURE</label>
+            </value>
+            <value>
+                <fullName>BUSINESS</fullName>
+                <default>false</default>
+                <label>BUSINESS</label>
+            </value>
+            <value>
+                <fullName>WATCH ACCESSORIES</fullName>
+                <default>false</default>
+                <label>WATCH ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>TRAVEL</fullName>
+                <default>false</default>
+                <label>TRAVEL</label>
+            </value>
+            <value>
+                <fullName>DIARIES</fullName>
+                <default>false</default>
+                <label>DIARIES</label>
+            </value>
+            <value>
+                <fullName>OPTIONS</fullName>
+                <default>false</default>
+                <label>OPTIONS</label>
+            </value>
+            <value>
+                <fullName>CITY BAGS</fullName>
+                <default>false</default>
+                <label>CITY BAGS</label>
+            </value>
+            <value>
+                <fullName>REFILLS</fullName>
+                <default>false</default>
+                <label>REFILLS</label>
+            </value>
+            <value>
+                <fullName>LG ACCESSORIES</fullName>
+                <default>false</default>
+                <label>LG ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>WRITING LG</fullName>
+                <default>false</default>
+                <label>WRITING LG</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED LG</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED LG</label>
+            </value>
+            <value>
+                <fullName>HARDSIDED</fullName>
+                <default>false</default>
+                <label>HARDSIDED</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>WRITING</controllingFieldValue>
+            <valueName>WRITING LG</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HARDSIDED</controllingFieldValue>
+            <valueName>HARDSIDED</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DIARIES</controllingFieldValue>
+            <valueName>DIARIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BUSINESS</controllingFieldValue>
+            <valueName>BUSINESS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CITY BAGS</controllingFieldValue>
+            <valueName>CITY BAGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LG ACCESSORIES</controllingFieldValue>
+            <valueName>LG ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>OPTIONS</controllingFieldValue>
+            <valueName>OPTIONS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>REFILLS</controllingFieldValue>
+            <valueName>REFILLS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>TRAVEL</controllingFieldValue>
+            <valueName>TRAVEL</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

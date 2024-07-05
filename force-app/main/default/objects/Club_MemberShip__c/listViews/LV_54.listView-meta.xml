@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LV_54</fullName>
+    <columns>NAME</columns>
+    <columns>attachedCA__c</columns>
+    <columns>lastLoginClub__c</columns>
+    <columns>memberDate__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>clubName__c</field>
+        <operation>equals</operation>
+        <value>Sneakers</value>
+    </filters>
+    <filters>
+        <field>isClubEligible__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Tech_isCurrentUser__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>LV #54</label>
+</ListView>

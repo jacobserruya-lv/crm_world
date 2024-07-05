@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Enable_Call_Logs__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Select this setting to write and edit interaction logs in the client. Because of problems Internet Explorer has saving interaction logs, if using Internet Explorer, clear this setting.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select this setting to write and edit interaction logs in the client. Because of problems Internet Explorer has saving interaction logs, if using Internet Explorer, clear this setting.</inlineHelpText>
+    <label>Enable Interaction Log Editing</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

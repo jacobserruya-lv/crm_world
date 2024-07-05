@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClientDreamID__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>populated with VO_Survey apex class before insert from DreamIDText__c field</description>
+    <externalId>false</externalId>
+    <label>Client</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Surveys</relationshipLabel>
+    <relationshipName>Survey</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

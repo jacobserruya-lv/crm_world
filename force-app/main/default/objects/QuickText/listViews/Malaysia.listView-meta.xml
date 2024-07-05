@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Malaysia</fullName>
+    <columns>Name</columns>
+    <columns>Message</columns>
+    <columns>Email_Text_Type__c</columns>
+    <columns>Language__c</columns>
+    <columns>Channel</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Name</field>
+        <operation>startsWith</operation>
+        <value>MY,My</value>
+    </filters>
+    <label>Malaysia</label>
+</ListView>

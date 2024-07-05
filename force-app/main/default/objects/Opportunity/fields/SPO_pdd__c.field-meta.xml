@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_pdd__c</fullName>
+    <description>Retrieves the correct delivery date depending on whether the process requires a quotation or not</description>
+    <externalId>false</externalId>
+    <formula>IF( hasQuotation__c, SPO_pddNOMTO__c, SPO_pddMTO__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SPO_pdd</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

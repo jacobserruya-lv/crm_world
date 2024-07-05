@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Artycap_2020_Products</fullName>
+    <columns>NAME</columns>
+    <columns>Sku_Number__c</columns>
+    <columns>Product_Image__c</columns>
+    <columns>Model__c</columns>
+    <columns>Artist_Name__c</columns>
+    <columns>Quantity__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>Artycap</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>lessThan</operation>
+        <value>1/1/2021 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>12/31/2019 12:00 AM</value>
+    </filters>
+    <label>Artycap 2020 - Products</label>
+    <language>en_US</language>
+</ListView>

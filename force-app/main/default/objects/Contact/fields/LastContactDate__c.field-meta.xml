@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LastContactDate__c</fullName>
+    <description>Contains the date at which there has been the last contact 
+•	one To-do not received from DREAM with 
+o	an activity Date in the last 30 days (today included) 
+o	action type equals to Email, Phone, SMS or Mobile Chat 
+•	one Appointment with an activity date in the last 30 days (today included)</description>
+    <externalId>false</externalId>
+    <label>Last Contact Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

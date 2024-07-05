@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductWorkshopName__c</fullName>
+    <description>Get the Workshop name</description>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(ProductCatalogue__c)),
+    /* Perso order */
+    Case(ProductCatalogue__r.Workshop__c,
+        &apos;1798&apos;, &apos;FIESSO&apos;,
+        &apos;4204034&apos;, &apos;BARTEL&apos;,
+        &apos;4208756&apos;, &apos;THOMAS&apos;,
+        &apos;4209330&apos;, &apos;PALLADIO&apos;,
+        &apos;4209769&apos;, &apos;SOFAMA&apos;,
+        &apos;4208769&apos;, &apos;MBM&apos;,
+	&apos;4203411&apos;, &apos;SIS&apos;,
+        &apos;4221101&apos;, &apos;REAL LEATHER STUDIO&apos;,
+	&apos;4208037&apos;, &apos;FONTANA&apos;,
+	&apos;S005&apos;, &apos;DROME&apos;, /*Jira MIY-1697*/
+	&apos;S002&apos;, &apos;DUCEY&apos;, /*HBL 07.05.21*/
+	&apos;S006&apos;, &apos;SAINT FLORENCE&apos;, /*HBL 04.06.21*/
+	&apos;S007&apos;, &apos;SAINT POURCAIN&apos;, /*HBL 22.10.21*/
+	&apos;S018&apos;, &apos;BEAULIEU&apos;, /*HBL 17.11.21*/
+	&apos;S019&apos;, &apos;VENDOME&apos;, /*HBL 17.11.21*/
+        &apos;S004&apos;, &apos;ISSOUDUN&apos;,/*Wiem 29-03-2022*/
+        &apos;S001&apos;, &apos;ASNIERES&apos;,/*Wiem 11-05-2022*/
+        &apos;S009&apos;, &apos;BARBERA CEINTURES&apos;,/*Wiem 21-07-2022*/
+        &apos;S013&apos;, &apos;GIRONA&apos;,/*Wiem 21-07-2022*/
+        &apos;S014&apos;, &apos;ARDECHE&apos;,/*Sebastien 04-01-23* /
+&apos;11201&apos;, &apos;ASNIERES&apos;,
+&apos;11221&apos;, &apos;ISSOUDUN&apos;,
+&apos;12631&apos;, &apos;GIRONA&apos;, /*Rachel 09.01.22*/
+&apos;12621&apos;, &apos;BARBERA CEINTURE&apos;,
+        TEXT(ProductCatalogue__r.Workshop__c)
+    ),
+
+    /* SPO */
+    Case(SPO_BriefName__r.Workshop__c,
+        &apos;1798&apos;, &apos;FIESSO&apos;,
+        &apos;4204034&apos;, &apos;BARTEL&apos;,
+        &apos;4208756&apos;, &apos;THOMAS&apos;,
+        &apos;4209330&apos;, &apos;PALLADIO&apos;,
+        &apos;4209769&apos;, &apos;SOFAMA&apos;,
+        &apos;4208769&apos;, &apos;MBM&apos;,
+	&apos;4203411&apos;, &apos;SIS&apos;,
+        &apos;4221101&apos;, &apos;REAL LEATHER STUDIO&apos;,
+	&apos;4208037&apos;, &apos;FONTANA&apos;,
+	&apos;S005&apos;, &apos;DROME&apos;, /*Jira MIY-1697*/
+	&apos;S002&apos;, &apos;DUCEY&apos;, /*HBL 07.05.21*/
+	&apos;S006&apos;, &apos;SAINT FLORENCE&apos;, /*HBL 04.06.21*/
+	&apos;S007&apos;, &apos;SAINT POURCAIN&apos;, /*HBL 22.10.21*/
+	&apos;S018&apos;, &apos;BEAULIEU&apos;, /*HBL 17.11.21*/
+	&apos;S019&apos;, &apos;VENDOME&apos;, /*HBL 17.11.21*/
+        &apos;S004&apos;, &apos;ISSOUDUN&apos;,/*Wiem 29-03-2022*/
+        &apos;S001&apos;, &apos;ASNIERES&apos;,/*Wiem 11-05-2022*/
+        &apos;S009&apos;, &apos;BARBERA CEINTURES&apos;,/*Wiem 21-07-2022*/
+        &apos;S013&apos;, &apos;GIRONA&apos;,/*Wiem 21-07-2022*/
+        &apos;S014&apos;, &apos;ARDECHE&apos;,/*Sebastien 04-01-23* /
+&apos;11201&apos;, &apos;ASNIERES&apos;,
+&apos;11221&apos;, &apos;ISSOUDUN&apos;,
+&apos;12631&apos;, &apos;GIRONA&apos;, /*Rachel 09.01.22*/
+&apos;12621&apos;, &apos;BARBERA CEINTURE&apos;,
+        TEXT(SPO_BriefName__r.Workshop__c)
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Product Workshop Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

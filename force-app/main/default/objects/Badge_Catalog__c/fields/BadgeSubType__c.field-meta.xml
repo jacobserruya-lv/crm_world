@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BadgeSubType__c</fullName>
+    <description>Sub-type of badge</description>
+    <externalId>false</externalId>
+    <label>Sub-type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>badgeType__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>In-Season</fullName>
+                <default>false</default>
+                <label>In-Season</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Global Engagement</controllingFieldValue>
+            <valueName>In-Season</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

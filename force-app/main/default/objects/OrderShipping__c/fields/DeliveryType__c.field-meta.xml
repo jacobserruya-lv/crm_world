@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DeliveryType__c</fullName>
+    <externalId>false</externalId>
+    <label>Delivery Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>standard</fullName>
+                <default>false</default>
+                <label>Standard</label>
+            </value>
+            <value>
+                <fullName>express</fullName>
+                <default>false</default>
+                <label>Express</label>
+            </value>
+            <value>
+                <fullName>overnight</fullName>
+                <default>false</default>
+                <label>Overnight</label>
+            </value>
+            <value>
+                <fullName>premium</fullName>
+                <default>false</default>
+                <label>Premium</label>
+            </value>
+            <value>
+                <fullName>clickandcollect</fullName>
+                <default>false</default>
+                <label>Click &amp; Collect</label>
+            </value>
+            <value>
+                <fullName>shipforpickup</fullName>
+                <default>false</default>
+                <label>Click and Collect</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

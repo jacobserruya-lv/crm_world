@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>all</fullName>
+    <columns>NAME</columns>
+    <columns>Locale__c</columns>
+    <columns>Kakao__c</columns>
+    <columns>Line__c</columns>
+    <columns>Line_Works__c</columns>
+    <columns>Wechat__c</columns>
+    <columns>WhatsApp__c</columns>
+    <columns>Viber__c</columns>
+    <columns>Zalo__c</columns>
+    <columns>Law_Settings__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

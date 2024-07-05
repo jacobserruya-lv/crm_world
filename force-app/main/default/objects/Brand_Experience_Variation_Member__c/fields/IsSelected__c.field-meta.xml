@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsSelected__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Client is selected to participate to the Experience</description>
+    <externalId>false</externalId>
+    <label>Is Selected</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

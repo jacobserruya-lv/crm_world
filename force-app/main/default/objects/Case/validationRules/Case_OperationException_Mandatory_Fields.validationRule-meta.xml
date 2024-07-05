@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_OperationException_Mandatory_Fields</fullName>
+    <active>true</active>
+    <description>For record Type Operation Exception, the Shipping Group or the Client Name are mandatory</description>
+    <errorConditionFormula>AND(
+NOT( $User.BypassVR__c ),
+ISBLANK( AccountId),
+ISBLANK( Order_Shipping__c),
+RecordType.DeveloperName = &quot;Operation_Exception&quot;,
+NOT(ISPICKVAL( Issue_Category__c , &quot;One Retail&quot;)),
+NOT(ISPICKVAL( Issue_Category__c , &quot;Phoenix&quot;)),
+NOT(ISPICKVAL( Issue_Category__c , &quot;Other&quot;)),
+NOT(ISPICKVAL(Issue_Category__c, &quot;&quot;))
+
+)</errorConditionFormula>
+    <errorMessage>You have to complete the Shipping Group or the Client Name</errorMessage>
+</ValidationRule>

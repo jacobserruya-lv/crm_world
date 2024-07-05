@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Store3</fullName>
+    <columns>Assigned_Store__c</columns>
+    <columns>NAME</columns>
+    <columns>Client__c</columns>
+    <columns>Preferred_CA__c</columns>
+    <columns>X10K_IMG__c</columns>
+    <columns>Client_Segmentation__c</columns>
+    <columns>Product_Priority__c</columns>
+    <columns>Product_Name__c</columns>
+    <columns>Quantity__c</columns>
+    <columns>Transaction_Date__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>New,Called - Message left,Reached / Informed,Not Reachable</value>
+    </filters>
+    <filters>
+        <field>My_Store__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Store</label>
+</ListView>

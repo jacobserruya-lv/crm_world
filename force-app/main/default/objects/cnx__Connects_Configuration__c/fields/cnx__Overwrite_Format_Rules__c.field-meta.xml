@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Overwrite_Format_Rules__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This option enables or disables the overwriting of the format rules with a custom regex.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This option enables or disables the overwriting of the format rules with a custom regex.</inlineHelpText>
+    <label>Overwrite Format Rules</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

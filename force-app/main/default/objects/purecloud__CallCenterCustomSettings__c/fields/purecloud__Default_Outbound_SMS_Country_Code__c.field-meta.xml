@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Default_Outbound_SMS_Country_Code__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Specify a default country code to show in the PureCloud for Salesforce client UI when an agent creates an outbound SMS message.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specify a default country code to show in the PureCloud for Salesforce client UI when an agent creates an outbound SMS message.</inlineHelpText>
+    <label>Default Outbound SMS Country Code</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

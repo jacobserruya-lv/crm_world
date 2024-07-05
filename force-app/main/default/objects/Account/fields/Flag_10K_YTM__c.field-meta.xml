@@ -3,6 +3,7 @@
     <fullName>Flag_10K_YTM__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag 10K calculated by One Data on YTD since May 2022</description>
+    <externalId>false</externalId>
     <label>Flag 10K YTM</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

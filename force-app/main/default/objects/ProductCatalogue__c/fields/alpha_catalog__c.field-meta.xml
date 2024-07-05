@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>alpha_catalog__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>MTO products of Alfa project that will be not available on NY  have true for this field</description>
+    <externalId>false</externalId>
+    <label>alpha_catalog</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

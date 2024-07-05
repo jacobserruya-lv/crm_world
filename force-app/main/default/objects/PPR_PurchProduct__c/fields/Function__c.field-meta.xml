@@ -1,0 +1,1679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Function__c</fullName>
+    <externalId>false</externalId>
+    <label>Function</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>ProductLine__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ACCESSOIRES BUSINESS</fullName>
+                <default>false</default>
+                <label>ACCESSOIRES BUSINESS</label>
+            </value>
+            <value>
+                <fullName>ACCESSOIRES CHEVEUX</fullName>
+                <default>false</default>
+                <label>ACCESSOIRES CHEVEUX</label>
+            </value>
+            <value>
+                <fullName>ACCESSOIRES DE VOYAGE</fullName>
+                <default>false</default>
+                <label>ACCESSOIRES DE VOYAGE</label>
+            </value>
+            <value>
+                <fullName>ACCESSOIRES FUMEURS</fullName>
+                <default>false</default>
+                <label>ACCESSOIRES FUMEURS</label>
+            </value>
+            <value>
+                <fullName>ACCESSOIRES OPTIONNELS</fullName>
+                <default>false</default>
+                <label>ACCESSOIRES OPTIONNELS</label>
+            </value>
+            <value>
+                <fullName>ACCESSOIRES STYLOS</fullName>
+                <default>false</default>
+                <label>ACCESSOIRES STYLOS</label>
+            </value>
+            <value>
+                <fullName>ACCESSORY BAGS</fullName>
+                <default>false</default>
+                <label>ACCESSORY BAGS</label>
+            </value>
+            <value>
+                <fullName>AGENDA PEN</fullName>
+                <default>false</default>
+                <label>AGENDA PEN</label>
+            </value>
+            <value>
+                <fullName>AGENDA PEN REFILLS</fullName>
+                <default>false</default>
+                <label>AGENDA PEN REFILLS</label>
+            </value>
+            <value>
+                <fullName>ASIA BOOKSHOP</fullName>
+                <default>false</default>
+                <label>ASIA BOOKSHOP</label>
+            </value>
+            <value>
+                <fullName>ASSEMBLED BELTS</fullName>
+                <default>false</default>
+                <label>ASSEMBLED BELTS</label>
+            </value>
+            <value>
+                <fullName>AUTRES ACC. FANTAISIE</fullName>
+                <default>false</default>
+                <label>AUTRES ACC. FANTAISIE</label>
+            </value>
+            <value>
+                <fullName>AUTRES BIJOUX</fullName>
+                <default>false</default>
+                <label>AUTRES BIJOUX</label>
+            </value>
+            <value>
+                <fullName>AUTRES CRAVATES</fullName>
+                <default>false</default>
+                <label>AUTRES CRAVATES</label>
+            </value>
+            <value>
+                <fullName>BAGAGES RIGIDES</fullName>
+                <default>false</default>
+                <label>BAGAGES RIGIDES</label>
+            </value>
+            <value>
+                <fullName>BAGAGES ROULANTS</fullName>
+                <default>false</default>
+                <label>BAGAGES ROULANTS</label>
+            </value>
+            <value>
+                <fullName>BAGAGES SOUPLES OU SEMI STRUCT</fullName>
+                <default>false</default>
+                <label>BAGAGES SOUPLES OU SEMI STRUCT</label>
+            </value>
+            <value>
+                <fullName>BAG CHARMS</fullName>
+                <default>false</default>
+                <label>BAG CHARMS</label>
+            </value>
+            <value>
+                <fullName>BAGS</fullName>
+                <default>false</default>
+                <label>BAGS</label>
+            </value>
+            <value>
+                <fullName>BAGS OPTIONS</fullName>
+                <default>false</default>
+                <label>BAGS OPTIONS</label>
+            </value>
+            <value>
+                <fullName>BAGUES</fullName>
+                <default>false</default>
+                <label>BAGUES</label>
+            </value>
+            <value>
+                <fullName>BAGUES PRECIEUSES</fullName>
+                <default>false</default>
+                <label>BAGUES PRECIEUSES</label>
+            </value>
+            <value>
+                <fullName>BALL PEN</fullName>
+                <default>false</default>
+                <label>BALL PEN</label>
+            </value>
+            <value>
+                <fullName>BALLPOINT</fullName>
+                <default>false</default>
+                <label>BALLPOINT</label>
+            </value>
+            <value>
+                <fullName>BANDANAS</fullName>
+                <default>false</default>
+                <label>BANDANAS</label>
+            </value>
+            <value>
+                <fullName>BANDEAU</fullName>
+                <default>false</default>
+                <label>BANDEAU</label>
+            </value>
+            <value>
+                <fullName>BARRETTES PRECIEUSES</fullName>
+                <default>false</default>
+                <label>BARRETTES PRECIEUSES</label>
+            </value>
+            <value>
+                <fullName>BEACH</fullName>
+                <default>false</default>
+                <label>BEACH</label>
+            </value>
+            <value>
+                <fullName>BLANKETS</fullName>
+                <default>false</default>
+                <label>BLANKETS</label>
+            </value>
+            <value>
+                <fullName>BOOKS</fullName>
+                <default>false</default>
+                <label>BOOKS</label>
+            </value>
+            <value>
+                <fullName>BOUCLE</fullName>
+                <default>false</default>
+                <label>BOUCLE</label>
+            </value>
+            <value>
+                <fullName>BOUCLE DOREILLES</fullName>
+                <default>false</default>
+                <label>BOUCLE DOREILLES</label>
+            </value>
+            <value>
+                <fullName>BOUCLES DOREILLES PRECIEUSES</fullName>
+                <default>false</default>
+                <label>BOUCLES DOREILLES PRECIEUSES</label>
+            </value>
+            <value>
+                <fullName>BOUTONS DE MANCHETTE</fullName>
+                <default>false</default>
+                <label>BOUTONS DE MANCHETTE</label>
+            </value>
+            <value>
+                <fullName>BOUTONS DE MANCHETTE PRECIEUX</fullName>
+                <default>false</default>
+                <label>BOUTONS DE MANCHETTE PRECIEUX</label>
+            </value>
+            <value>
+                <fullName>BOW TIES</fullName>
+                <default>false</default>
+                <label>BOW TIES</label>
+            </value>
+            <value>
+                <fullName>BRACELETS</fullName>
+                <default>false</default>
+                <label>BRACELETS</label>
+            </value>
+            <value>
+                <fullName>BRACELETS PRECIEUX</fullName>
+                <default>false</default>
+                <label>BRACELETS PRECIEUX</label>
+            </value>
+            <value>
+                <fullName>BROCHES PRECIEUSES</fullName>
+                <default>false</default>
+                <label>BROCHES PRECIEUSES</label>
+            </value>
+            <value>
+                <fullName>BUCKLE</fullName>
+                <default>false</default>
+                <label>BUCKLE</label>
+            </value>
+            <value>
+                <fullName>BUSINESS ACCESSORIES</fullName>
+                <default>false</default>
+                <label>BUSINESS ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>BUSINESS ACCESSORIES REFILLS</fullName>
+                <default>false</default>
+                <label>BUSINESS ACCESSORIES REFILLS</label>
+            </value>
+            <value>
+                <fullName>BUSINESS BAGS</fullName>
+                <default>false</default>
+                <label>BUSINESS BAGS</label>
+            </value>
+            <value>
+                <fullName>CARRES</fullName>
+                <default>false</default>
+                <label>CARRES</label>
+            </value>
+            <value>
+                <fullName>CEINTURE A LA COUPE</fullName>
+                <default>false</default>
+                <label>CEINTURE A LA COUPE</label>
+            </value>
+            <value>
+                <fullName>CEINTURE MONTEE</fullName>
+                <default>false</default>
+                <label>CEINTURE MONTEE</label>
+            </value>
+            <value>
+                <fullName>CEINTURES PRECIEUSES</fullName>
+                <default>false</default>
+                <label>CEINTURES PRECIEUSES</label>
+            </value>
+            <value>
+                <fullName>CHAINES PRECIEUSES</fullName>
+                <default>false</default>
+                <label>CHAINES PRECIEUSES</label>
+            </value>
+            <value>
+                <fullName>CHALES</fullName>
+                <default>false</default>
+                <label>CHALES</label>
+            </value>
+            <value>
+                <fullName>CHAPEAUX</fullName>
+                <default>false</default>
+                <label>CHAPEAUX</label>
+            </value>
+            <value>
+                <fullName>CHARMS PRECIEUX</fullName>
+                <default>false</default>
+                <label>CHARMS PRECIEUX</label>
+            </value>
+            <value>
+                <fullName>CHRONOGRAPH</fullName>
+                <default>false</default>
+                <label>CHRONOGRAPH</label>
+            </value>
+            <value>
+                <fullName>CHRONOGRAPHE</fullName>
+                <default>false</default>
+                <label>CHRONOGRAPHE</label>
+            </value>
+            <value>
+                <fullName>CLUTCHES</fullName>
+                <default>false</default>
+                <label>CLUTCHES</label>
+            </value>
+            <value>
+                <fullName>COLLIERS</fullName>
+                <default>false</default>
+                <label>COLLIERS</label>
+            </value>
+            <value>
+                <fullName>COLLIERS PRECIEUX</fullName>
+                <default>false</default>
+                <label>COLLIERS PRECIEUX</label>
+            </value>
+            <value>
+                <fullName>COUVERTURES</fullName>
+                <default>false</default>
+                <label>COUVERTURES</label>
+            </value>
+            <value>
+                <fullName>COUVERTURES AGENDAS</fullName>
+                <default>false</default>
+                <label>COUVERTURES AGENDAS</label>
+            </value>
+            <value>
+                <fullName>CRAVATES</fullName>
+                <default>false</default>
+                <label>CRAVATES</label>
+            </value>
+            <value>
+                <fullName>CUFFLINKS</fullName>
+                <default>false</default>
+                <label>CUFFLINKS</label>
+            </value>
+            <value>
+                <fullName>DAILY BAGS</fullName>
+                <default>false</default>
+                <label>DAILY BAGS</label>
+            </value>
+            <value>
+                <fullName>DIARY COVERS</fullName>
+                <default>false</default>
+                <label>DIARY COVERS</label>
+            </value>
+            <value>
+                <fullName>DIARY REFILLS</fullName>
+                <default>false</default>
+                <label>DIARY REFILLS</label>
+            </value>
+            <value>
+                <fullName>EARRINGS</fullName>
+                <default>false</default>
+                <label>EARRINGS</label>
+            </value>
+            <value>
+                <fullName>ECHARPES</fullName>
+                <default>false</default>
+                <label>ECHARPES</label>
+            </value>
+            <value>
+                <fullName>EDITION</fullName>
+                <default>false</default>
+                <label>EDITION</label>
+            </value>
+            <value>
+                <fullName>ENGRAVING</fullName>
+                <default>false</default>
+                <label>ENGRAVING</label>
+            </value>
+            <value>
+                <fullName>ESTAMPES</fullName>
+                <default>false</default>
+                <label>ESTAMPES</label>
+            </value>
+            <value>
+                <fullName>ETOLES</fullName>
+                <default>false</default>
+                <label>ETOLES</label>
+            </value>
+            <value>
+                <fullName>EVENING BAGS</fullName>
+                <default>false</default>
+                <label>EVENING BAGS</label>
+            </value>
+            <value>
+                <fullName>FINE BARRETTE</fullName>
+                <default>false</default>
+                <label>FINE BARRETTE</label>
+            </value>
+            <value>
+                <fullName>FINE BELTS</fullName>
+                <default>false</default>
+                <label>FINE BELTS</label>
+            </value>
+            <value>
+                <fullName>FINE BRACELETS</fullName>
+                <default>false</default>
+                <label>FINE BRACELETS</label>
+            </value>
+            <value>
+                <fullName>FINE BROOCHES</fullName>
+                <default>false</default>
+                <label>FINE BROOCHES</label>
+            </value>
+            <value>
+                <fullName>FINE CHAINS</fullName>
+                <default>false</default>
+                <label>FINE CHAINS</label>
+            </value>
+            <value>
+                <fullName>FINE CHARMS</fullName>
+                <default>false</default>
+                <label>FINE CHARMS</label>
+            </value>
+            <value>
+                <fullName>FINE CUFFLINKS</fullName>
+                <default>false</default>
+                <label>FINE CUFFLINKS</label>
+            </value>
+            <value>
+                <fullName>FINE EARRINGS</fullName>
+                <default>false</default>
+                <label>FINE EARRINGS</label>
+            </value>
+            <value>
+                <fullName>FINE NECKLACES</fullName>
+                <default>false</default>
+                <label>FINE NECKLACES</label>
+            </value>
+            <value>
+                <fullName>FINE PENDANTS</fullName>
+                <default>false</default>
+                <label>FINE PENDANTS</label>
+            </value>
+            <value>
+                <fullName>FINE RINGS</fullName>
+                <default>false</default>
+                <label>FINE RINGS</label>
+            </value>
+            <value>
+                <fullName>FOUNTAIN PEN</fullName>
+                <default>false</default>
+                <label>FOUNTAIN PEN</label>
+            </value>
+            <value>
+                <fullName>GANTS</fullName>
+                <default>false</default>
+                <label>GANTS</label>
+            </value>
+            <value>
+                <fullName>GLOVES</fullName>
+                <default>false</default>
+                <label>GLOVES</label>
+            </value>
+            <value>
+                <fullName>HAIR ACCESSORIES</fullName>
+                <default>false</default>
+                <label>HAIR ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>HARDSIDE LUGGAGE</fullName>
+                <default>false</default>
+                <label>HARDSIDE LUGGAGE</label>
+            </value>
+            <value>
+                <fullName>HATS</fullName>
+                <default>false</default>
+                <label>HATS</label>
+            </value>
+            <value>
+                <fullName>HATS &amp; GLOVES SETS</fullName>
+                <default>false</default>
+                <label>HATS &amp; GLOVES SETS</label>
+            </value>
+            <value>
+                <fullName>HEADBAND</fullName>
+                <default>false</default>
+                <label>HEADBAND</label>
+            </value>
+            <value>
+                <fullName>HELMETS</fullName>
+                <default>false</default>
+                <label>HELMETS</label>
+            </value>
+            <value>
+                <fullName>KEY HOLDERS</fullName>
+                <default>false</default>
+                <label>KEY HOLDERS</label>
+            </value>
+            <value>
+                <fullName>LACES</fullName>
+                <default>false</default>
+                <label>LACES</label>
+            </value>
+            <value>
+                <fullName>LANIERE</fullName>
+                <default>false</default>
+                <label>LANIERE</label>
+            </value>
+            <value>
+                <fullName>LEASURE</fullName>
+                <default>false</default>
+                <label>LEASURE</label>
+            </value>
+            <value>
+                <fullName>LG WRITING ACCESSORIES</fullName>
+                <default>false</default>
+                <label>LG WRITING ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>LIBRAIRIE</fullName>
+                <default>false</default>
+                <label>LIBRAIRIE</label>
+            </value>
+            <value>
+                <fullName>LIENS</fullName>
+                <default>false</default>
+                <label>LIENS</label>
+            </value>
+            <value>
+                <fullName>LIVRES</fullName>
+                <default>false</default>
+                <label>LIVRES</label>
+            </value>
+            <value>
+                <fullName>LOISIRS</fullName>
+                <default>false</default>
+                <label>LOISIRS</label>
+            </value>
+            <value>
+                <fullName>LONG SCARVES</fullName>
+                <default>false</default>
+                <label>LONG SCARVES</label>
+            </value>
+            <value>
+                <fullName>LUNETTES</fullName>
+                <default>false</default>
+                <label>LUNETTES</label>
+            </value>
+            <value>
+                <fullName>MALLES</fullName>
+                <default>false</default>
+                <label>MALLES</label>
+            </value>
+            <value>
+                <fullName>MONTRES</fullName>
+                <default>false</default>
+                <label>MONTRES</label>
+            </value>
+            <value>
+                <fullName>MULTIMEDIA</fullName>
+                <default>false</default>
+                <label>MULTIMEDIA</label>
+            </value>
+            <value>
+                <fullName>NA</fullName>
+                <default>false</default>
+                <label>NA</label>
+            </value>
+            <value>
+                <fullName>NECKLACES</fullName>
+                <default>false</default>
+                <label>NECKLACES</label>
+            </value>
+            <value>
+                <fullName>NOEUD PAPILLON</fullName>
+                <default>false</default>
+                <label>NOEUD PAPILLON</label>
+            </value>
+            <value>
+                <fullName>NOT APPLICABLE ACC</fullName>
+                <default>false</default>
+                <label>NOT APPLICABLE ACC</label>
+            </value>
+            <value>
+                <fullName>NOT APPLICABLE ACC A5</fullName>
+                <default>false</default>
+                <label>NOT APPLICABLE ACC A5</label>
+            </value>
+            <value>
+                <fullName>NOT APPLICABLE ACC AB</fullName>
+                <default>false</default>
+                <label>NOT APPLICABLE ACC AB</label>
+            </value>
+            <value>
+                <fullName>NOT APPLICABLE LG</fullName>
+                <default>false</default>
+                <label>NOT APPLICABLE LG</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED ACC</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED ACC</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED BELTS</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED BELTS</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED LG</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED LG</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED TEXTILES</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED TEXTILES</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED VARIOUS ACC</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED VARIOUS ACC</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED WATCHES</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED WATCHES</label>
+            </value>
+            <value>
+                <fullName>OPTIONAL ACCESSORIES</fullName>
+                <default>false</default>
+                <label>OPTIONAL ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>OTH BAG ACCESSORIES</fullName>
+                <default>false</default>
+                <label>OTH BAG ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>OTHER FANCY ACCESSORIES</fullName>
+                <default>false</default>
+                <label>OTHER FANCY ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>OTHER JEWELS</fullName>
+                <default>false</default>
+                <label>OTHER JEWELS</label>
+            </value>
+            <value>
+                <fullName>OTHER REFILLS</fullName>
+                <default>false</default>
+                <label>OTHER REFILLS</label>
+            </value>
+            <value>
+                <fullName>OTHERS WRITING</fullName>
+                <default>false</default>
+                <label>OTHERS WRITING</label>
+            </value>
+            <value>
+                <fullName>OTH GIFTS</fullName>
+                <default>false</default>
+                <label>OTH GIFTS</label>
+            </value>
+            <value>
+                <fullName>OTH LEATHER GOODS</fullName>
+                <default>false</default>
+                <label>OTH LEATHER GOODS</label>
+            </value>
+            <value>
+                <fullName>OTH TIES</fullName>
+                <default>false</default>
+                <label>OTH TIES</label>
+            </value>
+            <value>
+                <fullName>OTH UNIFORMS</fullName>
+                <default>false</default>
+                <label>OTH UNIFORMS</label>
+            </value>
+            <value>
+                <fullName>OTH VARIOUS</fullName>
+                <default>false</default>
+                <label>OTH VARIOUS</label>
+            </value>
+            <value>
+                <fullName>PAPETERIE</fullName>
+                <default>false</default>
+                <label>PAPETERIE</label>
+            </value>
+            <value>
+                <fullName>PARAPLUIES</fullName>
+                <default>false</default>
+                <label>PARAPLUIES</label>
+            </value>
+            <value>
+                <fullName>PENCIL</fullName>
+                <default>false</default>
+                <label>PENCIL</label>
+            </value>
+            <value>
+                <fullName>PENDENTIFS PRECIEUX</fullName>
+                <default>false</default>
+                <label>PENDENTIFS PRECIEUX</label>
+            </value>
+            <value>
+                <fullName>PENS ? NEW COLLECTION</fullName>
+                <default>false</default>
+                <label>PENS ? NEW COLLECTION</label>
+            </value>
+            <value>
+                <fullName>PENS ACCESSORIES</fullName>
+                <default>false</default>
+                <label>PENS ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>PENS NEW COLLECTION</fullName>
+                <default>false</default>
+                <label>PENS NEW COLLECTION</label>
+            </value>
+            <value>
+                <fullName>PETITE MAROQUINERIE</fullName>
+                <default>false</default>
+                <label>PETITE MAROQUINERIE</label>
+            </value>
+            <value>
+                <fullName>PHONE ACCESSORIES</fullName>
+                <default>false</default>
+                <label>PHONE ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>PLAGE</fullName>
+                <default>false</default>
+                <label>PLAGE</label>
+            </value>
+            <value>
+                <fullName>POCHETTES</fullName>
+                <default>false</default>
+                <label>POCHETTES</label>
+            </value>
+            <value>
+                <fullName>PORTE CLEFS</fullName>
+                <default>false</default>
+                <label>PORTE CLEFS</label>
+            </value>
+            <value>
+                <fullName>PRECIOUS ACCESSORIES</fullName>
+                <default>false</default>
+                <label>PRECIOUS ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>PRECIOUS WATCHES</fullName>
+                <default>false</default>
+                <label>PRECIOUS WATCHES</label>
+            </value>
+            <value>
+                <fullName>PUBLISHING</fullName>
+                <default>false</default>
+                <label>PUBLISHING</label>
+            </value>
+            <value>
+                <fullName>RECHARGES AGENDAS</fullName>
+                <default>false</default>
+                <label>RECHARGES AGENDAS</label>
+            </value>
+            <value>
+                <fullName>RINGS</fullName>
+                <default>false</default>
+                <label>RINGS</label>
+            </value>
+            <value>
+                <fullName>ROLLER</fullName>
+                <default>false</default>
+                <label>ROLLER</label>
+            </value>
+            <value>
+                <fullName>ROLLING LUGGAGE</fullName>
+                <default>false</default>
+                <label>ROLLING LUGGAGE</label>
+            </value>
+            <value>
+                <fullName>SAC CHARMS</fullName>
+                <default>false</default>
+                <label>SAC CHARMS</label>
+            </value>
+            <value>
+                <fullName>SACS BUSINESS</fullName>
+                <default>false</default>
+                <label>SACS BUSINESS</label>
+            </value>
+            <value>
+                <fullName>SACS DAILY</fullName>
+                <default>false</default>
+                <label>SACS DAILY</label>
+            </value>
+            <value>
+                <fullName>SACS DU SOIR</fullName>
+                <default>false</default>
+                <label>SACS DU SOIR</label>
+            </value>
+            <value>
+                <fullName>SANS CATEGORIE ACC DIVERS</fullName>
+                <default>false</default>
+                <label>SANS CATEGORIE ACC DIVERS</label>
+            </value>
+            <value>
+                <fullName>SANS CATEGORIE CEINTURES</fullName>
+                <default>false</default>
+                <label>SANS CATEGORIE CEINTURES</label>
+            </value>
+            <value>
+                <fullName>SANS CATEGORIE LG</fullName>
+                <default>false</default>
+                <label>SANS CATEGORIE LG</label>
+            </value>
+            <value>
+                <fullName>SCARVES</fullName>
+                <default>false</default>
+                <label>SCARVES</label>
+            </value>
+            <value>
+                <fullName>SET BONNETS &amp; GANTS</fullName>
+                <default>false</default>
+                <label>SET BONNETS &amp; GANTS</label>
+            </value>
+            <value>
+                <fullName>SET HAT &amp; GLOVES</fullName>
+                <default>false</default>
+                <label>SET HAT &amp; GLOVES</label>
+            </value>
+            <value>
+                <fullName>SHAWLS</fullName>
+                <default>false</default>
+                <label>SHAWLS</label>
+            </value>
+            <value>
+                <fullName>SHOES ACCESSORIES</fullName>
+                <default>false</default>
+                <label>SHOES ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>SMALL LEATHER GOODS</fullName>
+                <default>false</default>
+                <label>SMALL LEATHER GOODS</label>
+            </value>
+            <value>
+                <fullName>SMOKING ACCESSORIES</fullName>
+                <default>false</default>
+                <label>SMOKING ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>SOCKS &amp; TIGHTS</fullName>
+                <default>false</default>
+                <label>SOCKS &amp; TIGHTS</label>
+            </value>
+            <value>
+                <fullName>SOFT LUGGAGE</fullName>
+                <default>false</default>
+                <label>SOFT LUGGAGE</label>
+            </value>
+            <value>
+                <fullName>SQUARES</fullName>
+                <default>false</default>
+                <label>SQUARES</label>
+            </value>
+            <value>
+                <fullName>STATIONERY</fullName>
+                <default>false</default>
+                <label>STATIONERY</label>
+            </value>
+            <value>
+                <fullName>STOLES</fullName>
+                <default>false</default>
+                <label>STOLES</label>
+            </value>
+            <value>
+                <fullName>STRAP</fullName>
+                <default>false</default>
+                <label>STRAP</label>
+            </value>
+            <value>
+                <fullName>STYLOS AGENDA</fullName>
+                <default>false</default>
+                <label>STYLOS AGENDA</label>
+            </value>
+            <value>
+                <fullName>STYLOS BILLE</fullName>
+                <default>false</default>
+                <label>STYLOS BILLE</label>
+            </value>
+            <value>
+                <fullName>SUNGLASSES</fullName>
+                <default>false</default>
+                <label>SUNGLASSES</label>
+            </value>
+            <value>
+                <fullName>TIES</fullName>
+                <default>false</default>
+                <label>TIES</label>
+            </value>
+            <value>
+                <fullName>TO BE ASSEMBLED BELTS</fullName>
+                <default>false</default>
+                <label>TO BE ASSEMBLED BELTS</label>
+            </value>
+            <value>
+                <fullName>TRAVEL ACCESSORIES</fullName>
+                <default>false</default>
+                <label>TRAVEL ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>TRAVEL CLOCK</fullName>
+                <default>false</default>
+                <label>TRAVEL CLOCK</label>
+            </value>
+            <value>
+                <fullName>TRUNKS</fullName>
+                <default>false</default>
+                <label>TRUNKS</label>
+            </value>
+            <value>
+                <fullName>UMBRELLAS</fullName>
+                <default>false</default>
+                <label>UMBRELLAS</label>
+            </value>
+            <value>
+                <fullName>VARIOUS BEAUTY</fullName>
+                <default>false</default>
+                <label>VARIOUS BEAUTY</label>
+            </value>
+            <value>
+                <fullName>VARIOUS GIFTS</fullName>
+                <default>false</default>
+                <label>VARIOUS GIFTS</label>
+            </value>
+            <value>
+                <fullName>VARIOUS LEISURE</fullName>
+                <default>false</default>
+                <label>VARIOUS LEISURE</label>
+            </value>
+            <value>
+                <fullName>WATCH</fullName>
+                <default>false</default>
+                <label>WATCH</label>
+            </value>
+            <value>
+                <fullName>WRITING ACCESSORIES</fullName>
+                <default>false</default>
+                <label>WRITING ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>WRITING LG</fullName>
+                <default>false</default>
+                <label>WRITING LG</label>
+            </value>
+            <value>
+                <fullName>WRITING TRUNKS</fullName>
+                <default>false</default>
+                <label>WRITING TRUNKS</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ACCESSOIRES CHEVEUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ACCESSOIRES FUMEURS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ACCESSOIRES STYLOS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ACCESSORY BAGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>AGENDA PEN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>AGENDA PEN REFILLS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ASIA BOOKSHOP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>ASSEMBLED BELTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>AUTRES ACC. FANTAISIE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>AUTRES BIJOUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>AUTRES CRAVATES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BAG CHARMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BAGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BAGUES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BALL PEN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BALLPOINT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BANDANAS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BANDEAU</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BEACH</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BLANKETS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BOOKS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BOUCLE DOREILLES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BOUTONS DE MANCHETTE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BOW TIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>BRACELETS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>CARRES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>CEINTURE A LA COUPE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>CEINTURE MONTEE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>CHALES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>CHAPEAUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>CHRONOGRAPH</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>COLLIERS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>COUVERTURES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>CRAVATES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>CUFFLINKS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>EARRINGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ECHARPES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>EDITION</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ENGRAVING</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ESTAMPES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ETOLES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE EARRINGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE NECKLACES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE RINGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>FOUNTAIN PEN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>GANTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>GLOVES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>HAIR ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>HATS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>HATS &amp; GLOVES SETS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>HEADBAND</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>HELMETS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>KEY HOLDERS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>LANIERE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>LIBRAIRIE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>LIVRES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>LONG SCARVES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>LUNETTES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>MULTIMEDIA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>NA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NECKLACES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOEUD PAPILLON</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOT APPLICABLE ACC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOT APPLICABLE ACC A5</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOT APPLICABLE ACC AB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOT CATEGORIZED ACC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOT CATEGORIZED BELTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOT CATEGORIZED TEXTILES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>NOT CATEGORIZED VARIOUS ACC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>NOT CATEGORIZED WATCHES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>OPTIONAL ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>OTHER FANCY ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>OTHER JEWELS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>OTHERS WRITING</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>OTH GIFTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>OTH TIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>OTH UNIFORMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>OTH VARIOUS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PAPETERIE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PARAPLUIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PENCIL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PENS ? NEW COLLECTION</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PENS ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PENS NEW COLLECTION</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PHONE ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PLAGE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PORTE CLEFS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>PRECIOUS ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>PUBLISHING</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>RINGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>ROLLER</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SAC CHARMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SANS CATEGORIE ACC DIVERS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SANS CATEGORIE CEINTURES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SCARVES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SET BONNETS &amp; GANTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SET HAT &amp; GLOVES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SHAWLS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SHOES ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SMOKING ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SOCKS &amp; TIGHTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SQUARES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>STATIONERY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>STOLES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>STRAP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>STYLOS AGENDA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>STYLOS BILLE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>SUNGLASSES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>TIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>TO BE ASSEMBLED BELTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>TRAVEL ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>UMBRELLAS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>VARIOUS BEAUTY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>VARIOUS LEISURE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>WATCH</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accessories</controllingFieldValue>
+            <valueName>WRITING ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>BAGUES PRECIEUSES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>BARRETTES PRECIEUSES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>BOUCLES DOREILLES PRECIEUSES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>BOUTONS DE MANCHETTE PRECIEUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>BRACELETS PRECIEUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>BROCHES PRECIEUSES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>CEINTURES PRECIEUSES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>CHAINES PRECIEUSES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>CHARMS PRECIEUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>COLLIERS PRECIEUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE BARRETTE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE BELTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE BRACELETS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE BROOCHES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE CHAINS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE CHARMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE CUFFLINKS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>FINE PENDANTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>LACES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>LIENS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>PENDENTIFS PRECIEUX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Jewelry</controllingFieldValue>
+            <valueName>PRECIOUS WATCHES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>ACCESSOIRES BUSINESS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>ACCESSOIRES DE VOYAGE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>ACCESSOIRES OPTIONNELS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>BAGAGES RIGIDES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>BAGAGES ROULANTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>BAGAGES SOUPLES OU SEMI STRUCT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>BAGS OPTIONS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>BUSINESS ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>BUSINESS ACCESSORIES REFILLS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>BUSINESS BAGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>CLUTCHES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>COUVERTURES AGENDAS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>DAILY BAGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>DIARY COVERS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>DIARY REFILLS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>EVENING BAGS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>HARDSIDE LUGGAGE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>LEASURE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>LG WRITING ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>LOISIRS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>MALLES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>NOT APPLICABLE LG</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>NOT CATEGORIZED LG</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>OTH BAG ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>OTHER REFILLS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>OTH LEATHER GOODS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>PETITE MAROQUINERIE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>POCHETTES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>RECHARGES AGENDAS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>ROLLING LUGGAGE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>SACS BUSINESS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>SACS DAILY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>SACS DU SOIR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>SANS CATEGORIE LG</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>SMALL LEATHER GOODS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>SOFT LUGGAGE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>TRUNKS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>VARIOUS GIFTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>WRITING LG</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Leather Goods</controllingFieldValue>
+            <valueName>WRITING TRUNKS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>BOUCLE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>BUCKLE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>CHRONOGRAPHE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>MONTRES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Watches</controllingFieldValue>
+            <valueName>TRAVEL CLOCK</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

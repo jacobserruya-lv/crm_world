@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Deployment_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Selects the deployment type.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Selects the deployment type.</inlineHelpText>
+    <label>Deployment Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1-voice</fullName>
+                <default>true</default>
+                <label>Voice-Only</label>
+            </value>
+            <value>
+                <fullName>2-omni</fullName>
+                <default>false</default>
+                <label>Salesforce Omni-Channel</label>
+            </value>
+            <value>
+                <fullName>12-media</fullName>
+                <default>false</default>
+                <label>Cisco Universal Queue</label>
+            </value>
+            <value>
+                <fullName>1024-small</fullName>
+                <default>false</default>
+                <label>Small</label>
+            </value>
+            <value>
+                <fullName>mcal</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>mcal</label>
+            </value>
+            <value>
+                <fullName>media</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>media</label>
+            </value>
+            <value>
+                <fullName>mri</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>mri</label>
+            </value>
+            <value>
+                <fullName>omni</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>omni</label>
+            </value>
+            <value>
+                <fullName>voice</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>voice</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

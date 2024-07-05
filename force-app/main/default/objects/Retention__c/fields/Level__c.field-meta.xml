@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Level__c</fullName>
+    <externalId>false</externalId>
+    <label>Level</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 Time</fullName>
+                <default>false</default>
+                <label>1 Time</label>
+            </value>
+            <value>
+                <fullName>2 Times</fullName>
+                <default>false</default>
+                <label>2 Times</label>
+            </value>
+            <value>
+                <fullName>3 Times</fullName>
+                <default>false</default>
+                <label>3 Times</label>
+            </value>
+            <value>
+                <fullName>4 Times</fullName>
+                <default>false</default>
+                <label>4 Times</label>
+            </value>
+            <value>
+                <fullName>5 Times+</fullName>
+                <default>false</default>
+                <label>5 Times+</label>
+            </value>
+            <value>
+                <fullName>&lt;5W</fullName>
+                <default>false</default>
+                <label>&lt;5W</label>
+            </value>
+            <value>
+                <fullName>5~8W</fullName>
+                <default>false</default>
+                <label>5~8W</label>
+            </value>
+            <value>
+                <fullName>10K</fullName>
+                <default>false</default>
+                <label>10K</label>
+            </value>
+            <value>
+                <fullName>50K</fullName>
+                <default>false</default>
+                <label>50K</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

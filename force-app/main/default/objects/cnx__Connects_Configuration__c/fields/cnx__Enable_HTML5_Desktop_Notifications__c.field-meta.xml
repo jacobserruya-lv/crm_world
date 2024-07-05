@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Enable_HTML5_Desktop_Notifications__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If set to true, for each incoming call or case a desktop notification is displayed in the lower right corner of the (primary) screen.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If set to true, for each incoming call or case a desktop notification is displayed in the lower right corner of
+        the (primary) screen.</inlineHelpText>
+    <label>Enable HTML5 Desktop Notifications</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

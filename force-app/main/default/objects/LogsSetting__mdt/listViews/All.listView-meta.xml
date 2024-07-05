@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Apex_Class__c</columns>
+    <columns>Level__c</columns>
+    <columns>Mode__c</columns>
+    <columns>Clean_Up_Every__c</columns>
+    <columns>Notification_to_Support__c</columns>
+    <columns>IsActive__c</columns>
+    <columns>Batch_Limit__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

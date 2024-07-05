@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Club_Name__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Associated Club</description>
+    <externalId>false</externalId>
+    <label>Club</label>
+    <referenceTo>Club_and_Seasons__c</referenceTo>
+    <relationshipLabel>Badges Catalog</relationshipLabel>
+    <relationshipName>Badges_Catalog</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

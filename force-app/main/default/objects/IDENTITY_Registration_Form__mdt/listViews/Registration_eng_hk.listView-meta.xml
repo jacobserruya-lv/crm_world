@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Registration_eng_hk</fullName>
+    <columns>MasterLabel</columns>
+    <columns>Section__c</columns>
+    <columns>Field__c</columns>
+    <columns>Is_Hidden__c</columns>
+    <columns>Is_Required__c</columns>
+    <columns>Value__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Context__c</field>
+        <operation>equals</operation>
+        <value>eng-hk</value>
+    </filters>
+    <filters>
+        <field>Form__c</field>
+        <operation>equals</operation>
+        <value>Registration</value>
+    </filters>
+    <label>Registration eng-hk</label>
+    <language>en_US</language>
+</ListView>

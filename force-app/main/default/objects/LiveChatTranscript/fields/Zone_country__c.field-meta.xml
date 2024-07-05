@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zone_country__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (Text (Country__c)=&quot;&quot;,&quot;INTERNATIONAL&quot;, 
+IF(CONTAINS(&quot;CUB, CAN, USA, BRA, ARG, COL, CHL, MEX&quot;, Text( Country__c )), &quot;AMERICAS&quot;, 
+IF(CONTAINS(&quot;FRA, BEL, CZE, SPA,ESP, ITA, IRL, NLD, GBR, DEU, RUS, AUT, FIN, BGR, HRV, DNK, MCO, NOR, PRT, SWE, CHE, DZA, SEN, TUN, TUR&quot;, Text ( Country__c )), &quot;EUROPE&quot;, 
+IF(CONTAINS(&quot;JPN&quot;, Text( Country__c )), &quot;JAPAN&quot;, 
+IF(CONTAINS(&quot;CHN&quot;, Text( Country__c )), &quot;CHINA&quot;, 
+IF(CONTAINS(&quot;TWN, IDN, IND, AUS, MYS, THA, PHL, MAC, SGP, HKG, VNM, KHM, KOR, NZL&quot;, Text( Country__c )), &quot;APAC&quot;, 
+IF(CONTAINS(&quot;JOR, AFG, KWT, QAT, SAU, IRQ, KAZ, LBN, ARE, IRN&quot;, Text( Country__c )), &quot;MIDDLE EAST&quot;,&quot;INTERNATIONAL&quot; 
+) 
+) 
+) 
+) 
+) 
+) 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Zone</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

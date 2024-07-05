@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Support_Chat_Button_State__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting has to be checked in order to switch the chat button to offline, if all agents are talking or on full capacity.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting has to be checked in order to switch the chat button to offline, if all agents are talking or on full capacity.</inlineHelpText>
+    <label>Support Chat Button State</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

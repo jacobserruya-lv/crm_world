@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_StrapColor__c</fullName>
+    <externalId>false</externalId>
+    <label>Strap Color</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>SPO_StrapMaterial__c</controllingField>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>AMARANTE MONOGRAM VERNIS</fullName>
+                <default>false</default>
+                <label>AMARANTE MONOGRAM VERNIS</label>
+            </value>
+            <value>
+                <fullName>BEIGE LIZARD</fullName>
+                <default>false</default>
+                <label>BEIGE LIZARD</label>
+            </value>
+            <value>
+                <fullName>BLACK ALLIGATOR</fullName>
+                <default>false</default>
+                <label>BLACK ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>BLACK BROSSE</fullName>
+                <default>false</default>
+                <label>BLACK BROSSE</label>
+            </value>
+            <value>
+                <fullName>BLACK CALF</fullName>
+                <default>false</default>
+                <label>BLACK CALF</label>
+            </value>
+            <value>
+                <fullName>BLACK EPI ELECTRIC</fullName>
+                <default>false</default>
+                <label>BLACK EPI ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>BLACK MONOGRAM VERNIS</fullName>
+                <default>false</default>
+                <label>BLACK MONOGRAM VERNIS</label>
+            </value>
+            <value>
+                <fullName>BLACK SATIN</fullName>
+                <default>false</default>
+                <label>BLACK SATIN</label>
+            </value>
+            <value>
+                <fullName>BLACK SHINY ALLIGATOR</fullName>
+                <default>false</default>
+                <label>BLACK SHINY ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>BLUE ALLIGATOR</fullName>
+                <default>false</default>
+                <label>BLUE ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>BLUE BROSSE</fullName>
+                <default>false</default>
+                <label>BLUE BROSSE</label>
+            </value>
+            <value>
+                <fullName>BLUE LIZARD</fullName>
+                <default>false</default>
+                <label>BLUE LIZARD</label>
+            </value>
+            <value>
+                <fullName>BLUE SATIN</fullName>
+                <default>false</default>
+                <label>BLUE SATIN</label>
+            </value>
+            <value>
+                <fullName>BROWN ALLIGATOR</fullName>
+                <default>false</default>
+                <label>BROWN ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>CAMEL ALLIGATOR</fullName>
+                <default>false</default>
+                <label>CAMEL ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>CERISE MONOGRAM VERNIS</fullName>
+                <default>false</default>
+                <label>CERISE MONOGRAM VERNIS</label>
+            </value>
+            <value>
+                <fullName>DAMIER GRAPHITE</fullName>
+                <default>false</default>
+                <label>DAMIER GRAPHITE</label>
+            </value>
+            <value>
+                <fullName>FUSCHIA ALLIGATOR</fullName>
+                <default>false</default>
+                <label>FUSCHIA ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>FUSCHIA BROSSE</fullName>
+                <default>false</default>
+                <label>FUSCHIA BROSSE</label>
+            </value>
+            <value>
+                <fullName>FUSCHIA SATIN</fullName>
+                <default>false</default>
+                <label>FUSCHIA SATIN</label>
+            </value>
+            <value>
+                <fullName>FUSHIA LIZARD</fullName>
+                <default>false</default>
+                <label>FUSHIA LIZARD</label>
+            </value>
+            <value>
+                <fullName>FUSION DAMIER INFINI</fullName>
+                <default>false</default>
+                <label>FUSION DAMIER INFINI</label>
+            </value>
+            <value>
+                <fullName>GREEN ALLIGATOR</fullName>
+                <default>false</default>
+                <label>GREEN ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>GREEN BROSSE</fullName>
+                <default>false</default>
+                <label>GREEN BROSSE</label>
+            </value>
+            <value>
+                <fullName>GREEN SATIN</fullName>
+                <default>false</default>
+                <label>GREEN SATIN</label>
+            </value>
+            <value>
+                <fullName>GREEN SHINY ALLIGATOR</fullName>
+                <default>false</default>
+                <label>GREEN SHINY ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>GREY ALLIGATOR</fullName>
+                <default>false</default>
+                <label>GREY ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>GREY BROSSE</fullName>
+                <default>false</default>
+                <label>GREY BROSSE</label>
+            </value>
+            <value>
+                <fullName>GREY SATIN</fullName>
+                <default>false</default>
+                <label>GREY SATIN</label>
+            </value>
+            <value>
+                <fullName>GREY SHINY ALLIGATOR</fullName>
+                <default>false</default>
+                <label>GREY SHINY ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>MAGENTA MONOGRAM VERNIS</fullName>
+                <default>false</default>
+                <label>MAGENTA MONOGRAM VERNIS</label>
+            </value>
+            <value>
+                <fullName>METEOR DAMIER INFINI</fullName>
+                <default>false</default>
+                <label>METEOR DAMIER INFINI</label>
+            </value>
+            <value>
+                <fullName>MONOGRAM MACASSAR</fullName>
+                <default>false</default>
+                <label>MONOGRAM MACASSAR</label>
+            </value>
+            <value>
+                <fullName>NANO MONOGRAM</fullName>
+                <default>false</default>
+                <label>NANO MONOGRAM</label>
+            </value>
+            <value>
+                <fullName>NUDE BROSSE</fullName>
+                <default>false</default>
+                <label>NUDE BROSSE</label>
+            </value>
+            <value>
+                <fullName>NUDE SATIN</fullName>
+                <default>false</default>
+                <label>NUDE SATIN</label>
+            </value>
+            <value>
+                <fullName>ONYX DAMIER INFINI</fullName>
+                <default>false</default>
+                <label>ONYX DAMIER INFINI</label>
+            </value>
+            <value>
+                <fullName>ORANGE ALLIGATOR</fullName>
+                <default>false</default>
+                <label>ORANGE ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>OTHER</fullName>
+                <default>false</default>
+                <label>OTHER</label>
+            </value>
+            <value>
+                <fullName>PINK ALLIGATOR</fullName>
+                <default>false</default>
+                <label>PINK ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>PINK BROSSE</fullName>
+                <default>false</default>
+                <label>PINK BROSSE</label>
+            </value>
+            <value>
+                <fullName>PINK EPI ELECTRIC</fullName>
+                <default>false</default>
+                <label>PINK EPI ELECTRIC</label>
+            </value>
+            <value>
+                <fullName>PINK SATIN</fullName>
+                <default>false</default>
+                <label>PINK SATIN</label>
+            </value>
+            <value>
+                <fullName>PINK SHINY ALLIGATOR</fullName>
+                <default>false</default>
+                <label>PINK SHINY ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>POMME D&apos;AMOUR</fullName>
+                <default>false</default>
+                <label>POMME D&apos;AMOUR</label>
+            </value>
+            <value>
+                <fullName>RED ALLIGATOR</fullName>
+                <default>false</default>
+                <label>RED ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>RED BROSSE</fullName>
+                <default>false</default>
+                <label>RED BROSSE</label>
+            </value>
+            <value>
+                <fullName>RED EPI</fullName>
+                <default>false</default>
+                <label>RED EPI</label>
+            </value>
+            <value>
+                <fullName>RED SATIN</fullName>
+                <default>false</default>
+                <label>RED SATIN</label>
+            </value>
+            <value>
+                <fullName>SOLAR DAMIER INFINI</fullName>
+                <default>false</default>
+                <label>SOLAR DAMIER INFINI</label>
+            </value>
+            <value>
+                <fullName>TURQUOISE ALLIGATOR</fullName>
+                <default>false</default>
+                <label>TURQUOISE ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>TURQUOISE BROSSE</fullName>
+                <default>false</default>
+                <label>TURQUOISE BROSSE</label>
+            </value>
+            <value>
+                <fullName>TURQUOISE LIZARD</fullName>
+                <default>false</default>
+                <label>TURQUOISE LIZARD</label>
+            </value>
+            <value>
+                <fullName>TURQUOISE SATIN</fullName>
+                <default>false</default>
+                <label>TURQUOISE SATIN</label>
+            </value>
+            <value>
+                <fullName>VVT CALF</fullName>
+                <default>false</default>
+                <label>VVT CALF</label>
+            </value>
+            <value>
+                <fullName>WHITE MONOGRAM VERNIS</fullName>
+                <default>false</default>
+                <label>WHITE MONOGRAM VERNIS</label>
+            </value>
+            <value>
+                <fullName>WHITE SHINY ALLIGATOR</fullName>
+                <default>false</default>
+                <label>WHITE SHINY ALLIGATOR</label>
+            </value>
+            <value>
+                <fullName>YELLOW ALLIGATOR</fullName>
+                <default>false</default>
+                <label>YELLOW ALLIGATOR</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>GOLD</controllingFieldValue>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <controllingFieldValue>LAMBSKIN</controllingFieldValue>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <controllingFieldValue>LOUIS VUITTON SIGNATURE</controllingFieldValue>
+            <controllingFieldValue>VVN</controllingFieldValue>
+            <controllingFieldValue>MONOGRAM</controllingFieldValue>
+            <controllingFieldValue>VVT</controllingFieldValue>
+            <controllingFieldValue>MONOGRAM DOUCEUR</controllingFieldValue>
+            <controllingFieldValue>MONOGRAM MIROIR</controllingFieldValue>
+            <controllingFieldValue>MONOGRAM MULTICOLORE</controllingFieldValue>
+            <controllingFieldValue>MONOGRAM PATTERN</controllingFieldValue>
+            <controllingFieldValue>MONOGRAM VERNIS</controllingFieldValue>
+            <controllingFieldValue>NA-NOT APPLICABLE</controllingFieldValue>
+            <controllingFieldValue>DENIM</controllingFieldValue>
+            <controllingFieldValue>EPI</controllingFieldValue>
+            <controllingFieldValue>POLYURETHANE</controllingFieldValue>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <controllingFieldValue>RUBBER</controllingFieldValue>
+            <controllingFieldValue>Exo ALLIGATOR &amp; RUBBER</controllingFieldValue>
+            <controllingFieldValue>SATIN</controllingFieldValue>
+            <controllingFieldValue>Exo DOGFISH</controllingFieldValue>
+            <controllingFieldValue>STEEL</controllingFieldValue>
+            <controllingFieldValue>Exo LEZARD</controllingFieldValue>
+            <controllingFieldValue>STEEL &amp; GOLD</controllingFieldValue>
+            <controllingFieldValue>Exo MAT ALLIGATOR</controllingFieldValue>
+            <controllingFieldValue>STEEL &amp; RUBBER</controllingFieldValue>
+            <controllingFieldValue>Exo MINK</controllingFieldValue>
+            <controllingFieldValue>STINGRAY</controllingFieldValue>
+            <controllingFieldValue>Exo OSTRICH</controllingFieldValue>
+            <controllingFieldValue>Exo SHINY ALLIGATOR</controllingFieldValue>
+            <controllingFieldValue>BUFFALO</controllingFieldValue>
+            <controllingFieldValue>CALF</controllingFieldValue>
+            <controllingFieldValue>CALF &amp; RUBBER</controllingFieldValue>
+            <controllingFieldValue>CARBON FIBRE</controllingFieldValue>
+            <controllingFieldValue>DAMIER AZUR</controllingFieldValue>
+            <controllingFieldValue>DAMIER GEANT</controllingFieldValue>
+            <controllingFieldValue>DAMIER GRAPHITE</controllingFieldValue>
+            <controllingFieldValue>DAMIER INFINI</controllingFieldValue>
+            <controllingFieldValue>DAMIER PATTERN</controllingFieldValue>
+            <controllingFieldValue>STITCHED RUBBER</controllingFieldValue>
+            <controllingFieldValue>SUHALI</controllingFieldValue>
+            <controllingFieldValue>Exo WATERSNAKE</controllingFieldValue>
+            <controllingFieldValue>TAIGA</controllingFieldValue>
+            <controllingFieldValue>FIBER</controllingFieldValue>
+            <controllingFieldValue>VEAU</controllingFieldValue>
+            <valueName>OTHER</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>BLACK BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>BLUE BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>FUSCHIA BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>GREEN BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>GREY BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>NUDE BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>PINK BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>RED BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU BROSSE</controllingFieldValue>
+            <valueName>TURQUOISE BROSSE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>BLACK SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>BLUE SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>FUSCHIA SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>GREEN SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>GREY SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>NUDE SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>PINK SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>RED SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU SATIN</controllingFieldValue>
+            <valueName>TURQUOISE SATIN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM</controllingFieldValue>
+            <valueName>MONOGRAM MACASSAR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM</controllingFieldValue>
+            <valueName>NANO MONOGRAM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM VERNIS</controllingFieldValue>
+            <valueName>AMARANTE MONOGRAM VERNIS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM VERNIS</controllingFieldValue>
+            <valueName>BLACK MONOGRAM VERNIS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM VERNIS</controllingFieldValue>
+            <valueName>CERISE MONOGRAM VERNIS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM VERNIS</controllingFieldValue>
+            <valueName>MAGENTA MONOGRAM VERNIS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM VERNIS</controllingFieldValue>
+            <valueName>POMME D&apos;AMOUR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MONOGRAM VERNIS</controllingFieldValue>
+            <valueName>WHITE MONOGRAM VERNIS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EPI</controllingFieldValue>
+            <valueName>BLACK EPI ELECTRIC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EPI</controllingFieldValue>
+            <valueName>PINK EPI ELECTRIC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EPI</controllingFieldValue>
+            <valueName>RED EPI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>BLACK ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>BLACK SHINY ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>BLUE ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>BROWN ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>CAMEL ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>FUSCHIA ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>GREEN ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>GREEN SHINY ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>GREY ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>GREY SHINY ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>ORANGE ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>PINK ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>PINK SHINY ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>RED ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>TURQUOISE ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>WHITE SHINY ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo ALLIGATOR</controllingFieldValue>
+            <valueName>YELLOW ALLIGATOR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo LEZARD</controllingFieldValue>
+            <valueName>BEIGE LIZARD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo LEZARD</controllingFieldValue>
+            <valueName>BLUE LIZARD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo LEZARD</controllingFieldValue>
+            <valueName>FUSHIA LIZARD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exo LEZARD</controllingFieldValue>
+            <valueName>TURQUOISE LIZARD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DAMIER GRAPHITE</controllingFieldValue>
+            <valueName>DAMIER GRAPHITE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DAMIER INFINI</controllingFieldValue>
+            <valueName>FUSION DAMIER INFINI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DAMIER INFINI</controllingFieldValue>
+            <valueName>METEOR DAMIER INFINI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DAMIER INFINI</controllingFieldValue>
+            <valueName>ONYX DAMIER INFINI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DAMIER INFINI</controllingFieldValue>
+            <valueName>SOLAR DAMIER INFINI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU</controllingFieldValue>
+            <valueName>BLACK CALF</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>VEAU</controllingFieldValue>
+            <valueName>VVT CALF</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__All</fullName>
+    <columns>NAME</columns>
+    <columns>cnx__Is_Default__c</columns>
+    <columns>cnx__Description__c</columns>
+    <columns>cnx__Call_Log_Variable_Mapping__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

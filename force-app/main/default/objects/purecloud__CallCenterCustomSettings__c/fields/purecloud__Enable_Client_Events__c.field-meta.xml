@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Enable_Client_Events__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Enable Client Events broadcasts client events through the postMessage API.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enable Client Events broadcasts client events through the postMessage API.</inlineHelpText>
+    <label>Enable Client Events</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

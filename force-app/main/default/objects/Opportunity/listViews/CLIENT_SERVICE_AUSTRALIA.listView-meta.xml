@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CLIENT_SERVICE_AUSTRALIA</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SPO_StoreCode__c</field>
+        <operation>equals</operation>
+        <value>L36</value>
+    </filters>
+    <label>Client service Australia</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>CSC_Australia</group>
+    </sharedTo>
+</ListView>

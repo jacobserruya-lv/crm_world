@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MIY_ProductionStatusDate__c</fullName>
+    <description>Holds the date and time the status has changed. When the order status changed in SPP, EAI updates in real time the field</description>
+    <externalId>false</externalId>
+    <label>Last production status update</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

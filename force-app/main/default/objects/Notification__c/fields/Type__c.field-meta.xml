@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>EMAIL TEMPLATE</fullName>
+                <default>false</default>
+                <label>EMAIL TEMPLATE</label>
+            </value>
+            <value>
+                <fullName>LINE</fullName>
+                <default>false</default>
+                <label>LINE</label>
+            </value>
+            <value>
+                <fullName>MARKETING CLOUD</fullName>
+                <default>false</default>
+                <label>MARKETING CLOUD</label>
+            </value>
+            <value>
+                <fullName>PUSH NOTIFICATION</fullName>
+                <default>false</default>
+                <label>PUSH NOTIFICATION</label>
+            </value>
+            <value>
+                <fullName>SMS</fullName>
+                <default>false</default>
+                <label>SMS</label>
+            </value>
+            <value>
+                <fullName>WECHAT</fullName>
+                <default>false</default>
+                <label>WECHAT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

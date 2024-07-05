@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reference__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Functional Reference for the Experience Variation
+
+[BrandExperience__c.reference__c]-[base number+1]
+Minimum base number = 000001
+6 chiffres (ex. EXP000001-000001)</description>
+    <externalId>false</externalId>
+    <label>Variation Reference</label>
+    <length>100</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

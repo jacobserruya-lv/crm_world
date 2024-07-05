@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__RT_VP_Recording_Link_Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Field name of the Salesforce Activity custom field where the recording link will be stored.</description>
+    <externalId>false</externalId>
+    <label>Recording Link Field</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

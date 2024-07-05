@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_Currencies__c</fullName>
+    <externalId>false</externalId>
+    <label>Currency</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>USD</fullName>
+                <default>false</default>
+                <label>USD</label>
+            </value>
+            <value>
+                <fullName>EUR</fullName>
+                <default>false</default>
+                <label>EUR</label>
+            </value>
+            <value>
+                <fullName>YEN</fullName>
+                <default>false</default>
+                <label>YEN</label>
+            </value>
+            <value>
+                <fullName>YUAN</fullName>
+                <default>false</default>
+                <label>YUAN</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

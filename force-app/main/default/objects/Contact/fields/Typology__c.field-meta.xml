@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Typology__c</fullName>
+    <externalId>false</externalId>
+    <label>Typology</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Client</fullName>
+                <default>false</default>
+                <label>Client</label>
+            </value>
+            <value>
+                <fullName>Company</fullName>
+                <default>false</default>
+                <label>Company</label>
+            </value>
+            <value>
+                <fullName>Local</fullName>
+                <default>false</default>
+                <label>Local</label>
+            </value>
+            <value>
+                <fullName>LVMH Staff</fullName>
+                <default>false</default>
+                <label>LVMH Staff</label>
+            </value>
+            <value>
+                <fullName>LVM Staff</fullName>
+                <default>false</default>
+                <label>LVM Staff</label>
+            </value>
+            <value>
+                <fullName>LV Store</fullName>
+                <default>false</default>
+                <label>LV Store</label>
+            </value>
+            <value>
+                <fullName>Non local</fullName>
+                <default>false</default>
+                <label>Non local</label>
+            </value>
+            <value>
+                <fullName>Not categorized</fullName>
+                <default>false</default>
+                <label>Not categorized</label>
+            </value>
+            <value>
+                <fullName>Parallel market</fullName>
+                <default>false</default>
+                <label>Parallel market</label>
+            </value>
+            <value>
+                <fullName>Prospects</fullName>
+                <default>false</default>
+                <label>Prospects</label>
+            </value>
+            <value>
+                <fullName>VIP</fullName>
+                <default>false</default>
+                <label>VIP</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

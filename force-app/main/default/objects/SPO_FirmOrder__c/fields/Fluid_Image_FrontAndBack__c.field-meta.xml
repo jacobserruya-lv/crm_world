@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fluid_Image_FrontAndBack__c</fullName>
+    <description>Front and back image of the personalized product</description>
+    <externalId>false</externalId>
+    <formula>IF (
+NOT(ISBLANK(FluidRecipeId__c)),
+&apos;http://configure-imagecomposer.fluidretail.net/recipe/&apos; + FluidRecipeId__c + &apos;/image/FrontAndBack.jpg&apos;,
+ProductCatalogue__r.Image1Url__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Fluid Image FrontAndBack</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

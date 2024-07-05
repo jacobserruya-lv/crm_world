@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR9_CASE_InStoreAction</fullName>
+    <active>true</active>
+    <description>In Store Action is mandatory if In Store Status is closed</description>
+    <errorConditionFormula>AND(
+ NOT( $User.BypassVR__c),
+ $User.Alias &lt;&gt; &quot;autoproc&quot;,
+ ISPICKVAL( In_Store_Status__c , &quot;Closed&quot;),
+ ISPICKVAL(  In_Store_Action__c , &quot;&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>In_Store_Action__c</errorDisplayField>
+    <errorMessage>You need to select an In Store Action</errorMessage>
+</ValidationRule>

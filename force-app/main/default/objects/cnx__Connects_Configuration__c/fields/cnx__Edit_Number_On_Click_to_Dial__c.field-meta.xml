@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Edit_Number_On_Click_to_Dial__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Opens the number in the Make Call bar instead of calling directly.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Opens the number in the Make Call bar instead of calling directly.</inlineHelpText>
+    <label>Edit Number On Click-to-Dial</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

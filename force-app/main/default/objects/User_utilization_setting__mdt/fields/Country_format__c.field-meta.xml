@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Country_format__c</fullName>
+    <description>Use field in the object Country__c</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Country format</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Name</fullName>
+                <default>true</default>
+                <label>Name</label>
+            </value>
+            <value>
+                <fullName>Iso3Code__c</fullName>
+                <default>false</default>
+                <label>Iso3Code__c</label>
+            </value>
+            <value>
+                <fullName>StoreOrUser__c</fullName>
+                <default>false</default>
+                <label>StoreOrUser__c</label>
+            </value>
+            <value>
+                <fullName>Case__c</fullName>
+                <default>false</default>
+                <label>Case__c</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

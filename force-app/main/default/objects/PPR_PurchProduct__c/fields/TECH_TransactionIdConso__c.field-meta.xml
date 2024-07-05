@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_TransactionIdConso__c</fullName>
+    <description>For Conso to call the Document webservice, the transaction id must match to the transaction id from Conso. As TECH_TransactionId__c is maybe used by another call, this field is created.</description>
+    <externalId>false</externalId>
+    <formula>IF (
+  AND (
+				OR (
+    ISPICKVAL(TransactionStoreType__c, &apos;Web&apos;),
+    ISPICKVAL(TransactionStoreType__c, &apos;CSC&apos;)
+			 ),
+    NOT(ISBLANK(OrderATGId__c))
+  ),
+  OrderATGId__c,
+  TransactionRMSId__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TECH_TransactionIdConso</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

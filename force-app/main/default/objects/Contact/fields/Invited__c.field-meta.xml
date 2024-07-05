@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invited__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates whether or not the client has been invited to an event</description>
+    <externalId>false</externalId>
+    <label>Invited to a PCR event</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_MacroFamilyWatchAcc__c</fullName>
+    <externalId>false</externalId>
+    <label>Macro Family Watch/Acc</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>SPO_FamilyWatchAcc__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>To add</fullName>
+                <default>false</default>
+                <label>To add</label>
+            </value>
+            <value>
+                <fullName>NOT CATEGORIZED (WATCHES)</fullName>
+                <default>false</default>
+                <label>NOT CATEGORIZED (WATCHES)</label>
+            </value>
+            <value>
+                <fullName>WATCHES</fullName>
+                <default>false</default>
+                <label>WATCHES</label>
+            </value>
+            <value>
+                <fullName>WATCHES ACCESSORIES</fullName>
+                <default>false</default>
+                <label>WATCHES ACCESSORIES</label>
+            </value>
+            <value>
+                <fullName>BELTS</fullName>
+                <default>false</default>
+                <label>BELTS</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>BUCKLES</controllingFieldValue>
+            <valueName>WATCHES ACCESSORIES</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>NOT REVERSIBLE BELT</controllingFieldValue>
+            <controllingFieldValue>REVERSIBLE BELT</controllingFieldValue>
+            <valueName>BELTS</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

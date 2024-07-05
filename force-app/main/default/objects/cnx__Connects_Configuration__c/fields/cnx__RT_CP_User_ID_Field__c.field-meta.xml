@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__RT_CP_User_ID_Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Define the field on the user object that contains the Calabrio user ID, in order to login.</description>
+    <externalId>false</externalId>
+    <label>User ID Field</label>
+    <length>150</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

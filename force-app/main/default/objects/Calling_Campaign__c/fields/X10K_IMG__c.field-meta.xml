@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X10K_IMG__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( Client__r.indic_10K_rank__c ,
+&quot;10k YTM&quot;,IMAGE(&quot;/resource/indic10KIcones/10KThisYear.png&quot;,&quot;&quot;,30, 30),
+IMAGE( 
+CASE( Client__r.Ind_10K__c , 
+&quot;Potential 10K&quot;, &quot;/resource/indic10KIcones/Potential10K.png&quot;, 
+&quot;10K&quot;, &quot;/resource/indic10KIcones/10K.png&quot;,&quot;/s.gif&quot;), 
+&quot;&quot;,30, 30)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>10K IMG</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

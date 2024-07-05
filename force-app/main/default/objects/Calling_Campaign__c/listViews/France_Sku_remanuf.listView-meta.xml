@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>France_Sku_remanuf</fullName>
+    <columns>Assigned_Store__c</columns>
+    <columns>NAME</columns>
+    <columns>Client__c</columns>
+    <columns>Preferred_CA__c</columns>
+    <columns>X10K_IMG__c</columns>
+    <columns>Client_Segmentation__c</columns>
+    <columns>Product_Priority__c</columns>
+    <columns>Product_Name__c</columns>
+    <columns>Quantity__c</columns>
+    <columns>Transaction_Date__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Product_Priority__c</field>
+        <operation>equals</operation>
+        <value>1. Capucines clients,2. Other high risk,3. Other at risk</value>
+    </filters>
+    <filters>
+        <field>My_Store__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Product_Sku__c</field>
+        <operation>equals</operation>
+        <value>M94593,M94354,M94592,M94482,M94355,M40941,M40942,M40274,M50150,M94698,M50146,M41061,M94351,M94594,M94595,M94337,M48857,M94352,M41198,M94623,M41197,M94353,M40272,M50030,M94312,M94313,M94481</value>
+    </filters>
+    <filters>
+        <field>Client_Decision__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>New</value>
+    </filters>
+    <label>Clients to Call for Remanufactured Sku</label>
+</ListView>

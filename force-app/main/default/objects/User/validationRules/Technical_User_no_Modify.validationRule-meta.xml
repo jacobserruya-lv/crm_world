@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Technical_User_no_Modify</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND($Profile.Name &lt;&gt; &apos;System Administrator&apos;, 	IsTechnicalUser__c = true)</errorConditionFormula>
+    <errorMessage>You are not allowed to change this technical user,</errorMessage>
+</ValidationRule>

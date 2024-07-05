@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Asia_Pacific_Case</fullName>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Country__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Priority_Flag__c</columns>
+    <columns>Case_Origin_IMG__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <label>Asia</label>
+    <queue>Asia_Pacific</queue>
+    <sharedTo>
+        <roleAndSubordinatesInternal>CSC_DIRECTOR_APAC</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

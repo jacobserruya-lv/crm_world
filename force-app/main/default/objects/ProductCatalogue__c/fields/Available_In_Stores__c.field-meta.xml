@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Available_In_Stores__c</fullName>
+    <description>Used in NY to not display products for stores outside the list, allow selecting no store or any number of stores by their code (e.g. A06)</description>
+    <externalId>false</externalId>
+    <label>Available In Stores</label>
+    <length>1200</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

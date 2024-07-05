@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Image__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (ISPICKVAL(SPO_BriefName__r.ApplicationSource__c , &quot;SPO&quot;),
+    IMAGE (SPO_BriefName__r.SPO_BaseSKURefmodelSKU__r.SPO_ImageLink1FrontView__c ,&quot;Picture not available&quot;),
+    IF(ISBLANK(TECH_Product_Img_1__c),
+        IMAGE ( Fuild_Image_Packshot__c ,&quot;Picture not available&quot;) &amp; &quot; &quot; &amp;
+        IMAGE ( Fluid_Image_Font__c ,&quot;Picture not available&quot;) &amp; &quot; &quot; &amp;
+        IMAGE ( Fluid_Image_Back__c ,&quot;Picture not available&quot;)
+    , IMAGE (TECH_Product_Img_1__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_2__c),&quot;&quot;,IMAGE (TECH_Product_Img_2__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_3__c),&quot;&quot;,IMAGE (TECH_Product_Img_3__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_4__c),&quot;&quot;,IMAGE (TECH_Product_Img_4__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_5__c),&quot;&quot;,IMAGE (TECH_Product_Img_5__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_6__c),&quot;&quot;,IMAGE (TECH_Product_Img_6__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_7__c),&quot;&quot;,IMAGE (TECH_Product_Img_7__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_8__c),&quot;&quot;,IMAGE (TECH_Product_Img_8__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_9__c),&quot;&quot;,IMAGE (TECH_Product_Img_9__c,&quot;Picture not available&quot;) &amp; &quot; &quot;) &amp;
+    IF(ISBLANK(TECH_Product_Img_10__c),&quot;&quot;,IMAGE (TECH_Product_Img_10__c,&quot;Picture not available&quot;))
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Product Image</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

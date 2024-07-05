@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Can_Be_Contacted_By_LVApp__c</fullName>
     <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
     <label>Can Be Contacted By LVApp</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

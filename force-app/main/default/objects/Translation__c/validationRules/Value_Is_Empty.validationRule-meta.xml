@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Value_Is_Empty</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISBLANK(Value__c) &amp;&amp;  ISBLANK(Long_Value__c)</errorConditionFormula>
+    <errorMessage>Please fill a value in one of the fields Value Or Long Value</errorMessage>
+</ValidationRule>

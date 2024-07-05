@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Logistic_OE_Queue_US</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>Back_Office_assignee__c</columns>
+    <columns>Issue_Category__c</columns>
+    <columns>Sub_Category__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>New,Back Office New,Back Office Pending</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>notEqual</operation>
+        <value>ELBERT TANJAYA</value>
+    </filters>
+    <filters>
+        <field>Sub_Category__c</field>
+        <operation>notEqual</operation>
+        <value>Modification,Bank Transfer,Second Look</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Operation_Exception</value>
+    </filters>
+    <filters>
+        <field>Back_Office_assignee__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>TECH_BO_Case_Team__c</field>
+        <operation>equals</operation>
+        <value>US BO</value>
+    </filters>
+    <filters>
+        <field>Country__c</field>
+        <operation>notEqual</operation>
+        <value>MEXICO</value>
+    </filters>
+    <label>Logistic OE Queue US</label>
+    <sharedTo>
+        <role>MEX_CSC_Mexico_Manager</role>
+        <roleAndSubordinatesInternal>AME_CSC_US_CA_Manager</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

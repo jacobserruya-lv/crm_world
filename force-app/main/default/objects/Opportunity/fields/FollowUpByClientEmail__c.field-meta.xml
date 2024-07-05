@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FollowUpByClientEmail__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>For Perso app, order follow-up by client email</description>
+    <externalId>false</externalId>
+    <label>Follow-up by client email</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

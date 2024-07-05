@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Language__c</fullName>
+    <description>Device language</description>
+    <externalId>false</externalId>
+    <formula>IF( BEGINS(Locale, &quot;en&quot;), &quot;English&quot;,
+IF( BEGINS(Locale, &quot;fr&quot;), &quot;French&quot;,
+IF( BEGINS(Locale, &quot;es&quot;), &quot;Spanish&quot;,
+IF( BEGINS(Locale, &quot;pt&quot;), &quot;Portuguese&quot;,
+IF( BEGINS(Locale, &quot;it&quot;), &quot;Italian&quot;,
+IF( BEGINS(Locale, &quot;de&quot;), &quot;German&quot;,
+IF( BEGINS(Locale, &quot;zh&quot;), &quot;Chinese&quot;,
+IF( BEGINS(Locale, &quot;nl&quot;), &quot;Dutch&quot;,
+IF( BEGINS(Locale, &quot;ja&quot;), &quot;Japanese&quot;,
+IF( BEGINS(Locale, &quot;ko&quot;), &quot;Korean&quot;,
+IF( BEGINS(Locale, &quot;vi&quot;), &quot;Vietnamese&quot;,
+IF( BEGINS(Locale, &quot;ru&quot;), &quot;Russian&quot;,
+IF( BEGINS(Locale, &quot;sv&quot;), &quot;Swedish&quot;,
+IF( BEGINS(Locale, &quot;da&quot;), &quot;Danish&quot;,
+IF( BEGINS(Locale, &quot;fi&quot;), &quot;Finnish&quot;,
+IF( BEGINS(Locale, &quot;nb&quot;), &quot;Norwegian&quot;,
+IF( BEGINS(Locale, &quot;tr&quot;), &quot;Turkish&quot;,
+IF( BEGINS(Locale, &quot;el&quot;), &quot;Greek&quot;,
+IF( BEGINS(Locale, &quot;id&quot;), &quot;Indonesian&quot;,
+IF( BEGINS(Locale, &quot;ms&quot;), &quot;Malay&quot;,
+IF( BEGINS(Locale, &quot;th&quot;), &quot;Thai&quot;,
+IF( BEGINS(Locale, &quot;hi&quot;), &quot;Hindi&quot;,
+IF( BEGINS(Locale, &quot;hu&quot;), &quot;Hungarian&quot;,
+IF( BEGINS(Locale, &quot;pl&quot;), &quot;Polish&quot;,
+IF( BEGINS(Locale, &quot;cs&quot;), &quot;Czech&quot;,
+IF( BEGINS(Locale, &quot;sk&quot;), &quot;Slovak&quot;,
+IF( BEGINS(Locale, &quot;uk&quot;), &quot;Ukrainian&quot;,
+IF( BEGINS(Locale, &quot;ca&quot;), &quot;Catalan&quot;,
+IF( BEGINS(Locale, &quot;ro&quot;), &quot;Romanian&quot;,
+IF( BEGINS(Locale, &quot;hr&quot;), &quot;Croatian&quot;,
+IF( BEGINS(Locale, &quot;he&quot;), &quot;Hebrew&quot;,
+IF( BEGINS(Locale, &quot;ar&quot;), &quot;Arabic&quot;,&quot;&quot;)
+)))))))))))))))))))))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Language</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Asnieres_A_fabriquer</fullName>
+    <columns>OrderNumber__c</columns>
+    <columns>SPO_SpecialOrderSKUCode__c</columns>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>SPO_SkuQuantity__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>SPO_Store__c</columns>
+    <columns>SPO_CreationType__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Creation in progress</value>
+    </filters>
+    <filters>
+        <field>SPO_SpecialOrderSKUCode__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>SPO_ProductCategory__c</field>
+        <operation>equals</operation>
+        <value>Leather goods</value>
+    </filters>
+    <label>Asnières - A fabriquer</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>SPO_Production</group>
+    </sharedTo>
+</ListView>

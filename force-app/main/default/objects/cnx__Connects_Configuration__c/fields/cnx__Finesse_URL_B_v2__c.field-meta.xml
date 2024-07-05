@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Finesse_URL_B_v2__c</fullName>
+    <defaultValue>&apos;https://myFinesseServerB.myDomain&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Finesse Server B URL.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Finesse Server B URL (e.g. https://myFinesseServerB.myDomain)</inlineHelpText>
+    <label>Finesse URL B</label>
+    <length>2000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>2</visibleLines>
+</CustomField>

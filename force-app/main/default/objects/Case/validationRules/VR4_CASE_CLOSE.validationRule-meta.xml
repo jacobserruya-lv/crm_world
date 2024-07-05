@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR4_CASE_CLOSE</fullName>
+    <active>true</active>
+    <description>When Case status is close, Nature, Category, Status and Resolution can&apos;t be modified.</description>
+    <errorConditionFormula>AND( 
+ NOT( 
+					OR(
+      $User.BypassVR__c,
+      LEFT($User.Id, 15)  = LEFT($Setup.IconicsSettings__c.SystemUserId__c,15)
+		   )
+	),
+  ISPICKVAL(PRIORVALUE(Status), &quot;Closed&quot;),
+  AND (RecordType.DeveloperName &lt;&gt; &quot;SPAM&quot;, RecordType.DeveloperName  &lt;&gt; &quot;Operation_Exception&quot;, RecordType.DeveloperName&lt;&gt; &quot;Clienteling&quot;),
+  OR(
+   ISCHANGED( Nature__c ),
+   ISCHANGED( Status ),
+   /*ISCHANGED( Resolution__c ),*/
+   ISCHANGED( Category__c )
+  ),
+   NOT(ISPICKVAL(Type, &apos;Service and General Information&apos; )),
+   NOT(ISPICKVAL(Resolution__c, &apos;Transfer to Headquarters&apos; )),
+   NOT(ISPICKVAL(Category__c, &apos;Legal ( insurance, police, fraud)&apos;))
+)</errorConditionFormula>
+    <errorMessage>When Case status is close, Nature, Category, Status and Resolution can&apos;t be modified.</errorMessage>
+</ValidationRule>

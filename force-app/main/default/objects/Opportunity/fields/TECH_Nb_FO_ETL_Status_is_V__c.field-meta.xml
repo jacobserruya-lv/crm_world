@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_Nb_FO_ETL_Status_is_V__c</fullName>
+    <description>Count FO with etl status = Perso order validated</description>
+    <externalId>false</externalId>
+    <label>TECH Nb FO ETL Status is V</label>
+    <summaryFilterItems>
+        <field>SPO_FirmOrder__c.SPO_TechETLStatus__c</field>
+        <operation>equals</operation>
+        <value>Perso order validated</value>
+    </summaryFilterItems>
+    <summaryForeignKey>SPO_FirmOrder__c.SPO_BriefName__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

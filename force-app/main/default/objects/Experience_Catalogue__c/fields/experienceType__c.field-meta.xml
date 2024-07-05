@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>experienceType__c</fullName>
+    <description>Type of Brand Experience</description>
+    <externalId>false</externalId>
+    <label>Experience Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Craft Dimension</fullName>
+                <default>false</default>
+                <label>Craft Dimension</label>
+            </value>
+            <value>
+                <fullName>Digital Event</fullName>
+                <default>false</default>
+                <label>Digital Event</label>
+            </value>
+            <value>
+                <fullName>Early Bird Access</fullName>
+                <default>false</default>
+                <label>Early Bird Access</label>
+            </value>
+            <value>
+                <fullName>Exclusive Drop</fullName>
+                <default>false</default>
+                <label>Exclusive Drop</label>
+            </value>
+            <value>
+                <fullName>Physical Event</fullName>
+                <default>false</default>
+                <label>Physical Event</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

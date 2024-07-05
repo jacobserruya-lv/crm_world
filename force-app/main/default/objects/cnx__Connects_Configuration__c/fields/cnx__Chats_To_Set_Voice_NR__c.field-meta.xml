@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Chats_To_Set_Voice_NR__c</fullName>
+    <defaultValue>0</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Number of chats to set Voice channel to Not Ready.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Number of chats to set Voice channel to Not Ready</inlineHelpText>
+    <label>Chats To Set Voice Not Ready</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

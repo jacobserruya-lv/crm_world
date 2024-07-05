@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Creation_Type__c</fullName>
+    <description>Indicates whether the product is Harsided or Soft</description>
+    <externalId>false</externalId>
+    <label>Creation Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Creation_Type</valueSetName>
+    </valueSet>
+</CustomField>

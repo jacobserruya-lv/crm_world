@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Germany_DPCA_Concierge</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.ORIGIN</columns>
+    <columns>Urgency__c</columns>
+    <columns>Sub_Segment_Client__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Country__c</field>
+        <operation>equals</operation>
+        <value>GERMANY</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Digital_Private_CA</value>
+    </filters>
+    <label>Germany DPCA Concierge</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>EUR_CSC_Germany_Russia_Manager</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Agent_Owned_Dialing_for_Preview_Only</fullName>
+    <active>true</active>
+    <description>Ensures that Dialing Mode is set to Preview Dialing when the Enable Agent Owned Dialing checkbox is checked.</description>
+    <errorConditionFormula>AND( 
+OR( 
+ISPICKVAL(purecloud__Dialing_Mode__c, &apos;Predictive Dialing&apos;), 
+ISPICKVAL(purecloud__Dialing_Mode__c, &apos;Progressive Dialing&apos;), 
+ISPICKVAL(purecloud__Dialing_Mode__c, &apos;Agentless Dialing&apos;), 
+ISPICKVAL(purecloud__Dialing_Mode__c, &apos;Power Dialing&apos;) 
+), (purecloud__Enable_Agent_Owned__c == true))</errorConditionFormula>
+    <errorMessage>Agent Owned Dialing is only available with Preview Dialing.</errorMessage>
+</ValidationRule>

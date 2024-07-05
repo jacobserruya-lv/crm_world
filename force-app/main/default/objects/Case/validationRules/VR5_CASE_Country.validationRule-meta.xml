@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR5_CASE_Country</fullName>
+    <active>true</active>
+    <description>Country field is mandatory for closing the request</description>
+    <errorConditionFormula>AND( 
+  AND(
+    NOT( $User.BypassVR__c),
+    ISPICKVAL(Country__c , &quot;&quot;), 
+    ISPICKVAL(TECH_Country__c , &quot;&quot;)
+  ),
+  OR( 
+    ISPICKVAL( Resolution__c , &quot;Immediate Response&quot;), 
+    ISPICKVAL( Resolution__c , &quot;Reply Made&quot;), 
+    ISPICKVAL( Resolution__c , &quot;Transfer to Store&quot;), 
+    ISPICKVAL( Resolution__c , &quot;Sent Catalogue_Brochure_TYC_Invitation&quot;), 
+    ISPICKVAL( Resolution__c , &quot;Transfer to Headquarters&quot;), 
+    ISPICKVAL( Resolution__c , &quot;No Response Required&quot;), 
+    ISPICKVAL( Resolution__c , &quot;Request to Store&quot;) 
+  )
+)</errorConditionFormula>
+    <errorDisplayField>Country__c</errorDisplayField>
+    <errorMessage>Country field is mandatory for closing the request</errorMessage>
+</ValidationRule>

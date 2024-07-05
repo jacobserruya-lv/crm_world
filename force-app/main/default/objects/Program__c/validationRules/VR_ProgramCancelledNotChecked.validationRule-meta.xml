@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_ProgramCancelledNotChecked</fullName>
+    <active>false</active>
+    <description>Reason filled, Cancelled empty</description>
+    <errorConditionFormula>Text(Status__c)  &lt;&gt;  &quot;Cancelled&quot;
+&amp;&amp;
+NOT (ISBLANK(Reason__c))</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>The Status has to be &quot;Cancelled&quot; to fill in a &quot;Reason&quot;.</errorMessage>
+</ValidationRule>

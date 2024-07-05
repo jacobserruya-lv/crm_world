@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_Nb_FO_Creation_in_Progress__c</fullName>
+    <description>Ease to decide if we display or no Cancel All button and Modal on Cancel product (MIY-476, MIY-481)</description>
+    <externalId>false</externalId>
+    <label>TECH Nb FO Creation in Progress</label>
+    <summaryFilterItems>
+        <field>SPO_FirmOrder__c.SPO_FirmOrderStatus__c</field>
+        <operation>equals</operation>
+        <value>Creation in progress</value>
+    </summaryFilterItems>
+    <summaryForeignKey>SPO_FirmOrder__c.SPO_BriefName__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Families_Russia</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Family_ID__c</columns>
+    <columns>Data_Cleaning_Team__c</columns>
+    <columns>Duplicate_Type__c</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Member_Sum__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>Case_Typology__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CSC__c</field>
+        <operation>equals</operation>
+        <value>Russia,CZECH REPUBLIC,HUNGARY,ROMANIA,KAZAKHSTAN,Ukraine</value>
+    </filters>
+    <label>Families Russia Pol Check Rom Hung Kaz</label>
+</ListView>

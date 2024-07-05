@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Product_on_Demand_with_Sku</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>Transaction_Id__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Comment__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Product_Sku__c</columns>
+    <columns>Sku_Number__c</columns>
+    <columns>Price__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Product_On_Demand_with_sku</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>My Product on Demand with Sku</label>
+</ListView>

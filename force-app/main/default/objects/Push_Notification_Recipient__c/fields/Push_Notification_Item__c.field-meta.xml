@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Push_Notification_Item__c</fullName>
+    <externalId>false</externalId>
+    <label>Push Notification Item</label>
+    <referenceTo>Push_Notification_Item__c</referenceTo>
+    <relationshipLabel>Push Notification Recipients</relationshipLabel>
+    <relationshipName>Push_Notification_Recipients</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

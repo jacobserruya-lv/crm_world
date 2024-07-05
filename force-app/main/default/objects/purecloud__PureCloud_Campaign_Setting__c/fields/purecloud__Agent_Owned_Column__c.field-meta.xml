@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>purecloud__Agent_Owned_Column__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Read-only field populated with Campaign Management setting after you enable Agent Owned Dialing and click Save.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Read-only field populated with Campaign Management setting after you enable Agent Owned Dialing and click Save.</inlineHelpText>
+    <label>Agent Owned Column</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

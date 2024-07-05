@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_Cancelled_Order</fullName>
+    <active>true</active>
+    <description>Cancel a firm order</description>
+    <errorConditionFormula>AND (
+  NOT($User.BypassVR__c),
+  $Profile.Name != &apos;LV_Interface_Datastage&apos;, 
+  $Profile.Name != &apos;System Administrator&apos;,
+  
+  OR (
+    ISPICKVAL(SPO_FirmOrderStatus__c, &quot;Cancelled by production&quot;),
+    ISPICKVAL(SPO_FirmOrderStatus__c, &quot;Cancelled by store&quot;)
+  ),
+
+  OR (
+    ISPICKVAL(PRIORVALUE(SPO_FirmOrderStatus__c), &quot;Production in progress&quot;),
+    ISPICKVAL(PRIORVALUE(SPO_FirmOrderStatus__c), &quot;Distribution in progress&quot;),
+    AND (
+      ISPICKVAL(PRIORVALUE(SPO_FirmOrderStatus__c), &quot;Creation in progress&quot;),
+      OR (
+        AND (
+          OR (
+            ISPICKVAL(SPO_BriefName__r.ApplicationSource__c, &quot;PERSO&quot;),
+            ISPICKVAL(SPO_BriefName__r.ApplicationSource__c, &quot;ECO&quot;)
+          ),
+          TEXT(SPO_TechETLStatus__c) != &quot;V&quot;,
+          NOT(ISBLANK(TEXT(SPO_TechETLStatus__c)))
+        ),
+        AND (
+          ISPICKVAL(SPO_BriefName__r.ApplicationSource__c, &quot;SPO&quot;),
+          NOT(ISBLANK(TEXT(SPO_TechETLStatus__c)))
+        )
+      )
+    )
+  )
+)</errorConditionFormula>
+    <errorMessage>Firm order non cancellable</errorMessage>
+</ValidationRule>

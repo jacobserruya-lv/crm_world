@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ATTACHED_NOTE</fullName>
+                <default>false</default>
+                <label>Attached Note</label>
+            </value>
+            <value>
+                <fullName>CLIENTELING_EXCEPTION</fullName>
+                <default>false</default>
+                <label>Clienteling Exception</label>
+            </value>
+            <value>
+                <fullName>PRICE_ADJUSTMENT</fullName>
+                <default>false</default>
+                <label>Price Adjustment</label>
+            </value>
+            <value>
+                <fullName>BANK_TRANSFER</fullName>
+                <default>false</default>
+                <label>Bank Transfer</label>
+            </value>
+            <value>
+                <fullName>STOCK_ON_HOLD</fullName>
+                <default>false</default>
+                <label>Stock On Hold</label>
+            </value>
+            <value>
+                <fullName>FREE_SHIPPING</fullName>
+                <default>false</default>
+                <label>Free Shipping</label>
+            </value>
+            <value>
+                <fullName>PAYMENT_LINK</fullName>
+                <default>false</default>
+                <label>Payment Link</label>
+            </value>
+            <value>
+                <fullName>EXTENDED_PAYMENT_LINK</fullName>
+                <default>false</default>
+                <label>Extended Payment Link</label>
+            </value>
+            <value>
+                <fullName>PERSO_PRODUCT_ACC</fullName>
+                <default>false</default>
+                <label>Perso Product Accepted</label>
+            </value>
+            <value>
+                <fullName>PERSO_PRODUCT_REF</fullName>
+                <default>false</default>
+                <label>Perso Product Refused</label>
+            </value>
+            <value>
+                <fullName>PAY_AFTER_AGREEMENT</fullName>
+                <default>false</default>
+                <label>Pay After Agreement</label>
+            </value>
+            <value>
+                <fullName>General Comment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>General Comment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

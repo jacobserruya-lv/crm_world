@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NotificationRequest_Editing_Restriction</fullName>
+    <active>true</active>
+    <description>Only Identity User able to update Brand_Experience_Variation__c.Notification_Request__c</description>
+    <errorConditionFormula>ISCHANGED(Notification_Request__c) &amp;&amp;
+((!ISPICKVAL(Brand_Experience_Variation__r.Status__c, &apos;Preview&apos;)&amp;&amp;
+!ISPICKVAL(Brand_Experience_Variation__r.Status__c, &apos;Registration Opened&apos;)&amp;&amp;
+!ISPICKVAL(Brand_Experience_Variation__r.Status__c, &apos;Registration Closed&apos;)&amp;&amp;
+!ISPICKVAL(Brand_Experience_Variation__r.Status__c, &apos;Participation Opened&apos;))||!ISPICKVAL(NominationStatus__c, &apos;Approved&apos;))</errorConditionFormula>
+    <errorMessage>Notification Request cannot be updated. Client nomination is not confirmed OR Activation is ended</errorMessage>
+</ValidationRule>

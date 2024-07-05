@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TECH_UpcomingWeddingDate__c</fullName>
+    <description>Calculate the next wedding anniversary. 29 February is always replaced by 28. 
+This field is referenced in TECH_UpcomingAnniversaryDate__c (used in the ios app to get birthday clients)</description>
+    <externalId>false</externalId>
+    <formula>DATEVALUE( 
+			TEXT( YEAR ( TODAY() ) +  
+				IF(  OR( MONTH(Anniversary__c ) &lt;  MONTH (TODAY() ) ,  AND( MONTH(Anniversary__c ) = MONTH (TODAY() ) , DAY(Anniversary__c ) &lt;  DAY (TODAY() )   )   )   ,  1 , 0 ))   
+	&amp; &quot;-&quot; &amp; TEXT( MONTH ( Anniversary__c ) ) 
+	&amp; &quot;-&quot; &amp; TEXT( IF( MONTH( Anniversary__c ) = 2 &amp;&amp; DAY( Anniversary__c ) = 29 ,28, DAY( Anniversary__c )) )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TECH Upcoming Wedding Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

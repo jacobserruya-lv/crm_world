@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Client_service_Taiwan_Open_orders</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>AmountNoCurrency__c</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SPO_StoreCode__c</field>
+        <operation>equals</operation>
+        <value>NE1</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Creation in progress,Production to be launched,In progress,Production in progress</value>
+    </filters>
+    <label>Client service Taiwan - Open orders</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>CSC_Taiwan</group>
+    </sharedTo>
+</ListView>

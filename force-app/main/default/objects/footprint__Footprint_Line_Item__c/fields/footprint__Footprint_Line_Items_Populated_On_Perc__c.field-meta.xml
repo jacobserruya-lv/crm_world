@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>footprint__Footprint_Line_Items_Populated_On_Perc__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( footprint__Footprint_Line_Items_Object_Analysis__r.footprint__FootPrint_Records__c &gt;0, footprint__Footprint_Line_Items_Populated_On__c /footprint__Footprint_Line_Items_Object_Analysis__r.footprint__FootPrint_Records__c  ,0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Populated On (%)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

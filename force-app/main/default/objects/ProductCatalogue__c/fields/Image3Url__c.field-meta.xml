@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Image3Url__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (NOT(ISBLANK(FluidImageRecipeId__c)),
+  $Setup.ProductSettings__c.FluidPictureUrl__c + FluidImageRecipeId__c + &apos;/image/Packshot.jpg&apos;,
+  IF (NOT(ISBLANK(Image3Name__c)),
+    $Setup.ProductSettings__c.BccLargePictureUrl__c + Image3Name__c, 
+    IF (NOT(ISBLANK(FluidRecipeId__c)),
+      $Setup.ProductSettings__c.FluidPictureUrl__c + FluidRecipeId__c + &apos;/image/Packshot.jpg&apos;,
+      &apos;&apos;
+    )
+  )
+)
+
+/*IF (NOT(ISBLANK(FluidRecipeId__c)),
+  $Setup.ProductSettings__c.FluidPictureUrl__c + FluidRecipeId__c + &apos;/image/Front.jpg&apos;,
+  IF (NOT(ISBLANK(Image3Name__c)),
+    $Setup.ProductSettings__c.BccLargePictureUrl__c + Image3Name__c, 
+    &apos;&apos;
+  )
+)*/
+
+/*IF(NOT(ISBLANK(FluidImageRecipeId__c)),
+  IF (
+    AND (
+      NOT(ISBLANK(Category__c)),
+      NOT(ISBLANK(Category__r.FluidViewImage__c))
+    ),
+    $Setup.ProductSettings__c.FluidPictureUrl__c + FluidImageRecipeId__c + &apos;/image/&apos; + Category__r.FluidViewImage__c + &apos;.jpg&apos;,
+    $Setup.ProductSettings__c.FluidPictureUrl__c + FluidImageRecipeId__c + &apos;/image/Front.jpg&apos;
+  ),
+  IF (NOT(ISBLANK(FluidRecipeId__c )),
+    $Setup.ProductSettings__c.FluidPictureUrl__c + FluidRecipeId__c + &apos;/image/Front.jpg&apos;,
+    IF (NOT(ISBLANK(Image3Name__c)), 
+      IF(NOT(CONTAINS(Image3Name__c, &apos;_PM2_Front&apos;)), 
+        $Setup.ProductSettings__c.BccLargePictureUrl__c + MID(Image3Name__c, 0, LEN(Image3Name__c) - 4) + &apos;_PM2_Front%20view.jpg&apos;, 
+        IF(NOT(CONTAINS(Image3Name__c, &apos;_PM2_Front&apos;)),
+          $Setup.ProductSettings__c.BccLargePictureUrl__c + Image3Name__c + &apos;.jpg&apos; ,
+          $Setup.ProductSettings__c.BccLargePictureUrl__c + Image3Name__c)), &apos;&apos;)
+  )
+)
+*/</formula>
+    <label>Image 3 Url</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

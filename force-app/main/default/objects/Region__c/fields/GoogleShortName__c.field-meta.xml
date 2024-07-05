@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GoogleShortName__c</fullName>
+    <description>[Google Place API] Search an address with Google Place API returns sometimes ISO code or label for a region depending on the country (ex: China region sends &quot;Beijin Shi&quot; for the Short Name in &quot;administrative_area_level_1&quot; type)</description>
+    <externalId>false</externalId>
+    <label>Google Short Name</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABC_Origin__c</fullName>
+    <description>Only for ABC channel type</description>
+    <externalId>false</externalId>
+    <formula>IF( AND(ISBLANK (ChannelGroup),  MessagingChannel.MasterLabel = &quot;ABC&quot;), &quot;Italian LV Website&quot;, &quot;Chat Suggest&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Only for ABC messages</inlineHelpText>
+    <label>ABC Origin</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

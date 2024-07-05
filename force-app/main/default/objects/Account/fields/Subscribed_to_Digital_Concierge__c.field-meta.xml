@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Subscribed_to_Digital_Concierge__c</fullName>
     <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
     <label>Subscribed to Digital Concierge</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cnx__Finesse_URL_A__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is deprecated and should not be used.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>URL like https://myFinesseServerA.myDomain</inlineHelpText>
+    <label>deprecated</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gift_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Gift Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Champagne</fullName>
+                <default>false</default>
+                <label>Champagne</label>
+            </value>
+            <value>
+                <fullName>Chocolates</fullName>
+                <default>false</default>
+                <label>Chocolates</label>
+            </value>
+            <value>
+                <fullName>Flowers</fullName>
+                <default>false</default>
+                <label>Flowers</label>
+            </value>
+            <value>
+                <fullName>LV Gift</fullName>
+                <default>false</default>
+                <label>LV Gift</label>
+            </value>
+            <value>
+                <fullName>Non LV Gift</fullName>
+                <default>false</default>
+                <label>Non LV Gift</label>
+            </value>
+            <value>
+                <fullName>Wine</fullName>
+                <default>false</default>
+                <label>Wine</label>
+            </value>
+            <value>
+                <fullName>Néo Nano Fuschia</fullName>
+                <default>false</default>
+                <label>Néo Nano Fuschia</label>
+            </value>
+            <value>
+                <fullName>Pochette Jour Taiga Grizzli</fullName>
+                <default>false</default>
+                <label>Pochette Jour Taiga Grizzli</label>
+            </value>
+            <value>
+                <fullName>Dom Pérignon P2</fullName>
+                <default>false</default>
+                <label>Dom Pérignon P2</label>
+            </value>
+            <value>
+                <fullName>Leather Envelope</fullName>
+                <default>false</default>
+                <label>Leather Envelope</label>
+            </value>
+            <value>
+                <fullName>Guerlain Sunscreen</fullName>
+                <default>false</default>
+                <label>Guerlain Sunscreen</label>
+            </value>
+            <value>
+                <fullName>Guerlain Cosmetics</fullName>
+                <default>false</default>
+                <label>Guerlain Cosmetics</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

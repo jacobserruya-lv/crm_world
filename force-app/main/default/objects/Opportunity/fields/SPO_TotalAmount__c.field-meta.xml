@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPO_TotalAmount__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(SPO_Free__c,
+     0, 
+      IF ( SPO_UnitRetailPriceQuotation__c &lt;&gt; 0,
+            SPO_SkuQuantity__c * SPO_UnitRetailPriceQuotation__c,
+            SPO_SkuQuantity__c * SPO_UnitRetailPrice__c
+         ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

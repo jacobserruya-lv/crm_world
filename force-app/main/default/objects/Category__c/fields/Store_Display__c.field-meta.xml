@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store_Display__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If the category contains at least one product that forbids store display, the store display checkbox should be inactive</description>
+    <externalId>false</externalId>
+    <label>Store Display</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

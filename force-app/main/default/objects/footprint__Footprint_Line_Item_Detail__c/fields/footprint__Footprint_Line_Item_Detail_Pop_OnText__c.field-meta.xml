@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>footprint__Footprint_Line_Item_Detail_Pop_OnText__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>TEXT(footprint__Footprint_Line_Item_Detail_Pop_On__c) +&apos; / &apos;+ TEXT(footprint__Foot_Print_Line_Item_Detail_rt__r.footprint__Foot_Print_RecordType_Records__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Populated On</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

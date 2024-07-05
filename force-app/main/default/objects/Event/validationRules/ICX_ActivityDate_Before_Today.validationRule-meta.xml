@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ICX_ActivityDate_Before_Today</fullName>
+    <active>true</active>
+    <description>Block Appointment creation if the appointment date is passed</description>
+    <errorConditionFormula>AND( 
+NOT($User.BypassVR__c), 
+ISNEW(),
+DATEVALUE(ActivityDateTime)&lt; TODAY(),
+/* Only for ICON &amp; ICONiCS profiles to avoid impacts on others applications */
+CONTAINS($Profile.Name, &quot;ICON&quot;) 
+)</errorConditionFormula>
+    <errorDisplayField>StartDateTime</errorDisplayField>
+    <errorMessage>Your appointment date can not be set to the past</errorMessage>
+</ValidationRule>

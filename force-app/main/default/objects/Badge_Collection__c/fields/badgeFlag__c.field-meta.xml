@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>badgeFlag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Badge unlocked by Member</description>
+    <externalId>false</externalId>
+    <label>Badge Unlocked</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

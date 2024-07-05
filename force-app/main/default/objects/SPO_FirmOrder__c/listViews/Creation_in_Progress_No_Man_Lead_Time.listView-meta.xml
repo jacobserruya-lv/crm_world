@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Creation_in_Progress_No_Man_Lead_Time</fullName>
+    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>ProductCatalogue__c</columns>
+    <columns>Product_Exotic_Leather__c</columns>
+    <columns>Product_Lead_Time_Manufacturing__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Product_Exotic_Leather__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Product_Lead_Time_Manufacturing__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Product_Lead_Time_Manufacturing__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Creation in Progress - No Man. Lead Time</label>
+</ListView>

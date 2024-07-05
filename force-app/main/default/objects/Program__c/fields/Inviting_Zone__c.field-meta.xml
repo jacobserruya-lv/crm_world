@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inviting_Zone__c</fullName>
+    <externalId>false</externalId>
+    <label>Inviting Zone</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AMERICAS</fullName>
+                <default>false</default>
+                <label>AMERICAS</label>
+            </value>
+            <value>
+                <fullName>EMEA</fullName>
+                <default>false</default>
+                <label>EMEA</label>
+            </value>
+            <value>
+                <fullName>JAPAN</fullName>
+                <default>false</default>
+                <label>JAPAN</label>
+            </value>
+            <value>
+                <fullName>NORTH ASIA</fullName>
+                <default>false</default>
+                <label>NORTH ASIA</label>
+            </value>
+            <value>
+                <fullName>SOUTH ASIA</fullName>
+                <default>false</default>
+                <label>SOUTH ASIA</label>
+            </value>
+            <value>
+                <fullName>KOREA</fullName>
+                <default>false</default>
+                <label>KOREA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

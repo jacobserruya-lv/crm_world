@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interface__c</fullName>
+    <externalId>false</externalId>
+    <label>Interface</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Interface - Client Creation Update</fullName>
+                <default>true</default>
+                <label>Interface - Client Creation Update</label>
+            </value>
+            <value>
+                <fullName>Interface - Client Enquiry</fullName>
+                <default>false</default>
+                <label>Interface - Client Enquiry</label>
+            </value>
+            <value>
+                <fullName>Interface - Client Search</fullName>
+                <default>false</default>
+                <label>Interface - Client Search</label>
+            </value>
+            <value>
+                <fullName>Interface - Control CA code</fullName>
+                <default>false</default>
+                <label>Interface - Control CA code</label>
+            </value>
+            <value>
+                <fullName>Interface - Create Order</fullName>
+                <default>false</default>
+                <label>Interface - Create Order</label>
+            </value>
+            <value>
+                <fullName>Interface - Product Price</fullName>
+                <default>false</default>
+                <label>Interface - Product Price</label>
+            </value>
+            <value>
+                <fullName>Interface - Sales Creation (create deposit)</fullName>
+                <default>false</default>
+                <label>Interface - Sales Creation (create deposit)</label>
+            </value>
+            <value>
+                <fullName>Interface - Sales Creation (payment)</fullName>
+                <default>false</default>
+                <label>Interface - Sales Creation (payment)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

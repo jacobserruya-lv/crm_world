@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <description>Category of message</description>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Nature__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>ICX_Category</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Commercial Campaign</controllingFieldValue>
+            <valueName>New product presentation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial Campaign</controllingFieldValue>
+            <valueName>Online Exclusivity presentation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial Campaign</controllingFieldValue>
+            <valueName>Catalogue / The Book follow-up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Services &amp; Repair</controllingFieldValue>
+            <valueName>Care Advices</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Services &amp; Repair</controllingFieldValue>
+            <valueName>Personalization / Hot Stamping / Engraving</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Services &amp; Repair</controllingFieldValue>
+            <valueName>Product call back</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Services &amp; Repair</controllingFieldValue>
+            <valueName>Product maintenance invitation (cleaning / touch up)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Services &amp; Repair</controllingFieldValue>
+            <valueName>Repair follow-up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales &amp; Order follow up</controllingFieldValue>
+            <valueName>Order follow-up / Satisfaction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales &amp; Order follow up</controllingFieldValue>
+            <valueName>Made to order / High End products</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales &amp; Order follow up</controllingFieldValue>
+            <valueName>Web engagement / Satisaction / Voice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales &amp; Order follow up</controllingFieldValue>
+            <valueName>Return &amp; Exchange</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales &amp; Order follow up</controllingFieldValue>
+            <valueName>Waiting list / Reservation / Product on Demand follow-up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Client Clienteling</controllingFieldValue>
+            <valueName>New CA reassigned (CA&apos;s introduction / first contact)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Client Clienteling</controllingFieldValue>
+            <valueName>Celebration &amp; Blessings</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Client Clienteling</controllingFieldValue>
+            <valueName>Client Retention</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Brand Image &amp; Events</controllingFieldValue>
+            <valueName>Corporate events / Exhibition (invitation / rsvp)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Brand Image &amp; Events</controllingFieldValue>
+            <valueName>Store Events</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Brand Image &amp; Events</controllingFieldValue>
+            <valueName>Other Store Support (opening / closing)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Availability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Price</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Characteristics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Authentification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Digital Collectibles</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Neverfull</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Personalization</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Store information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Horizon assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Website&amp;App</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Head office, Company information, LVMH</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Appointment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Collaboration &amp; Job opportunity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Repair and Care advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Policy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Change of Client Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Phoenix</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service and General Information</controllingFieldValue>
+            <valueName>Legal ( insurance, police, fraud)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Reservation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Exchange/Return</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Packaging</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Credit note, gift voucher</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Invoice duplicate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Tax refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <controllingFieldValue>Congratulations</controllingFieldValue>
+            <valueName>Repair</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <valueName>Product quality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <controllingFieldValue>Congratulations</controllingFieldValue>
+            <valueName>Service web/CS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <controllingFieldValue>Congratulations</controllingFieldValue>
+            <valueName>Service store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <controllingFieldValue>Congratulations</controllingFieldValue>
+            <valueName>Company, LVMH</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <valueName>Cosmetovigilance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <valueName>Delivery, shipping, packing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <valueName>Process</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaints</controllingFieldValue>
+            <controllingFieldValue>Congratulations</controllingFieldValue>
+            <valueName>Voice, Client experience</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events and Editorials</controllingFieldValue>
+            <valueName>Exhibition</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events and Editorials</controllingFieldValue>
+            <valueName>Fashion show men</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events and Editorials</controllingFieldValue>
+            <valueName>Fashion show women</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events and Editorials</controllingFieldValue>
+            <valueName>In-store event, cocktail, RSVP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events and Editorials</controllingFieldValue>
+            <valueName>Social media buzz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Events and Editorials</controllingFieldValue>
+            <valueName>Visit Asnieres</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Congratulations</controllingFieldValue>
+            <valueName>Follow up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Congratulations</controllingFieldValue>
+            <valueName>Product quality, advice</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

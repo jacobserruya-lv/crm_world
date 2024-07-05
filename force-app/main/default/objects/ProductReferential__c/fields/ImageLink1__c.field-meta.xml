@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ImageLink1__c</fullName>
+    <description>Get the file name of the first picture (used to display different picture size with Custom Setting ProductSettings__c): &apos;louis-vuitton--&apos; + SKUCode__c + &apos;_PM2_Front%20view.jpg&apos;</description>
+    <externalId>false</externalId>
+    <formula>&apos;louis-vuitton--&apos; + SKUCode__c + &apos;_PM2_Front%20view.jpg&apos;</formula>
+    <label>Image Link 1</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

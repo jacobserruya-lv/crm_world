@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Age__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (  OR(ISPICKVAL( Status , &quot;Closed&quot;),
+ISPICKVAL( Status , &quot;Approved&quot;),
+ISPICKVAL( Status , &quot;Approved &amp; Fulfilled&quot;),
+ISPICKVAL( Status , &quot;Cancelled&quot;),
+ISPICKVAL( Status , &quot;Merged&quot;),
+ISPICKVAL( Status , &quot;My Product on Demand (with sku) created&quot;),
+ISPICKVAL( Status , &quot;Not Interested&quot;),
+ISPICKVAL( Status , &quot;Rejected&quot;),
+ISPICKVAL( Status , &quot;Successful&quot;)
+),  ClosedDate - CreatedDate ,  NOW() -  CreatedDate )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>(Days)</inlineHelpText>
+    <label>Request Age (days)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

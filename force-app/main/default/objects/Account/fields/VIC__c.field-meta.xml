@@ -3,6 +3,7 @@
     <fullName>VIC__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To distinguish VIC users.</description>
+    <externalId>false</externalId>
     <label>VIC</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Order_Quantity</fullName>
+    <active>true</active>
+    <description>The field Quantity can&apos;t be changed when the stage is updated to &apos;Creation in Progress&apos;</description>
+    <errorConditionFormula>$User.BypassVR__c = False &amp;&amp; 
+ISPICKVAL (StageName, &quot;Creation in progress&quot;) &amp;&amp;
+ISCHANGED( SPO_SkuQuantity__c )</errorConditionFormula>
+    <errorDisplayField>TotalOpportunityQuantity</errorDisplayField>
+    <errorMessage>You can&apos;t change anymore the quantity since the stage of the order is &apos;Creation in progress&apos;</errorMessage>
+</ValidationRule>

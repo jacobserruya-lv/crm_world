@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WhereClause3__c</fullName>
+    <description>parmis tout les comptes identity select contactid from user where profile.name = \&apos;Identity User\&apos;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Exemple and PersonContactId not in (select contactid from user where profile.name = \&apos;Identity User\&apos;)</inlineHelpText>
+    <label>WhereClause3</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

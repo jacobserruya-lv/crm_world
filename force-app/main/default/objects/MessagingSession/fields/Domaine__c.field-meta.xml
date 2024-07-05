@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Domaine__c</fullName>
+    <description>Domaine of message</description>
+    <externalId>false</externalId>
+    <label>Domaine</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>ICX_Domain</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Fashion show men</controllingFieldValue>
+            <controllingFieldValue>Fashion show women</controllingFieldValue>
+            <valueName>FW</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fashion show men</controllingFieldValue>
+            <controllingFieldValue>Fashion show women</controllingFieldValue>
+            <valueName>SS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fashion show women</controllingFieldValue>
+            <valueName>Cruise</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice duplicate</controllingFieldValue>
+            <valueName>Client wants a duplicate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice duplicate</controllingFieldValue>
+            <valueName>Client can not download the invoice in MyLV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Modification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Procedure &amp; Options</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Status/Tracking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Modify</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Place</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order</controllingFieldValue>
+            <valueName>Rejected Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Price</controllingFieldValue>
+            <valueName>LV Policy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Price</controllingFieldValue>
+            <valueName>Precision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Repair and Care advice</controllingFieldValue>
+            <valueName>Price</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Repair and Care advice</controllingFieldValue>
+            <valueName>Procedure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Repair and Care advice</controllingFieldValue>
+            <valueName>Status</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reservation</controllingFieldValue>
+            <valueName>In Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reservation</controllingFieldValue>
+            <valueName>Product on Demand</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tax refund</controllingFieldValue>
+            <valueName>Refund Amount</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tax refund</controllingFieldValue>
+            <valueName>Tax Form Missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website&amp;App</controllingFieldValue>
+            <valueName>Mistake/Bugs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website&amp;App</controllingFieldValue>
+            <valueName>MyLV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website&amp;App</controllingFieldValue>
+            <valueName>Navigation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

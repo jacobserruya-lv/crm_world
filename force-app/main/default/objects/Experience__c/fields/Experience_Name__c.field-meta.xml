@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Experience_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Experience Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Private Shopping</fullName>
+                <default>false</default>
+                <label>Private Shopping</label>
+            </value>
+            <value>
+                <fullName>La Fabrique du Temps</fullName>
+                <default>false</default>
+                <label>La Fabrique du Temps</label>
+            </value>
+            <value>
+                <fullName>Asnières</fullName>
+                <default>false</default>
+                <label>Asnières</label>
+            </value>
+            <value>
+                <fullName>Cultural</fullName>
+                <default>false</default>
+                <label>Cultural</label>
+            </value>
+            <value>
+                <fullName>Fiesso</fullName>
+                <default>false</default>
+                <label>Fiesso</label>
+            </value>
+            <value>
+                <fullName>Beauty &amp; Spa</fullName>
+                <default>false</default>
+                <label>Beauty &amp; Spa</label>
+            </value>
+            <value>
+                <fullName>High Jewellry</fullName>
+                <default>false</default>
+                <label>High Jewellry</label>
+            </value>
+            <value>
+                <fullName>La Fondation Louis Vuitton</fullName>
+                <default>false</default>
+                <label>La Fondation Louis Vuitton</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Wines and spirits</fullName>
+                <default>false</default>
+                <label>Wines and spirits</label>
+            </value>
+            <value>
+                <fullName>Dining</fullName>
+                <default>false</default>
+                <label>Dining</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
