@@ -1,0 +1,54 @@
+<template>
+    <div class="spinner">
+        <template if:true={isLoading}>
+             <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+             </lightning-spinner>
+        </template>
+    </div>
+    <div class="slds-box">        
+        <template if:true={records}>
+            <div class="slds-scrollable_y" style={commentHeight}>
+                <!-- Loop on commentList -->
+                <template
+                for:each={records}
+                for:item="item"
+                >
+                    <div key={item.id} class="slds-p-bottom_medium">
+                        <div class="slds-box slds-box_x-small">
+                            <p><b>{item.ClientAdvisorName}</b></p>
+                            <p>{item.Description__c}</p>
+                            <div class="slds-text-body_small"><i><lightning-formatted-date-time 
+                                        value={item.createdDate}
+                                        year="2-digit"
+                                        month="long"
+                                        day="numeric"
+                                        hour="2-digit"
+                                        minute="2-digit">
+                                    </lightning-formatted-date-time></i></div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Add comment : only if authorized -->
+        <!-- Should verify if user can perform the action -->
+        <!-- <div class="slds-form-element">
+            <div class="slds-form-element__control">
+            <textarea id="textarea-id-01" placeholder="Add a comment…" class="slds-textarea"></textarea>
+            </div>
+        </div> 
+        <div class="slds-no-flex">
+            <button class="slds-button slds-button_neutral">Post comment</button>
+        </div> -->
+<br>
+        <lightning-record-edit-form object-api-name="Order_Note__c" onsubmit={handleSubmit} onsuccess={handleSuccess}>
+            <lightning-input-field onchange={handleChangeDescription} field-name="Description__c" variant="label-hidden" placeholder="Add a comment..."></lightning-input-field>
+            <lightning-button class="slds-m-top_small"
+                              type="submit"
+                              label="Post Comment"
+                              disabled={disabledPostComment}>
+            </lightning-button>
+        </lightning-record-edit-form>
+    </div>
+</template>

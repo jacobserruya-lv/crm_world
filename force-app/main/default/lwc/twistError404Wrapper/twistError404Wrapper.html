@@ -1,0 +1,19 @@
+<template>
+    <div class={mainWrapperCssClasses}>
+      <template if:true={language}>
+        <header class="header">
+          <c-twist-header language={language} lang-country={oQueryParams.langCountry}></c-twist-header>
+        </header>
+
+        <main class="main">
+          <section class="main__section">
+            <c-twist-Error language={language} query-params={error404ComponentQueryParams}></c-twist-Error>
+          </section>
+        </main>
+
+        <footer class="footer">
+          <c-twist-footer class="inside-footer" window-functions={windowFunctions} language={language} query-params={error404ComponentQueryParams}></c-twist-footer>
+        </footer>
+      </template>
+  </div>
+</template>

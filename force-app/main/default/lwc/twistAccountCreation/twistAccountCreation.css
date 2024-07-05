@@ -1,0 +1,196 @@
+.component .component__text {
+    text-align: inherit;
+}
+
+.checkbox {
+    padding-bottom: 35px;
+}
+
+.combobox {
+    color: #000;
+}
+
+.form {
+    align-self: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.partial-form {
+    align-self: flex-start;
+    width: 100%;
+    max-width: 500px;
+}
+
+.partialActivationForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 40px;
+    align-self: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.activationCodeCss {
+    width: 100%;
+}
+
+.disabled-link {
+    color: rgb(185, 185, 185);
+    pointer-events: none;
+}
+
+.newCodeGeneratedTextCss {
+    color: green;
+}
+
+.text{
+    font-size: 16px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    text-align: start;
+    color: #000;
+}
+.subscribe-text{
+    font-size: 14px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    text-align: start;
+    color: #000;
+    padding-top: 15px;
+}
+
+.calendar {
+    display: none;
+}
+
+.line-or-text{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.twist-password-field-container {
+    position: relative;
+}
+
+.twist-password-field-container .eye-iconSmall {
+    width: 16px;
+    bottom:40px;
+
+}
+
+@media (max-width: 768px) {
+
+    .right {
+        width: 100%;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .component__form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .inside__component {
+        width: 100%;
+        margin: 0;
+    }
+
+    .input__code {
+        width: 100%;
+    }
+
+    .form {
+        width: 100%;
+    }
+
+    .component .component__text {
+        overflow-wrap: break-word;
+    }
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    margin: 0 9.3vw;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 92px;
+    padding-top: 64px;
+    min-height: calc(100vh - 236px);
+}
+
+.component-confirmation-page__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.error {
+    color: red;
+}
+
+
+.component .component__form .slds-form-element__label {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.main .component__form .activationCodeCss {
+    padding-bottom: 0;
+}
+
+.privacy-policy {
+    display: flex;
+    align-items: baseline;
+}
+
+.component__form {
+    padding-top: 20px;
+}
+
+.button__container {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 312px;
+}
+
+.button__wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+.is--accountActivation{ 
+    align-self: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.is--accountActivation .partialActivationForm .partial-form .twist-password-field-container .eye-iconSmall{
+    bottom: 16px;    
+}
+.under_text{
+    font-size: 14px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    text-align: start;
+    color: #000;
+}

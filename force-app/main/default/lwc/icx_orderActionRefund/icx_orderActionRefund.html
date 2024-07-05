@@ -1,0 +1,40 @@
+<template>
+    <div class="modalSpinner">
+        <lightning-modal-header label={orderaction.label}></lightning-modal-header>
+        <lightning-modal-body>
+            <template if:true={isLoading}>
+                 <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                 </lightning-spinner>
+            </template>
+            <template if:true={products}>
+                <lightning-input type="checkbox" label="Select All" name="SelectAll" onchange={handleSelectAll}></lightning-input>
+                <template if:true={products.length}>
+                    <div>
+                        <template
+                            for:each={products}
+                            for:item="product"
+                        >
+                            <c-icx_order-action-refund-tile
+                                key={product.Id}
+                                product={product}
+                                reasons={reasons}
+                                onselected={handleProductSelected}
+                                class="slds-var-m-around_x-small"
+                            >
+                            </c-icx_order-action-refund-tile>
+                        </template>
+                    </div>
+                </template>
+                <template if:false={products.length}>
+                    <div class="slds-var-p-around_large">
+                        <p class="slds-var-p-around_small">{message}</p>
+                    </div>
+                </template>
+            </template>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button label="Save" onclick={handleSave}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

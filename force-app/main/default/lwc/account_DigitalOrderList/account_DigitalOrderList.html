@@ -1,0 +1,71 @@
+<template>
+    <lightning-card if:true={displayOrder}>
+
+        <h2 slot="title"  >
+            <lightning-icon icon-name="utility:shopping_bag" size="small"></lightning-icon>
+            <b class="slds-m-left_x-small">Digital Orders ({orderListSize})</b> 
+        </h2>
+
+
+        <template if:true={orderList}>
+            <div class="slds-p-around_small">
+                <lightning-layout class= "slds-m-bottom_xx-small">
+                    <lightning-layout-item size="2" >
+                        <h2 class="slds-text-title_bold">Order Date</h2>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" >
+                        <h2 class="slds-text-title_bold">Order Number</h2>
+                    </lightning-layout-item>
+                    <lightning-layout-item  size="2" >
+                        <h2 class="slds-text-title_bold">Product</h2>
+                    </lightning-layout-item>
+                    <lightning-layout-item  size="3" >
+                        <h2 class="slds-text-title_bold">Store</h2>
+                    </lightning-layout-item>
+                    <lightning-layout-item  size="2" >
+                        <h2 class="slds-text-title_bold">Status </h2>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+            
+                <template if:true={visibleOrder}>
+                    <template for:each={visibleOrder} for:item="order" >
+
+                        <lightning-layout key={order.ShippingNumber}  class="slds-is-relative" data-shipping={order.ShippingNumber} onmouseover={showData} onmouseout={hideData}>
+                            <lightning-layout-item  size="2" >
+                                <div class="slds-truncate ">{order.OrderDate}</div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="3" >
+                                <div class="slds-text-title_bold slds-truncate ">
+                                    <a onclick={openOrder} data-order={order.OrderNumber}>{order.OrderNumber}</a> </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item  size="2" >
+                                <div class="slds-truncate slds-m--small">{order.Product.SKU}</div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="3" >
+                                <div class="slds-truncate ">{order.StoreCode.Name}</div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2" >
+                                <div class="slds-truncate ">
+                                    <lightning-badge label={order.Status} class="slds-truncate slds-theme_warning slds-badge_lightest slds-p-top_xxx-small slds-p-bottom_xxx-small"></lightning-badge>
+                                </div> 
+                            </lightning-layout-item>
+                            <div class = "slds-hide" data-id={order.ShippingNumber}>
+                                <c-account_-digital-order-popup  mydigitalorder={order}></c-account_-digital-order-popup>
+                            </div>
+                        </lightning-layout>
+            
+                    </template>
+                    <hr/>
+            
+                </template>  
+                <div slot="footer" class="slds-var-m-vertical_meduim slds-align_absolute-center footerclass" >
+                    <c-pagination records={orderList} onupdate={updateOrderHandler}></c-pagination>
+                </div>
+
+            </div>
+    
+        </template>
+       
+    </lightning-card>
+</template>

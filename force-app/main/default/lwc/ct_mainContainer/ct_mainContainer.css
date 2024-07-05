@@ -1,0 +1,30 @@
+:host {
+  left: -2rem;
+  display: block;
+  position: relative;
+  background-color: #fff;
+  width: 102vw;
+  height: fit-content;
+  padding-left: 2rem;
+  padding-right: 2.4%;
+  overflow-x: hidden;
+  min-height: 70vh;
+}
+
+.spinner-loader {
+  position: fixed;
+  z-index: 10000 !important;
+}
+.text-loader {
+  position: fixed;
+  z-index: 10001!important;
+  color: grey;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 55px;
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

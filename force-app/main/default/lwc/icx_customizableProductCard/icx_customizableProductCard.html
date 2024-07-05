@@ -1,0 +1,12 @@
+<template>
+    <div class="card-container">
+        <div class="personalized-button">
+            <c-icx_personalize-button product-name={item.ProductName__c} product-s-k-u={item.ProductSKU__c}
+                country-selected={selectCountry} physical-stores-selected={physicalStoresSelected}>
+            </c-icx_personalize-button>
+        </div>
+        <div class="category-card">{item.ProductCategory__c}</div>
+        <div class="title-card">{item.ProductName__c}</div>
+        <img src={item.customProductImage__c} alt={item.customProductImage__c} class="card-customProductImage__c" />
+    </div>
+</template>

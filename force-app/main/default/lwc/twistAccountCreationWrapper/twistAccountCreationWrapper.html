@@ -1,0 +1,33 @@
+<template>
+  <div class={mainWrapperCssClasses}>
+    
+    <template if:true={language}>
+      <header class="header">
+        <c-twist-header language={language} title={title} lang-country={oQueryParams.langCountry}  onclicklink={handleOnLinkClicked} can-modal-be-shown={canModalBeShown} onchildlwcrendered={handleChildLwcRendered}></c-twist-header>
+      </header>
+      
+      <section class="main__section">
+        <c-twist-account-creation language={language} lang-country={oQueryParams.langCountry} query-params={accountCreationComponentQueryParams} autodata={autodata} oncanmodalbeshown={handleCanModalBeShown} onchildlwcrendered={handleChildLwcRendered}></c-twist-account-creation>
+      </section>
+      
+      <footer class="footer">
+        <c-twist-footer
+          can-modal-be-shown={canModalBeShown}
+          class="inside-footer"
+          window-functions={windowFunctions}
+          language={language}
+          query-params={accountCreationComponentQueryParams}
+          onclicklink={handleOnLinkClicked}
+          onchildlwcrendered={handleChildLwcRendered}>
+        </c-twist-footer>
+      </footer>
+      
+      <c-twist-modal-stay-to-continue
+      show-modal={isModalDisplayed}
+      language={language}
+      onclickaction={handleSelectedAction}
+      onchildlwcrendered={handleChildLwcRendered}>
+    </c-twist-modal-stay-to-continue >
+  </template>
+</div>
+</template>

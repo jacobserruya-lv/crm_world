@@ -1,0 +1,12 @@
+<template>
+    <template for:each={sectionContent} for:item="contentItem">
+        <div key={contentItem.title} class="footer__links">
+            <template lwc:if={contentItem.isText}>
+                <lightning-formatted-rich-text value={contentItem.label}></lightning-formatted-rich-text>
+            </template>
+            <template lwc:if={contentItem.isLink}>
+                <a data-id={contentItem.label} data-url={contentItem.url} class="footer__link" onclick={handleClickOnLink}>{contentItem.label}</a>
+            </template>
+        </div>
+    </template>
+</template>

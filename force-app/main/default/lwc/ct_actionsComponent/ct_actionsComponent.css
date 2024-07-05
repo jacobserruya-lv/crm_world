@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "LouisVuitton-Regular";
+  src: url(@salesforce/resourceURL/fonts/LOUISVUITTON-REGULAR.OTF)
+    format("opentype");
+}
+
+.actions-component-wrapper {
+  height: 174pt;
+  margin-inline: 7rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.actions-component-wrapper > .slds-col {
+  width: 30%;
+  position: relative;
+}
+
+.actions-component-element {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #dddbda;
+  background-color: #fbfbfb;
+}
+.actions-component-element-header {
+  font-family: "LouisVuitton-Regular";
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #191009;
+}
+.actions-component-element-btn {
+  margin-bottom: 34pt;
+  margin-top: 8pt;
+  font-family: "LouisVuitton-Regular";
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  background-color: #0070d2;
+  padding: 12px 45px 11px;
+}
+
+.actions-component-element-btn[disabled] {
+  background-color: #666666;
+}
+.error-message {
+  color: #666666;
+  text-align: center;
+  position: absolute;
+  width: 80%;
+  white-space: pre-line;
+  top: 115pt;
+}

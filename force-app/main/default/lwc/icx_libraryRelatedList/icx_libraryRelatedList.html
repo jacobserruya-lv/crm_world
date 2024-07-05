@@ -1,0 +1,73 @@
+<template>
+    <div class="slds-box">
+        <template if:true={records}>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_8-of-12">{title} (
+                    <template if:true={isloading}><img alt="Loading" src="/img/loading.gif"/></template>
+                    <template if:false={isloading}>{totalRecords}<template if:true={hasmore}>+</template> items</template>
+                    )
+                </div>
+                <template if:true={actionvisible}>
+                <div class="slds-col slds-size_4-of-12 slds-text-align_right">
+                    <lightning-button variant="brand" label={actionlabel} title={actionlabel} onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                </div>
+            </template>
+                <div class="slds-col slds-size_1-of-1">&nbsp;</div>
+            </div>
+            <div style={setDatatableHeight}>
+                <lightning-datatable 
+                    key-field="id"
+                    data={records}
+                    hide-checkbox-column
+                    columns={tablecolumns}
+                    enable-infinite-loading
+                    load-more-offset="100"
+                    onloadmore={loadMoreData}
+                    show-row-number-column
+                    row-number-offset="0">
+                </lightning-datatable>
+            </div>
+        </template>
+        <!-- <template if if:true={error}>
+            <p>{error}</p>
+        </template> -->
+    </div>
+</template>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- <template>
+    <div class="slds-box">
+        <template if:true={records}>
+            <div class="slds-grid slds-gutters slds-wrap">
+
+                <div class="slds-col slds-size_8-of-12">Product Request (
+                    <template if:true={dataLoading}><img alt="Loading" src="/img/loading.gif"/></template>
+                    <template if:false={dataLoading}>{totalRecords}<template if:true={hasMore}>+</template></template>
+                    )
+                </div>
+                <div class="slds-col slds-size_4-of-12 slds-text-align_right">
+                    <lightning-button variant="brand" label="New request" title="New request" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-1">&nbsp;</div>
+            </div>
+            <div style="height: 300px;background-color:green;">
+                <lightning-datatable 
+                    key-field="id"
+                    data={records}
+                    hide-checkbox-column
+                    columns={tableColumns}
+                    enable-infinite-loading
+                    load-more-offset="100"
+                    onloadmore={loadMoreData}
+                    show-row-number-column
+                    row-number-offset="0">
+
+                </lightning-datatable>
+            </div>
+        </template>
+        <template if if:true={error}>
+            <p>{error}</p>
+        </template>
+    </div>
+</template> -->

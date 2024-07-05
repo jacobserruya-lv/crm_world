@@ -1,0 +1,16 @@
+<template>
+    <fieldset class="slds-form-element">
+        <legend class="slds-form-element__legend slds-form-element__label">{item.label}</legend>
+        <div class="slds-form-element__control">
+            <template for:each={item.checkboxes} for:item="checkbox">
+                <div class="slds-checkbox" key={checkbox.id}>
+                    <input type="checkbox" name="checkbox" id={checkbox.id} value={checkbox.id} />
+                    <label class="slds-checkbox__label" for={checkbox.id}>
+                        <span class="slds-checkbox_faux"></span>
+                        <span class="slds-form-element__label">{checkbox.label}</span>
+                    </label>
+                </div>
+            </template>
+        </div>
+      </fieldset>
+</template>

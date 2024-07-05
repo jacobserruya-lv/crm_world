@@ -1,0 +1,26 @@
+<template>
+    <div class={cardClass} onclick={redirectProductDetails} >
+        <img src={item.productImage} alt={item.productName} class="card-container__img" />
+        <div class="body-container">
+            <div class="title-card">{item.name}</div>
+            <div class="subtitle-card">{item.sku}</div>
+            <div class="details-card">
+                <div class="details-card__details" style="display: flex;justify-content:space-between">
+                    <p>  <lightning-formatted-number if:true={item.currencyCode} value={item.sales}  format-style="currency" currency-code={item.currencyCode}></lightning-formatted-number> <span if:false={item.currencyCode}>{item.sales}</span></span></p>
+
+                   <p> Qty : {item.quantity}</p>
+                </div>
+                <!-- <div class="details-card__details--thin">
+                </div> -->
+            </div>
+        </div>
+        <footer class="footer-container">
+            <template if:true={details} for:each={details} for:item="detail">
+                <div key={detail.id} class="description-card">
+                    <img src={detail.src} alt={detail.value} />
+                    <div class="description-card__description">{detail.value}</div>
+                </div>
+            </template>
+        </footer>
+    </div>
+</template>

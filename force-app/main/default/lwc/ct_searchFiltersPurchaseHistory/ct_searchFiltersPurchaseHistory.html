@@ -1,0 +1,44 @@
+<template>
+  <div class="slds-grid slds-gutters filters-holder">
+    <div class="slds-grid filter-wrapper purchase-category-wrap">
+      <lightning-radio-group
+        class="purchase-category"
+        name="Purchase"
+        label="Purchase"
+        options={purchaseOptions}
+        value={purchaseValue}
+        type="radio"
+        onchange={handlePurchaseChange}
+        disabled={isPurchaseOptionsDisabled}
+      ></lightning-radio-group>
+    </div>
+    <div class="slds-grid filter-wrapper product-category-wrap">
+      <legend class="product-category-legend">Product Category</legend>
+      <template for:each={productCategories} for:item="category">
+        <label class="category-name" key={category.id}
+          >{category.name}
+          <lightning-input
+            class="category-include"
+            data-id={category.id}
+            type="checkbox"
+            label={category.include.label}
+            name="Yes"
+            checked={category.include.state}
+            onchange={handleProductCategoriesChange}
+            disabled={isDisabled}
+          ></lightning-input>
+          <lightning-input
+            class="category-exclude"
+            data-id={category.id}
+            type="checkbox"
+            label={category.exclude.label}
+            name="No"
+            checked={category.exclude.state}
+            onchange={handleProductCategoriesChange}
+            disabled={isDisabled}
+          ></lightning-input>
+        </label>
+      </template>
+    </div>
+  </div>
+</template>

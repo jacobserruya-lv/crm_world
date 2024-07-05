@@ -1,0 +1,71 @@
+<template>
+    <lightning-card icon-name="custom:custom19" title='CSV File Read'>
+        <div style="margin-left: 3%">
+            <template if:true={isErrFile}>
+            <lightning-button-icon
+            icon-name="utility:download"
+            alternative-text="Csv Download"
+            size="small"
+            class="slds-m-left_xx-small" 
+            title="Download" 
+            onclick={handleMissingEmailDownload}>
+          </lightning-button-icon>
+          <lightning-button 
+          variant="destructive-text" 
+          label="ERRORS DETECTED CLICK HERE TO DOWNLOAD THE ERROR FILE THEN REFRESH THE PAGE" 
+          title="ERRORS DETECTED CLICK HERE TO DOWNLOAD THE ERROR FILE THEN REFRESH THE PAGE" 
+          onclick={handleMissingEmailDownload} 
+          class="slds-m-left_x-small">
+          </lightning-button>
+          </template>
+
+        <template if:false={isGetCurrentFile}>
+            <template if:false={isErrFile}>
+            <lightning-file-upload accept={acceptedCSVFormats} 
+            label="Please upload your CSV file here it will be rewiewed for errors" 
+            multiple="multiple" 
+            onuploadfinished={uploadFileHandlerPreUpload} 
+            record-id={recordId}></lightning-file-upload>
+            </template>
+        </template>
+            
+        <!-- getCurrentFile -->
+        <template if:true={isGetCurrentFile}>
+            <lightning-button-icon
+            icon-name="action:approval"
+            alternative-text="Csv Download"
+            size="small"
+            class="slds-m-left_xx-small" 
+            title="Download" 
+            onclick={ActionCreateDPCA}
+            disabled={isDisabled}
+            >
+            </lightning-button-icon>
+            <lightning-button 
+            variant="brand-outline" 
+            label="CONGRATS YOUR FILE IS OF CORRECT FORMAT CLICK HERE TO CREATE DPCA AND RECEIVE AN EMAIL" 
+            title="CONGRATS YOUR FILE IS OF CORRECT FORMAT CLICK HERE TO CREATE DPCA AND RECEIVE AN EMAIL" 
+            onclick={ActionCreateDPCA} 
+            class="slds-m-left_x-small"
+            disabled={isDisabled}>
+            </lightning-button>
+        </template>
+        </div>
+
+        <div class="exampleHolder">            
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+        </div>
+        
+        <!-- Video -->
+        <!-- <div if:true={isSuccess}>
+                <div if:true={isVideoSession}>
+                    <lightning-datatable columns={columnsVideoSession} 
+                                        data={data} 
+                                        hide-checkbox-column="true" 
+                                        key-field="id"></lightning-datatable>
+                </div>
+        </div> -->
+    </lightning-card>
+</template>

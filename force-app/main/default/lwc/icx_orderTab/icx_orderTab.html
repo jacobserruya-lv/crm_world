@@ -1,0 +1,47 @@
+<template>
+    <div class="orderTab-conainer">
+        <!-- <div class=" slds-p-around_small slds-is-relative  " if:true={isLoading}> -->
+        <!-- <div class=" slds-p-around_none slds-is-relative  " if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </div>
+        <template if:false={isLoading}>
+            <template if:true={tableData.rows}>
+            <div  class="table-container" data-id="tableOrderContainer" onscroll={checkScroll}>
+                <c-icx_dynamic-table my-row-class='row-colors rows-hover cursor-pointer' my-image-class='small-image' table-data={tableData} onrecorddetails={navigateToOrder}>
+                </c-icx_dynamic-table>
+            </div>
+        </template>
+
+            <template if:false={tableData.rows}>
+                <lightning-card>
+                    <p style="font-weight:bold; padding:2%">No data for this client.</p>
+                </lightning-card>
+            </template>
+        </template> -->
+
+
+        <!-- new order tab -->
+        <c-icx_dynamic-table table-data={tableData2} onviewrecordlist={navigateToViewListPage} >
+            <div slot="content">
+                <div class=" slds-p-around_none slds-is-relative  " if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+                <template if:false={isLoading}>
+
+                <template if:true={tableData.rows}>
+
+                <div  class="table-container" data-id="tableOrderContainer" onscroll={checkScroll}>
+
+                <c-icx_dynamic-table my-row-class='row-colors rows-hover cursor-pointer' my-image-class='small-image' table-data={tableData} onrecorddetails={navigateToOrder} >
+                </c-icx_dynamic-table>
+                </div>
+                </template>
+                </template>
+
+            </div>
+        </c-icx_dynamic-table>
+      
+
+        
+    </div>
+</template>

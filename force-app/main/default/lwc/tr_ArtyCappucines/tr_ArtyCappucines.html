@@ -1,0 +1,46 @@
+<template>
+
+    <template if:true={records}>
+          Number of products availables : { nbproductsavailable}
+           Number of products  : {nbproducts}
+
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" id="Table1">
+            <thead>
+                <tr class="slds-line-height_reset">
+                 
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Phone">PRODUCT NAME</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="select">SERIAL NUMBER</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="select">MANAGEMENT  ZONE LEVEL</div>
+                    </th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={records} for:item="acc">
+                    <tr class="slds-hint-parent" key={acc.Id}>
+                      
+                        <th data-label="productName" scope="row">
+                            <div class="slds-truncate">{acc.productName}</div>
+                        </th>
+                        <td data-label="serialnumber">
+                            <div class="slds-truncate">{acc.serialnumber}</div>
+                        </td>
+                        <td data-label="zone">
+                            <div class="slds-truncate">{acc.zone}</div>
+                        </td>
+                       
+                      
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+    <template if:false={records}>
+        NO PRODUCTS AVAILABLE FOR THIS STORE
+    </template>
+</template>

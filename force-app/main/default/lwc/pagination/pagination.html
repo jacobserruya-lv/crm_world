@@ -1,0 +1,15 @@
+<template>
+    <lightning-layout>
+        <lightning-layout-item padding="around-small" class={disablePreviousButton} >
+                <lightning-button-icon icon-name="utility:left"  size="large" alternative-text="Previous" onclick={hanldePreviousPage}></lightning-button-icon>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <div class="slds-m-top_xx-small" style="color: #999999;font-size: 0.9rem;"> {currentPage}  / {totalPage} </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" class={disableNextButton}>
+                <lightning-button-icon icon-name="utility:right" size="large" alternative-text="Next" onclick={hanldeNextPage}></lightning-button-icon>
+        </lightning-layout-item>
+
+    
+    </lightning-layout>
+</template>

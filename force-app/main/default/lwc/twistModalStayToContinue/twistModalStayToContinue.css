@@ -1,0 +1,134 @@
+.twist-modal{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.twist-modal__wrapper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.5);
+}
+.twist-modal__body{
+
+    width: 100%;
+    background: #ffffff;
+    max-width: 600px;
+    max-height: 425px;
+    height: 312px;
+
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    border-radius: 8px;
+    position: absolute;
+}
+
+.twist-modal__btns{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 26px;
+}
+
+
+.twist-modal__header-close{
+  width: 82px;
+  height: 82px;
+  padding: 28px;
+  border-radius: 0 10px 0 0;
+  border-left: solid 1px #eae8e4;
+}
+
+.twist-modal__content{
+    width: 100%;
+    padding: 50px;
+    font-family: LouisVuitton;
+    font-size: 16px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    text-align: left;
+    color: #19110b;
+}
+
+.twist-modal__header .component__title{
+    font-family: Louis Vuitton;
+    font-size: 18px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 24px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+    text-transform: uppercase;
+    width: 100%;
+    margin-left: 50px;
+    letter-spacing: 0.4px;
+}
+
+.twist-modal__header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #eae8e4;
+}
+.component .component__form .leave__button  {
+    width: calc(50% - 10px);
+}
+.component .component__form .continue__buttons  {
+    width: calc(50% - 10px);
+
+}
+@media(max-width: 768px) {
+    .twist-modal__body{
+        width: 100%;
+        bottom: 0;
+        margin: 0;
+        top: unset;
+        left: 0;
+        transform: unset;
+        right: 0;
+        border-radius: 10px;
+        height: 426.2px;
+        padding: 0;
+
+    }
+    .twist-modal__header .component__title{
+        margin: 0 24px;
+    }
+  
+    .twist-modal__content{
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: calc(100% - 90px);
+    }
+    .twist-text{
+        margin-bottom: 18px;
+        display: flex;
+    }
+    .twist-modal__btns{
+        
+        flex-direction: column;
+        margin:0;
+        justify-content: center;
+        align-items: center; 
+    }
+    .component .component__form .leave__button  {
+        margin-bottom: 22px;
+        width: 100%;
+    }
+    .component .component__form .continue__buttons  {
+        width: 100%;
+    }
+}

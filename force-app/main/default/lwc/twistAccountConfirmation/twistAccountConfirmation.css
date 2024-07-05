@@ -1,0 +1,37 @@
+.component-confirmation-page__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 500px;
+}
+
+.side-bar__aside {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+}
+
+.component__text {
+    font-size: 16px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    text-align: start;
+    color: #000;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  
+    .component-confirmation-page__form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: inherit;
+    }
+
+}

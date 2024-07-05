@@ -1,0 +1,41 @@
+<template>
+    <template lwc:if={showModal}>
+        <div class="twist-modal">
+            <div class="twist-modal__wrapper">
+                <div class="twist-modal__body">
+                    <div class="twist-modal__content">
+                        <div class="text">
+                            <div class="twist-title-text">{customLabels.Twist_Account_Creation_EmailAlreadyRegistered}</div>
+                            <div class="twist-password-field-container">
+                                <lightning-input
+                                    name="password"
+                                    class={passwordFieldCssClass}
+                                    type={passwordFieldType}
+                                    max-length={passwordMaxlength}
+                                    label={customLabels.Twist_Login_Form_PasswordFieldLabel}
+                                    onchange={handleFormPasswordChange}
+                                    data-cs-mask
+                                    >
+                                </lightning-input>
+                                <img class="eye-icon" src={eyeIconSrcPassword} onclick={toggleShowPassword} />
+                            </div>
+                        </div>
+                        <p class="form__text">
+                            <lightning-formatted-text class="form__link" value={customLabels.Twist_Login_Form_ForgotPasswordLink} onclick={handleClickOnForgotPasswordLink}></lightning-formatted-text>
+                        </p>
+                    <div class="component">
+                        <form class="component__form">
+                            <div class="twist-modal__btns">
+                                <lightning-button disabled={loading} data-id='LOGIN' label={customLabels.Twist_Forgot_Password_Form_LoginText} class="continue__buttons" onclick={handleOnLogIn} ></lightning-button>
+                         </div>
+                        </form>
+                    </div>
+                    <div lwc:if={errorMessage}>
+                        <div class="global-error-message">{errorMessage}</div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

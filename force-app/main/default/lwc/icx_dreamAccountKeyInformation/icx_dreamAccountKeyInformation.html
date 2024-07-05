@@ -1,0 +1,12 @@
+<template>
+    <!-- <span if:true={clientKeyInfo}> -->
+        <div class=" slds-p-around_small slds-is-relative  " if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </div>
+        <template if:false={isLoading}>
+        <c-icx_custom-table columns={clientKeyInfo} is-account-key-information={isAccountKeyInformation} able-to-access-cti={accessCti} auth-to-edit-modal={passAuthToEdit} line-class ={lineClass} cell-class={cellClass} oninformation={openMoreInformation}></c-icx_custom-table>
+        </template>
+        <!-- <span if:true={displayCtiIcon} class="tooltiptext"><lightning-click-to-dial if:true={authToEditModal} value={account.PersonMobilePhone} > </lightning-click-to-dial></span> -->
+
+    <!-- </span> -->
+</template>

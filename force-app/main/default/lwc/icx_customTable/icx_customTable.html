@@ -1,0 +1,29 @@
+<template>
+    <template if:true={columns}>
+    <div if:true={isAccountKeyInformation} style="background-color:#16325c;padding:1rem;">
+        <p style="text-align: left;color:white">Client Information
+            <lightning-button-icon icon-name="utility:add" variant="border-inverse" style="float:right;padding-bottom:3px" size="x-small" onclick={handleClickMoreInformationButton}></lightning-button-icon>
+        </p>
+    </div>
+    <table  class="slds-table slds-table_cell-buffer slds-var-m-bottom_large" style="font-weight:normal;"> 
+     
+        <template iterator:it={columns}>
+
+            <tr data-index={it.index} class={lineClass} key={it.value.Id}>  
+              
+                <td  data-label={it.index}><div class="slds-truncate">{it.value.label}</div></td>
+
+                <td data-text={it.index}  class={cellClass} style="text-align: right;font-weight:normal;">{it.value.value} <span if:false={it.value.value} >N/A</span> </td> 
+                <td data-phone={it.index}  if:true={displayCtiIcon} class={cellClass} style="text-align: right;font-weight:normal;"><span if:true={it.value.value}><lightning-click-to-dial  value={it.value.value} > </lightning-click-to-dial></span> <span if:false={it.value.value} >N/A</span> </td>     
+                <td data-phone={it.index} if:false={displayCtiIcon} class={cellClass} style="text-align: right;font-weight:normal;"><span if:false={displayCtiIcon}>{it.value.value}</span> <span if:false={it.value.value} >N/A</span> </td>     
+
+                <td data-checkbox={it.index} class={cellClass} style="text-align: right;font-weight:normal;">  
+                    <lightning-input data-defcheckbox={it.index} type="checkbox" disabled > </lightning-input>
+                </td>  
+                <td data-url={it.index} class={cellClass} style="text-align: right;font-weight:normal;">    <a> {it.value.value} </a>
+                </td>  
+            </tr>
+        </template>
+    </table>
+</template>
+</template>

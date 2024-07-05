@@ -1,0 +1,8 @@
+.status-indicator-wrapper {
+  display: block;
+  background-color: #fbfbfb;
+  padding: 2rem 30% 2rem;
+  width: 102vw;
+  position: relative;
+  left: -2rem;
+}

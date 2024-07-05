@@ -1,0 +1,29 @@
+.section {
+  display: flex;
+  max-height: 780px;
+  overflow-y: auto;
+  width: auto;
+  /* overflow-x: hidden; */
+  /* -ms-overflow-style: none;
+    scrollbar-width: none; */
+}
+
+.section::-webkit-scrollbar {
+  display: none;
+  /* width:0px; */
+}
+
+.flex-container {
+  display: flex;
+  gap: 10px;
+}
+
+.table-container {
+  margin: 10px 0;
+}
+
+.section-right {
+  margin-left: 10px;
+  width: 50%;
+  min-width: 50%;
+}

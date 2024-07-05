@@ -1,0 +1,32 @@
+<template>
+   <div class={mainWrapperCssClasses}>
+      <div class="component">
+         
+         <img class="error__icon" src={twist404Icon} />
+         
+         <h1 class="component__title">{customLabels.TWIST_Exception_Title}</h1>
+         
+         <p class="component__text">{customLabels.TWIST_Exception_Page_Description}&nbsp;
+            <lightning-formatted-text class="form__link" 
+                                value={customLabels.TWIST_Exception_Page_Client_Services}
+                                onclick={handleClickToCustomerService}></lightning-formatted-text>
+                                &nbsp;{customLabels.TWIST_Exception_Page_Description_II} </p>
+         <p class="need-help">{customLabels.TWIST_Exception_File_Location_Button} </p>
+         
+         <form class="component__form">
+            
+            <div class="button-error-page">
+               <div class="button__container-wrap">
+                  <lightning-button label={customLabels.TWIST_Exception} class="forms__button" onclick={handleClickToCustomerService}></lightning-button>
+                  <img src={twistPhoneIcon} class="phone-icon" />
+               </div>
+               <div class="button__container-wrap">
+                  <lightning-button label={customLabels.TWIST_Exception_Button} class="forms__button" onclick={handleClickFindAStore}></lightning-button>
+                  <img src={twistLocalisationIcon} class="localisation-icon" />
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+   
+</template>

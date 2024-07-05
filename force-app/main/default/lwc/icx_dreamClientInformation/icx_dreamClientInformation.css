@@ -1,0 +1,32 @@
+/* .bottomBorder{
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 5%;
+
+}
+
+.cardBorder{
+    border:1px solid lightgray;
+    background-color: white;
+}
+.card{
+    margin : 2%;
+ /* box-shadow: 2px 0px 2px 0 rgba(0, 0, 0, 0.16); 
+    border-radius: 5px;
+
+}
+
+.title{
+    font-weight: bold; 
+    padding:1%;
+}
+
+table tr td{
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 5%;
+    padding: 5%;
+
+} */
+
+.cardPadding{
+    padding: 2%;
+}

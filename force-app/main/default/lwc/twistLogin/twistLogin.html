@@ -1,0 +1,108 @@
+<template>
+
+    <c-twist-google-analytics autodata={autodata} ontwistgalwcrendered={handleTwistGaLwcRendered}></c-twist-google-analytics>
+
+    <div class="component">
+        <h2 class="component__title">{customLabels.Twist_Login_Form_WelcomeBackTitle}</h2>
+        
+        <p if:false={loginForm.form.error} class="component__text">{customLabels.Twist_Login_Form_WelcomeBackHintText}</p>
+
+        <div class="global-error-message">{loginForm.form.error}</div>
+
+        <template lwc:if={showLineButton}>
+            <div class="div-line">
+                <a href={socialMediaProviders.LineLV} class="line_button">
+                  <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
+                    {customLabels.Twist_Login_Page_Social_Login_Line}
+                </a>
+                <p class="line-or-text">{customLabels.Twist_Social_Line_Text_For_Second_Option}</p>
+            </div>
+        </template>
+
+        <template lwc:if={socialMediaProviders.LineLVTW}>
+            <div class="div-line">
+                <a href={socialMediaProviders.LineLVTW} class="line_button">
+                  <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
+                    {customLabels.Twist_Login_Page_Social_Login_Line}
+                </a>
+                <p class="line-or-text">{customLabels.Twist_Social_Line_Text_For_Second_Option}</p>
+            </div>
+        </template>
+        
+        <form class="component__form">
+            <div class="twist-login-field-container">
+                <template lwc:if={componentConfig.showUsernameField}>
+                    <lightning-input
+                        name="email"
+                        class={emailFieldCssClass}
+                        type="text"
+                        label={customLabels.Twist_Login_Form_EmailFieldLabel}
+                        value=""
+                        onblur={handleFormEmailChange}
+                        data-cs-mask
+                        >
+                    </lightning-input>
+                </template>
+                <template lwc:else>
+                    <div class="activation-section">
+                        <div class="login-activation-text">{customLabels.Twist_Login_Form_EmailFieldLabel}</div>
+                        <div>{componentConfig.username}</div>
+                    </div>
+                   
+                </template>
+                <div if:true={loginForm.email.error}>
+                    <div class="field-error-message">{loginForm.email.error}</div>
+                </div>
+            </div>
+            <div class="twist-password-field-container">
+                <lightning-input
+                    name="password"
+                    class={passwordFieldCssClass}
+                    type={loginForm.password.type}
+                    label={customLabels.Twist_Login_Form_PasswordFieldLabel}
+                    max-length={componentConfig.passwordMaxlength}
+                    onchange={handleFormPasswordChange}
+                    data-cs-mask
+                    >
+                </lightning-input>
+                <img class="eye-icon" src={eyeIconSrc} onclick={toggleShowPassword} />
+            </div>
+            <div if:true={loginForm.password.error}>
+                <div class="field-error-message">{loginForm.password.error}</div>
+            </div>
+        
+            <p class="form__text">
+                <lightning-formatted-text class="form__link" value={customLabels.Twist_Login_Form_ForgotPasswordLink} onclick={handleClickOnForgotPasswordLink}></lightning-formatted-text>
+            </p>
+            
+            <!--Display the Alternative loging link if the oneTimeConnection = true-->
+            <template if:true={showOTCLink}>
+                <div class="form__text2">
+                    <div class="UseAlternativeLoginLinkToSignInTextCss">{customLabels.Twist_Login_Form_UseAlternativeLoginLinkToSignIn}</div>
+                    <lightning-formatted-text class="form__link" value={customLabels.Twist_Login_Form_UseAnAlternativeLogin} onclick={handleClickOnUseAnAlternativeLoginLink}></lightning-formatted-text>
+                </div>
+            </template>
+
+            <div class="button__container">
+                <div class="button__container-wrap">
+
+                    <template if:true={isLoginButtonDisabled}>
+                        <lightning-button label={customLabels.Twist_Login_Form_SubmitButtonLabel} class="form__button" onclick={handleClickOnLoginButton} disabled></lightning-button>
+                    </template>
+                    <template if:false={isLoginButtonDisabled}>
+                        <lightning-button label={customLabels.Twist_Login_Form_SubmitButtonLabel} class="form__button" onclick={handleClickOnLoginButton}></lightning-button>
+                    </template>
+                    
+                    <div class="register">
+                        <p class="register__text">{customLabels.Twist_Login_Form_DontHaveAccountText}</p>
+                        <a href={linkToRegistration} onclick={handleClickOnLinkToRegistration} class="register__link">{customLabels.Twist_Login_Form_CreateYourAccountText}</a>
+                    </div>
+                </div>
+            </div>
+
+                
+        </form>
+    
+    </div>
+
+</template>

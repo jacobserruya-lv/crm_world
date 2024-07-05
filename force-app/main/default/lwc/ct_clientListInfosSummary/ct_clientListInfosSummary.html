@@ -1,0 +1,84 @@
+<template>
+  <lightning-accordion
+    class="client-list-infos-wrapper"
+    allow-multiple-sections-open
+    onsectiontoggle={handleSectionToggle}
+    active-section-name={activeSections}
+  >
+    <lightning-accordion-section
+      name="CLIENT LIST INFOS"
+      label="CLIENT LIST INFOS"
+    >
+      <div class="clientListInfosContainer">
+        <div class="slds-grid">
+          <div class="slds-col clientListInfos-col">
+            <span class="clientListInfos-label"> Client list name </span>
+            <span class="clientListInfos-content"> {clientListName} </span>
+          </div>
+          <div class="slds-col clientListInfos-col">
+            <span class="clientListInfos-label"> Expiration Date </span>
+            <span class="clientListInfos-content"> {expirationDate} </span>
+          </div>
+          <!-- slds-size_2-of-8 -->
+          <div class="slds-col clientListInfos-col description">
+            <span class="clientListInfos-label"> Description </span>
+            <span class="clientListInfos-content">
+              {clientListDescription}
+            </span>
+          </div>
+          
+          <template if:true={showProgressBar}>
+            <div class="slds-col clientListInfos-col progress-bar">
+              <span class="clientListInfos-label progress-bar-label"> Client List Progress</span>
+              <span class="clientListInfos-content progress-content"> 
+                <span class="progress-label">Client list</span> 
+                <span class="line">
+                  <lightning-progress-bar value={clientListProgressData} size="small" variant="circular"></lightning-progress-bar>
+                </span>
+              </span>
+              <span if:true={isClientListWithMembers} class="clientListInfos-content progress-content">
+                <span class="progress-label members">Members</span> 
+                <span class="line">
+                  <lightning-progress-bar value={membersProgressData} size="small" variant="circular"></lightning-progress-bar>
+                </span>
+              </span>
+            </div>
+  
+            <div class="slds-col clientListInfos-col">
+              <span class="clientListInfos-label"> Status </span>
+              <span class="progress-status"> {clientListStatus} </span>
+              <span if:true={isClientListWithMembers} class="progress-status"> {membersStatus} </span>
+            </div>
+          </template>
+          
+          <div class="slds-col clientListInfos-col">
+            <span class="clientListInfos-label"> Number of clients </span>
+            <span class="clientListInfos-content"> {numberOfClients} </span>
+          </div>
+
+          <template if:true={isNotContactableClients}>
+            <div class="slds-col clientListInfos-col">
+              <span class="clientListInfos-label"> Not Contactable Clients </span>
+              <span class="clientListInfos-content download-content"> 
+                <span>{notContactableClients.data.length} Clients</span>
+                <span class="download-button">
+                  <lightning-button-icon
+                    icon-name="utility:download"
+                    alternative-text="Csv Download"
+                    size="small"
+                    class="slds-m-left_xx-small" 
+                    title="Download" 
+                    onclick={handleNotContactableClientsDownload}>
+                  </lightning-button-icon>
+                </span>
+              </span>
+            </div>
+          </template>
+
+          <div class="slds-col"></div>
+          <div class="slds-col"></div>
+        </div>
+      </div>
+    </lightning-accordion-section>
+  </lightning-accordion>
+</template>

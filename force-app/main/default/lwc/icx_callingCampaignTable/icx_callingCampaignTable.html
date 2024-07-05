@@ -1,0 +1,14 @@
+<template>
+    <div class="calling-campaign-frame">
+        <c-icx_dynamic-table my-row-class='row-whith-border' table-data={tableCallingCampaigns} oncreaterecord={navigateToCreatePage} create-record={createCalling} is-view-more-button-display={isViewMoreButton} onviewrecordlist={navigateToViewListPage} >
+            
+            <div slot="content" class='container'>
+               
+                <c-icx_custom-card-list list-data={listCallingCampaigns} oncardeditselected={handleEditNavigation}  ondetailsrecord={navigateToCallingCampaigns} is-not-with-picture edit-record={editCalling} delete-record={deleteCalling}></c-icx_custom-card-list>
+    
+            </div>
+        </c-icx_dynamic-table>
+
+    </div>
+
+</template>

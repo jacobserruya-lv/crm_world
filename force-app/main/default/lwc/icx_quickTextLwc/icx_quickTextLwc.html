@@ -1,0 +1,61 @@
+<template>
+
+    <div class={classFocus} aria-expanded="true" aria-haspopup="listbox" role="combobox">
+
+        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left" role="none">
+            <input type="text" class="slds-input " aria-autocomplete="list" aria-controls="listbox-lookup-id" autocomplete="off" role="textbox"
+                placeholder={placeholder}
+                onfocus={handleFocus}
+                onblur={handleBlur}
+                oninput={handleInput}
+                onkeydown={handleInputKeyDown}
+                onkeyup={handleInputKeyUp}
+            />
+
+            <lightning-icon icon-name="utility:search" alternative-text="Search icon"
+                title="Search" size="x-small" class="slds-input__icon slds-input__icon_right" ></lightning-icon>
+        </div>
+    </div>
+
+    <div data-id="comboboxId" class="slds-hide mainBodyItem bodyItem slds-col slds-size_12-of-12 slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid">
+        <div class="slds-grid slds-wrap mainBody">
+            <div class="listBodyLayoutItem slds-col slds-size_12-of-12">
+                <div class="slds-grid searchListBody ">
+                    <div class="listBodyChild halfWidth slds-col slds-size_6-of-12">
+                        <div id="listbox-lookup-id" onclick={handleComboboxClick}>
+                            <ul class="lookupMenuClass" role="listbox" ><!--data-id="lookupMenu"-->
+                                <!-- avoid Error: [LWC error]: Invalid template iteration for value "undefined" in [object:vm undefined (54)]. It must be an Array or an iterable Object.-->
+                                <template if:true={searchResults}>
+                                    <template for:each={searchResults} for:item="result">
+                                        <li role="presentation" class="slds-listbox__item" data-id={result.quickText.Id} key={result.quickText.Id} onclick={handleResultClick} onmouseenter={handleQuickTextMouseEnter}>
+                                            <span class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                                <span class="slds-media__body">
+                                                    <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                                        <div class="fontTitle">
+                                                            <p>{result.label}</p>
+                                                        </div>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </li>
+                                    </template>    
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detailView slds-border_left halfWidth slds-p-right_small slds-p-left_small slds-col slds-size_6-of-12">
+                        <div class="detailFullViewItem whiteline">
+                            <div class="detailsViewContainer"><span class="uiOutputText">{quickTextIdOnMouse}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>            
+
+    <!-- avoid Error: [LWC error]: Invalid template iteration for value "undefined" in [object:vm undefined (54)]. It must be an Array or an iterable Object.-->
+    <!--template if:true={folderWrapperList} for:each={folderWrapperList} for:item="folder">
+        {folder.Label}
+    </template-->
+
+   </template>

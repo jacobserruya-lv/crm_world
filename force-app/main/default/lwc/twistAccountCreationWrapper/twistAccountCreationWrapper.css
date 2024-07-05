@@ -1,0 +1,9 @@
+.main__section{
+    width: 100%;
+}
+@media (max-width: 768px) {
+    .main{
+        padding: 24px;
+        margin: 0 auto;
+    }
+}

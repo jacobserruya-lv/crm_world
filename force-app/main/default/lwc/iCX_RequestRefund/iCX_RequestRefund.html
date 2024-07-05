@@ -1,0 +1,29 @@
+<template>
+  
+    <lightning-quick-action-panel title="Request Refund Action">        
+      <header class="slds-modal__header">
+              <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate">Confirmation</h2>
+          </header>
+          <template if:true={showConfirmation}>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content1">
+            <div class="slds-text-align_center"><p>By clicking on this button, you will lauch the refund of the transaction number &nbsp;(&nbsp;
+              <lightning-formatted-text value={myUuid}></lightning-formatted-text>
+              &nbsp;) for an amount of &nbsp;
+               <lightning-formatted-number format-style="currency" value={myAmount} currency-code={myCurrency}> </lightning-formatted-number>
+              <br/> Make sure you report the refund in XStore before the store closure. 
+              <br/> Do you want to proceed ? </p></div>
+          </div>
+          
+        <div slot="footer">
+          <lightning-button variant="neutral" label="No" onclick={closeAction}></lightning-button>
+          <lightning-button variant="brand" label="Yes" onclick={saveAction}></lightning-button>
+        </div>
+      </template>
+
+      <template if:false={showConfirmation}>       
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content2">
+              <div class="slds-text-align_center"><p>Sending in progress, please wait......</p></div>
+            </div>
+        </template>
+      </lightning-quick-action-panel>
+  </template>

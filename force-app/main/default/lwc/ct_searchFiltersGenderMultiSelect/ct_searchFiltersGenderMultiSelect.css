@@ -1,0 +1,42 @@
+:host {
+  width: 100%;
+  margin-right: 1rem;
+}
+.filters-gender-selection {
+  position: absolute;
+  z-index: 7000;
+  left: 50%;
+  float: left;
+  top: 2rem;
+  background: var(--lwc-colorBackgroundAlt, rgb(255, 255, 255));
+  box-shadow: var(--lwc-shadowDropDown, 0 2px 3px 0 rgba(0, 0, 0, 0.16));
+  transform: translateX(-50%);
+}
+
+.filters-gender-prefered-label {
+  font-family: LouisVuitton-Medium;
+  font-size: 14px !important;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #191009 !important;
+  white-space: nowrap;
+}
+.filters-gender-prefered-input-hover {
+  cursor: pointer;
+}
+.filters-gender-prefered-icon {
+  display: inline-flex;
+  position: absolute;
+  justify-content: flex-end;
+  right: 6pt;
+  top: 7pt;
+  transform: scale(0.45);
+  cursor: pointer;
+}
+
+.slds-popover__footer {
+  white-space: pre-wrap;
+}

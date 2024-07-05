@@ -1,0 +1,19 @@
+<template>
+
+    <c-twist-google-analytics autodata={autodata}></c-twist-google-analytics>
+    
+    <div class="component-confirmation-page">
+        <form class="component-confirmation-page__form">
+            
+            <div if:true={error}>
+                <div class="global-error-message">{error}</div>
+            </div>
+            
+            <img class="logo__icon" src={twistLogo} />
+            <p class="component__text">{textToDisplay}</p>
+            <aside class="side-bar__aside">
+                <c-twist-side-bar language={language}></c-twist-side-bar>
+            </aside>
+        </form>
+    </div>
+</template>

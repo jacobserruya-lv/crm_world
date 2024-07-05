@@ -1,0 +1,53 @@
+<template>
+    <div class=" slds-p-around_small slds-is-relative  " if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </div>
+    <lightning-layout horizontal-align="spread" aria-hidden="true" style="display: flex; justify-content:space-between;"  if:false={isLoading}>
+   
+        <lightning-layout-item  class="card_border" style="margin-right: 2%;">
+            <c-icx_dynamic-table table-data={tableDataStoreCareService} other-data-type={isOtherDataType}>
+                <div slot="content">
+                    <c-icx_custom-card-list list-data={listStoreCareService} my-text-class="slds-hide careServiceText" my-text-class-bold="slds-hide bold careServiceText"
+                        oncardeditselected={handleStoreEditNavigation} oncarddeleteselected={activateModalStore}
+                        ondetailsrecord={navigateToStoreCareService} edit-record={editcareService}
+                        delete-record={deletecareService} onendoflist={getStoreCareService}>
+                    </c-icx_custom-card-list>
+
+                </div>
+            </c-icx_dynamic-table>
+            <div if:true={isLoadingMoreStoreCareService} class="slds-is-relative">
+                <lightning-spinner alternative-text="Loading" size="small" ></lightning-spinner>
+            </div>
+        </lightning-layout-item>
+
+
+        <lightning-layout-item  class="card_border">
+            
+        
+            <c-icx_delete-modal is-dialog-visible={isDialogVisibleConfirm} record-list-entered={recordList}
+                          onmodalcanceled={handelCancelEvent} record-id={deleteRecordIdSelected}></c-icx_delete-modal>
+
+            <div class="table-container" data-id="tableOrderContainer" >
+                
+
+                <c-icx_dynamic-table table-data={tableDataDistantCareService} onscroll={checkScroll} onviewrecordlist={handelViewNavigation}
+                    other-data-type={isOtherDataType}>
+                    <div slot="content">
+                        <c-icx_custom-card-list list-data={listDistantCareService} my-text-class="slds-hide careServiceText" my-text-class-bold="slds-hide bold careServiceText"
+                            oncardeditselected={handleDistantEditNavigation} oncarddeleteselected={activateModalDistant}
+                            ondetailsrecord={navigateToDistantCareService} edit-record={editcareService}
+                            delete-record={deletecareService} onendoflist={getMoreDistantCareService}>
+                        </c-icx_custom-card-list>
+
+                    </div>
+                </c-icx_dynamic-table>
+                <div if:true={isLoadingMoreDistantCareService} class="slds-is-relative">
+                    <lightning-spinner alternative-text="Loading" size="small" ></lightning-spinner>
+                </div>
+
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+
+
+</template>

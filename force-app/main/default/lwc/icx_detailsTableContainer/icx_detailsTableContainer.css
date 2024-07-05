@@ -1,0 +1,25 @@
+.details-container {
+    text-align: left;
+    padding: var(--lwc-spacingMedium,1rem);
+}
+
+.details-container__title {
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.details-container__details {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.subtext {
+    color: #797979;
+    font-size: x-small;
+}
+
+.subtext__value {
+    font-weight: 600;
+    font-size: x-small;
+}

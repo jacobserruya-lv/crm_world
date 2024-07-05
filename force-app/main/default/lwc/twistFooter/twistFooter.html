@@ -1,0 +1,120 @@
+<template>
+
+    <template lwc:if={footerConfig}>
+
+        <div class={footerClass}>
+            <div class="footer-logo-mobile">
+                <a onclick={handleClickOnLink} ><img src={twistFooterLogo} alt="LOUIS VUITTON" title="LOUIS VUITTON" data-id="Logo"/></a>
+            </div>
+
+            <hr class="border" />
+
+            <div class="category_wrapper">
+
+                <!-- HELP section -->
+                <div class="category">
+                    <div class="btn-toggle-collapse">
+                        <span class="collapse_tittle inactive" data-id={SECTION_DATA_ID.HELP} onclick={handleClickSection}>{footerConfig.section.help.title}</span>
+                        <div class="btn-toggle-collapse1 d-none" data-section="help">
+                            <c-twist-footer-section section-content={footerConfig.section.help.content} onclickonlink={handleClickOnLink}></c-twist-footer-section>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-mobile" />
+
+                <!-- SERVICES section -->
+                <div class="category">
+                    <div class="btn-toggle-collapse">
+                        <span class="collapse_tittle inactive" data-id={SECTION_DATA_ID.SERVICE} onclick={handleClickSection}>{footerConfig.section.services.title}</span>
+                        <div class="btn-toggle-collapse1 d-none" data-section={SECTION_DATA_ID.SERVICE}>
+                            <c-twist-footer-section section-content={footerConfig.section.services.content} onclickonlink={handleClickOnLink}></c-twist-footer-section>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-mobile" />
+
+                <!-- ABOUT section -->
+                <div class="category">
+                    <div class="btn-toggle-collapse">
+                        <span class="collapse_tittle inactive" data-id={SECTION_DATA_ID.ABOUT} onclick={handleClickSection}>{footerConfig.section.about.title}</span>
+                        <div class="btn-toggle-collapse1 d-none" data-section={SECTION_DATA_ID.ABOUT}>
+                            <c-twist-footer-section section-content={footerConfig.section.about.content} onclickonlink={handleClickOnLink}></c-twist-footer-section>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="border-mobile" />
+
+                <!-- CONNECT section -->
+                <div class="category">
+                    <div class="btn-toggle-collapse">
+                        <span class="collapse_tittle inactive" data-id={SECTION_DATA_ID.CONNECT} onclick={handleClickSection}>{footerConfig.section.connect.title}</span>
+                        <div class="btn-toggle-collapse1 d-none" data-section={SECTION_DATA_ID.CONNECT}>
+
+                            <c-twist-footer-section section-content={footerConfig.section.connect.content} onclickonlink={handleClickOnLink}></c-twist-footer-section>
+
+                            <!-- "Follow Us" link -->
+                            <div class="footer__links"><a data-id={SECTION_DATA_ID.CONNECT} class="footer__link-followUs" onclick={showSocialMedia}>{footerConfig.social.label}</a></div>
+                            <template lwc:if={areSocialMediaMobileVisible}>
+                                <c-twist-footer-social-media onhidesocialmedia={hideSocialMedia} is-mobile-version="true" social-media-config={footerConfig.social}></c-twist-footer-social-media>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <template lwc:if={areSocialMediaVisible}>
+                <c-twist-footer-social-media social-media-close-icon-side={socialMediaCloseIconSide} onhidesocialmedia={hideSocialMedia} is-mobile-version="false" social-media-config={footerConfig.social}></c-twist-footer-social-media>
+            </template>
+
+            <template lwc:if={areMsaTransparencyVisible}>
+                    <c-twist-footer-uk-statements onhidemsatransparencysection={hideMsaTransparencySection} is-mobile-version="false" uk-statement-config={footerConfig.ukStatement}></c-twist-footer-uk-statements>
+            </template>
+            
+            <hr class="border" />
+
+            <div class="footer__links-wrap">
+                <div class="one_side">
+                    <div class="footer__links">{customLabels.Twist_Footer_Link_ShipTo}</div>
+                    <div class="footer__links">
+                        <template if:true ={hideFlagCountry}>
+                            <a href={footerConfig.shipToUrl}>
+                                <span class="underline">{footerConfig.countryFlag.label}</span>
+                            </a>
+                        </template>
+                        <template if:false ={hideFlagCountry}>
+                            <a href={footerConfig.shipToUrl}>
+                                <img class="lv-flag" src={countryFlagUrl} alt={footerConfig.countryFlag.label} title={footerConfig.countryFlag.label} />
+                                <span class="underline">{footerConfig.countryFlag.label}</span>
+                            </a>
+                        </template>
+                    </div>
+                    <template lwc:if ={showLanguageSwitchLink}>
+                        <div class="footer__links"><a data-id="languageSwitchUrl" data-url={languageSwitchUrl} class="footer__link" onclick={handleClickOnLink}>{customLabels.Twist_Footer_Link_SwitchTo}</a></div>
+                    </template>
+                </div>
+                
+                <!-- LegalSection -->
+                <div class="seconde_side">
+                    <c-twist-footer-legal-section 
+                        legal-section-content={footerConfig._footerConfigFromLvApi.legalSection} 
+                        sitemap-label={customLabels.Twist_Footer_Link_Sitemap} 
+                        sitemap-url={footerConfig.sitemapLink.url} 
+                        window-functions={windowFunctions}
+                        onshowmsatransparencysection={showMsaTransparencySection} 
+                        onclickonlink={handleClickOnLink} 
+                        onexecutescript={handleExecuteScript}>
+                    </c-twist-footer-legal-section>
+                    <div lwc:if={footerConfig.displayUserRightsLogo} class="footer__logo-arab"><a target="_blank" href="https://consumerrights.ae/en/Pages/default.aspx"><img src={userRightsLogoSrc} alt="LOUIS VUITTON" title="LOUIS VUITTON" /></a></div>
+                </div>
+            </div>
+            <lightning-formatted-rich-text value={footerConfig.additionalText}></lightning-formatted-rich-text>
+            <div class="footer__logo"><img src={twistFooterLogo} alt="LOUIS VUITTON" title="LOUIS VUITTON" /></div>
+        </div>
+
+    </template>
+
+</template>

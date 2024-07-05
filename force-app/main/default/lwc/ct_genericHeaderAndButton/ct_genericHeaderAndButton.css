@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "LouisVuitton-Regular";
+  src: url(@salesforce/resourceURL/fonts/LOUISVUITTON-REGULAR.OTF)
+    format("opentype");
+}
+
+.blueButton {
+  --sds-c-icon-color-foreground-default: blue;
+}
+.button-and-result-summary-wrapper {
+  display: flex;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 2rem;
+}
+.button-and-result-summary-header {
+  padding: 1rem;
+  position: relative;
+  left: -6%;
+  font-family: LouisVuitton-Regular;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #191009;
+}
+.button-and-result-success-icon {
+  transform: scale(0.7);
+  position: relative;
+  top: -2pt;
+  width: 26pt;
+  height: 26pt;
+  border-radius: 50%;
+  display: inline-flex;
+  background-color: #4bca81;
+}
+.button-and-result-error-icon {
+  transform: scale(0.7);
+  position: relative;
+  top: -2pt;
+  width: 26pt;
+  height: 26pt;
+  border-radius: 50%;
+  display: inline-flex;
+}
+
+.button-and-result-summary-sub-header {
+  position: relative;
+  left: -6%;
+  top: -2pt;
+  font-family: LouisVuitton-Regular;
+  font-size: 16px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #706e6b;
+  padding: 0pt 0 14pt;
+}
+.button-and-result-summary-hr-line {
+  display: block;
+  position: relative;
+  width: 140%;
+  height: 1px;
+  border-bottom: 1px solid #dddbda;
+  margin-bottom: 3pt;
+  left: -26%;
+}

@@ -1,0 +1,28 @@
+<template>
+    <template if:true={showModal}>
+        <div class="twist-modal">
+            <div class="twist-modal__wrapper">
+                <div class="twist-modal__body">
+                    <div class="twist-modal__header">
+                        <div class="component__title">{customLabels.Twist_TitleModalStayToContinue}</div>
+                        <img  data-id='CLOSE' class="twist-modal__header-close" onclick={handleOnClick} src={twistCloseIcon} />
+                    </div>
+                    <div class="twist-modal__content">
+                        <div class="text">
+                            <span>{customLabels.Twist_FirstTextStayToContinue}</span> </br>
+                            <span class="twist-text">{customLabels.Twist_SecondTextStayToContinue}</span>
+                        </div>
+                    <div class="component">
+                        <form class="component__form">
+                            <div class="twist-modal__btns">
+                                <lightning-button data-id='LEAVE' label={customLabels.Twist_LeaveButtonStayToContinue} class="leave__button" onclick={handleOnClick} ></lightning-button>
+                                <lightning-button data-id='CONTINUE' label={customLabels.Twist_ContinueButtonStayToContinue} class="continue__buttons" onclick={handleOnClick}></lightning-button>
+                         </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>  
+        </div>
+    </template>
+</template>

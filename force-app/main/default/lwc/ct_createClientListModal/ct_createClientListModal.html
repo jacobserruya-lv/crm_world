@@ -1,0 +1,53 @@
+<template>
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open client-list-modal">
+    <div class="slds-modal__container client-list-modal-wrapper">
+      <lightning-button-icon icon-name="utility:close" variant="bare" alternative-text="Close" class="close-modal-btn"
+        onclick={closeModal}></lightning-button-icon>
+      <header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate client-list-modal-header">
+          Create Client List
+        </h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium client-list-modal-holder" id="modal-content-id-1">
+        <div class="slds-col client-list-modal-subheader">
+          <p>Please fill information</p>
+        </div>
+        <div class="slds-grid slds-gutters actions-component-wrapper">
+          <div class="slds-col">
+            <lightning-input type="text" label="Client list name*" onchange={handleClientListName} required>
+            </lightning-input>
+          </div>
+          <div class="slds-col">
+            <lightning-input type="date" placeholder="Search" name="expiration-date" label="Expiration Date*"
+              min={minExpirationDate} max={maxExpirationDate} onchange={handleExpirationDate} required>
+            </lightning-input>
+          </div>
+        </div>
+
+        <!-- TEXT AREA -->
+        <div class="slds-form-element">
+          <lightning-textarea name="description" label="Description" placeholder="Input text"
+            onchange={handleDescription}></lightning-textarea>
+        </div>
+
+        <!-- CHECKBOX -->
+        <div class="slds-checkbox create-empty-checklist">
+          <lightning-input type="checkbox" label="Create Empty Client List for CA with no client in the target"
+            name="create-empty-checklist" onchange={handleCreateEmptyChecklist} disabled={isClientListEmpty}
+            checked={createEmptyChecklist}></lightning-input>
+        </div>
+      </div>
+      <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" onclick={closeModal}>
+          Cancel
+        </button>
+
+        <button class="slds-button slds-button_brand" onclick={handleCreateClientList} disabled={isDisabled}>
+          Create
+        </button>
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

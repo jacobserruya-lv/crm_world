@@ -1,0 +1,45 @@
+<template>
+    <div class="modalSpinner">
+    <lightning-modal-header label={orderaction.label}></lightning-modal-header>
+    <lightning-modal-body>
+            <template if:true={isLoading}>
+                 <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                 </lightning-spinner>
+            </template>
+            <lightning-input disabled type="text" name="receivedAmount" label="Received amount" value={orderAmount} required=true></lightning-input>
+            <div class="slds-grid">
+                <div class="slds-col slds-text-align_left">
+                    Order Total: <lightning-formatted-number value={orderAmount} format-style="currency" currency-code={currency}></lightning-formatted-number>
+                </div>
+                <div class="slds-col slds-text-align_right">
+                    Missing :<lightning-formatted-number value={orderAmountMissing} format-style="currency" currency-code={currency}></lightning-formatted-number>
+                </div>
+            </div>
+            
+            <!-- <template if:true={order}> -->
+                <div class="slds-col">
+                    <lightning-combobox
+                        class="paymentMethod"
+                        name="paymentMethod"
+                        label="Payment Method"
+                        placeholder="Payment Method"
+                        options={paymentMethods}
+                        onchange={handlePaymentMethodChange}
+                        required=true>
+                    </lightning-combobox>
+                    <!-- <p>Selected value is: {reasonSelected}</p> -->
+                </div>
+                <!-- <template if:false={order.length}>
+                    <div class="slds-var-p-around_large">
+                        <p class="slds-var-p-around_small">{message}</p>
+                    </div>
+                </template> -->
+            <!-- </template> -->
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <!-- <lightning-button label="Loading" onclick={handleLoading}></lightning-button> -->
+            <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button label="Save" onclick={handleSave}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

@@ -1,0 +1,28 @@
+@media (max-width: 768px) {
+    .main {
+      padding: 66px 24px 24px 24px !important;
+      margin: 0 auto !important;
+    }
+    .main__section {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+  .main__section {
+    margin-right: -35px;
+    margin-left: -35px;
+    margin-top: 32px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    margin-bottom: -35px;
+    padding-left: 6.4vw;
+    padding-right: 6.4vw;
+    background: #fff;
+    width: auto;
+  }
+  .ltr, .rtl{
+    background-color: #f6f5f3;
+  }
+  .rtl .main{
+    margin-right: 9.3vw;
+  }

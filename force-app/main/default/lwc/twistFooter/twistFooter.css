@@ -1,0 +1,281 @@
+@import 'c/twistFooterSharedCss';
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black !important;
+  text-decoration: none;
+  padding: 39px 48px;
+  font-family: LouisVuitton;
+  width: 100%;
+  align-items: flex-start;
+}
+.footer__logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+.border {
+  opacity: 0.2;
+  width: 100%;
+  background-color: #EAE8E4;
+}
+.border-mobile{
+  opacity: 0.2;
+  width: 100%;
+  background-color: #EAE8E4;
+  display: none;
+}
+.footer__links-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.one_side{
+  display: flex;
+  flex-direction: row;
+}
+.seconde_side{
+  display: flex;
+}
+.lv-flag {
+  height: 12px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: -3px;
+}
+.world {
+  height: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: -3px;
+  filter: invert(99%) sepia(23%) saturate(0%) hue-rotate(24deg) brightness(108%) contrast(100%);
+}
+.underline {
+  text-decoration: underline;
+}
+.one {
+  display: flex;
+}
+.hide{
+  display: none;
+}
+
+.is--country-mobile {
+  display: none;
+}
+.is--country-desktop {
+  display: flex;
+}
+.footer-logo-mobile{
+  display: none;
+}
+.footer__link-followUs{
+  font-size: 14px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: black;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.category_wrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.categoryjjj{
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.collapse_tittle{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  text-transform: uppercase;
+  padding-bottom: 20px;
+  letter-spacing: 2px;
+  color: #000;
+  font-kerning: none;
+  font-family: Louis Vuitton;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+.footer__logo-arab {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    color: black !important;
+    text-decoration: none;
+    padding: 39px 35px;
+    font-family: LouisVuitton;
+    width: 100%;
+    align-items: center;
+  }
+  .one {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .one_side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .category{
+    width: 100%;
+  }
+  .footer__links-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  .footer__logo {
+    display: none;
+  }
+  
+  .is--country-mobile {
+    display: block;
+  }
+  .is--country-desktop {
+    display: none;
+  }
+  .footer-logo-mobile{
+    display: flex;
+    align-content: center;
+    width: 100%;
+    justify-content: center;  
+  }
+  .border{
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .border-mobile{
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .btn-toggle-collapse1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer__link-followUs{
+    display: none;
+  }
+  .footer__links-wrap{
+    flex-direction: column-reverse;
+  }
+  .collapse_tittle{
+    font-family: inherit;
+    font-kerning: none;
+    padding-bottom: 0;
+    text-transform: unset;
+    letter-spacing: 0.025rem;
+    font-weight: 400;
+    font-size: 14px;
+  }
+} 
+@media (max-width: 520px) {
+  .footer__logo {
+    text-align: center; 
+  }
+  .footer {
+    max-width: 100%;
+  } 
+}
+@media (max-width: 910px) {
+  .footer {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    color: black !important;
+    text-decoration: none;
+    padding: 69px 48px !important;
+    font-family: LouisVuitton;
+    width: 100%;
+    align-items: center;
+  }
+}
+@media (max-width: 2240px) {
+  .footer {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    color: black !important;
+    text-decoration: none;
+    padding-left: 8.3333333333vw;
+    padding-right: 8.3333333333vw;
+    font-family: LouisVuitton;
+    width: 100%;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .category_wrapper {
+      flex-direction: column;
+    }
+    .category_wrapper{
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0;
+    }
+  }
+  
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  @media (max-width: 767.98px) {
+    .btn-toggle-collapse {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .collapse_tittle.inactive::after{
+      content: url(/resource/Twist_UI/plus.svg);
+      display: inline-block;
+      margin-left: auto;
+    }
+    .collapse_tittle::after{
+      content: url(/resource/Twist_UI/colapse.svg);
+      display: inline-block;
+      margin-left: auto;
+    }
+    .btn-toggle-collapse::after {
+      display: inline-block;
+      margin-left: auto;
+      transition: all 0.25s ease-in-out;
+    }
+    .inactive::after {
+      transform: rotate(180deg);
+    }
+    .d-none {
+      display: none!important;
+    }
+  }
+}

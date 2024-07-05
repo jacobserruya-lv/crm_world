@@ -1,0 +1,53 @@
+lightning-file-upload {
+  top: -5pt;
+  position: relative;
+}
+
+.greyBG {
+  background-color: rgb(251, 251, 251);
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+@font-face {
+  font-family: "LouisVuitton-Regular";
+  src: url(@salesforce/resourceURL/fonts/LOUISVUITTON-REGULAR.OTF)
+    format("opentype");
+}
+
+@font-face {
+  font-family: "LouisVuitton-Light";
+  src: url(@salesforce/resourceURL/LOUISVUITTON-LIGHT.OTF) format("opentype");
+}
+
+.upload-dream-id-title {
+  width: 257px;
+  height: 25px;
+  margin: 0 80px 10px 0;
+  font-family: LouisVuitton-Regular;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #191009;
+}
+.upload-dream-id-subtitle {
+  margin-bottom: 5pt;
+  display: inline-block;
+  width: 337px;
+  height: 15px;
+  margin: 10px 0 0;
+  font-family: LouisVuitton-Regular;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #706e6b;
+}

@@ -1,0 +1,260 @@
+<template>
+    <template if:true={_orderShipping}>
+        <div class="slds-p-around_medium">
+            <c-icx_order-title-panel ordershipping={_orderShipping}></c-icx_order-title-panel>
+        </div>
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item class="slds-p-around_medium" size="12">
+                <lightning-layout multiple-rows="true">
+                    <!-- Col1 -->
+                    <lightning-layout-item class="slds-p-around_medium slds-box" size=6>
+                        <!-- Image Title-->
+                        <div class="slds-p-bottom_medium" style="min-width: 100px;flex: none;">
+                            <lightning-layout multiple-rows="true">
+                                <!-- Product Image -->
+                                <lightning-layout-item size="2" padding="around-small">
+                                    <img
+                                        src={_orderShipping.productImage}
+                                        class="product slds-align_absolute-center"
+                                        alt="Product picture"
+                                        width="100"
+                                    />
+                                </lightning-layout-item>
+                                <lightning-layout-item size="10" padding="around-small">
+                                    <lightning-layout multiple-rows="true">                                        
+                                        <lightning-layout-item class="slds-p-around_xx-small" size="6">
+                                            <p class="slds-text-align_left"><b>{_orderShipping.productName}</b></p>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item class="slds-p-around_xx-small" size="6">
+                                            <template lwc:if={isShowShipment}>
+                                                <template lwc:if={hasShipmentReturn}>
+                                                    <p><a onclick={handleShipment}>View Tracking Return</a></p>                                                
+                                                </template>
+                                            </template>
+                                            <template lwc:else>
+                                                <template lwc:if={hasShipment}>
+                                                    <p><a onclick={handleShipment}>View Tracking Shipment</a></p>
+                                                </template>
+                                            </template>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item class="slds-p-around_xx-small" size="6">
+                                            <template lwc:if={_orderShipping.discount.amount}>
+                                                <p class="slds-text-align_left"><lightning-formatted-number value={_orderShipping.line_amount}  minimum-fraction-digits="2"></lightning-formatted-number> {_orderShipping.currency_Z}</p>                                           
+                                            </template>
+                                            <template lwc:else>
+                                                <p class="slds-text-align_left"><lightning-formatted-number value={_orderShipping.unit_price}  minimum-fraction-digits="2"></lightning-formatted-number> {_orderShipping.currency_Z}</p>
+                                            </template>
+                                            <p class="slds-text-align_left"><lightning-icon icon-name="utility:quote" alternative-text="Order" size="x-small" title="SKU"></lightning-icon> {_orderShipping.item_id}</p>
+                                            <p class="slds-text-align_left"><lightning-icon icon-name="utility:fulfillment_order" alternative-text="Order" size="x-small" title="Parcel number"></lightning-icon>{_orderShipping.shippingNumber}</p>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item class="slds-p-around_xx-small" size="6">
+
+                                            <template if:false={trackingLink}>
+                                                <p class="slds-text-align_left">Tracking number: {trackingNumber}</p>
+                                            </template>
+                                            <template if:true={trackingLink}>
+                                                <p class="slds-text-align_left">
+                                                    Tracking number: <lightning-formatted-url value={trackingLink} label={trackingNumber} target="_blank" ></lightning-formatted-url>
+                                                </p>
+                                            </template>
+                                            <p class="slds-text-align_left">Carrier service: {carrierServiceDisplay}</p>
+                                            <template lwc:if={isShowShipment}>
+                                                <template if:true={scheduledDelivery}>
+                                                    <p class="slds-text-align_left">Scheduled Delivery: {scheduledDelivery}</p>
+                                                </template>
+                                            </template>
+                                            <p class="slds-text-align_left">Last delivery status: {deliveryStatus}</p>
+                                            <p class="slds-text-align_left">Last update: {deliveryStatusDate}</p>
+
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </lightning-layout-item>
+                                <!-- <lightning-layout-item padding="around-small">
+                                    <div>
+                                        <p class="slds-text-align_left"><b>{_orderShipping.productName}</b></p>
+                                        <p class="slds-text-align_left">{_orderShipping.unitPrice} {_orderShipping.currency}</p>
+                                        <p class="slds-text-align_left"><lightning-icon icon-name="utility:quote" alternative-text="Order" size="x-small" title="SKU"></lightning-icon> {_orderShipping.SKU}</p>
+                                        <p class="slds-text-align_left"><lightning-icon icon-name="utility:fulfillment_order" alternative-text="Order" size="x-small" title="Parcel number"></lightning-icon>{_orderShipping.requestId}</p>
+                                    </div>
+                                </lightning-layout-item>
+                                <lightning-layout-item padding="around-small">
+                                    <div>
+                                        <p class="lds-align_absolute-center">Quantity: {_orderShipping.quantity}</p>
+                                        <p class="slds-align_absolute-center">Current Location: {_orderShipping.location}</p>
+                                        <p class="slds-align_absolute-center">Delivery Type: {_orderShipping.deliveryType }</p>
+                                    </div>
+                                </lightning-layout-item> -->
+                            </lightning-layout>
+                        </div>
+                        <lightning-accordion allow-multiple-sections-open
+                            active-section-name={activeSections}>
+                            <!-- Status History -->                  
+                            <template if:false={orderdetailsapi.isTwist}>
+                                <lightning-accordion-section name="StatusHistory" label="Product Status History">
+                                    <div class="slds-p-bottom_medium">
+                                        <lightning-datatable
+                                            key-field="id"
+                                            data={data}
+                                            hide-checkbox-column
+                                            columns={columns}>
+                                        </lightning-datatable>
+                                    </div>
+                                </lightning-accordion-section>
+                            </template>
+                            <template if:true={orderdetailsapi.isTwist}>
+                                <lightning-accordion-section name="StatusHistoryTwist" label="Product Status History">
+                                    <div class="slds-p-bottom_medium">
+                                        <lightning-datatable
+                                            key-field="id"
+                                            data={data}
+                                            hide-checkbox-column
+                                            columns={columnsTwist}>
+                                        </lightning-datatable>
+                                    </div>
+                                </lightning-accordion-section>
+                            </template>
+                            <!-- Digital Order Details -->                            
+                        <template if:true={orderdetailsapi.isTwist}>
+                            <lightning-accordion-section name="DigitalOrderDetails" label="Product Details">
+                                <div class="slds-p-bottom_medium">
+                                    <div class="slds-p-bottom_medium"> 
+                                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                                            <p>Personnalization:</p>
+                                        </div>           
+                                        <div>
+                                            <template if:true={_orderShipping.hasPersonalization}>
+                                                <template if:true={_orderShipping.hotStamping}>
+                                                    <template if:true={_orderShipping.hotStamping.personalization}>
+                                                        <p><b>Hot Stamping</b> (<a onclick={handleViewOnline}>View Online</a>)</p>
+                                                        <p>Initials : {_orderShipping.hotStamping.personalization.display_letters_with_separator}</p>
+                                                        <div>Colour : <span class="slds-swatch" style={hotStampingPersonalizationColorHex}>&nbsp;
+                                                            </span>&nbsp;<span>{_orderShipping.hotStamping.personalization.display_colorName}</span></div>
+                                                        <p>Vertical : {_orderShipping.hotStamping.personalization.display_vertical}</p>
+                                                    </template>                                            
+                                                </template>
+                                                <template if:true={_orderShipping.engraving}>
+                                                    <template if:true={_orderShipping.engraving.personalization}>
+                                                        <p><b>Engraving</b> (<a onclick={handleViewOnline}>View Online</a>)</p>
+                                                        <p>Date : {_orderShipping.engraving.personalization.display_date_with_separator}</p>
+                                                        <p>Initials : {_orderShipping.engraving.personalization.display_letters_with_separator}</p>                                                        
+                                                        <template if:true={_orderShipping.engraving.personalization.isDisplayColorCode}>
+                                                            <div>Colour : <span class="slds-swatch" style={engravingPersonalizationColorHex}>&nbsp;
+                                                            </span>&nbsp;<span>{_orderShipping.engraving.personalization.display_colorName}</span></div>
+                                                            <!-- <p>Colour : xxx</p> -->
+                                                        </template>
+                                                        <template if:false={_orderShipping.engraving.personalization.isDisplayColorCode}>
+                                                            <p>Colour : {_orderShipping.engraving.personalization.display_colour}</p>
+                                                            <!-- <p>Colour : yyy</p> -->
+                                                        </template>
+                                                    </template>
+                                                </template>
+                                                <template if:true={_orderShipping.nowYours}>
+                                                    <p><b>Now Yours</b></p>
+                                                    <!-- <p>My LV World : </p> -->
+                                                    <p>My Perso Order : {_orderShipping.nowYours.message}</p>
+                                                </template>
+                                            </template>
+                                            <template if:false={_orderShipping.hasPersonalization}>
+                                                <p>-</p>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <!-- Clienteling Exception -->
+                                    <template if:true={orderdetailsapi.isTwist}>
+                                                <div class="slds-p-bottom_medium"> 
+                                                    <div class="slds-box slds-box_x-small slds-theme_shade">
+                                                        <p>Clienteling Exception:</p>
+                                                    </div>           
+                                                    <div>
+                                                        <template if:true={_orderShipping.clientelingException}>
+                                                            <b>Yes</b><br/>
+                                                            {_orderShipping.clientelingException}
+                                                        </template>
+                                                        <template if:false={_orderShipping.clientelingException}>
+                                                            <p>-</p>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                    </template>                                    
+                                    <!-- Price Adjustement -->
+                                    <template if:true={orderdetailsapi.isTwist}>
+                                        <div class="slds-p-bottom_medium"> 
+                                            <div class="slds-box slds-box_x-small slds-theme_shade">
+                                                <p>Price Adjustment:</p>
+                                            </div>           
+                                            <div>                                            
+                                                <template if:true={_orderShipping.discount.amount}>
+                                                    <s>{_orderShipping.initialPrice}</s>&nbsp;
+                                                    <span style={priceAdjustementColor}><lightning-formatted-number value={_orderShipping.line_amount} minimum-fraction-digits="2"></lightning-formatted-number>&nbsp;{_orderShipping.currency_Z}</span><br/>
+                                                    {_orderShipping.priceAdjustmentReason}
+                                                </template>
+                                                <template if:false={_orderShipping.discount.amount}>
+                                                    <p>-</p>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                      <!-- Free Shipping -->
+                                      <template if:true={orderdetailsapi.isTwist}>
+                                        <div class="slds-p-bottom_medium"> 
+                                            <div class="slds-box slds-box_x-small slds-theme_shade">
+                                                <p>Free Shipping:</p>
+                                            </div>           
+                                            <div>                                            
+                                                <template if:true={orderdetailsapi.freeShippingReason}>
+                                                    <p>{orderdetailsapi.freeShippingReason}</p>
+                                                </template>
+                                                <template if:false={orderdetailsapi.freeShippingReason}>
+                                                    <p>-</p>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </lightning-accordion-section>
+                        </template>
+                        </lightning-accordion>
+                    </lightning-layout-item>
+                    <!-- Col2 -->
+                    <lightning-layout-item class="slds-p-around_medium slds-box" size=6>
+                        <!-- Product Requests -->
+                        <div class="slds-p-bottom_medium">
+                            <div>                                
+                                <c-icx_order-shipping-related-cases
+                                    orderdetailsapi={orderdetailsapi}
+                                    product={_orderShipping}>
+                                </c-icx_order-shipping-related-cases>
+                            </div>                                
+                        </div>
+                        <!-- Product Comments -->
+                        <template if:true={orderdetailsapi.isTwist}>
+                            <lightning-accordion allow-multiple-sections-open
+                                active-section-name='ProductComments'>
+                                <lightning-accordion-section name="ProductComments" label="Product Comments">
+                                    <div class="slds-p-bottom_medium">
+                                        <c-icx_order-comment recordid={_orderShipping.reason.Id} orderdetailsapi={orderdetailsapi}></c-icx_order-comment>
+                                    </div>
+                                </lightning-accordion-section>
+                            </lightning-accordion>
+                        </template>
+                        <!-- Fulfillment Actions -->
+<!-- <h1 class="slds-text-title_bold center">Order Modification Request</h1>-->
+                        <lightning-accordion allow-multiple-sections-open
+                            active-section-name='ProductFulfillmentActions'>
+                            <lightning-accordion-section name="ProductFulfillmentActions" label="Fulfillment Actions">
+                                <div class="slds-p-bottom_medium">
+                                    <c-icx_fulfillment-actions onfinish={onfinish}  
+                                                        product={_orderShipping}>
+                                    </c-icx_fulfillment-actions>
+                                </div>
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+    <template if:false={_orderShipping}>
+        Select a product to see details        
+    </template>
+</template>

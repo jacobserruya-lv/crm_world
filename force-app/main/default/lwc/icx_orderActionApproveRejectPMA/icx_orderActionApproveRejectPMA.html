@@ -1,0 +1,20 @@
+<template>
+    <div class="modalSpinner">
+        <lightning-modal-header label={orderaction.label}></lightning-modal-header>
+        <lightning-modal-body>
+            <span class='slds-align_absolute-center' >This action should only be performed in ICONICS if PMA decision has already been done in Cybersource and the order is not being updated</span>
+            <span class='slds-align_absolute-center'>
+                <lightning-radio-group name="radioGroup"
+                label=""
+                options={options}
+                value={selectedaction}
+                onchange={handleRadioChange}
+                type="button"></lightning-radio-group>
+            </span>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button label="Save" onclick={handleSave}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

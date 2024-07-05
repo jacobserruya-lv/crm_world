@@ -1,0 +1,31 @@
+<template>
+    <div class="modalSpinner">
+        <lightning-modal-header label={orderaction.label}></lightning-modal-header>
+        <lightning-modal-body>
+            <template if:true={isLoading}>
+                 <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                 </lightning-spinner>
+            </template>
+            <div class="slds-box">
+                Refund Shipping fees : {orderdetailsapi.sumOfShippingFees} {orderdetailsapi.transactionInfo.currency_Z}
+            </div>
+            <div class="slds-col">
+                <lightning-combobox
+                    class="reason"
+                    name="reason"
+                    label="Reason"
+                    value={reasonSelected}
+                    placeholder="Reason"
+                    options={reasons}
+                    onchange={handleReasonChange}
+                    required={isChecked}>
+                </lightning-combobox>
+                <!-- <p>Selected value is: {reasonSelected}</p> -->
+            </div>            
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button label="Save" onclick={handleSave}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

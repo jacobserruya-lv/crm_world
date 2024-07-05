@@ -1,0 +1,123 @@
+<template>
+    <template if:true={orders}>
+        <lightning-layout multiple-rows="true">
+           
+            <!-- Highlight panel Order -->
+            <template if:true={orderDetails}>
+                <lightning-layout-item size="12" padding="around-small" >
+                    <div class="page-section page-header slds-theme_shade slds-card">
+                        <lightning-layout >
+                            <lightning-layout-item  padding="around-small" class="slds-m-top_x-small">
+                                <lightning-icon icon-name="standard:orders"> </lightning-icon>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2" padding="around-small" >
+                                <div class="slds-form-element__label ">Order Number</div>
+                                <div class="slds-form-element__control slds-truncate">{orderDetails.OrderNumber} </div> 
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2" padding="around-small" >
+                                <div class="slds-form-element__label ">Store </div>
+                                <div class="slds-form-element__control slds-truncate">
+                                    <a href="javascript:void" onclick={navigateToStoreRecord} data-store={orderDetails.StoreCode.Id}>{orderDetails.StoreCode.Name} </a>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2" padding="around-small" >
+                                <div class="slds-form-element__label ">Order Date</div>
+                                <div class="slds-form-element__control slds-truncate">{orderDetails.OrderDate}</div>
+                                    
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2" padding="around-small" >
+                                <div class="slds-form-element__label ">Client </div>
+                                <div class="slds-form-element__control slds-truncate">
+                                    <a href="javascript:void" onclick={navigateToAccountRecord} data-account={orderDetails.AccountId}> {accountName} </a>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2" padding="around-small" >
+                                <div class="slds-form-element__label ">Order Status </div>
+                                <div class="slds-form-element__control slds-truncate">
+                                    <lightning-badge label={orderDetails.OrderStatus} class="sslds-badge_lightest  slds-p-top_xxx-small slds-p-bottom_xxx-small"></lightning-badge>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+                </lightning-layout-item>
+            </template>
+            <!-- Order Lines -->
+            <lightning-layout-item  size="12" padding="horizontal-small" >
+                <div class="slds-tabs_card">
+                    <lightning-card>
+
+                        <template  for:each={orders} for:item="digitalorder">
+                            <div if:true={digitalorder} key={digitalorder.ShippingNumber} >
+                                <lightning-button label="Open New Case" onclick={openNewCaseHandler} ></lightning-button>
+                                <div if:true={digitalorder.Product} class="slds-text-title--caps slds-text-title_bold slds-m-left_small slds-p-top_large">
+                                    {digitalorder.Product.ProductName}&nbsp;&nbsp;
+                                    <lightning-icon icon-name="utility:quote" size="x-small"></lightning-icon>
+                                     &nbsp; {digitalorder.Product.SKU} &nbsp;
+                                    <lightning-badge label={digitalorder.Status} class="sslds-badge_lightest  slds-p-top_xxx-small slds-p-bottom_xxx-small"></lightning-badge>
+                                   <span  class={digitalorder.Perso}>  &nbsp; <img src='https://nowyours-prp.louisvuitton.com/images/icon-stock.png' width="25" height="25"/> {digitalorder.MyPersoNumber} </span>
+
+                    
+                                </div>
+                    
+                                <lightning-layout  multiple-rows="true" class ="slds-border_bottom">
+                                    <lightning-layout-item size="2" flexibility="auto, no-grow"  if:true={digitalorder.Product}>
+                                        <img src={digitalorder.Product.ProductImage} width="150" height="150"/>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item  size="9" flexibility="auto" padding="around-medium" >    
+                    
+                                        <div class="slds-list_horizontal">
+                                            <div class="slds-col">
+                                                <div class="slds-grid">
+                                                    <span class="slds-form-element__label slds-col slds-size_1-of-4">Quantity:</span> 
+                                                    <span class="slds-col slds-p-top_xx-small slds-size_2-of-4 " if:true={digitalorder.Product}> {digitalorder.Product.Quantity} </span>
+                                                </div>
+                                                <div class="slds-grid">
+                                                    <span class="slds-form-element__label slds-col slds-size_1-of-4">Payment</span> 
+                                                    <span class="slds-col  slds-p-top_xx-small slds-size_2-of-4" if:true={digitalorder.Payment}>{digitalorder.Payment.PaymentMethod}  </span>
+                                                </div>
+                                                <div class="slds-grid">
+                                                    <span class="slds-form-element__label slds-col slds-size_1-of-4">Delivery Type:</span> 
+                                                    <span class="slds-col slds-p-top_xx-small slds-size_2-of-4"> {digitalorder.DeliveryType} </span>
+                                                </div> 
+                                                <div class="slds-grid">
+                                                    <span class="slds-form-element__label slds-col slds-size_1-of-4">Tracking Link:</span> 
+                                                    <span class="slds-col  slds-p-top_xx-small slds-size_2-of-4">{digitalorder.TrackingNumbers}</span>
+                                                </div> 
+                                                <div class="slds-grid">
+                                                    <span class="slds-form-element__label slds-col slds-size_1-of-4">Shipping Id:</span> 
+                                                    <span class="slds-col slds-p-top_xx-small slds-size_2-of-4"> {digitalorder.ShippingNumber} </span>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col">
+                                                <div class="slds-grid"  if:true={digitalorder.ClientDetails}>
+                                                    <div class="slds-col slds-form-element__label slds-size_1-of-4">Ship To:</div>
+                                                    <div class="slds-col slds-p-top_xx-small slds-size_2-of-4">
+
+                                                        {digitalorder.ClientDetails.title} &nbsp;                                         
+                                                        {digitalorder.ClientDetails.lastName} &nbsp;
+                                                        {digitalorder.ClientDetails.firstName} &nbsp;
+
+                                                        <lightning-formatted-address
+                                                            street={digitalorder.ClientDetails.address1} 
+                                                            city={digitalorder.ClientDetails.city} 
+                                                            country={digitalorder.ClientDetails.country} 
+                                                            province={digitalorder.ClientDetails.stateAddress} 
+                                                            postal-code={digitalorder.ClientDetails.postalCode} 
+                                                        ></lightning-formatted-address>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </lightning-layout-item>
+                                </lightning-layout>
+
+                            </div>
+                        </template>
+                    </lightning-card>
+                </div>
+            </lightning-layout-item>
+
+        </lightning-layout>
+    </template>
+</template>

@@ -1,0 +1,8 @@
+.slds-popover.slds-nubbin_top{
+  position: absolute;
+  left: 5rem;
+  top: 1.6rem;
+}
+.title {
+  text-transform: uppercase;
+}

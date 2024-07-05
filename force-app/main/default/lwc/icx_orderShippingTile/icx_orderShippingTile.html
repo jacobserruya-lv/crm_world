@@ -1,0 +1,30 @@
+<template>
+        <div class={tileClass} onclick={handleClick} onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
+            <div class="slds-grid">
+                <div>
+                    <span>            
+                        <img
+                        src={pictureUrl}
+                        class="product slds-align_absolute-center"
+                        alt="Product picture"
+                        width="100"
+                        />
+                    </span>
+                </div>
+                <div>
+                    <p class="title slds-text-align_left">{product.productName}</p>
+                    <p class="slds-text-align_left">
+                        <template if:false={_orderShipping.discount.amount}>{product.unit_price}&nbsp;{product.currency_Z}</template>
+                        <template if:true={_orderShipping.discount.amount}>{product.line_amount}&nbsp;{product.currency_Z}</template>                        
+                    </p>
+                    <p class="slds-text-align_left">Product Status: {product.statusIconics}</p>
+                    <p><lightning-icon icon-name="utility:quote" alternative-text="Order" size="x-small" title="SKU"></lightning-icon> {product.item_id}</p>
+                    <p><lightning-icon icon-name="utility:fulfillment_order" alternative-text="Order" size="x-small" title="Parcel number"></lightning-icon>{product.shippingNumber}</p>
+                    <p><lightning-icon icon-name="utility:transport_heavy_truck" alternative-text="Order" size="x-small" title="Tracking number"></lightning-icon>{product.shipment.tracking_number}</p>
+                    <p class="slds-text-align_left">Quantity: {product.qty}</p>
+                    <!-- <p class="title slds-text-align_left">Current Location: {_orderShipping.location}</p> -->
+                    <!-- <p class="title slds-text-align_left">Delivery Type: {_orderShipping.deliveryType }</p> -->
+                </div>
+            </div>
+        </div>
+</template>

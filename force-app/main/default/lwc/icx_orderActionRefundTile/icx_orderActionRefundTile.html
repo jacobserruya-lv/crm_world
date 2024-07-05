@@ -1,0 +1,79 @@
+<template>
+    <div class="slds-box">
+        <div class="slds-grid slds-gutters">              
+            <div>
+                <lightning-input type="checkbox" label="" name={_orderShipping.requestId} onchange={handleClick} checked={isChecked}></lightning-input>
+            </div>
+            <div>
+                <span>            
+                    <img
+                    src={pictureUrl}
+                    class="product slds-align_absolute-center"
+                    alt="Product picture"
+                    width="100"
+                    />
+                </span>
+            </div>
+            <div>
+                <p class="title slds-text-align_left">{_orderShipping.productName}</p>
+                <p class="slds-text-align_left">{_orderShipping.unitPrice} {_orderShipping.currency}</p>
+                <p class="slds-text-align_left">Product Status: {_orderShipping.status}</p>
+                <p><lightning-icon icon-name="utility:quote" alternative-text="Order" size="x-small" title="SKU"></lightning-icon> {_orderShipping.item_id}</p>
+                <p><lightning-icon icon-name="utility:fulfillment_order" alternative-text="Order" size="x-small" title="Parcel number"></lightning-icon>{_orderShipping.shippingNumber}</p>
+                <p><lightning-icon icon-name="utility:transport_heavy_truck" alternative-text="Order" size="x-small" title="Tracking number"></lightning-icon>{_orderShipping.shipment.tracking_number}</p>
+            </div>
+            <template if:true={isChecked}>
+                <div> 
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item size="12">
+                            <lightning-layout class="slds-grid_vertical-align-center">
+                                <lightning-layout-item padding="around-small">
+                                    Refund :
+                                </lightning-layout-item>
+                                <lightning-layout-item>
+                                        <lightning-radio-group  name={_orderShipping.item_id} 
+                                                                options={amountOptions}
+                                                                value={amountSelected}
+                                                                type="radio"></lightning-radio-group>
+                                </lightning-layout-item>
+                                <lightning-layout-item padding="around-small">
+                                    <div class="header-column">                    
+                                        <lightning-input type="number" name="input5" disabled value={amount} label="amount" variant="label-hidden"></lightning-input>
+                                    </div>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12">
+                            <lightning-combobox
+                                class="method"
+                                name="method"
+                                label="Refund Method"
+                                value={methodSelected}
+                                placeholder="Refund Method"
+                                options={methods}
+                                onchange={handleMethodChange}
+                                required={isChecked}
+                                variant="label-inline">
+                            </lightning-combobox>
+                            <!-- <p>Selected value is: {methodSelected}</p> -->
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12">
+                            <lightning-combobox
+                                class="reason"
+                                name="reason"
+                                label="Reason for Refund"
+                                value={reasonSelected}
+                                placeholder="Reason for Refund"
+                                options={reasons}
+                                onchange={handleReasonChange}
+                                required={isChecked}
+                                variant="label-inline">
+                            </lightning-combobox>
+                            <!-- <p>Selected value is: {reasonSelected}</p> -->
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

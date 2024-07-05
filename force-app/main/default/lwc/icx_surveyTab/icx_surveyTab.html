@@ -1,0 +1,28 @@
+<template>
+    <div class="surveyTab-container">
+        <c-icx_dynamic-table table-data={headerContainer}>
+            <div slot="content">
+                <div class=" slds-p-around_none slds-is-relative  " if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+                <template if:false={isLoading}>
+
+                    <template if:true={tableData.rows}>
+
+                        <div class="table-container" data-id="tableSurveyContainer" onscroll={checkScroll}>
+
+                            <c-icx_dynamic-table my-row-class='row-colors rows-hover cursor-pointer'
+                                table-data={tableData} onrecorddetails={navigateToSurvey}>
+                            </c-icx_dynamic-table>
+                        </div>
+                    </template>
+                </template>
+
+            </div>
+        </c-icx_dynamic-table>
+
+
+
+    </div>
+
+</template>

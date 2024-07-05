@@ -1,0 +1,49 @@
+:host {
+  background: #f6f5f3;
+  height: 390px;
+  width:100%;
+}
+.container{
+  background: #f6f5f3;
+  display: flex;
+  flex-direction: column;
+  font-family: LouisVuitton;
+  }
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2rem 2rem 0 1rem;
+  }
+  :host {
+    background: #f6f5f3;
+    height: 349px;
+    width: 100%;
+  }
+  .item-text {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+.item {
+  padding: 32px 0;
+  margin: 0 32px;
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #19110b;
+}
+
+.item:not(:last-child) {
+  border-bottom: 1px #e1dfd8 solid;
+}
+
+.item__icon {
+  padding-right: 1.125rem;
+}

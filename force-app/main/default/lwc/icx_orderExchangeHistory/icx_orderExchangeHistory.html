@@ -1,0 +1,116 @@
+<template>
+    <template if:true={hasExchangeRecords}>
+    <!-- <div class="slds-box"> -->
+        <lightning-card title="EXCHANGE HISTORY"></lightning-card>
+        <!-- HEADER -->    
+        <div class="slds-grid slds-wrap slds-has-flexi-truncate">
+            <div class="slds-col slds-size_2-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Initial Order</p>
+                </div>
+            </div>
+            <div class="slds-col slds-size_10-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>New Order</p>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Returned product</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p># Product</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Order ID</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p># Product</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Price</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Product Name</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Date</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Owner</p>
+                </div>                
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <div class="slds-box slds-box_xx-small slds-theme_shade slds-truncate">
+                    <p>Order Status</p>
+                </div>                
+            </div>
+        </div>
+
+        <div class="exampleHolder">
+            <!-- <div class="slds-scrollable_y" style={commentHeight}>        -->
+                <div class="slds-grid slds-wrap slds-has-flexi-truncate">
+                    <!-- Loop on commentList -->
+                    <template
+                    for:each={exchangeRecords}
+                    for:item="item"
+                    >
+                        <div class="slds-col slds-size_1-of-12 slds-p-horizontal_xx-small" key={item.item_id}>
+                            <p class="slds-truncate" title={item.shippingNumber}><lightning-formatted-text value={item.shippingNumber}></lightning-formatted-text></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-horizontal_xx-small" key={item.shippingNumber}>
+                            <p class="slds-truncate" title={item.shippingQty}><lightning-formatted-text value={item.shippingQty}></lightning-formatted-text></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-horizontal_xx-small" key={item.OrderId}>
+                            <p class="slds-truncate" title={item.OrderId}>
+                                <a data-record-id={item.OrderSFId} onclick={handleOpenRecord}><lightning-formatted-text value={item.OrderId}></lightning-formatted-text></a></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-horizontal_xx-small" key={item.shippingExchQty}>
+                            <p class="slds-truncate" title={item.shippingExchQty}><lightning-formatted-text value={item.shippingExchQty}></lightning-formatted-text></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-horizontal_xx-small" key={item.shippingExchPrice}>
+                            <p class="slds-truncate" title={item.shippingExchPrice}><lightning-formatted-text value={item.shippingExchPrice}></lightning-formatted-text></p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-horizontal_xx-small" key={item.shippingExchProductName}>
+                            <p class="slds-truncate" title={item.shippingExchProductName}><lightning-formatted-text value={item.shippingExchProductName}></lightning-formatted-text></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-p-horizontal_xx-small" key={item.Date}>
+                            <p class="slds-truncate" title="Date"><lightning-formatted-date-time value={item.Date} year="numeric" month="long" day="2-digit"
+                                ></lightning-formatted-date-time></p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-horizontal_xx-small" key={item.Owner}>
+                            <p class="slds-truncate" title={item.Owner}><lightning-formatted-text value={item.Owner}></lightning-formatted-text></p>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-p-horizontal_xx-small" key={item.OrderStatus}>
+                            <p class="slds-truncate" title={item.OrderStatus}><lightning-formatted-text value={item.OrderStatus}></lightning-formatted-text></p>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-horizontal_xx-small borderBottom" key={item.shippingNumber}></div>
+                    </template>                    
+                </div>
+                <div class="">
+                    <template if:true={isLoading}>
+                        <lightning-spinner alternative-text="Loading" variant="brand" size="x-small" class="myspinner">loading
+                        </lightning-spinner>
+                    </template>
+                </div>    
+            <!-- </div> -->
+        </div>
+        <!-- </div>     -->
+        <!-- <div><a onclick={onRefresh}>Refresh</a></div> -->
+    </template>
+    
+</template>

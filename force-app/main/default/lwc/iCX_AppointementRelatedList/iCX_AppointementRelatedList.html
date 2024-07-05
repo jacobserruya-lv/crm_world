@@ -1,0 +1,84 @@
+<template>       
+    <lightning-card title={titleWithCount} icon-name="standard:event">
+      
+        <div slot="footer">
+        <div if:true={countBool}>           
+                <lightning-button label="View All" onclick={navigateToRelatedList}></lightning-button>          
+        </div> 
+        </div>   
+            <!-- Replace the record ID with your own -->
+           
+
+  <div class="slds-m-around_medium">   
+            <div if:true={listRecords}>  
+                
+
+                <template for:each={listRecords} for:item="rec">    
+                    <div key={rec.Id} class="slds-box">                         
+                        <lightning-record-view-form record-id={rec.Id} object-api-name={objectName}>
+                            <div class="slds-grid">
+                                
+                                <div class="slds-col slds-size_1-of-3">
+                                    <div class="slds-text-title"> <lightning-formatted-text value="Assigned To" ></lightning-formatted-text></div> 
+                                    <div class="slds-text-title">  <lightning-formatted-text value="Status" ></lightning-formatted-text></div> 
+                                    <div class="slds-text-title"> <lightning-formatted-text value="Start Time" ></lightning-formatted-text></div> <br/>
+                                    <div class="slds-text-title">  <lightning-formatted-text value="Appointment Type" ></lightning-formatted-text></div>   <br/> 
+                                    <div class="slds-text-title">  <lightning-formatted-text value="Attendance" ></lightning-formatted-text></div>   <br/> 
+                                    
+                                    <!--   <div class="slds-text-title"> <lightning-formatted-text value="Assigned To" ></lightning-formatted-text></div>  
+                                    <div class="slds-text-body--regular"><lightning-formatted-text value={rec.Owner.Name} ></lightning-formatted-text></div>                       
+                                    <br/>
+                                    <div class="slds-text-title">  <lightning-formatted-text value="Status" ></lightning-formatted-text></div>  
+                                        <div class="slds-text-body--regular"><lightning-formatted-text value={rec.Status__c} ></lightning-formatted-text></div>
+                               --> 
+                                    </div>
+                               
+                                <div class="slds-col slds-size_2-of-3">
+                                    <div class="slds-text-title"><lightning-formatted-text value={rec.Owner.Name} ></lightning-formatted-text></div>                       
+                                    <div class="slds-text-title"><lightning-formatted-text value={rec.Status__c} ></lightning-formatted-text></div>
+                                    <!-- <div class="slds-text-title"><lightning-formatted-date-time value={rec.StartDateTime} year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit"></lightning-formatted-date-time></div><br/> -->
+                                    <div if:true={timeZone}>
+                                        <!-- <div class="slds-text-title"><lightning-formatted-date-time value={rec.ICX_tech_timestamp__c} year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" time-zone={timeZone}></lightning-formatted-date-time></div><br/> -->
+                                        <!-- <div class="   slds-text-title"><lightning-formatted-date-time value={timestamp} year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" time-zone={timeZone}></lightning-formatted-date-time></div><br/> -->
+                                        <div class="slds-text-title"><lightning-formatted-date-time value={rec.StartDateTime} year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                            minute="2-digit" time-zone={timeZone} hour12="false">
+                                           </lightning-formatted-date-time></div>
+                                        <!-- <div class="slds-text-title"><lightning-formatted-date-time value={rec.StartDateTime} year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                            minute="2-digit" time-zone={timeZone} time-zone-name="short" hour12="false">
+                                           </lightning-formatted-date-time></div> -->
+                                        <br/>
+                                        <!-- <lightning-formatted-date-time value={rec.StartDateTime} year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                        minute="2-digit" time-zone={timeZone} time-zone-name="short" hour12="false">
+                                       </lightning-formatted-date-time> -->
+                                    </div>
+                                    <lightning-formatted-rich-text value={rec.Appointment_Type_Icon__c} ></lightning-formatted-rich-text>
+                                    <div if:false={rec.Attendance__c}>
+                                        <lightning-button key={rec.Id} data-id={rec.Id} variant="brand" label="Yes" title="Yes" onclick={handleClick} ></lightning-button>
+                                        <lightning-button key={rec.Id} data-id={rec.Id} variant="destructive" label="No" title="No" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                                        <lightning-button key={rec.Id} data-id={rec.Id} label="Cancelled" title="Cancelled" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                                       
+                                        </div>
+                                    <div if:true={rec.Attendance__c} class="slds-text-title"><lightning-formatted-text value={rec.Attendance__c}></lightning-formatted-text></div><br/>
+                                     
+                                   <!--  <div class="slds-text-title"> <lightning-formatted-text value="Start Time" ></lightning-formatted-text></div>  
+                                        <div class="slds-text-body--regular "><lightning-formatted-text value={rec.StartDateTime} ></lightning-formatted-text></div>
+                                        <br/>
+                                    <div class="slds-text-title">  <lightning-formatted-text value="Attendance" ></lightning-formatted-text></div>   
+                                   
+                                    <div class="slds-text-body--regular "><lightning-output-field field-name={rec.Attendance__c}></lightning-output-field></div>
+                                  
+                                -->  
+                                </div>                                  
+                            </div>
+                                  
+                        </lightning-record-view-form>
+                    </div>  
+
+               
+                </template>  
+                
+            </div>   
+        </div>  
+    </lightning-card>   
+    
+</template>

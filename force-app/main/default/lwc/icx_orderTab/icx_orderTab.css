@@ -1,0 +1,7 @@
+.orderTab-conainer {
+    padding: 2px;
+}
+.table-container {
+    max-height: 60vh;
+    overflow: auto;
+}

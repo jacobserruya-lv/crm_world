@@ -1,0 +1,73 @@
+<template>
+    <div class="slds-var-m-around_x-small">
+        <span class="title">
+        </span>
+        <div id="container">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="2">
+                    <div>
+                        <lightning-input label="Search" onchange={changeHandler}></lightning-input>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="1">
+                    <template if:true={articleList}>
+                        <lightning-layout>
+                            <lightning-layout-item padding="around-small" class="adjust-padding" >
+                                {articleList.length} article(s) found
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="2">
+                    <lightning-radio-group  data-id="rdo-action"
+                                            name="Record Types"
+                                            label="Record Types"
+                                            options={recordTypeList}
+                                            value="All"
+                                            onchange={handleCible}
+                                            type="radio">
+                    </lightning-radio-group>
+                </lightning-layout-item>
+                <lightning-layout-item> 
+                    <template if:true={showClientService}>
+                        <div>
+                            <lightning-combobox
+                                data-id="cls-action"
+                                name="Client Service"                  
+                                label="Client Services"
+                                options={options}
+                                value={value}
+                                onchange={handleChange} >
+                            </lightning-combobox>
+                        </div>
+                    </template>
+                </lightning-layout-item>
+            </lightning-layout>
+           <lightning-layout if:true={articleList} horizontal-align='spread'>
+                <lightning-layout-item size="2" padding="around-small">
+                    <template for:each={articleList} for:item="art">
+                        <div key={art.data.Id}  class='slds-var-m-vertical_small'>
+                            <a  data-info={art.data.Id} href={art.url} onclick={redirectToArticle} onmouseenter={showData} > {art.data.Title} </a>
+                        </div>
+                    </template>
+                </lightning-layout-item>
+
+                <lightning-layout-item  if:true={selectedAritcle.data}  size="12" class="slds-border_left" padding="around-small"  >
+                    <div class="slds-form-element slds-form-element_horizontal slds-form-element_1-col">
+                        <label class="slds-form-element__label">Summary:</label>
+                        <div class="slds-box slds-box_small"> {selectedAritcle.data.Summary} </div>
+                    </div>
+                    <div class="slds-form-element slds-form-element_horizontal slds-form-element_1-col">
+                        <label class="slds-form-element__label" >Article Body:</label>
+                        <div class="slds-box slds-box_small" >
+                            <lightning-formatted-rich-text value={selectedAritcle.data.Article_Body__c}> </lightning-formatted-rich-text>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <template if:false={articleList}><i>No articles found.</i></template>
+
+        </div>
+    </div>
+</template>

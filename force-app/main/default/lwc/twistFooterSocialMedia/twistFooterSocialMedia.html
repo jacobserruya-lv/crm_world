@@ -1,0 +1,16 @@
+<template>
+    <template lwc:if={socialMediaConfig}>
+        <div class={wrapperClassName}>
+            <hr class="border-logo" />
+            <div class={closeIconClassName}><img  data-id='CLOSE' onclick={hideSocialMedia} src={twistCloseIcon} /></div>
+            <div class="follow_us">
+                <div class="tittle">{socialMediaConfig.label}</div>
+                <div class="logos">
+                    <template for:each={socialMediaConfig.content} for:item="socialItem">
+                        <div key={socialItem.iconId} class="footer__links"><a href={socialItem.url}><img class="logo" src={socialItem.icon}/></a></div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

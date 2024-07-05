@@ -1,0 +1,27 @@
+<template>
+    <lightning-accordion-section class="container__card" name='GeneralInfo' label="General Information">
+
+        <template lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+
+        <template lwc:else>
+            <template lwc:if={dataReformated} for:each={dataReformated} for:item="multipleFields" for:index="index">
+                <div class="container__card--field" key={getGuidId}>
+                    <template lwc:if={multipleFields.details} for:each={multipleFields.details} for:item="field"
+                        for:index="index">
+                        <div class="container__card--contain" key={field.id}>
+                            <div class="container__card--title">
+                                <p>{field.label}</p>
+                            </div>
+                            <div class="container__card--value">
+                                <p>{field.value}</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+
+    </lightning-accordion-section>
+</template>

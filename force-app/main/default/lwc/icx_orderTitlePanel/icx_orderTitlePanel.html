@@ -1,0 +1,19 @@
+<template>    
+    <template if:true={_orderShipping}>
+        <div class="slds-text-title_bold  slds-p-top_large">
+            <span class="slds-badge">Product Status : {status}</span>
+            <template if:true={showLeadtime}>
+                <span class="slds-badge">Initial Lead time : {leadtime}</span>
+            </template>
+            <template if:true={showInitalETA}>
+                <span class="slds-badge">Initial ETA : {initalETA}</span>
+            </template>
+            <template if:true={showRevisedLeadtime}>
+                <span class="slds-badge">Revised lead time : {revisedLeadtime}</span>
+            </template>
+            <template if:true={showRevisedETA}>
+                <span class="slds-badge">Revised ETA : {revisedETA}</span>
+            </template>
+        </div>
+    </template>
+</template>

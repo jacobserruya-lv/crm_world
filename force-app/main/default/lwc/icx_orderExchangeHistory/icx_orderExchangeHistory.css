@@ -1,0 +1,19 @@
+.myspinner{
+    opacity: 0.8;
+}
+
+.spinnerHeader{
+    position: relative;
+}
+
+.exampleHolder{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.borderBottom{
+    border-bottom: solid lightgray 1px;
+}

@@ -1,0 +1,17 @@
+<template>  
+    <lightning-quick-action-panel title="Accept Quotation Action">  
+  
+          <header class="slds-modal__header">
+              <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate">Confirmation</h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content">
+            <div class="slds-text-align_center"><p>Do you want to accept the quotation on behalf of the Client ?</p></div>
+          </div>
+  
+        <div slot="footer">
+          <lightning-button variant="neutral" label="No" onclick={closeAction}></lightning-button>
+          <lightning-button variant="brand" label="Yes" onclick={saveAction}></lightning-button>
+        </div>
+       
+      </lightning-quick-action-panel>
+  </template>

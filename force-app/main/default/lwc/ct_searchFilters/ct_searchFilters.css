@@ -1,0 +1,7 @@
+.accordion-wrapper {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.accordion-section-wrapper-disabled {
+  opacity: 0.33;
+}

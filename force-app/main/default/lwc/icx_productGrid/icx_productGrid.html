@@ -1,0 +1,15 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner class="spinner-loader" alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+
+    <template if:false={isLoading}>
+        <div class="table-container">
+            <template for:each={products} for:item="product">
+                <div key={product.id} class="grid-container">
+                    <c-icx_product-card item={product} open-details={openDetails} card-class={cardClass}></c-icx_product-card>
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

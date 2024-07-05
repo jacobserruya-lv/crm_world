@@ -1,0 +1,467 @@
+<template>
+    <div class="main">
+
+        <c-twist-google-analytics autodata={autodata} ontwistgalwcrendered={handleTwistGaLwcRendered}></c-twist-google-analytics>
+
+        <template if:true={isCurrentSectionAccountCreation}>
+            <div class="component is--registration" if:true={registrationFormField}>
+                <form class={componentForm}>
+
+                    <div if:true={isGlobalError}>
+                        <div class="global-error-message">{form.error}</div>
+                    </div>
+
+                    <template if:true={componentConfig.modeInfo.isRegistrationMode}>
+
+                        <h1 class="component__title">{customLabels.Twist_Account_Creation_TitleAccountCreation}</h1>
+                        
+                        <template lwc:if={showLineButton}>
+                            <div class="div-line">
+                                <a href={socialMediaProviders.LineLV} class="line_button">
+                                  <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
+                                    {customLabels.Twist_Login_Page_Social_Login_Line}
+                                </a>
+                                <p class="line-or-text">{customLabels.Twist_Social_Line_Text_For_Second_Option}</p>
+                            </div>
+                        </template>
+
+                        <template lwc:if={showLineTWButton}>
+                            <div class="div-line">
+                                <a href={socialMediaProviders.LineLVTW} class="line_button">
+                                  <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
+                                    {customLabels.Twist_Login_Page_Social_Login_Line}
+                                </a>
+                                <p class="line-or-text">{customLabels.Twist_Social_Line_Text_For_Second_Option}</p>
+                            </div>
+                        </template>
+
+                        <p class="component__text">{customLabels.Twist_Account_Creation_TextAccountCreation} </p>
+                        <p class="component__text">{customLabels.Twist_Account_Creation_SecondTextAccountCreation}
+                            <lightning-formatted-text
+                            class="form__link"
+                            value={customLabels.Twist_Account_Creation_LoginHereLink}
+                            onclick={handleClickOnLoginHereLink}>
+                            </lightning-formatted-text>
+                        </p>
+                        <form class="components__form">
+                                   
+                            <div class="left">
+
+                                <template if:true={registrationFormField.email}>
+                                    <lightning-input
+                                        data-id={registrationFormField.email.Field__c}
+                                        autocomplete="off"
+                                        type="text"
+                                        label={customLabels.Twist_Account_Creation_EmailFieldLabel}
+                                        value={formData.email}
+                                        onblur={handleInputBlur}
+                                        required={registrationFormField.email.Is_Required__c}
+                                        data-cs-mask
+                                        disabled={isEmailDisabled}>
+                                    </lightning-input>
+                                </template>
+
+                                <template if:true={registrationFormField.emailconfirmation}>
+                                    <lightning-input
+                                        data-id={registrationFormField.emailconfirmation.Field__c}
+                                        name="confirm"
+                                        autocomplete="off"
+                                        type="text"
+                                        label={customLabels.Twist_Account_Creation_EmailConfirmationFieldLabel}
+                                        value=""
+                                        required={registrationFormField.emailconfirmation.Is_Required__c}
+                                        onpaste={handlePaste}
+                                        onblur={handleInputBlur}
+                                        class={emailConfirmationClassName}
+                                        data-cs-mask
+                                        disabled={isLogInModalDisplayed}>
+                                    </lightning-input>
+                                </template>
+
+                                <template if:true={registrationFormField.password}>
+
+                                    <div class="twist-password-field-container" >
+                                        <lightning-input
+                                            data-id={registrationFormField.password.Field__c}
+                                            autocomplete="off"
+                                            type={passwordFieldType}
+                                            label={customLabels.Twist_Account_Creation_PasswordFieldLabel}
+                                            value=""
+                                            required={registrationFormField.password.Is_Required__c}
+                                            onchange={handleFormPasswordChange}
+                                            onfocus={handleFormPasswordFocus}
+                                            onblur={handleInputBlur}
+                                            class="eye-icon__wrapper"
+                                            data-cs-mask
+                                            disabled={isLogInModalDisplayed}>
+                                        </lightning-input>
+                                        <img class="eye-iconSmall" src={eyeIconSrcPassword} onclick={handleToggleShowPassword} />
+                                    </div>
+           
+                                    <div if:true={language}>
+                                        <c-twist-password-validity-criteria language={language}></c-twist-password-validity-criteria>
+                                    </div>
+
+                                </template>
+                                <template lwc:if={componentConfig.showKanaFields}>
+                                    <template lwc:if={registrationFormField.birthdate}>
+                                        <c-date-input-format
+                                            date-field={registrationFormField.birthdate}
+                                            custom-labels={customLabels}
+                                            calendar-date-format={componentConfig.calendarDateFormat}
+                                            ongetfieldbirthday={handleInputBlur}>
+                                        </c-date-input-format>
+                                    </template>
+                                </template>
+                            </div>
+                           
+                            <div class="right">
+                                <template if:true={registrationFormField.title}>
+                                    <div class="hidden-input-logo__wrapper">
+                                        <lightning-combobox
+                                            data-id={registrationFormField.title.Field__c}
+                                            label={customLabels.Twist_Account_Creation_TitleFieldLabel}
+                                            value={formData.title}
+                                            placeholder={customLabels.Twist_Account_Creation_Title_Placeholder}
+                                            options={componentConfig.titleList}
+                                            onblur={handleComboboxesChange}
+                                            required={registrationFormField.title.Is_Required__c}
+                                            class="combobox"
+                                            data-cs-mask
+                                            disabled={isLogInModalDisplayed}>
+                                        </lightning-combobox>
+                                        <img class="registration-chevron" src={chevronLV} />
+                                    </div>
+                                </template>
+
+                                <template if:false={componentConfig.showKanaFields}>
+                                    <template if:true={registrationFormField.firstname}>
+                                        <lightning-input
+                                            data-id={registrationFormField.firstname.Field__c}
+                                            autocomplete="off"
+                                            type="text"
+                                            label={customLabels.Twist_Account_Creation_FirstNameFieldLabel}
+                                            value={formData.firstname}
+                                            pattern={regexNoDigitAndSpecialChars}
+                                            onkeypress={handleOnKeyPress}
+                                            onblur={handleInputBlur}
+                                            required={registrationFormField.firstname.Is_Required__c}
+                                            max-length={registrationFormField.firstname.Validation_Max_Length__c}
+                                            disabled={isLogInModalDisplayed}
+                                            data-cs-mask>
+                                        </lightning-input>
+                                    </template>
+                                </template>
+
+                                <template if:true={registrationFormField.lastname}>
+                                    <lightning-input
+                                        data-id={registrationFormField.lastname.Field__c}
+                                        autocomplete="off"
+                                        type="text"
+                                        label={customLabels.Twist_Account_Creation_LastNameFieldLabel}
+                                        value={formData.lastname}
+                                        pattern={regexNoDigitAndSpecialChars}
+                                        onkeypress={handleOnKeyPress}
+                                        onblur={handleInputBlur}
+                                        required={registrationFormField.lastname.Is_Required__c}
+                                        max-length={registrationFormField.lastname.Validation_Max_Length__c}
+                                        disabled={isLogInModalDisplayed}
+                                        data-cs-mask>
+                                    </lightning-input>
+                                </template>
+
+                                <template lwc:if={componentConfig.showKanaFields}>
+                                    <template if:true={registrationFormField.firstname}>
+                                        <lightning-input
+                                            data-id={registrationFormField.firstname.Field__c}
+                                            autocomplete="off"
+                                            type="text"
+                                            label={customLabels.Twist_Account_Creation_FirstNameFieldLabel}
+                                            value={formData.firstname}
+                                            pattern={regexNoDigitAndSpecialChars}
+                                            onkeypress={handleOnKeyPress}
+                                            onblur={handleInputBlur}
+                                            required={registrationFormField.firstname.Is_Required__c}
+                                            max-length={registrationFormField.firstname.Validation_Max_Length__c}
+                                            disabled={isLogInModalDisplayed}
+                                            data-cs-mask>
+                                        </lightning-input>
+                                    </template>
+                                </template>
+
+                                
+                                 <template lwc:if={registrationFormField.lastname2}>
+                                     <lightning-input
+                                        data-id={registrationFormField.lastname2.Field__c}
+                                        autocomplete="off"
+                                        type="text"
+                                        label={customLabels.Twist_Account_Creation_LastName2FieldLabel}
+                                        value={formData.lastname2}
+                                        pattern={regexNoDigitAndSpecialChars}
+                                        onkeypress={handleOnKeyPress}
+                                        onblur={handleInputBlur}
+                                        required={registrationFormField.lastname2.Is_Required__c}
+                                        max-length={registrationFormField.lastname2.Validation_Max_Length__c}
+                                        disabled={isLogInModalDisplayed}
+                                        data-cs-mask>
+                                     </lightning-input>
+                                 </template>
+
+                                <template lwc:if={registrationFormField.firstname2}>
+                                    <lightning-input
+                                        data-id={registrationFormField.firstname2.Field__c}
+                                        autocomplete="off"
+                                        type="text"
+                                        label={customLabels.Twist_Account_Creation_FirstName2FieldLabel}
+                                        value={formData.firstname2}
+                                        pattern={regexNoDigitAndSpecialChars}
+                                        onkeypress={handleOnKeyPress}
+                                        onblur={handleInputBlur}
+                                        required={registrationFormField.firstname2.Is_Required__c}
+                                        max-length={registrationFormField.firstname2.Validation_Max_Length__c}
+                                        disabled={isLogInModalDisplayed}
+                                        data-cs-mask>
+                                    </lightning-input>
+                                </template>
+
+                                <template lwc:if={showCountryField}>
+                                    <div class="hidden-input-logo__wrapper">
+                                        <lightning-combobox if:true={componentConfig.showCountryList}
+                                            data-id={registrationFormField.country.Field__c}
+                                            label={customLabels.Twist_Account_Creation_CountryFieldLabel}
+                                            value={formData.country}
+                                            placeholder={customLabels.Twist_Account_Creation_Country_Placeholder}
+                                            options={componentConfig.countryList}
+                                            onchange={handleComboboxesChange}
+                                            onblur={handleComboboxesChange}
+                                            required={registrationFormField.country.Is_Required__c}
+                                            disabled={isLogInModalDisplayed}
+                                            class="combobox">
+                                        </lightning-combobox>
+                                        <img class="registration-chevron" src={chevronLV} />
+                                    </div>
+                                </template>
+                                <template if:false={componentConfig.showKanaFields}>
+                                    <template lwc:if={registrationFormField.birthdate}>
+                                        <c-date-input-format
+                                            date-field={registrationFormField.birthdate}
+                                            custom-labels={customLabels}
+                                            calendar-date-format={componentConfig.calendarDateFormat}
+                                            ongetfieldbirthday={handleInputBlur}
+                                            disabled={isLogInModalDisplayed}>
+                                        </c-date-input-format>
+                                    </template>
+                                </template>
+                           
+                            </div>
+                        </form>
+
+                    </template>
+
+                    <template if:true={componentConfig.modeInfo.isPartialActivationMode}>
+
+                        <div class="partialActivationForm">
+                            <h2 class="component__title">{customLabels.Twist_Partial_Activation_Form_PartialActivationSubtitle}</h2>
+                            <p class="component__text">{customLabels.Twist_Partial_Activation_Form_PartialActivationYourEmailText} <span>{componentConfig.identifier}</span></p>
+                            
+                            <form class="partial-form">
+
+                                <template if:true={registrationFormField.password}>
+
+                                    <div class="twist-password-field-container" >
+                                        <lightning-input
+                                            data-id={registrationFormField.password.Field__c}
+                                            autocomplete="off"
+                                            type={passwordFieldType}
+                                            label={customLabels.Twist_Account_Creation_PasswordFieldLabel}
+                                            required={registrationFormField.password.Is_Required__c}
+                                            onchange={handleFormPasswordChange}
+                                            onfocus={handleFormPasswordFocus}
+                                            onblur={handleInputBlur}
+                                            class="eye-icon__wrapper"
+                                            data-cs-mask>
+                                        </lightning-input>
+                                        <img class="eye-iconSmall" src={eyeIconSrcPassword} onclick={handleToggleShowPassword} />
+                                    </div>
+            
+                                    <div if:true={language}>
+                                        <c-twist-password-validity-criteria language={language}></c-twist-password-validity-criteria>
+                                    </div>
+                                </template>
+
+                                <template if:true={registrationFormField.passwordconfirmation}>
+
+                                    <div class="twist-password-field-container" >
+                                        <lightning-input
+                                            data-id={registrationFormField.passwordconfirmation.Field__c}
+                                            type={confirmPasswordFieldType}
+                                            label={customLabels.Twist_Reset_Password_Form_ConfirmPasswordFieldLabel}
+                                            required={registrationFormField.passwordconfirmation.Is_Required__c}
+                                            onblur={handleInputBlur}
+                                            data-cs-mask>
+                                        </lightning-input>
+                                        <img class="eye-iconSmall" src={eyeIconSrcConfirmPassword} onclick={handleToggleShowConfirmPassword} />
+                                    </div>
+
+                                </template>
+                            </form>
+                        </div>
+                   
+                    </template>
+
+                    <template if:true={registrationFormField.newsletter_agreement}>
+                        <template if:false={registrationFormField.privacy_policy}>
+                            <div class="privacy-policy">
+                                <lightning-input if:true={registrationFormField.newsletter_agreement}
+                                    data-id={registrationFormField.newsletter_agreement.Field__c}
+                                    type="checkbox"
+                                    class="checkbox"
+                                    label=""
+                                    autocomplete="off"
+                                    onchange={handleCheckboxChange}
+                                    required={registrationFormField.newsletter_agreement.Is_Required__c}
+                                    value={formData.newsletter_agreement}>
+                                </lightning-input>
+                                <p class="subscribe-text">
+                                    {customLabels.Twist_Account_Creation_CheckFieldLabel}&nbsp;
+                                    <lightning-formatted-text
+                                        class="form__link_privacy_policy"
+                                        value={customLabels.Twist_Account_Creation_CheckFieldLinkLabel}
+                                        onclick={handleTermConditionClick}>
+                                    </lightning-formatted-text>
+                                    .
+                                </p>
+                            </div>
+                        </template>
+                    </template>
+
+                <template if:true={registrationFormField.newsletter_agreement}>
+                    <template if:true={registrationFormField.privacy_policy}>
+                        <div class="privacy-policy">
+                            <lightning-input if:true={registrationFormField.newsletter_agreement}
+                                data-id={registrationFormField.newsletter_agreement.Field__c}
+                                type="checkbox"
+                                class="checkbox"
+                                label=""
+                                autocomplete="off"
+                                onchange={handleCheckboxChange}
+                                required={registrationFormField.newsletter_agreement.Is_Required__c}
+                                value={formData.newsletter_agreement}>
+                            </lightning-input>
+                            <p class="subscribe-text">{customLabels.Twist_Account_Creation_CheckFieldLabel_Newsletter}&nbsp;</p>
+                        </div>
+                        <div class="privacy-policy">
+                            <lightning-input if:true={registrationFormField.privacy_policy}
+                                data-id={registrationFormField.privacy_policy.Field__c}
+                                type="checkbox"
+                                class="checkbox"
+                                label=""
+                                autocomplete="off"
+                                onchange={handleCheckboxChangePrivacyPolicy}
+                                value={formData.privacy_policy}>
+                            </lightning-input>
+                            <p class="subscribe-text">
+                                {customLabels.Twist_Account_Creation_CheckFieldLabel_Privacy_Policy}&nbsp;
+                                <lightning-formatted-text
+                                    class="form__link_privacy_policy"
+                                    value={customLabels.Twist_Account_Creation_CheckFieldLinkLabel}
+                                    onclick={handleTermConditionClick}>
+                                    </lightning-formatted-text>
+                                . <span>*</span>
+                            </p>
+                        </div>
+                    </template>
+                </template>
+                    
+                    <div class="button__wrapper">
+                        <div class="button__container">
+                            <lightning-button
+                                class="continue__button"
+                                label={customLabels.Twist_Account_Creation_Form_ContinueButtonLabel}
+                                onclick={handleClickOnContinueButton} >
+                            </lightning-button>
+    
+                            <p class="under_text">{customLabels.Twist_Account_Creation_EndTextAccountCreation}</p>
+                        </div>
+                    </div>
+                   
+                </form>
+            </div>
+        </template>
+
+        <template if:true={isCurrentSectionActivateYourAccount}>
+            <div class="component">
+                <form class="form">
+               
+                    <h1 class="component__title">{customLabels.Twist_Account_Creation_TitleActivateYourAccount}</h1>
+                    <p class="component__text">
+                        {customLabels.Twist_Account_Creation_ActivationCodeText}<br/>
+                        {formData.email}
+                        {customLabels.Twist_Account_Creation_ActivationCodeSecondeLineText}
+                    </p>
+                    <form class="component__form">
+                        <lightning-input
+                            data-id="activationCode"
+                            class="activationCodeCss"
+                            name="accountCode"
+                            type="text"
+                            label={customLabels.Twist_Account_Creation_AccountCodeFieldLabel}
+                            onkeypress={handleKeypressOnActivationCode}
+                            onblur={handleCodeChange}
+                            required>
+                        </lightning-input>
+                        
+                        <div class="form__text">
+                            <lightning-button data-id="resendCode" class="form__link" label={customLabels.Twist_Account_Creation_SendAgainLink} onclick={handleResendVerificationCode}></lightning-button>
+                            <div class="newCodeGeneratedTextCss">{newCodeGeneratedMessage}</div>
+                        </div>
+
+                        <div class="button__container">
+                            <lightning-button
+                                class="continue__button"
+                                label={customLabels.Twist_Account_Creation_Form_ActivateButtonLabel}
+                                onclick={handleClickOnActivateAccountButton}>
+                            </lightning-button>
+
+                            <p class="under_text">
+                                {customLabels.Twist_Account_Creation_ByCreatingText}&nbsp;
+                                <lightning-formatted-text
+                                    class="form__link_terms_conditions"
+                                    value={customLabels.Twist_Account_Creation_TermAndConditionsLink}
+                                    onclick={handleTermConditionClick}>
+                                </lightning-formatted-text>
+                            </p>
+                        </div>
+
+                    </form>
+                
+                </form>
+            </div>
+        </template>
+
+        <template if:true={isCurrentSectionConfirmationMessage}>
+            <c-twist-account-confirmation
+                twist-logo={twistLogoLV}
+                language={language}
+                autodata={autodata}
+                text-to-display={customLabels.Twist_Account_Creation_ConfirmationText}
+                activation-code={verificationCode}
+                account-creation-form={formData}
+                query-params={queryParams}
+                social-params={socialParams}>
+            </c-twist-account-confirmation>
+        </template>
+        <c-twist-login-modal
+            show-modal={isLogInModalDisplayed}
+            language={language}
+            email={formData.email}
+            social-params={socialParams}
+            o-query-params={oQueryParams}
+            password-maxlength={componentConfig.passwordMaxlength}
+            forgot-password-url={componentConfig.forgotPasswordUrl}
+            onclickforgotpassword={handleClickOnForgotPasswordLink}
+            onclicklogin={handleLoginFromPopup}>
+        </c-twist-login-modal >
+    </div>
+   
+</template>

@@ -1,0 +1,12 @@
+<template>
+ 
+    <c-icx_dynamic-table  my-row-class='row-whith-border rows-hover cursor-pointer' table-data={tableFamilies} onviewrecordlist={navigateToViewListPage}>
+        <div slot="content" class='container'>
+            <div class=" slds-p-around_small slds-is-relative  " if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+            <c-icx_custom-card-list if:false={isLoading}  list-data={listFamilies} ondetailsrecord={navigateToFamilies} is-not-with-picture></c-icx_custom-card-list>
+        </div>
+    </c-icx_dynamic-table>
+
+</template>

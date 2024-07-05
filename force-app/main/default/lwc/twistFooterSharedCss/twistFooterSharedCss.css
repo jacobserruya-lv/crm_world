@@ -1,0 +1,37 @@
+a, a:hover {
+    color: black !important;
+    text-decoration: none;
+}
+.footer {
+    color: black !important;
+}
+.border-logo {
+    opacity: 0.2;
+    width: 100%;
+    background-color: #EAE8E4;
+}
+.footer__links {
+    font-size: 14px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    text-align: left;
+    color: black;
+    margin-right: 20px;
+    margin-top: 6px;
+}
+.legalSection {
+    display: flex; 
+    flex-direction:row; 
+    flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+    .border-logo{
+        display: none;
+    }
+    .legalSection {
+        justify-content: center;
+    }
+}

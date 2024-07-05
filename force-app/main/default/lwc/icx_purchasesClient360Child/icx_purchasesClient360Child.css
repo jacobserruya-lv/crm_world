@@ -1,0 +1,112 @@
+.fix-container {
+    position: sticky;
+    background-color: #fff;
+    padding: 5px 25px ;
+    box-shadow: 0 3px 8px -5px rgb(0 0 0 / 60%);
+    margin-bottom: 13px;
+    /* position: sticky;
+    top: 0;
+    z-index: 3; */
+    position:sticky;
+    top:160px;
+    width:100%;
+    z-index:50;
+}
+
+.money-btns__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.money-btns__container--btns {
+    display: flex;
+
+    position: sticky;
+    top: 0;
+}
+
+.money-icon {
+    background-size: contain;
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.money-icon:focus {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.scroll-container {
+    /* padding: 25px 20px 15px 30px; */
+    padding: 0px 20px 15px 30px;
+    overflow-y: auto;
+    height: 40vh;
+}
+
+.category-container {
+    padding: 0px 20px 15px 30px;
+    /* height: 58vh; */
+}
+
+.btns-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btns-container img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.btns-container__categories {
+    flex-wrap: wrap;
+    display: flex;
+    width: 90%;
+}
+
+.presentation-icon {
+    width: 100%;
+    margin: 0 5px;
+}
+
+.presentation-icon img {
+    height: 30px;
+    margin: 0;
+}
+
+.btns-container .money-icon {
+    margin: 5px;
+    height: 22px;
+}
+
+.money-btns__container--contain {
+    display: flex;
+}
+
+.export-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.export-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    font-weight: bold;
+    margin: 1rem;
+    font-size: 18px;
+    color: aliceblue;
+    border-color: #93b4dd;
+    border-radius: 8px;
+    border: solid 1px #93b4dd;
+    background-color: #5192E0;
+    cursor: pointer;
+}

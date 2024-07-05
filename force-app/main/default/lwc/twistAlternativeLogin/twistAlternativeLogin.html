@@ -1,0 +1,75 @@
+<template>
+
+    <c-twist-google-analytics autodata={autodata} ontwistgalwcrendered={handleTwistGaLwcRendered}></c-twist-google-analytics>
+
+    <div class="component">
+        
+        <!--BACK ARROW LOGIN-->
+        <template if:false={isAlternativeLoginPage}>
+            <div class="arrow-back" onclick={handleClickOnBackToLoginPageButton}>
+                <img class="arrow-icon" src={twistArrowIcon} />
+                <p class="component__text_back_to_login">{customLabels.Twist_Forgot_Password_Form_LoginText}</p>
+            </div>
+        </template>
+
+        <!--TITLE--> 
+        <h2 class="component__title">{customLabels.Twist_Login_Form_WelcomeBackTitle}</h2>
+
+        <!--IN CASE OF SUCCESS-->
+        <!--TODO: to check-->
+        <template if:true={isAlternativeLoginPage}>
+            <div class="success-message">{customLabels.Twist_Alternative_Login_Form_EmailSentSuccessfullyText}</div>
+        </template>
+
+        <!--BODY TEXT-->
+        <template if:false={isAlternativeLoginPage}>
+            <p class="component__text">{customLabels.Twist_Alternative_Login_Form_IdentificationHintText}</p>
+    
+            <div class="component__form">
+                <!--INPUT FORM-->
+                <lightning-input
+                    name="email"
+                    class={emailFieldCssClass}
+                    type="text"
+                    label={customLabels.Twist_Forgot_Password_Form_EmailFieldLabel}
+                    value={user.email}
+                    onblur={handleOnBlur}
+                    onkeydown={handleEnter}
+                    >
+                </lightning-input>
+
+                <!--ERROR UNDER INPUT FORM-->
+                <div if:true={alternativeLoginForm.email.error}>
+                    <div class="field-error-message">{alternativeLoginForm.email.error}</div>
+                </div>
+                <div if:true={alternativeLoginForm.form.error}>
+                    <div class="field-error-message">{alternativeLoginForm.form.error}</div>
+                </div>
+                
+                <!--SEND BUTTON-->
+                <div class="button__container">
+                    <div class="button__container-wrap">
+
+                        <template if:true={isSubmitButtonDisabled}>
+                            <lightning-button label={customLabels.Twist_Forgot_Password_Form_SubmitButtonLabel} class="form__button" onclick={handleClickOnSubmitButton} disabled></lightning-button>
+                        </template>
+
+                        <template if:false={isSubmitButtonDisabled}>
+                            <lightning-button label={customLabels.Twist_Forgot_Password_Form_SubmitButtonLabel} class="form__button" onclick={handleClickOnSubmitButton}></lightning-button>
+                        </template>
+
+                        <!--CREATE YOUR NEW - LINK-->
+                        <div class="registers">
+                            <p class="register__text">{customLabels.Twist_Login_Form_DontHaveAccountText}</p>
+                            <a href={linkToRegistration} onclick={handleClickOnLinkToRegistration} class="register__link">{customLabels.Twist_Login_Form_CreateYourAccountText}</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </template>
+    
+    </div>
+
+</template>

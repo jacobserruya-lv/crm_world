@@ -1,0 +1,258 @@
+<template>
+    <!-- <div class="slds-box"> -->
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_3-of-5">
+                <!-- ROW Header -->
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_3-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Order Details</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW : padding between ROW Header and 1-->
+                <div style="font-size:xx-small">
+                    &nbsp;
+                </div>
+
+                <!-- ROW 1 Title : Shipping Address / Billing Address / Shipping Method  -->
+                <div class="slds-grid slds-gutters"> 
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Shipping Address:</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Billing Address:</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Shipping Method:</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 1 Data : Shipping Address / Billing Address / Shipping Method -->
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-box slds-box_x-small" style="height:100%;">
+                            <p class="slds-truncate" title={orderdetailsapi.ship_to.name.fullName}>{orderdetailsapi.ship_to.name.fullName}</p>
+                            <p class={isShippingAddressCompanyNameHidden} title={orderdetailsapi.ship_to.name.company_name}>{orderdetailsapi.ship_to.name.company_name}</p>
+                            <p class="slds-truncate" title={orderdetailsapi.ship_to.phone1}>{orderdetailsapi.ship_to.phone1}</p>
+                            <p class="slds-truncate" title={orderdetailsapi.ship_to.phone2}>{orderdetailsapi.ship_to.phone2}</p>
+                            <!-- <lightning-formatted-address
+                            street={orderdetailsapi.ship_to.address.address}
+                            city={orderdetailsapi.ship_to.address.city}
+                            country={orderdetailsapi.ship_to.address.country}
+                            province={orderdetailsapi.ship_to.address.province}
+                            postal-code={orderdetailsapi.ship_to.address.postal_code}
+                            ></lightning-formatted-address> -->
+                            <div class="clearfix">
+                                <div style="float:left">
+                                    <p>{orderdetailsapi.ship_to.address.address}</p>
+                                    <p>{orderdetailsapi.ship_to.address.city}, {orderdetailsapi.ship_to.address.province}, {orderdetailsapi.ship_to.address.postal_code}</p>
+                                    <p>{orderdetailsapi.ship_to.address.country}</p>
+                                </div>
+                                <div style="float:right"><lightning-icon icon-name="utility:copy" alternative-text="Copy to clipboard" onclick={handleCopyShippingAddress} size="x-small"></lightning-icon></div>
+                            </div>
+                            <lightning-formatted-url value={shippingMapsURI} label="Open address in map" target="_blank" ></lightning-formatted-url>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">           
+                        <div class="slds-box slds-box_x-small" style="height:100%;">
+                            <p class="slds-truncate" title={orderdetailsapi.sold_to.name.fullName}>{orderdetailsapi.sold_to.name.fullName}</p>
+                            <p class={shipToCompanyNameClass} title={orderdetailsapi.sold_to.name.company_name}>{orderdetailsapi.sold_to.name.company_name}</p>
+                            <p class="slds-truncate" title={orderdetailsapi.sold_to.phone1}>{orderdetailsapi.sold_to.phone1}</p>
+                            <p class="slds-truncate" title={orderdetailsapi.sold_to.phone2}>{orderdetailsapi.sold_to.phone2}</p>
+                            <!-- <lightning-formatted-address
+                            street={orderdetailsapi.sold_to.address.address}
+                            city={orderdetailsapi.sold_to.address.city}
+                            country={orderdetailsapi.sold_to.address.country}
+                            province={orderdetailsapi.sold_to.address.province}
+                            postal-code={orderdetailsapi.sold_to.address.postal_code}
+                            ></lightning-formatted-address> -->
+                            <div class="clearfix">
+                                <div style="float:left">
+                                    <p>{orderdetailsapi.sold_to.address.address}</p>
+                                    <p>{orderdetailsapi.sold_to.address.city}, {orderdetailsapi.sold_to.address.province}, {orderdetailsapi.sold_to.address.postal_code}</p>
+                                    <p>{orderdetailsapi.sold_to.address.country}</p>
+                                </div>
+                                <div style="float:right"><lightning-icon icon-name="utility:copy" alternative-text="Copy to clipboard" onclick={handleCopyBillingAddress} size="x-small"></lightning-icon></div>
+                            </div>
+                            <lightning-formatted-url value={billingMapsURI} label="Open address in map" target="_blank" ></lightning-formatted-url>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">           
+                        <div class="slds-box slds-box_x-small" style="height:100%;">
+                            <p>{shippingMethod}</p>
+
+                            <template lwc:if={orderdetailsapi.ship_to.special_instructions}>
+                                <br/>
+																<p> Delivery Note </p> 
+																<p>{orderdetailsapi.ship_to.special_instructions} </p>  
+                            </template>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 2 : padding between ROW 1 and 3-->
+                <div style="font-size:xx-small">
+                    &nbsp;
+                </div>
+                <!-- ROW 3 Title : Pricing / Payment Method / Client Advisor -->
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>
+                                <template if:true={orderdetailsapi.isTwist}>    
+                                    <template if:true={orderdetailsapi.pricingIconLabel}>
+                                    <lightning-icon icon-name="utility:info" alternative-text="Warning!" variant="warning" title={orderdetailsapi.pricingIconLabel} size="small"></lightning-icon>
+                                    </template>
+                                </template>
+                                Pricing:  <lightning-formatted-number value={orderdetailsapi.transactionInfo.total}  minimum-fraction-digits="2"></lightning-formatted-number> {orderdetailsapi.transactionInfo.currency_Z}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Payment Method:</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Client Advisor:</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 3 Data : Pricing / Payment Method / Client Advisor -->
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-box slds-box_x-small" style="height:100%;">
+                            <p>Subtotal: <lightning-formatted-number value={orderdetailsapi.subTotalWithoutShippingFees}  minimum-fraction-digits="2"></lightning-formatted-number></p>
+                            <template if:true={orderdetailsapi.freeShippingReason}>
+                                <p>Shipping: Free Shipping</p>
+                                <p class="slds-truncate" title={orderdetailsapi.freeShippingReason}><i>{orderdetailsapi.freeShippingReason}</i></p>
+                            </template>                            
+                            <template if:false={orderdetailsapi.freeShippingReason}>
+                                <!-- <p>Shipping: {orderdetailsapi.sumOfShippingFees}</p> -->
+                                <p> Shipping: <lightning-formatted-number value={orderdetailsapi.sumOfShippingFeesWithoutTax}  minimum-fraction-digits="2"></lightning-formatted-number></p>
+                            </template>
+                            <template if:true={orderdetailsapi.transactionInfo.additional_fees}>
+                                <p>Retail Delivery Fee: <lightning-formatted-number value={orderdetailsapi.transactionInfo.additional_fees}  minimum-fraction-digits="2"></lightning-formatted-number></p>
+                            </template>  
+                            <p>Tax:  <lightning-formatted-number value={orderdetailsapi.transactionInfo.tax_amount}  minimum-fraction-digits="2"></lightning-formatted-number></p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-box slds-box_x-small" style="height:100%;">                            
+                            <template lwc:if={orderdetailsapi.paymentMethod.isPayByLink}>
+                                <template lwc:if={displayPayByLink}><p>
+                                    Pay by link &nbsp;
+                                    <template lwc:if={orderdetailsapi.isPayByLinkExpired}>
+                                        <span class="expired"></span>
+                                    </template>
+                                    <template lwc:elseif={orderdetailsapi.payByLink}>
+                                        <!-- <lightning-formatted-url value={orderdetailsapi.payByLink} label="Pay by link" target="_blank"></lightning-formatted-url> -->
+                                        <lightning-icon icon-name="utility:copy" alternative-text="Copy to clipboard" onclick={handleCopyPayByLink} size="x-small"></lightning-icon>
+                                    </template>
+                                    </p></template>
+                                <template lwc:elseif={displayExtendedPayByLink}><p>
+                                    <!-- <lightning-formatted-url value={orderdetailsapi.extendedPayByLink} label="Extended Pay by link" target="_blank"></lightning-formatted-url> -->
+                                    Extended Pay by link &nbsp;
+                                    <template lwc:if={orderdetailsapi.isExtendedPayByLinkExpired}>
+                                        <span class="expired"></span>
+                                    </template>
+                                    <template lwc:elseif={orderdetailsapi.extendedPayByLink}>
+                                        <lightning-icon icon-name="utility:copy" alternative-text="Copy to clipboard" onclick={handleCopyExtendedPayByLink} size="x-small"></lightning-icon>
+                                    </template>
+                                    </p></template>
+                                <template lwc:elseif={displayPersoProductAccepted}><p>
+                                    <!-- <lightning-formatted-url value={orderdetailsapi.payAfterAgreementLink} label="Perso Validation link" target="_blank"></lightning-formatted-url> -->
+                                    Perso Validation link &nbsp;
+                                    <template lwc:if={orderdetailsapi.isPayAfterAgreementLinkExpired}>
+                                        <span class="expired"></span>
+                                    </template>
+                                    <template lwc:elseif={orderdetailsapi.persoProductAccepted}>
+                                        <lightning-icon icon-name="utility:copy" alternative-text="Copy to clipboard" onclick={handleCopyPayAfterAgreementLink} size="x-small"></lightning-icon>
+                                    </template>
+                                </p></template>
+                                <template lwc:else>
+                                    <p>{orderdetailsapi.paymentMethod.payment_method_label}</p>                                                                        
+                                </template>
+                            </template>
+                            <template lwc:elseif={orderdetailsapi.paymentMethod.payment_method_label}>
+                                <p>{orderdetailsapi.paymentMethod.payment_method_label}</p>
+                            </template>
+                            <template lwc:if={orderdetailsapi.sold_to.fiscal.tax_code}>
+                                <br/>
+                                <p>E-GUI</p>
+                                <p>{orderdetailsapi.sold_to.fiscal.tax_codeValue}</p>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">       
+                        <div class="slds-box slds-box_x-small" style="height:100%;">
+                            <p>{orderdetailsapi.ca.Name}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 4 : padding between ROW 3 and 5-->
+                <div style="font-size:xx-small">
+                    &nbsp;
+                </div>
+                <!-- ROW 5 Title : Samples / Gift Message / Shopping Bag -->
+                <div class="slds-grid slds-gutters">                    
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Gift Message:</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Shopping bag asked by the client:</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3"> 
+                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                            <p>Samples</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 5 Data : Samples / Gift Message / Shopping Bag -->
+                <div class="slds-grid slds-gutters">                    
+                    <div class="slds-col slds-size_1-of-3">   
+                        <div class="slds-box slds-box_x-small" style="height:100%;overflow-wrap: break-word">
+                            <p class="slds-has-flexi-truncate">{orderdetailsapi.gift_message}</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">    
+                        <div class="slds-box slds-box_x-small" style="height:100%;">
+                            <p>{orderdetailsapi.shoppingBag}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-3">         
+                        <div class="slds-box slds-box_x-small" style="height:100%;">
+                            <p>{orderdetailsapi.samples}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_2-of-5">
+                <!-- Client Order Details -->
+                <c-icx_client-order-details orderid={orderid} orderdetailsapi={orderdetailsapi}></c-icx_client-order-details>
+                <template if:true={orderdetailsapi.isTwist}>                    
+                    <lightning-accordion allow-multiple-sections-open 
+                    active-section-name='OrderComments'>
+                    <!-- Order Comments -->
+                        <lightning-accordion-section name="OrderComments" label="Order Comments">     
+                            <c-icx_order-comment recordid={orderid} orderdetailsapi={orderdetailsapi}></c-icx_order-comment>
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                </template>
+            </div>
+        </div>
+    <!-- </div> -->
+</template>

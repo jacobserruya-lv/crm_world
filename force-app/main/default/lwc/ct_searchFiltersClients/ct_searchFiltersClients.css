@@ -1,0 +1,28 @@
+.filters-holder {
+  margin-left: 1rem;
+  position: relative;
+  top: -0.6rem;
+  white-space: pre;
+}
+.filter-wrapper {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 100%;
+  min-width: 125px;
+}
+.filter-wrapper-column {
+  margin-top: 4pt;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 100%;
+}
+
+.filter-wrapper-center {
+  display: inline-flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+}

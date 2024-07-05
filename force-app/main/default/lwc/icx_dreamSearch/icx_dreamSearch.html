@@ -1,0 +1,278 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-13-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <div  class="backgroundStyle" style={backgrounddisplay}>
+    <!-- PAGE  -->
+    <div if:true={displayHeader} class="mainHeader" style={backgroundHearder} >
+      
+      <!-- HEADER  -->
+      
+        <button  if:true={backButtonDisplay} data-id={locationpage} class="button-back" onclick={backFromResult}>
+          <lightning-icon if:true={backButtonDisplay} icon-name="utility:chevronleft" size="x-small" variant="inverse"></lightning-icon>
+          Back
+        </button>
+        <div  if:true={advancedSearch} class="label-advanced-search"> + Advanced Search </div>
+        <div  if:true={advancedSearch} class="div-empty"></div>
+        <div class="test" if:true={searchData}>
+          <lightning-input variant="label-hidden" style="border: 1px solid #C9C9C9; border-radius:3rem" class="searchWord" data-id="searchWord" type="search" value={searchKey} onkeyup={handleKeySearch} is-loading={isLoading}></lightning-input>
+        <!-- <button if:true={filterButton} class="button-wihte"  onclick={fonctionFilter}>
+          <img src="/resource/iconics/images/client360/FilterIcon.svg"> Filter</button> -->
+        </div>
+        <button if:true={searchData} data-id={locationpage} class="button-back" onclick={advancedSearchDisplay}>+ Advanced Search</button>
+    
+
+    </div> 
+    <div class="container">
+      <!-- CONTAINER  -->
+      <!-- search  -->
+    <div if:true={displaySearch}  class="composant_container">
+      <div class="dataSearch-container">
+        <h1 class="title">WELCOME TO Client 360</h1>
+        <img class="sub-title" src="/resource/iconics/images/client360/Line_3.svg"/>
+        
+            
+                <lightning-input class="searchWord" variant="label-hidden" data-id="searchWord" type="search" placeholder="Search Client..." onkeyup={handleKeySearch} is-loading={isLoading}></lightning-input>
+                <!-- suggestion result -->
+                <template for:each={suggestionResult} for:item="result" for:index="index">
+                  <div key={result.dreamId} data-index={index} class="suggestionResult" onclick={handleSuggestionResultNavigation}>
+                    <p>{result.firstName} {result.lastName}</p>
+                  </div>
+                </template>
+             
+          
+        <!--Div Button -->
+        <div class="divButton-Search">
+          <!--search button-->
+          <button class="search-button" label="Search" onclick={handleSearch}>Search</button>
+          <!-- advanced search button  -->
+          <button class="advancedSearch-button" onclick={advancedSearchDisplay}> + Advanced Search</button>
+        </div>
+      </div> 
+    </div>
+    <!-- search  -->
+      <!-- This section contain the modal of merge action   -->
+  <div if:true={isMergeModalOpen} class="fade-slow">
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small firstModal" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <div class="modal-merge-icon">
+            <img src={mergeIcon} alt="" />
+          </div>
+          <h2 id="modal-heading-01" class="headlight">Do you confirm that you want to merge these files ?</h2>
+        </header>
+        <div class="mid-sec" if:true={clientsDetails}>
+          <template for:each={clientsDetails} for:item="client" for:index="index">
+            <!-- 
+                                                <labels><fullName>labelWithHtml</fullName><categories>UI_Message</categories><language>en_US</language><protected>fa</protected><shortDescription>labelWithHtml</shortDescription><value>labelWithHtml <br> labelWithHtml</value></labels> -->
+            <div key={client.dreamId} class="clients-cards">
+              <p class="client-info slds-truncate" title={client.dreamId}>{client.dreamId}</p>
+              <p class="client-info slds-truncate" title={client.firstName}>{client.firstName}</p>
+              <p class="client-info slds-truncate" title={client.lastName}> {client.lastName}</p>
+              <p class="client-info slds-truncate" title={client.Address}> {client.Address} </span>
+              </p>
+              <p class="client-info slds-truncate" title={client.Email}>{client.Email} </span>
+              </p>
+              <p class="client-info slds-truncate" title={client.mobilePhoneNumber}>{client.mobilePhoneNumber}</p>
+            </div>
+          </template>
+        </div>
+        <footer class="slds-modal__footer">
+          <button class="cancel-button" onclick={closeMergeModal}>Cancel</button>
+          <button class="save-button" onclick={mergeConfirmation}>Confirm</button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+  </div>
+  <!-- This second modal pop-in in order to confirm the merge action -->
+  <div if:true={MergesSuccessModal}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small  " aria-modal="true" aria-describedby="modal-content-id-1">
+      <div class="slds-modal__container toastModal">
+        <header class="slds-modal__header">
+          <div class="approval-icon">
+            <lightning-icon icon-name="action:approval" alternative-text="Approved" title="Approved"></lightning-icon>
+          </div>
+          <h2 id="modal-heading-02" class="secMainHeadlight">your request has been sent</h2>
+          <h4 id="modal-heading-04" class="headlight">The merge will occur within 20 minutes</h4>
+        </header>
+        <footer class="slds-modal__footer">
+          <button class="Back-button" onclick={closeMergeSuccessModal}>Back to search</button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+  </div>
+  <!-- This third pop-in when merge request rejected -->
+  <div if:true={MyLVModalError}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-modal="true" aria-describedby="modal-content-id-1">
+      <div class="slds-modal__container toastModal">
+        <header class="slds-modal__header">
+          <div class="modal-merge-icon">
+            <img src={rejectionIcon} alt="" />
+          </div>
+          <h2 id="modal-heading-03" class="mainHeadlight">Sorry!</h2>
+          <div if:true={MyLVError} class="text-cont">
+            <h4 id="modal-heading-05" class="headlight">Unfortunatly, we cannot proccess your request as it involves several MyLv accounts. Please submit your request to Contact IS.</h4>
+          </div>
+          <div if:true={GMBlueError} class="text-cont">
+            <h4 id="modal-heading-06" class="headlight">Unfortunately, we cannot process your request as it involves merging clients with different flags regarding  international sanctions. Please submit your request to Contact IS</h4>
+          </div>
+          <div if:true={GMGreenError} class="text-cont">
+            <h4 id="modal-heading-07" class="headlight">Unfortunately, we cannot process your request as it involves merging clients with grey market flags set to red and green. Please submit your request to Contact IS.</h4>
+          </div>
+        </header>
+        <div class="footer-wrapper">
+          <footer class="slds-modal__footer">
+            <button class="Back-button" onclick={closeMyLVModalError}>Back to search</button>
+          </footer>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+  </div>
+  <!-- error  -->
+  <div if:true={errorMsg} class="composant_container" style="font-size: 19px;padding-top :10%">
+    <div class="backFromSearch pointer" data-id={locationpage} onclick={backFromResult}>
+      <p class="result">
+        <lightning-icon icon-name="utility:back" alternative-text="back" title="Back" size="xx-small"></lightning-icon> Search Results : 0 Clients <span if:true={searchKey}> for : " <span style="font-weight: bold;">{searchKey}</span>" </span>
+      </p>
+    </div>
+    <p class="error_message">{errorMsg}</p>
+  </div>
+    <!-- search result  -->
+    <div if:true={searchData} class="searchData-container">
+ <!-- 
+      <div class="header-searchData-container">
+        <button  data-id={locationpage} class="button-back" onclick={backFromResult}>
+          <lightning-icon icon-name="utility:chevronleft" size="x-small" variant="inverse"></lightning-icon>
+          Back
+        </button>
+        <div class="test"> <lightning-input variant="label-hidden" style="border: 1px solid #C9C9C9; border-radius:3rem" class="searchWord" data-id="searchWord" type="search" placeholder={searchKey} onkeyup={handleKeySearch} is-loading={isLoading}></lightning-input>
+        <button class="button-wihte" onclick={fonctionFilter}><img src="/resource/iconics/images/client360/FilterIcon.svg"> Filter</button></div>
+        <button data-id={locationpage} class="button-back" onclick={advancedSearchDisplay}>- Advanced Search</button>
+      </div> -->
+
+   
+    
+    <div class="backFromSearch pointer" onclick={backFromResult}>
+      <p class="result">
+         Search results: <span class="result-nbClient">{searchDataLenght} Clients  </span> 
+      </p>
+    </div>
+    <div if:true={searchData} class="resultTable">
+      <c-icx_dynamic-table my-row-class='row-colors cursor-pointer rows-hover' table-data={tableData} auth-to-merge={permissionToMerge} click-function={filterTable} info-source={origin} onmergerecords={callToMerge} search-result onrecorddetails={navigateToAccount}></c-icx_dynamic-table>
+    </div>
+  </div>
+  <!-- advance search client form -->
+  <div if:true={advancedSearch} class="advancedSearch">
+    <template if:true={isLoading}>
+      <lightning-spinner class="spinner-loader" alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+    <!-- <div class="header-advanced-search">
+      <button data-id={locationpage} class="button-back" onclick={backFromResult}>
+         <lightning-icon icon-name="utility:chevronleft" size="x-small" variant="inverse"></lightning-icon>
+            Back
+      </button>
+      <div class="label-advanced-search"> + Advanced Search </div>
+      <div class="div-empty"></div>
+    </div> -->
+     <div class="advanced-search-content">
+      <div class="advanced-search-content-line">
+        <div class="block-content">
+          <div class="client-detail">
+            <p class="label_form">Client Details</p>
+            <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" name="dreamId" placeholder="Client ID" onchange={handleFormInputChange}></lightning-input>
+            <div class="display-line">
+              <lightning-input variant="label-hidden" class="advanced-input-field demi-line" data-field="advancedField" name="firstName" placeholder="First Name (Passport)" onchange={handleFormInputChange} message-when-pattern-mismatch="Incorrect input" pattern="[^0-9]*"></lightning-input>
+              <lightning-input variant="label-hidden" class="advanced-input-field demi-line" data-field="advancedField" name="lastName" placeholder="Last Name (Passport)" onchange={handleFormInputChange} message-when-pattern-mismatch="Incorrect input" pattern="[^0-9]*"></lightning-input>
+            </div>
+            <div class="display-line">
+              <lightning-input variant="label-hidden" class="advanced-input-field demi-line" data-field="advancedField" name="firstName2" placeholder="First Name (Local)" onchange={handleFormInputChange} message-when-pattern-mismatch="Incorrect input" pattern="[^0-9]*"></lightning-input>
+              <lightning-input variant="label-hidden" class="advanced-input-field demi-line" data-field="advancedField" name="lastName2" placeholder="Last Name (Local)" onchange={handleFormInputChange} message-when-pattern-mismatch="Incorrect input" pattern="[^0-9]*"></lightning-input>
+            </div>
+            <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" name="passportNumber" placeholder="Passport Number" onchange={handleFormInputChange} message-when-pattern-mismatch="Incorrect input" pattern="[a-zA-Z0-9]*"></lightning-input>
+          </div>
+  
+          <div class="birthday">
+            <p class="label_form">Birthday</p>
+            <!-- birthday date  -->
+            <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" type="date" name="birthDate" placeholder="Birthdate" onchange={handleFormInputChange}></lightning-input>
+          </div>
+          <div class="other">
+            <p class="label_form">Other</p>
+            <!-- fiscal number  -->
+            <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" placeholder="Fiscal Number" name="fiscalNumber" onchange={handleFormInputChange}></lightning-input>
+            <!-- serial number  -->
+            <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" placeholder="Serial Number" name="serialNumber" onchange={handleFormInputChange}></lightning-input>
+            <!-- lock number  -->
+            <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" placeholder="Lock Number" name="lockNumber" onchange={handleFormInputChange}></lightning-input>  
+          </div>
+        </div>
+        <div class="block-content">
+          <div>
+            <div class="contact-information" id="contact-information">
+              <p class="label_form">Contact Information</p>
+              <!-- email  -->
+              <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" type="email" name="emailAddress" placeholder="Email Address" onchange={handleFormInputChange} message-when-pattern-mismatch="Incorrect input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></lightning-input>
+              <!-- phone  -->
+              <div class="display-line">
+                <lightning-combobox variant="label-hidden" class="quarter-line advanced-input-field" name="phoneCode" value={phoneCodeValue} placeholder="" options={phoneCodeList} onchange={handleFormInputChangePhoneCode}></lightning-combobox>
+                <lightning-input variant="label-hidden" class="seventy-line advanced-input-field" data-field="advancedField" name="phoneNumber" placeholder="Phone Number" onchange={handleFormInputChange} message-when-pattern-mismatch="Incorrect input" pattern="[0-9]*"></lightning-input>
+              </div>
+              <!-- address  -->
+              <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" placeholder="Address Line 1" name="addressLine1" onchange={handleFormInputChangeAddress}></lightning-input>
+              <!-- country  -->
+              <lightning-combobox variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" name="countryCodeIso" placeholder="Country/Region" options={countryList} onchange={handleFormInputChangeAddress}></lightning-combobox>
+              <div class="display-line">
+                <!-- state city postal code  -->
+                <lightning-input variant="label-hidden" class="tier-line advanced-input-field" data-field="advancedField" placeholder="State" name="state" onchange={handleFormInputChangeAddress}></lightning-input>
+                <lightning-input variant="label-hidden" class="tier-line advanced-input-field" data-field="advancedField" placeholder="City" name="city" onchange={handleFormInputChangeAddress}></lightning-input>
+                <lightning-input variant="label-hidden" class="tier-line advanced-input-field" data-field="advancedField" placeholder="Postal Code" name="postalCode" onchange={handleFormInputChangeAddress} message-when-pattern-mismatch="Incorrect input" pattern="[0-9]*"></lightning-input>
+              </div>            
+            </div>  
+            <div class="last-contact-date">
+              <p class="label_form">Last contact date</p>
+              <!-- last contact date  -->
+              <!--  <lightning-layout multiple-rows="false" vertical-align="end" class="center-container"><lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="6" padding="around-small" class="height-for-error"><div class="slds-form-element"><div class="slds-form-element__control"> -->
+              <lightning-input variant="label-hidden" class="slds-col slds-size_12-of-12 advanced-input-field" data-field="advancedField" type="date" name="lastContactDate" placeholder="Last Contact Date" onchange={handleFormInputChanteDate}></lightning-input>
+            </div>
+          </div>
+          <div class="button-search-advancedSearch slds-col slds-size_4-of-4">
+            <c-common-button title="Search" myclass="blueBackground advanced_search_button"  class="blueBackground advanced_search_button" onclick={handleAdvancedSearch}>
+              <div slot="isIconLeft" class="advancedButton">
+                <img style="margin-right:10px" src={advancedSearchIcon} alt="Search" />
+              </div>
+            </c-common-button>
+          </div>
+        </div>
+        <!--  <div onclick={backFromResult} class="backFromAdvancedSearch pointer"> -->
+        <!--  <p><lightning-icon icon-name="utility:back" alternative-text="back" title="Back" size="xx-small"></lightning-icon><span style="margin-left: 15px;">Back to client search</span></p> -->
+        <!-- </div> -->
+      </div>
+    </div>
+
+    <lightning-layout multiple-rows="false" vertical-align="end" class="center-container">
+      <lightning-layout-item if:false={flagValidation}>
+        <p class="advanced-search-error"> Please make sure you don't have any error. </p>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+  </div>
+    <div class="footer">
+      <!-- FOOTER  -->       
+      <a href="https://louisvuittonmalletier.sharepoint.com/sites/wikiis/SitePages/Dream-Client360.aspx" target="_blank">
+        <div class="circle">
+          <div class="frameSvg">
+              <img src="/resource/iconics/images/client360/Frame.svg">
+          </div>
+          <span class="information" >Client 360 Documentation </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</template>

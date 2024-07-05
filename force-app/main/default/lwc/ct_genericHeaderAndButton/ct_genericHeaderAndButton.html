@@ -1,0 +1,36 @@
+<template>
+  <div class="slds-grid slds-gutters button-and-result-summary-wrapper">
+    <div class="slds-col">
+      <lightning-button
+        label="Back"
+        title="Back"
+        icon-name="utility:back"
+        class="slds-m-left_x-small button-and-result-summary-back-btn"
+        onclick={handleBackClick}
+      ></lightning-button>
+    </div>
+    <div class="slds-col">
+      <div class="button-and-result-summary-header">
+        <lightning-icon
+          if:false={isError}
+          class="button-and-result-success-icon"
+          icon-name="utility:check"
+          alternative-text="Success!"
+          variant="success"
+          title=""
+        ></lightning-icon>
+        <lightning-icon
+          if:true={isError}
+          class="button-and-result-error-icon"
+          icon-name="utility:error"
+          alternative-text="Error!"
+          variant="error"
+          title=""
+        ></lightning-icon>
+        {headerTitle}
+      </div>
+      <!-- <div class="button-and-result-summary-hr-line"></div> -->
+    </div>
+    <div class="slds-col button-and-result-summary-fixer"></div>
+  </div>
+</template>

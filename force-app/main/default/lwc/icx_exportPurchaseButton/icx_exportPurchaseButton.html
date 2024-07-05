@@ -1,0 +1,29 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 08-10-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<!-- <template>
+    <lightning-button
+        variant="brand"
+        label={buttonLabel} 
+        disabled={buttonDisabled} 
+        onclick={handleClick}
+        class="slds-m-left_x-small"> 
+    </lightning-button>
+</template> -->
+
+
+<template>
+    <template if:true={showButton}> <!-- temporary -->
+        <button 
+            class="custom-brand-btn slds-m-left_x-small" 
+            onclick={handleClick} 
+            disabled={buttonDisabled}>
+            {buttonLabel}
+        </button>
+    </template> <!-- temporary -->
+</template>

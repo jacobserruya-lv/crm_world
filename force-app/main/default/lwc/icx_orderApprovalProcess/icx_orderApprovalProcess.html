@@ -1,0 +1,26 @@
+<template>
+    <template if:true={orderdetailsapi.isTwist}>
+        <template if:true={approvalProcesses}>
+        <!-- <div class="slds-page-header">             -->            
+            <div class="slds-box">
+                <!-- <lightning-accordion allow-multiple-sections-open
+                onsectiontoggle={handleSectionToggle}
+                active-section-name='pendingApprobations'>
+                     <lightning-accordion-section name="pendingApprobations" label="Pending Approbations">   -->
+                        <lightning-card title="Approval(s)">
+                        </lightning-card>
+                            <div class="myTable">
+                                <lightning-datatable
+                                    hide-checkbox-column
+                                    key-field="id"
+                                    data={approvalProcesses}
+                                    columns={tableColumns}>
+                                </lightning-datatable>
+                            </div>
+                    <!-- </lightning-accordion-section>
+                </lightning-accordion>  -->
+            </div>
+        <!-- </div> -->
+        </template>
+    </template>
+</template>

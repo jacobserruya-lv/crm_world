@@ -1,0 +1,60 @@
+:host {
+    position: absolute;
+    /*padding-left: 0;
+    right: 0;*/
+    /*width: 25rem;*/
+    /*right: 5rem;*/
+    /*width: 420px;
+    top:0;
+    left:0;
+    pointer-events: none;*/
+    /*100%;*/
+}
+/* .slds-popover{
+    z-index: 7 !important;
+    margin-top: -1.5rem;
+    margin-left: 5rem;
+    line-height: 1;
+
+
+} */
+.slds-popover{
+    z-index: 7 !important;
+    margin-top: -2rem;
+    margin-left: 4rem;
+    line-height: 1;
+
+
+}
+
+.slds-popover__body .slds-section__title {
+    margin-bottom: -0.5rem;
+}
+
+.slds-popover__body .slds-popover__body {
+    padding-left: 0;
+}
+
+.slds-popover__body-list {
+    /*padding: 1rem 1rem;*/
+    padding-top: .25rem;
+    padding-bottom: .5rem;
+}
+
+.slds-popover__body-list:first-of-type {
+    border-top: none;
+}
+
+.slds-popover__body-list dd {
+    font-weight: 400;
+    padding-top: 0.5rem;
+    /*padding-bottom: 0.5rem;*/
+}
+
+.full {
+    width: 100%;
+}
+
+.THIS.slds-popover_panel.slds-nubbin_right-top:before {
+    background: white;
+}

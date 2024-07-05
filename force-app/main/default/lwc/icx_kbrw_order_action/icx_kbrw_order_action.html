@@ -1,0 +1,63 @@
+<template>
+    <div class="slds-grid">
+    
+        <template if:true={displayaction} >
+            <div class="slds-col slds-m-left_small">
+                <lightning-radio-group  data-id="rdo-action"
+                                        name={actionName}
+                                        label="Action"
+                                        options={actions}
+                                        value={selectedaction}
+                                        onchange={handleSelectedAction}
+                                        required
+                                        type="radio"></lightning-radio-group>
+
+                <template if:true={reason}>                        
+
+                    <lightning-combobox data-id="cmb-reason"
+                                        name="Reason"
+                                        label="Reason"
+                                        value={selectedreason}
+                                        placeholder="Select a Reason"
+                                        options={reason}
+                                        onchange={handleSelectedReason}
+                                        class="slds-m-vertical_small"
+                                        required
+                                        disabled></lightning-combobox>     
+                </template>                    
+
+                <lightning-button   data-id="btn-submit"
+                                    label="Submit" 
+                                    title="Submit" 
+                                    onclick={handleClick} 
+                                    disabled></lightning-button>             
+            </div>
+        </template>    
+
+        <div if:true={orderDetails.reason} class="slds-col slds-m-left_medium ">
+            <div class="slds-grid">
+                <span class="slds-form-element__label slds-col slds-size_1-of-3">Action: </span> 
+                <span class="slds-col slds-p-top_xx-small "> {orderDetails.reason.Action__c} </span>
+            </div> 
+            <div class="slds-grid">
+                <span class="slds-form-element__label slds-col slds-size_1-of-3">Reason: </span> 
+                <span class="slds-col slds-p-top_xx-small "> {orderDetails.reason.Reason__c} </span>
+            </div> 
+
+            <div class="slds-grid">
+                <span class="slds-form-element__label slds-col slds-size_1-of-3 ">Submited By:</span> 
+                <span if:true={orderDetails.reason.SubmitedBy__c} class="slds-col slds-p-top_xx-small">{orderDetails.reason.SubmitedBy__r.Name}  </span>
+            </div>
+            <div class="slds-grid">
+                <span class="slds-form-element__label slds-col slds-size_1-of-3 ">Submited Date:</span> 
+                <span class="slds-col slds-p-top_xx-small">
+                    <lightning-formatted-date-time value={orderDetails.reason.SubmitedDate__c} year="2-digit" month="short" day="2-digit" 
+                    hour="2-digit" minute="2-digit" hour12="true"></lightning-formatted-date-time></span>
+               
+
+            </div>
+        </div>  
+ 
+    </div>
+
+</template>

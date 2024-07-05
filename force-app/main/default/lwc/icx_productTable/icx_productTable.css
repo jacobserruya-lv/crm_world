@@ -1,0 +1,59 @@
+.container {
+    border: 1px solid #E5E5E5;
+    font-size: 11px;
+    /* border-radius: 10px; */
+}
+
+.title-container {
+    background-color: #F3F3F3;
+    /* border-radius: 10px 10px 0 0; */
+}
+
+.title {
+    border-right: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+    padding: 7px 10px;
+}
+
+.title:last-child {
+    border-right: none ;
+}
+
+.filterIcon {
+    margin-left: 3px;
+}
+
+.container__byMonth--title {
+    padding: 0px;
+    background-color: #F3F3F3;
+    font-weight: 700;
+    border: 1px solid #E5E5E5;
+}
+
+.row {
+    padding: 30px 0;
+    border-top: 1px solid #E5E5E5;
+}
+
+.row:first-child {
+    border: none;
+}
+
+.row__case {
+    padding: 28px 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.row:nth-child(even) {
+    background-color: #F3F3F3;
+}
+
+.row:nth-child(odd) {
+    background-color: #fff;
+}
+
+.cursor-pointer
+{
+    cursor: pointer;
+}

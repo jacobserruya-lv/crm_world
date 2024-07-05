@@ -1,0 +1,81 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-08-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+
+    <lightning-layout class="button_container">
+        <lightning-layout-item>
+
+            <div if:true={isButtonDisplay}>
+                <lightning-button-menu alternative-text="Show menu">
+                    <lightning-menu-item data-index_parent={indexParent} data-index_record_id={indexRecordId} if:true={editRecord} value="MenuItemTwo"
+                        label="Edit" onclick={onCardEditSelect}></lightning-menu-item>
+                    <lightning-menu-item data-index_record_id={indexRecordId} data-index_parent={indexParent} if:true={deleteRecord} value="MenuItemThree"
+                        label="Delete" onclick={onCardDelete}></lightning-menu-item>
+                </lightning-button-menu>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+
+    <lightning-layout horizontal-align="spread" class="bottomBorder borders">
+
+        <lightning-layout-item size="2" if:false={isNotWithPicture}>
+
+            <template for:each={items.item} for:item="item" for:index="index_child">
+
+                <dd class="" key={item.Id}>
+
+                    <img data-index_parent={indexParent} data-image={index_child} class="slds-hide" src={item.value}
+                        alt="image not available" />
+                    <lightning-formatted-rich-text data-index_parent={indexParent} data-html={index_child}
+                        class="slds-hide" value={item.value}></lightning-formatted-rich-text>
+
+                </dd>
+            </template>
+        </lightning-layout-item>
+
+
+
+
+
+        <lightning-layout-item size="4" style="margin-left: 2%;">
+            <template for:each={items.item} for:item="item" for:index="index_child">
+
+                <dd class="" key={item.Id}>
+                    <a data-index_parent={indexParent} data-top={index_child} class="text sku slds-hide"
+                        onclick={handleNavigation}>{item.value} <span if:false={item.value}> -</span></a>
+
+
+
+                    <p data-index_parent={indexParent} data-label={index_child} class="text skuItem slds-hide">{item.label}:
+                    </p>
+
+                </dd>
+            </template>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="4" style="margin-top: 15px;">
+
+            <template for:each={items.item} for:item="item" for:index="index_child">
+
+                <dd class="" key={item.Id}>
+
+                    <p data-index_parent={indexParent} data-value={index_child} class="text bold  slds-hide ">
+                        {item.value} <span  if:false={item.value}> -</span></p>
+
+                    <p data-index_parent={indexParent} data-status={index_child} class="text bold red  slds-hide">
+                        {item.value} <span if:false={item.value}> -</span></p>
+
+                </dd>
+            </template>
+        </lightning-layout-item>
+
+
+
+    </lightning-layout>
+
+</template>

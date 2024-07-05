@@ -1,0 +1,18 @@
+<template>
+
+    <div class="container-cards-body" slot="content" style="width:1900;display:flex;flex-wrap:wrap;overflow:hidden;"
+        if:true={products}>
+
+        <template for:each={products} for:item="product">
+            <div key={product.Id} class="grid-container">
+                <c-icx_customizable-product-card item={product} physical-stores-selected={physicalStoresSelected}
+                 select-country={selectCountry}>
+                </c-icx_customizable-product-card>
+
+            </div>
+        </template>
+    </div>
+
+
+
+</template>

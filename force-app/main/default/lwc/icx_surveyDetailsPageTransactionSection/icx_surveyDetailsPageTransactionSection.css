@@ -1,0 +1,43 @@
+.container__card {
+    --slds-c-accordion-color-border: #E5E5E5;
+    --slds-c-accordion-summary-color-background: #F9F9F9;
+    --slds-c-accordion-sizing-border: 1px;
+    --slds-c-accordion-heading-font-size: 13px;
+    --slds-c-accordion-section-spacing-block-end: 15px;
+    --slds-c-accordion-section-spacing-block-start: 15px;
+}
+
+.container__card--box {
+    display: flex;
+}
+
+.container__card--img {
+    max-width: 400px;
+    margin-right: 20px;
+}
+
+.container__card--description {
+    width: 100%;
+}
+
+.container__field {
+    padding: 20px;
+    border-bottom: 1px solid #D3D3D3;
+    width: 100%;
+}
+
+.container__field--contain {
+    display: grid;
+    max-width: 50%;
+    grid-template-columns: 1fr 1fr;
+    font-weight: 500;
+}
+
+.container__field--value {
+    font-size: 13px;
+}
+
+.container__field--label {
+    color: #706E6B;
+    font-size: 11px;
+}

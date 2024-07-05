@@ -1,0 +1,71 @@
+@import 'c/twistFooterSharedCss';
+
+:host {
+    width: inherit;
+}
+
+.followUs {
+    width: 100%;
+}
+.followUsMobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .tittle{
+        display: none;
+    }
+    .closeIconLeft {
+        display: none;
+    }
+    .closeIconRight {
+        display: none;
+    }
+    .followUsMobile {
+        width: 100%;
+        display: block;
+    }
+    .followUs {
+        display: none;
+    }
+}
+
+@media (max-width: 2240px) {
+    .tittle{
+        font-size: 1.125rem;
+        letter-spacing: .025rem;
+        line-height: 1.5rem;
+        font-weight: 400;
+    }
+    .logos{
+        display: flex;
+        width: 292px;
+        height: 16px;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 35px;
+    }
+    .logo{
+        height: 16px;
+        margin-right: 5px;
+        margin-left: 5px;
+        margin-top: -3px;
+        width: 16px;
+    }
+    .closeIconLeft {
+        cursor: pointer;
+        text-align: left;
+    }
+    .closeIconRight {
+        cursor: pointer;
+        text-align: right;
+    }
+    .follow_us {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 69px;
+        width: 100%;
+    }
+}

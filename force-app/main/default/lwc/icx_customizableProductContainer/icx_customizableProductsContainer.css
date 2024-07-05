@@ -1,0 +1,8 @@
+.container-cards-body
+{
+    display: flex;
+    height: 1600px;
+    width: 1200px;
+    flex-wrap: wrap;
+    overflow: hidden;
+}

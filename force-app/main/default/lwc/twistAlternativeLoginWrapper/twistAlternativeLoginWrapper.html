@@ -1,0 +1,23 @@
+<template>
+    <div class={mainWrapperCssClasses}>
+      <template if:true={language}>
+        <header class="header">
+          <c-twist-header language={language} title={title} lang-country={oQueryParams.langCountry} onchildlwcrendered={handleChildLwcRendered}></c-twist-header>
+        </header>
+  
+        <main class="main">
+          <section class="main__section">
+            <c-twist-alternative-login language={language} query-params={alternativeLoginComponentQueryParams} autodata={autodata} onchildlwcrendered={handleChildLwcRendered}></c-twist-alternative-login>
+          </section>
+  
+          <aside class="side-bar__aside">
+            <c-twist-side-bar language={language} onchildlwcrendered={handleChildLwcRendered}></c-twist-side-bar>
+          </aside>
+        </main>
+  
+        <footer class="footer">
+          <c-twist-footer class="inside-footer" window-functions={windowFunctions} language={language} query-params={alternativeLoginComponentQueryParams} onchildlwcrendered={handleChildLwcRendered}></c-twist-footer>
+        </footer>
+      </template>
+    </div>
+  </template>

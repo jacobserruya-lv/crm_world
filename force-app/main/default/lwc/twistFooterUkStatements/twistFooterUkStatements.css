@@ -1,0 +1,58 @@
+@import 'c/twistFooterSharedCss';
+
+:host {
+    width: inherit;
+}
+
+.close {
+    cursor: pointer;
+}
+
+.templates {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.msa_transparency {
+    text-align: center;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .tittle{
+        display: none;
+    }
+    .close{
+        display: none;
+    }
+    .msaTransparencyMobile {
+        width: 100%;
+        display: block;
+    }
+    .msaTransparency {
+        display: none;
+    }
+}
+
+@media (max-width: 2240px) {
+    .tittle{
+        font-size: 1.125rem;
+        letter-spacing: .025rem;
+        line-height: 1.5rem;
+        font-weight: 400;
+        padding-bottom: 2rem;
+    }
+   .close{
+        max-width: 100%;
+        height: auto;
+        float: left;
+        position: relative;
+        margin-left: 93%;
+    }
+    .msa_transparency {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

@@ -1,0 +1,18 @@
+.slds-dropdown {
+    margin : 0;
+    padding : 0;
+}
+
+/* Long text in the same markup */
+.whiteline {
+    white-space: pre-line;
+}
+
+.halfWidth {
+    max-height: 28.5rem;
+    overflow-y: auto;
+}
+
+.fontTitle {
+    font-size: larger;
+}

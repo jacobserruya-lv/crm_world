@@ -1,0 +1,18 @@
+<template>
+    <div class="legalSection">
+        <div class="footer__links"><a href={sitemapUrl} class="footer__link">{sitemapLabel}</a></div>
+        <template for:each={legalSectionContent} for:item="contentItem">
+            <div key={contentItem} class="footer__links">
+                <template lwc:if={contentItem.url}>
+                    <a data-id={contentItem.label} data-url={contentItem.url} class="footer__link" onclick={handleClickOnLink}>{contentItem.label}</a>
+                </template>
+                <template lwc:if={contentItem.script}>
+                    <a data-id={contentItem.label} data-script={contentItem.script} class="footer__link" onclick={handleExecuteScript}>{contentItem.label}</a>
+                </template>
+                <template lwc:if={contentItem.content}>
+                    <a data-id={contentItem.label} class="footer__link" onclick={showMsaTransparencySection}>{contentItem.label}</a>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

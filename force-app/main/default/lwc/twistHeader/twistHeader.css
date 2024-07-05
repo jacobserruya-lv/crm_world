@@ -1,0 +1,25 @@
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    z-index: 999;
+}
+.header__item {
+    padding: 8px 16px 8px;
+    border-bottom: 1px solid #e1dfd8;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.header__item-logo {
+    display: flex;
+    padding-right: 7px;
+    align-items: center;
+}
+
+.header__item-logo img {
+    vertical-align: unset !important;
+}

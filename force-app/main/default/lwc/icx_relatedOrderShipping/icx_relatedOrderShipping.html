@@ -1,0 +1,31 @@
+<template>
+   
+    <c-icx_dynamic-table table-data={tableData}>
+       <div slot="content">
+       <div class=" slds-p-around_small slds-is-relative  " if:true={isLoading}>
+          <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+      </div>
+      <template if:false={isLoading}>
+         
+         <div class="container">
+       <template if:true={orderShipping}>
+ 
+          <template if:true={orderShippingMap}>
+          <template for:each={orderShippingMap} for:item="orderShippingMapItem"  for:index="index">
+                <div class="rowClass" key={orderShippingMapItem.apiName}>
+                   <p class="columnClass slds-hide" data-apiname={orderShippingMapItem.apiName} data-link={index}> <span class="labelClass"> {orderShippingMapItem.label} </span>  <span class="valueClass" data-redirect={index} onclick={redirectToObject} > <a> {orderShippingMapItem.value} </a> </span></p>
+                   <p class="columnClass slds-hide" data-apiname={orderShippingMapItem.apiName} data-text={index}> <span class="labelClass"> {orderShippingMapItem.label} </span>  <span class="valueClass"> {orderShippingMapItem.value}</span></p>
+                </div>
+          </template>
+       </template>
+ 
+ 
+          </template>
+          <template if:false={orderShipping}>
+             <p class="columnClass">No Shipping group related to this Operation Exception.</p>
+          </template>
+       </div>
+       </template>
+    </div>
+ </c-icx_dynamic-table>
+ </template>

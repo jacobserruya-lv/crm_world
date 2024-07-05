@@ -1,0 +1,16 @@
+<template>
+    <template lwc:if={ukStatementConfig}>
+        <div class={wrapperClassName}>
+        <hr class="border-logo" />
+            <img  data-id='CLOSE' class="close" onclick={hideMsaTransparencySection} src={twistCloseIcon} />
+            <div class="msa_transparency">
+            <div class="tittle">{ukStatementConfig.label}</div>
+                <div>
+                    <template for:each={ukStatementConfig.content} for:item="statementItem">
+                        <div key={statementItem} class="templates"><a href={statementItem.url}>{statementItem.label}</a></div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

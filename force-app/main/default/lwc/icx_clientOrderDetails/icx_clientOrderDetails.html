@@ -1,0 +1,36 @@
+<template>
+    <template if:true={orderdetailsapi.sold_to.email}>
+    <!-- <div class="slds-box"> -->
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-1"> 
+                <div class="slds-box slds-box_x-small slds-theme_shade">
+                    <p>Client Order Details</p>
+                </div>
+            </div>
+        </div>
+        <div style="font-size:xx-small">
+            &nbsp;
+        </div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-1">
+                <div class="slds-box slds-box_x-small" style="height:100%;">
+                    <p class="slds-truncate" title={orderdetailsapi.sold_to.email}>{orderdetailsapi.sold_to.email}&nbsp;               
+                    <lightning-icon icon-name="utility:copy" alternative-text="Copy to clipboard" onclick={handleCopyClientEmail} size="x-small"></lightning-icon></p>
+                    <p>&nbsp;</p>
+                    <template lwc:if={orderdetailsapi.persoProductAccepted}>
+                        <p class="slds-truncate">Perso Validation Accepted: <lightning-formatted-date-time value={orderdetailsapi.persoProductAccepted.CreatedDate} year="numeric" month="long" day="2-digit"></lightning-formatted-date-time>
+                        </p>
+                    </template>
+                    <template lwc:elseif={orderdetailsapi.persoProductRefused}>
+                        <p class="slds-truncate">Perso Validation Refused : <lightning-formatted-date-time value={orderdetailsapi.persoProductRefused.CreatedDate} year="numeric" month="long" day="2-digit"></lightning-formatted-date-time><lightning-icon icon-name="utility:info" alternative-text="Warning!" variant="warning" title={orderdetailsapi.persoProductRefusedReason} size="xx-small"></lightning-icon>
+                        </p>
+                    </template>
+                    <template lwc:elseif={orderdetailsapi.payAfterAgreementLink}>
+                        <p class="slds-truncate">Pending Perso Validation :&nbsp;<lightning-icon icon-name="utility:copy" alternative-text="Copy to clipboard" onclick={handleCopyValidationLink} size="x-small"></lightning-icon></p>
+                    </template>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+    </template>
+</template>

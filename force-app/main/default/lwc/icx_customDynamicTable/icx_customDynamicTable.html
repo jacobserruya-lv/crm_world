@@ -1,0 +1,57 @@
+<template>
+    <template if:true={tableData}>
+        <div if:true={tableData.title} class="custom-title-container__header">
+            <img if:true={tableData.title.isWithIcon} src={tableData.title.iconSrc} />
+            {tableData.title.label}
+            <span if:true={tableData.title.hasLength}> ({tableData.title.length})</span>
+            <!-- <div if:true={tableData.title.isWithButton}> 
+                <div class="slds-p-around_medium lgc-bg">
+                    <lightning-button-menu alternative-text="Show menu">
+                        <lightning-menu-item value="MenuItemOne" label="Menu Item One"></lightning-menu-item>
+                        <lightning-menu-item value="MenuItemTwo" label="Menu Item Two"></lightning-menu-item>
+                        <lightning-menu-item value="MenuItemThree" label="Menu Item Three"></lightning-menu-item>
+                        <lightning-menu-item value="MenuItemFour" label="Menu Item Four"></lightning-menu-item>
+                    </lightning-button-menu>
+                </div>
+            </div> -->
+            
+        </div>
+
+        <slot name="content" ></slot>
+
+        <table class="container">
+            <tr if:false={tableData.title} class="title-container">
+                <template for:each={tableData.headers} for:item="column">
+
+                    <th key={column.id} if:false={column.isHeader}>
+                        {column.label}
+                        <lightning-button-icon if:true={column.isWithFilter} icon-name="utility:filterList"
+                            size="xx-small" alternative-text="Filter" title="Filter"
+                            class="slds-button slds-button_icon filter-icon" onclick={clickFunction}>
+                        </lightning-button-icon>
+                    </th>
+                </template>
+            </tr>
+            <template for:each={tableData.rows} for:item="row" for:index="index">
+                <!-- use 'row-colors' css class for alternative rows grey and white
+                     use 'row-with-border' css class to add border bottom on the row -->
+                <tr key={row.index} data-index={index} onclick={handleClickRow} class={myRowClass}>
+                    <template for:each={row} for:item="item">
+                        <td key={item.id} if:false={item.isImageType} class="row__case ">
+                            <span if:true={isWithSubtitles} class="subtitle-text">
+                                {item.label}
+                            </span>
+                            {item.value}
+                        </td>
+
+                        <td key={item.id} if:true={item.isImageType} class="row__case ">
+                            <img src={item.value} />
+                        </td>
+
+                    </template>
+                </tr>
+            </template>
+        </table>
+    </template>
+
+</template>

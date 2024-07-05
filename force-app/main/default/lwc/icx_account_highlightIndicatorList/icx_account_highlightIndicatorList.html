@@ -1,0 +1,98 @@
+<template>
+    
+    <template if:true={indicatorList}>
+
+        <div onmouseenter={handleOpenCasesMouseEnter} onmouseleave={handleOpenCasesMouseLeave} class="highlight-indicator-list">
+            <div class="slds-grid slds-grid_align-spread slds-wrap " style="justify-content: space-evenly;text-align: center;">
+                <c-icx_account_highlight-indicator-popup indicators={indicatorList} show-csc-indicator={showCscIndicator} class="slds-hide"></c-icx_account_highlight-indicator-popup>
+                <div class={classAlignSmall} if:true={showOpenCaseListEmpty}>
+                    <div class="highlight-indicator-list__title slds-truncate">Requests</div>
+                    <div class="highlight-indicator-list__indicator_priority_med highlight-indicator-list__value highlight-indicator-list__value_xsmall">{indicatorList.openCaseList.length}</div>
+                </div>
+                <div class={classAlignSmall} if:true={showFollowupRequestList}>
+                    <div class="highlight-indicator-list__title slds-truncate">Follow-up</div>
+                    <div class="highlight-indicator-list__indicator_priority_med highlight-indicator-list__value highlight-indicator-list__value_xsmall">{indicatorList.followupRequestList.length}</div>
+                </div>
+                <div if:true={showCareListNotSmallWidth} class={classAlignSmall}>
+                    <div class="highlight-indicator-list__title slds-truncate">Care Services</div>
+                    <div class="highlight-indicator-list__indicator_priority_med highlight-indicator-list__value highlight-indicator-list__value_xsmall">{indicatorList.careList.length}</div>
+                </div>
+                <div if:true={showPendingAnswerList} class={classAlignSmall}>
+                    <div class="highlight-indicator-list__title slds-truncate">Pending Answers</div>
+                    <div class="highlight-indicator-list__indicator_priority_med highlight-indicator-list__value highlight-indicator-list__value_xsmall">{indicatorList.pendingAnswerList.length}</div>
+                </div>
+                <div if:true={showCareListSmallWidth} class={classAlignSmall}>
+                    <div class="highlight-indicator-list__title slds-truncate">Care Services</div>
+                    <div class="highlight-indicator-list__indicator_priority_med highlight-indicator-list__value highlight-indicator-list__value_xsmall">{indicatorList.careList.length}</div>
+                </div>
+                <div if:true={isComplaintEmpty} class={classAlignSmall}>
+                    <div class="highlight-indicator-list__title slds-truncate">Complaints</div>
+                    <div class="highlight-indicator-list__indicator_priority_high highlight-indicator-list__value highlight-indicator-list__value_xsmall">{indicatorList.complaintList.length}</div>
+                </div>
+
+            <!--div class={classWrapperList}>
+                <c-icx_account_highlight-indicator-popup indicators={indicatorList} show-csc-indicator={showCscIndicator} class="slds-hide"></c-icx_account_highlight-indicator-popup>
+                <div class={classTopSize}>
+                    <div class={classIndicator}>
+                        <div class={classSubName} if:false={showCscIndicator}>
+                            <div class="highlight-indicator-list__title slds-truncate">Requests</div>
+                            <div class={classIndicatorNumber}>{indicatorList.openCaseList.length}</div>
+                        </div>
+                        <div class={classSubName} if:true={showCscIndicator}>
+                            <div class="highlight-indicator-list__title slds-truncate">Follow-up</div>
+                            <div class={classIndicatorNumber}>{indicatorList.followupRequestList.length}</div>
+                        </div>
+                        <div if:false={widthXSmall} class={classSubName}>
+                            <div class="highlight-indicator-list__title slds-truncate">Care Services</div>
+                            <div class={classIndicatorNumber}>{indicatorList.careList.length}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class={classSize}>
+                    <div class={classIndicator}>
+                        <div if:true={showCscIndicator} class={classSubName}>
+                            <div class="highlight-indicator-list__title slds-truncate">Pending Answers</div>
+                            <div class={classIndicatorNumber}>{indicatorList.pendingAnswerList.length}</div>
+                        </div>
+                        <div if:true={widthXSmall} class={classSubName}>
+                            <div class="highlight-indicator-list__title slds-truncate">Care Services</div>
+                            <div class={classIndicatorNumber}>{indicatorList.careList.length}</div>
+                        </div>
+                        <div class={classComplaints}>
+                            <div class="highlight-indicator-list__title slds-truncate">Complaints</div>
+                            <div class={classIndicatorNumber}>{indicatorList.complaintList.length}</div>
+                        </div>
+                    </div>
+                </div-->
+
+
+<!-- In case of rollback
+                    <div class={classTopSize}>
+                    <div class="highlight-indicator-list__title">Requests</div>
+
+                    <div class={classIndicator}>
+                        <div class={classSubName}>
+                            <div class={classIndicatorNumber}>{indicatorList.openCaseList.length}</div>
+                            <div class="highlight-indicator-list__label">Open</div>
+                        </div>
+                        <div class={classComplaints}>
+                            <div class={classIndicatorNumber}>{indicatorList.complaintList.length}</div>
+                            <div class="highlight-indicator-list__label">Complaints</div>
+                        </div>
+                    </div>
+                </div>
+                <div class={classSize}>
+                    <div class="highlight-indicator-list__title slds-truncate">Care Services</div>
+                    <div class={classCareService}>
+                        <div class={classCareServiceSub}>
+                            <div class={classIndicatorNumber}>{indicatorList.careList.length}</div>
+                            <div class="highlight-indicator-list__label">Open</div>
+                        </div>
+                    </div>
+                </div>
+-->
+
+            </div>
+        </div>
+    </template>
+</template>

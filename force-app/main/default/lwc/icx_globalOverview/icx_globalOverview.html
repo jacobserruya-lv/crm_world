@@ -1,0 +1,57 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-23-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <div class="section">
+    <div class="section-left">
+      <div class="table-container">
+        <c-icx_complaints-table sf-record-id={recordId}></c-icx_complaints-table>
+      </div>
+      <div class="table-container">
+        <c-icx_request-table sf-record-id={recordId}
+          authorization-to-create={authorizationToCreate}></c-icx_request-table>
+      </div>
+      <div class="table-container">
+        <c-icx_overview-care-service sf-record-id={recordId}
+          permission-to-hide-search-bar={hideSFsearchBar}></c-icx_overview-care-service>
+      </div>
+      <div class="flex-container">
+        <c-icx_alias-table sf-record-id={recordId}></c-icx_alias-table>
+        <c-icx_families-table sf-record-id={recordId}></c-icx_families-table>
+      </div>
+      <div class="table-container">
+        <c-icx_remote-consent-table sf-record-id={recordId}></c-icx_remote-consent-table>
+      </div>
+      <div>
+        <c-icx_overview-fraude-comment sf-record-id={recordId}> </c-icx_overview-fraude-comment>
+      </div>
+    </div>
+    <div class="section-right">
+      <!-- <div class="table-container">
+        <c-icx_lv-sneaker-club-table sf-record-id={recordId}> </c-icx_lv-sneaker-club-table>
+      </div> -->
+      <div class="table-container">
+        <c-icx_order-table-overview sf-record-id={recordId} page-size="3">
+        </c-icx_order-table-overview>
+      </div>
+      <div class="table-container">
+        <c-icx_purchases-products-table-overview sf-record-id={recordId}>
+        </c-icx_purchases-products-table-overview>
+      </div>
+      <div class="table-container">
+        <c-icx_overview-styling- sf-record-id={recordId}>
+        </c-icx_overview-styling->
+      </div>
+      <div class="table-container">
+        <c-icx_calling-campaign-table sf-record-id={recordId}></c-icx_calling-campaign-table>
+      </div>
+      <div class="table-container">
+        <c-icx_overview-clienteling sf-record-id={recordId}></c-icx_overview-clienteling>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,42 @@
+<template>
+    <lightning-tabset class="custom-tab">
+        <lightning-tab label="Purchases" id="Purchases">
+            <template if:false={accountLoading}>
+
+           
+                <!-- <c-icx_purchases-client-360 account-id={dreamId} products ={purchases} error-purchases={errorPurchases} is-loading={isLoadingPurchases}></c-icx_purchases-client-360> -->
+                <c-icx_dream-purchases-client-360 account-id={dreamId}></c-icx_dream-purchases-client-360>
+
+            </template>
+        </lightning-tab>
+        <lightning-tab label="Contact Activity" id="ContactActivity">
+            <!-- <c-icx_contact-activity account-id={dreamId}></c-icx_contact-activity> -->
+
+            <lightning-card>
+                <p style="font-weight:bold; padding:2%">No data for this client.</p>
+            </lightning-card>
+        </lightning-tab>
+         <lightning-tab label="Orders" id="Orders">
+            <lightning-card>
+                <p style="font-weight:bold; padding:2%">No data for this client.</p>
+            </lightning-card>
+            <!-- <template if:false={accountLoading}>
+    <c-icx_dream-order-tab dream-id={dreamId} orders={orders} error-orders={errorOrders} is-loading={isLoadingOrders} ></c-icx_dream-order-tab>
+    </template> -->
+        </lightning-tab>
+        <lightning-tab label="Care Service" id="CareServiceOriginal">
+
+            <lightning-card>
+                <p style="font-weight:bold; padding:2%">No data for this client.</p>
+            </lightning-card>
+            <!-- <c-icx_dream-care-service list-store-care-service={careServiceData}
+                list-distant-care-service={careServiceData}></c-icx_dream-care-service> -->
+        </lightning-tab>
+        <lightning-tab label="Certificates" id="Certificates">
+
+            <lightning-card>
+                <p style="font-weight:bold; padding:2%">No data for this client.</p>
+            </lightning-card>
+        </lightning-tab>
+    </lightning-tabset>
+</template>

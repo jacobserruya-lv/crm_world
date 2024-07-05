@@ -1,0 +1,28 @@
+/* .export-button {
+    background-color: #4A90E2 !important;
+} */
+
+.custom-brand-btn {
+    background-color: #4A90E2; /* Salesforce brand blue color */
+    color: #ffffff; /* White text */
+    padding: 8px 16px;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    font-family: "Salesforce Sans", Arial, sans-serif; /* Salesforce font */
+}
+
+.custom-brand-btn:hover {
+    background-color: #005fb2; /* Darker blue for hover */
+}
+
+.custom-brand-btn:active {
+    background-color: #004c8c; /* Even darker blue for active state */
+}
+
+.custom-brand-btn:disabled {
+    background-color: #c7c7c7; /* Greyed out for disabled state */
+    cursor: not-allowed;
+}

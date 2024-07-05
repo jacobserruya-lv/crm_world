@@ -1,0 +1,31 @@
+<template >
+    <lightning-quick-action-panel title="Take Charge Action">    
+  
+       
+          <header class="slds-modal__header">
+              <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate">Assign To</h2>
+          </header>
+          <template if:false={isExecuting}>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content">
+            
+              <div class="slds-box slds-p-top_small" style="background-color: white;">
+                  <lightning-record-edit-form object-api-name="CareService__c" id="createContactForm" density="comfy">
+                      <lightning-input-field field-name="Assigned_To__c" onchange={handleSelection}> </lightning-input-field>
+                  </lightning-record-edit-form>
+              </div>
+          
+          </div>
+  
+        <div slot="footer">
+          <lightning-button variant="neutral" label="Cancel" onclick={closeAction}></lightning-button>
+          <lightning-button variant="brand" label="Save" onclick={saveAction}></lightning-button>
+        </div>
+    </template>
+
+    <template if:true={isExecuting}>       
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content2">
+          <div class="slds-text-align_center"><p>Please wait......</p></div>
+        </div>
+    </template>
+      </lightning-quick-action-panel>
+  </template>

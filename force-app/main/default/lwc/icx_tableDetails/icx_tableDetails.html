@@ -1,0 +1,33 @@
+<template>
+    <div class='table-container'>
+        <div class="header-container">
+            <div class={category.apiId}>
+                <div class="title-container">
+                    <img src={category.image} alt="title" class="title-container__img" />
+                    <div class="title-text">{category.title}</div>
+                </div>
+                <div class="date-container" slot="actions">
+                    <div style="display: flex; ">
+                        <p style="margin-right:15px ;">First PURCHASE Date : {category.firstDate}  </p>  
+                    <p> Last PURCHASE Date : {category.lastDate}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div slot="footer">
+            <lightning-layout horizontal-align="spread" class="table-details__container">
+                <template if:true={detailsValues}>
+                <template for:each={detailsValues} for:item="details">
+                    <lightning-layout-item key={getGuidId} size="4">
+                        <div class="table-details__container--details">
+                            <c-icx_details-table-container title={details.title} subtitles={details.subtitles}>
+                            </c-icx_details-table-container>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </template>
+            </lightning-layout>
+        </div>
+    </div>
+</template>

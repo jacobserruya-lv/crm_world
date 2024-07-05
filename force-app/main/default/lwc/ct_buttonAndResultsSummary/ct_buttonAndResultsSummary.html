@@ -1,0 +1,45 @@
+<template>
+  <div class="slds-grid slds-gutters button-and-result-summary-wrapper">
+    <div class="slds-col">
+      <lightning-button
+        label="Back"
+        title="Back"
+        icon-name="utility:back"
+        class="slds-m-left_x-small button-and-result-summary-back-btn"
+        onclick={handleBackClick}
+      ></lightning-button>
+    </div>
+    <div style="margin-bottom: 16pt;" class="slds-col">
+      <div class="button-and-result-summary-header">
+        We found {amountOfClients} Clients
+      </div>
+      <div class="button-and-result-summary-sub-header">
+        Please choose an action
+      </div>
+      <!-- <div class="button-and-result-summary-hr-line"></div> -->
+      <div if:true={isRemoveMessageDisplay} class="not-in-perimeter">
+        <span>{removeClientsMessage}</span>
+        <lightning-button-icon
+          icon-name="utility:delete"
+          alternative-text="Delete"
+          size="small"
+          class="slds-m-left_xx-small" 
+          title="Delete" 
+          onclick={handleDeleteClients}>
+        </lightning-button-icon>
+      </div>
+      <div if:true={isRemoveMessageDisplay} class="not-in-perimeter">
+        <span>{downloadClientsMessage}</span>
+        <lightning-button-icon
+          icon-name="utility:download"
+          alternative-text="Csv Download"
+          size="small"
+          class="slds-m-left_xx-small" 
+          title="Download" 
+          onclick={handleDownloadClients}>
+        </lightning-button-icon>
+      </div>
+    </div>
+    <div class="slds-col button-and-result-summary-fixer"></div>
+  </div>
+</template>

@@ -1,0 +1,75 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-12-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="container">
+        <!-- <div class="title">Historical</div> -->
+        <div class="title">Sales by Category (Historical)</div>
+        <template if:true={isLoading}>
+            <lightning-spinner class="spinner-loader" alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <template if:false={isLoading}>
+            <table class="container-table">
+                <tr>
+                    <th class="title-column column-background">Categories</th>
+                    <template if:true={categories}>
+                    <template for:each={firstCategories} for:item="category">
+                        <th key={getGuidId} class="title-column" data-id={category.id}>{category.label}</th>
+                    </template>
+                </template>
+                </tr>
+                <tr>
+                    <td class="column-background row__case">Sales</td>
+                    <template if:true={categories}>
+                    <template for:each={firstCategories} for:item="category">
+                        <th key={getGuidId} class="row__case" data-id={category.id}>{category.sales}</th>
+                    </template>
+                </template>
+                </tr>
+                <tr>
+                    <td class="column-background row__case row__case--border">Quantity</td>
+                    <template if:true={categories}>
+                    <template for:each={firstCategories} for:item="category">
+                        <th key={getGuidId} class="row__case row__case--border" data-id={category.id}>
+                            {category.quantity}
+                        </th>
+                    </template>
+                </template>
+                </tr>
+            </table>
+
+            <table class="container-table">
+                <tr>
+                    <th class="title-column column-background">Categories</th>
+                    <template if:true={categories}>
+                    <template for:each={lastCategories} for:item="category">
+                        <th key={getGuidId} class="title-column" data-id={category.id}>{category.label}</th>
+                    </template>
+                </template>
+                </tr>
+                <tr>
+                    <td class="column-background row__case">Sales</td>
+                    <template if:true={categories}>
+                    <template for:each={lastCategories} for:item="category">
+                        <th key={getGuidId} class="row__case" data-id={category.id}>{category.sales}</th>
+                    </template>
+                </template>
+                </tr>
+                <tr>
+                    <td class="column-background row__case row__case--border">Quantity</td>
+                    <template if:true={categories}>
+                    <template for:each={lastCategories} for:item="category">
+                        <th key={getGuidId} class="row__case row__case--border" data-id={category.id}>
+                            {category.quantity}
+                        </th>
+                    </template>
+                </template>
+                </tr>
+            </table>
+        </template>
+    </div>
+</template>

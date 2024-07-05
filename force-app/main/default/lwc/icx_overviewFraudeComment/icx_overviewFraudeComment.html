@@ -1,0 +1,12 @@
+<template>
+  <template if:true={isAuthorized}>
+
+      <c-icx_dynamic-table table-data={tableDataTwistComment}>
+          <div class="section__comment" slot="content">
+              <c-icx_twist-post-comment sf-record-id={sfRecordId}>
+              </c-icx_twist-post-comment>
+          </div>
+      </c-icx_dynamic-table>
+
+  </template>
+</template>

@@ -1,0 +1,65 @@
+<template>
+  <template if:true={listData}>
+    <lightning-accordion
+      class="result-list-wrapper"
+      allow-multiple-sections-open
+      onsectiontoggle={handleSectionToggle}
+      active-section-name={activeSections}
+    >
+      <lightning-accordion-section
+        name="RESULTS"
+        label="RESULTS"
+        class="result-list-section-wrapper"
+      >
+        <div class="result-list-filters-wraper">
+          <lightning-input
+            class="result-list-search-input"
+            name="enter-search"
+            type="search"
+            placeholder="Search"
+            onchange={handleResultSearch}
+            is-loading={searchLoader}
+          ></lightning-input>
+
+          <div class="pagination">
+            <span class="pages-amount">{pageDescription}</span>
+            <lightning-button-icon disabled={isFirstPage} icon-name="utility:chevronleft" alternative-text="Prev" title="Prev" onclick={prevPage} class="slds-m-left_xx-small"></lightning-button-icon>
+            <lightning-button-icon disabled={isLastPage} icon-name="utility:chevronright" alternative-text="Next" title="Next" onclick={nextPage} class="slds-m-left_xx-small"></lightning-button-icon>
+          </div>
+        </div>
+
+        <template if:true={showDataTable}>
+          <div class="scrollable">
+            <lightning-datatable
+              key-field="id"
+              columns={columns}
+              data={paginationData}
+              hide-checkbox-column
+              onrowaction={handleRowAction}>
+            >
+            </lightning-datatable>
+          </div>
+        </template>
+
+        <template if:true={enableNewSelection}>
+          <c-ct_new-sa-selection
+            onnewsaselectionmounted={handleNewSaSelectionMounted}
+            is-reassign-step={isReassignStep}
+            store-hierarchy={storeHierarchy}
+            client-list={paginationData}
+            clients-amount={fullClientsAmount}
+            is-dream-id-flow={isDreamIdFlow}
+            is-unlock-store-hierarchy={isUnlockStoreHierarchy}
+            default-store-id={storeRetail}
+            onusersettingsapplied={handleUserSettingsApplied}
+            onstorehierarchymounted={handleStoreHierarchyMounted}
+            onallrowsselected={handleAllRowsSelected}
+            ondeleterow={handleRowAction}
+            onreassignsuccessfully={handleReassignSuccessfully}
+            ondoneassignment={handleDoneAssignment}
+          ></c-ct_new-sa-selection>
+        </template>
+      </lightning-accordion-section>
+    </lightning-accordion>
+  </template>
+</template>

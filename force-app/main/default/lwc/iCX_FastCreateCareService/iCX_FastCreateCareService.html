@@ -1,0 +1,32 @@
+<template>
+  
+    <lightning-quick-action-panel title="Send to MyRepair Action">        
+      <header class="slds-modal__header">
+              <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate">Confirmation</h2>
+          </header>
+          <template if:true={showConfirmation}>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content1">
+            <div class="slds-grid slds-grid_align-center">
+              <div class="slds-col">
+                  <p>Do you really want to initiate a new Distant Care Service from this case ?</p>
+              </div>
+            </div>
+            <div class="slds-grid slds-grid_align-center" style="margin-top:10px">
+              <div class="slds-col" style="margin-right:140px"><p>Do you want to cancel this initial case ?</p></div>
+              <div class="slds-col"><lightning-radio-group name="radioGroup" options={options} value={value} type="radio" onchange={handleChange} ></lightning-radio-group></div> 
+            </div>
+          </div>
+          
+        <div slot="footer">
+          <lightning-button variant="neutral" label="No" onclick={closeAction}></lightning-button>
+          <lightning-button variant="brand" label="Yes" onclick={saveAction}></lightning-button>
+        </div>
+      </template>
+
+      <template if:false={showConfirmation}>       
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content2">
+              <div class="slds-text-align_center"><p>Creation in progress, please wait......</p></div>
+            </div>
+        </template>
+      </lightning-quick-action-panel>
+  </template>

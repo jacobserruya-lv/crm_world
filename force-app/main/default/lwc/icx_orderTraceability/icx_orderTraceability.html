@@ -1,0 +1,11 @@
+<template>
+    <template if:true={traceabilities}>
+        <lightning-card title="Traceability"></lightning-card>
+        <lightning-datatable
+            hide-checkbox-column
+            key-field="id"
+            data={traceabilities}
+            columns={tableColumns}>
+        </lightning-datatable>
+   </template>
+</template>

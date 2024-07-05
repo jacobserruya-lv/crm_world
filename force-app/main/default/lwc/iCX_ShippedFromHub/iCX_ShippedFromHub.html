@@ -1,0 +1,18 @@
+<template>  
+    <lightning-quick-action-panel title="Ship to E-Hub Action">  
+  
+          <header class="slds-modal__header">
+              <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate">Confirmation</h2>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content">
+            <div class="slds-text-align_center"><p>By clicking on this button, you confirm that you shipped the product to the 
+                {myDestination}.​</p></div>
+          </div>
+  
+        <div slot="footer">
+          <lightning-button variant="neutral" label="Cancel" onclick={closeAction}></lightning-button>
+          <lightning-button variant="brand" label="Yes" onclick={saveAction}></lightning-button>
+        </div>
+       
+      </lightning-quick-action-panel>
+  </template>

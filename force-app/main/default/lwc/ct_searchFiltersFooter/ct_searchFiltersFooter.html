@@ -1,0 +1,27 @@
+<template>
+  <div class="footer-wrapper">
+    <lightning-layout horizontal-align="space">
+      <lightning-layout-item>
+        <lightning-button
+          label="Reset Filters"
+          title="Reset Filters"
+          onclick={handleResetFilters}
+          class="slds-m-left_x-small reset-filters-btn"
+        ></lightning-button>
+      </lightning-layout-item>
+      <lightning-layout-item>
+        <lightning-button
+          variant="brand"
+          label="Search Clients"
+          title="Search Clients"
+          onclick={handleSearchClients}
+          disabled={disabledSearch}
+          class="slds-m-left_x-small search-clients-btn"
+        ></lightning-button>
+        <template if:true={isLoading}>
+          <lightning-spinner class="spinner-loader" alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+</template>

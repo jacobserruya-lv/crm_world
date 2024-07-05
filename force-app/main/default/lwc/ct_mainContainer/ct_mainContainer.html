@@ -1,0 +1,210 @@
+<template>
+  <!-- Step 1 -->
+  <template if:true={isLoading}>
+    <div class="text-loader">
+      <span>{spinnerText}...</span>
+    </div>
+    <lightning-spinner class="spinner-loader" alternative-text="Loading" size="large"></lightning-spinner>
+  </template>
+
+  <template if:true={isFirstStep}>
+    <c-ct_search-filters-breadcrumbs
+      is-first-step={isFirstStep}
+    ></c-ct_search-filters-breadcrumbs>
+    <c-ct_search-filters-upload-c-s-v
+      ondreamidflow={handleDreamIdFlow}
+      is-filter-selection-flow={isUploadFileDisabled}
+      is-file-loaded={isDreamIdFlow}
+    ></c-ct_search-filters-upload-c-s-v>
+    <c-ct_search-filters
+      storage={storage}
+      user-settings={userSettings}
+      onstorehierarchymounted={handleStoreHierarchyMounted}
+      onfiltersclientsmounted={handleFiltersClientsMounted}
+      onpurchasehistorysmounted={handlePurchaseHistoryMounted}
+      onstateresetonemptyclientlist={handleResetOnEmptyClientList}
+      onusersettingsapplied={handleUserSettingsApplied}
+      is-dream-id-flow={isDreamIdFlow}
+      is-unlock-store-hierarchy={unlockStoreHierarchy}
+    ></c-ct_search-filters>
+    <c-ct_search-filters-footer
+      is-filter-selection-flow={isFilterSelectionFlow}
+      is-data-available={isDataAvailable}
+      is-dream-id-flow={isDreamIdFlow}
+      is-empty-client-list={isEmptyClientList}
+      onresetallfilters={handleAllFiltersReset}
+      onfiltersclientserch={handleFiltersClientSearch}
+      ondreamidclientsearch={handleDreamIdClientSearch}
+    ></c-ct_search-filters-footer>
+  </template>
+
+  <!-- Action selection -->
+  <template if:true={isActionSelectionStep}>
+    <c-ct_search-filters-breadcrumbs
+      is-action-selection-step={isActionSelectionStep}
+    ></c-ct_search-filters-breadcrumbs>
+    <c-ct_button-and-results-summary
+      ongoback={goBack}
+      amount-of-clients={amountOfClients}
+      not-in-perimeter={notInPerimeterClients}
+      clients-missing-store={clientsMissingStore}
+      ondownloadclients={handleDownloadClients}
+      ondeleteclients={handleDeleteClients}
+    ></c-ct_button-and-results-summary>
+    <c-ct_actions-component
+      storage={storage}
+      ongotoreassign={goToReassign}
+      ongotocreateclientlist={goToCreateClientList}
+      ongotoexclusivesales={goToExclusiveSales}
+      ongottoaddclientstoanevent={goToAddClientsToAnEvent}
+      is-clent-list-empty={isClentListEmpty}
+      is-all-dream-ids-from-one-store={isAllDreamIdsFromOneStore}
+      is-all-clients-in-my-perimeter={isAllClientsInMyPerimeter}
+      is-all-clients-with-store={isAllClientsWithStore}
+      is-unlock-store-hierarchy={unlockStoreHierarchy}
+    ></c-ct_actions-component>
+    <c-ct_result-list
+      onnewsaselectionmounted={handleNewSaSelectionMounted}
+      is-exclusive-access-step={isExclusiveAccessStep}
+      is-action-selection-step={isActionSelectionStep}
+      client-list={storage.clientList}
+      all-stores-list={allStoresList}
+      main-storage={storage.storeHierarchy}
+      is-dream-id-flow={isDreamIdFlow}
+      is-unlock-store-hierarchy={unlockStoreHierarchy}
+    ></c-ct_result-list>
+  </template>
+
+  <!-- Reassign -->
+  <template if:true={isReassignStep}>
+    <c-ct_search-filters-breadcrumbs
+      is-reassign-step={isReassignStep}
+    ></c-ct_search-filters-breadcrumbs>
+
+    <c-ct_generic-header-and-button
+      header-title="Reattach Clients"
+      ongoback={goBack}
+    ></c-ct_generic-header-and-button>
+
+    <c-ct_reassign-results
+      storage={storage}
+      all-stores-list={allStoresList}
+      is-reassign-step={isReassignStep}
+      is-unlock-store-hierarchy={unlockStoreHierarchy}
+      onstorehierarchymounted={handleStoreHierarchyMounted}
+      onusersettingsapplied={handleUserSettingsApplied}
+      onnewsaselectionmounted={handleNewSaSelectionMounted}
+      ongoback={goBack}
+    ></c-ct_reassign-results>
+  </template>
+
+  <!-- CL created -->
+  <template if:true={isClientListCreatedStep}>
+    <c-ct_search-filters-breadcrumbs
+      is-client-list-created-step={isClientListCreatedStep}
+    ></c-ct_search-filters-breadcrumbs>
+
+    <c-ct_generic-header-and-button
+      header-title={isClientListCreatedHeader}
+      ongoback={goBack}
+    ></c-ct_generic-header-and-button>
+
+    <c-ct_client-list-infos-summary
+      client-list-info={storage.clientListInfo}
+      oncreateclientlistfinish={handleClientCreatedSuccessfully}
+    ></c-ct_client-list-infos-summary>
+
+    <c-ct_result-list
+      if:false={isEmptyClientListCreatedStep}
+      onnewsaselectionmounted={handleNewSaSelectionMounted}
+      is-client-list-created-step={isClientListCreatedStep}
+      client-list={storage.clientList}
+      all-stores-list={allStoresList}
+      main-storage={storage.storeHierarchy}
+      is-dream-id-flow={isDreamIdFlow}
+    ></c-ct_result-list>
+  </template>
+
+  <!-- Access to Excl. sales -->
+  <template if:true={isExclusiveAccessStep}>
+    <c-ct_search-filters-breadcrumbs
+      is-exclusive-access-step={isExclusiveAccessStep}
+    ></c-ct_search-filters-breadcrumbs>
+
+    <c-ct_generic-header-and-button
+      header-title="Access to Exclusive Offer successfully sent"
+      ongoback={goBack}
+    ></c-ct_generic-header-and-button>
+
+    <c-ct_client-list-infos-summary
+      client-list-info={storage.clientListInfo}
+      not-contactable-clients={notContactableClients}
+    ></c-ct_client-list-infos-summary>
+
+    <c-ct_result-list
+      onnewsaselectionmounted={handleNewSaSelectionMounted}
+      is-exclusive-access-step={isExclusiveAccessStep}
+      client-list={contactableClients}
+      all-stores-list={allStoresList}
+      main-storage={storage.storeHierarchy}
+      is-dream-id-flow={isDreamIdFlow}
+    ></c-ct_result-list>
+  </template>
+
+  <!-- Event Clients -->
+  <template if:true={isClientAddedToAnEventStep}>
+    <c-ct_search-filters-breadcrumbs
+      is-event-access-step={isClientAddedToAnEventStep}
+    ></c-ct_search-filters-breadcrumbs>
+
+    <c-ct_generic-header-and-button
+      header-title={clientsAddedToAnEventHeader}
+      is-error={isAddingClientsToEventFinishedWithTotalError}
+      ongoback={goBack}
+    ></c-ct_generic-header-and-button>
+
+    <c-ct_event-infos-summary
+      event-info={storage.eventInfo}
+      onaddingclientstoeventfinish={handleAddingClientsToEventFinished}
+    ></c-ct_event-infos-summary>
+
+    <c-ct_result-list
+      if:false={isEmptyClientListCreatedStep}
+      is-client-added-to-an-event-step={isClientAddedToAnEventStep}
+      client-list={storage.clientList}
+      all-stores-list={allStoresList}
+      main-storage={storage.storeHierarchy}
+      is-dream-id-flow={isDreamIdFlow}
+    ></c-ct_result-list>
+  </template>
+
+  <template if:true={isCreateClientListModal}>
+    <c-ct_create-client-list-modal
+      storage={storage}
+      oncreateclientlist={goToCLSummary}
+      ondestroyclientlistmodal={goToCreateClientList}
+      is-all-clients-in-my-perimeter={isAllClientsInMyPerimeter}
+      is-all-clients-with-store={isAllClientsWithStore}
+      is-triggered-from-first-page={isTriggeredFromFirstPage}
+      user-perimeter={userPerimeter}
+    ></c-ct_create-client-list-modal>
+  </template>
+
+    <template if:true={isExclusiveSalesModal}>
+      <c-ct_give-access-exclusive-sales-modal
+        storage={storage}
+        phone-countries={phoneCountries}
+        not-contactable-clients={notContactableClients}
+        ongiveaccessexclusive={goToExclusiveSummary}
+        ondestroyexclusivemodal={goToExclusiveSales}
+      ></c-ct_give-access-exclusive-sales-modal>
+    </template>
+
+    <template if:true={isAddClientsToAnEventModal}>
+      <c-ct_add-clients-to-an-event-modal 
+        storage={storage}
+        onclientsaddedtoanevent={goToEventSummary}
+        ondestroyeventmodal={goToAddClientsToAnEvent}
+      ></c-ct_add-clients-to-an-event-modal>
+    </template>
+</template>

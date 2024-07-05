@@ -1,0 +1,8 @@
+.card_border
+{
+   
+    border: 1px solid lightgray ;
+    border-bottom: transparent;
+    /* border-radius: 5px; */
+    /* box-shadow: 1px 1px 0px lightgray; */
+}

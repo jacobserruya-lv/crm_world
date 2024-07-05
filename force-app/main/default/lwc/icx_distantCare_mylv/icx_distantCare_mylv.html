@@ -1,0 +1,18 @@
+<template>
+    <!-- <lightning-card> -->
+        <!-- <div if:true={message}> -->
+            <!-- <h1>{message}</h1>  -->
+    <div class="slds-align_absolute-center slds-p-around_medium">
+            <b>{message}</b>
+    </div>  
+    <div class="slds-align_absolute-center" >
+            <lightning-button variant="neutral" name="cancel" label="NO" 
+                              onclick={handleOnClick}></lightning-button>
+            <lightning-button variant="brand"
+                              name="confirm"
+                              label="YES"
+                              onclick={handleOnClick} ></lightning-button>
+    </div>
+    
+  
+</template>

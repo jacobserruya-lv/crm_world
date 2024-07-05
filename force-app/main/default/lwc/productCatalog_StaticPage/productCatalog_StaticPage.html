@@ -1,0 +1,24 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 10-04-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+
+<template>
+    <lightning-accordion>
+
+
+        <template if:true={productCategories}>
+            <template for:each={productCategories} for:item="category">
+                <lightning-accordion-section key={category.categoryName} name={category.categoryName} label={category.categoryName}>
+                    <c-icx_customizable-product-container products={category.products}  select-country={countriesSelected}
+                        physical-stores-selected={physicalStoresSelected}></c-icx_customizable-product-container>
+                </lightning-accordion-section>
+            </template>
+        </template>
+
+    </lightning-accordion>
+</template>

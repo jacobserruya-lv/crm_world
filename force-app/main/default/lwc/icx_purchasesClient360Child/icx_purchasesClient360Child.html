@@ -1,0 +1,129 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 07-18-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+
+    <div class=" slds-p-around_small   " if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </div>
+    <!-- <template is:false={isLoading}> -->
+    <template if:false={noData}>
+
+        <div class="fix-container">
+            <div class="money-btns__container">
+                <div class="money-btns__container--btns">
+                    <template for:each={currencies} for:item="currency">
+                        <div key={currency.id} data-id={currency.id} onclick={handleCurrencySelect}>
+                            <c-common-button data-currency={currency.id} title={currency.title}
+                                myclass={classNameMoneySelected}>
+                                <div class="money-btns__container--contain" slot='isIconRight' onclick={eventChange}>
+                                    <img data-image={currency.id} src={currency.image} alt={currency.title}
+                                        class="money-icon" />
+                                </div>
+                            </c-common-button>
+                        </div>
+                    </template>
+                </div>
+                <lightning-button-icon if:true={isTableOpen} icon-name="utility:up" alternative-text="Open Table"
+                    size="small" class="slds-m-left_xx-small" title="Open Table" onclick={OpenTable}>
+                </lightning-button-icon>
+                <lightning-button-icon if:false={isTableOpen} icon-name="utility:down" alternative-text="Open Table"
+                    size="small" class="slds-m-left_xx-small" title="Open Table" onclick={OpenTable}>
+                </lightning-button-icon>
+            </div>
+            <template if:true={isTableOpen}>
+
+                <c-icx_historical-table categories={historicalCategories} is-loading={isDataHistoricalLoading}>
+                </c-icx_historical-table>
+            </template>
+        </div>
+
+        <div class="category-container">
+
+            <div class="btns-container">
+                <div class="btns-container__categories">
+                    <!-- <template if:true={categories} for:each={categories} for:item="category"> -->
+                    <template for:each={categoriesName} for:item="category">
+
+                        <div key={getGuidId} data-apiid={category.apiId} onclick={handleCategorySelect2}>
+                            <c-common-button data-category={category.apiId} title={category.title}
+                                myclass={classNameCategorySelected}>
+                                <div slot='isIconLeft' class="category-icon">
+                                    <img src={category.image} alt={category.title} />
+                                </div>
+                            </c-common-button>
+                        </div>
+                    </template>
+                </div>
+                <template if:false={noProducts}>
+                    <div class="btn-container grid-btn" data-title={presentationTitle}
+                        onclick={handleTablePresentation}>
+                        <c-common-button title={presentationTitle}
+                            myclass='button-container is-full-background btns-without-padding'>
+                            <div slot='isIconRight' class="presentation-icon">
+                                <img src={presentationSrc} alt='Grid' />
+                            </div>
+                        </c-common-button>
+                    </div>
+                </template>
+            </div>
+            <template if:true={selectedCategory}>
+                <c-icx_table-details category={selectedCategory} details-values={detailsValues}>
+                </c-icx_table-details>
+            </template>
+        </div>
+
+    </template>
+
+    <template if:true={noData}>
+        <lightning-card>
+            <p style="font-weight:bold; padding:2%">No data for this client.</p>
+        </lightning-card>
+    </template>
+
+    <template if:false={noData}>
+
+        <div class="scroll-container" data-id="tablePurchasesContainer" onscroll={handleScroll}>
+            <c-icx_product-table if:true={isPresentationTransaction} is-loading={isDataPurchasesProductsLoading}
+                products={products} table-data={tableData} open-details={openDetails} my-row-class={myRowClass}>
+            </c-icx_product-table>
+            <c-icx_product-grid if:false={isPresentationTransaction} products={productsCard}
+                is-loading={isDataPurchasesProductsLoading} open-details={openDetails} card-class={cardClass}>
+            </c-icx_product-grid>
+            <div class=" slds-p-around_small slds-is-relative  ">
+                <lightning-spinner if:true={isMorePuchasesLoading} alternative-text="Loading" size="small">
+                </lightning-spinner>
+            </div>
+        </div>
+        <template if:false={noProducts}>
+            <div class="export-button-container">
+                <c-icx_export-purchase-button account-id={accountId}></c-icx_export-purchase-button>
+            </div>
+        </template>
+    </template>
+
+
+
+    <!-- <div class="export-button-container">
+    <lightning-button label={exportTracabiltyButtonLabel} class="export-button" onclick="handleExportTracablity"></lightning-button>
+</div> -->
+    <!-- <template > -->
+    <!-- if there is no Export_Purchases_Tracability__c record -->
+    <!-- <template if:true={exportTracabilityRecord}> -->
+    <!-- </template> -->
+
+    <!-- if there is no Export_Purchases_Tracability__c record -->
+    <!-- <template if:false={exportTracabilityRecord}>
+            <lightning-button label="Export" onclick={buttonAction} class="slds-m-right_x-small"></lightning-button>
+        </template> -->
+    <!-- </template> -->
+
+
+
+
+    <!-- </template> -->
+</template>

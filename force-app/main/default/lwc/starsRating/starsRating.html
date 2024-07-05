@@ -1,0 +1,12 @@
+<template>
+    <div class="rating__container">
+
+        <template for:each={stars} for:item="star">
+            <div key={star.index}>
+                <img src={imgSrc} class="rating__container--img" style={star.style} />
+            </div>
+        </template>
+
+    </div>
+
+</template>
