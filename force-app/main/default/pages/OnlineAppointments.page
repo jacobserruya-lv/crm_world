@@ -1,0 +1,45 @@
+<apex:page id="appointmentsVue" controller="OnlineAppointmentsController" showHeader="false" cache="false" sidebar="false"
+           standardStyleSheets="false" applyBodyTag="false" applyHtmlTag="false" docType="html-5.0">
+    
+    <apex:stylesheet value="{!URLFOR($Resource.OnlineAppointmentsPage, '/img/assets/LVFont/font-faces.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.OnlineAppointmentsPage, '/css/app.bundle.css')}"/>
+     <apex:stylesheet value="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css"/>
+     
+    <html>
+    <head>
+        <title>LV Appointments</title>
+        <style>
+            @font-face {
+                font-family: 'Louis Vuitton';
+            src: url('{!URLFOR($Resource.OnlineAppointmentsPage, '/img/assets/LVFont/louisvuitton-light-webfont.woff2')}');
+                font-weight: 300;
+                font-style: normal;
+            }
+              
+            .material-icons {
+                font-family: 'Material Icons';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 24px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+            }
+        </style>
+    </head>
+    <body style="margin: 0; font-family: 'Louis Vuitton' ">
+        <div id="main"></div>
+    </body>    
+    </html>
+        
+    <apex:includeScript value="{!$Resource.OnlineAppointmentsPage + '/js/manifest.bundle.js'}" loadOnReady="true"/>
+    <apex:includeScript value="{!$Resource.OnlineAppointmentsPage + '/js/vendor.bundle.js'}" loadOnReady="true"/> 
+    <apex:includeScript value="{!$Resource.OnlineAppointmentsPage + '/js/app.bundle.js'}" loadOnReady="true"/>
+ 
+</apex:page>

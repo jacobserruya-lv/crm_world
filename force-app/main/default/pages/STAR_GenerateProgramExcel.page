@@ -1,0 +1,190 @@
+<apex:page controller="STAR_ProgramView_VFCx" contentType="application/vnd.ms-excel#Program Detail.xls" cache="true">
+<apex:outputText value="{!xlsHeader}"/>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ 
+  <apex:includeScript value="{!URLFOR($Resource.ICON_Resources, 'lib/globalize/globalize.js' )}" />
+  <apex:includeScript value="{!URLFOR($Resource.ICON_Resources, 'lib/globalize/cultures/globalize.culture.' + lang + '.js' )}" />
+  <apex:includeScript value="{!URLFOR($Resource.ICON_Resources, 'lib/globalize/cultures/globalize.culture.' + locale + '.js' )}" /> 
+ <script>
+
+ </script>
+ <Styles>
+     <Style ss:ID="s1">
+        <Alignment/>
+         <Borders/>
+        <Font ss:Bold="1"/>
+        <Interior/>
+        <NumberFormat/>
+        <Protection/>
+     </Style>
+     <Style ss:ID="s7">
+       <Alignment ss:Vertical="Bottom"/>
+       <Borders/>       
+       <Font x:Family="Swiss" ss:Size="18" ss:Bold="1"/>
+      </Style>
+     <Style ss:ID="s8">
+       <Alignment ss:Vertical="Bottom"/>
+       <Borders/>       
+       <Font x:Family="Swiss" ss:Size="24" ss:Bold="1"/>
+      </Style>
+ </Styles>
+ 
+ <Worksheet ss:Name="Program">
+ 
+ <Table x:FullColumns="1" x:FullRows="1">
+    <Column ss:Width="150"/>
+    <Column ss:Width="150"/>
+    <Column ss:Width="150"/>
+    <Column ss:Width="150"/>
+    <Column ss:Width="150"/>
+    <Column ss:Width="120"/>
+ 
+    <Row ss:Height="30">
+        <Cell ss:MergeAcross="4" ss:StyleID="s8"><Data ss:Type="String" >{!$Label.STAR_ProgramDetails} </Data></Cell> 
+    </Row>
+
+    <Row></Row>
+ 
+    <Row>
+        <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_ProgramName}  </Data></Cell> 
+        <Cell>                <Data ss:Type="String" >{!program.Name}             </Data></Cell>
+        <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Client}       </Data></Cell> 
+        <Cell>                <Data ss:Type="String" >{!program.AccountId__r.name}</Data></Cell>         
+    </Row>
+
+    <Row>
+        <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.IC_Event_Interest}</Data></Cell>
+        <Cell>                <Data ss:Type="String" >{!program.EventId__r.Name} </Data></Cell>
+        <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_LVHost}       </Data></Cell>
+        <Cell>                <Data ss:Type="String" >{!program.LV_Host__c}      </Data></Cell>
+    </Row>
+ 
+ <Row>
+        <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_VisitFrom}   </Data></Cell>
+        <Cell >               <Data ss:Type="String" ><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!program.Visit_from__c}" /></apex:outputText>      </Data></Cell>
+        <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Flightpaid}  </Data></Cell>
+        <Cell >               <Data ss:Type="String" ><c:CheckboxTransform cb="{!program.Flight_paid__c}"/></Data></Cell>
+    </Row>
+ 
+    <Row>
+        <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_VisitTo}     </Data></Cell>
+        <Cell >               <Data ss:Type="String" ><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!program.Visit_to__c}" /></apex:outputText>  </Data></Cell>      
+    </Row>
+ 
+ <Row>
+    <Cell ss:StyleID="s1">    <Data ss:Type="String" >{!$Label.STAR_Reason}      </Data></Cell>
+    <Cell >                   <Data ss:Type="String" >{!program.Reason__c}       </Data></Cell>         
+ </Row>
+  
+  <Row>
+    <Cell ss:StyleID="s1">     <Data ss:Type="String" >{!$Label.STAR_Status}     </Data></Cell>
+    <Cell >                    <Data ss:Type="String" >{!program.Status__c}      </Data></Cell>         
+ </Row>
+   
+ <Row ss:Height="30">
+    <Cell ss:MergeAcross="7" ss:StyleID="s7"><Data ss:Type="String" >{!$Label.STAR_Gifts}</Data></Cell> 
+ </Row>
+ 
+     <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_GiftType}     </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_GiftDetail}   </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_WelcomePack}  </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Recoveryact}  </Data></Cell>
+      </Row>
+     <apex:repeat value="{!GiftProg}" var="gft">
+     <Row>
+     <Cell><Data ss:Type="String">{!gft.Gift_Name__c}      </Data></Cell>
+     <Cell><Data ss:Type="String">{!gft.Gift_Detail__c}    </Data></Cell>
+     <Cell><Data ss:Type="String"><c:CheckboxTransform cb="{!gft.Welcome_Package__c}" /></Data></Cell>
+     <Cell><Data ss:Type="String"><c:CheckboxTransform cb="{!gft.RecoveryAct__c}"     /></Data></Cell>
+     </Row>
+     </apex:repeat>
+
+ <Row ss:Height="30">
+    <Cell ss:MergeAcross="5" ss:StyleID="s7"><Data ss:Type="String" >{!$Label.STAR_Experiences}</Data></Cell> 
+ </Row>
+
+ <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_ExpName}     </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_DetailOnExp}     </Data></Cell> 
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Recoveryact}        </Data></Cell>
+</Row>
+     <apex:repeat value="{!ExperienceProg}" var="exp">
+     <Row>
+     <Cell><Data ss:Type="String">{!exp.Experience_Name__c}      </Data></Cell>  
+     <Cell><Data ss:Type="String">{!exp.Details_on_experience__c}</Data></Cell>
+     <Cell><Data ss:Type="String"><c:CheckboxTransform cb="{!exp.Recovery_act__c}" /> </Data></Cell>
+     </Row>
+     </apex:repeat>
+
+
+<Row ss:Height="30">
+    <Cell ss:MergeAcross="5" ss:StyleID="s7"><Data ss:Type="String" >{!$Label.STAR_Hotels}</Data></Cell> 
+ </Row> 
+  <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_HotelName} </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Location}       </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_From}           </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_To}             </Data></Cell>  
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_PaidBy}         </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_BookRequirement}</Data></Cell>
+</Row>
+     <apex:repeat value="{!HotelProg}" var="htl">
+     <Row>   
+     <Cell><Data ss:Type="String">{!htl.HotelName__c}               </Data></Cell>
+     <Cell><Data ss:Type="String">{!htl.Location__c}        </Data></Cell>
+     <Cell><Data ss:Type="String"> <apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!htl.From__c}" /> </apex:outputText></Data></Cell>
+     <Cell><Data ss:Type="String"> <apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!htl.To__c}" /> </apex:outputText> </Data></Cell>    
+     <Cell><Data ss:Type="String">{!htl.Paid_by__c}         </Data></Cell>
+     <Cell><Data ss:Type="String">{!htl.Book_requirement__c}</Data></Cell>
+     </Row>
+     </apex:repeat>
+ 
+ 
+  <Row ss:Height="30">
+    <Cell ss:MergeAcross="5" ss:StyleID="s7"><Data ss:Type="String" >{!$Label.STAR_Restaurants}</Data></Cell>
+     
+ </Row> 
+
+ <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_RestaurantName}</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_BookingDateTime}</Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Lunchdinner}    </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Comment}        </Data></Cell>
+</Row>
+     <apex:repeat value="{!RestaurantProg}" var="rest">
+     <Row>
+     <Cell><Data ss:Type="String">{!rest.Restaurant_Name__c}           </Data></Cell>
+     <Cell><Data ss:Type="String"><apex:outputText value="{0,date,MM/dd/yyyy HH:mm z}"> <apex:param value="{!rest.Booking_Date_Time__c}" /></apex:outputText></Data></Cell>
+     <Cell><Data ss:Type="String">{!rest.Lunch_dinner__c}</Data></Cell>
+     <Cell><Data ss:Type="String">{!rest.Comment__c}     </Data></Cell>
+</Row>
+     </apex:repeat>
+ 
+   <Row ss:Height="30">
+    <Cell ss:MergeAcross="5" ss:StyleID="s7"><Data ss:Type="String" >{!$Label.STAR_Transports}</Data></Cell>
+     
+ </Row> 
+
+ <Row>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Type}              </Data></Cell>
+     <Cell ss:StyleID="s1"><Data ss:Type="String" >{!$Label.STAR_Comment}           </Data></Cell>
+</Row>
+     <apex:repeat value="{!TransportProg}" var="trp">
+     <Row>
+     <Cell><Data ss:Type="String">{!trp.Type__c}   </Data></Cell>
+     <Cell><Data ss:Type="String">{!trp.Comment__c}</Data></Cell>
+</Row>
+     </apex:repeat>
+ 
+ 
+ 
+    
+     </Table>
+ </Worksheet>
+</Workbook>
+</apex:page>

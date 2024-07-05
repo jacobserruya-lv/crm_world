@@ -1,0 +1,264 @@
+<apex:component >
+    <!--Comp attr-->
+
+    <!--  LeftSide   -->
+    <apex:attribute name="total" description="Total"
+                    type="Integer" required="true" />
+    <apex:attribute name="TNew" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="TPending" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="TClosed" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="TNoAction" description=""
+                type="Integer" required="true" />
+    <!--  CenterSide   -->
+    <!--First Row-->
+    <apex:attribute name="DelightedClients" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="LastDelightedClients" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="DCNew" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="DCPending" description=""
+                    type="Integer" required="true" />
+
+    <apex:attribute name="PromoterClients" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="LastPromoterClients" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="PMNew" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="PMPending" description=""
+                    type="Integer" required="true" />
+
+    <!--Second Row-->
+    <apex:attribute name="RecoveryAct" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="LastRecoveryAct" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="RANew" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="RAPending" description=""
+                    type="Integer" required="true" />
+    <apex:attribute name="RAPending7D" description=""
+                    type="Integer" required="true" />
+    <!-- ArrowLink-->
+    <apex:attribute name="survayType" description=""
+                    type="String" required="true" />
+    <!-- Promoter or delighted-->
+    <apex:attribute name="isPromoterClients" description="The title of the header"
+                    type="Boolean" default="false" />
+    <!-- Days berfor-->
+    <apex:attribute name="daysbefore" description="The title of the header"
+                    type="Integer" default="false" />
+    <!-- After reload -->
+    <apex:attribute name="isReload" description="If its rerender or not"
+                    type="Boolean" default="true" />
+
+    <apex:attribute name="addArrowBody" description="The title of the header"
+                type="Boolean" default="false" />
+
+
+
+
+    <apex:outputPanel rendered="{! IF(Text($User.Country__c) = 'CHINA', false, true) }">
+        <!-- First Chart BLOCK -->
+        <div class="col-sm-4 gchart-container">
+            <!-- Chart -->
+            <div id="{!survayType}1" class="gchart-pie"></div>
+            <!-- Data on Chart -->
+            <div class="gchart-legend">
+                <h4 ><b>{!$Label.VO_total} : <span class="KPItotal">{!total}</span></b></h4>
+                <h5  style="color:#ffa834"><b>{!$Label.VO_NEW}  :<span class="KPInew" >{!TNew}</span></b></h5>
+                <h5  style="color:#3d8af7">{!$Label.VO_Pending}  :<span class="KPIpending"> {!TPending}</span> </h5>
+                <h5 style="color:#72bb53" class="text-muted text-uppercase">{!$Label.VO_Closed}  : <span class="KPIclosed">{!TClosed}</span></h5>
+                <h5 style="color:#777777" class="text-muted text-uppercase">{!$Label.VO_No_action}  : <span class="KPInoAction">{!TNoAction} </span></h5>       
+            </div>
+        </div>
+        <!-- Second Chart BLOCK -->
+        <div class="col-sm-5 gchart-container">
+            <!-- Chart -->
+            <!--<div id="{!survayType}2" style="width: 150px; height:130px; display:inline-block"></div>-->
+            <!-- Data on Chart -->
+            <div class="gchart-legend">
+                <div>
+                    <span id="KPIDELIGHTED" style="display:{!IF(isPromoterClients ,'none','')}">
+                        <!-- <apex:outputpanel layout="inline" rendered="{!IF(isPromoterClients ,false,true)}"> -->
+                            <div style="display:inline-block; color:#72bb53" class="margin-right-md">
+                                <h1 class="margin-top-sm">
+                                    <span class="fa fa-smile-o"></span>
+                                </h1>
+                            </div>
+                            <div style="display:inline-block;">
+                                <h5 class="margin-xs" style="color:#72bb53">
+                                    <b>{!$Label.VO_Delighted} <span class="KPIDC">{!DelightedClients}</span>%</b>
+                                </h5>
+                                <h5 class="margin-xs">
+                                    <span>
+                                        <b>{!$Label.VO_NEW} : <span class="DCnew">{!DCNew}</span></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </span>
+                                    <span>
+                                        {!$Label.VO_Pending}: <span class="DCpending">{!DCPending}</span>
+                                    </span>
+                                </h5>
+                            </div>
+                            <apex:outputpanel layout="none" rendered="{!IF(addArrowBody ,true,false)}">
+                                <c:VO_chartArrow old="{!DelightedClients}"
+                                    new="{!LastDelightedClients}"
+                                ></c:VO_chartArrow>
+                            </apex:outputpanel>
+
+                        <!-- </apex:outputpanel> -->
+                    </span>
+                    <span id="KPIPROMOTER" style="display:{!IF(isPromoterClients ,'','none')}">
+                        <!-- <apex:outputpanel layout="inline" rendered="{!IF(isPromoterClients,true,false)}"> -->
+                            <!--Need to change the name of the attr to more genery that will represent well the promoter client-->
+                            <div style="display:inline-block; color:#3d8af7" class="margin-right-md">
+                                <h1 class="margin-top-sm">
+                                    <span class="fa fa-volume-up"></span>
+                                </h1>
+                            </div>
+                            <div style="display:inline-block;">
+                                <h5 class="margin-xs" style="color:#3d8af7">
+                                    <b>{!$Label.VO_Promoter_Clients} <span class="KPIPC">{!PromoterClients}</span>%</b>
+                                </h5>
+                                <h5 class="margin-xs">
+                                    <span>
+                                        <b>{!$Label.VO_NEW} : <span class="PMNew">{!PMNew}</span></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </span>
+                                    <span>
+                                        {!$Label.VO_Pending}: <span class="PMpending">{!PMPending}</span>
+                                    </span>
+                                </h5>
+                            </div>
+                            <apex:outputpanel layout="none" rendered="{!IF(addArrowBody ,true,false)}">
+                                <c:VO_chartArrow old="{!PromoterClients}"
+                                    new="{!LastPromoterClients}"
+                                ></c:VO_chartArrow>
+                            </apex:outputpanel>
+                        <!-- </apex:outputpanel> -->
+                    </span>
+                </div>
+                <div>
+                    <div style="display: inline-block; color:#ff0000" class="margin-right-md">
+                        <h1 class="margin-top-sm">
+                            <span class="fa fa-plus"></span>
+                        </h1>
+                    </div>
+                    <div style="display:inline-block;">
+                        <h5 class="margin-xs" style="color:#ff0000">
+                            <b>{!$Label.VO_Recovery_Act} <span class="KPIRA">{!RecoveryAct}</span>%</b>
+                        </h5>
+                        <h5 class="margin-xs">
+                            <span>
+                                <b>{!$Label.VO_NEW} : <span class="RAnew">{!RANew}</span></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                {!$Label.VO_Pending}: <span class="RApending">{!RAPending}</span>
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>
+                                {!$Label.VO_Pending} &gt; {!daysbefore}d : <span class="RApending7d">{!RAPending7D}</span>
+                            </span>
+                        </h5>
+                    </div>
+                    <apex:outputpanel layout="none" rendered="{!IF(addArrowBody ,true,false)}">
+                        <c:VO_chartArrow old="{!RecoveryAct}"
+                            new="{!LastRecoveryAct}"
+                        ></c:VO_chartArrow>
+                    </apex:outputpanel>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/gtool.js')}"></script>
+        <script>
+
+                var startTimeMs = (new Date).getTime();
+                google.setOnLoadCallback(function(){
+
+                    newrelic.addPageAction('VOgtoolsChart', {execTime: (((new Date).getTime())-startTimeMs)});
+                    console.log ('ARF!');
+                    gtools.chartTotalData('{!survayType}1',[['Title','Title'],['New',{!TNew}],['Pending',{!TPending}],['Closed',{!TClosed}],['No action',{!TNoAction}]]);
+                });
+
+        </script>
+    </apex:outputPanel>
+    <!-- Temporary bypass for CHINA users where google API is blocked -->
+    <apex:outputPanel rendered="{! IF(Text($User.Country__c) = 'CHINA', true, false) }" style="padding-left:1cm">
+        <div class="col-sm-4">
+            <div>
+                <span id="KPIDELIGHTED" style="display:{!IF(isPromoterClients,'none','')}">
+                    <!-- <apex:outputpanel layout="inline" rendered="{!IF(isPromoterClients ,false,true)}"> -->
+                        <div style="display:inline-block; color:#72bb53" class="margin-right-md">
+                            <h1 class="margin-top-sm">
+                                <span class="fa fa-smile-o"></span>
+                            </h1>
+                        </div>
+                        <div style="display:inline-block;">
+                            <h5 class="margin-xs" style="color:#72bb53">
+                                <b>{!$Label.VO_Delighted} <span class="KPIDC">{!DelightedClients}</span>%</b>
+                            </h5>
+                            <h5 class="margin-xs">
+                                <span>
+                                    <b>{!$Label.VO_NEW} : <span class="DCnew">{!DCNew}</span></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                                <span>
+                                    {!$Label.VO_Pending}: <span class="DCpending">{!DCPending}</span>
+                                </span>
+                            </h5>
+                        </div>
+
+                    <!-- </apex:outputpanel> -->
+                </span>
+                <span id="KPIPROMOTER" style="display:{!IF(isPromoterClients,'','none')}">
+                    <!-- <apex:outputpanel layout="inline" rendered="{!IF(isPromoterClients,true,false)}"> -->
+                        <!--Need to change the name of the attr to more genery that will represent well the promoter client-->
+                        <div style="display:inline-block; color:#3d8af7" class="margin-right-md">
+                            <h1 class="margin-top-sm">
+                                <span class="fa fa-volume-up"></span>
+                            </h1>
+                        </div>
+                        <div style="display:inline-block;">
+                            <h5 class="margin-xs" style="color:#3d8af7">
+                                <b>{!$Label.VO_Promoter_Clients} <span class="KPIPC">{!PromoterClients}</span>%</b>
+                            </h5>
+                            <h5 class="margin-xs">
+                                <span>
+                                    <b>{!$Label.VO_NEW} : <span class="PMNew">{!PMNew}</span></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                                <span>
+                                    {!$Label.VO_Pending}: <span class="PMpending">{!PMPending}</span>
+                                </span>
+                            </h5>
+                        </div>
+                    <!-- </apex:outputpanel> -->
+                </span>
+            </div>
+            <div>
+                <div style="display: inline-block; color:#ff0000" class="margin-right-md">
+                    <h1 class="margin-top-sm">
+                        <span class="fa fa-plus"></span>
+                    </h1>
+                </div>
+                <div style="display:inline-block;">
+                    <h5 class="margin-xs" style="color:#ff0000">
+                        <b>{!$Label.VO_Recovery_Act} <span class="KPIRA">{!RecoveryAct}</span>%</b>
+                    </h5>
+                    <h5 class="margin-xs">
+                        <span>
+                            <b>{!$Label.VO_NEW} : <span class="RAnew">{!RANew}</span></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <span>
+                            {!$Label.VO_Pending}: <span class="RApending">{!RAPending}</span>
+                        </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>
+                            {!$Label.VO_Pending} &gt; {!daysbefore}d : <span class="RApending7d">{!RAPending7D}</span>
+                        </span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </apex:outputPanel>
+</apex:component>

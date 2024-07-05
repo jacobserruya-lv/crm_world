@@ -1,0 +1,53 @@
+<apex:page StandardController="ManagementLevel1__c" extensions="IC_ManagementLevel1_VFCx" cache="true" sidebar="false">
+
+<script type="text/javascript">
+   function GoToReportAllIconAction(url){
+       var url = '/'+'{!idReport_AllIconAction_ManagementLvl1}'+'?pv1={!ManagementLevel1__c.Level1Id__c}';
+       window.parent.location.replace(url);
+   }
+   
+   function GoToReportAppointments(url){
+       var url = '/'+'{!idReport_Appointments_ManagementLvl1}'+'?pv1={!ManagementLevel1__c.Level1Id__c}';
+       window.parent.location.replace(url);
+   }  
+   
+   function GoToReportOutreachs(url){
+       var url = '/'+'{!idReport_Outreachs_ManagementLvl1}'+'?pv1={!ManagementLevel1__c.Level1Id__c}';
+       window.parent.location.replace(url);
+   }   
+    
+   
+    
+</script>
+
+<style type="text/css">
+    table
+    {
+        margin-left:auto;
+        margin-right:auto;
+    }
+</style>
+
+<apex:form >
+    <table>
+          <tr>
+            <td>
+                <apex:outputLink onclick="GoToReportAllIconAction();">
+                    <analytics:reportChart reportId="{!$Label.IC_IdReport_AllIconAction_MGMLVL1_Graph}" filter="[{column:'Activity.ActionType__c', operator:'equals', value:'Appointment,Email,Phone,SMS,Postal Mail,Mobile Chat'}, {column:'Activity.Owner.MGMT_ZONE_SUB_LEVEL1__c', operator:'equals', value:'{!ManagementLevel1Name}'}]" size="small"  hideOnError="false" cacheResults="false"></analytics:reportChart>
+                </apex:outputLink>            
+            </td>
+            <td>
+                <apex:outputLink onclick="GoToReportOutreachs();">
+                    <analytics:reportChart reportId="{!$Label.IC_IdReport_Outreachs_MGMLVL1_Graph}" filter="[{column:'Activity.ActionType__c', operator:'equals', value:'Email,Phone,SMS,Postal Mail,Mobile Chat'}, {column:'Activity.Owner.MGMT_ZONE_SUB_LEVEL1__c', operator:'equals', value:'{!ManagementLevel1Name}'}]" size="small"  hideOnError="false" cacheResults="false"></analytics:reportChart>
+                </apex:outputLink>            
+            </td>
+            <td>
+                <apex:outputLink onclick="GoToReportAppointments();">
+                    <analytics:reportChart reportId="{!$Label.IC_IdReport_Appointments_MGMLVL1_Graph}" filter="[{column:'Activity.IsTask', operator:'equals', value:'False'}, {column:'Activity.Owner.MGMT_ZONE_SUB_LEVEL1__c', operator:'equals', value:'{!ManagementLevel1Name}'}]" size="small"  hideOnError="false" cacheResults="false"></analytics:reportChart>
+                </apex:outputLink>            
+             </td>
+        </tr>
+     </table>       
+    
+</apex:form>
+</apex:page>

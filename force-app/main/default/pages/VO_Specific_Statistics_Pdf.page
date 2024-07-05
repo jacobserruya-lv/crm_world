@@ -1,0 +1,1228 @@
+<apex:page applybodytag="false"
+           applyhtmltag="false"
+           showheader="false"
+           controller="VO_Specific_Statistics_Pdf_CTRL"
+           standardstylesheets="false"
+           doctype="html-5.0"
+           renderAs="PDF"
+           >
+    <!-- renderAs="PDF" -->
+
+    <style >
+
+        body{   
+        font-family: Arial Unicode MS, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        line-height: 1.4em;
+        background-color: #f2efee;
+        //padding-bottom: 20px;
+        }
+        *, *:before, *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        font-family: Arial Unicode MS, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        line-height: 1.4em;
+        margin:0
+        }
+        h1, h2, h3, h4, h5, h6{margin:0}
+        
+        
+        
+        .innerPanel{
+        background-color: #fff;
+        font-weight: bold;
+        color: black;
+        }
+        
+        .rowStyle{
+        border: none;
+        padding-top: 7px;
+        font-size: 10px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: transparent;
+        min-height: 26px;
+        }
+        .margin-right-lg {
+        margin-right: 160px;
+        }
+        .multypickListFeedBack:nth-child(even) {
+        background-color: #EEE;
+        }
+        table{
+        table-layout: fixed; 
+        width:100%;  
+        background-color: #f8f8f8;
+        }
+        .tablePadding{padding: 10px;}
+        .tableHeader td {font-weight:bold; padding-top:0.2em; padding-bottom:0.25em}
+        
+        .label{
+        font-weight: bold;
+        }
+        .labelValue{
+        text-align: left;
+        }
+        .sectionTable{
+        table-layout: fixed; 
+        width:100%;
+        max-width:100%;  
+        background-color: #f8f8f8;
+        padding:0.5em;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        }
+        td, tr{vertical-align:top; line-height:1.4em; height:1.4em; min-height:1.4em;}
+        .sectionTitle{
+        font-size:1em;
+        color:#b87451;
+        font-weight:bold;
+        padding-bottom:0.25em;
+        }
+        
+        .table-striped {
+            tr:nth-of-type(odd) {
+                background-color: red;
+            }
+        }
+                
+        .tdSection td{
+        width: 100px;
+        }
+        
+        .multypickListFeedBack:nth-child(even) {
+        background-color: #EEE;
+        }
+        .ellipsis {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        }
+        
+        .pull-left {float:left}
+        .pull-right {float:right}
+        .clearfix {clear:both}
+        .feedback .pull-left {max-width:90%}
+        .feedback .pull-right {max-width:10%}
+        
+        .space{height:1.4em}
+        
+        
+        .stripedTable tr:nth-child(odd) {
+            background-color: #ddd;
+        }
+
+
+        
+    </style>
+    <style  >
+        @page {
+        size: letter;
+        margin: 25mm;
+        @top-center {
+        content: "Sample";
+        }
+        @bottom-center {
+        content: "Page " counter(page) " of " counter(pages);
+        }
+        }
+        .page-break {
+        display:block;
+        page-break-after:always;
+        }
+        body {
+        font-family: Arial Unicode MS, Arial, Helvetica, sans-serif;
+        }
+        .pageBreak:not(:last-child)
+        {
+        page-break-after:always;
+        }
+        
+    </style>
+    <div style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;color:#2b1413;" >
+      <apex:repeat value="{!surveyList}" var="vo_survey"  >  
+            <div class="pageBreak" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0; page-break-after: always" >
+                <table class="sectionTable" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;width:100%;table-layout:fixed;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CASE DETAILS</td>
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:4px;vertical-align:top;" ></td>
+                        <td class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70%;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CLIENT DETAILS</td>
+                    </tr>
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td  valign="top" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;vertical-align:top;" >
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <h4 class="text-uppercase" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                            Type: <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Type__c}</b>
+                                        </h4>
+                                        <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                            Status: <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Status__c}</b>
+                                        </h4>
+                                    </td>
+                                    
+                                    <td valign="top"><apex:image value="{!URLFOR($Resource.VO_symbols,fromTypeAndStatusToImagesNameMap[vo_survey.Type__c])}" style="width:25px; height:25px" /></td>
+                                    <td valign="top"><apex:image value="{!URLFOR($Resource.VO_symbols,fromTypeAndStatusToImagesNameMap[vo_survey.Status__c])}" style="width:25px; height:25px"/></td>
+                                </tr>
+                            </table>
+                            
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >&nbsp;</h4>
+                            <h4 class="text-uppercase" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.SurveyType__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Store__r.Name}</b> 
+                            </h4>
+                            <!-- C&C: displaying the delivery store -->
+                            <h4 style ="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;display:{!IF(OR(vo_survey.SurveyType__c == VOICE_CC_CSC_SALES, vo_survey.SurveyType__c == VOICE_CC_WEB_SALES), 'block', 'none')}">
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >Delivered in {!vo_survey.TECHStore_Delivery_del__c}</b>
+                            </h4>
+                            <!-- EO: displaying the store order -->
+                            <h4 style ="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;display:{!IF(OR(vo_survey.SurveyType__c == VOICE_EO_SALES), 'block', 'none')}">
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >Ordered in {!vo_survey.STOREORDER__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >&nbsp;</h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                            Client Name: <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial Unicode MS,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.ClientName__c}</b>
+                                        </h4>
+                            <!--<h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.ClientName__c}</b>
+                            </h4> -->
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" > Answer Date: 
+                                    <span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                         <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                            <apex:param value="{!vo_survey.AnswerDate__c}"  />
+                                        </apex:outputtext> 
+                                    </span>
+                                </b>
+                            </h4>
+                            <!-- C&C and EO: displaying Assigned To field -->
+                            <h4 style ="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;display:{!IF(OR(vo_survey.SurveyType__c == VOICE_CC_CSC_SALES, vo_survey.SurveyType__c == VOICE_CC_WEB_SALES, vo_survey.SurveyType__c == VOICE_EO_SALES), 'block', 'none')}">
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">Assigned To {!vo_survey.Assign_To__c}</b>
+                            </h4>
+                        </td>
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" ></td>
+                        <td  valign="top" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;vertical-align:top;" >
+                            <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;border-collapse:collapse;background-color:white;" >
+                                <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                        <table  border="0" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;border-collapse:collapse;background-color:transparent;" >
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Dream ID:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.DreamID__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Gender:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.Gender__pc}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Segmentation:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.Segmentation__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Address:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                   <apex:outputField id="newDesc" value="{!vo_survey.ClientDreamID__r.PrimaryAddress__pc }"  />  
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Phone:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonHomePhone}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Mobile:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonMobilePhone}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Email:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonEmail}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                        <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;vertical-align:top;border-collapse:collapse;background-color:transparent;" >
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Attached channel:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                {!vo_survey.ClientDreamID__r.AttachedStore__pc}&nbsp;-&nbsp;<apex:outputField value="{!vo_survey.ClientDreamID__r.AttachedStore__pc}"/></td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Preferred CA (ICON):</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.TECHPreferredCA__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Last cont. date (ICON):</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                     
+                                                    <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.LastContactDate__pc }"  />
+                                                    </apex:outputtext>
+ 
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" ><apex:image url="{!URLFOR($Resource.VO_symbols, 'new.png')}" width="8" height="8" rendered="{!If(TEXT(vo_survey.ClientDreamID__r.FlowerFlag__pc) == $Label.LV_Opend_Complain_Status, true, false)}"/> Last cont. date (CSC):</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                    <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.LastCSCClientContact__pc }"  />
+                                                    </apex:outputtext>
+ 
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Last complain closing date:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                    <span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;color:red;" > 
+                                                        <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                            <apex:param value="{!vo_survey.ClientDreamID__r.ComplaintClosingDate__pc}"  />
+                                                        </apex:outputtext> 
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >First transaction:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" > 
+                                                    <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.FirstTrans__pc}"  />
+                                                    </apex:outputtext> 
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Hist. turnover:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" > 
+                                                    <apex:outputPanel layout="none" rendered="{!If(currUser != null,true,false)}">
+                                                    
+                                                        <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='EUR',true,false)}"  >
+                                                            
+                                                            <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc >= 0)}">
+                                                                <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc)}"/>
+                                                            </apex:outputText>
+                                                             
+                                                        </apex:outputPanel>
+                                                        <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='JPY',true,false)}"  >
+                                                            <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc >= 0)}">
+                                                                <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc)}"/>
+                                                            </apex:outputText>                             
+                                                             
+                                                        </apex:outputPanel>
+                                                        <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='CNY',true,false)}"  >
+                                               
+                                                            <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc >= 0)}">
+                                                                <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc)}"/>
+                                                            </apex:outputText>   
+                                                            
+                                                        </apex:outputPanel>
+                                                        <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='USD',true,false)}"  >
+                                                             <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc >= 0)}">
+                                                                <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc)}"/>
+                                                            </apex:outputText>      
+                                                        </apex:outputPanel>
+                                                        {!currUser.Currency__c}
+                                                    </apex:outputPanel>
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;width:100%;" >Number of products:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.HistoricalNbrProducts__pc}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table id="transactionTable" class="sectionTable" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <tr style="vertical-align:top;" >
+                        <td colspan="2" class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >TRANSACTION</td>
+                    </tr>
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                            <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;border-collapse:collapse;width:100%;background-color:#f8f8f8;" >
+                                <tr class="tableHeader tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:#d2c8c3;vertical-align:top;" >
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:110px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Trans. Id</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:40px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >CA ID</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >CA Name</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Trans. Date</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:100px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Prod. Cat.</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:160px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Product</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:20px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >QTY</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70px;text-align:right;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Amount</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:30px;text-align:right;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >LC</td>
+                                </tr>
+                                 <apex:repeat var="product" value="{!techPurchProductIdFromPPobjToPurchasedProductListMap[vo_survey.TechPurchProductKey__c]}"  >  
+                                    <tr class="tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >
+                                                 <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c = VOICE_SALES ,true,false)}">
+                                                        {!product.TransactionRMSId__c}
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c =VOICE_AFTER_SALES,true,false)}">
+                                                    <a target="_blank" href="http://{!hostCS}.vuitton.lvmh/agent/main.jsp?orderId={!product.OrderATGId__c }" >{!$Label.VO_Link_to_my_repair}</a>
+                                                    
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(OR(vo_survey.SurveyType__c = VOICE_WEB_SALES, vo_survey.SurveyType__c = VOICE_CSC_SALES, vo_survey.SurveyType__c = VOICE_CC_CSC_SALES, vo_survey.SurveyType__c = VOICE_CC_WEB_SALES),true,false)}">
+                                                    {!product.OrderATGId__c} 
+                                                </apex:outputPanel>
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > {!product.RMSCAId__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!product.SAName__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > 
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                <apex:param value="{!product.PurchasedDate__c}"  />
+                                            </apex:outputtext> 
+                                        </td>
+                                        <td class="ellipsis" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:100px;" >{!product.ProductLine__c}</td>
+                                        <!-- Start DY 05/04/2016 -->                                                                                
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >
+                                                 <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c = VOICE_AFTER_SALES ,true,false)}">
+                                                        {!product.DesignationRepaired__c}
+                                                </apex:outputPanel>                                        
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c <> VOICE_AFTER_SALES ,true,false)}">
+                                                        {!product.Name}  
+                                                </apex:outputPanel>
+                                        </td>
+                                        <!-- End DY 05/04/2016 -->                                                                                                                   
+                                        <!-- <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!product.Name}</td> -->
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;text-align:right;vertical-align:top;width:100px;" >{!product.Quantity__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;text-align:right;vertical-align:top;width:100px;" >{!product.Amount__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;text-align:right;vertical-align:top;width:100px;" >{!product.CurrencyCode__c}</td>
+                                    </tr>
+                                 </apex:repeat> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="sectionTable feedback" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <div class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-right:0;margin-left:0;margin-bottom:0.5em;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >FEEDBACK</div>
+                    
+                    <table class="stripedTable" style="border-collapse:collapse;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;">
+                        <tr>
+                            <th style="width: 100%"></th>
+                            <th style="width: 40px"></th>
+                        </tr>
+                        <apex:variable var="rowNum" value="{!1}"  />
+                        <apex:variable var="rowCount" value="{!1}"  />
+                        <apex:repeat value="{!surveyToAnswerListWrapperMap[vo_survey.Id]}" var="answerListWrapperItem"  >
+                            
+                            
+                            <apex:outputPanel layout="none" rendered="{!IF(AND(answerListWrapperItem.count > 1, NOT(answerListWrapperItem.hasNoAns)),true , false)}">
+                                <apex:variable var="sectionCount" value="{!1}"  /> 
+                                <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                    <apex:outputPanel layout="none" rendered="{!IF(sectionCount == 1,true,false)}"  >
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                {!rowNum}) {!itemAnswerWrapper.section}</b></td>
+                                            <td></td>
+                                        </tr>
+                                        <apex:variable var="rowCount" value="{!rowCount+1}"  />
+                                    </apex:outputPanel>
+                                    <apex:variable var="sectionCount" value="{!sectionCount+1}"  />
+                                </apex:repeat>
+                                
+                                <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  > 
+                                    <apex:outputPanel layout="none" rendered="{!IF(itemAnswerWrapper.answer != null, true, false)}">
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                                {!itemAnswerWrapper.title}</span></td>
+                                            <td style="text-align: right;"><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial Unicode MS;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                                {!itemAnswerWrapper.answer}&nbsp;</span></td>
+                                        </tr>
+                                        <!--<apex:variable var="rowCount" value="{!rowCount+1}"  />-->
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    </apex:outputPanel>
+                                </apex:repeat> 
+                                <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}"><td style="height:1.4em"></td><td></td></tr>
+                                <apex:variable var="rowCount" value="{!rowCount+1}"/>
+                                <apex:variable var="rowNum" value="{!rowNum+1}"  />
+                            </apex:outputPanel> 
+                            
+                            <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.count = 1 , true, false)}"  >
+                                <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                    <apex:outputPanel layout="none" rendered="{!IF(AND(answerListWrapperItem.isAnsIsNum, itemAnswerWrapper.answer != null) , true ,false)}"  >
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                {!rowNum}) {!itemAnswerWrapper.section}</b></td>
+                                            <td style="text-align: right;"><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial Unicode MS,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                            {!itemAnswerWrapper.answer}&nbsp;</span></td>
+                                        </tr>
+                                        <!--<apex:variable var="rowCount" value="{!rowCount+1}"  />-->
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!IF(AND(NOT(answerListWrapperItem.isAnsIsNum), itemAnswerWrapper.answer != null) , true ,false)}"  >
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                {!rowNum}) {!itemAnswerWrapper.title}</b></td>
+                                            <td></td>
+                                        </tr>
+                                        <!--<apex:variable var="rowCount" value="{!rowCount+1}"  />-->
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial Unicode MS,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                            {!itemAnswerWrapper.answer}&nbsp;</span></td>
+                                            <td></td>
+                                        </tr>
+                                        <!--<apex:variable var="rowCount" value="{!rowCount+1}"  />-->
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    </apex:outputPanel>
+                                    <tr style="background-color: {!IF(mod(rowCount,2)=0, '#ddd', '')}; display: {!IF(itemAnswerWrapper.answer != null, '', 'none')}"><td style="height:1.4em"></td><td></td></tr>
+                                    <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    <apex:variable var="rowNum" value="{!IF(itemAnswerWrapper.answer != null, rowNum+1, rowNum)}"  />
+                                </apex:repeat>
+                            </apex:outputPanel>
+                            
+                           <!-- <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}"><td style="height:1.4em"></td><td></td></tr>
+                            <apex:variable var="rowCount" value="{!rowCount+1}"  />
+                            <apex:variable var="rowNum" value="{!rowNum+1}"  />-->
+                        </apex:repeat> 
+                        
+                    </table>
+                </div>
+
+                <!-- OLD HTML -->
+<!--                 <div class="sectionTable feedback" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <div class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-right:0;margin-left:0;margin-bottom:0.5em;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >FEEDBACK
+                    </div>
+                    <c:VO_scrollPanel idname="id4"  >
+                        <span class="bg-white" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                             
+                            <apex:variable var="rowNum" value="{!1}"  />
+                            <apex:repeat value="{!surveyToAnswerListWrapperMap[vo_survey.Id]}" var="answerListWrapperItem"  >
+                                
+                                
+                                <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.count > 1 ,true , false)}">
+                                    <apex:variable var="sectionCount" value="{!1}"  /> 
+                                    
+                                  
+                                    <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                        <apex:outputPanel layout="none" rendered="{!IF(sectionCount == 1,true,false)}"  >
+                                            <div class="clearfix answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;" >
+                                                <div class="pull-left h5  margin-md margin-right-lg" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-left:0;margin-right:160px;float:left;max-width:90%" >
+                                                    <div aria-expanded="true" class="" data-toggle="collapse" href="" role="button" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                        
+                                                        <span class="caret caret-lg" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ></span>
+                                                        <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!rowNum}) {!itemAnswerWrapper.section}</b> 
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </apex:outputPanel>
+                                        <apex:variable var="sectionCount" value="{!sectionCount+1}"  />
+                                    </apex:repeat>
+                                     
+                                 
+                                    <div aria-expanded="true" class="collapse in" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                         <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  > 
+                                            <div class="clearfix multypickListFeedBack answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;" >
+                                                <div class="pull-left" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:left;max-width:90%" >
+                                                    {!itemAnswerWrapper.title}
+                                                </div>
+                                                <div class="pull-right" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:right;max-width:10%" >
+                                                    {!itemAnswerWrapper.answer}
+                                                </div>
+                                            </div>
+                                         </apex:repeat> 
+                                    </div>  
+                                 </apex:outputPanel> 
+                                
+                                 <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.count = 1 , true, false)}"  >
+                                    <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                        <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.isAnsIsNum , true ,false)}"  >
+                                             <div class="clearfix answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;" >
+                                                <div class="pull-left" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:left;max-width:90%" >
+                                                    <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!rowNum}) {!itemAnswerWrapper.title}</b>
+                                                </div>
+                                                <div class="pull-right" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:right;max-width:10%" >
+                                                    {!itemAnswerWrapper.answer}
+                                                </div>
+                                            </div>
+                                            
+                                         </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!IF(NOT(answerListWrapperItem.isAnsIsNum) , true ,false)}"  >
+                                             <div class="answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                <div class="" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><b>{!rowNum}) {!itemAnswerWrapper.title}</b></div>
+                                                <div class="" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!itemAnswerWrapper.answer}</div>
+                                                 <p>
+                                                 </p>
+                                                 <div style="height:1em"></div>
+                                            </div>
+                                         </apex:outputPanel>
+                                    </apex:repeat>
+                                </apex:outputPanel> 
+                                <div class="clearfix space" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;height:1em;" ></div>
+                                 <apex:variable var="rowNum" value="{!rowNum+1}"  />
+                            </apex:repeat> 
+                        </span>
+                     </c:VO_scrollPanel> 
+                </div> -->
+                <!-- FINISH OLD HTML -->
+                <table class="sectionTable" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td colspan="2" class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CLIENT FEEDBACK HISTORY</td>
+                    </tr>
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                            <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;border-collapse:collapse;width:100%;background-color:#f8f8f8;" >
+                                <tr class="tableHeader tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:#d2c8c3;vertical-align:top;" >
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;width:100px;" >Survey ID</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:80px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Answer Date</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:50px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >St. code</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:250px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Store Name</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;width:100px;" >Type</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:100px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Type of Survey</td>
+                                </tr>
+                                 <apex:repeat var="survey" value="{!surveyIdToClientSurveyListMap[vo_survey.Id]}"  >  
+                                    <tr class="tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >
+                                            {!survey.Name}
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > 
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                <apex:param value="{!survey.AnswerDate__c}"  />
+                                            </apex:outputtext> 
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!survey.Store__r.RetailStoreId__c}</td>
+                                        <td class="ellipsis" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:100px;" >{!survey.StoreName__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > 
+                                            <c:VO_symbolsTypeStatus typeName="{!survey.Type__c}"  statusName=""  >
+                                            </c:VO_symbolsTypeStatus> 
+                                            {!survey.Type__c}
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!survey.SurveyType__c}</td>
+                                    </tr>
+                                 </apex:repeat> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            
+         </apex:repeat>  
+
+     <!-- LAST SURVEY -->
+      
+      <apex:repeat value="{!lastSurvey}" var="vo_survey"  >  
+
+          <div style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                
+                                <table class="sectionTable" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;width:100%;table-layout:fixed;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CASE DETAILS</td>
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:4px;vertical-align:top;" ></td>
+                        <td class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70%;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CLIENT DETAILS</td>
+                    </tr>
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td  valign="top" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;vertical-align:top;" >
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <h4 class="text-uppercase" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                            Type:<b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Type__c}</b>
+                                        </h4>
+                                        <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                            Status:<b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Status__c}</b>
+                                        </h4>
+                                    </td>
+                                    
+                                    <td valign="top"><apex:image value="{!URLFOR($Resource.VO_symbols,fromTypeAndStatusToImagesNameMap[vo_survey.Type__c])}" style="width:25px; height:25px" /></td>
+                                    <td valign="top"><apex:image value="{!URLFOR($Resource.VO_symbols,fromTypeAndStatusToImagesNameMap[vo_survey.Status__c])}" style="width:25px; height:25px"/></td>
+                                </tr>
+                            </table>
+                            
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >&nbsp;</h4>
+                            <h4 class="text-uppercase" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.SurveyType__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Store__r.Name}</b> 
+                            </h4>
+                            <!-- C&C: displaying the delivery store -->
+                            <h4 style ="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;display:{!IF(OR(vo_survey.SurveyType__c == VOICE_CC_CSC_SALES, vo_survey.SurveyType__c == VOICE_CC_WEB_SALES), 'block', 'none')}">
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >Delivered in {!vo_survey.TECHStore_Delivery_del__c}</b>
+                            </h4>
+                            <!-- EO: displaying the store order -->
+                            <h4 style ="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;display:{!IF(OR(vo_survey.SurveyType__c == VOICE_EO_SALES), 'block', 'none')}">
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >Ordered in {!vo_survey.STOREORDER__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >&nbsp;</h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.ClientName__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" > Answer Date : 
+                                    <span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                         <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                            <apex:param value="{!vo_survey.AnswerDate__c}"  />
+                                        </apex:outputtext> 
+                                    </span>
+                                </b>
+                            </h4>
+                            <!-- C&C and EO: displaying Assigned To field -->
+                            <h4 style ="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;display:{!IF(OR(vo_survey.SurveyType__c == VOICE_CC_CSC_SALES, vo_survey.SurveyType__c == VOICE_CC_WEB_SALES, vo_survey.SurveyType__c == VOICE_EO_SALES), 'block', 'none')}">
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">Assigned To {!vo_survey.Assign_To__c}</b>
+                            </h4>
+                        </td>
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" ></td>
+                        <td  valign="top" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;vertical-align:top;" >
+                            <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;border-collapse:collapse;background-color:white;" >
+                                <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                        <table  border="0" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;border-collapse:collapse;background-color:transparent;" >
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Dream ID:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.DreamID__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Gender:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.Gender__pc}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Segmentation:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.Segmentation__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Address:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                   <apex:outputField id="newDesc" value="{!vo_survey.ClientDreamID__r.PrimaryAddress__pc }"  />  
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Phone:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonHomePhone}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Mobile:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonMobilePhone}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Email:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonEmail}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                        <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;vertical-align:top;border-collapse:collapse;background-color:transparent;" >
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Attached channel:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                {!vo_survey.ClientDreamID__r.AttachedStore__pc}&nbsp;-&nbsp;<apex:outputField value="{!vo_survey.ClientDreamID__r.AttachedStore__pc}"/></td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Preferred CA (ICON):</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.TECHPreferredCA__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Last cont. date (ICON):</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                     
+                                                    <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.LastContactDate__pc }"  />
+                                                    </apex:outputtext>
+ 
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" ><apex:image url="{!URLFOR($Resource.VO_symbols, 'new.png')}" width="8" height="8" rendered="{!If(TEXT(vo_survey.ClientDreamID__r.FlowerFlag__pc) == $Label.LV_Opend_Complain_Status, true, false)}"/> Last cont. date (CSC):</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                    <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.LastCSCClientContact__pc }"  />
+                                                    </apex:outputtext>
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Last complain closing date:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                    <span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;color:red;" > 
+                                                        <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                            <apex:param value="{!vo_survey.ClientDreamID__r.ComplaintClosingDate__pc}"  />
+                                                        </apex:outputtext> 
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >First transaction:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" > 
+                                                    <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.FirstTrans__pc}"  />
+                                                    </apex:outputtext> 
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Hist. turnover:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" > 
+                                                    <apex:outputPanel layout="none" rendered="{!If(currUser != null,true,false)}">
+                                                        
+                                                            <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='EUR',true,false)}"  >
+                                                                
+                                                                <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc >= 0)}">
+                                                                    <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc)}"/>
+                                                                </apex:outputText>
+                                                                 
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='JPY',true,false)}"  >
+                                                                <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc >= 0)}">
+                                                                    <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc)}"/>
+                                                                </apex:outputText>                             
+                                                                 
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='CNY',true,false)}"  >
+                                                   
+                                                                <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc >= 0)}">
+                                                                    <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc)}"/>
+                                                                </apex:outputText>   
+                                                                
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='USD',true,false)}"  >
+                                                                 <apex:outputText value="{0,number, ###,###}" rendered="{!AND(vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc != NULL, vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc >= 0)}">
+                                                                    <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc)}"/>
+                                                                </apex:outputText>      
+                                                            </apex:outputPanel>
+                                                            {!currUser.Currency__c}
+                                                    </apex:outputPanel>
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Number of products:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.HistoricalNbrProducts__pc}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+<!--                 <table class="sectionTable" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;width:100%;table-layout:fixed;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CASE DETAILS</td>
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:4px;vertical-align:top;" ></td>
+                        <td class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70%;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CLIENT DETAILS</td>
+                    </tr>
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td  valign="top" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;vertical-align:top;" >
+                            <h4 class="text-uppercase" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                Type:<b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Type__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                Status:<b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Status__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,
+                            sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >&nbsp;</h4>
+                            
+                            <h4 class="text-uppercase" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.SurveyType__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.Store__r.Name}</b> 
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >&nbsp;</h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!vo_survey.ClientName__c}</b>
+                            </h4>
+                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" > Answer Date : 
+                                    <span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                         <apex:outputtext value="{0,Date, MM/dd/YYYY}"  >
+                                            <apex:param value="{!vo_survey.AnswerDate__c}"  />
+                                        </apex:outputtext> 
+                                    </span>
+                                </b>
+                            </h4>
+                        </td>
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" ></td>
+                        <td  valign="top" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;vertical-align:top;" >
+                            <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;border-collapse:collapse;background-color:white;" >
+                                <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                        <table  border="0" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;border-collapse:collapse;background-color:transparent;" >
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Dream ID:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.DreamID__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Gender:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.Gender__pc}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Segmentation:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.Segmentation__c}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Address:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family: Arial Unicode MS,Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                   <apex:outputField id="newDesc" value="{!vo_survey.ClientDreamID__r.PrimaryAddress__pc }"  />  
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Phone:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonHomePhone}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Mobile:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.PersonMobilePhone}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:white;vertical-align:top;" >
+                                        <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;width:100%;vertical-align:top;border-collapse:collapse;background-color:transparent;" >
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Attached channel:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                {!vo_survey.ClientDreamID__r.AttachedStore__pc}&nbsp;-&nbsp;<apex:outputField value="{!vo_survey.ClientDreamID__r.AttachedStore__pc}"/></td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Preferred CA:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.owner.Name}</td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Last contact date:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                     
+                                                    <apex:outputtext value="{0,Date, MM/dd/YYYY}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.LastContactDate__pc }"  />
+                                                    </apex:outputtext>
+ 
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Last complain date:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >
+                                                    <span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;color:red;" > 
+                                                        <apex:outputtext value="{0,Date, MM/dd/YYYY}"  >
+                                                            <apex:param value="{!vo_survey.ClientDreamID__r.ComplaintClosingDate__pc}"  />
+                                                        </apex:outputtext> 
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >First transaction:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" > 
+                                                    <apex:outputtext value="{0,Date, MM/dd/YYYY}"  >
+                                                        <apex:param value="{!vo_survey.ClientDreamID__r.FirstTrans__pc}"  />
+                                                    </apex:outputtext> 
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Hist. turnover:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" > 
+                                                    <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='EUR',true,false)}"  >
+                                                        
+                                                        <apex:outputText value="{0,number, ###,###}" rendered="{!vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc >= 0}">
+                                                            <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendEUR__pc)}"/>
+                                                        </apex:outputText>
+                                                         
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='JPY',true,false)}"  >
+                                                        <apex:outputText value="{0,number, ###,###}" rendered="{!vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc >= 0}">
+                                                            <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendYEN__pc)}"/>
+                                                        </apex:outputText>                             
+                                                         
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='CNY',true,false)}"  >
+                                           
+                                                        <apex:outputText value="{0,number, ###,###}" rendered="{!vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc >= 0}">
+                                                            <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendYUAN__pc)}"/>
+                                                        </apex:outputText>   
+                                                        
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel layout="none" rendered="{!If(currUser.Currency__c =='USD',true,false)}"  >
+                                                         <apex:outputText value="{0,number, ###,###}" rendered="{!vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc >= 0}">
+                                                            <apex:param value="{!CEILING(vo_survey.ClientDreamID__r.HistoricalSpendUSD__pc)}"/>
+                                                        </apex:outputText>      
+                                                    </apex:outputPanel>
+                                                    {!currUser.Currency__c} 
+                                                </td>
+                                            </tr>
+                                            <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                                <td class="label" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;" >Number of products:</td>
+                                                <td class="labelValue" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-align:left;" >{!vo_survey.ClientDreamID__r.HistoricalNbrProducts__pc}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table> -->
+                
+                <table id="transactionTable" class="sectionTable" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <tr style="vertical-align:top;" >
+                        <td colspan="2" class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >TRANSACTION</td>
+                    </tr>
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                            <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;border-collapse:collapse;width:100%;background-color:#f8f8f8;" >
+                                <tr class="tableHeader tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:#d2c8c3;vertical-align:top;" >
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:110px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Trans. Id</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:40px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >CA ID</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >CA Name</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Trans. Date</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:100px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Prod. Cat.</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:160px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Product</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:20px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >QTY</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:70px;text-align:right;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Amount</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:30px;text-align:right;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >LC</td>
+                                </tr>
+                                 <apex:repeat var="product" value="{!techPurchProductIdFromPPobjToPurchasedProductListMap[vo_survey.TechPurchProductKey__c]}"  >  
+                                    <tr class="tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >
+                                                 <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c = VOICE_SALES ,true,false)}">
+                                                        {!product.TransactionRMSId__c}
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c =VOICE_AFTER_SALES,true,false)}">
+                                                    <a target="_blank" href="http://{!hostCS}.vuitton.lvmh/agent/main.jsp?orderId={!product.OrderATGId__c }" >{!$Label.VO_Link_to_my_repair}</a>
+                                                    
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(OR(vo_survey.SurveyType__c = VOICE_WEB_SALES, vo_survey.SurveyType__c = VOICE_CSC_SALES),true,false)}">
+                                                    {!product.OrderATGId__c} 
+                                                </apex:outputPanel>
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > {!product.RMSCAId__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!product.SAName__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > 
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                <apex:param value="{!product.PurchasedDate__c}"  />
+                                            </apex:outputtext> 
+                                        </td>
+                                        <td class="ellipsis" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:100px;" >{!product.ProductLine__c}</td>
+                                        <!-- Start DY 05/04/2016 -->                                                                                
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >
+                                                 <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c = VOICE_AFTER_SALES ,true,false)}">
+                                                        {!product.DesignationRepaired__c}
+                                                </apex:outputPanel>                                        
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c <> VOICE_AFTER_SALES ,true,false)}">
+                                                        {!product.Name}  
+                                                </apex:outputPanel>
+                                        </td>
+                                        <!-- End DY 05/04/2016 -->
+                                        <!-- <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!product.Name}</td> -->
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;text-align:right;vertical-align:top;width:100px;" >{!product.Quantity__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;text-align:right;vertical-align:top;width:100px;" >{!product.Amount__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;text-align:right;vertical-align:top;width:100px;" >{!product.CurrencyCode__c}</td>
+                                    </tr>
+                                 </apex:repeat> 
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+              
+              
+                <!-- NEW HTML -->
+                <div class="sectionTable feedback" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <div class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-right:0;margin-left:0;margin-bottom:0.5em;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >FEEDBACK</div>
+                    
+                    <table class="stripedTable" style="border-collapse:collapse;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;">
+                        <tr>
+                            <th style="width: 100%"></th>
+                            <th style="width: 40px"></th>
+                        </tr>
+                        <apex:variable var="rowNum" value="{!1}"  />
+                        <apex:variable var="rowCount" value="{!1}"  />
+                        <apex:repeat value="{!surveyToAnswerListWrapperMap[vo_survey.Id]}" var="answerListWrapperItem"  >
+                            
+                            
+                            <apex:outputPanel layout="none" rendered="{!IF(AND(answerListWrapperItem.count > 1, NOT(answerListWrapperItem.hasNoAns)) ,true , false)}">
+                                <apex:variable var="sectionCount" value="{!1}"  /> 
+                                <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                    <apex:outputPanel layout="none" rendered="{!IF(sectionCount == 1,true,false)}"  >
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                {!rowNum}) {!itemAnswerWrapper.section}</b></td>
+                                            <td></td>
+                                        </tr>
+                                        <apex:variable var="rowCount" value="{!rowCount+1}"  />
+                                    </apex:outputPanel>
+                                    <apex:variable var="sectionCount" value="{!sectionCount+1}"  />
+                                </apex:repeat>
+                                
+                                <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  > 
+                                   <apex:outputPanel layout="none" rendered="{!IF(itemAnswerWrapper.answer != null, true, false)}">
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                                {!itemAnswerWrapper.title}</span></td>
+                                            <td style="text-align: right;"><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial Unicode MS,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                                {!itemAnswerWrapper.answer}&nbsp;</span></td>
+                                        </tr>
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    </apex:outputPanel>
+                                </apex:repeat> 
+                                <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}"><td style="height:1.4em"></td><td></td></tr>
+                                <apex:variable var="rowCount" value="{!rowCount+1}"/>
+                                <apex:variable var="rowNum" value="{!rowNum+1}"  />
+                            </apex:outputPanel> 
+                            
+                            <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.count = 1, true, false)}"  >
+                                <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                    <apex:outputPanel layout="none" rendered="{!IF(AND(answerListWrapperItem.isAnsIsNum, itemAnswerWrapper.answer != null) , true ,false)}"  >
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                {!rowNum}) {!itemAnswerWrapper.section}</b></td>
+                                            <td style="text-align: right;"><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial Unicode MS,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                            {!itemAnswerWrapper.answer}&nbsp;</span></td>
+                                        </tr>
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!IF(AND(NOT(answerListWrapperItem.isAnsIsNum), itemAnswerWrapper.answer != null) , true ,false)}"  >
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                                {!rowNum}) {!itemAnswerWrapper.title}</b></td>
+                                            <td></td>
+                                        </tr>
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                        <tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}">
+                                            <td><span style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial Unicode MS,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+                                            {!itemAnswerWrapper.answer}&nbsp;</span></td>
+                                            <td></td>
+                                        </tr>
+                                        <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    </apex:outputPanel>
+                                    <tr style="background-color: {!IF(mod(rowCount,2)=0, '#ddd', '')}; display: {!IF(itemAnswerWrapper.answer != null, '', 'none')}"><td style="height:1.4em"></td><td></td></tr>
+                                    <apex:variable var="rowCount" value="{!IF(itemAnswerWrapper.answer != null, rowCount+1, rowCount)}"  />
+                                    <apex:variable var="rowNum" value="{!IF(itemAnswerWrapper.answer != null, rowNum+1, rowNum)}"  />
+                                </apex:repeat>
+                            </apex:outputPanel>
+                            
+                            <!--<tr style="{!IF(mod(rowCount,2)=0 ,'background-color:#ddd','')}"><td style="height:1.4em">{!rowCount}</td><td></td></tr>-->
+                            <!--<apex:variable var="rowCount" value="{!rowCount+1}"  />-->
+                            <!--<apex:variable var="rowNum" value="{!rowNum+1}"  />-->
+                        </apex:repeat> 
+                        
+                    </table>
+                </div>
+                
+              
+              
+              
+                <!-- HOLD HTML -->
+                <!--
+                <div class="sectionTable feedback" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <div class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-right:0;margin-left:0;margin-bottom:0.5em;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >FEEDBACK
+                    </div>
+                    <c:VO_scrollPanel idname="id4"  >
+                        <span class="bg-white" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                             
+                            <apex:variable var="rowNum" value="{!1}"  />
+                            <apex:repeat value="{!surveyToAnswerListWrapperMap[vo_survey.Id]}" var="answerListWrapperItem"  >
+                                
+                                
+                                <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.count > 1 ,true , false)}">
+                                    <apex:variable var="sectionCount" value="{!1}"  /> 
+                                    
+                                    
+                                    <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                        <apex:outputPanel layout="none" rendered="{!IF(sectionCount == 1,true,false)}"  >
+                                            <div class="clearfix answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;" >
+                                                <div class="pull-left h5  margin-md margin-right-lg" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-left:0;margin-right:160px;float:left;max-width:90%; background-color:red;" >
+                                                    <div aria-expanded="true" class="" data-toggle="collapse" href="" role="button" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:blue;" >
+                                                        
+                                                        <span class="caret caret-lg" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ></span>
+                                                        <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!rowNum}) {!itemAnswerWrapper.section}</b> 
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </apex:outputPanel>
+                                        <apex:variable var="sectionCount" value="{!sectionCount+1}"  />
+                                    </apex:repeat>
+                                     
+                                    
+                                    <div aria-expanded="true" class="collapse in" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                         <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  > 
+                                            <div class="clearfix multypickListFeedBack answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;background-color:red;" >
+                                                <div class="pull-left" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:left;max-width:90%" >
+                                                    {!itemAnswerWrapper.title}
+                                                </div>
+                                                <div class="pull-right" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:right;max-width:10%" >
+                                                    {!itemAnswerWrapper.answer}
+                                                </div>
+                                            </div>
+                                         </apex:repeat> 
+                                    </div>  
+                                 </apex:outputPanel> 
+                                
+                                 <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.count = 1 , true, false)}"  >
+                                    <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper"  >
+                                        <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.isAnsIsNum , true ,false)}"  >
+                                             <div class="clearfix answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;background-color:purple;" >
+                                                <div class="pull-left" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:left;max-width:90%" >
+                                                    <b style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!rowNum}) {!itemAnswerWrapper.title}</b>
+                                                </div>
+                                                <div class="pull-right" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;float:right;max-width:10%" >
+                                                    {!itemAnswerWrapper.answer}
+                                                </div>
+                                            </div>
+                                            
+                                         </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!IF(NOT(answerListWrapperItem.isAnsIsNum) , true ,false)}"  >
+                                             <div class="answerRow" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:purple;" >
+                                                <div class="" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><b>{!rowNum}) {!itemAnswerWrapper.title}</b></div>
+                                                <div class="" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >{!itemAnswerWrapper.answer}</div>
+                                                 <p>
+                                                 </p>
+                                                 <div style="height:1em"></div>
+                                            </div>
+                                         </apex:outputPanel>
+                                    </apex:repeat>
+                                </apex:outputPanel> 
+                                <div class="clearfix space" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;clear:both;height:1em;" ></div>
+                                 <apex:variable var="rowNum" value="{!rowNum+1}"  />
+                            </apex:repeat> 
+                        </span>
+                     </c:VO_scrollPanel> 
+                </div>
+                -->  
+              
+              
+                <table class="sectionTable" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-right:0;margin-left:0;table-layout:fixed;width:100%;max-width:100%;background-color:#f8f8f8;padding-top:0.5em;padding-bottom:0.5em;padding-right:0.5em;padding-left:0.5em;margin-bottom:10px;margin-top:10px;" >
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td colspan="2" class="sectionTitle" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-size:1em;color:#b87451;font-weight:bold;padding-bottom:0.25em;" >CLIENT FEEDBACK HISTORY</td>
+                    </tr>
+                    <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                            <table style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;table-layout:fixed;border-collapse:collapse;width:100%;background-color:#f8f8f8;" >
+                                <tr class="tableHeader tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;background-color:#d2c8c3;vertical-align:top;" >
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;width:100px;" >Survey ID</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:80px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Answer Date</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:50px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >St. code</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:250px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Store Name</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;width:100px;" >Type</td>
+                                    <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;width:100px;vertical-align:top;font-weight:bold;padding-top:0.2em;padding-bottom:0.25em;" >Type of Survey</td>
+                                </tr>
+                                 <apex:repeat var="survey" value="{!surveyIdToClientSurveyListMap[vo_survey.Id]}"  >  
+                                    <tr class="tdSection" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;" >
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >
+                                            {!survey.Name}
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > 
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}"  >
+                                                <apex:param value="{!survey.AnswerDate__c}"  />
+                                            </apex:outputtext> 
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!survey.Store__r.RetailStoreId__c}</td>
+                                        <td class="ellipsis" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:100px;" >{!survey.StoreName__c}</td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" > 
+                                            <c:VO_symbolsTypeStatus typeName="{!survey.Type__c}"  statusName=""  >
+                                            </c:VO_symbolsTypeStatus> 
+                                            {!survey.Type__c}
+                                        </td>
+                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4em;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;width:100px;" >{!survey.SurveyType__c}</td>
+                                    </tr>
+                                 </apex:repeat> 
+                            </table>
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+        </apex:repeat>
+            <!-- END LAST SURVEY -->
+        
+    </div>
+    
+</apex:page>

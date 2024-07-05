@@ -1,0 +1,22 @@
+<apex:component >
+    <!--    @description             Component to display scroll panel
+    *       @createdBy                Menashe Yamin, 6/09/2015
+    *       @lastModifiedBy           Menashe Yamin, 6/09/2015
+    *
+    -->
+    <apex:attribute name="title" description="The title"
+                    type="String"  />
+    <apex:attribute name="image" description="The image"
+                    type="String"  />
+
+        <div class="form-group margin-no">
+            <label for="input01" class="col-xs-4 control-label" >
+                <!--<span class="{!imageClass}"></span> -->
+                <apex:image url="{!URLFOR($Resource.VO_symbols, 'new.png')}" width="12" height="12" rendered="{!If(image != '', true, false)}"/>
+                {!Title}
+            </label>
+            <div class="col-xs-7 rowStyle">
+                <apex:componentbody />
+            </div>
+        </div>
+</apex:component>

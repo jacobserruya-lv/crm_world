@@ -1,0 +1,333 @@
+<apex:page applybodytag="false"
+           	applyhtmltag="false"
+           	showheader="false"
+           	standardController="Opportunity" 
+           	extensions="SO_BriefOrder_PDF_CTRL"
+           	standardstylesheets="false"
+           	doctype="html-5.0"
+			
+			renderAs="PDF"
+			language="{!$CurrentPage.parameters.lang}"
+>
+
+    <title>LV Special Order - Brief Order</title>
+
+    <style type="text/css">
+    	@page 
+    	{
+    		margin-top: 	120px;
+    		margin-bottom: 	120px;
+    		@top-center 
+    		{
+    			content: element(header);
+    			border-bottom: 1px solid gray;
+    		}
+    		@bottom-center 
+    		{
+    			/*content : "SOCIÉTÉ DES MAGASINS LOUIS VUITTON FRANCE SNC AU CAPITAL DE 79 545 € \a SIÈGE SOCIAL : 2, RUE DU PONT-NEUF - 75034 PARIS CEDEX 01 - 331 888 990 RCS PARIS \a TVA : FR 06 331 888 990 - APE 7010Z";*/
+    			content: element(footer);
+/*    			white-space: pre;
+    			text-align:center; 
+    			font-size:10px; */
+/*    			padding:20px; 
+    			margin-top:50px;*/ 
+    			border-top: 1px solid gray;
+    		}
+		}
+
+		div.header 
+		{
+			position: running(header);
+		}
+
+		div.footer 
+		{
+			white-space: pre;
+			text-align:center; 
+			font-size:10px; 
+			position: running(footer);
+		}
+
+		div.center
+		{
+			/*padding-top: 80px;*/
+/*    		margin-top: 80px;
+    		margin-bottom: 80px;*/
+		}
+
+        .page-break 
+        {
+			page-break-after: always;
+   		}
+    	
+    </style>
+
+	<div class="header">
+        <table style="width:100%">
+            <tbody>
+            	<tr>
+	                <td></td>
+	                <td>
+	                    <apex:outputPanel rendered="{!Opportunity.SPO_Store__r != null}">
+		                    <b>{!Opportunity.SPO_Store__r.ShortName__c}</b>
+		                    <br/>{!Opportunity.SPO_Store__r.Address__c}
+		                    <!-- <br>75008 Paris -->
+		                    <br/>{!$Label.LV_SO_PDF_BLOCK1} &nbsp; {!Opportunity.SPO_Store__r.PhoneForClient__c}
+		                    <!-- <br>FAX&nbsp;: 01 53 57 52 24 -->
+		                    <br/><a href="www.louisvuitton.com">www.louisvuitton.com</a>
+		                </apex:outputPanel>
+	                </td>
+	                <td align="right">
+	                    <img style="max-height:80px; max-width:150px" src="{!URLFOR($Resource.SPO_LVlogoPDF)}"/>
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</div>
+	<div class="footer">{!$Label.LV_SO_PDF_BLOCK11_PART1}<br/>{!$Label.LV_SO_PDF_BLOCK11_PART2}<br/>{!$Label.LV_SO_PDF_BLOCK11_PART3}</div>
+	<!-- <div style="height:50px"></div> -->
+
+	<div class="center {!IF(AND(hasQuotation, !CONTAINS('Brief in progress;Quotation in progress', Opportunity.StageName)), 'page-break', '')}"><!-- main page -->
+        <div style="text-align:right">
+        	<apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                <apex:param value="{!NOW()}" /> 
+            </apex:outputText>
+        </div>
+        <div><b>{!$Label.LV_SO_PDF_BLOCK2}<span><apex:outputText value=" " rendered="{!Opportunity.Account.Salutation != null}"/><apex:outputField value="{!Opportunity.Account.Salutation}"/></span>&nbsp;{!Opportunity.Account.Name},</b></div>
+        
+        <apex:outputPanel rendered="{!OR(
+         										AND(
+         											(productCategory==oppLeatherGood&&orderType==orderTypeSpecialOrder || productCategory==oppWatch&&orderType==orderTypeSpoMto || productCategory==oppAccessory&&orderType==orderTypeSpecialOrder)
+         											,
+         											(stageName=='Brief in progress'||stageName=='Quotation in progress')
+         										)
+         										,
+         										productCategory==oppLeatherGood&&orderType==orderTypeMtoOnCatalog
+         									)
+         									}">
+			<p>{!$Label.LV_SO_PDF_BLOCK3_PART1}</p>
+        	<p>{!$Label.LV_SO_PDF_BLOCK3_PART2}</p>
+        	<p>{!$Label.LV_SO_PDF_BLOCK3_PART3}</p>
+		</apex:outputPanel>
+
+		<apex:outputPanel rendered="{! hasQuotation &&
+     									AND(
+         									(productCategory==oppLeatherGood&&orderType==orderTypeSpecialOrder || productCategory==oppWatch&&orderType==orderTypeSpoMto || productCategory==oppAccessory&&orderType==orderTypeSpecialOrder)
+         									,
+     										(stageName=='Quotation submitted'||stageName=='Deposit sent'||stageName=='Creation in progress'||stageName=='In progress'||stageName=='Payment confirmed'||stageName=='Closed Won'
+     										||stageName=='Quotation accepted' ||stageName=='Quotation rejected')
+     									)
+ 									}">
+
+			<div>
+				<p>{!$Label.LV_SO_PDF_BLOCK4}</p>
+			</div>
+        </apex:outputPanel>
+
+
+        <apex:outputPanel >  <!-- rendered="{!showSection5}"  TICKAT 400 -->
+	        <table>
+	            <tbody>
+		            <apex:outputPanel rendered="{!Opportunity.SPO_BriefCode__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$ObjectType.Opportunity.Fields.SPO_BriefCode__c.Label}:</td>
+			                <td><b>{!Opportunity.SPO_BriefCode__c}</b></td>
+			            </tr>
+		            </apex:outputPanel>
+		            <apex:outputPanel rendered="{!pRef.Name != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_PDF_BLOCK5}</td>
+			                <td><b>{!pRef.SKUCode__c } {!pRef.Name}</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!AND(productCategory==oppLeatherGood, 
+		            							OR(Opportunity.SPO_Sizewidth__c != null, Opportunity.SPO_SizeHeight__c != null, Opportunity.SPO_SizeLenght__c != null))}">
+
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_PDF_BLOCK5_PART2}</td>
+			                <td>
+			                    <b>
+			                        <span style="{!IF(Opportunity.SPO_Sizewidth__c != null, '', 'display:none;')}"><span>{!Opportunity.SPO_Sizewidth__c}</span><span> {!Opportunity.SPO_SizeUnit__c}</span> <span>({!$Label.LV_SO_Width})</span><span></span></span>
+			                        <span style="{!IF(Opportunity.SPO_SizeHeight__c != null, '', 'display:none;')}"><span>, {!Opportunity.SPO_SizeHeight__c}</span><span> {!Opportunity.SPO_SizeUnit__c}</span> <span>({!$Label.LV_SO_Height})</span><span></span></span>
+			                        <span style="{!IF(Opportunity.SPO_SizeLenght__c != null, '', 'display:none;')}"><span>, {!Opportunity.SPO_SizeLenght__c}</span><span> {!Opportunity.SPO_SizeUnit__c}</span> <span>({!$Label.LV_SO_Deep})</span></span>
+			                    </b>
+			                </td>
+			            </tr>
+			        </apex:outputPanel>
+		            
+		            <apex:outputPanel rendered="{!Opportunity.SPO_ExteriorMaterial1__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Exterior_material}</td>
+			                <td><b>{!Opportunity.SPO_ExteriorMaterial1__c}</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_ExteriorMaterialColor1__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Exterior_color}</td>
+			                <td>
+			                    <table>
+			                        <tbody>
+			                        	<tr>
+			                            	<td>
+			                            	    <div style="width:1em; height:1em; background:{!exteriorColor}"></div>
+			                            	</td>
+			                            	<td><b>{!Opportunity.SPO_ExteriorMaterialColor1__c}</b></td>
+			                        	</tr>
+			                    	</tbody>
+			                    </table>
+			                </td>
+			            </tr>
+			        </apex:outputPanel>
+
+			        <apex:outputPanel rendered="{!Opportunity.SPO_LiningInteriorMaterial1__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Interior_material}</td>
+			                <td><b>{!Opportunity.SPO_LiningInteriorMaterial1__c}</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_LiningInteriorColor1__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Interior_color}</td>
+			                <td>
+			                    <table>
+			                        <tbody>
+			                        	<tr>
+			                            	<td>
+			                            	    <div style="width:1em; height:1em; background:{!interiorColor}"></div>
+			                            	</td>
+			                            	<td><b>{!Opportunity.SPO_LiningInteriorColor1__c}</b></td>
+			                        	</tr>
+			                    	</tbody>
+			                    </table>
+			                </td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_ColorMetalicparts__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Metallic_pieces}</td>
+			                <td><b>{!Opportunity.SPO_ColorMetalicparts__c }</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+					<apex:outputPanel rendered="{!Opportunity.SPO_LockNumber__c != null}">
+						<tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Lock_harmonization}</td>
+			                <td><b>{!Opportunity.SPO_LockNumber__c }</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_Painting__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_painting}</td>
+			                <td><b>{!Opportunity.SPO_Painting__c }</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_BeltSize__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Belt_size}</td>
+			                <td><b>{!Opportunity.SPO_BeltSize__c }</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_DestinationWatch__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Destination_Watch}</td>
+			                <td><b>{!Opportunity.SPO_DestinationWatch__r.Name }</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_StrapMaterial__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Strap_material}</td>
+			                <td><b>{!Opportunity.SPO_StrapMaterial__c }</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_StrapColor__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Strap_Color}</td>
+			                <td><b>{!Opportunity.SPO_StrapColor__c }</b></td>
+			            </tr>
+			        </apex:outputPanel>
+
+		            <apex:outputPanel rendered="{!Opportunity.SPO_WristSize__c != null}">
+			            <tr>
+			                <td style="padding-right:20px">{!$Label.LV_SO_Wrist_size}</td>
+			                <td><b>{!Opportunity.SPO_WristSize__c }</b></td>
+			            </tr>
+		            </apex:outputPanel>
+
+		        </tbody>
+		    </table>
+		</apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!AND(
+         										(productCategory==oppLeatherGood&&orderType==orderTypeSpecialOrder || productCategory==oppWatch&&orderType==orderTypeSpoMto || productCategory==oppAccessory&&orderType==orderTypeSpecialOrder)
+         										,
+         										(stageName=='Brief in progress'||stageName=='Quotation in progress')
+         									) 
+         									}">
+        	<p style="margin-top:50px">{!$Label.LV_SO_PDF_BLOCK7}</p>
+        </apex:outputPanel>
+
+        <apex:outputPanel rendered="{! hasQuotation &&
+            							AND(
+            								(productCategory==oppLeatherGood&&orderType==orderTypeSpecialOrder ||
+     										productCategory==oppWatch&&orderType==orderTypeSpoMto || productCategory==oppAccessory&&orderType==orderTypeSpecialOrder)
+     										,
+     										(stageName=='Quotation submitted'||stageName=='Deposit sent'||stageName=='Creation in progress'||stageName=='In progress'||stageName=='Payment confirmed'||stageName=='Closed Won'
+     										||stageName=='Quotation accepted' ||stageName=='Quotation rejected')
+     									) 
+ 									}">
+
+			<p>
+				<apex:outputText escape="false" value="{!$Label.LV_SO_PDF_BLOCK8}"/>
+				{!Opportunity.SPO_TotalAmountCurrency__c + ' '}
+				<apex:outputText escape="false" value="{!$Label.LV_SO_PDF_BLOCK8_PART2}"/>
+				{!Opportunity.SPO_EstimatedLeadTime__c}&nbsp;<apex:outputText escape="false" value="{!$Label.LV_SO_PDF_BLOCK8_PART3}"/>
+			</p>
+			<p><apex:outputText escape="false" value="{!$Label.LV_SO_PDF_BLOCK8_PART4}"/></p>
+     	</apex:outputPanel>
+
+     	<apex:outputPanel rendered="{!productCategory==oppLeatherGood&&orderType==orderTypeMtoOnCatalog}">
+         	<p>{!$Label.LV_SO_PDF_BLOCK9}</p>
+        </apex:outputPanel>
+
+        <p>{!$Label.LV_SO_PDF_BLOCK10}</p>
+
+        <div style="margin-top:25px">
+        	<br/><span><!-- {!$Label.LV_SO_PDF_BLOCK10_Part2} --></span><span>{!Opportunity.Owner.Name}</span>
+            <br/><span><!-- {!$Label.LV_SO_PDF_BLOCK10_Part2} --> {!$ObjectType.User.fields.Title.Label}: </span><span>{!Opportunity.Owner.Title}</span>
+            <br/><span><!-- {!$Label.LV_SO_PDF_BLOCK1} --> {!$ObjectType.User.fields.Phone.Label}: </span><span>{!Opportunity.Owner.Phone}</span>
+            <br/><span><!-- {!$Label.IC_Email} --> {!$ObjectType.User.fields.Email.Label}: </span><span><a href="{!Opportunity.Owner.Email}">{!Opportunity.Owner.Email}</a></span>
+        </div>
+
+    </div><!-- end of main page -->
+     
+    <!-- <div class="page-break"></div> -->
+
+    <!-- next page for Block12 -->
+    <apex:outputPanel styleClass="center" layout="block" rendered="{!AND(hasQuotation, !CONTAINS('Brief in progress;Quotation in progress', Opportunity.StageName))}">
+    	<p>
+    		{!$Label.LV_SO_PDF_BLOCK12_PART1_1}
+    		<ul>
+    			<li>{!$Label.LV_SO_PDF_BLOCK12_PART1_2}</li>
+    			<li>{!$Label.LV_SO_PDF_BLOCK12_PART1_3}</li>
+    			<li>{!$Label.LV_SO_PDF_BLOCK12_PART1_4}</li>
+    			<li>{!$Label.LV_SO_PDF_BLOCK12_PART1_5}</li>
+    		</ul>
+    		{!$Label.LV_SO_PDF_BLOCK12_PART1_6} {!Opportunity.SPO_BriefCode__c} {!$Label.LV_SO_PDF_BLOCK12_PART2} {!Opportunity.SPO_TotalAmountCurrency__c} {!$Label.LV_SO_PDF_BLOCK12_PART3}
+    	</p>
+    	<p>{!$Label.LV_SO_PDF_BLOCK12_PART4}</p>
+    	<p>{!$Label.LV_SO_PDF_BLOCK12_PART5}</p>
+    	<p>{!$Label.LV_SO_PDF_BLOCK12_PART6}</p>
+    	<p>{!$Label.LV_SO_PDF_BLOCK12_PART7}</p>
+    	<p>{!$Label.LV_SO_PDF_BLOCK12_PART8}</p>
+    </apex:outputPanel>
+
+</apex:page>

@@ -1,0 +1,40 @@
+<apex:component >
+
+    <!--
+            Turn any text input element into date picker control
+            The referenced text input element must be wrapped into the component itself.
+            REQUIREMENTS:
+            1. JQuery
+            2. Bootstrap DatePicker:
+            https://bootstrap-datepicker.readthedocs.org/en/latest/
+            bootstrap.datepicker.js,
+            bootstrap.datepicker.css
+    -->
+    <!-- CreatedBy          Haim Knokh, 08/06/2015 -->
+    <!-- lastModifiedBy     Haim Knokh, 08/06/2015 -->
+
+    <apex:attribute name="dateFormat" type="String" description="The string date format. Must match the input field display format" default="dd/mm/yyyy" />
+
+    <apex:outputpanel id="body">
+        <apex:componentbody />
+        <script type="text/javascript">
+            var j$ = j$ || $;
+
+            j$(function () {
+                var $comp = j$(document.getElementById('{!$Component.body}'))
+                    .find('input[type=text]').first()
+                    .addClass('form-control')
+                    .wrap('<div class="input-group date"/>')
+                    .after('<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>');
+                var $picker = $comp.parent();
+                $picker.datepicker({
+                    format: '{!dateFormat}',
+                    autoclose:true,
+                    todayBtn: true
+                });
+                $picker.datepicker('update', $picker.datepicker('getDate'));
+            });
+        </script>
+    </apex:outputpanel>
+
+</apex:component>

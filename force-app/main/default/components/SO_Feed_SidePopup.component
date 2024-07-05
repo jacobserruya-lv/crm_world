@@ -1,0 +1,89 @@
+<apex:component >
+
+    <apex:attribute name="data" type="SO_MessageContainer" description="data" />
+
+    <apex:attribute name="onAddMessage"  type="String" description="javascript event" />
+    <apex:attribute name="onReadMessage" type="String" description="javascript event" />
+
+    <c:SO_BootstrapSlidePopup showopener="false" openerselector=".nav.bread .btn-link" 
+                              top="0px" width="450px" fixed="true" 
+                              hideonbodyclick="true" position="right">
+
+        <div class="panel panel-default slider-panel">
+            <i class="close-slider glyphicon glyphicon-remove" onclick="hideSlider()"></i>
+            <div class="panel-body">
+                <div class="panel panel-default scrollPost">
+                    <div class="panel-body bodyHolder">
+                        
+                        <apex:repeat value="{!data.msgList}" var="msg">
+                            <div class="post " data-id="{!msg.id}">
+                                <div class="post-header">
+                                    <h6 > <!-- class="pull-right" -->  
+                                        <apex:outputtext value="{0,Date, MM/dd/YYYY h:mm a}">  
+                                            <apex:param value="{!msg.CreatedDate}" />
+                                        </apex:outputtext>
+                                    </h6>
+                                    
+                                    <h4><!-- <span class="glyphicon glyphicon-comment">  </span> -->
+                                         <span class="{!IF(CONTAINS(msg.SPO_WritterRole__c, 'Store'),'fa fa-plus fa-2', IF(CONTAINS(msg.SPO_WritterRole__c, 'Other'),'fa fa-comment fa-2', IF(CONTAINS(msg.SPO_WritterRole__c, 'Production'),'fa fa-briefcase fa-2','')))}">  
+                                         </span>&nbsp;{!msg.CreatedBy.Name}<!--{!msg.Name}-->
+                                    </h4>
+
+                                </div>
+                                <div class="post-body">
+                                    {!msg.SPO_Message__c}
+                                </div>
+                            </div>
+                        </apex:repeat>
+
+                        <!-- example data -->
+                        <!--<div class="post">
+                            <div class="post-header">
+                                <h4><span class="glyphicon glyphicon-comment"></span> CA_UserName</h4>
+                                <span class="pull-right">27/07/2015</span>
+                            </div>
+                            <div class="post-body">
+                                Hello Marie,
+                                Is it possible to change the external material color to red?
+                            </div>
+                        </div>
+                        <div class="post">
+                            <div class="post-header">
+                                <h4><span class="glyphicon glyphicon-comment"></span> Marie</h4>
+                                <span class="pull-right">27/07/2015</span>
+                            </div>
+                            <div class="post-body">
+                                No problems !
+                            </div>
+                        </div>
+                        <div class="post">
+                            <div class="post-header">
+                                <h4><span class="glyphicon glyphicon-repeat"></span> Bried change</h4>
+                                <span class="pull-right">27/07/2015</span>
+                            </div>
+                            <div class="post-body">
+                                Ext. Material: Red
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+                <label>Comment:</label>
+                <div class="panel panel-invisible ">
+                    <textarea id="messagesCommentTextAreaId" rows="6" style="width:100%"/>
+                </div>
+
+                <div class='readText' style="display:none">
+                    <span class='read'>{!$Label.LV_SO_Read}</span>
+                    <span class='readed'>{!$Label.LV_SO_Readed} </span>
+                </div>
+
+                <input type="button" value="{!$Label.LV_SO_Read}" class="btn btn-default pull-left isRead" onclick="{!onReadMessage}();" />
+                <input type="button" value="{!$Label.LV_SO_Send}" class="btn btn-success pull-right" onclick="{!onAddMessage}($('#messagesCommentTextAreaId'));" />
+            </div>
+        </div>
+
+    </c:SO_BootstrapSlidePopup>
+ 
+
+
+</apex:component>

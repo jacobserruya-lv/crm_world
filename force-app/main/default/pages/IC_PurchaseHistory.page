@@ -1,0 +1,8 @@
+<apex:page standardController="Account" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+	<apex:form >
+
+	<c:PurchaseProductComponent record="{! Account }"/>
+		
+	
+    </apex:form>	
+</apex:page>

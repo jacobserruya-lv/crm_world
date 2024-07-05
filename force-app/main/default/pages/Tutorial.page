@@ -1,0 +1,204 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" controller="Tutorial_CTRL">
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <title>Salesforce Tutorial</title>
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+            
+            <apex:stylesheet value="{!URLFOR($Resource.VideoJS, 'video-js/video-js.min.css')}" />
+            
+            <apex:includeScript value="{!URLFOR($Resource.VideoJS, 'video-js/video.js')}" />
+            
+            <apex:includeScript value="{!URLFOR($Resource.VideoJS, 'video-js/video.novtt.js')}" />
+            
+            <script>
+            videojs.options.flash.swf = "{!URLFOR($Resource.VideoJS, 'video-js/video-js.swf')}"
+            </script>
+            <style>
+               <!-- .lvmh .slds-table--cell-buffer tr>th:first-child {
+                    width:400px !important;
+                }
+            -->
+            </style>
+        </head>
+        <body>
+            
+            <script>
+                window.onload = function(){
+                    var firstTab = document.getElementsByClassName('tablinks')[0];
+                    if (!firstTab)
+                        return;
+                    
+                    firstTab.className += " slds-is-active";
+
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    var UCId = firstTab.id.replace('tablink-', '');
+                    document.getElementById(UCId).style.display = "block";
+                }
+
+                function openTutorial(event, UCId) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" slds-is-active", "");
+                    }
+                    document.getElementById(UCId).style.display = "block";
+                    event.currentTarget.className += " slds-is-active";
+                }
+            </script>
+            
+
+            <apex:form >
+            
+                <!-- REQUIRED SLDS WRAPPER -->
+                <div class="slds-louisvuitton">
+                    
+                    <!-- PAGE HEADER -->
+                    <div class="slds-page-header" role="banner">
+                        
+                        <!-- PAGE HEADER TOP ROW -->
+                        <div class="slds-grid">
+                            
+                            <!-- PAGE HEADER / ROW 1 / COLUMN 1 -->
+                            <div class="slds-col">
+                                
+                                <!-- HEADING AREA -->
+                                <!-- MEDIA OBJECT = FIGURE + BODY -->
+                                <div class="slds-media slds-media--top slds-no-space slds-grow ">
+                                    
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-user">
+                                            <svg aria-hidden="true" class="slds-icon slds-icon--large">
+                                                <use xlink:href="{!URLFOR($Resource.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#question_best')}"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="slds-media__body">
+                                        <h1 class="slds-page-header__title">Tutorials</h1>
+                                    </div>
+                                    
+                                </div>
+                                <!-- / MEDIA OBJECT -->
+                                <!-- HEADING AREA -->
+                                
+                            </div>
+                            <!-- / PAGE HEADER / ROW 1 / COLUMN 1 -->
+                            
+                            
+                            
+                        </div>
+                        <!-- / PAGE HEADER TOP ROW -->
+                        
+                        
+                    </div>
+                    <!-- / PAGE HEADER -->
+                    
+                    <!-- Global grid -->
+                    <div class="slds-grid slds-wrap slds-p-top--small ">
+
+                        <!-- Column 1 : MENU-->
+                        <div class="slds-size--1-of-5 slds-box slds-box--small slds-theme--shade">
+                            <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+
+                            <apex:repeat var="category" value="{! categories }">
+
+                                <h2 class="slds-text-title--caps slds-p-around--medium" id="entity-header">{!category}</h2>
+                                <ul>
+
+                                <apex:repeat var="subjectsWrapper" value="{! subjectsWrappers }">
+
+                                    <li id="tablink-{! subjectsWrapper.category & '-' & subjectsWrapper.subject }" style="display:{! IF(subjectsWrapper.category == category, 'block', 'none') }" class="tablinks" onclick="openTutorial(event, '{! subjectsWrapper.category & '-' & subjectsWrapper.subject }')"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset" aria-describedby="entity-header">{! subjectsWrapper.subject }</a></li>
+
+                                </apex:repeat>
+
+                                </ul>
+                            </apex:repeat>
+                            </div>
+                        </div>
+
+
+                         <!-- Column 2 -->
+                        <div class="slds-size--4-of-5 slds-p-left--small">
+
+                            <apex:repeat var="subjectsWrapper" value="{! subjectsWrappers }">
+
+                                <div id="{! subjectsWrapper.category & '-' & subjectsWrapper.subject }" class="tabcontent slds-show">
+
+                                    <apex:repeat var="tEntryWrapper" value="{! tEntryWrappers }">
+
+                                        <!-- Articles -->
+                                        <article style="display:{! IF(tEntryWrapper.tEntry.subject__c == subjectsWrapper.subject && tEntryWrapper.tEntry.category__c == subjectsWrapper.category, 'block', 'none') }" class="slds-card">
+                                            
+                                            <header class="slds-card__header slds-grid">
+                                                <div class="slds-media slds-media--center slds-has-flexi-truncate">
+                                                    <div class="slds-media__figure">
+                                                        <svg aria-hidden="true" class="slds-icon slds-icon-standard-{! tEntryWrapper.tEntry.Type__c } slds-icon--small">
+                                                            <use xlink:href="{!URLFOR($Resource.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#' & tEntryWrapper.tEntry.Type__c )}"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="slds-media__body slds-truncate">
+                                                        
+                                                        <span class="slds-text-heading--small">{! tEntryWrapper.tEntry.Title__c }</span>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </header>
+                                            
+                                            
+                                            <section class="slds-card__body">
+                                                <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+                                                    <thead>
+                                                        <tr class="slds-text-heading--label">
+                                                            <th class="slds-size--4-of-6" scope="col">Description</th>
+                                                            <th class="slds-size--1-of-6" scope="col">Doc Type</th>
+                                                            <th class="slds-size--1-of-6" scope="col">Link</th>
+                                                            <th scope="col"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="slds-hint-parent">
+                                                            <td class="slds-size--4-of-6 slds-cell-wrap">{! tEntryWrapper.tEntry.Description__c }</td>
+                                                            <td class="slds-size--1-of-6">{! tEntryWrapper.tEntry.DocType__c }</td>
+                                                            <apex:outputPanel rendered="{! !(tEntryWrapper.tEntry.DocType__c = 'Vidéo' && tEntryWrapper.tEntry.Url__c = '' || tEntryWrapper.tEntry.DocType__c != 'Vidéo' && tEntryWrapper.fileId = null) }">
+                                                                <td class="slds-size--1-of-6"><a href="{! IF (tEntryWrapper.tEntry.DocType__c = 'Vidéo', tEntryWrapper.tEntry.URL__c, '/' & tEntryWrapper.fileId) }" target="_blank">{! IF(tEntryWrapper.tEntry.DocType__c = 'Vidéo', 'Link to the guide', 'Link to the file') }</a></td>
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel rendered="{! tEntryWrapper.tEntry.DocType__c = 'Vidéo' && tEntryWrapper.tEntry.Url__c = '' || tEntryWrapper.tEntry.DocType__c != 'Vidéo' && tEntryWrapper.fileId = null }">
+                                                                <td class="slds-size--1-of-6">Not found</td>
+                                                            </apex:outputPanel>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </section>
+                                            
+                                            
+                                            
+                                        </article>
+
+                                    </apex:repeat>
+
+                                </div>
+
+                            </apex:repeat>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </apex:form>
+            
+        </body>
+    </html>
+</apex:page>

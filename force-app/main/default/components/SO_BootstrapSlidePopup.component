@@ -1,0 +1,129 @@
+<apex:component >
+
+    <apex:attribute type="String" name="width" description="width of the silder panel" default="300px" />
+    <apex:attribute type="String" name="height" description="outer height of the slider" default="auto" />
+    <apex:attribute type="String" name="panelHeight" description="height of the slider panel" default="auto" />
+    <apex:attribute type="String" name="position" description="right/left" default="right" />
+    <apex:attribute type="Boolean" name="showOpener" description="show opener button" default="true" />
+    <apex:attribute type="String" name="openerSelector" description="selector for the opener. Active only if showOpener = false" default="body"/>
+    <apex:attribute type="Boolean" name="fixed" description="is fixed position. Stay on top whem scrolling the page" default="true" />
+    <apex:attribute type="String" name="top" description="top position" default="160px" />
+    <apex:attribute type="String" name="showSliderFunction" description="funciton name to open slider" default="showSlider" />
+    <apex:attribute type="String" name="hideSliderFunction" description="funciton name to open slider" default="hideSlider" />
+    <apex:attribute type="Boolean" name="hideOnBodyClick" description="hide slider when clicking on any place in page body" default="false" />
+    
+
+
+    <apex:variable var="clientID" value="{!SUBSTITUTE($Component.slidePanel, ':', '_')}" />
+    <apex:variable var="positionRev" value="{!IF(position=='right','left','right')}" />
+    <apex:variable var="margin" value="{!IF(position=='right','-10px 0px 0px -50px','-10px -50px 0px 0px')}" />
+    <apex:variable var="fixedPos" value="{!IF(fixed,'fixed','absolute')}" />
+    
+
+        <style>
+            .{!clientID}#slide-panel{
+                width:100%;
+                height: {!height}; 
+                padding: 10px; 
+                margin-{!position}: -{!width}; 
+                float: {!position}; 
+                max-width: {!width}; 
+                position: {!fixedPos}; 
+                {!position}:0px; 
+                top: {!top};
+                z-index: 999;            }
+
+            .{!clientID} #opener {
+                float:{!positionRev}; 
+                margin: {!margin};
+                border-radius: 0;
+            }
+
+            .{!clientID} #content {
+                height:{!panelHeight}; 
+                width: 100%; 
+                float: {!position}; 
+                padding-{!position}: 5%;
+            }
+        </style>
+
+        <apex:outputpanel id="slidePanel" layout="none">
+            <div id="slide-panel" class="{!clientID}">
+                <a href="#" class="btn btn-danger" id="opener"><i class="glyphicon glyphicon-align-justify"></i></a>
+                <div id="content">
+                    <apex:componentbody />
+                </div>
+            </div>
+        </apex:outputpanel> 
+        <script>
+
+            var {!showSliderFunction} = {!showSliderFunction} || function() { {!clientID}_openSlider(); }
+            var {!hideSliderFunction} = {!hideSliderFunction} || function() { {!clientID}_closeSlider(); }
+
+            function {!clientID}_openSlider(){
+                var panel = $('.{!clientID}#slide-panel');
+                panel.css({'margin-{!position}':'-{!width}', 'max-width':'{!width}'});
+                $('.{!clientID} #content').show();
+                panel.addClass('visible')
+                    .animate({'margin-{!position}':'0px'});
+                $('.{!clientID} #content').css({'margin-{!positionRev}':'-{!width}'});
+            }
+
+             function {!clientID}_closeSlider(){
+                var panel = $('.{!clientID}#slide-panel');
+                panel.removeClass('visible')
+                            .animate({'margin-{!position}':'-{!width}'}, {!clientID}_hideSlider);
+                $('.{!clientID} #content').css({'margin-{!positionRev}':'0px'});
+            }
+
+             function {!clientID}_hideSlider(){
+                var panel = $('.{!clientID}#slide-panel');
+                $('.{!clientID} #content').hide();
+                panel.css({'max-width':'0px', 'margin-{!position}':'0px'});
+             }
+
+            $(function(){
+
+                var opener = '{!openerSelector}';
+
+                if ({!showOpener} == true)
+                    opener = '.{!clientID} #opener';
+                 else
+                    $('.{!clientID} #opener').hide();
+
+                 $('.{!clientID} #content').hide();
+
+
+                {!clientID}_hideSlider();
+
+                $(opener).on('click', function() {
+                    var panel = $('.{!clientID}#slide-panel');
+                    if (panel.hasClass("visible")) {
+                       {!clientID}_closeSlider();
+                    } else {
+                       {!clientID}_openSlider();
+
+                        //scroll Down in the popup
+                        $('.scrollPost').scrollTop($('.bodyHolder').height());
+                        getMessagesInFirstTime();
+                    }
+                    return false;
+                });
+
+                if ({!hideOnBodyClick} == true){
+                    $('body').on('click', function(e){
+                        var panel = $('.{!clientID}#slide-panel');
+                        if ($(e.target).hasClass('.{!clientID}#slide-panel') 
+                            || $(e.target).parents('.{!clientID}#slide-panel').size()) {
+                            return;
+                        }
+                        if (panel.hasClass("visible"))
+                            {!clientID}_closeSlider();
+                    });
+                }
+            });
+        </script>
+
+
+
+</apex:component>

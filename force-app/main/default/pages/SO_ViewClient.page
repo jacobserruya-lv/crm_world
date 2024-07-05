@@ -1,0 +1,511 @@
+<apex:page showheader="false" standardstylesheets="false" sidebar="false"
+            cache="false" 
+            applyhtmltag="false" 
+            doctype="html-5.0"  
+            standardController="Account"
+            extensions="SO_NewEditViewClient_CTRL"
+            action="{!initPageAction}">
+
+
+    <apex:composition template="SO_Template">
+        <apex:define name="headTag">
+            <title>{!$Label.SO_LV_Edit_Client_Details}</title> 
+            <style>
+                .padding-right-zero{
+                    padding-right:0;
+                }
+                .padding-left-right-zero{
+                    padding-left:0;
+                    padding-right:0;
+                }
+                .padding-left-zero{
+                    padding-left:0;
+                }
+                .min-width-60{
+                    min-width: 60%
+                }
+            </style>
+        </apex:define>
+        <apex:define name="bodyContent">
+            <apex:form styleclass="form-horizontal" id="clientForm">
+                <apex:messages />
+                <!-- Client Details -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="button" data-toggle="collapse" href="#clientDetails" aria-expanded="true" aria-controls="clientDetails">
+                        <h3><span class="caret caret-lg"></span>{!concatenateTitle}</h3>
+<!--                         <h3><span class="caret caret-lg"></span>{!$Label.LV_SO_Client_Details}</h3>
+                        <article class="panel panel-primary">
+                            <div class="panel-heading">{!concatenateTitle}</div>
+                        </article> -->
+                    </div>
+                    <div class="panel-body collapse in" id="clientDetails" aria-expanded="true">
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4>{!title}</h4>
+                            </div>
+                            <div class="panel-body">
+
+                                
+                                <section class="col-sm-6"><!-- Left part -->
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">{!$Label.SO_LV_Client_Information}</div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.Salutation.Label}</label>
+                                                <div class="col-sm-6 spanField">
+                                                    <!-- <apex:inputField id="Salutation_InputFieldId" styleclass="form-control" html-i-readonly="true" value="{!Account.Salutation}" html-disabled="true"/> -->
+                                                    <apex:outputField id="Salutation_InputFieldId" value="{!Account.Salutation}"/>
+                                                    <!-- <c:SO_BootstrapDropDown defaultText="{!$Label.LV_SO_None}" readonly="true">
+                                                        <apex:inputField id="Salutation_InputFieldId" styleclass="form-control" value="{!Account.Salutation}"/>
+                                                    </c:SO_BootstrapDropDown> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.LastName.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText styleclass="form-control" value="{!Account.LastName}" html-readonly="true" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.FirstName.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText styleclass="form-control" value="{!Account.FirstName}" html-readonly="true" />
+                                                </div>
+                                            </div>
+                                            <apex:outputPanel rendered="{!LOWER(opp.SPO_Store__r.StoreCountry__c) == 'japan'}">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.Lastname2__pc.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.Lastname2__pc}" />
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!LOWER(opp.SPO_Store__r.StoreCountry__c) == 'japan'}">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.Firstname2__pc.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.Firstname2__pc}" />
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.TypologyCode__pc.Label}</label>
+                                                <div class="col-sm-6 spanField">
+                                                    <!-- <apex:inputText id="Typology_InputFieldId" html-readonly="true" value="{!Account.TypologyCode__pc}" /> -->
+                                                    <!-- <apex:inputField id="Typology_InputFieldId" styleclass="form-control" html-i-readonly="true" value="{!Account.TypologyCode__pc}" html-disabled="true"/> -->
+                                                    <apex:outputField id="Typology_InputFieldId" value="{!Account.TypologyCode__pc}"/>
+                                                </div>
+                                            </div>
+
+                                            
+                                            <!-- Birthdate (start) -->
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.REP_Birthdate__pc.Label}</label>
+                                                <div class="col-sm-6" >
+                                                    <apex:inputText id="BirthdateDay_InputFieldId"  html-readonly="true" styleClass="form-control" value="{!Account.SPO_Birthdate__pc}" />
+                                                </div>
+                                            </div>
+                                            <!-- Birthdate (end) -->
+
+                                            <!-- {!Account.Owner.Store__pc.StoreCountry__c} -->
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.NationalityCountryCode__pc.Label}</label>
+                                                <div class="col-sm-6 spanField">
+                                                    <!-- <apex:inputField id="TECH_ClientNationality_InputFieldId" html-disabled="disabled" styleClass="form-control" style="font-family: inherit !important;" value="{!Account.NationalityCountryCode__pc}" /> -->
+                                                    <apex:outputField id="TECH_ClientNationality_InputFieldId" value="{!Account.NationalityCountryCode__pc}" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.PersonEmail.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText html-readonly="true" styleclass="form-control" style="width: 100% !important;" value="{!Account.PersonEmail}" />
+                                                </div>
+                                            </div>
+
+                                            <!-- contact by (start) -->
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$Label.LV_SO_Contact_by}</label>
+                                                <div class="col-sm-8">
+                                                    <div class="row">
+                                                        <section class="col-sm-5">                                        
+                                                            <div class="checkbox">
+                                                                <!-- Begin MTO Harmo -->
+                                                                <!--<label><apex:inputcheckbox disabled="true" value="{!Account.PersonDoNotCall}" />{!$ObjectType.Account.fields.PersonDoNotCall.Label}</label>-->
+                                                                <label><apex:inputcheckbox disabled="true" value="{!Account.Can_Be_Contacted_By_Phone__pc}" />{!$ObjectType.Account.fields.Can_Be_Contacted_By_Phone__pc.Label}</label>
+                                                                <!-- End MTO Harmo -->
+                                                            </div>
+                                                            <div class="checkbox">
+                                                                <!-- Begin MTO Harmo -->
+                                                               <!-- <label><apex:inputcheckbox disabled="true" value="{!Account.DoNotSMS__pc}" />{!$ObjectType.Account.fields.DoNotSMS__pc.Label}</label>-->
+                                                               <label><apex:inputcheckbox disabled="true" value="{!Account.Can_Be_Contacted_By_SMS__pc}" />{!$ObjectType.Account.fields.Can_Be_Contacted_By_SMS__pc.Label}</label>
+                                                               <!-- End MTO Harmo -->
+                                                            </div>
+                                                        </section>                                
+                                                        <section class="col-sm-7">                                        
+                                                            <div class="checkbox">
+                                                                <!-- Begin MTO Harmo -->
+                                                                <!--<label><apex:inputcheckbox disabled="true" value="{!Account.DoNotContactbyPost__pc}" />{!$ObjectType.Account.fields.DoNotContactbyPost__pc.Label}</label>-->
+                                                                <label><apex:inputcheckbox disabled="true" value="{!Account.Can_Be_Contacted_By_Mail__pc}" />{!$ObjectType.Account.fields.Can_Be_Contacted_By_Mail__pc.Label}</label>
+                                                                <!-- End MTO Harmo -->
+                                                            </div>
+                                                            <div class="checkbox">
+                                                                <!-- Begin MTO Harmo -->
+                                                                <!--<label><apex:inputcheckbox disabled="true" value="{!Account.PersonHasOptedOutOfEmail }" />{!$ObjectType.Account.fields.PersonHasOptedOutOfEmail.Label}</label>-->
+                                                                <label><apex:inputcheckbox disabled="true" value="{!Account.Can_Be_Contacted_By_Email__pc }" />{!$ObjectType.Account.fields.Can_Be_Contacted_By_Email__pc.Label}</label>
+                                                                <!-- End MTO Harmo -->
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="col-sm-6">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">{!$Label.SO_LV_Address}</div>
+                                        <div class="panel-body">
+
+                                            <apex:outputPanel rendered="true">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.PrimaryAddressLine1__pc.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText html-readonly="true" styleclass="form-control" style="width: 100% !important;" value="{!Account.PrimaryAddressLine1__pc}" />
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.PrimaryAddressLine2__pc.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText html-readonly="true" styleclass="form-control" style="width: 100% !important;" value="{!Account.PrimaryAddressLine2__pc}" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.PrimaryAddressLine3__pc.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText html-readonly="true" styleclass="form-control" style="width: 100% !important;" value="{!Account.PrimaryAddressLine3__pc}" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.PrimaryZipCode__pc.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText html-readonly="true" styleclass="form-control" style="width: 100% !important;" value="{!Account.PrimaryZipCode__pc}" />
+                                                </div>
+                                            </div>
+                                            <apex:outputPanel id="primaryCityRendered">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.PrimaryCity__pc.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText html-readonly="true" styleclass="form-control" style="width: 100% !important;" value="{!Account.PrimaryCity__pc}" />
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.SPO_Country_code__pc.Label}</label>
+                                                <div class="col-sm-6">
+
+                                                    <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_Country_code_InputField" readonly="true" customButtonStyle="margin-bottom: 0px !important;">
+                                                        <apex:inputfield id="SPO_Country_code_InputFieldId" value="{!Account.SPO_Country_code__pc}" />
+                                                    </c:SO_BootstrapDropDownEnhanced>
+
+
+                                                </div>
+                                            </div>
+
+                                            <apex:outputpanel id="stateProvinceRendered" style="{!IF(Account.SPO_Country_code__pc != 'CHN', '', 'display:none;')}">
+                                                <div class="form-group ">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.PrimaryStateProvince__pc.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputtext styleclass="form-control" html-readonly="true" value="{!Account.PrimaryStateProvince__pc}" />
+                                                    </div>
+                                                </div>
+                                            </apex:outputpanel>
+                                            <apex:outputpanel id="stateProvinceRenderedForChina" style="{!IF(Account.SPO_Country_code__pc == 'CHN', '', 'display:none;')}">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Account.fields.SPO_Primary_Province_State__pc.Label}</label>
+                                                    <div class="col-sm-6 spanField">
+                                                        <apex:outputField value="{!Account.SPO_Primary_Province_State__pc}"/>
+                                                    </div>
+                                                </div>
+                                            </apex:outputpanel>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">{!$Label.SO_LV_Phone_Numbers}</div>
+                                        <div class="panel-body">
+                                            
+                                            <!-- Local Phone (start) -->
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$Label.LV_SO_Home_phone_country_code}</label>
+                                                <div class="col-sm-6">
+                                                    <!-- <div class="input-group input-group-text g1"> -->
+                                                        <div class="row">
+                                                                <div class="col-sm-4 spanField">
+                                                                    <!-- <apex:inputField html-disabled="disabled" styleclass="form-control" value="{!dummyContactForPhoneCountyCodeList[0].TECH_PhoneCountryCode__c}" /> -->
+                                                                    <apex:outputField value="{!dummyContactForPhoneCountyCodeList[0].TECH_PhoneCountryCode__c}" />
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.LocalHomePhone__pc}" />
+                                                                </div>
+                                                        </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$Label.LV_SO_Mobile_phone_country_code}</label>
+                                                <div class="col-sm-6">
+                                                    <!-- <div class="input-group input-group-text g1"> -->
+                                                        <div class="row">
+                                                                <div class="col-sm-4 spanField">
+                                                                    <!-- <apex:inputField html-disabled="disabled" styleclass="form-control" value="{!dummyContactForPhoneCountyCodeList[1].TECH_PhoneCountryCode__c}" /> -->
+                                                                    <apex:outputField value="{!dummyContactForPhoneCountyCodeList[1].TECH_PhoneCountryCode__c}" />
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.LocalMobilePhone__pc}" />
+                                                                </div>
+                                                        </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$Label.LV_SO_Work_phone_country_code}</label>
+                                                <div class="col-sm-6">
+                                                    <!-- <div class="input-group input-group-text g1"> -->
+                                                        <div class="row">
+                                                                <div class="col-sm-4 spanField">
+                                                                    <!-- <apex:inputField html-disabled="disabled" styleclass="form-control" value="{!dummyContactForPhoneCountyCodeList[2].TECH_PhoneCountryCode__c}" /> -->
+                                                                    <apex:outputField value="{!dummyContactForPhoneCountyCodeList[2].TECH_PhoneCountryCode__c}" />
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.LocalWorkPhone__pc}" />
+                                                                </div>
+                                                        </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div><!-- Local Phone (end) -->
+                                    
+                                            <!-- International Phone (start) -->
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$Label.LV_SO_InterHomePhone}</label>
+                                                <div class="col-sm-6">
+                                                    <!-- <div class="input-group input-group-text g1"> -->
+                                                        <div class="row">
+                                                                <div class="col-sm-4 spanField">
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.PersonHomePhone}" />
+                                                                </div>
+                                                        </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$Label.LV_SO_InterMobilePhone}</label>
+                                                <div class="col-sm-6">
+                                                    <!-- <div class="input-group input-group-text g1"> -->
+                                                        <div class="row">
+                                                                <div class="col-sm-4 spanField">
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.PersonMobilePhone}" />
+                                                                </div>
+                                                        </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$Label.LV_SO_InterWorkPhone}</label>
+                                                <div class="col-sm-6">
+                                                    <!-- <div class="input-group input-group-text g1"> -->
+                                                        <div class="row">
+                                                                <div class="col-sm-4 spanField">
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <apex:inputText html-readonly="true" styleclass="form-control" value="{!Account.Phone}" />
+                                                                </div>
+                                                        </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div><!-- International Phone (end) -->
+
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                        <!-- <apex:outputPanel rendered="{! AND(NOT(isCloning), opp.StageName == 'Brief in progress')}"> -->
+                            <apex:commandbutton value="{!$Label.LV_SO_Edit}" styleclass="btn btn-success pull-right"
+                                onclick="window.location.href='/apex/SO_NewEditClient?id={!$CurrentPage.parameters.id}&bid={!$CurrentPage.parameters.bid}'; return false;"
+                            />
+                        <!-- </apex:outputPanel> -->
+
+                    </div>
+                </div>
+
+
+                <!-- Brief History -->
+                <div class="panel panel-default">
+                    <div class="panel-heading collapsed" role="button" data-toggle="collapse" href="#briefHistory" aria-expanded="false" aria-controls="briefHistory">
+                        <h3><span class="caret caret-lg"></span>{!$Label.LV_SO_Brief_History}</h3>
+                    </div>
+                    <div class="panel-body collapse" id="briefHistory" aria-expanded="true">
+                        <div class="clearfix">
+                            <h4 class="pull-left">
+                                <small>
+                                    <em>
+                                        <apex:outputText value="{!$Label.LV_SO_Display_Result}">
+                                            <apex:param value="{!MIN(openOrderViewLineList.size,20)}" />
+                                            <apex:param value="{!openOrderViewLineList.size}" />
+                                        </apex:outputText> 
+                                    </em>
+                                </small>
+                            </h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{!$Label.LV_SO_Date}</th> <!-- CloseDate -->
+                                        <th>{!$ObjectType.Opportunity.fields.SPO_BriefCode__c.Label}</th><!-- SPO_BriefCode__c-->
+                                        <th>{!$Label.LV_SO_BriefTitle}</th> <!-- Opportunity Name -->
+                                        <th>{!$Label.LV_SO_ReferenceProduct}</th> <!-- SPO_BaseSKURefmodelSKU__c -->
+                                        <th>{!$Label.LV_SO_Type}</th>      <!--Description__c--> 
+                                        <th>{!$Label.LV_SO_Production_status}</th> <!--StageName -->
+                                        <th>{!$Label.LV_SO_Action}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat var="openOrder" value="{!openOrderViewLineList}">
+                                        <tr>
+                                            <td>
+                                                <!--  -->
+                                                <apex:outputPanel styleclass="{!openOrder.iconeToShow}"/>  
+                                            </td>
+                                            <td>
+                                                <!-- LV_SO_Date -->
+                                                 <apex:outputText value="{!openOrder.revisedDeliveryDate}" />                                               
+                                            </td>
+                                            <td>
+                                                <!-- Brief code -->
+                                                {!openOrder.theOrder.SPO_BriefCode__c }
+                                            </td> 
+                                            <td>
+                                                <!-- LV_SO_Title -->
+                                                {!openOrder.theOrder.Name}
+                                            </td>
+                                            <td>
+                                                <!-- LV_SO_ReferenceProduct -->
+                                                <apex:outputField value="{!openOrder.theOrder.SPO_BaseSKURefmodelSKU__c}" />
+                                            </td>
+                                            <td>
+                                                <!-- LV_SO_Type -->
+                                                {!openOrder.theOrder.SPO_OrderType__c}
+                                            </td>
+                                            <td>
+                                                <!-- LV_SO_Production_status -->
+                                                {!openOrder.theOrder.StageName}
+                                            </td>
+                                            
+                                            <td>
+                                                <!-- LV_SO_Action -->
+                                                <apex:outputLink styleclass="btn btn-default" 
+                                                                 value="{!URLFOR('/apex/SO_brieforder?id='+ openOrder.theOrder.Id)}">
+                                                    {!$Label.SO_LV_Select}
+                                                </apex:outputLink>
+                                            </td> 
+                                        </tr>
+                                    </apex:repeat>
+                                    
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Purchase History -->
+<!--                 <div class="panel panel-default">
+                    <div class="panel-heading collapsed" role="button" data-toggle="collapse" href="#purchaseHistory" aria-expanded="false" aria-controls="purchaseHistory">
+                        <h3><span class="caret caret-lg"></span>{!$Label.LV_SO_Purchase_History}</h3>
+                    </div>
+                    <div class="panel-body collapse" id="purchaseHistory" aria-expanded="true">
+                        <div class="clearfix">
+                            <h4 class="pull-left">
+                                <small>
+                                    <em>
+                                        <apex:outputText value="{!$Label.LV_SO_Display_Result}">
+                                            <apex:param value="{!MIN(closedOrderViewLineList.size,20)}" />
+                                            <apex:param value="{!closedOrderViewLineList.size}" />
+                                        </apex:outputText> 
+                                    </em>
+                                </small>
+                            </h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>{!$Label.LV_SO_Order_No} N&deg;</th>
+                                        <th>{!$Label.LV_SO_Date}</th>
+                                        <th>{!$Label.LV_SO_Product_quantity}</th>
+                                        <th>{!$Label.LV_SO_Total_price}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat var="orderLine" value="{!closedOrderViewLineList}">
+                                        <tr>
+                                            <td>
+                                                <apex:outputField value="{!orderLine.theOrder.SPO_BriefCode__c}"/>
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="{!orderLine.revisedDeliveryDate}"></apex:outputText>    
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="{!orderLine.quantity}"></apex:outputText> 
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="{0,Number}">
+                                                    <apex:param value="{!orderLine.totalPrice}" />
+                                                </apex:outputText>
+                                                &euro;
+                                            </td>
+                                        </tr>                                        
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> -->
+
+                <a style="{!IF(hasCancelButton, '', 'display: none;')}" href="#cancel_brief_dialog" id="openCancelBrief" type="button" class="btn btn-warning">{! $Label.LV_SO_PRODUCT_cancel_brief }</a>
+
+                <apex:outputLink styleClass="btn btn-default margin-left" value="/apex/SO_ClientSearch?bid={!$CurrentPage.parameters.bid}" rendered="{!showSearchClientBtn}" >
+                    {!$Label.LV_SO_BackToClientSearch}
+                </apex:outputLink>
+
+                <input type="button" value="{!$Label.LV_SO_Next}" class="btn btn-success pull-right" onclick="nextActionFunction();"/>
+                <apex:actionFunction name="nextActionFunction" action="{!next}" immediate="true"/>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+    <script>
+        $(document).ready(function(){
+            init();
+        });
+
+        function init(){
+
+            picklistCTRL.init('SPO_Country_code_InputField', '', 'true', '');
+
+            if($('[id*=openCancelBrief]').size() > 0){
+                popUpCancellationReason();
+            }
+        }
+    </script>
+</apex:page>

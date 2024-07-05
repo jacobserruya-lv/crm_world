@@ -1,0 +1,851 @@
+<apex:component >
+    <!-- createdBy          Ofir Aghai -->
+    <!-- For Leather Good / Accessory / Watch -->
+    <apex:attribute name="contr" type="SO_ProductSpe_CTRL" description="contr" />
+    <!-- <apex:attribute name="d" type="String" description="contr" /> -->
+    <style>
+        .select2-container {
+            width: 100%;
+        }
+
+        a.select2-choice.select2-default {
+            height: 34px;
+            border-radius: 2px;
+        }
+     
+    </style>
+
+    <!-- popup of colors -->
+    <div id="open_product" class="mfp-hide popup-content">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span id='popup-title'></span>
+                <i class="glyphicon glyphicon-remove pull-right"></i>
+            </div>
+            <div class="panel-body">
+                <div class="dynamicContent row">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <apex:outputPanel id="materialsAndColors">
+        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c==contr.oppLeatherGood}" layout="none">
+            <div class="panel panel-primary materialAndColors">
+                <div class="panel-heading">{!$Label.LV_SO_MATERIAL_AND_COLORS}<span class="glyphicon glyphicon-question-sign padding-left5 pull-right" data-toggle="tooltip" title="{!$Label.LV_SO_MATERIALCOLOR_HELP}" aria-hidden="true"/></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <apex:outputPanel id="colors">
+                            <div class="col-md-6" id="firstColMaterialAndColorsId" style="{!IF(contr.hasQuotation, '', 'display:none;')}">
+
+                                <!-- 1 -->
+                                <apex:outputPanel id="colorSection1" rendered="{!contr.hasQuotation}">
+                                    <apex:outputPanel id="generalLocalComments1">
+                                        <div class="form-group required">
+                                            <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterial1__c.Label}</label>
+                                            <div class="col-sm-6">
+                                                <apex:actionRegion >
+                                                    <div class="colorPL">
+                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_ExteriorMaterial1_InputField" readonly="{! contr.quotationContainer.oneOpportunity.SPO_CreationType__c == null}">
+                                                            <apex:inputfield id="SPO_ExteriorMaterial1_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial1__c}" />
+                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                        <apex:actionFunction name="SPO_ExteriorMaterial1_InputFieldreRenderfunction1" action="{!contr.initExteriorMaterial1Field}" reRender="localComments1,addColorBtnExt2,colorPanel1,colorComments1" oncomplete="exteriorMaterial1OnComplete();"/>
+                                                    </div>
+                                                </apex:actionRegion>
+                                            </div>
+                                        </div>
+                                        <apex:outputPanel id="localComments1">
+                                            <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial1__c == $Label.LV_SO_Other_free_text}">
+                                                <div class="form-group required comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterial1localcomment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputfield html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial1localcomment__c}" />
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group translated-field hidden comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMaterial1zoneapprovercomment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputfield styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMaterial1zoneapprovercomment__c}" />
+                                                    </div>
+                                                </div>
+
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+
+                                    <section id="color1">
+                                        <apex:outputPanel id="colorPanel1">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterialColor1__c.Label}</label>
+                                                <div class="col-sm-6 margin-bottom-sm">
+
+                                                    <apex:actionRegion >
+                                                        <div style="display: none;">
+                                                            <apex:inputfield id="SPO_ExteriorMaterialColor1_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor1__c}">
+                                                                <apex:actionSupport oncomplete="toggleHiddenClass(true);" event="onchange" reRender="colorComments1"/>
+                                                            </apex:inputfield>
+                                                        </div>
+
+                                                        <!-- Show disabled button if '--None--'(blank) or 'Other' -->
+                                                        <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial1__c==null}">     
+                                                            <button id="SPO_ExteriorMaterialColor1_ButtonId" type="button" class="btn btn-default chooseColor" aria-label="Left Align" disabled="disabled">
+                                                                {!$Label.LV_SO_Choose_Color}
+                                                            </button>
+                                                        </apex:outputPanel>
+                                                        
+                                                        <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial1__c != null}">
+                                                            <!-- select color button-->
+                                                            <a href="#open_product" class="open-popup-link">
+
+                                                                <apex:variable value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor1__c}" var="exteriorMaterialColor1" />
+                                                                <apex:variable value="{!NOT(ISBLANK(exteriorMaterialColor1))}" var="notBlankColor1" />
+
+                                                                <button type="button" id="SPO_ExteriorMaterialColor1_ButtonIdWithColor" class="btn btn-default chooseColor" aria-label="Left Align" onclick="fillWithColors(event, this,'SPO_ExteriorMaterialColor1_InputFieldId')">
+                                                                    <apex:outputPanel rendered="{!notBlankColor1}" styleClass="{!IF(FIND('color:#', contr.quotationContainer.colorNameToCodeMap[exteriorMaterialColor1]) != 0, 'glyphicon glyphicon-stop', '')}" style="{!contr.quotationContainer.colorNameToCodeMap[exteriorMaterialColor1]}">
+                                                                    </apex:outputPanel>
+                                                                    {!IF(notBlankColor1, ' ' + exteriorMaterialColor1 ,$Label.LV_SO_Choose_Color)} 
+                                                                </button>
+                                                            </a>
+                                                        </apex:outputPanel>
+
+                                                    </apex:actionRegion>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+
+                                        <apex:outputPanel id="colorComments1">
+                                            <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor1__c == $Label.LV_SO_Other_free_text}">
+                                                <div class="form-group required comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMaterialColor1localcomment__c.Label}</label>
+                                                    <div class="col-sm-6 margin-bottom-sm">
+                                                        <apex:inputField html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMaterialColor1localcomment__c}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group translated-field hidden comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMatColor1zoneapprover__c.Label}</label>
+                                                    <div class="col-sm-6 margin-bottom-sm">
+                                                        <apex:inputField styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMatColor1zoneapprover__c}" />
+                                                    </div>
+                                                </div>
+
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </section><!-- color1 -->
+                                </apex:outputPanel>
+
+                                <!-- 2 -->
+                                <apex:outputPanel id="colorSection2" rendered="{!contr.hasQuotation}">
+                                    <apex:outputPanel rendered="{!contr.exteriorCntr >= 2}">
+
+                                        <apex:outputPanel id="generalLocalComments2">
+                                            <div class="form-group required">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterial2__c.Label}</label>
+                                                <div class="col-sm-6 ">
+                                                    <apex:actionRegion >
+                                                        <div Class="colorPL">
+                                                            <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_ExteriorMaterial2_InputField"  readonly="{!contr.quotationContainer.oneOpportunity.SPO_CreationType__c == null}">
+                                                                <apex:inputfield id="SPO_ExteriorMaterial2_InputFieldId"  value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial2__c}" />
+                                                            </c:SO_BootstrapDropDownEnhanced>
+                                                            <apex:actionFunction name="SPO_ExteriorMaterial2_InputFieldreRenderfunction1" action="{!contr.initExteriorMaterial2Field}" reRender="localComments2,addColorBtnExt3,colorPanel2,colorComments2" oncomplete="exteriorMaterial2OnComplete()"/>
+                                                        </div>
+                                                    </apex:actionRegion>
+                                                </div>
+                                            </div>
+
+                                            <apex:outputPanel id="localComments2">
+                                                <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial2__c == $Label.LV_SO_Other_free_text}">
+                                                    <div class="form-group required comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterial2localcomment__c.Label}</label>
+                                                        <div class="col-sm-6 margin-bottom-sm">
+                                                            <apex:inputfield html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial2localcomment__c}" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group translated-field hidden comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMaterial2zoneapprovercomment__c.Label}</label>
+                                                        <div class="col-sm-6">
+                                                            <apex:inputfield styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMaterial2zoneapprovercomment__c}" />
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel> <!-- generalLocalComments2 -->
+
+                                        <section id="color2">
+                                            <apex:outputPanel id="colorPanel2">
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterialColor2__c.Label}</label>
+                                                    <div class="col-sm-6 margin-bottom-sm">
+                                                        <apex:actionRegion >
+                                                            <div style="display: none;">
+                                                                <apex:inputfield id="SPO_ExteriorMaterialColor2_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor2__c}">
+                                                                    <apex:actionSupport oncomplete="toggleHiddenClass(true);" event="onchange" reRender="colorComments2"/>
+                                                                </apex:inputfield>
+                                                            </div>
+
+                                                            <!-- Show disabled button if '--None--'(blank) or 'Other' -->
+                                                            <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial2__c==null}">     
+                                                                <button id="SPO_ExteriorMaterialColor2_ButtonId" type="button" class="btn btn-default chooseColor" aria-label="Left Align" disabled="disabled">
+                                                                    {!$Label.LV_SO_Choose_Color}
+                                                                </button>
+                                                            </apex:outputPanel>
+
+                                                            <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial2__c != null}">
+                                                                <a href="#open_product" class="open-popup-link">
+                                                                    <apex:variable value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor2__c}" var="exteriorMaterialColor2" />
+                                                                    <apex:variable value="{!NOT(ISBLANK(exteriorMaterialColor2))}" var="notBlankColor2" />
+
+                                                                    <button type="button" id="SPO_ExteriorMaterialColor2_ButtonIdWithColor" class="btn btn-default chooseColor" aria-label="Left Align" onclick="fillWithColors(event, this,'SPO_ExteriorMaterialColor2_InputFieldId')">
+                                                                        <apex:outputPanel rendered="{!notBlankColor2}" styleClass="{!IF(FIND('color:#', contr.quotationContainer.colorNameToCodeMap[exteriorMaterialColor2]) != 0, 'glyphicon glyphicon-stop', '')}" style="{!contr.quotationContainer.colorNameToCodeMap[exteriorMaterialColor2]}">
+                                                                        </apex:outputPanel>
+                                                                        {!IF(notBlankColor2, ' ' + exteriorMaterialColor2 ,$Label.LV_SO_Choose_Color)} 
+                                                                    </button>
+                                                                </a>
+                                                            </apex:outputPanel>
+                                                        </apex:actionRegion>
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel><!-- colorPanel2 -->
+
+                                            <apex:outputPanel id="colorComments2">
+                                                <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor2__c == $Label.LV_SO_Other_free_text}">
+                                                    <div class="form-group required comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMaterialColor2localcomment__c.Label}</label>
+                                                        <div class="col-sm-6">
+                                                            <apex:inputField html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMaterialColor2localcomment__c}" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group translated-field hidden comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMatColor2zoneapproverCommen__c.Label}</label>
+                                                        <div class="col-sm-6">
+                                                            <apex:inputField styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMatColor2zoneapproverCommen__c}" />
+                                                        </div>
+                                                    </div>
+
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </section> <!-- color2 -->
+                                        
+                                        <!-- 3 -->
+                                        <apex:outputPanel id="colorSection3">
+                                            <apex:outputPanel rendered="{!contr.exteriorCntr >= 3}">
+
+                                                <apex:outputPanel id="generalLocalComments3">
+                                                    <div class="form-group required">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterial3__c.Label}</label>
+                                                        <div class="col-sm-6">
+
+                                                                <apex:actionRegion >
+                                                                    <div class="colorPL">
+                                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_ExteriorMaterial3_InputField" readonly="{! contr.quotationContainer.oneOpportunity.SPO_CreationType__c == null}">
+                                                                            <apex:inputfield id="SPO_ExteriorMaterial3_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3__c}" />
+                                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                                        <apex:actionFunction name="SPO_ExteriorMaterial3_InputFieldreRenderfunction1" action="{!contr.initExteriorMaterial3Field}" reRender="localComments3,colorPanel3,colorComments3" oncomplete="exteriorMaterial3OnComplete()"/>
+                                                                    </div>
+                                                                </apex:actionRegion>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <apex:outputPanel id="localComments3">
+                                                        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3__c == $Label.LV_SO_Other_free_text}">
+                                                            <div class="form-group required comment" id="local">
+                                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterial3localcomment__c.Label}</label>
+                                                                <div class="col-sm-6">
+                                                                    <apex:inputText html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3localcomment__c}" />
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="form-group translated-field hidden comment">
+                                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMaterial3zoneapprovercomment__c.Label}</label>
+                                                                <div class="col-sm-6">
+                                                                    <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMaterial3zoneapprovercomment__c}" />
+                                                                </div>
+                                                            </div>
+
+                                                        </apex:outputPanel>
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel><!-- generalLocalComments3 -->
+
+                                                <section id="color3">
+                                                    <apex:outputPanel id="colorPanel3">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExteriorMaterialColor3__c.Label}</label>
+                                                            <div class="col-sm-6 margin-bottom-sm">
+                                                                <apex:actionRegion >
+                                                                    <div style="display: none;">
+                                                                        <apex:inputfield id="SPO_ExteriorMaterialColor3_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor3__c}">
+                                                                            <apex:actionSupport oncomplete="toggleHiddenClass(true);" event="onchange" reRender="colorComments3"/>
+                                                                        </apex:inputfield> 
+                                                                    </div>
+
+                                                                    <!-- Show disabled button if '--None--'(blank) or 'Other' -->
+                                                                    <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3__c==null}">
+                                                                        <button id="SPO_ExteriorMaterialColor3_ButtonId" type="button" class="btn btn-default chooseColor" aria-label="Left Align" disabled="disabled">
+                                                                            {!$Label.LV_SO_Choose_Color}
+                                                                        </button>
+                                                                    </apex:outputPanel>
+
+                                                                    <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3__c != null}">
+                                                                        <a href="#open_product" class="open-popup-link">
+                                                                            <apex:variable value="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor3__c}" var="exteriorMaterialColor3" />
+                                                                            <apex:variable value="{!NOT(ISBLANK(exteriorMaterialColor3))}" var="notBlankColor3" />
+
+                                                                            <button type="button" id="SPO_ExteriorMaterialColor3_ButtonIdWithColor" class="btn btn-default chooseColor" aria-label="Left Align" onclick="fillWithColors(event, this,'SPO_ExteriorMaterialColor3_InputFieldId')">
+                                                                                <apex:outputPanel rendered="{!notBlankColor3}" styleClass="{!IF(FIND('color:#', contr.quotationContainer.colorNameToCodeMap[exteriorMaterialColor3]) != 0, 'glyphicon glyphicon-stop', '')}" style="{!contr.quotationContainer.colorNameToCodeMap[exteriorMaterialColor3]}">
+                                                                                </apex:outputPanel>
+                                                                                {!IF(notBlankColor3, ' ' + exteriorMaterialColor3 ,$Label.LV_SO_Choose_Color)} 
+                                                                            </button>
+                                                                        </a>
+                                                                    </apex:outputPanel>
+                                                                </apex:actionRegion>
+                                                            </div>
+                                                        </div>
+                                                    </apex:outputPanel><!-- colorPanel3 -->
+
+                                                    <apex:outputPanel id="colorComments3">
+                                                        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterialColor3__c == $Label.LV_SO_Other_free_text}">
+                                                            <div class="form-group required comment">
+                                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMaterialColor3localcomment__c.Label}</label>
+                                                                <div class="col-sm-6">
+                                                                    <apex:inputField html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMaterialColor3localcomment__c}" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group translated-field hidden comment">
+                                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ExtMaterialColor3approvercomment__c.Label}</label>
+                                                                <div class="col-sm-6">
+                                                                    <apex:inputField styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ExtMaterialColor3approvercomment__c}" />
+                                                                </div>
+                                                            </div>
+                                                        </apex:outputPanel>
+                                                    </apex:outputPanel>
+                                                </section>
+
+                                            </apex:outputPanel>
+                                            <!-- Add 3'th color -->
+                                            <apex:outputPanel id="addColorBtnExt3">
+                                                <!-- contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3__c == null,  -->
+                                                <apex:outputPanel rendered="{!AND(contr.exteriorCntr < 3
+                                                                             ,NOT(ISBLANK(contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial2__c)))}">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4"></label>
+                                                        <div class="col-sm-6 ">
+                                                            <apex:actionRegion >
+
+                                                                <input type="button" class="btn btn-primary" aria-label="Left Align" value="{!$Label.LV_SO_add_color}" onclick="incExteriorCntr()" />
+                                                                <apex:actionFunction action="{!contr.incExteriorCntr}" name="incExteriorCntr" oncomplete="updateExt3AfterAddColorBtn()" reRender="colorSection3" />
+
+                                                            </apex:actionRegion>
+                                                        </div>
+                                                    </div>  
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+
+                                    </apex:outputPanel>
+                                    <!-- Add 2'th color -->
+                                    <apex:outputPanel id="addColorBtnExt2">
+                                        <apex:outputPanel rendered="{!AND(contr.exteriorCntr == 1
+                                                                         ,NOT(ISBLANK(contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial1__c)))}">
+                                            <div class="form-group">
+                                                <label class="col-sm-4"></label>
+                                                <div class="col-sm-6 ">
+                                                    <apex:actionRegion >
+
+                                                        <input type="button" class="btn btn-primary" aria-label="Left Align" value="{!$Label.LV_SO_add_color}" onclick="incExteriorCntr()" />
+                                                        <apex:actionFunction action="{!contr.incExteriorCntr}" name="incExteriorCntr" oncomplete="updateExt2AfterAddColorBtn()" reRender="colorSection2" />
+
+                                                    </apex:actionRegion>
+                                                </div>
+                                            </div>  
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel id="removeColorBtnExt">
+                                                <!-- contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3__c == null,  -->
+                                                <apex:outputPanel rendered="{!contr.exteriorCntr > 1}">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4"></label>
+                                                        <div class="col-sm-6 ">
+                                                            <apex:actionRegion >
+
+                                                                <input type="button" class="btn btn-danger" aria-label="Left Align" value="{!$Label.LV_SO_remove_color}" onclick="decExteriorCntr()" />
+                                                                <apex:actionFunction action="{!contr.decExteriorCntr}" name="decExteriorCntr" oncomplete="updateExt2AfterAddColorBtn();" reRender="colorSection2" />
+
+                                                            </apex:actionRegion>
+                                                        </div>
+                                                    </div>  
+                                                </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel rendered="{!AND(contr.hasQuotation, OR(AND(NOT(CONTAINS(contr.orderTypeMtoOnCatalog ,contr.quotationContainer.oneOpportunity.SPO_OrderType__c)), CONTAINS(contr.oppLeatherGood, contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c)), NOT(CONTAINS(contr.oppLeatherGood, contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c))))}">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" style="margin-top:20px;">{!$Label.LV_SO_Dimensions}</label>
+                                        <div class="col-sm-6">
+                                            <div class="input-group input-group-text g1">
+                                                <div class="row">
+                                                    <apex:outputPanel id="sizeUnitToRerender">
+                                                        <div class="col-sm-3" style="min-width: 100px;">
+                                                            <small>{!$Label.LV_SO_Width}</small>
+                                                            <apex:inputField styleclass="form-control"  value="{!contr.quotationContainer.oneOpportunity.SPO_Sizewidth__c}" />
+                                                        </div>
+                                                        <div class="col-sm-3" style="min-width: 100px;">
+                                                            <small>{!$Label.LV_SO_Height}</small>
+                                                             <apex:inputField styleclass="form-control"  value="{!contr.quotationContainer.oneOpportunity.SPO_SizeHeight__c}" />
+
+                                                        </div>
+                                                        <div class="col-sm-3" style="min-width: 100px;">
+                                                            <small>{!$Label.LV_SO_Depth}</small>
+                                                            <apex:inputField styleclass="form-control"  value="{!contr.quotationContainer.oneOpportunity.SPO_SizeLenght__c}" />
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                    <div class="col-sm-3">
+                                                        <span>&nbsp;</span>
+                                                        <apex:actionRegion >
+                                                            <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_SizeUnit_InputField">
+                                                                <apex:inputField id="SPO_SizeUnit_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_SizeUnit__c}"/>
+                                                            </c:SO_BootstrapDropDownEnhanced>
+                                                          <!--   <apex:actionFunction name="SPO_SizeUnit_InputFieldreRenderfunction" action="{!NULL}" reRender="sizeUnitToRerender"/> -->
+                                                        </apex:actionRegion>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel> 
+                            </div>
+
+                            <div class="col-md-6" id="secondColMaterialAndColorsId">
+
+                                <!-- Lining 1 -->
+                                <apex:outputPanel id="liningSection1">
+                                    <apex:outputPanel id="liningMaterial1">
+                                        <!-- Lining material 1 -->
+                                        <div class="form-group required">
+                                            <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningInteriorMaterial1__c.Label}</label>
+                                            <div class="col-sm-6">
+                                                <apex:actionRegion >
+                                                     <div class="colorPL">
+                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_LiningInteriorMaterial1_InputField" readonly="{! contr.quotationContainer.oneOpportunity.SPO_CreationType__c == null}">
+                                                            <apex:inputfield id="SPO_LiningInteriorMaterial1_InputFieldId"  value="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial1__c}" />
+                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                        <apex:actionFunction name="SPO_LiningInteriorMaterial1_InputFieldreRenderfunction1" action="{!contr.initLiningInteriorMaterial1Field}" reRender="liningMaterialComments1,addColorBtnLining2,colorLiningPanel1,liningLocalComments1" oncomplete="liningInteriorMaterial1OnComplete('{!contr.quotationContainer.oneOpportunity.SPO_NoPersonNeeded__c}')"/>
+                                                    </div>
+                                                </apex:actionRegion>
+                                            </div>
+                                        </div>
+                                        <apex:outputPanel id="liningMaterialComments1">
+                                            <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial1__c == $Label.LV_SO_Other_free_text}">
+                                                <div class="form-group required comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningMaterial1LocalComment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningMaterial1LocalComment__c}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group translated-field hidden comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningMaterial1ZoneApproverComment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningMaterial1ZoneApproverComment__c}" />
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel id="generalLining1">
+                                        <apex:outputPanel id="colorLiningPanel1">
+                                            <div class="form-group required" id="SPO_LiningInteriorColor1">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningInteriorColor1__c.Label}</label>
+                                                <div class="col-sm-6 margin-bottom-sm">
+                                                    <apex:actionRegion >
+
+                                                        <!-- Show disabled button if '--None--'(blank) or 'Other' -->
+                                                        <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial1__c==null}">     
+                                                            <button id="SPO_LiningInteriorColor1_ButtonId" type="button" class="btn btn-default chooseColor" aria-label="Left Align" disabled="disabled">
+                                                                {!$Label.LV_SO_Choose_Color}
+                                                            </button>
+                                                        </apex:outputPanel>
+
+                                                        <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial1__c!=null}">  
+                                                            <a href="#open_product" class="open-popup-link">
+                                                                <apex:variable value="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorColor1__c}" var="liningInteriorColor1" />
+                                                                <apex:variable value="{!NOT(ISBLANK(liningInteriorColor1))}" var="notBlankColor3" />
+                                                                <!-- id="SPO_LiningInteriorColor1_InputFieldButtonId" -->
+                                                                <button type="button" id="SPO_LiningInteriorColor1_ButtonIdWithColor" class="btn btn-default chooseColor" aria-label="Left Align" onclick="fillWithColors(event, this,'SPO_LiningInteriorColor1_InputFieldId')">
+                                                                    <apex:outputPanel rendered="{!notBlankColor3}" styleClass="{!IF(FIND('color:#', contr.quotationContainer.colorNameToCodeMap[liningInteriorColor1]) != 0, 'glyphicon glyphicon-stop', '')}" style="{!contr.quotationContainer.colorNameToCodeMap[liningInteriorColor1]}">
+                                                                    </apex:outputPanel>
+                                                                    {!IF(notBlankColor3, ' ' + liningInteriorColor1 ,$Label.LV_SO_Choose_Color)} 
+                                                                </button>
+                                                            </a>
+                                                        </apex:outputPanel>
+
+                                                        <div class="changeable" id="SPO_LiningInteriorColor1Hidden">
+                                                            <!-- SPO_LiningInteriorColor1__c -->
+                                                            <apex:actionFunction name="SPO_LiningInteriorColor1_Change" action="{!NULL}" reRender="liningLocalComments1">
+                                                                <apex:param name="selectedValue" value="" assignTo="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorColor1__c}"/>
+                                                            </apex:actionFunction>
+                                                        </div>
+                                                    </apex:actionRegion>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+
+                                        <apex:outputPanel id="liningLocalComments1">
+                                            <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorColor1__c == $Label.LV_SO_Other_free_text}">
+                                                <div class="form-group required comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningColor1LocalComment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningColor1LocalComment__c}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group translated-field hidden comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningColor1ZoneApproverComment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningColor1ZoneApproverComment__c}" />
+                                                    </div>
+                                                </div>
+
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                    
+                                </apex:outputPanel>
+
+                                <!-- Lining 2 -->
+                                <apex:outputPanel id="liningSection2" rendered="{!contr.hasQuotation}">
+                                    <apex:outputPanel rendered="{!OR(contr.liningCntr >= 2,NOT(ISBLANK(contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial2__c)),NOT(ISBLANK(contr.quotationContainer.oneOpportunity.SPO_LiningInteriorColor2__c)))}">
+                                        
+                                        <apex:outputPanel id="liningMaterial2">
+                                            <div class="form-group required">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningInteriorMaterial2__c.Label}</label>
+                                                <div class="col-sm-6 ">
+                                                    <apex:actionRegion >
+                                                        <div class="colorPL">
+                                                            <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_LiningInteriorMaterial2_InputField" readonly="{! contr.quotationContainer.oneOpportunity.SPO_CreationType__c == null}">
+                                                                <apex:inputfield id="SPO_LiningInteriorMaterial2_InputFieldId"  value="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial2__c}" />
+                                                            </c:SO_BootstrapDropDownEnhanced>
+                                                            <apex:actionFunction name="SPO_LiningInteriorMaterial2_InputFieldreRenderfunction1" action="{!contr.initLiningInteriorMaterial2Field}" reRender="liningMaterialComments2,colorLiningPanel2,liningLocalComments2" oncomplete="liningInteriorMaterial2OnComplete()"/>
+                                                        </div>
+                                                    </apex:actionRegion>
+                                                </div>
+                                            </div>
+                                            <apex:outputPanel id="liningMaterialComments2">
+                                                <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial2__c == $Label.LV_SO_Other_free_text}">
+                                                    <div class="form-group required comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningMaterial2LocalComment__c.Label}</label>
+                                                        <div class="col-sm-6">
+                                                            <apex:inputText html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningMaterial2LocalComment__c}" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group translated-field hidden comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningMaterial2ZoneApproverComment__c.Label}</label>
+                                                        <div class="col-sm-6">
+                                                            <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningMaterial2ZoneApproverComment__c}" />
+                                                        </div>
+                                                    </div>
+
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel id="generalLining2">
+                                            <apex:outputPanel id="colorLiningPanel2">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningInteriorColor2__c.Label}</label>
+                                                    <div class="col-sm-6 margin-bottom-sm">
+                                                        <apex:actionRegion >
+                                                            <div style="display: none;" id="SPO_LiningInteriorColor2Hidden">
+                                                                <apex:actionFunction name="SPO_LiningInteriorColor2_Change" action="{!NULL}" reRender="liningLocalComments2">
+                                                                    <apex:param name="selectedValue" value="" assignTo="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorColor2__c}"/>
+                                                                </apex:actionFunction>
+                                                            </div>
+                                                            
+                                                            <!-- Show disabled button if '--None--'(blank) or 'Other' -->
+                                                            <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial2__c==null}">
+                                                                <button id="SPO_LiningInteriorColor2_ButtonId" type="button" class="btn btn-default chooseColor" aria-label="Left Align" disabled="disabled">
+                                                                    {!$Label.LV_SO_Choose_Color}
+                                                                </button>
+                                                            </apex:outputPanel>
+
+                                                            <apex:outputPanel rendered="{! contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial2__c!=null}">
+                                                                <!-- select color button-->
+                                                                <a href="#open_product" class="open-popup-link">
+                                                                    <apex:variable value="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorColor2__c}" var="liningInteriorColor2" />
+                                                                    <apex:variable value="{!NOT(ISBLANK(liningInteriorColor2))}" var="notBlankColor4" />
+
+                                                                    <button type="button" id="SPO_LiningInteriorColor2_ButtonIdWithColor" class="btn btn-default chooseColor" aria-label="Left Align" onclick="fillWithColors(event, this,'SPO_LiningInteriorColor2_InputFieldId')">
+                                                                        <apex:outputPanel rendered="{!notBlankColor4}" styleClass="{!IF(FIND('color:#', contr.quotationContainer.colorNameToCodeMap[liningInteriorColor2]) != 0, 'glyphicon glyphicon-stop', '')}" style="{!contr.quotationContainer.colorNameToCodeMap[liningInteriorColor2]}">
+                                                                        </apex:outputPanel>
+                                                                        {!IF(notBlankColor4, ' ' + liningInteriorColor2 ,$Label.LV_SO_Choose_Color)} 
+                                                                    </button>
+                                                                </a>
+                                                            </apex:outputPanel>
+
+                                                        </apex:actionRegion>
+                                                    </div>
+                                                </div>
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel id="liningLocalComments2">
+                                                <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_LiningInteriorColor2__c == $Label.LV_SO_Other_free_text}">
+                                                    <div class="form-group required comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningColor2LocalComment__c.Label}</label>
+                                                        <div class="col-sm-6">
+                                                            <apex:inputText html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningColor2LocalComment__c}" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group translated-field hidden comment">
+                                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LiningColor2ZoneApproverComment__c.Label}</label>
+                                                        <div class="col-sm-6">
+                                                            <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LiningColor2ZoneApproverComment__c}" />
+                                                        </div>
+                                                    </div>
+
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                    <!-- Add 2'th color -->
+                                    <apex:outputPanel id="addColorBtnLining2">
+                                        <apex:outputPanel rendered="{!AND(contr.liningCntr == 1
+                                                                     ,NOT(ISBLANK(contr.quotationContainer.oneOpportunity.SPO_LiningInteriorMaterial1__c)))}">
+                                            <div class="form-group">
+                                                <label class="col-sm-4"></label>
+                                                <div class="col-sm-6 ">
+                                                    <apex:actionRegion >
+
+                                                        <input type="button" class="btn btn-primary" aria-label="Left Align" value="{!$Label.LV_SO_add_color}" onclick="incLiningCntr()" />
+                                                        <apex:actionFunction action="{!contr.incLiningCntr}" name="incLiningCntr" oncomplete="updateLining2AfterAddColorBtn()" reRender="liningSection2" />
+
+                                                    </apex:actionRegion>
+                                                </div>
+                                            </div>  
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel id="removeColorBtnLining2">
+                                                <!-- contr.quotationContainer.oneOpportunity.SPO_ExteriorMaterial3__c == null,  -->
+                                                <apex:outputPanel rendered="{!contr.liningCntr > 1}">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4"></label>
+                                                        <div class="col-sm-6 ">
+                                                            <apex:actionRegion >
+
+                                                                <input type="button" class="btn btn-danger" aria-label="Left Align" value="{!$Label.LV_SO_remove_color}" onclick="decLiningCntr()" />
+                                                                <apex:actionFunction action="{!contr.decLiningCntr}" name="decLiningCntr" oncomplete="updateLining2AfterAddColorBtn();" reRender="liningSection2" />
+
+                                                            </apex:actionRegion>
+                                                        </div>
+                                                    </div>  
+                                                </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                                
+                                <!-- metalic parts -->
+                                <apex:outputPanel id="colorMetalicpartsHolder" rendered="{!contr.leatherGood_Creation || contr.leatherGood_Creation_OrderDisplay}">
+                                    <div class="form-group required">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ColorMetalicparts__c.Label}</label>
+                                        <div class="col-sm-6 ">
+                                                <apex:actionRegion >
+                                                    <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_ColorMetalicparts_InputField">
+
+                                                          <apex:inputfield id="SPO_ColorMetalicparts_InputFieldId"  
+                                                                          value="{!contr.quotationContainer.oneOpportunity.SPO_ColorMetalicparts__c}" />
+
+                                                    </c:SO_BootstrapDropDownEnhanced>
+                                                    <apex:actionFunction name="SPO_ColorMetalicparts_InputFieldreRenderfunction" action="{!NULL}" reRender="metalicPartsComments"/>
+                                                </apex:actionRegion>
+                                        </div>
+                                    </div>
+                                    <apex:outputPanel id="metalicPartsComments">
+                                        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ColorMetalicparts__c == $Label.LV_SO_Other_free_text}">
+                                            <div class="form-group required comment">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ColorMetalicPartsLocalComment__c.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText html-data-rule-required="true" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ColorMetalicPartsLocalComment__c}" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group translated-field hidden comment">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ColorMetalicPartsZoneApproverComment__c.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_ColorMetalicPartsZoneApproverComment__c}" />
+                                                </div>
+                                            </div>
+
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </div>
+                        </apex:outputPanel>
+
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+
+
+        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c==contr.oppWatch}" layout="none">
+            <div class="panel panel-primary materialAndColors" >
+                <div class="panel-heading">{!$Label.LV_SO_MATERIAL_AND_COLORS}<span class="glyphicon glyphicon-question-sign padding-left5 pull-right" data-toggle="tooltip" title="{!$Label.LV_SO_MATERIALCOLOR_HELP}" aria-hidden="true"/></div>
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <apex:outputPanel id="watchExoPanelId">
+                                <apex:outputPanel rendered="{!contr.watch_SpoMto}">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_Exo__c.Label}</label>
+                                        <div class="col-sm-6">
+                                            <apex:outputPanel id="exoField_b">
+                                                <c:SO_BootstrapDropDownEnhanced readonly="true" selectFieldUniqueName="SPO_Exo_InputField">
+                                                     <apex:inputField id="SPO_Exo_InputFieldId"  value="{!contr.quotationContainer.oneOpportunity.SPO_Exo__c}"/>
+                                                </c:SO_BootstrapDropDownEnhanced>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!contr.watch_SpoMto}">
+                                <section id="strapMaterialSection">
+                                    <div class="form-group required">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_StrapMaterial__c.Label}</label>
+                                        <div class="col-sm-6">
+
+                                                <apex:actionRegion >
+                                                    <div class="colorPL">
+                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_StrapMaterial_InputField">
+                                                            <apex:inputfield id="SPO_StrapMaterial_InputFieldId"  value="{!contr.quotationContainer.oneOpportunity.SPO_StrapMaterial__c}" />
+                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                        <apex:actionFunction name="SPO_StrapMaterial_InputFieldreRenderfunction1" action="{!contr.initStrapColorField}" reRender="strapMaterialComment, strapColorSection, strapColorComment, watchExoPanelId" oncomplete="updateStrapMaterialAfterAddColor()"/>
+                                                    </div>
+                                                </apex:actionRegion>
+                                        </div>
+                                    </div>
+                                    <apex:outputPanel id="strapMaterialComment">
+                                        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_StrapMaterial__c == $Label.LV_SO_Other_free_text}">
+                                            <div class="form-group required comment">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_StrapMaterialLocalComment__c.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputfield html-data-rule-required="true" value="{!contr.quotationContainer.oneOpportunity.SPO_StrapMaterialLocalComment__c}" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group translated-field hidden required comment">
+                                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_StrapMaterialZoneApproverComment__c.Label}</label>
+                                                <div class="col-sm-6">
+                                                    <apex:inputfield html-data-rule-required="true" value="{!contr.quotationContainer.oneOpportunity.SPO_StrapMaterialZoneApproverComment__c}" />
+                                                </div>
+                                            </div>
+
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </section>
+                                <apex:outputPanel id="strapColorSection">
+                                    <div class="form-group {!IF(contr.quotationContainer.oneOpportunity.SPO_StrapMaterial__c != null, 'required', '')}">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_StrapColor__c.Label}</label>
+                                        <div class="col-sm-6 margin-bottom-sm">
+                                                <apex:actionRegion >
+
+                                                    
+                                                    <!-- select color button-->
+                                                    <a href="#open_product" class="open-popup-link">
+                                                        <!-- Show disabled button if '--None--'(blank) or 'Other' -->
+                                                        <apex:outputPanel rendered="{! OR( contr.quotationContainer.oneOpportunity.SPO_StrapMaterial__c==null , contr.quotationContainer.oneOpportunity.SPO_StrapMaterial__c==$Label.LV_SO_Other_free_text ) }">     
+                                                            <button id="SPO_StrapColor_ButtonId" type="button" class="btn btn-default chooseColor" aria-label="Left Align" onclick="fillWithColors(event, this,'SPO_StrapColor_InputFieldId')" disabled="disabled">
+                                                                {!$Label.LV_SO_Choose_Color}
+                                                            </button>
+                                                        </apex:outputPanel>
+                                                        <!-- Show clickable button if real color -->
+                                                        <apex:outputPanel rendered="{! AND( contr.quotationContainer.oneOpportunity.SPO_StrapMaterial__c!=null , contr.quotationContainer.oneOpportunity.SPO_StrapMaterial__c!=$Label.LV_SO_Other_free_text ) }">
+
+                                                            <a href="#open_product" class="open-popup-link">
+                                                                <apex:variable value="{!contr.quotationContainer.oneOpportunity.SPO_StrapColor__c}" var="strapColor" />
+                                                                <apex:variable value="{!NOT(ISBLANK(strapColor))}" var="notBlankColor6" />
+
+                                                                <button type="button" id="SPO_StrapColor_ButtonIdWithColor" class="btn btn-default chooseColor" aria-label="Left Align" onclick="fillWithColors(event, this,'SPO_StrapColor_InputFieldId')">
+                                                                    
+                                                                    <apex:outputPanel rendered="{!notBlankColor6}" styleClass="{!IF(FIND('color:#', contr.quotationContainer.colorNameToCodeMap[strapColor]) != 0, 'glyphicon glyphicon-stop', '')}" style="{!contr.quotationContainer.colorNameToCodeMap[strapColor]}">
+                                                                    </apex:outputPanel>
+
+                                                                    {!IF(notBlankColor6, ' ' + strapColor ,$Label.LV_SO_Choose_Color)} 
+                                                                </button>
+                                                            </a>
+
+                                                            <div class="dropDownApexSelectClass">
+                                                                <apex:inputfield id="SPO_StrapColor_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_StrapColor__c}">
+                                                                    <apex:actionSupport oncomplete="toggleHiddenClass(true);" event="onchange" reRender="strapColorComment"/>
+                                                                </apex:inputfield>
+                                                            </div>
+                                                        </apex:outputPanel>
+                                                    </a>
+
+
+
+                                                </apex:actionRegion>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="strapColorComment">                                 
+                                        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_StrapColor__c == $Label.LV_SO_Other_free_text}">
+                                            <apex:actionRegion >
+                                                <div class="form-group required comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_StrapColorLocalComment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputfield html-data-rule-required="true" value="{!contr.quotationContainer.oneOpportunity.SPO_StrapColorLocalComment__c}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group translated-field hidden required comment">
+                                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_StrapColorZoneApproverComment__c.Label}</label>
+                                                    <div class="col-sm-6">
+                                                        <apex:inputfield html-data-rule-required="true" value="{!contr.quotationContainer.oneOpportunity.SPO_StrapColorZoneApproverComment__c}" />
+                                                    </div>
+                                                </div>
+                                            </apex:actionRegion>
+
+                                        </apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </div>
+
+                        <div class="col-md-6">
+                            <apex:outputPanel rendered="{!contr.watch_SpoMto}">
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_WristSize__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield html-data-rule-required="true" styleClass="form-control" id="SPO_WristSize_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_WristSize__c}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel>                            
+
+                            <apex:outputpanel rendered="{!contr.watch_SpoMto}">
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_DestinationWatch__c.Label}</label>
+                                    
+                                    <div class="col-sm-6">
+                                        <c:SO_PR_CustomLookup allowclear="true" importjquery="true" labelfield="Name" sobject="ProductReferential__c" valuefield="Id" targetfield="{!contr.quotationContainer.oneOpportunity.SPO_DestinationWatch__c}" productCategory="{!contr.prorWatch}" isRequired="true"/>
+                                    </div> 
+                                </div>
+                            </apex:outputpanel>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+
+</apex:component>

@@ -1,0 +1,8 @@
+<apex:page language="{!$CurrentPage.parameters.language}"
+    controller="TWIST_i18nCustomLabels_CTRL"
+    action="{!init}"
+    contentType="text/plain"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"><apex:repeat value="{!customLabels}" var="customLabel">"{!customLabel}":"{!$Label[customLabel]}",</apex:repeat>
+</apex:page>

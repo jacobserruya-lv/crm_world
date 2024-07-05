@@ -1,0 +1,1268 @@
+<apex:page applybodytag="false"
+           applyhtmltag="false"
+           showheader="false"
+           controller="VO_Specific_Statistics_CTRL"
+           standardstylesheets="false"
+           doctype="html-5.0"
+           >
+    <apex:composition template="VO_Template">
+        <apex:define name="headTag">
+            <title>{!$Label.VO_LV_VOICE_Specific_Statistics} {!currSurvayType}</title>
+
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.VO,'VO/css/libraries/bootstrap-select.min.css')}" />
+            <!-- <link rel="stylesheet" type="text/css" href="https://silviomoreto.github.io/bootstrap-select/bootstrap-select.min.css"/> -->
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.VO,'VO/css/libraries/datepicker.css')}" />
+
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/angular1.4.5.min.js')}"></script>
+
+            <!-- Modal dependency -->
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.VO,'VO/css/libraries/magnific-popup.min.css')}" />
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/jquery.magnific-popup.min.js')}"></script>
+
+            
+            <!-- jlinq-easy filter and sorting easy+ -->
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/jlinq.js')}"></script>
+
+            <!-- Dust.js and dust-helper.js -html template -->
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/dust-full.min.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/dust-helpers.min.js')}"></script>
+
+            <!-- bootpag-pageination bootstrap -->
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/jquery.bootpag.js')}"></script>
+
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/bootstrap-select.min.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/moment-with-locales.js')}"></script>
+
+            <!-- New Relic integration -->
+            <apex:includeScript value="{!IF($Setup.ICONSettings__c.NewRelic__c, $Resource.NewRelic, '')}"/>
+            <script type="text/javascript">
+            newrelic.setCustomAttribute('userId', '{!userId}');
+            newrelic.setCustomAttribute('userStore', '{!userStore}');
+            newrelic.setCustomAttribute('userCountry', '{!userCountry}');
+            newrelic.setCustomAttribute('userManagement', '{!userManagement}');
+            newrelic.setCustomAttribute('userIp', new RegExp("clientSrc=([^;]+)").exec(document.cookie)[1]);
+            newrelic.setCustomAttribute('userSid', new RegExp("sid=([^;]+)").exec(document.cookie)[1]);
+            var startTimeMs = (new Date).getTime();   
+            </script>
+
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.VO,'VO/css/custom-css/VO_Specific_Statistics.css')}" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+
+        </apex:define>
+        <apex:define name="bodyContent">  
+            <div class="row ng-scope" style="display: block;">
+                <!--Search Panel -->
+
+                <!-- MY 2016.05.01 TRY TO AVODING GENERATE FUNCTION LIST IN THE MAIN SEARCH -->
+                <span id='answerOrderBySurveyType'  style='display:none;'>
+                    <apex:repeat value="{!answerOrderForAllSurveyType}" var="ansOrderBySurveyType">
+                        <span>{!ansOrderBySurveyType}</span>
+                    </apex:repeat>
+                </span>
+                <span id="maxRecordsPerSerach" style='display:none;'>
+                    {!maxRecordsPerSerach}
+                </span>
+
+                <span id='exports' style='display:none;'>
+
+                </span>
+                <apex:outputPanel layout="none" id="searchForm">
+                    <apex:form >
+                        <span id='ifOnlyReadUser' style="display: none;">
+                                    {!userReadOnlyOnSurveys} 
+                        </span>
+                        <span id='maxRecordsPerSerach' style="display: none;">
+                            {!maxRecordsPerSerach}
+                        </span>
+                        <div class="col-sm-12">
+                            <div class="panel panel-default inputSearchPanel">
+                                <!-- Title -->
+                                <div class="panel-heading">
+                                   <div class="row">
+                                        <div class="panel-title col-sm-8">
+                                            {!$Label.VO_Search}
+                                        </div>
+                                        <div class="col-sm-4"> 
+                                            <div class="dropdown pull-right">
+                                                <label class="h4 margin-no vertical-middle">
+                                                    <span class="fa fa-clipboard color-primary"></span>
+                                                </label>
+                                                <c:VO_bootstrapdropdown defaulttext="{!currSurvayType}" smallpicklist="true" onchangeFunctionName="blockUI();$('.CAName__c input').val('');updateStoreByType();filterStores();hideAllOption();setTimeout(headerTableRemote,1000);udpateDisplayColumns();"> 
+                                                       
+                                                       <apex:selectlist id="surveyTypeValuesSelect" multiselect="false" size="1" value="{!currSurvayType}" styleClass="btn btn-xs btn-default dropdown-toggle" onchange="blockUI();$('.CAName__c input').val('');filterStores();;headerTableRemote();udpateDisplayColumns();" >
+                                                        <apex:selectoptions value="{!surveyTypeValuesSelectOptions}" />
+                                                    </apex:selectlist>
+                                                    
+                                                </c:VO_bootstrapdropdown>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <apex:actionFunction name="updateStoreByType" action="{!updateStoreByType}" reRender="storePicklistPanel" oncomplete="sfSelectFixer();fixTitle();"/>
+
+                                <!-- Begin RMOU -->
+                                <script type="text/javascript">
+                                    function hideAllOption(){
+
+                                        var obj = document.getElementById('UserStores_InputFieldId_div');
+
+                                        var opts = $(obj).find('li').filter('[style*="list-item"]');
+
+                                        if (opts.length == 1 && opts.get(0).innerText=='--ALL--'){
+                                            opts[0].style = 'display:none;';
+
+                                            var button = $(obj).find('button');
+                                            button.title='--NONE--';
+                                            $(button).find('span').get(0).innerHTML='--NONE--';
+
+                                        }
+                                    }
+                                </script>
+
+                                <!-- END RMOU -->
+
+                                <div class="panel-body" style="padding-bottom: 0;">
+                                    <div class="form-horizontal ng-pristine ng-valid">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$Label.VO_Level_1}</label>
+                                                    <div class="col-sm-8 sfSelectFixer {!IF(searchCurrUser.MANAGEMENT_ZONE_LEVEL__c != null && TECH_User_Stores == null || TECH_User_Stores != null,'readonlClass','')}">
+                                                        <apex:inputField value="{!searchCurrUser.MANAGEMENT_ZONE_LEVEL__c}" id="level1pl"  styleClass="selectpicker" html-data-width="100%" onchange="setTimeout(updateStoreByType, 100)"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$Label.VO_Level_2}</label>
+                                                    <div class="col-sm-8 sfSelectFixer {!IF(searchCurrUser.MGMT_ZONE_SUB_LEVEL1__c != null && TECH_User_Stores == null || TECH_User_Stores != null,'readonlClass','')}">
+                                                        <apex:inputField value="{!searchCurrUser.MGMT_ZONE_SUB_LEVEL1__c}" id="level2pl"  styleClass="selectpicker" html-data-width="100%" onchange="setTimeout(updateStoreByType, 100)"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">    
+                                                    <label class="col-sm-4 control-label">{!$Label.VO_Level_3}</label>
+                                                    <div class="col-sm-8 sfSelectFixer {!IF(searchCurrUser.MGMT_ZONE_SUB_LEVEL2__c != null && TECH_User_Stores == null || TECH_User_Stores != null,'readonlClass','')}">
+                                                        <apex:inputField value="{!searchCurrUser.MGMT_ZONE_SUB_LEVEL2__c}" id="level3pl"  styleClass="selectpicker" html-data-width="100%" onchange="setTimeout(updateStoreByType, 100)"/>
+                                                    </div>
+                                                </div>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$Label.VO_Level_4}</label>
+                                                    <div class="col-sm-8 sfSelectFixer {!IF(searchCurrUser.MGMT_ZONE_SUB_LEVEL3__c != null && TECH_User_Stores == null || TECH_User_Stores != null,'readonlClass','')}">
+                                                        <apex:inputField value="{!searchCurrUser.MGMT_ZONE_SUB_LEVEL3__c}" id="level4pl" styleClass="selectpicker" html-data-width="100%" onchange="updateStoreByType();"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- BEGIN RMOU -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">{!$Label.VO_Store}</label>
+                                                    <div class="col-sm-8 sfSelectFixer {!IF(searchCurrUser.DefaultStore__c != null,'readonlClass','')} store-fixer">
+                                                        <apex:inputField id="DefaultStore_InputFieldId" value="{!searchCurrUser.DefaultStore__c}" styleClass="selectpicker" html-data-width="100%"/>
+                                                    </div>
+                                                </div>
+                                            </div> --> 
+                                            <apex:outputPanel id="storePicklistPanel">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">User Stores</label>
+                                                        <div class="col-sm-8 sfSelectFixer store-fixer {! IF(AND(TECH_User_Stores == null, searchCurrUser.MGMT_ZONE_SUB_LEVEL3__c == null), 'readonlClass','') }" id="UserStores_InputFieldId_div">
+                                                            <apex:selectlist id="UserStores_InputFieldId" multiselect="true" size="1" value="{! storesSelected }" styleClass="selectpicker" html-data-width="100%" onchange="handleAll();">
+                                                                <apex:selectoptions value="{! storesOptions }" />
+                                                            </apex:selectlist>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </apex:outputPanel>
+                                            <script type="text/javascript">
+
+                                                // TODO : This whole thing is horrible. Redo that in a nice-looking way
+
+                                                var allSelected = true;
+                                                var allButOneSelected = '';
+
+                                                $(window).load(function(){
+                                                    var obj = document.getElementById('UserStores_InputFieldId_div');
+                                                    var button = $(obj).find('button');
+
+                                                    var sel = document.getElementById('{! $Component.UserStores_InputFieldId }');
+                                                    if (sel.options.length == 1)
+                                                        return;
+
+                                                    if (sel.options.length > 0){
+                                                        sel.options[0].selected = true;
+                                                        $(obj).first("li").addClass("selected");
+                                                        button.title = ('--ALL--');
+                                                        $(button).find("span").get(0).innerHTML = "--ALL--";
+                                                    }
+                                                    else{
+                                                        button.title = ('--NONE--');
+                                                        $(button).find("span").get(0).innerHTML = "--NONE--";
+                                                    }
+
+                                                });
+
+                                                function handleAll(){
+                                                    var sel = document.getElementById('{! $Component.UserStores_InputFieldId }');
+
+                                                    if (sel.options.length == 1)
+                                                        return;
+
+                                                    var allIsClicked = isAllClicked (sel);
+                                                    allButOneSelected = '';
+
+                                                    if (allIsClicked){
+                                                        selectAll(sel, allSelected);
+                                                    }
+                                                    else{
+                                                        setAll(sel);
+                                                    }
+                                                    redraw(document.getElementById('UserStores_InputFieldId_div'), allIsClicked);
+                                                }
+
+                                                                                             
+                                                                             
+
+                                                function isAllClicked (sel){
+
+                                                    var allIsClicked = false;
+                                                    var opts = [], opt;
+
+                                                    var len = sel.options.length;
+                                                    for (var i = 0; i < len; i++) {
+                                                        opt = sel.options[i];
+
+                                                        allIsClicked = allIsClicked || (opt.value=="--ALL--" && (opt.selected && !allSelected || !opt.selected && allSelected));
+                                                    }
+
+                                                    for (var i = 0; i < len; i++){                                                        
+                                                        opt = sel.options[i];                                             
+                                                        if (opt.value=='--ALL--')
+                                                            allSelected = opt.selected;
+                                                    }
+
+                                                    return allIsClicked;                                               
+                                                }
+
+                                                function setAll (sel){
+                                                    var everythingTicked = true;
+                                                    $.each(sel.options, function(index, item){
+                                                        if (item.value != '--ALL--')
+                                                            everythingTicked = everythingTicked && item.selected;
+                                                    });
+
+                                                    var allButOne = false;
+                                                    var count = 0;
+                                                    $.each(sel.options, function(index, item){
+                                                        if(item.selected)
+                                                            count++;
+                                                    })
+
+                                                    allButOne = allSelected && count == sel.options.length - 1;
+                                                    console.log('allButOne : ' + allButOne);
+
+                                                    if (allButOne){
+                                                        $.each(sel.options, function(index, item){
+                                                            // if(item.value != '--ALL--'){
+                                                                item.selected = !item.selected;
+                                                            // }
+                                                        });
+
+                                                        $.each(sel.options, function(index, item){
+                                                            if (item.selected)
+                                                                allButOneSelected = item.innerHTML;
+                                                        });
+
+                                                        allSelected = false;
+                                                    }
+                                                    else{
+                                                        sel.options[0].selected = everythingTicked;
+                                                        allSelected = everythingTicked;
+                                                    }
+                                                }
+
+                                                function selectAll (sel, enable){
+                                                    $.each(sel.options, function(index, item){
+                                                        if (item.value != '--ALL--'){
+                                                            item.selected = enable;
+                                                        }
+                                                    });
+                                                }
+
+                                                function redraw (obj, allIsClicked){
+                                                    var button = $(obj).find('button').get(0);
+                                                    var list = $(obj).find('div[class^=dropdown-menu]').get(0);
+                                                    if (allIsClicked){
+                                                        if (allSelected){
+                                                            $(list).find("li").addClass("selected");
+                                                            button.title='--ALL--';
+                                                            $(button).find("span").get(0).innerHTML = "--ALL--";
+                                                        }
+                                                        else{
+                                                            $(list).find("li").removeClass("selected");
+                                                            button.title='--NONE--';
+                                                            $(button).find("span").get(0).innerHTML = "--NONE--";
+                                                        }
+                                                    }
+                                                    else{
+
+                                                        var everythingTicked = true;
+                                                        var nothingTicked = true;
+                                                        $.each(document.getElementById('{! $Component.UserStores_InputFieldId }').options, function(index, item){
+                                                            if (item.value != '--ALL--')
+                                                                everythingTicked = everythingTicked && item.selected;
+                                                            if (item.value != '--ALL--')
+                                                                nothingTicked = nothingTicked && !item.selected;
+                                                        });
+
+                                                        if (everythingTicked){
+                                                            $(list).find("li").addClass("selected");
+                                                            button.title='--ALL--';
+                                                            $(button).find("span").get(0).innerHTML = '--ALL--';
+                                                        }
+                                                        else{
+                                                            if (allButOneSelected != ''){
+                                                                $(list).find("li").removeClass("selected");
+                                                                $(list).find("li:contains('" + allButOneSelected + "')").addClass("selected");
+                                                                button.title=allButOneSelected;
+                                                                $(button).find("span").get(0).innerHTML = allButOneSelected;
+                                                            }
+                                                            else{
+                                                                $(list).find("li").first().removeClass("selected"); 
+                                                                button.title = button.title.replace('--ALL--, ', '');
+                                                                $(button).find("span").get(0).innerHTML = $(button).find("span").get(0).innerHTML.replace('--ALL--, ', '');
+                                                            }
+
+                                                        }
+
+                                                        if (nothingTicked){
+                                                            button.title = '--NONE--';
+                                                            $(button).find("span").get(0).innerHTML = "--NONE--";
+                                                        }
+
+
+                                                    }
+                                                }
+
+                                            </script>
+                                            <!-- END RMOU -->
+                                            <span class='CAName__c'> 
+                                                <!-- Begin MTO: enable French user to search for CA -->
+                                                <!--<c:VO_Specific_Statistics_SearchRow rendered="{!IF(isUserFromFrance,false,true)}"  title="Client Advisor" idcomp="caName" sobjecttype="{!searchParam.survey}" fieldapiname="CAName__c">--> 
+                                                <c:VO_Specific_Statistics_SearchRow title="Client Advisor" idcomp="caName" sobjecttype="{!searchParam.survey}" fieldapiname="CAName__c">   
+                                                </c:VO_Specific_Statistics_SearchRow>
+                                            </span>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <!-- DATE ROW -->
+                                            <span class='fromDate'>
+                                                <c:vo_specific_statistics_searchrowDate title="{!$Label.VO_FROM}">
+                                                    <input id="from"  class="form-control datepicker" value="{!fromDate}" />
+                                                </c:vo_specific_statistics_searchrowDate>
+                                            </span>
+                                            <span class='toDate'>
+                                                <c:vo_specific_statistics_searchrowDate title="{!$Label.VO_TO}">
+                                                    <input id="to"  class="form-control datepicker" value="{!toDate}" />
+                                                </c:vo_specific_statistics_searchrowDate>
+                                            </span>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="pull-right margin-right-md">
+                                                        <div onclick="clearFormJS();" class="btn btn-default">
+                                                            <span class="fa fa-refresh"></span>  {!$Label.VO_Clear}
+                                                        </div>
+                                                        <div onclick="blockUI();clickOnSearchRemote();" class="btn btn-success" disabled="">
+                                                            <span class="fa fa-search"></span> {!$Label.VO_Search}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="alert alert-danger alert-dismissible fade in errorSearchMsgBlock" style="display: none;"> 
+                                                <ul>
+                                                    <li class="dateErrorMsg" style="display: none;">
+                                                        {!$Label.VO_Search_Date_ERROR_MESSAGE}
+                                                    </li>
+                                                    <!-- date range 6 to 12 month -->
+                                                    <li class="dateSixMonthMsg" style="display: none;">
+                                                        {!$Label.VO_Search_Date_SixMonth_ERROR_MESSAGE}
+                                                    </li>                                                
+                                                    <li  class="caWithoutStoreMsg" style="display: none;">{!$Label.VO_Search_CA_WITHOUT_STORE_ERROR_MESSAGE}
+                                                  
+                                                    </li>
+                                                    <li class="caLessThen4lettersMsg" style="display:none">{!$Label.VO_Search_CA_LESS_4_LETTERS_ERROR_MESSAGE}
+                                        
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                     </div>
+
+                                </div>
+                                <!-- footer btns  -->
+
+                                <apex:actionfunction name="clearForm" action="{!clearForm}" rerender="searchForm" oncomplete="inisfSelectFixer(800);initDataPickers();fixTitle();">
+                                </apex:actionfunction>
+                            </div>
+                        </div>
+                    </apex:form>
+                </apex:outputPanel>
+            </div>
+            <script type="text/javascript">
+
+            function fixTitle(){
+                var obj = document.getElementById('UserStores_InputFieldId_div');
+                var button = $(obj).find('button').get(0);
+
+                if (!button){
+                    window.requestAnimationFrame(fixTitle);
+                }
+                else{
+                    var opts = $(obj).find('li');
+                    if (opts.length == 1)
+                        return;
+                    if (opts.length >0){
+                        button.title='--ALL--';
+                        $(button).find('span').get(0).innerHTML = '--ALL--';
+                    }
+                }
+            }
+
+            function addSupportToWebStorage ()
+            {
+                !localStorage && (l = location, p = l.pathname.replace(/(^..)(:)/, "$1$$"), (l.href = l.protocol + "//127.0.0.1" + p));
+            }
+            addSupportToWebStorage();
+            </script>
+            
+            <apex:outputpanel layout="none" id="test">
+                <apex:outputpanel >
+
+                    <apex:pagemessages >
+                    </apex:pagemessages>
+
+                </apex:outputpanel>
+            </apex:outputpanel>
+           
+            <!-- RESUALTS  -->
+            <apex:form >
+                <div class="panel panel-default ng-scope" style="display: block;">
+                <!-- Title with underline-->
+                <div class="panel-heading">
+                    <div class="row" >
+                        <div class="panel-title col-sm-8">
+                            {!$Label.VO_RESULT}
+                        </div>
+                        <div class="col-sm-4 " style="margin-top: 10px;">
+                            <div class="pull-right">
+                                <div class="text-right">
+<!--                                     <a href="/apex/VO_Specific_Statistics_Excel" class="postExcel" id="postExcelLinkId" target="_blank">
+                                        <button class="btn btn-default" disabled="">
+                                            <span class="fa fa-file-excel-o"></span> {!$Label.VO_Export_as_Excel}
+                                        </button>
+                                    </a> -->
+                                    <button class="btn btn-default fa fa-file-excel-o" id="postExcelLinkId" type="button"> {!$Label.VO_Export_as_Excel}</button>
+
+                                    <a href="/apex/VO_Specific_Statistics_Pdf" class="postPdf" id="postPdfLinkId" target="_blank">
+                                        <button class="btn btn-default">
+                                            <span class="fa fa-file-pdf-o"></span> {!$Label.VO_Export_as_Pdf}
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- body  -->
+
+                <div class="panel-body">
+                    <div id="chartToFade">
+                        <apex:outputPanel id="chartPanel">
+
+                                <div class="row">
+                                <!-- MY:Data are update in client side. -->
+                                    <c:VO_survaytypestatBody total="{!0}"
+                                                     tnew="{!0}"
+                                                     tpending="{!0}"
+                                                     tclosed="{!0}"
+                                                     TNoAction="{!0}"
+                                                     delightedclients="{!0}"
+                                                     dcnew="{!0}"
+                                                     dcpending="{!0}"
+                                                     promoterclients="{!0}"
+                                                     pmnew="{!0}"
+                                                     pmpending="{!0}"
+                                                     recoveryact="{!0}"
+                                                     ranew="{!0}"
+                                                     rapending="{!0}"
+                                                     rapending7d="{!0}"
+                                                     ispromoterclients="{!currSurvayType == VOICE_AFTER_SALES}"
+                                                     daysbefore="{!numOfDaysBefore}"
+                                                     survaytype="chartSurveyId"
+                                                     LastDelightedClients="-1"
+                                                     LastPromoterClients="-1"
+                                                     LastRecoveryAct="-1"
+                                                     addArrowBody="false"
+                                                     >
+                                    </c:VO_survaytypestatBody>
+                                </div> 
+                        
+                        </apex:outputPanel>
+                    </div>
+                    <div class="clearfix">
+                        <div class="pull-left margin-right-md">
+                            <div class="dropdown numOfResultsInPage" >
+                                <!-- pickList:number of items to show in the table -->
+                                <a class="btn btn-xs btn-default dropdown-toggle vertical-middle margin-top-md" data-toggle="dropdown" href="#">10 <span class="caret"></span></a>
+                                <ul class="dropdown-menu numOfResultsInPage">
+                                    <apex:repeat value="{!numberOfResultInpage}" var="num">
+                                        <li><a>{!num}</a></li>
+                                    </apex:repeat>
+                                </ul>
+                           </div>
+                        </div>
+                        <h4 class="pull-left">
+                            <small><em id="numResultsAndWhichResults"></em></small>
+                            <small><em id="haveMoreThenLimit" style="display:none;color: red;">
+                            {!$Label.VO_ERROR_PASS_LIMIT_RESULT}</em></small>
+                        </h4>
+                        <script type="text/javascript">
+                            $('#haveMoreThenLimit').html($('#haveMoreThenLimit').html().replace('{@limitNumber}',parseInt($('#maxRecordsPerSerach').html())));
+                        </script>
+
+                        <!-- Paginition part -->
+                        <nav class="pull-right pageintionClass">
+                          <!-- Paginition bootstrap-->
+                        </nav>
+                    </div>
+
+                    <!-- Table -->
+                    <!-- MY: 2016/01/28 VOICE 2 : bannedWordList -->
+                    <apex:actionfunction name="initModal" action="{!initModal}" rerender="modalBlock" oncomplete="unblockUI();addModalEvent();setBootStrapMulty();bannedWordHandler.initBannedWordsList({!jsonBannedWordList})">
+                        <apex:param id="aid" name="id" value="" />
+                    </apex:actionfunction>
+                    
+                    <apex:actionfunction name="clickOnEye" action="{!clickOnEye}"  oncomplete="inisfSelectFixer(800);openCaseDetailPage();">
+                        <apex:param id="aaid" name="eyeId" value="" />
+                    </apex:actionfunction>
+
+                    <!-- RMOU : Evo Voice #9 -->
+                    <!-- <apex:actionFunction name="initStoreTransfer" action="{! initStoreTransfer }">
+                        <apex:param id="transferId" name="transferId" value=""/>
+                    </apex:actionFunction> -->
+
+                    <span class='eyeLinkCaseDetail' style="display:none"></span>
+                    <table class="table table-wrap">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="table-responsive force-responsive">
+                                        <table class="table table-hover table-striped table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>{!$Label.VO_Actions}</th>
+                                                    <th class="sortable" data-id="Type__c" >{!$Label.VO_Type}</th>
+                                                    <th class="sortable" data-id="SurveyComment__c" >{!$Label.VO_Comments}</th>
+                                                </tr>
+                                                <tr class="table-header-filter">
+                                                    <th><input id="checkAll" type="checkbox"/></th>
+                                                    <th></th>
+                                                    <th>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-xs btn-default dropdown-toggle" id="typeFilter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                {!$Label.VO_All}
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul id="typeFilterUl" class="dropdown-menu">
+                                                                <li  data-id="all"><a>{!$Label.VO_All}</a></li>
+                                                                <li data-id="Recovery Act">
+                                                                    <a><span class="fa fa-plus" style="color:#ff0000"></span><span class="TypeVal" style="padding-left:5px;">{!$Label.VO_Recovery}</span></a>
+                                                                </li>
+                                                                <li data-id="Neutral">
+                                                                    <a><span class="fa fa-meh-o" style="color:#808080"></span> <span class="TypeVal " style="padding-left:5px;">{!$Label.VO_Neutral}</span></a>
+                                                                </li>
+                                                                <li data-id="Delighted Client">
+                                                                    <a><span class="fa fa-smile-o" style="color:#72bb53"></span> <span class="TypeVal " style="padding-left:5px;">{!$Label.VO_Delighted}</span></a>
+                                                                </li>
+                                                                <li data-id="Promoter">
+                                                                    <a><span class="fa fa-volume-up" style="color:#3d8af7"></span> <span class="TypeVal" style="padding-left:5px;">{!$Label.VO_Promoter}</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </th>
+                                                    <th class="">
+                                                        <input id="commentsFilter" class="form-control input-xs" type="text" value="" />
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <!-- LEFT-->
+                                            <tbody class="leftTable"></tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                                <!--Pascal cr 5 start -->
+                                <td class="table-wrap-flex" style="position:relative">
+
+                                    
+                                    <div onclick="tablePrev()" disabled="disabled" class="fa fa-arrow-circle-left tableArrow arrowLeft"></div>
+                                    <div onclick="tableNext()" class="fa fa-arrow-circle-right tableArrow arrowRight"></div>
+
+                                <!--Pascal cr 5 END -->
+                                    <apex:outputPanel layout="block" id="righTalbleHeader" styleClass="table-responsive force-responsive theOne">
+                                        <table class="table table-hover table-striped table-condensed">
+                                        
+                                            
+                                            <thead>
+    
+                                                <tr>
+                                                    <th class="sortable" data-id="Status__c">{!$Label.VO_Status}</th>
+                                                    <th class="sortable" data-id="StoreID__c">{!$Label.VO_Store_code}</th>
+                                                    <th class="sortable" data-id="StoreNameText__c">{!$Label.VO_Store_name}</th>
+                                                    <!--affichage des champs assignTO et DeliverySTore dans la console-->
+                                                    <th id="headerAssignTo" class="sortable" data-id="Assign_To__c"> {!$Label.VO_Assign_To_c}</th>
+                                                    <th id="headerStoreDelivery" class="sortable" data-id="STOREDELIVERY__c" >{!$Label.VO_Delivery_Store_c}</th>
+                                                    <th id="headerStoreOrder" class="sortable" data-id="STOREORDER__c" >{!$Label.VO_STOREORDER}</th>
+                                                    <th class="sortable sorted-down" data-id="AnswerDate__c">{!$Label.VO_Answer_date}</th>
+                                                    <th class="sortable" data-id="ClientNameText__c">{!$Label.VO_Name}</th>
+                                                    <th class="sortable" data-id="DreamIDText__c">{!$Label.VO_Dream_ID}</th>
+                                                    <th class="sortable" data-id="SegmentationText__c">{!$Label.VO_Segmentation}</th>
+                                                    <th class="sortable " data-id="TransactionProductCategoryCode__c"> {!$Label.VO_TransactionProductCategoryCode}</th>
+
+                                                    <th class="sortable" data-id="Channel__c">{!$Label.VO_Channel}</th>
+                                                    
+                                                    <th class="sortable" data-id="RootCause__c">{!$Label.VO_Root_cause}</th>
+                                                    <th class="sortable beforeAnswerHeaderFirst" data-id="Comment_History__c">{!$Label.VO_Comment_history}
+                                                    </th>
+
+                                                    
+
+                                                                                                        
+                                                    <!--          MY: answer header will be here - right after the class beforeAnswerHeaderSecond (doing on client side)          -->
+                                                </tr>
+                                                <tr class="table-header-filter">
+                                                    <th>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-xs btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" id="statusFilter" aria-expanded="false">
+                                                                {!$Label.VO_NewAndPending}
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" id="statusFilterUl" style="z-index:100000">
+                                                                
+                                                                <li data-id="all"><a>{!$Label.VO_All}</a></li>
+                                                                <li data-id="New Pending" ><a>{!$Label.VO_NewAndPending}</a></li>
+                                                                <li data-id="New"><a><span class="fa fa-exclamation-circle" style="color:#ffa834"></span> {!$Label.VO_NEW}</a></li>
+
+                                                                <li data-id="Pending"><a><span class="fa fa-clock-o" style="color:#3d8af7"></span> {!$Label.VO_Pending}</a></li>
+                                                                <li data-id="Closed"><a><span class="fa fa-check-circle" style="color:#72bb53"></span> {!$Label.VO_Closed}</a></li>
+                                                                <li data-id="No action"><a><span class="fa fa-archive"></span> {!$Label.VO_No_action}</a></li>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </th>
+                                                    <th><input id="StoreCodeFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <th><input id="StoreNameFilter" class="form-control input-xs" type="text" value="" /></th> 
+
+                                                    <!--LEL : Appel fonction displayColumnUpdate pour gestion affichage des colonnes liés à C&C-->                                              
+                                                    <th id="displayFilter1"><input id="AssignToFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <th id="displayFilter2"><input id="DeliveryStoreFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <th id="displayFilter3"><input id="StoreOrderFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <th></th>
+                                                    <!--LEL--> 
+
+                                                    <th><input id="nameFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <th><input id="dreamIdFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <th >
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-xs btn-default dropdown-toggle" id="segmentFilter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                {!$Label.VO_All}
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-left" id="segmentFilterUl">
+                                                                <li  data-id="all"><a>{!$Label.VO_All}</a></li>
+                                                                <apex:repeat value="{!segmentationPickListValue}" var="segmentValue">
+                                                                    <li class="" data-id="{!segmentValue.value}"><a>{!segmentValue.label}</a></li>
+                                                                </apex:repeat>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </th>
+
+                                                    <th >
+                                                        <input id="TransactionProductCategoryCodeFilter" class="form-control input-xs" type="text" value="" />
+                                                       
+                                                    </th>
+                                                    <th>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-xs btn-default dropdown-toggle" id="segmentFilter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                {!$Label.VO_All}
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-left" id="channelFilterUl">
+                                                                <li  data-id="all"><a>{!$Label.VO_All}</a></li>
+                                                                <apex:repeat value="{!channelPickListValue}" var="cannelValue">
+                                                                    <li class="" data-id="{!cannelValue.value}"><a>{!cannelValue.label}</a></li>
+                                                                </apex:repeat>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                        
+                                                    </th>
+
+                                                    <th><input id="rootCauseFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <th class='beforeAnswerHeaderSecond'><input id="commentHistoryFilter" class="form-control input-xs" type="text" value="" /></th>
+                                                    <!--          MY: answer header will be here - right after the class beforeAnswerHeaderSecond (doing on client side)          -->
+                                                </tr>
+                                            </thead>
+
+                                            <!-- right-->
+                                            <tbody class="rightTable">
+                                                <!-- Dust temolate goes here -->
+                                            </tbody>
+                                        </table>
+                                    </apex:outputPanel>`
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </apex:form>
+            
+           
+
+            <!-- post with param to 
+to EXCEL -->
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/exports.js')}"></script>
+
+            <!-- Pop up; light Box -->
+            <apex:outputPanel layout="none" id="modalBlock">
+                <div id="open_product" class="popup-content  mfp-hide">
+                    <div class="panel panel-primary">
+                        <apex:form >
+                            <span id='surveyModalId' style="display: none;">
+                                {!surveyForModal.Id} 
+                            </span>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="updateStatus('{!surveyForModal.Id}','Pending');$.magnificPopup.close();">
+                                    <span aria-hidden="true">x</span>
+                                </button>
+                                <h4 class="modal-title">{!$Label.VO_SurveyType}: {!surveyForModal.SurveyType__c}</h4>
+                            </div>
+                        
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h5 class="text-uppercase">
+                                            <b>{!surveyForModal.StoreName__c}</b>
+                                        </h5>
+                                        <h5>
+                                            <b>{!surveyForModal.ClientNameText__c}</b>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-6 form-inline">
+                                        <h5><b>{!$Label.VO_Dream_ID} </b> {!surveyForModal.DreamIDText__c}</h5>
+                                        <h5><b>{!$Label.VO_Segmentation} </b> {!surveyForModal.Segmentation__c}</h5>
+
+                                    </div>
+                                </div>
+                                <div class="clearfix border-bottom border-top margin-top-md margin-bottom-md">
+                                    <div class="pull-left h1 margin-md margin-right-lg">
+                                        <c:VO_symbolsTypeStatus typeName="{!surveyForModal.Type__c}"  statusName="{!surveyForModal.Status__c}" >
+                                        </c:VO_symbolsTypeStatus>
+                                    </div>
+                                    <div class="pull-left margin-right-lg">
+                                        <h5>{!$Label.VO_Answer_date} : <span>
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}">
+                                                <apex:param value="{!surveyForModal.AnswerDate__c}" />
+                                            </apex:outputtext>
+                                        </span></h5>
+                                        <apex:outputPanel rendered="{!NOT(ISNULL(surveyForModal.Follow_up_by__c))}">
+                                            <h5>{!$Label.VO_Follow_up_by} <span>{!surveyForModal.Follow_up_by__c}</span></h5>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn btn-link" href="VO_case_details?surveyID={!surveyForModal.Id}&&accountId={!surveyForModal.ClientDreamID__c}" target="_blank">
+                                            <h3>
+                                                <span class="fa fa-eye"></span>
+                                            </h3>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- RMOU : Evo Voice #9 -->
+                                <!-- <apex:outputPanel layout="none" rendered="{! OR(surveyForModal.status__c == 'New', surveyForModal.status__c == 'Pending') }">
+                                    <div class="form-group">
+                                        <label for="dropdownMenu01" class="control-label">Attached Store</label>
+                                        <div class="dropdown">
+                                            <div class="col-sm-8 sfSelectFixer Store">
+                                                <apex:selectList value="{! surveyTransfer.StoreID__c }" multiselect="false" size="1" styleClass="selectpicker" html-data-width="100%">
+                                                    <apex:selectOptions value="{! storesOptions }"/>
+                                                </apex:selectList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel> -->
+                                <div class="row ">
+                                    <div class="form-group col-sm-6">
+                                        <label for="dropdownMenu01" class="control-label">{!$Label.VO_Chanel}</label>
+                                        <div class="dropdown">
+                                            <div class="col-sm-8 sfSelectFixer Chanel">
+                                                <apex:inputField value="{!surveyForModal.Channel__c}" styleClass="selectpicker" html-data-width="100%"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <apex:outputPanel layout="none" rendered="{!surveyForModal.Type__c == 'Recovery Act'}">
+                                        <div class="form-group col-sm-6">
+                                            <label for="dropdownMenu02" class="control-label">{!$Label.VO_Root_cause_for_dissatisfaction}</label>
+                                            <div class="dropdown">
+                                                <div class="col-sm-8 sfSelectFixer rootCause">
+                                                    <apex:inputField value="{!surveyForModal.RootCause__c}" styleClass="selectpicker" html-data-width="100%"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                <span id='oldValuesRoot' style="display:none">
+                                                    {!surveyForModal.RootCause__c}
+                                                </span>
+                                        <div class="form-group col-sm-6 ">
+                                            <span style="display:none">
+                                                <apex:inputField value="{!surveyForModal.SurveyType__c}"/>
+                                                <apex:inputField value="{!surveyForModal.RootCause__c}" styleClass="selectpicker" html-data-width="100%"/>
+
+                                            </span>
+
+
+                                        </div>
+
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownMenu01" class="control-label">{!$Label.VO_Comment_history}</label>
+                                    <textarea id="commentHistory" readonly="" class="form-control" style="height:200px;">{!surveyForModal.Comment_History__c}</textarea>
+                                    <script>
+
+                                        $('#commentHistory').attr('readonly', true);
+                                    </script>
+
+                                </div>
+                                <div class="form-group ">
+                                    <div class="checkbox">
+                                        <label>
+                                            <apex:inputField styleClass="CACheckBox" value="{!surveyForModal.Action_delegated_to_CA__c}"/>{!$Label.VO_Action_delegated_to_CA}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropdownMenu01" class="control-label">{!$Label.VO_Comment}</label>
+                                    <textarea class="form-control" id='newComment' style="height:100px;"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="alert alert-danger alert-dismissible fade in errorMsgBlock" style="display: none;"> 
+                                <ul>
+                                    <li class="errorMsg" style="display: none;">
+                                        {!$Label.VO_FOLLOWUP_ERROR_MESSAGE}
+                                    </li>
+                                    <li  class="errorMsgBannedWord" style="display: none;">
+                                        {!$Label.VO_FOLLOWUP_ERROR_BANNED_WORD}
+                                        <span class="BanWordList"></span>
+                                        {!$Label.VO_FOLLOWUP_ERROR_BANNED_WORD2}
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <apex:outputPanel layout="none" rendered="{!IF(userReadOnlyOnSurveys,false,true)}">
+
+                                    <div class="pull-left "></div>
+
+                                    <div class="pull-right">
+                                            <div class="btn btn-default" onclick="updateStatus('{!surveyForModal.Id}','Pending');saveModalJS();">{!$Label.VO_Save_Action}
+                                            </div>
+
+                                            <div class="btn btn-success CloseButt" onclick="closeModalJS();">{!$Label.VO_Close_the_case}
+                                            </div>
+                                    </div>
+                               </apex:outputPanel>
+                               <apex:outputPanel layout="none" rendered="{!IF(userReadOnlyOnSurveys,true,false)}">
+                                    <div class="pull-left ">
+                                        <div class="btn btn-danger" onclick="$.magnificPopup.close();">{!$Label.VO_Cancel}</div>
+                                        <span class="errorMsg" ></span>
+                                    </div>
+                                </apex:outputPanel>
+
+                                
+                            </div>
+                            <apex:actionFunction name="clickSaveModal" action="{!clickSaveModal}" oncomplete="$.magnificPopup.close();">
+                                <apex:param id="aSaveComment" name="Comment" value="" />
+                                <apex:param id="aSaveChanel" name="Chanel" value="" />
+                                <apex:param id="aSaveRoot" name="Root" value="" />
+                                <apex:param id="aSaveCA" name="CA" value="" />
+                                <apex:param id="aSaveRootMulty" name="RootMulty" value="" />
+                            </apex:actionFunction>
+                            <apex:actionFunction name="clickCloseCaseModal" action="{!clickCloseCaseModal}" oncomplete="$.magnificPopup.close();">
+                                <apex:param id="aCloseComment" name="Comment" value="" />
+                                <apex:param id="aChanel" name="Chanel" value="" />
+                                <apex:param id="aRoot" name="Root" value="" />
+                                <apex:param id="aCA" name="CA" value="" />
+                                <apex:param id="aRootMulty" name="RootMulty" value="" />
+                            </apex:actionFunction>
+                        </apex:form>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/search_section.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/modal.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/updateTableByStorage.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/smartTable.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/bannedWordsHandler.js')}"></script>
+
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/dust_util.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/tableArrow.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/storeFilterBySurveyType.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/KPIUpdateClient.js')}"></script>
+            
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Specific_Statistics/remoteSearch.js')}"></script>
+
+            <!-- Dust templates!  -->
+            <script id="tmpl_RootMulty" type="text/dust-template">
+                  <select class="selectpicker" multiple>
+                     {#.}
+                        {?selected}
+                         <option selected>{value}</option>
+                        {:else}
+                          <option>{value}</option>
+                        {/selected}  
+                     {/.}
+                  </select>
+            </script>
+            <script id="tmpl_TableRightPart" type="text/dust-template">
+                
+                {#.}
+                    <tr data-id="{survey.Id}">
+                        <td style="text-align:center">
+                            <h4 class="margin-no text-uppercase">
+                                <span class='statusSymbole' data-id="{survey.Id}">
+                                    {@select key=survey.Status__c}
+                                        {@eq value="Pending"}
+                                        <span class=" fa fa-clock-o" style="color:#3d8af7"></span>
+                                        {/eq}
+                                        {@eq value="New"}
+                                        <span class="fa fa-exclamation-circle New" style="color:#ffa834"></span>
+                                        {/eq}
+                                        {@eq value="Closed"}
+                                        <span class="fa fa-check-circle" style="color:#72bb53"></span>
+                                        {/eq}
+                                        {@eq value="No action"}
+                                        <span class="fa fa-archive"></span>
+                                        {/eq}
+                                        {@default}Not FIND!{/default}
+                                    {/select}
+                                </span>
+                                <span class="h5 vertical-middle" > {Status__c}</span>
+                                
+                            </h4>
+                        </td>
+                        <td style="text-align:center">{survey.StoreID__c}</td>
+                        <td>{survey.StoreNameText__c}</td>
+                        
+                        {@select key=survey.SurveyType__c}
+                            {@eq value="VOICE CSC Click And Collect"}
+                                <!--<td>{survey.Assign_To__c}</td>-->
+                                <td>{survey.STOREDELIVERY__c}</td>
+                            {/eq}
+                            {@eq value="VOICE Web Click And Collect"}
+                                <!--<td>{survey.Assign_To__c}</td>-->
+                                <td>{survey.STOREDELIVERY__c}</td>
+                            {/eq}
+                            {@eq value="VOICE Endless Offer"}
+                                <!--<td>{survey.Assign_To__c}</td>-->
+                                <td>{survey.STOREORDER__c}</td>
+                            {/eq}
+                        {/select}
+                                             
+                        <td>{survey.AnswerDate__c}</td>
+                        <td>{survey.ClientNameText__c}</td>
+                        <td>{survey.DreamIDText__c}</td>
+                        <td>{survey.SegmentationText__c}</td>
+                        <td>{survey.TransactionProductCategoryCode__c}</td>
+                        <td class="ChannelTable wrap-no" data-toggle="tooltip" title="{survey.Channel__c}">{survey.Channel__c}</td>
+                        <td class="Root_CauseTable wrap-no" data-toggle="tooltip" title="{survey.RootCause__c}">
+                           {?survey.RootCause__c}
+                                {survey.RootCause__c}
+                           {/survey.RootCause__c}
+                          {^survey.RootCause__c}
+                            
+                           {/survey.RootCause__c}   
+                        </td>
+                        <td class="wrap-no Comment_HistoryTable" data-toggle="tooltip" title="{survey.Comment_History__c}" >{survey.Comment_History__c}</td>
+                        
+                        {#answerTableList}
+                            <td class="wrap-no" data-toggle="tooltip" title="{.}">{.}</td>
+                        {/answerTableList}
+                        </tr>
+                {/.}
+
+
+            </script>
+            
+            <script type="text/javascript">
+                
+                $(window).load(udpateDisplayColumns);
+                $(document).ready(udpateDisplayColumns);
+                    
+// LEL=> Fonction UpdateDisplayColumns : permet de cacher ou afficher les colonnes liés à C&C 
+                function udpateDisplayColumns(){
+                    var display;
+
+                   display = $('select[name*=surveyTypeValuesSelect]').val();
+                   console.log(display);
+                    
+                    if ((display == '{!CCCSCSales}') || 
+                        (display == '{!CCWEBSales}')) 
+                        {
+                            document.getElementById('headerAssignTo').style.display="none";
+                            document.getElementById('headerStoreDelivery').style.display="";
+                            document.getElementById('headerStoreOrder').style.display="none";
+                            document.getElementById('displayFilter1').style.display="none";
+                            document.getElementById('displayFilter2').style.display="";
+                            document.getElementById('displayFilter3').style.display="none";
+                    }
+                    else if (display == '{!EOSales}'){        
+                            document.getElementById('headerAssignTo').style.display="none";
+                            document.getElementById('headerStoreOrder').style.display="";
+                            document.getElementById('headerStoreDelivery').style.display="none";
+                            document.getElementById('displayFilter1').style.display="none";
+                            document.getElementById('displayFilter2').style.display="";
+                            document.getElementById('displayFilter3').style.display="none";
+                        }
+                        else
+                        {
+                            document.getElementById('headerAssignTo').style.display="none";
+                            document.getElementById('headerStoreDelivery').style.display="none";
+                            document.getElementById('headerStoreOrder').style.display="none"; 
+                            document.getElementById('displayFilter1').style.display="none";
+                            document.getElementById('displayFilter2').style.display="none"; 
+                            document.getElementById('displayFilter3').style.display="none";
+                        }    
+                }  
+            </script>
+
+            
+            
+            <script id="tmpl_TableLeftPart" type="text/dust-template">
+                    {#.}
+                    <tr data-id="{survey.Id}">
+                        <td>
+                            <div class="checkbox margin-no">
+                                <label>
+                                    <input data-id="{survey.Id}" type="checkbox" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div href="vo_case_details?surveyID={survey.Id}&&accountId={survey.ClientDreamID__c}" class="btn btn-link btn-xs padding-top-no" target="_blank">
+                                <h4 class="margin-no">
+                                        <span class="fa fa-eye" onclick="blockUI();clickOnEye('{survey.Id}');updateStatus('{survey.Id}','Pending');$('.eyeLinkCaseDetail').text($(this).parent().parent().attr('href')) "></span>
+                                </h4>
+                            </div>
+                            <div class="btn btn-link btn-xs padding-top-no" data-toggle="modal" data-target="#myModal">
+                                <h4 class="margin-no">
+                                    <!-- RMOU : Evo Voice #9 -->
+                                    <span class="fa fa-pencil" onclick='/*initStoreTransfer("{survey.Id}");*/modalClick("{survey.Id}");updateStatus("{survey.Id}","Pending");' data-id="{survey.Id}"></span>
+                                </h4>
+                            </div>
+                        </td>
+                        <td>
+                            <h4 class="margin-no" style="text-align:center">
+                                {@select key=survey.Type__c}
+                                {@eq value="Neutral"}
+                                <span class="fa fa-meh-o" style="color:#808080"></span>
+                                {/eq}
+                                {@eq value="Promoter"}
+                                <span class="fa fa-volume-up" style="color:#3d8af7"></span>
+                                {/eq}
+                                {@eq value="Recovery Act"}
+                                <span class="fa fa-plus" style="color:#ff0000"></span>
+                                {/eq}
+                                {@eq value="Delighted Client"}
+                                <span class="fa fa-smile-o" style="color:#72bb53"></span>
+                                {/eq}
+                                {/select}
+                            </h4>
+                        </td>
+    
+                        <td class="wrap-no" data-toggle="tooltip" title="{survey.SurveyComment__c}">{survey.SurveyComment__c}</td>
+                    </tr>
+                    {/.}
+            </script>
+
+
+            <script type="text/javascript">
+                var IsAdmin = {!$Profile.Name == 'System Administrator'};
+                Visualforce.remoting.timeout = 60000;
+                $(document).ready(function()
+                {
+                    UTILS.compileDustTemplates();
+                    initDataPickers()
+                    sfSelectFixer(800);
+                    readOnlyIfNotAdmins(800);
+                    //search();//VO UAT 54:Search should start automatically 
+                    clickOnSearchRemote();
+                    headerTableRemote();
+                    
+                });
+                //For storeFilterBySurveyType.js
+                var checkCustomLable = '{!$Label.VO_CHECK_ATLEAST_ONE_MSG}';
+                var storeByType = {!jsonStoreByType};
+
+                var VoiceAfterSalesName= "{!VOICE_AFTER_SALES}" || "";
+
+                
+            </script>
+
+            <!--  New excel EXPORT -->
+            <script src="{! URLFOR($Resource.VO, 'VO/js/custom-js/VO_Specific_Statistics/export2excel.js') }"></script>
+            <script> $(export2excel('{! $Api.Session_ID }')); </script>
+
+            <script id="tmpl_ExcelExport_FilterKeys" type="text/dust-template">
+                <table>
+                    <tbody>
+                        <tr>{! $Label.VO_ExportExcel_InfoMsg }</tr>
+                        <tr><th>{! $Label.VO_FROM }:</th><td>{fromDate}</td><th>{! $Label.VO_TO }:</th><td>{toDate}</td></tr>
+                        <tr><th>{! $Label.VO_Nb_OF_SURVEYS } :</th><td>{amountOfsuerveyExported}</td><td></td><td></td></tr>
+                        <tr><th>{! $Label.VO_FILTERS }:</th><td>{! $Label.VO_Level_1 } :</td><td>{lvl1Value}</td><td></td></tr>
+                        <tr><th></th><td>{! $Label.VO_Level_2 } :</td><td>{lvl2Value}</td><td></td></tr>
+                        <tr><th></th><td>{! $Label.VO_Level_3 } :</td><td>{lvl3Value}</td><td></td></tr>
+                        <tr><th></th><td>{! $Label.VO_Level_4 } :</td><td>{lvl4Value}</td><td></td></tr>
+                        <tr><th></th><td>{! $Label.VO_Store } :</td><td>{store}</td><td></td></tr>
+                    </tbody>
+                </table>
+            </script>
+            <script id="tmpl_ExcelExport_Header" type="text/dust-template">
+            
+                                     
+                    <tr>
+                    <th>{! $ObjectType.VO_Survey__c.fields.Type__c.Label}</th>
+                    <th>{! $ObjectType.VO_Survey__c.fields.SurveyComment__c.Label}</th>
+                    <th>{! $Label.VO_Status }</th>
+                    <th>{! $Label.VO_Store_code }</th>
+                    <th>{! $Label.VO_Store_name }</th>
+                    <!--LELBAY => ajout colonne C&C dans l'export Excel-->
+                    {@select key=SurveyType__c}
+                            {@eq value="VOICE CSC Click And Collect"}
+                                <!--<th>{! $Label.VO_Assign_To_c }</th>-->
+                                <th>{! $Label.VO_Delivery_Store_c }</th>
+                            {/eq}
+                            {@eq value="VOICE Web Click And Collect"}
+                                <!--<th>{! $Label.VO_Assign_To_c }</th>-->
+                                <th>{! $Label.VO_Delivery_Store_c }</th>
+                            {/eq}
+                            <!--LEL : Afiichage EndlessOffer -->
+                            {@eq value="VOICE Endless Offer"}
+                                <!--<th>{! $Label.VO_Assign_To_c }</th>-->
+                                <th>{! $Label.VO_STOREORDER }</th>
+                            {/eq}
+                    {/select}
+                    <th>{! $Label.VO_Answer_date }</th>
+                    <th>{! $Label.VO_Name }</th>
+                    <th>{! $Label.VO_Dream_ID }</th>
+                    <th>{! $Label.VO_Segmentation }</th>
+                    <th>{! $Label.VO_TransactionProductCategoryCode }</th>
+                    <th>{! $Label.VO_Channel }</th>
+                    <th>{! $Label.VO_Root_cause }</th>
+                    <th>{! $Label.VO_Comment_history }</th>
+                    
+
+                    {#.}
+                        <th>{shortname}</th>
+                    {/.}
+                    <th>{! $Label.VO_Device_Type_c}</th>
+                    <!--MAUB => ajout colonne MGMT Level --> 
+                    <th>{! $Label.VO_Management_zone_level}</th>
+                    <th>{! $Label.VO_MGMT_ZONE_SUB_LEVEL1_c}</th>
+                    <th>{! $Label.VO_MGMT_ZONE_SUB_LEVEL2_c}</th>
+                    <th>{! $Label.VO_MGMT_ZONE_SUB_LEVEL3_c}</th>
+                    
+                             
+                           
+                </tr>
+            </script>
+            <script id="tmpl_ExcelExport" type="text/dust-template">
+                {#.}
+                    <tr data-id="{Id}">
+                        <td>{Type__c}</td>
+                        <td>{SurveyComment__c}</td>
+                        <td>{Status__c}</td>
+                        <td>{StoreID__c}</td>
+                        <td>{StoreNameText__c}</td>
+
+                        <!--LELBAY => ajout colonne C&C -->
+                        {@select key=SurveyType__c}
+                            {@eq value="VOICE CSC Click And Collect"}
+                                <!--<td>{Assign_To__c}</td>-->
+                                <td>{STOREDELIVERY__c}</td>
+                            {/eq}
+                            {@eq value="VOICE Web Click And Collect"}
+                                <!--<td>{Assign_To__c}</td>-->
+                                <td>{STOREDELIVERY__c}</td>
+                            {/eq}
+                            <!--LEL : Afiichage EndlessOffer -->
+                            {@eq value="VOICE Endless Offer"}
+                                <!--<td>{Assign_To__c}</td>-->
+                                <td>{STOREORDER__c}</td>
+                            {/eq}
+                        {/select}
+                        
+
+                        <td>{AnswerDate__c}</td>
+                        <td>{ClientNameText__c}</td>
+                        <td>{DreamIDText__c}</td>
+                        <td>{SegmentationText__c}</td>
+                        <td>{TransactionProductCategoryCode__c}</td>
+                        <td>{Channel__c}</td>
+                        <td>{RootCause__c}</td>
+                        <td>{Comment_History__c}</td>
+                        
+                        {#answerTableList}
+                            <td>{.}</td>
+                        {/answerTableList}
+                        <td>{Device_Type__c}</td>
+                        <!--MAUB => ajout colonne MGMT Level -->
+                        <td>{Store__r.MANAGEMENT_ZONE_LEVEL_TECH__c}</td>
+                        <td>{Store__r.MGMT_ZONE_SUB_LEVEL1_TECH__c}</td>
+                        <td>{Store__r.MGMT_ZONE_SUB_LEVEL2_TECH__c}</td>
+                        <td>{Store__r.MGMT_ZONE_SUB_LEVEL3_TECH__c}</td>
+                        
+                
+                    </tr>
+                {/.}
+            </script>
+
+            <!--  END new excel EXPORT -->
+            
+        </apex:define>
+    </apex:composition>
+    <!-- libraries  -->
+    <!-- Datepicker dependency -->
+    <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/bootstrap-datepicker.min.js')}"></script>  
+    <!--<script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/gtool.js')}"></script>-->
+</apex:page>

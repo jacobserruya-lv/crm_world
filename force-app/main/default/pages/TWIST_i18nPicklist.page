@@ -1,0 +1,8 @@
+<apex:page language="{!$CurrentPage.parameters.language}"
+    controller="TWIST_i18nPicklist_CTRL"
+    action="{!init}"
+    contentType="text/plain"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"><apex:repeat value="{!picklistValues}" var="key">"{!key}":"{!picklistValues[key]}",</apex:repeat>
+</apex:page>

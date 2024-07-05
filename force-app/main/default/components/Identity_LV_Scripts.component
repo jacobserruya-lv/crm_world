@@ -1,0 +1,64 @@
+<apex:component >
+    
+    <apex:attribute name="paths" description="" type="map" required="true"/>
+    <apex:attribute name="country_local" description="" type="String" required="true"/>
+    <apex:attribute name="isDevMode" description="" type="Boolean" required="true"/>
+    <apex:attribute name="isNewDesignActive" description="" type="Boolean" required="true"/>
+    <apex:attribute name="customCss" description="" type="String" required="true"/>
+
+    <meta name="msapplication-TileImage" content="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/mstile-144x144.png' }"/>
+            <meta name="msapplication-config" content="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/browserconfig.xml' }"/>
+    
+    <!-- FAVICON -->
+    <apex:stylesheet html-rel="apple-touch-icon"
+        value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/apple-touch-icon.png' }" />
+    <apex:stylesheet html-rel="icon" html-type="image/png" html-sizes="32x32"
+        value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/favicon-32x32.png' }" />
+    <apex:stylesheet html-rel="icon" html-type="image/png" html-izes="16x16"
+        value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/favicon-16x16.png' }" />
+    <apex:stylesheet html-rel="manifest"
+        value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/site.webmanifest' }" />
+    <apex:stylesheet html-rel="mask-icon"
+        value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/safari-pinned-tab.svg' }"
+        html-color="#19110b" />
+    <apex:stylesheet html-rel="shortcut icon"
+        value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/assets/favicons/favicon.ico' }" />
+
+    <!-- AUTODATA library -->
+    <script type="text/javascript" src="{!JSINHTMLENCODE(paths['Autodata'])}"></script>
+
+    <!-- JQUERRY -->
+    <apex:includeScript value="{!URLFOR($Resource.PhoneFormatter, '/js/jquery.min.js')}" />
+
+    <!-- javascript code -->
+    <apex:includeScript value="{!URLFOR($Resource.Identity_Registration_JS, 'Identity_Registration.js')}"/>
+
+    <!-- import SALESFORCE CSS -->
+    <apex:stylesheet value="{!URLFOR($Resource.Identity_Registration_CSS, 'SM-LoginPageStyle.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Identity_Registration_CSS, 'vuitton-adjustments.css')}"/>
+    <apex:stylesheet value="{!IF(isDevMode, URLFOR($Resource.Identity_Registration_CSS, 'DevOverrides.css'), null)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Identity_Registration_CSS, customCss)}"/>
+    
+    <!-- import LV CSS -->
+    <apex:stylesheet value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain'] + paths['Style Registration']) }" />
+    <apex:stylesheet value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain'] + paths['Style Default']) }" />
+    <apex:variable rendered="{! country_local == 'kr' }" var="kr-css" value="kr-css">
+        <apex:stylesheet value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain'] + paths['Style KR']) }"/>
+    </apex:variable>
+    <apex:variable rendered="{! country_local == 'cn' }" var="cn-css" value="cn-css">
+        <apex:stylesheet value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain'] + paths['Style CN']) }"/>
+    </apex:variable>    
+    <apex:variable rendered="{! country_local == 'jp' }" var="jp-css" value="jp-css">
+        <apex:stylesheet value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain'] + paths['Style JP']) }"/>
+    </apex:variable>
+    <apex:variable rendered="{! country_local == 'tw' }" var="tw-css" value="tw-css">
+        <apex:stylesheet value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain'] + paths['Style TW']) }"/>
+    </apex:variable>
+
+    <apex:stylesheet value="//tp.louisvuitton.com/fonts/fontface.css"/>
+    <apex:stylesheet value="//tp.louisvuitton.com/fonts/fontface_ENG.css"/>
+    <apex:stylesheet value="{!URLFOR($Resource.LVFont, 'font-faces.css')}"/>
+
+    <apex:stylesheet value="{! JSINHTMLENCODE(paths['Louis Vuitton Domain']) + '/static/generic/min/css/fonts/fontface.css' }" />
+
+</apex:component>

@@ -1,0 +1,75 @@
+<apex:page Controller="ICX_Flow_AgentScriptController" language="{!languageCode}" >
+<!-- https://salesforce.stackexchange.com/questions/8470/assign-language-value-dynamically-in-visualforce-page -->
+
+    <apex:slds />
+
+    <div style="padding-left: .75rem;/*padding-right: .75rem;*/vertical-align: middle;line-height:1.5;" class="slds-text-heading_{!size}">
+        {!$Label[labelName]}
+        
+        <span class="{! 'slds-p-left_xx-small ' + IF(showCopyButton, '', 'slds-hide')}">
+            <button class="slds-button " onclick="copyLabel()" title="Copy">
+                <svg aria-hidden="true" class="slds-button__icon">
+                    <!--use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#account')}"></use-->
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#copy')}" />
+                </svg>
+            </button>
+            <!--apex:actionfunction name="actfun" action="{!Processing}" /-->
+            <!--lightning:buttonIcon iconName="utility:copy" alternativeText="Copy" onclick="{!c.copyScript}" /-->
+        </span>
+    </div>
+    
+
+        
+        <script>
+        
+        var translatedLabel2 = "{!$Label[labelName]}";
+        console.log("translatedLabel2", translatedLabel2);
+
+        //var lexOrigin = 'https://louisvuitton--iconics.lightning.force.com';
+            window.addEventListener("message", function(event) {
+                console.log("addEventListener");
+                if (event.origin.indexOf("lightning.force.com") === -1) {
+                    // Not the expected origin: reject message!
+                    return;
+                }
+                // Handle message
+                //console.log("data", event.data);
+                saveData(event.data);
+            }, false);
+        
+            function saveData(data, callback){
+                var translatedLabel = "{!$Label[labelName]}";
+
+                // Sending the Message in a Visualforce Page with postMessage() on parent (reference to the parent window, in other words the main window in Lightning Experience that hosts Lightning components)
+                
+                console.log("translatedLabel", translatedLabel);
+                //parent.postMessage(message, lexOrigin);
+            }
+            
+            function copyLabel() {
+                var scriptText = translatedLabel2;
+                console.log('scriptText=' + scriptText);
+        
+                // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+                var textArea = document.createElement("textarea");
+                textArea.value = scriptText;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+        
+                /* Copy the text inside the text field */
+                document.execCommand("copy");
+        
+                try {
+                    var successful = document.execCommand('copy');
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    console.log('Fallback: Copying text command was ' + msg);
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+        
+                document.body.removeChild(textArea);
+            }
+        </script>
+    
+</apex:page>

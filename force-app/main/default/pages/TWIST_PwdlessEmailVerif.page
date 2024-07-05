@@ -1,0 +1,9 @@
+<apex:page controller="TWIST_PwdlessEmailVerif_CTRL"
+    action="{!redirect}"
+    showHeader="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    sidebar="false"
+    docType="html-5.0"
+    standardStylesheets="false">
+</apex:page>

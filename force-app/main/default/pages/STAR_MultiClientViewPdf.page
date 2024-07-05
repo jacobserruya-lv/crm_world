@@ -1,0 +1,28 @@
+<apex:page renderAs="PDF" controller="STAR_MultiClientViewPdf_VFCx" showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" doctype="html-5.0"> <!-- sidebar="false"  -->
+<!--<head> -->
+       <style type="text/css">
+                  
+              @page
+              {
+                 @bottom-center 
+                 {
+                   content: "Page " counter(page) " of " counter(pages);
+                 }
+              }
+            
+            body 
+            {
+                font-family: CenturyGothic, AppleGothic, sans-serif;
+            }
+                     
+        </style>
+   <!-- </head>-->
+
+    <body>
+        <apex:repeat value="{!Clients}" var="client">
+            <div > 
+                <c:STAR_DetailClientComponent Client="{!client}"/>
+            </div>
+         </apex:repeat>
+    </body>   
+</apex:page>

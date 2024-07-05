@@ -1,0 +1,57 @@
+<apex:page showHeader="false" sidebar="false" controller="TWIST_LWCWrapper_CTRL" action="{!init}">
+
+    <div id="lwc-wrapper-container"/>
+
+    <script type="text/javascript">
+        window.addEventListener("message", event => {
+            switch (event.data) {
+                case "hidePageLoader":
+                    document.querySelector(".lv-loader-wrapper").style.display = "none";
+                    break;
+                case "showPageLoader":
+                    document.querySelector(".lv-loader-wrapper").style.display = "block";
+                    break;
+            }
+        });
+
+        function createWrapperComponent() {
+            $Lightning.use("c:TwistSilentRedirectLightningApp", function() {
+                const oQueryParams = buildQueryParamsObject(new URL("{!$CurrentPage.URL}"));
+                if('{!redirectionLinkToLVapp}' !== ''){
+                   window.location.href = "{!redirectionLinkToLVapp}";
+                }
+                else{
+                    $Lightning.createComponent(
+                        `c:${getLwcName(oQueryParams.page)}`,
+                        {
+                            queryParams: JSON.stringify(oQueryParams),
+                            autodata: autoData,
+                            windowFunctions: getWindowFunctionsAsObject(),
+                            documentCookie: document.cookie
+                        },
+                        "lwc-wrapper-container",
+                        function(component) {}
+                    );
+                }
+              
+            });
+        }
+        
+        function getWindowFunctionsAsObject() {
+            const o = {};
+            for (const [key, value] of Object.entries(window)) {
+                if (typeof(value) === 'function') {
+                    o[key] = value;
+                }
+            }
+            return o;
+        }
+    </script>
+
+    <c:TWIST_PageLoader />
+
+    <c:TWIST_UI />
+
+    <c:TWIST_GoogleAnalytics utagDataStringified="{!JSENCODE(utagDataStringified)}" utagDataScript="{!utagDataScript}"/>
+
+</apex:page>

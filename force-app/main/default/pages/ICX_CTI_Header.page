@@ -1,0 +1,433 @@
+<apex:page title="CTI" cache="true">
+    
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <apex:includeScript value="/soap/ajax/46.0/connection.js"/>  
+    <apex:includeScript value="{!URLFOR($Resource.cnx__CnxSfdcResources, 'js/ConnectsIntegrationAPI.min.js')}"/>
+
+    <apex:includeScript value="/support/api/46.0/interaction.js"/> 
+    <!--apex:includeScript value="/support/api/43.0/lightning/opencti_min.js"/--> 
+
+    <!--apex:includeLightning />
+    <div id="lightning" /-->
+
+    <script>
+
+    /*var myUserContext = "{!$User.UITheme}";
+    console.log("myUserContext", myUserContext);
+
+    var openSuccess = function openSuccess(result) { 
+        if (result.success == true) { 
+            alert('Primary tab successfully opened'); 
+        } else { 
+            alert('Primary tab cannot be opened'); 
+        } 
+    }
+
+    // Here 'ICX_CTI_HeaderApp' Is Lightning Application Name
+    $Lightning.use("c:ICX_CTI_HeaderApp", function() {
+        $Lightning.createComponent("c:ICX_CTI_Header",
+                                   {   // Set Lightning Component Attributes Property before creating Lightning Component In Visualforce page 
+                                       //textColor : "Red",
+                                       //currentUserName : '{!$User.FirstName} {!$User.LastName}' 
+                                   },
+                                   "lightning",
+                                   function(component) {
+                                       window.$Force = sforce;
+                                       // create component Callback, Lightning Component has been Created,
+                                       // Now you can set more lightning Component attributes here,
+                                       // and do more cool stuff here
+                                       //component.set("v.accId" , '{!$CurrentPage.parameters.recId}');
+
+                                       // Don't work because of cross-origin frame exception
+                                       $A.eventService.addHandler({
+                                           event: 'force:navigateToSObject',
+                                           handler: function(event) {
+                                               console.log("VF navigateToSObject");
+                                               if (myUserContext == 'Theme4t' || myUserContext == 'Theme4d') {
+                                                   // The Visualforce page is in S1 or Lightning Experience
+                                                   sforce.one.navigateToSObject(event.getParams().recordId);
+                                               } else if (myUserContext == 'Theme3') {
+                                                   // The Visualforce page is  running in Classic
+                                                   console.log("window.parent.location", window.parent.location);
+                                                   console.log("parent.location", parent.location);
+                                                   console.log("window.location", window.location);
+                                                   //window.parent.location = '/' + event.getParams().recordId;
+                                                   //window.location = '/' + event.getParams().recordId;
+                                                   //windows.location = 'sfdc://' + event.getParams().recordId;
+                                                   $Force.opencti.screenPop({
+                                                       type: $Force.opencti.SCREENPOP_TYPE.SOBJECT,
+                                                       params: {
+                                                           recordId: event.getParams().recordId
+                                                       }
+                                                   });
+
+                                                   sforce.console.openPrimaryTab(null, '/' + event.getParams().recordId, true, null, openSuccess, null); 
+
+                                               } else {
+                                                   console.log("Unsupported theme");   
+                                               }
+                                           }
+                                       });
+
+                                       $A.eventService.addHandler({
+                                           event: 'c:ICX_CTI_HeaderEvent',
+                                           handler: function(event) {
+                                               console.log("VF ICX_CTI_HeaderEvent");
+                                               if (myUserContext == 'Theme4t' || myUserContext == 'Theme4d') {
+                                                   // The Visualforce page is in S1 or Lightning Experience
+                                                   sforce.one.navigateToSObject(event.getParams().recordId);
+                                               } else if (myUserContext == 'Theme3') {
+                                                   // The Visualforce page is  running in Classic
+                                                   window.parent.location = '/' + event.getParams().recordId;
+                                               } else {
+                                                   console.log("Unsupported theme");   
+                                               }
+                                           }
+                                       });
+                                   });
+    });*/
+    
+    /* Visualforce - Lightning Bridge */
+    
+    //    var lexOrigin = "https://louisvuitton--iconics.lightning.force.com";
+    //    var ciscoUrl = "https://tlveu007d.vuitton.lvmh:8445";
+    //var ciscoEndUrl = ".vuitton.lvmh:8445";
+    //var lcMessagesEl = document.getElementById("lcMessages");
+    /*
+    // Listen messages from Lightning to Visualforce
+    window.addEventListener("message", function(event) {
+        console.log("addEventListener event.origin", event.origin);
+        console.log("addEventListener event.origin.indexOf(ciscoEndUrl)", event.origin.indexOf(ciscoEndUrl));
+        //if (event.origin !== lexOrigin) {
+        if (event.origin.indexOf(ciscoEndUrl) === -1) {
+            // Not the expected origin: reject message
+            return;
+        }
+        // Only handle messages we are interested in            
+        console.log("event.data.name", event.data.name);
+        if (event.data.name === "com.mycompany.chatmessage") {
+            var messages = "Lightning Message";//lcMessagesEl.value;
+            messages = messages + event.data.payload + "\n";
+            lcMessages.value = messages;
+        }
+        
+        // TODO Changing the agent status from Omnichannel ("Ready for calls")
+        //setAgentState(); // READY si "Ready for calls" / LOGOUT otherwise
+        
+    }, false);*/
+    
+    /*
+    // Send messages from Visualforce to Lightning: as the CTI popup doesn't support yet a Lightning Component
+    function sendToLC(event) {
+        //var payload = "test payload";//document.getElementById("message").value;
+        console.log("sendToLC event", event);
+        var message = {
+            name: "com.mycompany.chatmessage",
+            payload: "event payload"
+        };
+        // parent: reference to the parent window, in other words the main window in Lightning Experience that hosts Lightning components
+        parent.postMessage(message, ciscoUrl);//lexOrigin); // 
+    }
+
+    function callLightningEvent() {
+        console.log("callLightningEvent fired");
+        var lightningEvent = $A.get("e.c:ICX_CTI_HeaderEvent");
+        lightningEvent.setParams({'json': 'TEST JSON'});//{'TestDataKey':'TestDataValue'}});
+        lightningEvent.fire();
+    }*/
+    
+    /*// Visualforce Page to Lightning Component: as the CTI popup doesn't support yet a Lightning Component
+    function sendToLC(message) {
+        var lexOrigin = "https://louisvuitton--iconics.lightning.force.com";
+
+        // parent: reference to the parent window, in other words the main window in Lightning Experience that hosts Lightning components
+        parent.postMessage(message, lexOrigin);
+    }*/
+    
+    var finishedInitialization = function () {
+        console.log("finishedInitialization waitReady started");
+        
+        ConnectsIntegrationAPI.onActivitySave = function (event) {
+            console.log("event onActivitySave=" + event);
+            console.log("event.Type=" + event.eventType);
+            console.log("event.RecordId=" + event.recordId);
+            console.log("event.item=" + event.item);
+            console.log("event.created=" + event.created);
+            
+            /*            ConnectsIntegrationAPI.getCustomToolbarDefaultSize(
+                ConnectsIntegrationAPI.GENERAL.TOOLBAR_POSITION.TOP,
+                function (response) {
+                if (response.success) {
+                    ConnectsIntegrationAPI.writeLogDebug("Top toolbar default height is: " + response.data.height);
+                }
+            });*/
+
+            try { 
+                sforce.connection.sessionId = '{!$Api.Session_ID}';
+                //sforce.connection.sessionId='{!GETSESSIONID()}';
+                
+                console.log("sessionId" + sforce.connection.sessionId);
+
+                if (event.created) {
+                    console.log("event",event);
+                    console.log("event.item.CallType", event.item.CallType);
+                    if (event.item.Direction = 'Inbound' && event.item.CallType !== 'OUT') {
+                        
+                        var task = sforce.connection.retrieve("AccountId", "Task", [event.recordId])[0]; 
+                        console.log("task", task);
+                        // update Last Contact Date
+                        if (task.AccountId != null) {
+                            console.log("task.AccountId", task.AccountId);
+                            var acc = sforce.connection.retrieve("LastContactDate__pc", "Account", [task.AccountId])[0];
+                            acc.LastContactDate__pc = new Date();
+                            sforce.connection.update([acc]);
+                        }
+
+                        console.log("NEW CALL IN VF > event.item", event.item);
+                        var storeCode = event.item.PerVar7;
+                        var country = event.item.PerVar8;
+                        var taskId = event.item.CrmId;
+                        
+                        console.log("taskId", taskId);
+                        console.log("COUNTRY PerVar8", country);
+                        console.log("STORE CODE PerVar7", storeCode);
+                        
+                        try {
+                            
+                            // Find CISCO country name matching with Salesforce
+                            var resultStore = sforce.connection.query(
+                                "SELECT Id, StoreCountry__c FROM Store__c WHERE RetailStoreId__c ='" + storeCode + "'");
+                            var records = resultStore.getArray("records");
+                            //if (records.length != 1) throw "Unable to find store code " + storeCode + ". Please contact your administator.";
+                            //if (records.length != 1) return;
+                            if (records.length != 1) {
+                                console.log('Unable to find store code ' + storeCode);
+                            } else {
+                                var storeId = records[0].Id;
+                                console.log("storeId", storeId);
+                                var storeCountry = records[0].StoreCountry__c;
+                                console.log("storeCountry", storeCountry);
+                                
+                                // Find store
+                                var resultCountry = sforce.connection.query(
+                                    "select id, Iso3Code__c, Case__c, HasOtherValue__c from CountryMapping__mdt WHERE StoreOrUser__c = '" + storeCountry + "'");
+                                var countryRecords = resultCountry.getArray("records");
+                                //if (countryRecords.length != 1) throw "unable to find country " + storeCountry;
+                                if (countryRecords.length != 1) return;
+                                
+                                var countryName = countryRecords[0].Case__c;
+                                console.log("countryName", countryName);
+                                
+                                var hasOtherValue = countryRecords[0].HasOtherValue__c;
+                                console.log("hasOtherValue=" + hasOtherValue);
+                                
+                                var iso3 = countryRecords[0].Iso3Code__c;
+                                console.log("iso3=" + iso3);
+                                    
+                                if (hasOtherValue == 'true' && iso3 !== null) {
+                                    console.log("SOQL query to find the matching country name for iso3=" + iso3);
+                                    // find the country ISO3 (for example, Store DB sends HAWAII as a country but it's the ISO3 code doesn't exist. So, the next request will find out the Country name for Case (ex : USA).
+                                    var resultCountry2 = sforce.connection.query(
+                                        "select id, Iso3Code__c, Case__c, HasOtherValue__c from CountryMapping__mdt WHERE HasOtherValue__c = false AND Iso3Code__c = '" + iso3 + "'");
+                                    var countryRecords2 = resultCountry2.getArray("records");
+                                    if (countryRecords2.length != 1) throw "unable to find country " + iso3;
+                                    countryName = countryRecords2[0].Case__c;
+                                    console.log("countryName", countryName);
+                                    
+                                    iso3 = countryRecords2[0].Iso3Code__c;
+                                }
+                                
+                                if (countryName !== '') {
+                                    var task = sforce.connection.retrieve("Store_Location__c,Country__c,ICX_Country__c,ActionType__c", "Task", [event.recordId])[0]; 
+                                    task.Country__c = countryName;
+                                    task.ICX_Country__c = iso3;
+                                    task.Store_Location__c = storeId;
+                                    task.ActionType__c = 'Phone';
+                                    console.log("task", task);
+                                    sforce.connection.update([task]);
+                                }
+                            }
+                        } catch (err) {
+                            // throw "Unable to update the call with store and country : " + storeCode + "/" + country;
+                            console.log("Unable to update the call with store and country : " + storeCode + "/" + country);
+                        }
+
+                        // Display screenPop removed                       
+                        // TODO find more detail about ConnectIntegration.js : a.getOriginFromUrl(a.getParentUrl());window.parent.postMessage(JSON.stringify(b),d)}else window.sforce.console.fireEvent("ConnectsIntegrationRequest",JSON.stringify(b))}
+                        ConnectsIntegrationAPI.screenPop(taskId, function (response) {
+                            if (!response.success) { 
+                                //ConnectsIntegrationAPI.showError("USER","ScreenPop failed ", response.error);
+                                console.log("screenPop failure > response.error=" + response.error);
+                            } else {
+                            	// Hide CTI popup
+                                /*ConnectsIntegrationAPI.setGadgetVisibility(false, function (response2) {
+                                    if (!response2.success) {
+                                        ConnectsIntegrationAPI.showError("USER","SetGadgetVisibility failed ", response2.error);
+                                    }
+                                });*/
+                            }
+                        });
+                        
+                        /*var d = {};
+                        d.request = "SendLightningComponent";
+                        d.data = {
+                            store: storeCode,
+                            country : country,
+                            taskId : taskId
+                        };
+                        
+                        var originUrl = getOriginFromUrl(getParentUrl());
+                        console.log("originUrl", originUrl);
+                        window.parent.postMessage(JSON.stringify(d), originUrl);*/
+                        
+                        // KO: Uncaught DOMException: Blocked a frame with origin "https://louisvuitton--iconics.cs70.my.salesforce.com" from accessing a cross-origin frame
+                        //window.sforce.console.fireEvent("ConnectsIntegrationRequest", JSON.stringify(d));
+                        
+                        /*ConnectsIntegrationAPI.sendConnectsIntegrationRequest(d, function (response) {
+                        console.log("SendLightningComponent", d);
+                        if (!response.success) {
+                            ConnectsIntegrationAPI.showError("USER","SendLightningComponent failed ", response.error);
+                        } 
+                        });*/
+                    }
+                    else {
+                        // outbound call
+                        var currentCtiData = ConnectsIntegrationAPI.getCtiData();
+                        if (currentCtiData && currentCtiData.Channels && currentCtiData.Channels[0]) {
+                            console.log("currentCtiData=", currentCtiData);
+                            // ReasonCode: "10", ReasonCodeLabel: "Clientelling"
+                            //console.log("currentCtiData.Channels[0].ReasonCode=", currentCtiData.Channels[0].ReasonCode);
+                            //console.log("currentCtiData.Channels[0].ReasonCodeLabel=", currentCtiData.Channels[0].ReasonCodeLabel);
+                            
+                            // Clienteling status => change Task Record type
+                            if (currentCtiData.Channels[0].ReasonCode == '10') {
+                                // set 
+                                var countryIso3 = null;
+                                if (currentCtiData.Channels[0].Items &&  currentCtiData.Channels[0].Items[0] && currentCtiData.Channels[0].Items[0].CrmData && currentCtiData.Channels[0].Items[0].CrmData.RelatedObject 
+                                    && currentCtiData.Channels[0].Items[0].CrmData.RelatedObject.recipientType == 'PersonAccount' && currentCtiData.Channels[0].Items[0].CrmData.RelatedObject.recipientId) {
+                                    
+                                    console.log('searching account=' + currentCtiData.Channels[0].Items[0].CrmData.RelatedObject.recipientId);
+                                    // search country of the account
+                                    var account = sforce.connection.retrieve("SPO_Country_code__pc", "Account", [currentCtiData.Channels[0].Items[0].CrmData.RelatedObject.recipientId])[0]; 
+                                    console.log('searching account=' + account);
+                                    //var accountRecords = accountList.getArray("records");
+                                    //console.log('searching account=' + accountRecords);
+                                    if (account) {
+                                        countryIso3 = account.SPO_Country_code__pc;
+                                        console.log('countryIso3=' + countryIso3);
+                                    }
+
+                                }
+
+                                // Call record type to ICONICS_Clienteling
+                                var resultRecordTypeList = sforce.connection.query("SELECT Id, developername FROM RecordType WHERE DeveloperName='ICONICS_Clienteling' AND SobjectType='Task'");
+                                var recordTypeRecords = resultRecordTypeList.getArray("records");
+                                if (recordTypeRecords.length != 1) return;
+
+                                var task = sforce.connection.retrieve("RecordTypeId, ICX_Country__c, ActionType__c", "Task", [event.recordId])[0]; 
+                                task.RecordTypeId = recordTypeRecords[0].Id;
+                                task.ICX_Country__c = countryIso3;
+                                task.ActionType__c = 'Phone';
+                                //console.log("task", task);
+                                sforce.connection.update([task]);
+                            }
+                        }
+                        // open record
+                        var taskId = event.item.CrmId;
+                        //console.log("taskId", taskId);
+                        ConnectsIntegrationAPI.screenPop(taskId, function (response) {
+                            if (!response.success) {
+                                console.log("screenPop failure > response.error=" + response.error);
+                            }
+                        });
+                    }
+                    // KO: Lightning Event or postMessage
+                    //callLightningEvent();
+                    //sendToLC(event);
+                } else {
+                    console.log("end call");
+                    // Update on call ended
+                    if (event.item.EndedTimeStamp !== '') {
+                        var endTime = new Date(event.item.EndedTimeStamp);
+
+                        var connectedTime = '';
+                        if (event.item.ConnectedTimeStamp !== '') {
+                            connectedTime = new Date(event.item.ConnectedTimeStamp);
+                        }
+                        
+                        var wrapupTime = '';
+                        if (event.item.WrapedupTimeStamp !== '') {
+                            wrapupTime = new Date(event.item.WrapedupTimeStamp);
+                        }
+                        
+                        var startTime = '';
+                        if (event.item.CreatedTimeStamp !== '') {
+                            startTime = new Date(event.item.CreatedTimeStamp);
+                        }
+
+                        var task = sforce.connection.retrieve("CTI_ConnectedDate__c, CTI_AfterCallDate__c, CTI_EndedDate__c, CTI_StartDate__c, AccountId", "Task", [event.recordId])[0]; 
+                        task.CTI_StartDate__c = startTime;
+                        task.CTI_ConnectedDate__c = connectedTime;
+                        task.CTI_AfterCallDate__c = wrapupTime;
+                        task.CTI_EndedDate__c = endTime;
+                        console.log("task", task);
+                        sforce.connection.update([task]);
+                    }
+                }
+            } catch (ex) { 
+                ConnectsIntegrationAPI.showError("USER","Update problem", 
+                                                 "Could not update activity record, exception: " + ex); 
+            }
+        };
+        
+	
+        
+        /*ConnectsIntegrationAPI.onAgentStateChange = function (event) {
+            //console.log("event onAgentStateChange=" + event);
+            ConnectsIntegrationAPI.writeLogDebug("New state in channel " + event.channelType + ": " +
+                                                 event.newState.State + "(" + event.newState.ReasonCode + "), Event: " + event.eventType);
+            
+            //callLightningEvent();
+             sendToLC("test from VF: onAgentStateChange");
+        };*/
+    };
+    ConnectsIntegrationAPI.waitReady(finishedInitialization);
+    
+    /*
+    function getParentUrl() {
+        var a = parent !== window,
+            b = null;
+        return a && (b = document.referrer), b
+    };
+    function getOriginFromUrl(a) {
+        var b = a.split("/");
+        return b[0] + "//" + b[2];
+    };
+    
+    function getCurrentCtiData() {
+        if (ConnectsIntegrationAPI.isMakeCallEnabled()) {
+            ConnectsIntegrationAPI.writeLogDebug("makeCall function is currently enabled");
+        }
+        
+        var currentCtiData = ConnectsIntegrationAPI.getCtiData();
+        console.log("currentCtiData=" + currentCtiData);
+        if (currentCtiData) {
+            ConnectsIntegrationAPI.writeLogDebug("The name of this agent is " +
+                                                 currentCtiData.FirstName + " " + currentCtiData.LastName)
+        }
+    }
+    
+    function setAgentState() {
+        var channelType = ConnectsIntegrationAPI.CHANNEL.VOICE;//TYPE.OVERALL;
+        var channelState = ConnectsIntegrationAPI.CHANNEL.STATE.READY;
+        ConnectsIntegrationAPI.setAgentState(channelType, channelState, 0, function (response) {
+            if (!response.success) {
+                ConnectsIntegrationAPI.showError("USER","Go to ready state failed ", response.error);
+            }
+        });
+    }*/
+    </script>
+
+    <!--a href="#" onClick="getCurrentCtiData();return false;">Current CTI DATA</a-->
+
+</apex:page>

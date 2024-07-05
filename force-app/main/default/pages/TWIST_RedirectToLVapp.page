@@ -1,0 +1,15 @@
+<apex:page showHeader="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    standardStylesheets="false"
+    sidebar="false"
+    cache="false"
+    docType="html-5.0">
+
+<!-- Redirection to LVApp -->
+<script type="text/javascript">
+     const params = new URLSearchParams(location.search);
+     location.href = params.get('deeplink');
+ </script>
+
+</apex:page>

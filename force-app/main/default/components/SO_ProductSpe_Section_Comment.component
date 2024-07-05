@@ -1,0 +1,109 @@
+<apex:component >
+    
+    <apex:attribute name="contr" type="SO_ProductSpe_CTRL" description="contr" />
+
+    <apex:outputPanel id="commentsRerenderd">
+        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c == contr.oppLeatherGood}" layout="none">
+            <div class="panel panel-primary">
+                <div class="panel-heading">{!$Label.LV_SO_PRODUCT_SPE_COMMENTS}</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <apex:outputPanel rendered="{!contr.leatherGood_Creation || contr.leatherGood_HarsidedOutOfMyPerso}">
+                                <div class="form-group comment">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_CommercialLocalComment__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:outputPanel rendered="{!NOT(contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName))}">
+                                            <apex:inputfield styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialLocalComment__c}" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{! contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName)}">
+                                            <apex:inputfield styleclass="form-control" html-disabled="disabled" style="cursor: default;" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialLocalComment__c}" />
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+
+                            <div class="form-group comment translated-field hidden">
+                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_CommercialZoneApproverComment__c.Label}</label>
+                                <div class="col-sm-6">
+                                    <apex:inputfield rendered="{!NOT(contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName))}" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialZoneApproverComment__c}" />
+                                    <apex:inputfield rendered="{!contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName)}" html-disabled="disabled" style="cursor: default;" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialZoneApproverComment__c}" />
+                                </div>
+                            </div>
+                    </div>
+                    <apex:outputPanel styleClass="col-md-6" rendered="{!contains('Production',contr.role) && NOT(contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName))}">
+                        <div class="form-group comment">
+                            <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_InternalWorkshopComment__c.Label}</label>
+                            <div class="col-sm-6">
+                                <apex:inputfield styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_InternalWorkshopComment__c}" />
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel styleClass="col-md-6" rendered="{!contains('Production',contr.role) && contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName)}">
+                        <div class="form-group comment">
+                            <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_InternalWorkshopComment__c.Label}</label>
+                            <div class="col-sm-6">
+                                <apex:inputfield styleclass="form-control" html-disabled="disabled" style="cursor: default;" value="{!contr.quotationContainer.oneOpportunity.SPO_InternalWorkshopComment__c}" />
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </div>
+        </apex:outputPanel>
+
+
+        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c==contr.oppWatch || contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c==contr.oppAccessory}" layout="none">
+            <div class="panel panel-primary">
+                <div class="panel-heading">{!$Label.LV_SO_PRODUCT_SPE_COMMENTS}</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <apex:outputPanel rendered="{!contr.watch_SpoMto || contr.accessory_Creation}">
+                                <div class="form-group comment">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_CommercialLocalComment__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:outputPanel rendered="{!NOT(contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName))}">
+                                            <apex:inputfield styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialLocalComment__c}" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{! contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName)}">
+                                            <apex:inputfield styleclass="form-control" html-disabled="disabled" style="cursor: default;" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialLocalComment__c}" />
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel rendered="{!contr.watch_SpoMto || contr.accessory_Creation}">
+                                <div class="form-group comment translated-field hidden">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_CommercialZoneApproverComment__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield rendered="{!NOT(contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName))}" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialZoneApproverComment__c}" />
+                                        <apex:inputfield rendered="{!contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName)}" html-disabled="disabled" style="cursor: default;" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_CommercialZoneApproverComment__c}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                        <div class="col-md-6">
+                            <apex:outputPanel rendered="{!(contr.watch_SpoMto || contr.accessory_Creation) && contains('Production',contr.role) && NOT(contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName))}">
+                                <div class="form-group comment">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_InternalWorkshopComment__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_InternalWorkshopComment__c}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!(contr.watch_SpoMto || contr.accessory_Creation) && contains('Production',contr.role) && contains('Cancelled by Production;Cancelled by store',contr.quotationContainer.oneOpportunity.StageName)}">
+                                <div class="form-group comment">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_InternalWorkshopComment__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:inputfield styleclass="form-control" html-disabled="disabled" style="cursor: default;" value="{!contr.quotationContainer.oneOpportunity.SPO_InternalWorkshopComment__c}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

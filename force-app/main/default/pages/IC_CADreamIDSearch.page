@@ -1,0 +1,47 @@
+<apex:page controller="IC_CADreamIDSearch_VFCx" >
+
+<apex:form id="idForm">
+    <apex:pageBlock title="{!$Label.IC_CA_Dream_Id_Search}" >
+    <apex:pageMessages />
+    
+        <apex:pageblocksection columns="1" title="" collapsible="false" showHeader="false">
+            <apex:pageblocksection columns="2">
+                <apex:inputField value="{!searchCriterias.CA_RMS_ID__c}"/>
+                <apex:inputField value="{!searchCriterias.CA_Retail_Store_Code__c}"/>
+            </apex:pageblocksection>
+                       
+            <apex:outputpanel >
+            <CENTER>
+                <apex:actionstatus id="search">
+                    <apex:facet name="start">
+                        <apex:commandbutton value="{!$Label.IC_Search_In_Progress}" disabled="true"/>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                         <apex:commandbutton value="{!$Label.IC_Btn_Search}" action="{!searchCADreamIDs}" status="search" />
+                    </apex:facet>                    
+                </apex:actionstatus>
+            </CENTER>
+        	</apex:outputpanel>
+        	
+        	
+        	<apex:outputpanel id="resultSection">
+	        <apex:pageblocksection columns="1" title="{!$Label.IC_Search_Results}" collapsible="false" showHeader="true" id="resultSectionP">  
+		        <apex:pageBlockTable value="{!results}" var="data" id="tableResults">
+					
+					<apex:column value="{!data.CA_DREAM_ID__c}" headerValue="{!$ObjectType.UserDreamId__c.fields.CA_DREAM_ID__c.Label}"/>
+					<apex:column value="{!data.CA_Name__c}" headerValue="{!$ObjectType.UserDreamId__c.fields.CA_Name__c.Label}"/>
+					<apex:column value="{!data.CA_RMS_ID__c}" headerValue="{!$ObjectType.UserDreamId__c.fields.CA_RMS_ID__c.Label}"/>
+					<apex:column value="{!data.CA_Retail_Store_Code__c}" headerValue="{!$ObjectType.UserDreamId__c.fields.CA_Retail_Store_Code__c.Label}"/>
+					<apex:column value="{!data.CA_Retail_Store_Name__c}" headerValue="{!$ObjectType.UserDreamId__c.fields.CA_Retail_Store_Name__c.Label}"/>
+		    		
+		    	</apex:pageBlockTable>
+	        </apex:pageblocksection>
+	        </apex:outputpanel>
+            
+            
+            
+        </apex:pageblocksection>
+     </apex:pageBlock>
+</apex:form>
+
+</apex:page>

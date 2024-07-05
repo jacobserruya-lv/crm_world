@@ -1,0 +1,380 @@
+<!-- File Name: IC_STAR_ClientView
+* Description : Client View custom visualforce page for Icon Star users
+* @author : UNKNOWN
+* Modification Log =============================================================== 
+* 	RMOU 20/06/16 : Reorganised page, embedded Purchased history component
+* -->
+<apex:page standardController="Account" extensions="IC_ClientView_VFCx,ShowPicture" title="{!$Label.IC_Client} {!clientName}" cache="true">
+
+<style>
+
+    .tableStyle {border-collapse: collapse; border-spacing: 0px 0px; }
+    .colStyle1 { width: 16.5%;text-align:right; padding-top:3px; padding-bottom:5px}
+    .colStyle2 { width: 10%; padding-left:20px; padding-top:5px; padding-bottom:5px}
+    .colStyle3 { width: 10%;text-align:right; padding-top:5px; padding-bottom:5px}
+    .colStyle4 { width: 21%; padding-left:20px; padding-top:5px; padding-bottom:5px}
+    .colStyle5 { width: 10%;text-align:right; padding-top:5px; padding-bottom:5px}
+    .colStyle6 { width: 32%; padding-left:20px; padding-top:5px; padding-bottom:4px}
+    .rowstyle { border-bottom-style:solid; border-bottom-width:1px;border-bottom-color:#E8E8E8 }
+</style>
+
+<apex:sectionHeader title="{!$Label.IC_Client}" subtitle="{!clientName}"/>
+<br/>    
+<apex:form >
+    <apex:outputpanel styleClass="pic" id="image" layout="block">
+        <a href="/apex/fileupload?id={!Client.id}">
+            <apex:image value="{!URLFOR($Resource.PictureUploader, '/images/unknownperson.jpg')}" rendered="{!NOT( hasPicture )}" style="width:100px; height:100px;"/>
+            <apex:image value="/servlet/servlet.FileDownload?file={!file.Id}" rendered="{!hasPicture}" style="min-width:170px; max-width:270px; height:200px;"/>
+        </a>
+    </apex:outputpanel>
+    <br/>
+    <apex:pageBlock mode="maindetail" title="{!$Label.IC_ClientDetail}">
+        <center>
+            <apex:commandButton value="{!$Label.IC_Edit}" action="{!editClient}" rendered="{! canEditClient }"/> 
+            <apex:commandButton value="{!$Label.IC_Delete}" action="{!deleteClient}"/> 
+            <apex:commandButton value="Photo Book" onclick="window.open('/apex/STAR_ClientViewPDF?id={!Client.id}', '_blank');"/>
+        </center>
+        <br/>
+        
+        <!-- BEGIN First Section  -->
+        <apex:pageBlockSection columns="2" showHeader="false" collapsible="false">
+            
+            <apex:outputField value="{!client.DREAMID__c}"/>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.Account.Fields.OwnerId.Label}"/>
+                <apex:outputLabel >
+                    <apex:outputField value="{!client.ownerId}"/>&nbsp;
+                    <apex:outputLink value="/{!client.Id}/a?retURL=/{!client.Id}">[{!$Label.IC_ChangeOwnerLabel}]</apex:outputLink>
+                    &nbsp;<apex:image value="{!$Resource.STR_Cadenas}" rendered="{!TECH_OwnerManuallyChanged}"/>
+                </apex:outputLabel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.Account.Fields.Name.Label}"/>
+                <apex:outputLabel value="{!clientName}"/>
+            </apex:pageBlockSectionItem>
+            <apex:outputField value="{!client.DreamSA__pc}"/>
+            
+            <apex:outputField value="{!client.Title__pc}"/>
+            <apex:outputField value="{!client.FlowerFlagIcon__pc}"/>
+            
+            <apex:outputField value="{!client.PersonBirthdate}"/>
+            <apex:outputField value="{!client.Segmentation__pc}"/>
+            
+            <apex:outputField value="{!client.Nationality__pc }"/>
+            <apex:outputField value="{!client.Occupation__pc}"/>
+            
+            <apex:outputField value="{!client.PassportNumber__pc}"/>
+            <apex:outputField value="{!client.Company__pc}"/>
+            
+            <apex:outputField value="{!client.PreferredContactChannel__pc}"/>
+            <apex:outputField value="{!client.Typology__pc}"/>
+            
+            <apex:outputField value="{!client.Star_ContactPrefDetails__pc}"/>
+            <apex:outputField value="{!client.AttachedStore__pc}"/>
+            <!-- Begin RMO -->
+            <apex:outputField value="{!client.IsProspect__pc}"/>
+            <!-- End RMO y-->
+            <!--  Begin BTO INVITED -->
+            <apex:outputField value="{!client.Invited__pc}"/>
+            <!--  End BTO INVITED -->
+            
+
+        
+        </apex:pageBlockSection>
+        <!-- END First Section -->
+
+     </apex:pageBlock>
+     </apex:form>
+
+    <!-- BEGIN Related Lists --> 
+    <!-- BEGIN Programs related list (labeled Events) --> 
+    <apex:relatedList title="{!$Label.STAR_EventNameRelatedList}" list="Programs__r" rendered="{!$ObjectType.Program__c.accessible}"/>
+    <!-- END Programs related list (labeled Events) --> 
+    <apex:form >
+    <apex:pageBlock mode="maindetail" >
+       <!-- BEGIN "Statistics" Section -->
+        <apex:pageBlockSection title="{!$Label.Start_Statistics}" columns="2">             
+             <apex:outputField value="{!client.Gifts_offered_for_this_clilent__c}"/>
+        </apex:pageBlockSection>
+        <!-- END "Statistics" Section -->
+      
+        <!-- BEGIN "Address Information" Section -->
+        <apex:pageBlockSection title="{!$Label.IC_ClientAddressInformation}" columns="2">
+            <apex:outputField value="{!client.PrimaryAddressLine1__pc}"/>
+            <apex:outputField value="{!client.PrimaryAddressLine2__pc}"/>
+            
+            <apex:outputField value="{!client.PrimaryAddressLine3__pc}"/>
+            <apex:outputField value="{!client.PrimaryCity__pc}"/>
+            
+            <apex:outputField value="{!client.PrimaryZipCode__pc}"/>
+            <apex:outputField value="{!client.PrimaryStateProvince__pc}"/>
+            
+            <apex:outputField value="{!client.PrimaryCountry__pc}"/>
+        </apex:pageBlockSection>
+        <!-- END "Address Information" Section -->
+
+        
+        <!-- BEGIN "Contact Information" Section -->        
+        <apex:pageBlockSection title="{!$Label.IC_Contact_Information}" columns="2">
+            <!--  Begin MTO Harmo -->
+            <apex:outputField value="{!client.Can_Be_Contacted_By_Phone__pc}"/>
+            <apex:outputField value="{!client.Can_Be_Contacted_By_SMS__pc}"/>
+           <!-- <apex:outputField value="{! client.PersonDoNotCall }"/>
+            <apex:outputField value="{! client.DoNotSMS__pc }"/> -->
+            <!--  End MTO Harmo -->            
+            
+            <apex:outputField value="{!client.PersonHomePhone}"/>
+            <apex:outputField value="{!client.PersonMobilePhone}"/>
+            
+            <apex:outputField value="{!client.Phone}"/>
+            <apex:outputField value="{!client.PersonEmail}"/>
+            
+            
+            <!--  Begin MTO Harmo -->
+            <apex:outputField value="{!client.Can_Be_Contacted_By_Email__pc}"/>
+            <apex:outputField value="{!client.Can_Be_Contacted_By_Mail__pc}"/>
+            <!--<apex:outputField value="{! client.PersonHasOptedOutOfEmail }"/>
+            <apex:outputField value="{! client.DoNotContactbyPost__pc }"/>-->
+            <!--  End MTO Harmo -->
+
+            <apex:outputField value="{!client.PreferredLanguage__pc}"/>
+
+        </apex:pageBlockSection>
+        <!-- END "Contact Information" Section -->
+
+        
+        <!-- BEGIN "Size Information" Section -->
+        <apex:pageBlockSection title="{!$Label.IC_Size_Information}" columns="2">
+            <apex:outputField value="{!Client.Gender__pc}"/>
+            <apex:outputField value="{!Client.Belt__pc}"/>
+            
+            <apex:outputField value="{!Client.Jacket__pc}"/>
+            <apex:outputField value="{!Client.Shoes__pc}"/>
+            
+            <apex:outputField value="{!Client.Dress__pc}"/>
+            <apex:outputField value="{!Client.Ring__pc}"/>
+            
+            <apex:outputField value="{!Client.Knit__pc}"/>
+            <apex:outputLabel value=""/>
+            
+            <apex:outputField value="{!Client.Pant__pc}"/>
+            <apex:outputLabel value=""/>
+            
+            <apex:outputField value="{!Client.Shirt__pc}"/>
+            <apex:outputLabel value=""/>
+            
+            <apex:outputField value="{!Client.Skirt__pc}"/>
+            <apex:outputLabel value=""/>
+            
+            <apex:outputField value="{!Client.Suit__pc}"/> 
+        </apex:pageBlockSection>
+        <!-- END "Size Information" Section -->
+        
+        <!-- Begin RMO -->        
+        
+        <apex:pageBlockSection title="{! $Label.IC_Purcha_Behavi }" columns="1" rendered="{! !client.isProspect__pc }">
+            <c:PurchaseProductComponent record="{! client }"/>
+        </apex:pageBlockSection>
+        
+        <!-- End RMO -->
+        
+        
+        <!-- BEGIN "Lifestyle & Family" Section -->    
+        <apex:pageBlockSection title="{!$Label.IC_ClientLifestyleAndFamily}" columns="2">
+            <apex:outputField value="{!client.Spouse__pc}"/>
+            <apex:outputField value="{!client.PersonalInterest1__pc}"/>
+            
+            <apex:outputField value="{!client.Anniversary__pc}"/>
+            <apex:outputField value="{!client.PersonalInterest2__pc}"/>
+            
+            <apex:outputField value="{!client.Children__pc}"/>
+            <apex:outputField value="{!client.PersonalInterest3__pc}"/>
+            
+            <apex:outputField value="{!client.Pets__pc}"/>
+            <apex:outputField value="{!client.FoodPreferences__pc}"/>
+            
+            <apex:outputField value="{!client.ShopsFor__pc}"/>
+            <apex:outputField value="{!client.BeveragePreferences__pc}"/>
+            
+            <apex:outputLabel value=""/>
+            <apex:outputField value="{!client.PersonAssistantName}"/>
+            
+            <apex:outputLabel value=""/>
+            <apex:outputField value="{!client.PersonAssistantPhone}"/>
+        </apex:pageBlockSection>
+        <!-- END "Lifestyle & Family" Section -->
+        
+        
+        <!-- BEGIN "LV Interests" Section --> 
+        <apex:pageBlockSection title="{!$Label.IC_LV_Interests}" columns="1">
+            <apex:outputField value="{!client.AccessoriesInterest__pc}"/>
+            <apex:outputField value="{!client.JewelleryInterest__pc}"/>
+            <apex:outputField value="{!client.LeatherGoodsInterest__pc}"/>
+            <apex:outputField value="{!client.PerfumesInterest__pc}"/>
+            <apex:outputField value="{!client.RTWInterest__pc}"/>
+            <apex:outputField value="{!client.ShoesInterest__pc}"/>
+            <apex:outputField value="{!client.WatchesInterest__pc}"/>
+            <apex:outputField value="{!client.OtherInterest__pc}"/>
+            <apex:outputField value="{!client.ServiceInterest__pc}"/>
+            <apex:outputField value="{!client.EventInterest__pc}"/>
+        </apex:pageBlockSection>
+            
+        <apex:pageBlockSection showHeader="False" columns="2">
+            <apex:outputField value="{!client.Star_CommentPhotoBook__pc}"/>
+            <apex:outputField value="{!client.Star_LVInterestsDetails__pc}"/>
+        </apex:pageBlockSection>
+        <!-- END "LV Interests" Section --> 
+        
+        
+        <!-- BEGIN "Dietary Requirements" Section --> 
+        <apex:pageBlockSection title="{!$Label.Star_DietaryRequirements}" columns="2">
+            <apex:outputField value="{!client.Star_Allergy__pc}"/>
+            <apex:outputField value="{!client.Star_AllergyDetails__pc}"/>
+            
+            <apex:outputField value="{!client.Star_FoodPreferences__pc}"/>
+            <apex:outputField value="{!client.Star_Beveragepreferences__pc}"/>
+            
+            <apex:outputField value="{!client.Star_DetailsDietaryReq__pc}"/>
+        </apex:pageBlockSection>
+        <!-- END "Dietary Requirements" Section --> 
+         
+        
+        <!-- BEGIN "System Information" Section --> 
+        <apex:pageBlockSection title="{!$Label.IC_SystemInformation}" columns="2">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.Account.Fields.CreatedById.Label}"/>
+                <apex:outputLabel > 
+                    <apex:outputField value="{!client.CreatedById}"/>,&nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy h:m a}"><apex:param value="{!client.CreatedDate}" /></apex:outputText>
+                </apex:outputLabel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.Account.Fields.LastModifiedById.Label}"/>
+                <apex:outputLabel > 
+                    <apex:outputField value="{!client.LastModifiedById}"/>,&nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy h:m a}"><apex:param value="{!client.LastModifiedDate}" /></apex:outputText>
+                </apex:outputLabel>
+            </apex:pageBlockSectionItem>
+            <apex:outputField value="{!client.TECH_DreamIdSA__pc}"/>
+            <apex:outputField value="{!client.IsDream__c}"/>
+            <apex:outputField value="{!client.TECH_ManualReassignmentDate__c}"/>
+            <apex:outputField value="{!client.TECH_OwnerManuallyChanged__c}"/>
+        </apex:pageBlockSection>
+        <!-- END "System Information" Section -->
+        
+        <br/>
+
+        <center>
+            <apex:commandButton value="{!$Label.IC_Edit}"        action="{!editClient}" rendered="{! canEditClient }"/> 
+            <apex:commandButton value="{!$Label.IC_Delete}"      action="{!deleteClient}"/> 
+            <apex:commandButton value="Photo Book" onclick="window.open('/apex/STAR_ClientViewPDF?id={!Client.id}', '_blank');"/>
+        </center>
+        <br/>
+    </apex:pageBlock>
+</apex:form>
+
+    
+
+<apex:form >
+    <!-- BEGIN Open Activities related list --> 
+    <apex:pageBlock title="{!openActivitiesLabel}">
+        <apex:pageblockButtons location="top">
+            <apex:commandButton value="{!$Label.IC_NewToDo}"   action="{!newToDo}"/>
+            <apex:commandButton value="{!$Label.IC_New_Event}" action="{!newAppointment}"/>
+        </apex:pageblockButtons>
+        <apex:pageBlockTable value="{!openActivities}" var="oa" >
+            <apex:column headerValue="{!$ObjectType.OpenActivity.fields.Subject.label}">
+                <apex:outputLink value="/{!oa.Id}"> {!oa.Subject} </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="{!$Label.IC_Name}"  value="{!oa.who.Name}"/>
+            <apex:column headerValue="{!$Label.IC_Related_To}">
+                <apex:outputLink value="/{!oa.whatId}"> {!oa.what.Name} </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.OpenActivity.Fields.IsTask.Label}"        value="{!oa.IsTask}"/>
+            <apex:column headerValue="{!$ObjectType.OpenActivity.Fields.ActivityType.Label}"  value="{!oa.ActivityType}"/>
+            <apex:column headerValue="{!$Label.IC_DueDate}"                                   value="{!oa.ActivityDate}"/>
+            <apex:column headerValue="{!$ObjectType.OpenActivity.Fields.Status.Label}"        value="{!oa.Status}"/>
+            <apex:column headerValue="{!$ObjectType.OpenActivity.Fields.Priority.Label}"      value="{!oa.Priority}"/>
+            <apex:column headerValue="{!$Label.IC_Assigned_To}">
+                <apex:outputLink value="/{!oa.OwnerId}"> {!oa.Owner.Name} </apex:outputLink>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <!-- END Open Activities related list --> 
+    
+    
+    <!-- BEGIN Activity History related list --> 
+    <apex:pageBlock title="{!$Label.IC_ClientActivityHistory}">
+        <apex:pageblockButtons location="top">
+            <apex:commandButton value="{!$Label.IC_Log_a_call}" action="{!logACall}"/>
+        </apex:pageblockButtons>
+        <apex:pageBlockTable value="{!ActivityHistories}" var="ah" >
+            <apex:column headerValue="{!$ObjectType.ActivityHistory.fields.Subject.label}">
+                <apex:outputLink value="/{!ah.Id}"> {!ah.Subject} </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="{!$Label.IC_Name}"  value="{!ah.who.Name}"/>
+            <apex:column headerValue="{!$Label.IC_Related_To}">
+                <apex:outputLink value="/{!ah.whatId}"> {!ah.what.Name} </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.ActivityHistory.Fields.IsTask.Label}"  value="{!ah.IsTask}"/>
+            <apex:column headerValue="{!$ObjectType.ActivityHistory.Fields.ActivityType.Label}"  value="{!ah.ActivityType}"/>
+            <apex:column headerValue="{!$Label.IC_DueDate}"  value="{!ah.ActivityDate}"/>
+            <apex:column headerValue="{!$ObjectType.ActivityHistory.Fields.Status.Label}"  value="{!ah.Status}"/>
+            <apex:column headerValue="{!$Label.IC_Assigned_To}">
+                <apex:outputLink value="/{!ah.OwnerId}"> {!ah.Owner.Name} </apex:outputLink>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <!-- END Activity History related list --> 
+    
+
+    <!-- BEGIN "Purchased products" Related List -->
+    <apex:outputpanel id="PPRlist">
+    <apex:pageBlock title="{!$Label.IC_Purchased_Products}">
+        <apex:pageBlockTable value="{!PurchProducts}" var="pp" >
+            <apex:column headerValue="{!$ObjectType.PPR_PurchProduct__c.fields.Name.label}">
+                <apex:outputLink value="/{!pp.Id}"> {!pp.Name} </apex:outputLink>
+            </apex:column>            
+            <apex:column headerValue="{!$ObjectType.PPR_PurchProduct__c.fields.PurchasedDate__c.label}"       value="{!pp.PurchasedDate__c}"/>
+            <apex:column headerValue="{!$ObjectType.PPR_PurchProduct__c.Fields.SKU__c.label}"                 value="{!pp.SKU__c}"/>
+            <apex:column headerValue="{!$ObjectType.PPR_PurchProduct__c.Fields.Amount__c.label}"              value="{!pp.Amount__c}"/>
+            <apex:column headerValue="{!$ObjectType.PPR_PurchProduct__c.Fields.CurrencyCode__c.label}"        value="{!pp.CurrencyCode__c}"/>
+            <apex:column headerValue="{!$ObjectType.PPR_PurchProduct__c.Fields.ConvertedAmountUSD__c.label}"  value="{!pp.ConvertedAmountUSD__c}"/>
+            <apex:column headerValue="{!$ObjectType.PPR_PurchProduct__c.Fields.ConvertedAmountEUR__c.label}"  value="{!pp.ConvertedAmountEUR__c}"/>
+        </apex:pageBlockTable>
+       
+        <center>
+            <apex:commandButton rendered="{!setCon.hasPrevious}" value="{!$Label.IC_Btn_First}" action="{!setCon.first}" rerender="PPRlist"/>
+            <apex:commandButton rendered="{!setCon.hasPrevious}" value="{!$Label.IC_Btn_Previous}" action="{!setCon.previous}" rerender="PPRlist"/>
+
+            <apex:outputText rendered="{!(setCon.pageNumber * setCon.pageSize) < setCon.ResultSize}" value="{!setCon.pageNumber * setCon.pageSize} Of {!setCon.ResultSize}"></apex:outputText>
+            <apex:outputText rendered="{!(setCon.pageNumber * setCon.pageSize) >= setCon.ResultSize}" value="{!setCon.ResultSize} Of {!setCon.ResultSize}"></apex:outputText>
+          
+            <apex:commandButton rendered="{!setCon.hasNext}" value="{!$Label.IC_Btn_Next}" action="{!setCon.next}" rerender="PPRlist"/>
+            <apex:commandButton rendered="{!setCon.hasNext}" value="{!$Label.IC_Btn_Last}" action="{!setCon.last}" rerender="PPRlist"/>
+        </center>
+    </apex:pageBlock>
+    </apex:outputpanel>
+    <!-- END "Purchased products" Related List -->
+       
+        
+    <!-- BEGIN Action Plan related list --> 
+     <apex:pageBlock title="{!$Label.IC_ActionPlan}">
+        <apex:pageBlockTable value="{!ActionPlans}" var="ac" >
+            <apex:column headerValue="{!$Label.IC_Name}">
+                <apex:outputLink value="/{!ac.Id}"> {!ac.name} </apex:outputLink>
+            </apex:column>  
+            <apex:column headerValue="{!$Label.IC_Related_To}"                              value="{!ac.AccountId__c}"/>          
+            <apex:column headerValue="{!$ObjectType.ActivityHistory.fields.Subject.label}"  value="{!ac.Subject__c}"/>
+            <apex:column headerValue="{!$ObjectType.ActivityHistory.Fields.Status.Label}"   value="{!ac.IsClosed__c}"/>
+            <apex:column headerValue="{!$Label.IC_DueDate}"                                 value="{!ac.DueDate__c}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock> 
+    <!-- END Action Plan related list --> 
+   
+</apex:form>
+    <!-- BEGIN Client History related list --> 
+    <c:IC_ObjectHistoryComponent objectSelected="{!client}" limits="50"/>
+    <!-- END Client History related list --> 
+
+    <!-- END Related Lists --> 
+
+</apex:page>

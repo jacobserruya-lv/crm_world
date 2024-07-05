@@ -1,0 +1,24 @@
+<!-- File Name: IC_ClientCreateDesktop
+* Description : Client Creation forbidden page
+* @author : UNKNOWN
+* Modification Log =============================================================== 
+* 	RMOU 20/06/16 : Added dispatch action, to let through allowed Profiles
+* -->
+<!-- Begin RMO -->
+<!-- <apex:page standardController="Account"> -->
+<apex:page standardController="Account" extensions="STAR_ClientCreateDispatch" action="{! dispatch }">
+<!-- End RMO -->
+  
+  <apex:form >
+  <apex:sectionHeader title="{!$Label.IC_CreateClient}"/>
+  
+  <apex:pageBlock > 
+            <apex:pageBlockSection columns="1" title="{!$Label.IC_Error}" >
+                <p>{!$Label.IC_ErrorMesage}</p> 
+                <apex:commandButton action="{!cancel}" value="{!$Label.IC_Cancel}" />                  
+            </apex:pageBlockSection> 
+  </apex:pageBlock> 
+  
+ </apex:form>
+
+</apex:page>

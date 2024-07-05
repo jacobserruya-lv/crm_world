@@ -1,0 +1,4 @@
+<apex:page showHeader="true" sidebar="false" controller="IC_TargetedClientsLists_VFCx_New" tabStyle="Reassign_Clients__tab">
+<c:IC_ClientListMain />
+<c:IC_Labels />
+</apex:page>

@@ -1,0 +1,228 @@
+<apex:page showheader="false" standardstylesheets="false" sidebar="false"
+           cache="false" applyhtmltag="false" doctype="html-5.0"
+           controller="SO_ChoosePath_CTRL">
+
+
+    <apex:composition template="SO_Template">
+
+        <apex:define name="headTag">
+            <title>Choose path</title>
+            <style type="text/css">
+
+                html.so_choosepath .panel-body
+                {
+                    height: 100%;
+                }
+
+            </style>
+        </apex:define>
+
+        <apex:define name="bodyContent">
+            <apex:form id="pathForm">
+                
+                <apex:outputPanel id="messagesPanelId">
+                    <apex:outputPanel rendered="{!showMessageOnTop}">
+                        <div class="alert alert-danger" role="alert">
+                            <apex:messages />
+                        </div>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <section id="messages">
+                    <div id="fillFieldsError"/>
+                </section>
+
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-default margin-top">
+                            <div class="panel-body padding-lg">
+                                
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="form-horizontal">
+                                            <div class="form-group required">
+                                                <label class="col-sm-3 control-label align-right">{!$Label.SO_LV_Brief_Name}</label>
+                                                <div class="col-sm-9">
+                                                    <apex:inputText html-data-rule-required="true" styleclass="form-control" value="{!newOpportunity.Name}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="form-horizontal">
+                                            <div class="form-group required">
+                                                <label class="col-sm-3 control-label align-right">{!$Label.LV_SO_CA_Code}</label>
+                                                <div class="col-sm-9">
+                                                    <apex:inputText html-data-rule-required="true" html-data-rule-maxlength="15" styleclass="form-control" value="{!newOpportunity.SPO_CACode__c}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="form-horizontal">
+
+                                            <div class="form-group required" style="{!IF(ISBLANK(originalUser.MANAGEMENT_ZONE_LEVEL__c), '', 'display:none;')}">
+                                                <label class="col-sm-3 control-label">{!$Label.LV_SO_Level_0}</label>
+                                                <div class="col-sm-9">
+                                                    <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="MANAGEMENT_ZONE_LEVEL_InputField" readonly="{!!ISBLANK(originalUser.MANAGEMENT_ZONE_LEVEL__c)}">
+                                                         <apex:inputField id="MANAGEMENT_ZONE_LEVEL_InputFieldId" value="{!newUser.MANAGEMENT_ZONE_LEVEL__c}"/>
+                                                    </c:SO_BootstrapDropDownEnhanced>
+                                                    <apex:actionFunction name="MANAGEMENT_ZONE_LEVEL_InputFieldreRenderfunction" action="{!NULL}" reRender="MGMT_ZONE_SUB_LEVEL1_PanelId, MGMT_ZONE_SUB_LEVEL2_PanelId, MGMT_ZONE_SUB_LEVEL3_PanelId, DefaultStore_PanelId" oncomplete="onCompleteZoneLevel();"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group required" style="{!IF(ISBLANK(originalUser.MGMT_ZONE_SUB_LEVEL1__c), '', 'display:none;')}">
+                                                <label class="col-sm-3 control-label">{!$Label.LV_SO_Level_1}</label>
+                                                <div class="col-sm-9">
+                                                    <apex:outputPanel id="MGMT_ZONE_SUB_LEVEL1_PanelId">
+                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="MGMT_ZONE_SUB_LEVEL1_InputField" readonly="{!!ISBLANK(originalUser.MGMT_ZONE_SUB_LEVEL1__c)}">
+                                                             <apex:inputField id="MGMT_ZONE_SUB_LEVEL1_InputFieldId" value="{!newUser.MGMT_ZONE_SUB_LEVEL1__c}"/>
+                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                    </apex:outputPanel>
+                                                    <apex:actionFunction name="MGMT_ZONE_SUB_LEVEL1_InputFieldreRenderfunction" action="{!NULL}" reRender="MGMT_ZONE_SUB_LEVEL2_PanelId, MGMT_ZONE_SUB_LEVEL3_PanelId, DefaultStore_PanelId" oncomplete="onCompleteZoneLevel1();"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group required" style="{!IF(ISBLANK(originalUser.MGMT_ZONE_SUB_LEVEL2__c), '', 'display:none;')}">
+                                                <label class="col-sm-3 control-label">{!$Label.LV_SO_Level_2}</label>
+                                                <div class="col-sm-9">
+                                                    <apex:outputPanel id="MGMT_ZONE_SUB_LEVEL2_PanelId">
+                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="MGMT_ZONE_SUB_LEVEL2_InputField" readonly="{!!ISBLANK(originalUser.MGMT_ZONE_SUB_LEVEL2__c)}">
+                                                             <apex:inputField id="MGMT_ZONE_SUB_LEVEL2_InputFieldId" value="{!newUser.MGMT_ZONE_SUB_LEVEL2__c}"/>
+                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                    </apex:outputPanel>
+                                                    <apex:actionFunction name="MGMT_ZONE_SUB_LEVEL2_InputFieldreRenderfunction" action="{!NULL}" reRender="MGMT_ZONE_SUB_LEVEL3_PanelId, DefaultStore_PanelId" oncomplete="onCompleteZoneLevel2();"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group required" style="{!IF(ISBLANK(originalUser.MGMT_ZONE_SUB_LEVEL3__c), '', 'display:none;')}">
+                                                <label class="col-sm-3 control-label">{!$Label.LV_SO_Level_3}</label>
+                                                <div class="col-sm-9">
+                                                    <apex:outputPanel id="MGMT_ZONE_SUB_LEVEL3_PanelId">
+                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="MGMT_ZONE_SUB_LEVEL3_InputField" readonly="{!!ISBLANK(originalUser.MGMT_ZONE_SUB_LEVEL3__c)}">
+                                                             <apex:inputField id="MGMT_ZONE_SUB_LEVEL3_InputFieldId" value="{!newUser.MGMT_ZONE_SUB_LEVEL3__c}"/>
+                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                    </apex:outputPanel>
+                                                    <apex:actionFunction name="MGMT_ZONE_SUB_LEVEL3_InputFieldreRenderfunction" action="{!NULL}" reRender="DefaultStore_PanelId" oncomplete="onCompleteZoneLevel3();"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group required">
+                                                <label class="col-sm-3 control-label">{!$Label.LV_SO_Store}</label>
+                                                <div class="col-sm-9">
+                                                    <apex:outputPanel id="DefaultStore_PanelId">
+                                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="DefaultStore_InputField">
+                                                             <apex:inputField id="DefaultStore_InputFieldId" value="{!newUser.DefaultStore__c}"/>
+                                                        </c:SO_BootstrapDropDownEnhanced>
+                                                    </apex:outputPanel>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body padding-lg">
+
+                                <span class="glyphicon glyphicon-user color-primary center-block text-center" style="font-size:100px"></span>
+                                <apex:commandButton styleClass="btn btn-success margin-top-lg center-block" 
+                                                    action="{!redirectToClientSearchPage}" 
+                                                    value="{!$Label.SO_LV_Start_by_Client}" onclick="blockUI(); formValidate();" oncomplete="unblockUI();"
+                                                    reRender="messagesPanelId"/>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-2"><h1 class="color-primary text-uppercase text-center">or</h1></div> -->
+                    <div class="col-sm-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body padding-lg">
+
+                                <span class="glyphicon glyphicon-tags color-primary center-block text-center" style="font-size:100px"></span>
+                                <apex:commandButton styleClass="btn btn-success margin-top-lg center-block"
+                                                    action="{!redirectToProductSearchPage}" 
+                                                    value="{!$Label.SO_LV_Start_by_Product}" onclick="blockUI(); formValidate();" oncomplete="unblockUI();"
+                                                    reRender="messagesPanelId"/>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </apex:form>
+        </apex:define>
+        <apex:define name="footerScripts">
+            <script type="text/javascript">
+                
+                $(window).load(function () {
+                    // run code
+                    ready();
+                });
+
+                function ready()
+                {
+                    picklistCTRL.init('MANAGEMENT_ZONE_LEVEL_InputField', '', 'true', '{!ISBLANK(newUser.MANAGEMENT_ZONE_LEVEL__c)}');
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL1_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL1__c)}');
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL2_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL2__c)}');
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL3_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL3__c)}');
+                    picklistCTRL.init('DefaultStore_InputField', '', '', 'true');
+                    initFormValidation();
+                }
+
+                function initFormValidation(){
+                    var form = $('[id$="pathForm"]');
+                    form.validate();
+                }
+
+                function formValidate(){
+                    var form = $('[id$="pathForm"]');
+                    var isValid = form.valid();
+                    if (!isValid) {
+                        showFillFieldsError(true);
+                    }else{
+                        showFillFieldsError(false);
+                    }
+                }
+
+                function onCompleteZoneLevel()
+                {
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL1_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL1__c)}');
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL2_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL2__c)}');
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL3_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL3__c)}');
+                    picklistCTRL.init('DefaultStore_InputField', '', '', 'true');
+                }
+
+                function onCompleteZoneLevel1()
+                {
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL2_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL2__c)}');
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL3_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL3__c)}');
+                    picklistCTRL.init('DefaultStore_InputField', '', '', 'true');
+                }
+
+                function onCompleteZoneLevel2()
+                {
+                    picklistCTRL.init('MGMT_ZONE_SUB_LEVEL3_InputField', '', 'true', '{!ISBLANK(newUser.MGMT_ZONE_SUB_LEVEL3__c)}');
+                    picklistCTRL.init('DefaultStore_InputField', '', '', 'true');
+                }
+
+                function onCompleteZoneLevel3()
+                {
+                    picklistCTRL.init('DefaultStore_InputField', '', '', 'true');
+                }
+            </script>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

@@ -1,0 +1,74 @@
+<apex:component >
+
+    <apex:attribute type="String" name="onShowPopupFunctionName" description="The name of fucntion called when model popup shown" default="onShowPopup" />
+    <apex:attribute type="String" name="onClosePopupFunctionName" description="The name of fucntion called when model popup closed" default="onClosePopup" />
+<!--POPUP-->
+    <c:SO_ModalPopup id="open_product"
+                     contentclass="popup-content"
+                     maxwidth="768px"
+                     popupshowselector="a[href='#open_product']"
+                     popupinitializefuncionname="initProductPopup"
+                     contentbackground="transparent"
+                     closebuttonselector=".mfp-content .panel-heading i.glyphicon-remove"
+                     closeonbgclick="true"
+                     onshowpopupfunctionname="{!onShowPopupFunctionName}"
+                     onclosepopupfunctionname="{!onClosePopupFunctionName}">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <!-- {!$Label.LV_SO_City_Bag} -->
+                <span id="titleHolder">
+
+                </span>
+                <i class="glyphicon glyphicon-remove pull-right"></i>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-7" id="col-md-7">
+                        
+                        <img class='img-rounded' src="" style="max-width:100%" />
+                        <div class="slides">
+                            <img class='img-thumbnail' src="" />
+                            <img class='img-thumbnail' src="" />
+                            <img class='img-thumbnail' src="" />
+                            <img class='img-thumbnail' src="" />
+                        </div>
+                        
+                        <!-- 
+                        <img class='img-rounded' src="https://placeholdit.imgix.net/~text?w=380&h=380" style="max-width:100%" />
+                        <div class="slides">
+                            <img class='img-thumbnail' src="https://placeholdit.imgix.net/~text?w=90&h=90" />
+                            <img class='img-thumbnail' src="https://placeholdit.imgix.net/~text?w=90&h=90" />
+                            <img class='img-thumbnail' src="https://placeholdit.imgix.net/~text?w=90&h=90" />
+                            <img class='img-thumbnail' src="https://placeholdit.imgix.net/~text?w=90&h=90" />
+                        </div> 
+                        -->
+                    </div>
+                    <div class="col-md-5">
+                        <article>
+                            <h2>{!$Label.LV_SO_Description}</h2>
+                            <p id="descriptionHolder">
+                                
+                            </p>
+                        </article>
+                    </div>
+                    <apex:form >
+                        <div class="bottom-buttons">
+                            <a href="" onclick="$('.mfp-content .panel-heading i.glyphicon-remove').click();" class="btn btn-default">
+                                {!$Label.site.cancel}
+                            </a>
+
+                            <a href="" onclick="selectProdRef();" class="btn btn-success margin-left">
+                                {!$Label.LV_SO_select}
+                            </a>
+                        </div>
+                    </apex:form>
+                </div>
+            </div>
+        </div>
+    </c:SO_ModalPopup>
+<!--END POPUP-->
+
+
+
+</apex:component>

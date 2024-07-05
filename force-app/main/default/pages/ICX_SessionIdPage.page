@@ -1,0 +1,5 @@
+<!-- https://forcepanda.wordpress.com/2019/01/12/flow-screen-component-dependent-picklists-based-on-recordtype-selection/ -->
+<apex:page >
+    <!-- The session Id is wrapped between two string literals 'ID' and 'END' -->
+    START{!$Api.Session_ID}END
+</apex:page>

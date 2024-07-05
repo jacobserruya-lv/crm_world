@@ -1,0 +1,84 @@
+<apex:component >
+
+    <apex:attribute name="headerlist" type="String[]" required="false" description="The list of headers to show in the table for each record" />
+    <apex:attribute name="fieldsList" type="String[]" required="false" description="The list of fields to show in the table for each record" />
+    <apex:attribute name="resultlist" type="SO_Table_Wrapper[]" required="false" description="The list of fields to show in the table for each record" />
+    <apex:attribute name="orderTypeForUnitRetailPpice" type="String" required="false" description="The order type value which device if we show price from RMS or not" />
+
+        <div class="clearfix">
+            <h4 class="pull-left content">
+                <small>
+                    <em>
+                        <apex:outputText value="{!$Label.LV_SO_Display_Result}">
+                            <apex:param value="{!resultlist.size}" />
+                            <apex:param value="{!resultlist.size}" />
+                        </apex:outputText> 
+                    </em>
+                </small>
+            </h4>
+            <nav class="pull-right">
+                <ul class="pagination">
+                </ul>
+            </nav>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped contentRes">
+                <thead>
+                    <tr>
+                        <apex:repeat value="{!headerlist}" var="header" id="repeatHeader">
+                            <th style="text-align: center;">{!header}</th>
+                        </apex:repeat>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!resultlist}" var="fieldTableWrapper" id="repeatResultRows">
+                        <tr>
+                            <apex:repeat value="{!fieldsList}" var="fieldAPIName" id="repeatFields">
+                                <apex:outputPanel layout="none" rendered="{!AND(fieldAPIName == 'SPO_UnitRetailPrice__c', fieldTableWrapper.record['SPO_OrderType__c'] == orderTypeForUnitRetailPpice)}">
+                                    <td>
+                                        {!fieldTableWrapper.record[fieldAPIName]}
+                                    </td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!AND(fieldAPIName == 'SPO_UnitRetailPriceQuotation__c', fieldTableWrapper.record['SPO_OrderType__c'] != orderTypeForUnitRetailPpice)}">
+                                    <td>
+                                        {!fieldTableWrapper.record[fieldAPIName]}
+                                    </td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!AND(fieldAPIName != 'SPO_UnitRetailPrice__c', fieldAPIName != 'SPO_UnitRetailPriceQuotation__c')}">
+                                    <td>
+                                        <apex:outputPanel layout="none" rendered="{!fieldAPIName == 'CreatedDate'}">
+                                            {!fieldTableWrapper.createdDate}
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!AND(fieldAPIName != 'CreatedDate', fieldAPIName != 'SPO_UnitRetailPrice__c', fieldAPIName != 'SPO_UnitRetailPriceQuotation__c')}">
+                                            <apex:outputpanel layout="none" rendered="{!ISBLANK(TRIM(fieldTableWrapper.fieldNameToLinkFormat[fieldAPIName]))}">
+                                                {!fieldTableWrapper.record[fieldAPIName]}
+                                            </apex:outputpanel>
+                                            <apex:outputpanel layout="none" rendered="{!!ISBLANK(TRIM(fieldTableWrapper.fieldNameToLinkFormat[fieldAPIName]))}">
+
+                                                <apex:variable var="oneLink" value="{!fieldTableWrapper.fieldNameToLinkFormat[fieldAPIName]}{!fieldTableWrapper.record[fieldTableWrapper.fieldNameToFieldIdName[fieldAPIName]]}" />
+
+                                                <apex:variable var="twoLink" value="{!IF(fieldAPIName == 'Account.Name', oneLink + '&bid=' + fieldTableWrapper.record.Id, oneLink)}" />
+
+                                                <a href="{!twoLink}"> {!fieldTableWrapper.record[fieldAPIName]} </a>
+                                            </apex:outputpanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                            <td>
+                                <apex:outputPanel onclick="jsSelectAction('{!fieldTableWrapper.selectActionLink}');" styleclass="btn btn-default" rendered="{!NOT(ISBLANK(fieldTableWrapper.selectActionLink))}">
+                                     {!$Label.SO_LV_Select}
+                                </apex:outputPanel> 
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+        </div>
+        <script type="text/javascript">
+            function jsSelectAction(link) {
+                blockUI();
+                window.location = link;
+            }
+        </script>
+</apex:component>

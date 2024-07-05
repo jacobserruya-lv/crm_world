@@ -1,0 +1,43 @@
+<apex:page controller="EmailComposer_CTRL" showHeader="false" cache="false" sidebar="false" standardStyleSheets="false" applyBodyTag="false"
+  applyHtmlTag="false" docType="html-5.0" readOnly="true">
+
+  <head>
+    <base href="{!URLFOR($Resource.EmailComposerReact,'/')}" />
+    <title>Interactive Wardrobing</title>
+    <script type="text/javascript">
+      const sessionId = '{!$Api.Session_ID}';
+      const domain = window.location.origin;
+      const application = '{!application}';
+
+      const emailDefaultValues = {!emailDefaultValues};
+      /*
+     const emailDefaultValues = {
+         application: 'ICONICS',
+         recordId: '{!$CurrentPage.parameters.recordId}',
+         defaultFrom: {
+             type: "OrgWideEmailAddress",
+             id: "0D20H0000004FnaSAE",
+             name: "Louis Vuitton",
+             email: "canadaeng@contact.louisvuitton.com"
+         },
+         defaultTo: {
+             type: "Account",
+             contactId: "003f000001rgFfEAAU",
+             id: "001f0000021bvNcAAI",
+             name: "Sebban Sarah",
+             email: "sarahseb@balink.net"
+         },
+         defaultTemplate: ''
+     };*/
+
+      console.log({ domain, sessionId });
+    </script>
+    <script type="module" contentType="text/html;charset=UTF-8" src="./assets/email-composer.js"></script>
+    <link rel="stylesheet" href="./assets/email-composer.css" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+  </body>
+</apex:page>

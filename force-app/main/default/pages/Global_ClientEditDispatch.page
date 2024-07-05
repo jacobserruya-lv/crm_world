@@ -1,0 +1,5 @@
+<apex:page standardController="Account" extensions="Global_ClientEditDispatch_VFCx" action="{!redirectToPage}">
+
+    <!-- redirects user to client edit page according to profile -->
+
+</apex:page>

@@ -1,0 +1,32 @@
+<apex:component >
+
+    <apex:attribute name="selectFieldUniqueName" type="String" description="The unique name of the select field" />
+    <apex:attribute name="defaultPicklistValue" type="String" description="Default Picklist Value" default="--None--" />
+    <apex:attribute name="required" type="Boolean" description="required" default="false" />
+    <apex:attribute name="readonly" type="Boolean" description="readonly" default="false" />
+    <apex:attribute name="customButtonStyle" type="String" description="custom style for the style attribute of the button" default="" />
+
+    <div class="btn-combobox">
+        <div class="btn-group" style="min-width: 80px">
+            <button id="{!selectFieldUniqueName}ButtonId"
+                    class="btn btn-default dropdown-toggle {!IF(readonly, 'readonly-dropdown', '')}"
+                    type="button"
+                    data-toggle="{!IF(!readonly, 'dropdown', '')}"
+                    aria-expanded="true"
+                    style="{!customButtonStyle}" 
+            >
+                <span class="wrap-caret"></span>
+            </button>
+            <!-- style="display: none;" style="position:absolute; left:-9999px; display:block;"-->
+            <div class="dropDownApexSelectClass" >
+            	<apex:componentBody />
+            </div>
+            <ul id="{!selectFieldUniqueName}DropDownId"
+                    class="dropdown-menu {!IF(required, 'required', '')}"
+                    role="menu"
+                    aria-labelledby="{!selectFieldUniqueName}ButtonId">
+            </ul>
+        </div>
+    </div>
+    
+</apex:component>

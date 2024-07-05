@@ -1,0 +1,96 @@
+<!--     * @author Keman WU
+* @date creation 13/00/2021
+* @description Receipt PDF of CareService
+-->
+<apex:page standardController="CareService__c"  renderAs="pdf" language="{!CareService__c.LanguageLocaleKey__c}" extensions="ICX_ReceiptCareServiceCtl">
+    <html>
+        <head>
+            
+        </head>
+        
+        <Body> <div style="font-family: Arial Unicode MS;font-size: small;">
+            <apex:pageblock >
+             <div style="text-align:center;font-size:300%;font-weight:800;width:90%;margin: 0 auto;">                            
+                    <apex:outputText value="{!$Label.ICX_CareServicePDFReceiptTitle}" escape="false"  /> 
+                  
+               </div>
+               
+              
+              <br/><br/>
+              
+                <apex:image width="150" height="55" value="https://barcode.tec-it.com/barcode.ashx?data={!CareService__c.packingListNumber__c}&&code=Code39FullASCII&unit=Min&modulewidth=1"/><br/><br/>
+                
+                
+                
+                {!$Label.ICX_CareServicePDFReceiptStore} :  {!CareService__c.StoreRetailCode__c} <br/>     
+                {!$Label.ICX_CareServicePDFReceiptPackingList} : {!CareService__c.packingListNumber__c}<br/> <br/>  <br/>  <br/>                      
+                {!$Label.ICX_CareServicePDFReceiptText} <br/> <br/><br/>  
+                <apex:image style="float:right;" width="60" height="150" value="https://barcode.tec-it.com/barcode.ashx?data={!upperCaseRepairNumber}&code=Code39FullASCII&unit=Min&rotation=90&modulewidth=1"/>
+                 
+                <Table width="100%">
+                    <tr>
+                        <td>{!$Label.ICX_CareServicePDFReceiptTransaction}  </td>
+                        <td>{!CareService__c.TransactionId__c}</td>
+                        <td><apex:outputText value="{!$Label.ICX_CareServicePDFReceiptDateFormat}"><apex:param value="{!CareService__c.MyRepair_CreatedDate__c}" /> </apex:outputText></td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td></td>
+                        <td> {!$Label.ICX_CareServicePDFReceiptSKU} </td>
+                        <td> {!$Label.ICX_CareServicePDFReceiptProduct}  </td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td> {!CareService__c.SKU__c}</td>
+                        <td> {!CareService__c.Product__r.Name}</td>
+                       
+                    </tr>
+                   
+                </Table> 
+                <br/> <br/><br/> 
+                <apex:pageBlock >
+                    <apex:dataTable value="{!quotations}" var="quotation" id="theTable" width="100%" > 
+                        
+                        <apex:column width="26%" >
+                            <apex:facet name="header">{!$Label.ICX_CareServicePDFReceiptQuantity} </apex:facet>           
+                            <apex:outputText value="{!quotation.Quantity__c}"/>
+                        </apex:column>
+                        
+                        <apex:column width="24%" >
+                            <apex:facet name="header">{!$Label.ICX_CareServicePDFReceiptInstructionCode} </apex:facet>           
+                            <apex:outputText value="{!quotation.InstructionCode__c}"/>
+                        </apex:column>
+                        
+                        <apex:column >
+                            <apex:facet name="header">{!$Label.ICX_CareServicePDFReceiptInstructionName}  </apex:facet>           
+                            <apex:outputText value="{!quotation.Instruction_Name_ICONiCS__c}"/>
+                        </apex:column>
+                        
+                    </apex:dataTable>
+                </apex:pageBlock>       
+                <br/> <br/> <br/><br/>
+                 
+                
+                {!$Label.ICX_CareServicePDFReceiptClient} <br/> <br/>
+                <Table width="100%">
+                    <tr>
+                        <td>{!CareService__c.Client__r.Name}</td>
+                        <td> <apex:outputText value="{!CareService__c.Shipping_Address__c}" escape="false"  /> </td>
+                        <td> {!CareService__c.Client__r.PersonMobilePhone} </td>
+                        <td>{!CareService__c.Client__r.PersonEmail}</td>                       
+                    </tr>
+                </Table>
+                <br/><br/><br/>
+                <apex:outputPanel rendered="{!CareService__c.StoreRetailCode__c != 'NY7'}">
+                {!$Label.ICX_CareServicePDFReceiptExpertNote} <br/>
+                <div style="border:1px solid; padding: 5px 10px 5px 10px;"> 
+                <apex:outputtext style="white-space:pre-wrap;" value="{!CareService__c.Care_Expert_Note__c} " escape="false" />
+                </div>
+                </apex:outputPanel>
+            </apex:pageblock>
+            
+            </div> 
+        </Body>
+    </html>
+</apex:page>

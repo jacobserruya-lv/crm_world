@@ -1,0 +1,32 @@
+<apex:page controller="TWIST_SocialMediaBounce_CTRL"
+    showHeader="false"
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    sidebar="false"
+    docType="html-5.0"
+    standardStylesheets="false">
+
+    <!-- <apex:outputText value="{!debug}"></apex:outputText> -->
+
+    <c:TWIST_PageLoader />
+
+    <apex:outputPanel rendered="{! lwcAttributes != null }">
+        <c:TWIST_GoogleAnalytics utagDataStringified="{!JSENCODE(utagDataStringified)}" utagDataScript="{!utagDataScript}"/>
+        
+        <div id="lwc-wrapper-container"/>
+        <apex:includeLightning />
+        <script type="text/javascript">
+            function createWrapperComponent() {
+                $Lightning.use("c:TwistSilentRedirectLightningApp", function() {
+                    $Lightning.createComponent(
+                        "c:twistSocialMediaBounceWrapper",
+                        { autodata: autoData, lwcAttributes: "{!JSENCODE(lwcAttributes)}" },
+                        "lwc-wrapper-container",
+                        function(component) {}
+                    );
+                });
+            }
+        </script>
+    </apex:outputPanel>
+
+</apex:page>

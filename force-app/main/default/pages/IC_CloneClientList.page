@@ -1,0 +1,52 @@
+<apex:page Controller="IC_CloneClientList_VFCx">
+
+
+  <style>
+    .messageError { color: red; font-weight: strong;}
+    .dreamLabel { font-weight: bold;}
+   </style>
+   
+  <body>
+  <apex:form id="theContent" >
+    <apex:pageBlock title="" id="pb">
+    
+    
+    <center>
+	    <apex:panelGrid columns="2" style="margin-left:20px; text-align:left;" id="formInfosInit0">
+	        <apex:commandButton styleClass="bouton" value="{!$Label.IC_CloneClientList_SaveBtn}" action="{!save}">  </apex:commandButton>
+	        <apex:commandButton styleClass="bouton" value="{!$Label.IC_CloneClientList_CancelBtn}" action="{!cancel}">  </apex:commandButton>
+	    </apex:panelGrid>
+    </center>
+    
+    
+    {!$Label.IC_CloneClientList_Message} <br/> <hr/>
+    <apex:pageMessages />
+    
+    	<b> {!$Label.IC_CloneClientList_UserName} </b>
+        <apex:pageblocksection columns="1" title="User Name" collapsible="false" showHeader="false" id="pbs">
+         
+			<apex:pageBlockTable value="{!lstCliList}" var="item">
+            	<apex:column >
+            		<apex:inputField value="{!item.TECH_UserId__c}"/>
+            	</apex:column> 
+        	</apex:pageBlockTable> 
+
+
+
+        </apex:pageblocksection> <hr/>
+        
+        
+        <center>
+	    	<apex:panelGrid columns="2" style="margin-left:20px; text-align:left;" id="formInfosInit2">
+	        	<apex:commandButton styleClass="bouton" value="{!$Label.IC_CloneClientList_SaveBtn}" action="{!save}">  </apex:commandButton>
+	            <apex:commandButton styleClass="bouton" value="{!$Label.IC_CloneClientList_CancelBtn}" action="{!cancel}">  </apex:commandButton>
+	        </apex:panelGrid>
+        </center>
+         
+        
+    </apex:pageBlock>
+  </apex:form>   
+  </body>
+
+
+</apex:page>

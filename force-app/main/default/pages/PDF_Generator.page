@@ -1,0 +1,17 @@
+<apex:page controller="PDF_DataDisplayController" lightningStylesheets="true"><!-- renderAs="pdf"-->
+    
+    <apex:slds />
+    
+    <!--{!PDFData}-->
+    <!--iframe src="data:application/pdf;base64,{!PDFData}" ></iframe-->
+    <apex:iframe height="460rem" width="100%" src="data:application/pdf;headers=Content-Disposition: attachment;filename=' + fileName + '.pdf;base64,{!PDFData}"></apex:iframe>
+    <!-- 465rem -->
+    <!--div style="position:relative;padding-top:56.25%;">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" height="100%" width="100%" src="data:application/pdf;base64,{!PDFData}"></iframe>
+    </div-->
+    
+    <!--div class="slds-docked-form-footer">
+        <a class="slds-button slds-button_brand" download="{!fileName}" href="{!'data:application/pdf;headers=Content-Disposition: attachment;filename=' + fileName + '.pdf;base64,' + PDFData}">Download</a>
+    </div-->
+
+</apex:page>

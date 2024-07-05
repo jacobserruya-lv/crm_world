@@ -1,0 +1,49 @@
+<apex:component >
+
+    <!-- Common JS -->
+    <!-- createdBy          Haim Knokh, 18/08/2015 -->
+    <!-- lastModifiedBy     Haim Knokh, 19/08/2015 -->
+<script>
+
+    function unblockUI(){
+        $.unblockUI();
+    }
+
+    function blockUI() {
+        $.blockUI({ 
+            message: '<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" />', 
+            overlayCSS:  { 
+                backgroundColor: '#F0F0F0',  
+                opacity:         0.3, 
+                cursor:          'wait' 
+            },
+            baseZ: 2000,
+            css: {
+            border: 'border:solid 1px #a0a0a0',
+            padding: '8px',
+            backgroundColor: 'transparent',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#000',
+            'width': '300px'
+        } } ); 
+    }
+
+    function initPage(){
+        //TODO: add common initializaations
+        //Remove table from radio imputs
+        $('input[type=radio]').each(function(){
+            $(this).closest('table').after($(this)).remove();
+        });
+    }
+    
+    $(function(){
+        initPage();   
+    });
+    
+</script>
+
+
+
+</apex:component>

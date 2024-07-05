@@ -1,0 +1,191 @@
+<apex:component >
+    <!-- createdBy          Ofir Aghai -->
+    <apex:attribute name="contr" type="SO_ProductSpe_CTRL" description="contr" />
+
+    <apex:outputPanel id="personalizations">
+        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c==contr.oppLeatherGood}" layout="none">
+            
+            <div class="panel panel-primary margin-top-lg personalization">
+                <div class="panel-heading">{!$Label.LV_SO_PERSONALIZATION}<span class="glyphicon glyphicon-question-sign padding-left5 pull-right" data-toggle="tooltip" title="{!$Label.LV_SO_PERSONALIZATION_HELP}" aria-hidden="true"/></div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class=" col-md-6">
+                            <div class="form-group comments">
+                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_Painting__c.Label}</label>
+                                <div class="col-sm-6">
+                                    <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_Painting_InputField">
+                                        <apex:inputField id="SPO_Painting_InputFieldId"  value="{!contr.quotationContainer.oneOpportunity.SPO_Painting__c}"/>
+                                    </c:SO_BootstrapDropDownEnhanced>
+                                </div>
+                            </div>
+                            <div class="form-group comments">
+                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_PaintingYN__c.Label}</label>
+                                <div class="col-sm-6">
+                                    <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_PaintingYN_InputField">
+                                        <apex:inputField id="SPO_PaintingYN_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_PaintingYN__c}" />
+                                        <apex:actionFunction name="SPO_PaintingYN_InputFieldreRenderfunction" action="{!NULL}" reRender="patchRender" oncomplete="oncompletePatchFields()"/>
+                                    </c:SO_BootstrapDropDownEnhanced>
+                                </div>
+                            </div>
+                            <apex:outputPanel id="patchRender">
+                                <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_PaintingYN__c == 'Yes'}">
+                                    <!-- <div class="form-group patch required"> -->
+                                    <div class="form-group patch required">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_Patch__c.Label}</label>
+                                        <div class="col-sm-6">
+                                            <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_Patch_InputField">
+                                                <apex:inputField id="SPO_Patch_InputFieldId"  value="{!contr.quotationContainer.oneOpportunity.SPO_Patch__c}"/>
+                                            </c:SO_BootstrapDropDownEnhanced>
+                                        </div>
+                                    </div>
+                                    <div class="form-group comment patch required">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_PatchFreeText__c.Label}</label>
+                                        <div class="col-sm-6">
+                                            <apex:inputfield styleclass="form-control" html-data-rule-required="true" value="{!contr.quotationContainer.oneOpportunity.SPO_PatchFreeText__c}" />
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </div>
+
+                        <div class=" col-md-6">
+                            <div class="form-group comments">
+                                <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_Lock__c.Label}</label>
+                                <div class="col-sm-6">
+                                    <apex:actionRegion >
+                                        <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_Lock_InputField">
+                                            <apex:inputField id="SPO_Lock_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_Lock__c}" />
+                                        </c:SO_BootstrapDropDownEnhanced>
+                                        <apex:actionFunction name="SPO_Lock_InputFieldreRenderfunction" action="{!NULL}" reRender="lockNubmerField"/>
+                                    </apex:actionRegion>
+                                </div>
+                            </div>
+                            <apex:outputPanel id="lockNubmerField">
+                                <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_Lock__c =='Yes'}">
+                                    <div class="form-group comments">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_LockNumber__c.Label}</label>
+                                        <div class="col-sm-6">
+                                            <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_LockNumber__c}" />
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel rendered="{!contr.leatherGood_Creation || contr.leatherGood_Creation_OrderDisplay}">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_ClientAccessoriesRequested__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:actionRegion >
+                                            <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_ClientAccessoriesRequested_InputField">
+                                                <apex:inputField id="SPO_ClientAccessoriesRequested_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_ClientAccessoriesRequested__c}"/>
+                                            </c:SO_BootstrapDropDownEnhanced>
+
+                                            <apex:actionFunction name="SPO_ClientAccessoriesRequested_InputFieldreRenderfunction" action="{!NULL}" reRender="SPO_CommentClientAccessoriesPanelId"/>
+                                        </apex:actionRegion>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel id="SPO_CommentClientAccessoriesPanelId" rendered="{!contr.leatherGood_Creation || contr.leatherGood_Creation_OrderDisplay}">
+
+                                <apex:outputPanel rendered="{!IF(AND(
+                                                                contr.quotationContainer.oneOpportunity.SPO_ClientAccessoriesRequested__c == 'Yes', 
+                                                                !contains('Creation in progress;In progress;Payment confirmed;Closed Won;Cancelled by store;Cancelled by Production',contr.quotationContainer.oneOpportunity.StageName)
+                                                                ), true, false
+                                                            )}">
+
+                                    <div class="form-group comment required">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_CommentClientAccessories__c.Label}</label>
+                                        <div class="col-sm-6">
+                                            <apex:inputText html-data-rule-required="true" styleClass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_CommentClientAccessories__c}" />
+                                        </div>
+                                        
+                                    </div>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel rendered="{!contains('Creation in progress;In progress;Payment confirmed;Closed Won;Cancelled by store;Cancelled by Production',contr.quotationContainer.oneOpportunity.StageName)}">
+                                    <div class="form-group comment">
+                                        <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_CommentClientAccessories__c.Label}</label>
+                                        <div class="col-sm-6">
+                                            <apex:inputText styleClass="form-control" html-readonly="readonly" value="{!contr.quotationContainer.oneOpportunity.SPO_CommentClientAccessories__c}" />
+                                        </div>
+                                        
+                                    </div>
+                                </apex:outputPanel>
+
+                            </apex:outputPanel>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+
+
+        <apex:outputPanel rendered="{!contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c==contr.oppWatch || contr.quotationContainer.oneOpportunity.SPO_ProductCategory__c==contr.oppAccessory}" layout="none">
+            <div class="panel panel-primary margin-top-lg personalization">
+                <div class="panel-heading">{!$Label.LV_SO_PERSONALIZATION}<span class="glyphicon glyphicon-question-sign padding-left5 pull-right" data-toggle="tooltip" title="{!$Label.LV_SO_PERSONALIZATION_HELP}" aria-hidden="true"/></div> 
+                <div class="panel-body">
+                    <div class="row">
+
+                        <!-- <div class=" col-md-6">
+                            
+
+                            <apex:outputPanel rendered="{!contr.watch_SpoMto || contr.accessory_Creation}">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{!$ObjectType.ProductReferential__c.fields.Name.Label}</label>
+                                    <div class="col-sm-7">
+                                        <apex:inputtext styleclass="form-control" html-readonly="readonly" value="{!contr.quotationContainer.oneOpportunity.SPO_BaseSKURefmodelSKU__r.Name}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </div> -->
+
+                        <div class=" col-md-6">
+                            <apex:outputPanel rendered="{!contr.watch_SpoMto}">
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_WristSize__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <!-- <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_WristSize_InputField"> -->
+                                            <apex:inputfield html-data-rule-required="true" styleClass="form-control" id="SPO_WristSize_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_WristSize__c}" />
+                                        <!-- </c:SO_BootstrapDropDownEnhanced> -->
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!contr.accessory_Creation}">
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_BeltSize__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <!-- <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="SPO_BeltSize_InputField"> -->
+                                            <apex:inputfield html-data-rule-required="true" styleClass="form-control" id="SPO_BeltSize_InputFieldId" value="{!contr.quotationContainer.oneOpportunity.SPO_BeltSize__c}" />
+                                        <!-- </c:SO_BootstrapDropDownEnhanced> -->
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel rendered="{!contr.watch_SpoMto}">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">{!$ObjectType.Opportunity.fields.SPO_DestinationWatch__c.Label}</label>
+                                    <div class="col-sm-6">
+                                        <apex:inputText html-readonly="readonly" styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_DestinationWatch__c}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            <!-- <apex:outputPanel rendered="{!contr.watch_SpoMto}">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{!$ObjectType.Opportunity.fields.SPO_DestinationWatchDescription__c.Label}</label>
+                                    <div class="col-sm-7">
+                                        <apex:inputText styleclass="form-control" value="{!contr.quotationContainer.oneOpportunity.SPO_DestinationWatchDescription__c}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel> -->
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

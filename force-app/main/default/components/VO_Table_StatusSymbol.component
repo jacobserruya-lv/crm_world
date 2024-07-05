@@ -1,0 +1,20 @@
+<apex:component >
+        <apex:attribute name="statusType" description="The status of the survay."
+                        type="String" />
+        <apex:attribute name="type" description="The status of the survay."
+                        type="String" />
+        <h4 class="margin-no text-uppercase">
+            <apex:outputpanel layout="none" rendered="{!IF(CONTAINS(statusType, 'New'),true , false)}">
+                <span class="fa fa-exclamation-circle" style="color:#ffa834"></span>
+                <span class="h5 vertical-middle"> {!statusType}</span>
+            </apex:outputpanel>
+            <apex:outputpanel layout="none" rendered="{!IF(CONTAINS(statusType, 'Pending'),true , false)}">
+                <span class="fa fa-clock-o" style="color:#3d8af7"></span>
+                <span class="h5 vertical-middle"> {!statusType}</span>
+            </apex:outputpanel>
+            <apex:outputpanel layout="none" rendered="{!IF(CONTAINS(statusType, 'Closed'),true , false)}">
+                <span class="fa fa-check-circle" style="color:#72bb53"></span>
+                <span class="h5 vertical-middle"> {!statusType}</span>
+            </apex:outputpanel>
+        </h4>
+    </apex:component>

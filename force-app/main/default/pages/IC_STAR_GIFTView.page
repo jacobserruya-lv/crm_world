@@ -1,0 +1,56 @@
+<!-- File Name: IC_STAR_GiftView
+* Description : Gift View custom visualforce page
+* @author : RMOU
+* Modification Log =============================================================== 
+* 
+* -->
+<apex:page standardController="Gift__c" extensions="ShowPicture" tabstyle="Gift__c" title="Gift: {! Gift__c.Name }">
+    
+    <!-- Page header -->
+    <apex:sectionHeader title="Gift" subtitle="{! Gift__c.Name }"/>
+    <br/>
+    <apex:form >
+        <!-- Image panel -->
+        <apex:outputpanel styleClass="pic" id="image" layout="block">
+            <a href="/apex/fileupload?id={! Gift__c.id }">
+                <apex:image value="{! URLFOR($Resource.PictureUploader, '/images/unknownperson.jpg') }" rendered="{! NOT( hasPicture ) }" style="width:100px; height:100px;"/>
+                <apex:image value="{! URLFOR($Action.Attachment.Download, file.Id) }" rendered="{! hasPicture }" style="min-width:170px; max-width:270px; height:200px;"/>
+            </a>
+        </apex:outputpanel>
+        <br/>
+        <!-- Main block -->
+        <apex:pageBlock mode="maindetail" title="Gift Detail">
+            <center>
+                <apex:commandButton value="{! $Label.IC_Edit }" action="{! URLFOR($Action.Gift__c.edit, Gift__c.id) }"/> 
+                <apex:commandButton value="{! $Label.IC_Delete }" action="{! URLFOR($Action.Gift__c.delete, Gift__c.id) }"/> 
+                <apex:commandButton value="Clone" action="{! URLFOR($Action.Gift__c.clone, Gift__c.id) }"/>
+            </center>
+            <br/>
+            <!-- Information section -->
+            <apex:pageBlockSection columns="2" showHeader="false" collapsible="false">
+                <apex:outputField value="{! Gift__c.Gift_Name__c }"/>
+                <apex:outputField value="{! Gift__c.ProgramId__c }"/>
+                
+                <apex:outputField value="{! Gift__c.Gift_Detail__c }"/>
+                <apex:outputField value="{! Gift__c.RecoveryAct__c }"/>
+                
+                <apex:outputField value="{! Gift__c.Welcome_Package__c }"/>
+                <apex:pageBlockSectionItem />
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Account.Fields.CreatedById.Label }"/>
+                    <apex:outputLabel > 
+                        <apex:outputField value="{! Gift__c.CreatedById }"/>,&nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy h:mm a}"><apex:param value="{!Gift__c.CreatedDate}" /></apex:outputText>
+                    </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{! $ObjectType.Account.Fields.LastModifiedById.Label }"/>
+                    <apex:outputLabel > 
+                        <apex:outputField value="{! Gift__c.LastModifiedById }"/>,&nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy h:mm a}"><apex:param value="{!Gift__c.LastModifiedDate}" /></apex:outputText>
+                    </apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

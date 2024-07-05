@@ -1,0 +1,569 @@
+<apex:page controller="IDENTITY_Reports_CTRL" title="Identity Reports" showHeader="false" sidebar="false">
+    <apex:stylesheet value="{!URLFOR($Resource.Identity_Registration_CSS, 'font-faces.css')}" />
+
+    <head>
+        <!--Load the CSS file-->
+        <style type="text/css">
+            body {
+                display: flex;
+                flex-direction: column;
+                margin: 20px;
+            }
+
+            body h1,
+            h2 {
+                font-size: 28px;
+                color: #5c5653;
+                font-weight: bold;
+                margin-bottom: 18px;
+                font-family: 'Louis Vuitton'
+            }
+
+            body h2 {
+                font-size: 23px;
+            }
+
+            .row {
+                display: flex;
+                flex-direction: row;
+                justify-content: left;
+                height: 600px
+            }
+
+            #login_amount,
+            #login_user_amount,
+            #login_history {
+                width: 750px;
+                height: 500px
+            }
+
+            @media print {
+
+                #login_amount,
+                #login_user_amount,
+                #login_history {
+                    max-width: 750px;
+                    max-height: 500px;
+                }
+
+                #login_user_amount {
+                    margin-left: -150px;
+                    margin-bottom: 200px;
+                }
+
+                #active_users {
+                    margin-left: -130px;
+                }
+
+                #login_history {
+                    z-index: 1;
+                }
+
+                .row {
+                    margin-left: -60px;
+                    height: unset
+                }
+
+                body h1,
+                h2 {
+                    margin-left: 22px;
+                }
+
+                body h1 {
+                    margin-top: 50px;
+                }
+
+                .last-title {
+                    margin-top: 250px;
+                }
+            }
+
+            @page {
+                margin: 0;
+            }
+
+            .lds-ellipsis {
+                display: inline-block;
+                position: relative;
+                width: 800px;
+                height: 600px;
+                margin-left: 200px;
+                margin-top: 200px;
+            }
+
+            .lds-ellipsis div {
+                position: absolute;
+                top: 27px;
+                width: 11px;
+                height: 11px;
+                border-radius: 50%;
+                background: rgb(54, 52, 52);
+                animation-timing-function: cubic-bezier(0, 1, 1, 0);
+            }
+
+            .lds-ellipsis div:nth-child(1) {
+                left: 6px;
+                animation: lds-ellipsis1 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(2) {
+                left: 6px;
+                animation: lds-ellipsis2 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(3) {
+                left: 26px;
+                animation: lds-ellipsis2 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(4) {
+                left: 45px;
+                animation: lds-ellipsis3 0.6s infinite;
+            }
+
+            @keyframes lds-ellipsis1 {
+                0% {
+                    transform: scale(0);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes lds-ellipsis3 {
+                0% {
+                    transform: scale(1);
+                }
+
+                100% {
+                    transform: scale(0);
+                }
+            }
+
+            @keyframes lds-ellipsis2 {
+                0% {
+                    transform: translate(0, 0);
+                }
+
+                100% {
+                    transform: translate(19px, 0);
+                }
+            }
+        </style>
+
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="../../soap/ajax/46.0/connection.js" type="text/javascript"></script>
+
+        <!--Draw Charts-->
+        <script type="text/javascript">
+
+            function draw() {
+                let functions = [];
+
+                /* ************************ ACTIVE USERS ************************ */
+                functions.push(
+                    remoteFunction('{!$RemoteAction.IDENTITY_Reports_CTRL.getActiveUsers}')
+                    .then(function (result) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Topping');
+                        data.addColumn('number', 'Slices');
+                        data.addRows([
+                            ['Active', result['Active']],
+                            ['Inactive', result['Inactive']]
+                        ]);
+
+                        var options = {
+                            'title': 'Active Users',
+                            'width': 800,
+                            'height': 600,
+                            colors: ['#efe7d7', '#5c5653'],
+                            is3D: true,
+                            fontName: 'Louis Vuitton'
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('active_users'));
+
+                        if ((new URL(document.location.href)).searchParams.get('asPdf')) {
+                            google.visualization.events.addListener(chart, 'ready', function () {
+                                document.getElementById('active_users').innerHTML = '<img src="' + chart
+                                    .getImageURI() + '">';
+                            });
+                        }
+
+                        chart.draw(data, options);
+                    })
+                );
+
+                /* ************************ LOGIN AMOUNT ************************ */
+                functions.push(
+                    remoteFunction('{!$RemoteAction.IDENTITY_Reports_CTRL.getLoginAmount}')
+                    .then(function (result, event) {
+                        // HANDLE DATA
+                        var auth_providers = ['Line', 'WeChat', 'Kakao'];
+                        var login_amount_data = {};
+                        var user_amount_data = {};
+
+                        for (var j = 0; j < auth_providers.length; j++) {
+
+                            var auth_provider = auth_providers[j];
+                            login_amount_data[auth_provider] = {};
+                            user_amount_data[auth_provider] = {};
+
+                            for (var i = 0; i < result[auth_provider].length; i++) {
+                                var data = result[auth_provider][i];
+                                login_amount_data[auth_provider][data.month] = data.amount;
+                                user_amount_data[auth_provider][data.month] = data.user_amount;
+                            }
+                        }
+
+                        var months = [undefined, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+                            'Oct', 'Nov', 'Dec'
+                        ];
+
+                        var table_login_amount = [
+                            ['Month', 'Line', 'WeChat', 'Kakao']
+                        ];
+                        var table_user_amount = [
+                            ['Month', 'Line', 'WeChat', 'Kakao']
+                        ];
+
+                        for (var month = 1; month <= 12; month++) {
+
+                            table_login_amount.push([
+                                months[month],
+                                login_amount_data['Line'][month] || 0,
+                                login_amount_data['WeChat'][month] || 0,
+                                login_amount_data['Kakao'][month] || 0
+                            ]);
+
+                            table_user_amount.push([
+                                months[month],
+                                user_amount_data['Line'][month] || 0,
+                                user_amount_data['WeChat'][month] || 0,
+                                user_amount_data['Kakao'][month] || 0
+                            ]);
+                        }
+
+                        // DRAW LOGIN AMOUNT
+                        var login_data = google.visualization.arrayToDataTable(table_login_amount);
+                        var login_options = {
+                            title: 'Login Amount',
+                            colors: ['#1C86EE', '#66CD00', '#806A50'],
+                            curveType: 'function',
+                            legend: {
+                                position: 'bottom'
+                            },
+                            vAxes: {
+                                0: {
+                                    title: 'Number of Login',
+                                    minValue: 0
+                                },
+                            },
+                            fontName: 'Louis Vuitton'
+                        };
+                        var login_chart = new google.visualization.LineChart(document.getElementById(
+                            'login_amount'));
+
+                        if ((new URL(document.location.href)).searchParams.get('asPdf')) {
+                            google.visualization.events.addListener(login_chart, 'ready', function () {
+                                document.getElementById('login_amount').innerHTML = '<img src="' +
+                                    login_chart.getImageURI() + '">';
+                            });
+                        }
+
+                        login_chart.draw(login_data, login_options);
+
+                        // DRAW LOGIN USER AMOUNT
+                        var user_data = google.visualization.arrayToDataTable(table_user_amount);
+                        var user_options = {
+                            title: 'Login User Amount',
+                            colors: ['#1C86EE', '#66CD00', '#806A50'],
+                            curveType: 'function',
+                            legend: {
+                                position: 'bottom'
+                            },
+                            vAxes: {
+                                0: {
+                                    title: 'Number of User',
+                                    minValue: 0
+                                },
+                            },
+                            fontName: 'Louis Vuitton'
+                        };
+                        var user_chart = new google.visualization.LineChart(document.getElementById(
+                            'login_user_amount'));
+
+                        if ((new URL(document.location.href)).searchParams.get('asPdf')) {
+                            google.visualization.events.addListener(user_chart, 'ready', function () {
+                                document.getElementById('login_user_amount').innerHTML = '<img src="' +
+                                    user_chart.getImageURI() + '">';
+                            });
+                        }
+
+                        user_chart.draw(user_data, user_options);
+                    })
+                );
+
+                /* ************************ USERNAME TYPE ************************ */
+                functions.push(
+                    remoteFunction('{!$RemoteAction.IDENTITY_Reports_CTRL.getUsernameType}')
+                    .then(function (result, event) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Topping');
+                        data.addColumn('number', 'Slices');
+                        data.addRows([
+                            ['Mobile', result['Mobile']],
+                            ['Email', result['Email']]
+                        ]);
+
+                        var options = {
+                            'title': 'Username Type',
+                            'width': 800,
+                            'height': 600,
+                            colors: ['#efe7d7', '#5c5653'],
+                            is3D: true,
+                            fontName: 'Louis Vuitton'
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('username_type'));
+
+                        if ((new URL(document.location.href)).searchParams.get('asPdf')) {
+                            google.visualization.events.addListener(chart, 'ready', function () {
+                                document.getElementById('username_type').innerHTML = '<img src="' +
+                                    chart
+                                    .getImageURI() + '">';
+                            });
+                        }
+
+                        chart.draw(data, options);
+                    })
+                );
+
+                /* ************************ LAST LOGIN ************************ */
+                var history = {
+                    'Last Login': [],
+                    'No Login': []
+                };
+
+                var success = (result, type) => {
+                    var records = result.getArray("records");
+
+                    history[type] = history[type].concat(records);
+
+                    if (result.queryLocator) {
+                        sforce.connection.queryMore(result.queryLocator, {
+                            onSuccess : success, onFailure : log});
+                    }
+                }
+
+                var draw = () => {
+                    var months = [undefined, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+                        'Oct', 'Nov', 'Dec'
+                    ];
+                    var remote_data = {};
+
+                    var types = ['Last Login', 'No Login'];
+                    for (var i = 0; i < types.length; i++) {
+                        var type = types[i];
+                        for (var j = 0; j < history[type].length; j++) {
+                            var elem = history[type][j];
+
+                            if (elem.IsActive == 'true') {
+                                if (remote_data[elem.year + ' ' + elem.month] == undefined) {
+                                    remote_data[elem.year + ' ' + elem.month] = {};
+                                }
+                                if (remote_data[elem.year + ' ' + elem.month]['Active'] == undefined) {
+                                    remote_data[elem.year + ' ' + elem.month]['Active'] = 0;
+                                }
+
+                                remote_data[elem.year + ' ' + elem.month]['Active'] += Number(elem.amount);
+                            } else {
+                                if (remote_data[elem.year + ' ' + elem.month] == undefined) {
+                                    remote_data[elem.year + ' ' + elem.month] = {};
+                                }
+                                if (remote_data[elem.year + ' ' + elem.month]['Inactive'] == undefined) {
+                                    remote_data[elem.year + ' ' + elem.month]['Inactive'] = 0;
+                                }
+
+                                remote_data[elem.year + ' ' + elem.month]['Inactive'] += Number(elem.amount);
+                            }
+                        }
+                    }
+
+                    remote_data = sortObject(remote_data);
+
+                    var table_data = [
+                        ['Date', 'Active', 'Inactive']
+                    ];
+                    for (var i = 0; i < Object.keys(remote_data).length; i++) {
+
+                        var key = Object.keys(remote_data)[i].split(' ');
+
+                        table_data.push([
+                            months[key[1]] + ' ' + key[0],
+                            remote_data[Object.keys(remote_data)[i]]['Active'] || 0,
+                            remote_data[Object.keys(remote_data)[i]]['Inactive'] || 0
+                        ]);
+                    }
+
+                    var user_data = google.visualization.arrayToDataTable(table_data);
+
+                    var options = {
+                        chart: {
+                            title: 'Last Login History'
+                        },
+                        colors: ['#efe7d7', '#5c5653'],
+                        fontName: 'Louis Vuitton'
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById(
+                        'login_history'));
+
+                    if ((new URL(document.location.href)).searchParams.get('asPdf')) {
+                        google.visualization.events.addListener(chart, 'ready', function () {
+                            document.getElementById('login_history').innerHTML = '<img src="' +
+                                chart
+                                .getImageURI() + '">';
+
+                            console.log(chart.getImageURI())
+                        });
+                    }
+
+                    chart.draw(user_data, options);
+                }
+
+                var log = (error) => {
+                    console.log('log' + error)
+                }
+
+                functions.push(
+                    remoteQuery('SELECT CALENDAR_YEAR(LastLoginDate) year, CALENDAR_MONTH(LastLoginDate) month, IsActive, Count(Id) amount FROM User WHERE Is_Identity_User__c = true AND LastLoginDate != null AND (IsActive = true OR IsActive = false) GROUP BY CALENDAR_YEAR(LastLoginDate), CALENDAR_MONTH(LastLoginDate), IsActive ORDER BY CALENDAR_YEAR(LastLoginDate),CALENDAR_MONTH(LastLoginDate)')
+                    .then((result) => {
+                        success(result, 'Last Login');
+                        if(history['No Login'].length != 0){
+                            draw();
+                        }
+                    })
+                );
+                
+                functions.push(
+                    remoteQuery('SELECT CALENDAR_YEAR(CreatedDate) year, CALENDAR_MONTH(CreatedDate) month, IsActive, Count(Id) amount FROM User WHERE Is_Identity_User__c = true AND LastLoginDate = null AND (IsActive = true OR IsActive = false) GROUP BY CALENDAR_YEAR(CreatedDate), CALENDAR_MONTH(CreatedDate), IsActive ORDER BY CALENDAR_YEAR(CreatedDate),CALENDAR_MONTH(CreatedDate)')
+                    .then((result) => {
+                        success(result, 'No Login');
+                        if(history['Last Login'].length != 0){
+                            draw();
+                        }
+                    })
+                );
+
+                /* ************************ ASYNCHRONE ************************ */
+
+                Promise.all(functions);
+            }
+
+            sforce.connection.sessionId='{!GETSESSIONID()}';
+
+            google.charts.load('current', {
+                'packages': ['corechart', 'bar']
+            });
+
+            google.charts.setOnLoadCallback(draw);
+
+            /* ************************ UTILS ************************ */
+
+            function remoteFunction(...args) {
+                var myPromise = new Promise(function (resolve, reject) {
+                    Visualforce.remoting.Manager.invokeAction(
+                        ...args,
+                        function (result, event) {
+                            if (event.status)
+                                resolve(result);
+                            else
+                                reject(event);
+                        }, {
+                            buffer: false,
+                            escape: false,
+                            timeout: 120000
+                        }
+                    );
+                });
+                return myPromise;
+            }
+
+            function remoteQuery(soqlQuery){
+                return new Promise(function (resolve, reject){
+                    var data = sforce.connection.query(soqlQuery, {
+                        onSuccess: resolve,
+                        onFailure: reject
+                    });
+                });
+            }
+
+            function sortObject(obj) {
+                return Object.keys(obj).sort().reduce(function (result, key) {
+                    result[key] = obj[key];
+                    return result;
+                }, {});
+            }
+        </script>
+    </head>
+
+    <body id="content">
+
+        <h1>Identity Reports</h1>
+
+        <h2>Social Login</h2>
+        <div class="row">
+            <div id="login_amount">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="login_user_amount">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <h2>User Licence Management</h2>
+        <div class="row">
+            <div id="login_history">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="active_users">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="last-title">Login Identifier</h2>
+        <div class="row">
+            <div id="username_type">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</apex:page>

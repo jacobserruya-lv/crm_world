@@ -1,0 +1,5 @@
+<apex:page >
+
+<apex:outputLink value="VO_Specific_Statistics" target="_blank">Click here to access the console</apex:outputLink>
+
+</apex:page>

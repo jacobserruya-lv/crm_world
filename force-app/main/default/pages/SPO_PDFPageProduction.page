@@ -1,0 +1,348 @@
+<apex:page StandardController="Opportunity" standardStyleSheets="false" extensions="PDFPageController,ShowPicture" renderAs="pdf">    
+     <!-- <head>
+    <style type="text/css">    
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="//tp5.louisvuitton.com/fonts/fontface.css" />
+        <link rel="stylesheet" type="text/css" href="//tp5.louisvuitton.com/fonts/fontface_FRA.css" />            
+    </style>
+    </head> -->
+
+<body style="font-size:14px;">
+
+    <h2>
+        Order Details
+    </h2>
+
+    <!--COMMENT PART-->
+    <div style="border: 1px #D3BFB5;padding-left:7px;padding-right:7px;padding-top:5px;">
+        <div style="display: inline-block;  float: left;padding-left:10px; width: 50%">
+        	<h4>Comment:</h4>
+                <p style="word-wrap: break-word;"> Special Order description:
+                	{!Opportunity.SPO_CommercialLocalComment__c}
+                </p>
+                <br />
+        </div>
+    
+        <div style="display: inherit;  float:none;padding-right:10px; width: auto; text-align: left; padding-top: 10px">
+            <p style="word-wrap: break-word;">
+                Internal workshop comment: {!Opportunity.SPO_InternalWorkshopComment__c}
+            </p>
+            <p>
+                Marketing approval: {!Opportunity.SPO_MarketingApproval__c}
+            </p>
+            <p style="word-wrap: break-word;">
+                Internal zone approver comment: {!Opportunity.SPO_CommercialZoneApproverComment__c}
+            </p>
+        </div>    
+    </div>
+    <!--END COMMENT PART-->
+
+    <!--Description PART-->
+    <div style="border: 1px #D3BFB5;padding-left:7px;padding-right:7px;padding-top:5px;">
+        <div style="display: inline-block;  float: none;padding-left:10px; width: auto">
+        	<h4>Description:</h4>
+                <p> Order Name:
+                	{!Opportunity.OrderNumber__c}
+                </p>
+                <p> Client Name:
+                	{!Opportunity.SPO_ClientCompleteName__c}
+                </p>
+                 <p> Order Number:
+                	{!Opportunity.OrderNumber__c}
+                </p>
+                <p> Product Category:
+                	{!Opportunity.SPO_ProductCategory__c}
+                </p>
+                <p> Order type:
+                	{!Opportunity.SPO_OrderType__c}
+                </p>
+                <p> Base SKU (Ref. model SKU):
+                	<br/>{!product.SPO_ProductNameSKU__c}
+                </p>
+        </div>
+    
+        <div style="display: inline-block;  float:right;padding-right:10px; width:45%; text-align: left;padding-top: 10px">
+            <p>
+                Store code: {!Opportunity.SPO_StoreCode__c}
+            </p>
+            <p>
+                Store: {!storeName.Name}
+            </p>
+            <p style="word-wrap: break-word;">
+                Delivery address: {!Opportunity.SPO_DeliveryAddress__c}
+            </p>
+            <p style="word-wrap: break-word;">
+                Delivery address comment: {!Opportunity.SPO_DeliveryAddressComment__c}
+            </p>
+            <p>
+                Order Owner: {!user.Name}
+            </p>
+   			<p>
+                CA Code: {!Opportunity.SPO_CACode__c}
+            </p>         
+            
+        </div>    
+    </div>
+    <!--END Description PART-->
+
+    <!--Quotation PART-->
+    <div style="border: 1px #D3BFB5;padding-left:7px;padding-right:7px;padding-top:5px;">
+        <div style="display: inline-block;  float: none;padding-left:10px; width: 40%">
+        	<h4>Quotation:</h4>
+                <p> Estimated production time(weeks):
+                	{!Opportunity.SPO_EstimatedProductionTimeMonths__c}
+                </p>
+                <p> Estimated distribution time(weeks):
+                	{!Opportunity.SPO_EstimatedDistributionTime__c}
+                </p>
+                 <p> Store Currency:
+                	{!Opportunity.SPO_StoreCurrency__c}
+                </p>
+                <p> Unit Retail Price:
+                	{!Opportunity.SPO_UnitRetailPrice__c}
+                </p>
+                <p> Export Price:
+                	{!Opportunity.SPO_ExportPrice__c}
+                </p>
+                <p> Number of productive hours:
+                	{!Opportunity.SPO_Numberofproductivehours__c}
+                </p>
+             	 <p> Stop order reason:
+                	{!Opportunity.SPO_StopBriefReason__c}
+                </p>
+        </div>
+    
+        <div style="display: inline-block;  float:right;padding-right:auto; width: 50%;padding-top: 10px">
+            <p style="word-wrap: break-word;">
+                Production quote comment: {!Opportunity.SPO_ProductionQuoteComment__c}
+            </p>
+            <p>
+                CRS (EUR): {!Opportunity.SPO_CRS__c}
+            </p>
+            <p style="word-wrap: break-word;">
+                Stop Order Comment: {!Opportunity.SPO_StopBriefComment__c}
+            </p>
+        </div>    
+    </div>
+    <!--END Quotation PART-->
+
+    <!--Complementary PART-->
+    <div style="border: 1px #D3BFB5;padding-left:7px;padding-right:7px;padding-top:5px;">
+        <div style="display: inline-block;  float: none;padding-left:10px; width: 40%">
+        	<h4>Complementary information:</h4>
+                <p> Quantity:
+                	{!Opportunity.TotalOpportunityQuantity}
+                </p>
+                <p> Total amount (currency include):
+                	{!Opportunity.SPO_TotalAmountCurrency__c}
+                </p>
+        </div>
+    
+        <div style="display: inline-block;  float:right;padding-right:auto; width: 50%; padding-top: 10px">
+                <p> Standard Lead Time (weeks):
+                	{!Opportunity.SPO_EstimatedLeadTime__c}
+                </p>
+            <p>
+                Wished Date: {!Opportunity.SPO_WishedDate__c}
+            </p>
+            <p>
+                Special Events: {!Opportunity.SPO_SpecialEvents__c}
+            </p>
+        </div>    
+    </div>
+    <!--END Complementary PART-->
+
+    <!--Send to referential PART-->
+    <div style="border: 1px #D3BFB5;padding-left:7px;padding-right:7px;padding-top:5px;">
+        <div style="display: inline-block;  float: none;padding-left:10px; width: 40%">
+        	<h4>Send to referential:</h4>
+                <p> Send to Referential:
+                	{!Opportunity.SPO_TechMailToreferential__c}
+                </p>
+                <p> Received by Referential:
+                	{!Opportunity.SPO_TechEmailAlreadySent__c}
+                </p>
+        </div>
+    </div>
+    <!--END Send to referential PART-->
+
+    <!--Manufacturing PART-->
+    <div style="border: 1px #D3BFB5;padding-left:7px;padding-right:7px;padding-top:5px;">
+        <div style="display: inline-block;  float: none;padding-left:10px; width: 40%">
+        	<h4>Manufacturing:</h4>
+                <p> Special Order SKU Code Ref: {!Opportunity.SPO_SpecialOrderSKUCode__c} </p>
+                <p> Send to ERP: {!Opportunity.Send_to_ERP__c}</p>
+            	<p> Sku Code S: {!Opportunity.SPO_Sku_Code_S__c}</p>
+        </div>
+    </div>
+    <!--END Manufacturing PART-->
+
+   <div style="width:97%;padding: 1px 10px 1px 10px; display: inline-block;padding-bottom : 5px">
+   
+       <div style="display: inline-block;  float: left; width:40%">
+       <h4>
+        <!--INSPIRATION PRODUCT LABEL-->
+       <apex:outputLabel value="{!$Label.LV_SO_Inspiration_Product}" rendered="{!Opportunity.SPO_OrderType__c != 'MTO on Catalog (Hardsided)'}"/>
+       <!--Make To Order Product Label-->
+       <apex:outputLabel value="{!$Label.LV_SO_MTO_Product}" rendered="{!Opportunity.SPO_OrderType__c == 'MTO on Catalog (Hardsided)'}"/>
+       </h4>    
+        <div style="height:70%;width:70%; border: 1px solid #D3BFB5;padding-left:5px;padding-top:5px">
+            <!--<img src="http://www.louisvuitton.com/images/is/image/lv/1/PP_VP_L/{!imageLink}" style="height:160px; width:160px"/>-->
+            <img src="{!imageLink}" style="height:160px; width:160px;margin: auto;"/>
+          <!--<img style="height:60px; width:60px" src="{!productSetting.BccSmallPictureUrl__c}{!product.ImageLink1__c}" /> -->
+        </div>
+
+        <p style="font-size:15px;">{!product.name} 
+            <br />
+            {!product.SPO_ProductNameSKU__c}
+            <br/>
+            Qty : {!Opportunity.SPO_SkuQuantity__c }
+        </p>
+            
+        </div>
+       
+       <div style="display: inline-block;  float: right; width:60%"> 
+        <!--MTO SHOW/HIDE SECTION-->
+        <apex:outputPanel rendered="{!Opportunity.SPO_OrderType__c != 'MTO on Catalog (Hardsided)'}">
+        <h4>CREATION</h4>
+        <b>Material Color</b>
+       
+        <div style="display: inline-block; width:100%">
+            <div style="display: inline-block;  float: left; width:220px;">
+                <p>
+                    Exterior
+                </p>
+                
+           <div style="display: inline-block;padding-bottom:10px;">
+                <apex:outputPanel rendered="{!colorExtorior1.SPO_StaticResourceName__c != null}">
+                 <div style="display: inline-block;  float: left; width:40px;">
+                <apex:image url="/resource/SPO_{!colorExtorior1.SPO_StaticResourceName__c}" height="30" width="30" style="padding-right:20px"/>
+                    </div>
+<!--<div style="width:30px;height:30px;background-color: #{! colorExtorior.SPO_CodeCouleur__c};" rendered="NOT(ISNULL({!colorExtorior.SPO_CodeCouleur__c}))"/> -->
+                    <div style="display: inline-block;  float: right; width:175px;padding-top:8px;padding-left:5px;">
+                        {!Opportunity.SPO_ExteriorMaterialColor1__c}
+                    </div>
+                </apex:outputPanel>
+            </div>
+            
+            <div style="display: inline-block;padding-bottom:10px;">
+                <apex:outputPanel rendered="{!colorExtorior2.SPO_StaticResourceName__c !=''}">
+                    <div style="display: inline-block;  float: left; width:40px;">
+                    <apex:image url="/resource/SPO_{!colorExtorior2.SPO_StaticResourceName__c}"  height="30" width="30" style="padding-right:20px"/>
+                    </div>
+<!--<div style="width:30px;height:30px;background-color: #{! colorExtorior.SPO_CodeCouleur__c};" rendered="NOT(ISNULL({!colorExtorior.SPO_CodeCouleur__c}))"/> -->
+                    <div style="display: inline-block;  float: right; width:175px;padding-top:8px;padding-left:5px;">
+                        {!Opportunity.SPO_ExteriorMaterialColor2__c}
+                    </div>
+                </apex:outputPanel>
+            </div>
+
+           <div style="display: inline-block;padding-bottom:10px;">
+                <apex:outputPanel rendered="{!colorExtorior3.SPO_StaticResourceName__c!= null}">
+                <div style="display: inline-block;  float: left; width:40px;">
+                    <apex:image height="30" width="30" url="/resource/SPO_{!colorExtorior3.SPO_StaticResourceName__c}" style="padding-right:20px"/>
+                </div>
+<!--<div style="width:30px;height:30px;background-color: #{! colorExtorior.SPO_CodeCouleur__c};" rendered="NOT(ISNULL({!colorExtorior.SPO_CodeCouleur__c}))"/> -->
+                    <div style="display: inline-block;  float: right; width:175px;padding-top:8px;padding-left:5px;">
+                        {!Opportunity.SPO_ExteriorMaterialColor3__c}
+                    </div>
+                </apex:outputPanel>
+                </div>
+
+            </div>
+            
+            <div style="display: inline-block;  float: right; width:180px">  
+                <p>
+                    Interior
+                </p>
+         
+                <div style="display: inline-block;padding-bottom:10px;">
+                        <apex:outputPanel rendered="{!colorInterior1.SPO_StaticResourceName__c != null && colorInterior1.SPO_CodeCouleur__c == null}">
+                                        <div style="display: inline-block;  float: right; width:20px;padding-top:8px;padding-left:5px;">{!Opportunity.SPO_LiningInteriorColor1__c}</div>
+                                        <div style="display: inline-block;  float: left; width:40px;">
+                                            <apex:image style="height:30px; width:30px" url="/resource/SPO_{!colorInterior1.SPO_StaticResourceName__c}" />
+                                        </div>
+                        <!--<div style="width:30px;height:30px;background-color: #{! colorInterior.SPO_CodeCouleur__c};" rendered="{!colorInterior.SPO_CodeCouleur__c} != null"/> -->
+                        </apex:outputPanel>
+                                        
+                               <apex:outputPanel rendered="{!colorInterior1.SPO_CodeCouleur__c != null}">
+                                        <div style="display: inline-block;  float: left; width:30px;">
+                                            <div style="height:30px; width:30px; background-color:#{!colorInterior1.SPO_CodeCouleur__c};" >
+                                            </div>
+                                        </div>
+                                       <div style="display: inline-block;  float: right; width:145px;padding-top:8px;padding-left:5px;">
+                                           {!Opportunity.SPO_LiningInteriorColor1__c}
+                                        </div>
+                        </apex:outputPanel>
+                </div>
+                       
+                <div style="display: inline-block;padding-bottom:10px;">
+                        <apex:outputPanel rendered="{!colorInterior2.SPO_StaticResourceName__c != null && colorInterior1.SPO_CodeCouleur__c == null}">
+                                                    <div>
+                                                       <div style="display: inline-block;  float: right; width:145px;padding-top:8px;padding-left:5px;">
+                                                            {!Opportunity.SPO_LiningInteriorColor2__c}
+                                                        </div>
+                                                        <div style="display: inline-block;  float: left; width:30px;padding-bottom:10px">
+                                                            <apex:image style="height:30px; width:30px" url="/resource/SPO_{!colorInterior2.SPO_StaticResourceName__c}" />
+                                                        </div>  
+                                                    </div>                                 
+                        </apex:outputPanel>
+                                        
+                        <apex:outputPanel rendered="{!colorInterior2.SPO_CodeCouleur__c!= null}">
+                                                                                <div style="display: inline-block;  float: left; width:30px;">
+                            <div style="height:30px; width:30px; background-color:#{!colorInterior2.SPO_CodeCouleur__c};margin-bottom:10px" ></div>
+                            </div>
+                                                                       <div style="display: inline-block;  float: right; width:145px;padding-top:8px;padding-left:5px;">
+                                {!Opportunity.SPO_LiningInteriorColor2__c}
+                            </div>
+                        </apex:outputPanel>
+                    </div>
+                   
+            </div>
+        </div>
+       <!--END MTO SHOW/HIDE SECTION-->
+            <div style="display: inline-block; width:100%; padding-bottom:5px">
+                <b>Exterior Dimensions</b>
+                    <br/> Length : {!Opportunity.SPO_Sizewidth__c} - Heigh : {!Opportunity.SPO_SizeHeight__c} - Depth : {!Opportunity.SPO_SizeLenght__c} {!Opportunity.SPO_SizeUnit__c} 
+                    <br/>
+                <br/>
+                <b>Personalization</b>  
+                <br/> Paiting : {!Opportunity.SPO_Painting__c}
+                <br/> Patch : {!Opportunity.SPO_Patch__c}
+                <br/> Patch Text: {!Opportunity.SPO_PatchFreeText__c}
+                <br/> Lock : {!Opportunity.SPO_Lock__c}
+                <br/> Creation type : {!Opportunity.SPO_CreationType__c}
+                <br/> Color metalic parts : {!Opportunity.SPO_ColorMetalicparts__c} 
+                <br/> Content : {!Opportunity.SPO_Dimension_comment__c }
+            </div>
+        </apex:outputPanel> <!--END HIDE/SHOW MTO BLOCK-->
+       </div> 
+    </div>
+
+    <!--Others PART-->
+    <div style="border: 1px #D3BFB5;padding-left:7px;padding-right:7px;padding-top:5px;">
+        <div style="display: inline-block;  float: none;padding-left:10px; width: 40%">
+        	<h4>Others:</h4>
+                <p> Creation Date:
+                	{!Opportunity.CreatedDate}
+                </p>
+                <p> Created By:
+                	{!createdUser.Name}
+                </p>
+        </div>
+         <div style="display: inline-block;  float:right;padding-right:auto; width: 50%;padding-top:10px;">
+            <p> Stage:
+                	{!Opportunity.StageName}
+            </p>
+            <p>
+                Probability (%): {!Opportunity.Probability}
+            </p>
+            <p>
+                Last Modified By: {!modifyUser.Name}
+            </p>
+        </div>    
+    </div>
+    <!--END Others PART-->
+
+</body>
+</apex:page>

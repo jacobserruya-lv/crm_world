@@ -1,0 +1,489 @@
+<!-- File Name: IC_ClientEditDesktop
+* Description : Client Edit custom visualforce page for Icon users on Desktop
+* @author : UNKNOWN
+* Modification Log ===============================================================
+*   RMOU 20/06/16 : Reorganised page
+*   RMOU 16/09/16 : Added Error messages
+* -->
+<apex:page standardController="Account" title="{!$Label.IC_ClientEditTitle} {!clientName}" extensions="IC_ClientEditDesktop_VFCx">
+
+    <apex:sectionHeader title="{!$Label.IC_ClientEditTitle}" subtitle="{!clientName}"/>
+    <apex:form id="theForm">
+        <apex:pageBlock title="{!$Label.IC_ClientEditTitle}">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="{!$Label.IC_Save}" action="{!saveClient}"/>
+                <!--apex:commandButton value="{!$Label.IC_SaveAndNew}"/-->
+                <apex:commandButton value="{!$Label.IC_Cancel}" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:messages styleClass="errorMsg"/>
+            
+            <!-- Begin RMO
+
+            <!-- Begin Client Information Section -->
+            <apex:pageBlockSection title="{!$Label.IC_Contact_Information}" columns="2" collapsible="false">
+
+                <apex:inputField value="{!Client.Gender__pc}"/>
+                <apex:inputField value="{!Client.owner.Name}"/>
+
+                <apex:inputField Label="{!$Label.Star_Civilty}" value="{!account.salutation}"/>
+                <apex:inputField value="{!Client.BirthdateDay__pc}"/>
+
+                <apex:inputField value="{!client.firstname}"/>
+                <apex:inputField value="{!Client.BirthdateMonth__pc}"/>
+
+                <apex:inputField value="{!client.lastname}"/>
+                <apex:inputField value="{!Client.BirthdateYear__pc}"/>
+
+                <apex:inputField value="{!client.Nationality__pc }"/>
+                <apex:pageBlockSectionItem />
+
+                <apex:inputField value="{!client.Title__pc}"/>
+                <apex:pageBlockSectionItem />
+
+            </apex:pageBlockSection>
+
+            <!-- Begin Contact Section -->
+            <apex:pageBlockSection title="{!$Label.Star_Contact}" columns="2">
+
+                <!-- begin MTOU: Harmo -->
+                <!--<apex:inputField value="{!client.PersonDoNotCall}"/>
+                <apex:inputField value="{!client.DoNotSMS__pc}"/>-->
+                <apex:inputField value="{!client.Can_Be_Contacted_By_Phone__pc}"/>
+                <apex:inputField value="{!client.Can_Be_Contacted_By_SMS__pc}"/>
+                <!--  End MTO Harmo -->
+
+                <!-- begin MTOU: Harmo -->
+                <!--<apex:inputField value="{!client.DoNotContactbyPost__pc}"/>
+                <apex:inputField value="{!client.PersonHasOptedOutOfEmail}"/>-->
+                <apex:inputField value="{!client.Can_Be_Contacted_By_Mail__pc}"/>
+                <apex:inputField value="{!client.Can_Be_Contacted_By_Email__pc}"/>
+                <!--  End MTO Harmo -->
+
+                <apex:inputField value="{!client.PersonHomePhone}"/>
+                <apex:inputField value="{!client.PersonMobilePhone}"/>
+
+                <apex:inputField value="{!client.Phone}"/>
+                <apex:inputField value="{!client.PersonEmail}"/>
+
+                <apex:inputField value="{!client.PassportNumber__pc}"/>
+                <apex:inputField value="{!client.PersonAssistantName}"/>
+
+                <apex:inputField value="{!client.PreferredContactChannel__pc}"/>
+                <apex:inputField value="{!client.PersonAssistantPhone}"/>
+
+            </apex:pageBlockSection>
+
+            <!-- Begin Address Section -->
+            <apex:pageBlockSection title="{!$Label.IC_Address}" columns="2">
+
+                <apex:inputField value="{!client.PrimaryAddressLine1__pc}"/>
+                <apex:inputField value="{!client.PrimaryCity__pc}"/>
+
+                <apex:inputField value="{!client.PrimaryAddressLine2__pc}"/>
+                <apex:inputField value="{!client.PrimaryStateProvince__pc}"/>
+
+                <apex:inputField value="{!client.PrimaryAddressLine3__pc}"/>
+                <apex:inputField value="{!client.PrimaryCountry__pc}"/>
+
+                <apex:inputField value="{!client.PrimaryZipCode__pc}"/>
+
+            </apex:pageBlockSection>
+
+            <!-- Begin Lifestyle Section -->
+            <apex:pageBlockSection title="{!$Label.IC_LifeStyle_LVinterests}" columns="2">
+
+                <apex:inputField value="{!client.Spouse__pc}"/>
+                <apex:inputField value="{!client.AccessoriesInterest__pc}"/>
+
+                <apex:inputField value="{!client.Anniversary__pc}"/>
+                <apex:inputField value="{!client.JewelleryInterest__pc}"/>
+
+                <apex:inputField value="{!client.Children__pc}"/>
+                <apex:inputField value="{!client.LeatherGoodsInterest__pc}"/>
+
+
+                <apex:inputField value="{!client.Pets__pc}"/>
+                <apex:inputField value="{!client.PerfumesInterest__pc}"/>
+
+                <apex:inputField value="{!client.ShopsFor__pc}"/>
+                <apex:inputField value="{!client.RTWInterest__pc}"/>
+
+                <apex:inputField value="{!client.Occupation__pc}"/>
+                <apex:inputField value="{!client.ShoesInterest__pc}"/>
+
+                <apex:inputField value="{!client.Company__pc}"/>
+                <apex:inputField value="{!client.WatchesInterest__pc}"/>
+
+                <apex:inputField value="{!client.PersonalInterest1__pc}"/>
+                <apex:inputField value="{!client.OtherInterest__pc}"/>
+
+                <apex:inputField value="{!client.PersonalInterest2__pc}"/>
+                <apex:inputField value="{!client.ServiceInterest__pc}"/>
+
+                <apex:inputField value="{!client.PersonalInterest3__pc}"/>
+                <apex:inputField value="{!client.EventInterest__pc}"/>
+
+            </apex:pageBlockSection>
+
+            <!-- Begin Size Section -->
+            <apex:pageBlockSection title="{!$Label.IC_Size_Information}" columns="2">
+
+                <apex:inputField value="{!Client.Jacket__pc}"/>
+                <apex:inputField value="{!Client.Belt__pc}"/>
+
+                <apex:inputField value="{!Client.Dress__pc}"/>
+                <apex:inputField value="{!Client.Shoes__pc}"/>
+
+                <apex:inputField value="{!Client.Knit__pc}"/>
+                <apex:inputField value="{!Client.Ring__pc}"/>
+
+                <apex:inputField value="{!Client.Pant__pc}"/>
+                <apex:pageBlockSectionItem />
+
+                <apex:inputField value="{!Client.Shirt__pc}"/>
+                <apex:pageBlockSectionItem />
+
+                <apex:inputField value="{!Client.Skirt__pc}"/>
+                <apex:pageBlockSectionItem />
+
+                <apex:inputField value="{!Client.Suit__pc}"/>
+                <apex:pageBlockSectionItem />
+
+            </apex:pageBlockSection>
+
+        <!--
+            <apex:pageBlockSection title="{!$Label.IC_ClientInformation}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.DREAMID__c}"/>
+                <apex:outputField value="{!client.owner.name}"/>
+
+                <apex:inputField value="{!client.FirstName}"/>
+                <apex:inputField value="{!client.DreamSA__pc}"/>
+
+                <apex:inputField value="{!client.LastName}"/>
+                <apex:inputField value="{!client.Segmentation__pc}"/>
+
+                <apex:inputField value="{!client.Title__pc}"/>
+                <apex:inputField value="{!client.Occupation__pc}"/>
+
+                <apex:inputField value="{!client.PersonBirthdate}"/>
+                <apex:inputField value="{!client.Company__pc}"/>
+
+                <apex:inputField value="{!client.Nationality__pc }"/>
+                <apex:inputField value="{!client.Typology__pc}"/>
+
+                <apex:inputField value="{!client.PassportNumber__pc}"/>
+                <apex:inputField value="{!client.AttachedStore__pc}"/>
+
+                <apex:inputField value="{!client.PreferredContactChannel__pc}"/>
+                <apex:outputLabel value=""/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.IC_ClientAddressInformation}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.PrimaryAddressLine1__pc}"/>
+                <apex:inputField value="{!client.PrimaryAddressLine2__pc}"/>
+                <apex:inputField value="{!client.PrimaryAddressLine3__pc}"/>
+                <apex:inputField value="{!client.PrimaryCity__pc}"/>
+                <apex:inputField value="{!client.PrimaryZipCode__pc}"/>
+                <apex:inputField value="{!client.PrimaryStateProvince__pc}"/>
+                <apex:inputField value="{!client.PrimaryCountry__pc}"/>
+
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.IC_Contact_Information}" columns="2" collapsible="false" >
+                <!-- Begin MTO Harmo  -->
+                <!-- <apex:inputField value="{!client.PersonDoNotCall}"/>
+                <apex:inputField value="{!client.DoNotSMS__pc}"/>-->
+            <!--
+                <apex:inputField value="{!client.Can_Be_Contacted_By_Phone__pc}"/>
+                <apex:inputField value="{!client.Can_Be_Contacted_By_SMS__pc}"/>
+                <!--  End MTO Harmo -->
+            <!--
+                <apex:inputField value="{!client.PersonHomePhone}"/>
+                <apex:inputField value="{!client.PersonMobilePhone}"/>
+
+                <apex:inputField value="{!client.Phone}"/>
+                <apex:outputLabel value=""/>
+
+                <apex:inputField value="{!client.PersonEmail}"/>
+                <apex:outputLabel value=""/>
+
+                <!-- Begin MTO Harmo  -->
+                <!-- <apex:inputField value="{!client.PersonHasOptedOutOfEmail}"/>
+                <apex:inputField value="{!client.DoNotContactbyPost__pc}"/> -->
+            <!--
+                <apex:inputField value="{!client.Can_Be_Contacted_By_Email__pc}"/>
+                <apex:inputField value="{!client.Can_Be_Contacted_By_Mail__pc}"/>
+                <!--  End MTO Harmo -->
+            <!--
+                <apex:inputField value="{!client.PreferredLanguage__pc}"/>
+                <apex:outputLabel value=""/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_Size_Information}" columns="2" collapsible="false" >
+                <apex:inputField value="{!Client.Gender__pc}"/>
+                <apex:inputField value="{!Client.Belt__pc}"/>
+                <apex:inputField value="{!Client.Jacket__pc}"/>
+                <apex:inputField value="{!Client.Shoes__pc}"/>
+                <apex:inputField value="{!Client.Dress__pc}"/>
+                <apex:inputField value="{!Client.Ring__pc}"/>
+                <apex:inputField value="{!Client.Knit__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!Client.Pant__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!Client.Shirt__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!Client.Skirt__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!Client.Suit__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_ClientAccessoriesPurchaseHistory}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.YTDAccessoriesNbrProducts__pc}"/>
+                <apex:inputField value="{!client.HistoricalAccessoriesNbrProducts__pc}"/>
+
+                <apex:inputField value="{!client.YTDAccessoriesSpendUSD__pc}"/>
+                <apex:inputField value="{!client.HistoricalAccessoriesSpendUSD__pc}"/>
+
+                <apex:inputField value="{!client.YTDAccessoriesSpendEUR__pc}"/>
+                <apex:inputField value="{!client.HistoricalAccessoriesSpendEUR__pc}"/>
+
+                <apex:inputField value="{!client.YTDAccessoriesSpendYEN__pc}"/>
+                <apex:inputField value="{!client.HistoricalAccessoriesSpendYEN__pc}"/>
+
+                <apex:inputField value="{!client.YTDAccessoriesSpendYUAN__pc}"/>
+                <apex:inputField value="{!client.HistoricalAccessoriesSpendYUAN__pc}"/>
+
+                <apex:inputField value="{!client.Last36MAccessoriesNbrProducts__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MAccessoriesSpendUSD__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MAccessoriesSpendEUR__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MAccessoriesSpendYEN__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MAccessoriesSpendYUAN__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_ClientJewelryPurchaseHistory}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.YTDJewelryNbrProducts__pc}"/>
+                <apex:inputField value="{!client.HistoricalJewelryNbrProducts__pc}"/>
+
+                <apex:inputField value="{!client.YTDJewelrySpendUSD__pc}"/>
+                <apex:inputField value="{!client.HistoricalJewelrySpendUSD__pc}"/>
+
+                <apex:inputField value="{!client.YTDJewelrySpendEUR__pc}"/>
+                <apex:inputField value="{!client.HistoricalJewelrySpendEUR__pc}"/>
+
+                <apex:inputField value="{!client.YTDJewelrySpendYEN__pc}"/>
+                <apex:inputField value="{!client.HistoricalJewelrySpendYEN__pc}"/>
+
+                <apex:inputField value="{!client.YTDJewelrySpendYUAN__pc}"/>
+                <apex:inputField value="{!client.HistoricalJewelrySpendYUAN__pc}"/>
+
+                <apex:inputField value="{!client.Last36MJewelryNbrProducts__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MJewelrySpendUSD__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MJewelrySpendEUR__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MJewelrySpendYEN__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MJewelrySpendYUAN__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_ClientLeatherPurchaseHistory}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.YTDLeatherGoodNbrProducts__pc}"/>
+                <apex:inputField value="{!client.HistoricalLeatherGoodNbrProducts__pc}"/>
+
+                <apex:inputField value="{!client.YTDLeatherGoodSpendUSD__pc}"/>
+                <apex:inputField value="{!client.HistoricalLeatherGoodSpendUSD__pc}"/>
+
+                <apex:inputField value="{!client.YTDLeatherGoodSpendEUR__pc}"/>
+                <apex:inputField value="{!client.HistoricalLeatherGoodSpendEUR__pc}"/>
+
+                <apex:inputField value="{!client.YTDLeatherGoodSpendYEN__pc}"/>
+                <apex:inputField value="{!client.HistoricalLeatherGoodSpendYEN__pc}"/>
+
+                <apex:inputField value="{!client.YTDLeatherGoodSpendYUAN__pc}"/>
+                <apex:inputField value="{!client.HistoricalLeatherGoodSpendYUAN__pc}"/>
+
+                <apex:inputField value="{!client.Last36MLeatherGoodNbrProducts__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MLeatherGoodSpendUSD__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MLeatherGoodSpendEUR__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MLeatherGoodSpendYEN__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MLeatherGoodSpendYUAN__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_ClientWearPurchaseHistory}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.YTDReadyToWearNbrProducts__pc}"/>
+                <apex:inputField value="{!client.HistoricalReadyToWearNbrProducts__pc}"/>
+
+                <apex:inputField value="{!client.YTDReadyToWearSpendUSD__pc}"/>
+                <apex:inputField value="{!client.HistoricalReadyToWearSpendUSD__pc}"/>
+
+                <apex:inputField value="{!client.YTDReadyToWearSpendEUR__pc}"/>
+                <apex:inputField value="{!client.HistoricalReadyToWearSpendEUR__pc}"/>
+
+                <apex:inputField value="{!client.YTDReadyToWearSpendYEN__pc}"/>
+                <apex:inputField value="{!client.HistoricalReadyToWearSpendYEN__pc}"/>
+
+                <apex:inputField value="{!client.YTDReadyToWearSpendYUAN__pc}"/>
+                <apex:inputField value="{!client.HistoricalReadyToWearSpendYUAN__pc}"/>
+
+                <apex:inputField value="{!client.Last36MReadyToWearNbrProducts__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MReadyToWearSpendUSD__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MReadyToWearSpendEUR__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MReadyToWearSpendYEN__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MReadyToWearSpendYUAN__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_ClientShoesPurchaseHistory}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.YTDShoesNbrProducts__pc}"/>
+                <apex:inputField value="{!client.HistoricalShoesNbrProducts__pc}"/>
+
+                <apex:inputField value="{!client.YTDShoesSpendUSD__pc}"/>
+                <apex:inputField value="{!client.HistoricalShoesSpendUSD__pc}"/>
+
+                <apex:inputField value="{!client.YTDShoesSpendEUR__pc}"/>
+                <apex:inputField value="{!client.HistoricalShoesSpendEUR__pc}"/>
+
+                <apex:inputField value="{!client.YTDShoesSpendYEN__pc}"/>
+                <apex:inputField value="{!client.HistoricalShoesSpendYEN__pc}"/>
+
+                <apex:inputField value="{!client.YTDShoesSpendYUAN__pc}"/>
+                <apex:inputField value="{!client.HistoricalShoesSpendYUAN__pc}"/>
+
+                <apex:inputField value="{!client.Last36MShoesNbrProducts__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MShoesSpendUSD__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MShoesSpendEUR__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MShoesSpendYEN__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MShoesSpendYUAN__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_ClientWatchPurchaseHistory}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.YTDWatchNbrProducts__pc}"/>
+                <apex:inputField value="{!client.HistoricalWatchNbrProducts__pc}"/>
+
+                <apex:inputField value="{!client.YTDWatchSpendUSD__pc}"/>
+                <apex:inputField value="{!client.HistoricalWatchSpendUSD__pc}"/>
+
+                <apex:inputField value="{!client.YTDWatchSpendEUR__pc}"/>
+                <apex:inputField value="{!client.HistoricalWatchSpendEUR__pc}"/>
+
+                <apex:inputField value="{!client.YTDWatchSpendYEN__pc}"/>
+                <apex:inputField value="{!client.HistoricalWatchSpendYEN__pc}"/>
+
+                <apex:inputField value="{!client.YTDWatchSpendYUAN__pc}"/>
+                <apex:inputField value="{!client.HistoricalWatchSpendYUAN__pc}"/>
+
+                <apex:inputField value="{!client.Last36MWatchNbrProducts__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MWatchSpendUSD__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MWatchSpendEUR__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MWatchSpendYEN__pc}"/>
+                <apex:outputLabel value=""/>
+                <apex:inputField value="{!client.Last36MWatchSpendYUAN__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_Purcha_Behavi}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.YTDNbrProducts__pc}"/>
+                <apex:inputField value="{!client.HistoricalNbrProducts__pc}"/>
+
+                <apex:inputField value="{!client.YTDSpendUSD__pc}"/>
+                <apex:inputField value="{!client.HistoricalSpendUSD__pc}"/>
+
+                <apex:inputField value="{!client.YTDSpendEUR__pc}"/>
+                <apex:inputField value="{!client.HistoricalSpendEUR__pc}"/>
+
+                <apex:inputField value="{!client.YTDSpendYEN__pc}"/>
+                <apex:inputField value="{!client.HistoricalSpendYEN__pc}"/>
+
+                <apex:inputField value="{!client.YTDSpendYUAN__pc}"/>
+                <apex:inputField value="{!client.HistoricalSpendYUAN__pc}"/>
+
+                <apex:inputField value="{!client.Last36MNbrProducts__pc}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!client.Last36MSpendUSD__pc}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!client.Last36MSpendEUR__pc}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!client.Last36MSpendYEN__pc}"/>
+                <apex:outputText value=""/>
+                <apex:inputField value="{!client.Last36MSpendYUAN__pc}"/>
+                <apex:outputText value=""/>
+
+                <apex:inputField value="{!client.LastTrans__pc}"/>
+                <apex:inputField value="{!client.FirstTrans__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_ClientLifestyleAndFamily}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.Spouse__pc}"/>
+                <apex:inputField value="{!client.PersonalInterest1__pc}"/>
+
+                <apex:inputField value="{!client.AnniversaryDay__pc}"/>
+                <apex:inputField value="{!client.PersonalInterest2__pc}"/>
+
+                <apex:inputField value="{!client.AnniversaryMonth__pc}"/>
+                <apex:inputField value="{!client.PersonalInterest3__pc}"/>
+
+                <apex:inputField value="{!client.AnniversaryYear__pc}"/>
+                <apex:inputField value="{!client.FoodPreferences__pc}"/>
+
+                <apex:inputField value="{!client.Children__pc}"/>
+                <apex:inputField value="{!client.BeveragePreferences__pc}"/>
+
+                <apex:inputField value="{!client.Pets__pc}"/>
+                <apex:inputField value="{!client.PersonAssistantName}"/>
+
+                <apex:inputField value="{!client.ShopsFor__pc}"/>
+                <apex:inputField value="{!client.PersonAssistantPhone}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_LV_Interests}" columns="1" collapsible="false" >
+                <apex:inputField value="{!client.AccessoriesInterest__pc}"/>
+                <apex:inputField value="{!client.JewelleryInterest__pc}"/>
+                <apex:inputField value="{!client.LeatherGoodsInterest__pc}"/>
+                <apex:inputField value="{!client.RTWInterest__pc}"/>
+                <apex:inputField value="{!client.ShoesInterest__pc}"/>
+                <apex:inputField value="{!client.WatchesInterest__pc}"/>
+                <apex:inputField value="{!client.OtherInterest__pc}"/>
+                <apex:inputField value="{!client.ServiceInterest__pc}"/>
+                <apex:inputField value="{!client.EventInterest__pc}"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.IC_SystemInformation}" columns="2" collapsible="false" >
+                <apex:inputField value="{!client.TECH_DreamIdSA__pc}"/>
+                <apex:inputField value="{!client.TECH_OwnerManuallyChanged__c}"/>
+                <apex:inputField value="{!client.TECH_ManualReassignmentDate__c}"/>
+                <apex:inputField value="{!client.ToDelete__c}"/>
+                <apex:inputField value="{!client.DreamIdMasterClient__c}"/>
+            </apex:pageBlockSection>
+
+        END RMO -->
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

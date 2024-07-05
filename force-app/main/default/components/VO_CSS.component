@@ -1,0 +1,146 @@
+<apex:component >
+
+    <!-- Common CSS -->
+    <!-- createdBy          Haim Knokh, 18/08/2015 -->
+    <!-- lastModifiedBy     Haim Knokh, 19/08/2015 -->
+
+<style>
+
+    /***** START COMMON FOR PROJECT ********/
+    /*Layout styles*/
+    .align-left {
+        text-align: left !important;
+    }
+
+    .align-right {
+        text-align:right !important; 
+    }
+
+    .margin-left {
+        margin-left: 15px !important;
+    }
+
+    .margin-top {
+        margin-top: 20px !important;
+    }
+
+    .no-padding {
+        padding:0px !important;
+    }
+
+    .padding-top {
+        padding-top: 15px !important;
+    }
+    .padding-right {
+            padding-right: 15px !important;
+     }
+
+     .centered {
+        position: relative;
+        padding: 10px;
+        width: auto;
+        margin: 20px auto;
+    }
+
+    .margin-top-7p {
+        margin-top:7%;
+    }
+
+    .inline-block {
+        display:inline-block;
+    }
+
+    /*Tables*/
+    table thead th.sorted {
+        background: #B7ADA9;
+    }
+
+    table thead th.sorted:before {
+        color:white;
+        font-size:13px;
+    }
+
+    /*Radiobuttons group*/
+    div.radio label:not(:last-child) {
+        margin-right:15px;
+    }
+
+    /*popups*/
+    .mfp-bg {
+        opacity:0.4 !important;
+    }
+
+    .mfp-content .panel-heading i.glyphicon-remove {
+        font-size:18px;
+        cursor:pointer;
+    }
+
+    .bottom-buttons {
+        position: absolute;
+        bottom: 55px;
+        right: 45px;
+    }
+
+    /*Input group text*/
+    .input-group-text {
+        width:100%;
+    }
+    .input-group-text > div:not(:last-child) {
+        padding-right:10px;
+    }
+    .input-group-text .form-control {
+        width:100%;
+    }
+        .input-group-text > div {
+             display:inline-block;
+        }
+
+    /*article*/
+    article h2 {
+        font-size:16px;
+        font-weight:normal;
+    }
+
+     article p {
+        margin-top:12px;
+        font-size:16px;
+        margin-bottom:45px;
+    }
+
+
+    /*Checkboxes*/
+    div.checkbox {
+        margin-top:1px;    
+    }
+    /***** END COMMON FOR PROJECT ********/
+   
+
+
+
+
+    /***** START RISESTRAP HACKS ********/
+    /***** TODO: We faced some issues while implementing styles from rizestrap.css. Plz, review and if solved - tell us...) ********/
+    /*Rizestrap Hacks*/
+    [data-toggle='collapse'] > .caret {
+        border-bottom:none !important;
+    }
+
+    .panel-heading h3 a {
+        color: #000;
+        font-size:16px;
+    }
+
+    .control-label.postfix:after {
+        content:'';
+    }
+     
+    .control-label.postfix {
+        text-align: left;
+        padding-left:0px!important;
+    }
+    /***** START HACKS ********/
+</style>
+
+
+
+</apex:component>

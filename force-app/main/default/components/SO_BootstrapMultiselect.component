@@ -1,0 +1,48 @@
+<apex:component >
+
+	<apex:attribute name="includeSelectAllOption" type="Boolean" required="FALSE" default="TRUE" description="Include 'Select All Option' special choice" />
+
+	<script src="https://rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" />
+
+	<style>
+		.multiselect-selected-text {
+			white-space: normal;
+		}
+	</style>
+
+	<apex:outputPanel id="uniqueMultiSelectPicklistId">
+		<apex:componentBody />
+	</apex:outputPanel>
+
+	<script>
+		(function () {
+			var completed = false;
+
+			$(function () {
+				if (completed)
+					return;
+
+				completed = true;
+				var $cmp = $(document.getElementById('{!$Component.uniqueMultiSelectPicklistId}'));
+				$cmp.find('select[multiple]').
+					find('option').
+						each(function () { $(this).html($(this).text().replace(/\s+/g, '&nbsp;')); }).
+						end().
+					multiselect({
+						numberDisplayed: 5,
+						nonSelectedText: '{! JSINHTMLENCODE($Label.LV_SO_None) }',
+						buttonContainer: '<div class="btn-group" style="min-width: 100%" />',
+						includeSelectAllOption: {! includeSelectAllOption },
+						selectAllText: '{! JSINHTMLENCODE($Label.LV_SO_Select_All_Text) }',
+						onInitialized: function(){
+							$cmp.find( '.multiselect.dropdown-toggle.btn.btn-default' ).prepend($cmp.find('.multiselect.dropdown-toggle.btn.btn-default .caret'));
+						}
+					});
+
+				/*$('.multiselect.dropdown-toggle.btn.btn-default').removeClass('dropdown-toggle');*/
+			});
+		}());
+	</script>
+
+</apex:component>

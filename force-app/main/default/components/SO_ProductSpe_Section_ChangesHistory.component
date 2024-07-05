@@ -1,0 +1,62 @@
+<apex:component >
+
+
+    <apex:attribute name="contr" type="SO_ProductSpe_CTRL" description="contr" />
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{!$Label.LV_SO_PRODUCT_SPE_CHANGES_HISTORY}</div>
+        <div class="panel-body">
+            <div class="clearfix">
+                <h4 class="pull-left">
+                    <small>
+                        <em>
+                            <apex:outputText value="{!$Label.LV_SO_Display_Result}">
+                                <apex:param value="{!contr.opportunityHistoryList.Size}" />
+                                <apex:param value="{!contr.opportunityHistoryList.Size}" />
+                            </apex:outputText> 
+                        </em>
+                    </small>
+                </h4>
+            </div>
+            <div class="table-responsive">
+                <table class="table  table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%">{!$ObjectType.OpportunityFieldHistory.fields['CreatedDate'].Label}</th>
+                            <th>{!$Label.LV_SO_Last_Modified_By}</th>
+                            <!-- <th>{!$ObjectType.Opportunity.fields['Name'].Label}</th> -->
+                            <th>{!$ObjectType.OpportunityFieldHistory.fields['Field'].Label}</th>
+                            <th>{!$ObjectType.OpportunityFieldHistory.fields['OldValue'].Label}</th>
+                            <th>{!$ObjectType.OpportunityFieldHistory.fields['NewValue'].Label}</th>
+                            
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!contr.opportunityHistoryList}" var="record">
+                            <tr>
+                                <td>
+                                    <apex:outputField value="{!record.CreatedDate}"/>
+                                </td>
+                                <td>{!record.CreatedBy.Name}</td>
+                                <!-- <td>{!record.Opportunity.Name}</td> -->
+                                <td>{!IF(record.Field == 'created', record.Field, $ObjectType.Opportunity.fields[record.Field].Label)}</td>
+                                <td>{!record.OldValue}</td>
+                                <td>{!IF(ISBLANK(record.NewValue), $Label.LV_SO_Empty, record.NewValue )}</td>
+                                
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</apex:component>

@@ -1,0 +1,279 @@
+<apex:page showheader="false" standardstylesheets="false" sidebar="false"
+    applyhtmltag="false" doctype="html-5.0"  
+    controller="SO_Notifications_CTRL">
+
+
+    <apex:composition template="SO_Template">
+
+        <apex:define name="headTag">
+            <title>{!$Label.LV_SO_Notifications}</title>
+            <style type="text/css">
+/*                th.headerSortUp { 
+                    background-image: url(../img/small_asc.gif); 
+                    background-color: #3399FF; 
+                } 
+
+                th.headerSortDown { 
+                    background-image: url(../img/small_desc.gif); 
+                    background-color: #3399FF; 
+                } */
+            </style>
+        </apex:define>
+
+        <apex:define name="bodyContent">
+            <apex:form id="theFormId">
+                <div class="panel panel-default margin-top">
+
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="panel-title col-sm-8">
+                                {!$Label.LV_SO_Notifications}   
+                            </div>
+                            <div class="col-sm-4">
+                               <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-3 control-label">{!$Label.LV_SO_Store}</div>
+                                        <div class="col-sm-9">
+                                            <c:SO_BootstrapDropDownEnhanced selectFieldUniqueName="relevantStores_InputField">
+                                            </c:SO_BootstrapDropDownEnhanced>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <apex:outputPanel id="tabelPanelId">
+
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                <h4 class="pull-left">
+                                    <small>
+                                        <em>
+                                            <apex:outputText value="{!$Label.LV_SO_Display_Result}">
+                                                <apex:param value="{!viewLineList.size}" />
+                                                <apex:param value="{!viewLineList.size}" />
+                                            </apex:outputText> 
+                                        </em>
+                                    </small>
+                                </h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped tablesorter" id="notificaitonTableId">
+                                    <thead>
+                                        <tr>
+                                            <th>{!$Label.LV_SO_Notification_date}</th><!--1-->
+                                            <th>{!$Label.LV_SO_NotificationType}</th><!--2-->
+                                            <th>{!$Label.LV_SO_Client_name}</th><!--3-->
+                                            <th>{!$Label.LV_SO_Order_name}</th><!--4-->
+                                            <th>{!$ObjectType.Opportunity.fields.SPO_OrderType__c.Label}</th><!--5-->
+                                            <th>{!$Label.LV_SO_store_name}</th><!--6-->
+                                            <th>{!$ObjectType.Opportunity.fields.SPO_StoreCode__c.Label}</th><!--7-->
+                                            <th>{!$ObjectType.Opportunity.fields.SPO_CACode__c.Label}</th><!--8-->
+                                            <th>{!$Label.LV_SO_Status}</th><!--9-->
+                                            <th style="{! IF(!isAsnieresUser,'display:none','') }">{!$ObjectType.Opportunity.fields.SPO_CreationType__c.Label}</th><!--11-->
+                                            <th style="{! IF(!isAsnieresUser,'display:none','') }">{!$ObjectType.Opportunity.fields.SPO_NoPersonNeeded__c.Label}</th><!--12-->
+                                            <th style="{! IF(!isAsnieresUser,'display:none','') }">{!$ObjectType.Opportunity.fields.SPO_BriefCode__c.Label}</th><!--13-->
+                                            <th>{!$Label.LV_SO_Action}</th><!--10-->
+
+
+                                            <!-- <th>{!$Label.LV_SO_OrderDescription}</th> -->
+                                            <!-- <th>{!$ObjectType.Opportunity.fields.SPO_ProductCategory__c.Label}</th> -->
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!viewLineList}" var="viewLine">
+                                            <tr>
+                                                    <td>{!viewLine.lastModifiedDate}</td><!--1-->
+                                                    <td><!--2-->
+                                                        <apex:outputPanel styleClass="glyphicon glyphicon-alert" 
+                                                              rendered="{!OR(viewLine.mode == 0,viewLine.mode == 1)}">
+                                                        </apex:outputPanel>
+                                                        &nbsp;
+                                                        <apex:outputPanel styleClass="glyphicon glyphicon-comment" 
+                                                              rendered="{!OR(viewLine.mode == 2, viewLine.mode == 1)}">
+                                                        </apex:outputPanel>
+                                                    </td>
+                                                    <td>{!viewLine.clientName}</td><!--3-->
+                                                    <td>{!viewLine.orderName}</td><!--4-->
+                                                    <td>{!viewLine.orderType}</td><!--5-->
+                                                    <td>{!viewLine.store}</td><!--6-->
+                                                    <td>{!viewLine.storeCode}</td><!--7-->
+                                                    <td>{!viewLine.caCode}</td><!--8-->
+                                                    <td>{!viewLine.stageName}</td><!--9-->
+                                                    <td style="{! IF(!isAsnieresUser,'display:none','') }">{!viewLine.softOrHardSided}</td><!--11-->
+                                                    <td style="{! IF(!isAsnieresUser,'display:none','') }">{!viewLine.noPersoNeeded}</td><!--12-->
+                                                    <td style="{! IF(!isAsnieresUser,'display:none','') }">{!viewLine.briefCode}</td><!--13-->
+                                                    <td><!--10-->
+                                                        <apex:outputPanel styleClass="btn btn-default" rendered="{!NOT(ISBLANK(viewLine.pageLink))}" onclick="onNotifSelectAction('{!URLFOR(viewLine.pageLink)}');">
+                                                            {!$Label.LV_SO_Select}
+                                                        </apex:outputPanel>
+                                                    </td>
+
+                                                    <!-- <td>{!viewLine.orderDescription}</td> -->
+                                                    <!-- <td>{!viewLine.productCategory}</td> -->
+                                            </tr>
+                                        </apex:repeat> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </apex:outputPanel>
+                </div>
+
+                    <apex:actionFunction name="updateTableValues" action="{!retSelectedViewLineList}" reRender="tabelPanelId" oncomplete="onCompleteStoreRefreshTable();">
+                        <apex:param name="storeSelectedValue" value="" assignTo="{!storeSelectedValue}"/>
+                    </apex:actionFunction>
+            </apex:form>
+        </apex:define>
+        <apex:define name="footerScripts">
+            <script src="{!URLFOR($Resource.SO_Resources,'js/jquery.tablesorter.min.js')}"></script>
+            <script type="text/javascript">
+                var __sfdcSessionId = '{!GETSESSIONID()}';
+            </script>
+    
+            <script src="/soap/ajax/34.0/connection.js" type="text/javascript"/>
+
+            <script type="text/javascript">
+
+                function onNotifSelectAction(link) {
+                    blockUI();
+                    window.location = link;
+                }
+
+                $( document ).ready(function() 
+                {
+                    buildRelevantStorePicklist('User', 'DefaultStore__c', 'relevantStores_InputField', JSON.parse('{!storeCodesAvailableListStr}'), '{!storeSelectedValue}', '{!$Label.LV_SO_None}', '{!$Label.LV_SO_All}');
+                    initTableSorter();
+                });
+            
+                function initTableSorter()
+                {
+                    $("#notificaitonTableId").tablesorter(
+                    {
+                        headers: 
+                        { 
+                            0: {
+                                sorter: 'date'
+                            },
+                            // assign the secound column (we start counting zero) 
+                            1: { 
+                                // disable it by setting the property sorter to false 
+                                sorter: false 
+                            }, 
+                            // assign the third column (we start counting zero) 
+                            12: { 
+                                // disable it by setting the property sorter to false 
+                                sorter: false 
+                            } 
+                        },
+                        cssAsc:     'sorted-up',
+                        cssDesc:    'sorted-down',
+                        cssHeader:  'sortable sorted',
+                        dateFormat: 'mmddyyyy'
+
+                    }); 
+                }
+
+                function onCompleteStoreRefreshTable()
+                {
+                    initTableSorter();
+                    unblockUI();
+                }
+
+                function buildRelevantStorePicklist(objName, storePicklistFieldName, selectFieldUniqueName, listOfStoreCodesAvailable, selectedValue, noneValue, allValue)
+                {
+                    var objDesc = sforce.connection.describeSObject(objName);
+                    var storePicklistFieldNameDesc;
+
+                    for (var i = 0; i < objDesc.fields.length; ++i) 
+                    {
+                        var f = objDesc.fields[i];
+                        if (f.name == storePicklistFieldName) 
+                        {
+                            storePicklistFieldNameDesc = f;
+                            break;
+                        }
+                    }
+
+                    var list = $('#' + selectFieldUniqueName + 'DropDownId');
+                    var aClassName = selectFieldUniqueName + 'DropDownClick';
+                    var storePicklistFieldValues = storePicklistFieldNameDesc.picklistValues;
+                    
+                    //add none:
+                    var singleLi = '<li role="presentation"><a class="' + 
+                                    aClassName + '" value="" role="menuitem" tabindex="-1" href="javascript:void(0)">' + 
+                                    noneValue + '</a></li>';
+                    list.append(singleLi);
+
+                    //add All
+                    if(listOfStoreCodesAvailable.length > 0)
+                    {
+                        var singleLi = '<li role="presentation"><a class="' + 
+                                        aClassName + '" value="' + allValue + '" role="menuitem" tabindex="-1" href="javascript:void(0)">' + 
+                                        allValue + '</a></li>';
+                        list.append(singleLi);
+                    }
+
+                    for(var j = 0; j < listOfStoreCodesAvailable.length; ++j)
+                    {
+                        for(var i = 0; i < storePicklistFieldValues.length; ++i) 
+                        {
+                            if(storePicklistFieldValues[i].value == listOfStoreCodesAvailable[j])
+                            {
+                                var singleLi = '<li role="presentation"><a class="' + 
+                                                aClassName + '" value="' + storePicklistFieldValues[i].value + 
+                                                '" role="menuitem" tabindex="-1" href="javascript:void(0)">' + 
+                                                storePicklistFieldValues[i].label + '</a></li>';
+                                list.append(singleLi);
+                                break;
+                            }
+                        }
+                    }
+
+                    var selectedLabel = '';
+                    if(selectedValue === allValue)
+                    {
+                        var storeButtonVar = $('#' + selectFieldUniqueName + 'ButtonId');
+                        storeButtonVar.text(allValue);
+                        storeButtonVar.prepend(dropDownIcon);
+                    }
+                    else if(selectedValue !== '')
+                    {
+                        for(var i = 0; i < storePicklistFieldValues.length; ++i)
+                        {
+                            if(storePicklistFieldValues[i].value == selectedValue)
+                            {
+                                selectedLabel = storePicklistFieldValues[i].label;
+                                break;
+                            }
+                        }
+                        var storeButtonVar = $('#' + selectFieldUniqueName + 'ButtonId');
+                        storeButtonVar.text(selectedLabel);
+                        storeButtonVar.prepend(dropDownIcon);
+                    }
+                    else
+                    {
+                        var storeButtonVar = $('#' + selectFieldUniqueName + 'ButtonId');
+                        storeButtonVar.text(noneValue);
+                        storeButtonVar.prepend(dropDownIcon);
+                    }
+
+                    $('.' + aClassName).click(function()
+                    {
+                        var currentSelectiion = $(this).text();
+                        var currentButton     = $(this).closest(".btn-group").find("button");
+                        currentButton.text(currentSelectiion);
+                        currentButton.prepend(dropDownIcon);
+                        blockUI();
+                        updateTableValues($(this).attr('value'));
+                    }); 
+
+                }
+
+            </script>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,69 @@
+<apex:page controller="VO_Template"
+           applybodytag="false"
+           applyhtmltag="false"
+           showheader="false"
+           standardstylesheets="false"
+           doctype="html-5.0">
+    <html>
+    <head>
+        <!-- import CDN -->
+        <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/jquery2.1.3.min.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/jquery.blockUI.min.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/bootstrap-datepicker.min.js')}"></script> 
+
+        <!--The only external files - because in static resource they don't work. -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"  rel="stylesheet" />
+        <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet" />
+        
+        <link href="{!URLFOR($Resource.VO,'VO/css/risestrap.min.css')}"        rel="stylesheet" />
+        <meta charset="UTF-8" />
+        <apex:insert name="headTag" />
+    </head>
+    <body>
+        <span class="userName" style="display:none">{!$User.FirstName} {!$User.LastName}</span>
+        <div id="wrapper">
+
+            <header class="navbar">
+                <div class="navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <span class="navbar-brand ng-binding">{!$Label.VO_Louis_Vuitton_VOICE} </span>
+                        </div>
+                        	<!-- Begin MTOU: removing the dashboard page-->
+                            <!--<ul class="nav navbar-nav navbar-left">
+                            <li class="separator"></li>
+                            <li class="dashboard">
+                                <a href="/apex/VO_Main_Statistics" class="text-uppercase">
+                                    <span class="fa fa-tachometer">
+                                    </span> {!$Label.VO_Dashboard}
+                                </a>
+                            </li>
+                        </ul>-->
+						<!-- End MTOU -->
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><span class="navbar-text">{!$Label.VO_Welcome} ,&nbsp;{!$User.FirstName}&nbsp;{!$User.LastName}</span></li>
+                            <li class="separator"></li>
+                            <li><a href="{!helpLink}" target="_blank">{!$Label.VO_Help}</a></li>
+                            <li class="separator"></li>
+                            <li><a href="/secur/logout.jsp"><span class="fa fa-power-off"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <apex:insert name="headerContent" />
+            </header>
+            <main>
+                <apex:insert name="bodyContent" />
+            </main>
+            <footer>
+                <apex:insert name="footerContent" />
+            </footer>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/bootstrap.3.3.5.min.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/BlockUIcustom.js')}"></script> 
+            <apex:insert name="footerScripts" />
+        </div>
+    </body>
+</html>
+
+</apex:page>

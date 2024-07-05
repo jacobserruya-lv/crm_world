@@ -1,0 +1,7 @@
+<apex:page standardController="Exclusive_Campaign_Order__c" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+	<apex:form >
+
+        <c:ArtycapExOrderPurchaseProductComponent record="{! Exclusive_Campaign_Order__c.Client__c }"/>
+	
+    </apex:form>	
+</apex:page>

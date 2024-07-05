@@ -1,0 +1,53 @@
+<apex:component >
+   
+   
+    <apex:attribute name="parameters" type="SO_BreadcrumbParameter[]" description="Parameters" />
+    <!-- <apex:attribute name="data" type="SO_Template_CTRL" description="Parameters" /> -->
+
+    <section class="nav bread" id="bread">
+        <ol class="breadcrumb" id="breadcrumb">
+
+            <apex:repeat value="{!parameters}" var="parameter">
+
+                <li class="{!IF(parameter.state == 'common', '', parameter.state)}">
+
+                    <!-- <a class="checkGoodLink" href="{!parameter.url}">
+                        <h5 class="text-uppercase">
+                            <span id="{!parameter.name}-icon" class="glyphicon glyphicon-{!parameter.iconClass}">
+                            </span><b> {!parameter.arrowNumber}&nbsp;<apex:outputtext escape="false" value="{!parameter.title}" /></b>
+                        </h5>
+                        <h5 class="small" id="{!parameter.name}"><apex:outputtext escape="false" value="{!parameter.description}" /></h5>
+                    </a> -->
+
+                    <a id="{!parameter.name}_nav" href="#leave_current_tab" data-value="{!parameter.url}" class="checkGoodLink confirm-dialog">
+                        <h5 class="text-uppercase">
+                            <span id="{!parameter.name}-icon" class="glyphicon glyphicon-{!parameter.iconClass}">
+                            </span><b> {!parameter.arrowNumber}&nbsp;<apex:outputtext escape="false" value="{!parameter.title}" /></b>
+                        </h5>
+                        <h5 class="small" id="{!parameter.name}"><apex:outputtext escape="false" value="{!parameter.description}" /></h5>                
+                    </a>
+
+                </li>
+            </apex:repeat>
+            <li></li>    
+        </ol>
+        <button class="btn btn-link">
+            <span class="badge messages" >0</span>
+            <span class="envelopeCloseOrOpen fa "></span>
+            <!-- <span class="text-uppercase">{!$Label.SO_LV_Messages}</span> -->
+            <span class="caret"></span>
+        </button>
+    </section>
+
+    <script>
+        $(function(){
+            if ($('ol.breadcrumb li:last-child').prevAll('li:not(.hidden)').first()
+                .is('.active'))
+            $('ol.breadcrumb li:last-child').addClass('active');
+        });
+
+
+
+
+    </script>
+</apex:component>

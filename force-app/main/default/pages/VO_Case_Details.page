@@ -1,0 +1,695 @@
+<apex:page applybodytag="false"
+           applyhtmltag="false"
+           showheader="false"
+           standardController="Account"
+           extensions="VO_Case_Details_CTRL"
+           standardstylesheets="false"
+           doctype="html-5.0"
+           >
+    <apex:outputPanel rendered="{!$CurrentPage.parameters.app == 'ICON'}">
+        <style type="text/css">
+            html, body, .container-fluid {min-width: 600px !important;}
+            .historySection {display: none !important;}
+            .VO_pdf {display: none !important;}
+        </style>
+    </apex:outputpanel>
+    <apex:outputPanel rendered="{!AND($CurrentPage.parameters.app == 'ICON' , $CurrentPage.parameters.showFollowUp != '1'  ) }">
+        <style type="text/css">
+            .btn-followUp {display: none !important;}
+        </style>
+    </apex:outputpanel>
+
+
+    <apex:composition template="{!IF($CurrentPage.parameters.app == 'ICON','IC_Template','VO_Template')}">
+        <apex:define name="headTag">
+            <title>LV VOICE - Case Details</title>
+                        <!-- Modal dependency -->
+
+          <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.VO,'VO/css/libraries/magnific-popup.min.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.VO,'VO/css/custom-css/VO_Case_Details.css')}" />
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/jquery.magnific-popup.min.js')}"></script>
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.VO,'VO/css/libraries/bootstrap-select.min.css')}" />
+
+          <!-- New Relic integration -->
+          <apex:includeScript value="{!IF($Setup.ICONSettings__c.NewRelic__c, $Resource.NewRelic, '')}"/>
+          <script type="text/javascript">
+          newrelic.setCustomAttribute('userId', '{!userId}');
+          newrelic.setCustomAttribute('userStore', '{!userStore}');
+          newrelic.setCustomAttribute('userCountry', '{!userCountry}');
+          newrelic.setCustomAttribute('userManagement', '{!userManagement}');
+          newrelic.setCustomAttribute('userIp', new RegExp("clientSrc=([^;]+)").exec(document.cookie)[1]);
+          newrelic.setCustomAttribute('userSid', new RegExp("sid=([^;]+)").exec(document.cookie)[1]);
+          var startTimeMs = (new Date).getTime();
+          </script>
+
+        </apex:define>
+
+
+        <apex:define name="bodyContent">
+            <apex:pageMessages />
+            <!-- MY : take all the currencies and there value for the cureency picklist
+            The change made by script  -->
+            <span class = "HSspend" style="display:none">
+                <span id="userCurrency">{!currUser.Currency__c}</span>
+                <span data-id="EUR">
+                    <apex:outputText value="{0,number, ###,###}">
+                        <apex:param value="{!ROUND(client.HistoricalSpendEUR__pc,0)}"/>
+                    </apex:outputText>
+                </span>
+                <span data-id="USD">
+                    <apex:outputText value="{0,number, ###,###}">
+                        <apex:param value="{!ROUND(client.HistoricalSpendUSD__pc,0)}"/>
+                    </apex:outputText>
+                </span>
+                <span data-id="JPY">
+                    <apex:outputText value="{0,number, ###,###}">
+                        <apex:param value="{!ROUND(client.HistoricalSpendYEN__pc,0)}"/>
+                    </apex:outputText>
+                </span>
+                <span data-id="CNY">
+                    <apex:outputText value="{0,number, ###,###}">
+                        <apex:param value="{!ROUND(client.HistoricalSpendYUAN__pc,0)}"/>
+                    </apex:outputText>
+                </span>
+            </span>
+            <span id='ifOnlyReadUser' style="display: none;">
+                 {!userReadOnlyOnSurveys}
+            </span>
+
+             <div class="container-fluid margin-top-lg">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                <div class="pull-left h1 margin-md margin-right-lg">
+                                    <c:VO_symbolsTypeStatus typeName="{!vo_survey.Type__c}"  statusName="{!vo_survey.Status__c}" >
+                                    </c:VO_symbolsTypeStatus>
+                                </div>
+                                <div class="pull-left margin-right-lg">
+                                    <h4 class="text-uppercase">
+                                        <b>{!vo_survey.SurveyType__c}</b>
+                                    </h4>
+                                    <h4>
+                                        <b>{!vo_survey.Store__r.Name}</b>
+                                    </h4>
+                                    <!-- C&C: adding Delivery store -->
+                                    <h4 style ="display:{!IF(OR(vo_survey.SurveyType__c == VOICE_CC_CSC_SALES, vo_survey.SurveyType__c == VOICE_CC_WEB_SALES), 'block', 'none')}">
+                                        <b>Delivered in {!vo_survey.TECHStore_Delivery_del__c}</b>
+                                    </h4>
+                                    <!-- EO: adding store order -->
+                                    <h4 style ="display:{!IF(OR(vo_survey.SurveyType__c == VOICE_EO_SALES), 'block', 'none')}">
+                                        <b>Ordered in {!vo_survey.STOREORDER__c}</b>
+                                    </h4>
+                                </div>
+                                <div class="pull-left margin-center-lg">
+                                    <h5>
+                                        <a  onclick="javascript:window.location.href = '/apex/IC_ClientDetails?id={!client.id}&cb=VO_Case_Details&cblink='+ encodeURIComponent(window.location.href);" class="detailsIC" style="text-decoration:none; color: black; display: {!IF($CurrentPage.parameters.app != 'ICON','none','block')}"><b>{!vo_survey.ClientName__c}</b></a>
+                                        <b style="display: {!IF($CurrentPage.parameters.app != 'ICON','block','none')}">{!vo_survey.ClientName__c}</b>
+                                    </h5>
+                                    <h4>
+                                       <b> {!$Label.VO_Answer_date} :
+                                        <span>
+                                           <apex:outputField value="{!vo_survey.AnswerDate__c}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                                <apex:param value="{!vo_survey.AnswerDate__c}" />
+                                            </apex:outputtext>
+                                        </span>
+                                        </b>
+                                    </h4>
+                                    <!-- C&C and EO: displaying Assigned To field -->
+                                    <h4 style ="display:{!IF(OR(vo_survey.SurveyType__c == VOICE_CC_CSC_SALES, vo_survey.SurveyType__c == VOICE_CC_WEB_SALES, vo_survey.SurveyType__c == VOICE_EO_SALES), 'block', 'none')}">
+                                        <b>Assigned To {!vo_survey.Assign_To__c}</b>
+                                    </h4>
+                                </div>
+                                <div class="pull-right">
+                                    <div class="btn btn-success btn-followUp" onclick="openModal();setBootStrapMulty();channelHandler();bannedWordHandler.initBannedWordsList({!jsonBannedWordList})" data-toggle="modal" data-target="#myModal" id="modalOpenBtn">
+                                        <span class="fa fa-pencil">
+                                        </span>
+                                         {!$Label.VO_Follow_up}
+                                    </div>
+                                    <div class="btn btn-default VO_pdf">
+                                        <a href="VO_Specific_Statistics_Pdf?surveyID={!vo_survey.id}&accountId={!client.id}" target="_blank" style="color: #333;;text-decoration: none;">
+                                            <span class="fa fa-file-pdf-o">
+                                            </span>
+                                            {!$Label.VO_Export_as_Pdf}
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <c:VO_scrollPanel idname="id1" title="{!$Label.VO_CLIENT_DETAILS}">
+                        <div class="row">
+                            <div class="{!IF($CurrentPage.parameters.app == 'ICON','col-xs-6','col-xs-6')}">
+                                <div class="padding-md bg-white form-horizontal ng-pristine ng-valid">
+                                    <a href="#" onclick="javascript:window.location.href = '/apex/IC_ClientDetails?id={!client.id}&cb=VO_Case_Details&cblink='+ encodeURIComponent(window.location.href);" class="detailsIC" style=" text-decoration:none;color: black; display: {!IF($CurrentPage.parameters.app != 'ICON','none','block')}">
+                                        <c:VO_ClientDetailsRow title="{!$Label.VO_Dream_ID}">
+                                            {!vo_survey.DreamID__c}
+                                        </c:VO_ClientDetailsRow>
+                                    </a>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Dream_ID}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                        {!vo_survey.DreamID__c}
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Gender}">
+                                        {!client.Gender__pc}
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Segmentation}">
+                                        {!vo_survey.Segmentation__c}
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Address}">
+                                        <apex:outputField id="newDesc" value="{!client.PrimaryAddress__pc }"/>
+                                    </c:VO_ClientDetailsRow>
+                                    <a href="#" onclick="javascript:window.location.href = '/apex/IC_ClientDetails?id={!client.id}&cb=VO_Case_Details&cblink='+ encodeURIComponent(window.location.href);" class="detailsIC" style=" text-decoration:none; color: black; display: {!IF($CurrentPage.parameters.app != 'ICON','none','block')}">
+                                        <c:VO_ClientDetailsRow title="{!$Label.VO_Phone}">
+                                            {!client.PersonHomePhone }
+                                        </c:VO_ClientDetailsRow>
+                                    </a>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Phone}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                        {!client.PersonHomePhone }
+                                    </c:VO_ClientDetailsRow>
+                                    <a href="#" onclick="javascript:window.location.href = '/apex/IC_ClientDetails?id={!client.id}&cb=VO_Case_Details&cblink='+ encodeURIComponent(window.location.href);" class="detailsIC" style="text-decoration:none; color: black; display: {!IF($CurrentPage.parameters.app != 'ICON','none','block')}">
+                                        <c:VO_ClientDetailsRow title="{!$Label.VO_Mobile}">
+                                            {!client.PersonMobilePhone }
+                                        </c:VO_ClientDetailsRow>
+                                    </a>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Mobile}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                        {!client.PersonMobilePhone }
+                                    </c:VO_ClientDetailsRow>
+                                    <a href="#" onclick="javascript:window.location.href = '/apex/IC_ClientDetails?id={!client.id}&cb=VO_Case_Details&cblink='+ encodeURIComponent(window.location.href);" class="detailsIC" style="color: black; display: {!IF($CurrentPage.parameters.app != 'ICON','none','block')}">
+                                        <c:VO_ClientDetailsRow title="{!$Label.IC_Email}" >
+                                            {!client.PersonEmail }
+                                        </c:VO_ClientDetailsRow>
+                                    </a>
+                                    <c:VO_ClientDetailsRow title="{!$Label.IC_Email}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                        {!client.PersonEmail }
+                                    </c:VO_ClientDetailsRow>
+                                </div>
+                            </div>
+                            <div class="{!IF($CurrentPage.parameters.app == 'ICON','col-xs-6','col-xs-6')}">
+                                <div class="padding-md bg-white form-horizontal ng-pristine ng-valid">
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Attached_channel}">
+                                        {!client.AttachedStore__pc}&nbsp;-&nbsp;
+                                    <apex:outputField value="{!client.AttachedStore__pc}"/>
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Preferred_CA}">
+                                        {!client.TECHPreferredCA__c}
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Last_contact_date}">
+                                        <apex:outputField value="{!client.LastContactDate__pc}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                        <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                            <apex:param value="{!client.LastContactDate__pc }" />
+                                        </apex:outputtext>
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Last_CSC_Client_Contact}" image="{!IF(TEXT(client.FlowerFlag__pc) == $Label.LV_Opend_Complain_Status, 'new.png', '')}">
+                                            <apex:outputField value="{!client.LastCSCClientContact__pc}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                                <apex:param value="{!client.LastCSCClientContact__pc}"/>
+                                            </apex:outputtext>
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Last_complain_date}">
+                                        <span style='color:red;'>
+                                            <apex:outputField value="{!client.ComplaintClosingDate__pc}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                            <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                                <apex:param value="{!client.ComplaintClosingDate__pc}"/>
+                                            </apex:outputtext>
+                                        </span>
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_First_transaction_date}">
+                                        <apex:outputField value="{!client.FirstTrans__pc}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                        <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                            <apex:param value="{!client.FirstTrans__pc}"/>
+                                        </apex:outputtext>
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Hist_turnover}">
+                                        <span id="histTurnoverValue"></span>
+                                        <select class="HistTurnOver">
+                                          <option value="EUR">€
+                                          </option>
+                                          <option value="USD">$
+                                          </option>
+                                          <option value="JPY">JPY
+                                          </option>
+                                          <option value="CNY">CNY
+                                          </option>
+                                        </select>
+                                    </c:VO_ClientDetailsRow>
+                                    <c:VO_ClientDetailsRow title="{!$Label.VO_Number_of_products}">
+                                        {!client.HistoricalNbrProducts__pc}
+                                    </c:VO_ClientDetailsRow>
+                                </div>
+                            </div>
+                        </div>
+                    </c:VO_scrollPanel>
+
+                    <c:VO_scrollPanel idname="id2" title="{!$Label.VO_TRANSACTION}">
+                        <div class="table-responsive">
+                            <table class="table  table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>{!$Label.VO_Transaction_Id}</th>
+                                        <th>{!$Label.VO_CA_ID}</th>
+                                        <th>{!$Label.VO_CA_Name}</th>
+                                        <th>{!$Label.VO_Transaction_Date}</th>
+                                        <th>{!$Label.VO_Product_Category}</th>
+                                        <th>{!$Label.VO_Product}</th>
+                                        <th>{!$Label.VO_Quantity}</th>
+                                        <th>{!$Label.VO_Amount_in_LC}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat var="product" value="{!purchasedProduct_lst}">
+                                        <tr>
+                                            <td data-id="{!product.id}">
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c = VOICE_SALES ,true,false)}">
+                                                    {!product.TransactionRMSId__c}
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c =VOICE_AFTER_SALES,true,false)}">
+                                                    <a target="_blank" href="http://{!hostCS}.vuitton.lvmh/agent/main.jsp?orderId={!product.OrderATGId__c }" >{!$Label.VO_Link_to_my_repair}</a>
+
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(OR(vo_survey.SurveyType__c = VOICE_WEB_SALES, vo_survey.SurveyType__c = VOICE_CSC_SALES, vo_survey.SurveyType__c = VOICE_CC_CSC_SALES, vo_survey.SurveyType__c = VOICE_CC_WEB_SALES),true,false)}">
+                                                    {!product.OrderATGId__c}
+                                                </apex:outputPanel>
+                                            </td>
+                                            <td> {!product.RMSCAId__c}</td>
+                                            <td>{!product.SAName__c}</td>
+                                            <td>
+                                                <apex:outputField value="{!product.PurchasedDate__c}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                                <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                                    <apex:param value="{!product.PurchasedDate__c}" />
+                                                </apex:outputtext>
+                                            </td>
+                                            <td>{!product.ProductLine__c}</td>
+                                            <!-- Start DY 05/04/2016 -->
+                                            <td>
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c = VOICE_AFTER_SALES ,true,false)}">
+                                                    {!product.DesignationRepaired__c}
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(vo_survey.SurveyType__c <> VOICE_AFTER_SALES ,true,false)}">
+                                                    {!product.Name}
+                                                </apex:outputPanel>
+                                            </td>
+                                            <!-- End DY 05/04/2016 -->
+                                            <!-- <td>{!product.Name}</td> -->
+                                            <td>{!product.Quantity__c}</td>
+                                            <td>{!ROUND(product.Amount__c,0)} {!product.CurrencyCode__c}</td>
+                                        </tr>
+                                    </apex:repeat>
+                                   <apex:outputPanel rendered="{!IF(purchasedProduct_lst.size > 0 ,true , false)}">
+                                        <apex:outputPanel rendered="{!IF(purchasedProduct_lst[0].TransactionTotalAmount__c != null  ,true , false)}">
+                                            <apex:outputPanel rendered="{!IF(purchasedProduct_lst[0].TransactionTotalAmount__c > 0  ,true , false)}">
+                                                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td><span style="display:none">{!purchasedProduct_lst[0].id}</span></td>
+                                                    <td>{!ROUND(purchasedProduct_lst[0].TransactionTotalAmount__c,0)} {!purchasedProduct_lst[0].CurrencyCode__c}</td>
+                                                </tr>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </c:VO_scrollPanel>
+
+                    <c:VO_scrollPanel idname="id4" title="{!$Label.VO_FEEDBACK}" isbold="true">
+                        <span clas="bg-white">
+                            <apex:variable var="rowNum" value="{!1}"/>
+                            <apex:repeat value="{!ansListWrapperList}" var="answerListWrapperItem">
+                                    <!-- when multyQ answerListWrapperItem.count > 1 -->
+                                    <apex:outputPanel layout="none" rendered="{!IF(AND(answerListWrapperItem.count > 1, NOT(answerListWrapperItem.hasNoAns)) ,true , false)}">
+
+                                        <div class="clearfix">
+                                            <div class="pull-left h5  margin-md margin-right-lg">
+                                                <div aria-expanded="true" class="" data-toggle="collapse" href="#{!answerListWrapperItem.answerList[0].orderInAnswer}" role="button">
+
+                                                    <span class="caret caret-lg"></span>
+                                                    <b>{!rowNum}) {!answerListWrapperItem.answerList[0].section}</b>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div aria-expanded="true" class="collapse in" id="{!answerListWrapperItem.answerList[0].orderInAnswer}">
+                                            <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper">
+                                                <apex:outputPanel layout="none" rendered="{!IF(itemAnswerWrapper.answer != null , true, false)}">
+                                                    <div class="clearfix multypickListFeedBack answerRow">
+                                                        <div class="pull-left h5  margin-md margin-right-lg">
+                                                            {!itemAnswerWrapper.title}
+                                                        </div>
+                                                        <div class="pull-right margin-md margin--lg">
+                                                            {!itemAnswerWrapper.answer}
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:repeat>
+                                        </div>
+                                        <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                                    </apex:outputPanel>
+                                    <!-- when regular answerListWrapperItem.count > 1 -->
+                                    <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.count = 1 , true, false)}">
+
+                                        <apex:repeat value="{!answerListWrapperItem.answerList}" var="itemAnswerWrapper">
+                                            <apex:outputPanel layout="none" rendered="{!IF(itemAnswerWrapper.answer != null , true, false)}">
+                                                <apex:outputPanel layout="none" rendered="{!IF(answerListWrapperItem.isAnsIsNum , true ,false)}">
+                                                    <div class="clearfix ">
+                                                        <div class="pull-left h5  margin-md margin-right-lg">
+                                                            <b>{!rowNum}) {!itemAnswerWrapper.title}</b>
+                                                        </div>
+                                                        <div class="pull-right margin-md margin--lg">
+                                                            {!itemAnswerWrapper.answer}
+                                                        </div>
+                                                    </div>
+    
+                                                </apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!IF(NOT(answerListWrapperItem.isAnsIsNum) , true ,false)}">
+                                                    <div class="clearfix">
+                                                        <div class="pull-left h5 margin-md margin-right-lg">
+                                                           <b> {!rowNum}) {!itemAnswerWrapper.title}</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix">
+                                                        <div class="pull-left  margin-md margin-right-lg">
+                                                            {!itemAnswerWrapper.answer}
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                                <apex:variable var="rowNum" value="{!IF(itemAnswerWrapper.answer != null, rowNum+1, rowNum)}"/>
+                                            </apex:outputPanel>
+                                        </apex:repeat>
+                                    </apex:outputPanel>
+                             <!--<apex:variable var="rowNum" value="{!rowNum+1}"/>-->
+                            </apex:repeat>
+
+
+                        </span>
+                    </c:VO_scrollPanel>
+                    <apex:outputPanel layout="block" styleClass="historySection" id="historySection1" >
+                    <c:VO_scrollPanel idname="id3" title="{!$Label.VO_CLIENT_FEEDBACK_HISTORY}" >
+                        <div class="table-responsive">
+                            <table class="table  table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>{!$Label.VO_Survey_ID}</th>
+                                        <th>{!$Label.VO_Answer_date}</th>
+                                        <th>{!$Label.VO_Store_code}</th>
+                                        <th>{!$Label.VO_Store_name}</th>
+                                        <th>{!$Label.VO_Type}</th>
+                                        <th>{!$Label.VO_Type_of_Survey}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat var="survey" value="{!surveyClient_lst}">
+                                        <tr>
+                                            <td>
+                                                <a href="VO_case_details?surveyID={!survey.Id}&&accountId={!survey.ClientDreamID__c}">{!survey.Name}</a>
+                                            </td>
+                                            <td>
+                                                <apex:outputField value="{!survey.AnswerDate__c}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                                <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                                    <apex:param value="{!survey.AnswerDate__c}" />
+                                                </apex:outputtext>
+                                            </td>
+                                            <td>{!survey.Store__r.RetailStoreId__c}</td>
+                                            <td>{!survey.StoreName__c}</td>
+                                            <td>
+                                                <c:VO_symbolsTypeStatus typeName="{!survey.Type__c}"  statusName="" >
+                                                </c:VO_symbolsTypeStatus>
+                                                {!survey.Type__c}
+                                            </td>
+                                            <td>{!survey.SurveyType__c}</td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </c:VO_scrollPanel>
+                </apex:outputPanel>
+            </div>
+
+
+             <!-- Pop up; light Box -->
+             <apex:form >
+                 <apex:actionFunction name="clickSaveModal" action="{!clickSaveModal}" oncomplete="$.magnificPopup.close(); location.reload();" rerender="modalBlock">
+                    <apex:param id="aSaveComment" name="Comment" value="" />
+                    <apex:param id="aSaveChanel" name="Chanel" value="" />
+                    <apex:param id="aSaveRoot" name="Root" value="" />
+                    <apex:param id="aSaveCA" name="CA" value="" />
+                    <apex:param id="aSaveRootMulty" name="RootMulty" value="" />
+                </apex:actionFunction>
+                <apex:actionFunction name="clickCloseCaseModal" action="{!clickCloseCaseModal}" oncomplete="$.magnificPopup.close();location.reload();" rerender="modalBlock">
+                    <apex:param id="aCloseComment" name="Comment" value="" />
+                    <apex:param id="aChanel" name="Chanel" value="" />
+                    <apex:param id="aRoot" name="Root" value="" />
+                    <apex:param id="aCA" name="CA" value="" />
+                    <apex:param id="aRootMulty" name="RootMulty" value="" />
+                </apex:actionFunction>
+
+                <apex:actionFunction name="clickCancelCaseModal" action="{!clickCancelCaseModal}" oncomplete="$.magnificPopup.close();location.reload();" rerender="modalBlock">
+                </apex:actionFunction>
+
+                 <apex:outputPanel layout="none" id="modalBlock">
+                    <apex:outputPanel >
+                        <div id="open_product" class="popup-content modal-dialog  mfp-hide" style="{!IF($CurrentPage.parameters.app == 'ICON','width: 90%;margin:auto;','width: 800px;')}">
+                            <div class="panel panel-primary  " >
+                                    <span id='surveyModalId' style="display: none;">
+                                        {!surveyForModal.Id}
+                                    </span>
+                                    <div class="modal-header">
+                                        <apex:outputpanel layout="none" rendered="{!$CurrentPage.parameters.app == 'ICON'}">
+                                            <div id="modalCloseBtn"  onclick="$.magnificPopup.close();" data-dismiss="modal" class="close">
+                                                x
+                                            </div>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel layout="none" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="   Close" onclick="clickCancelCaseModal();">
+                                                <span aria-hidden="true">x</span>
+
+                                            </button>
+                                        </apex:outputpanel>
+
+                                        <h4 class="modal-title">{!$Label.VO_SurveyType}: {!surveyForModal.SurveyType__c}</h4>
+
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <h5 class="text-uppercase">
+
+                                                    <b>{!surveyForModal.StoreName__c}</b>
+                                                </h5>
+                                                <h5>
+                                                    <b>{!surveyForModal.ClientName__c}</b>
+                                                </h5>
+                                            </div>
+                                            <div class="col-sm-6 form-inline">
+                                                <h5><b>{!$Label.VO_Dream_ID} </b> {!surveyForModal.DreamIDText__c}</h5>
+                                                <h5><b>{!$Label.VO_Segmentation} </b> {!surveyForModal.Segmentation__c}</h5>
+
+                                            </div>
+                                        </div>
+                                        <div class="clearfix border-bottom border-top margin-top-md margin-bottom-md">
+                                            <div class="pull-left h1 margin-md margin-right-lg">
+                                                <c:VO_symbolsTypeStatus typeName="{!surveyForModal.Type__c}"  statusName="{!surveyForModal.Status__c}" >
+                                                </c:VO_symbolsTypeStatus>
+                                            </div>
+                                            <div class="pull-left margin-right-lg">
+                                                <h5>{!$Label.VO_Answer_date} : <span>
+                                                <apex:outputField value="{!surveyForModal.AnswerDate__c}" rendered="{!$CurrentPage.parameters.app == 'ICON'}"/>
+                                                <apex:outputtext value="{0,Date, MM/dd/yyyy}" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                                   <apex:param value="{!surveyForModal.AnswerDate__c}" />
+                                                </apex:outputtext>
+
+                                                </span></h5>
+                                                <apex:outputPanel rendered="{!NOT(ISNULL(surveyForModal.Follow_up_by__c))}">
+                                                    <h5>{!$Label.VO_Follow_up_by} : <span>{!surveyForModal.Follow_up_by__c}</span></h5>
+                                                </apex:outputPanel>
+                                            </div>
+
+                                        </div>
+                                        <!-- RMOU : Evo Voice #9 -->
+                                        <!-- <apex:outputPanel layout="none" rendered="{! OR(surveyForModal.status__c == 'New', surveyForModal.status__c == 'Pending') }">
+                                            <div class="form-group">
+                                                <label for="dropdownMenu01" class="control-label">Attached Store</label>
+                                                <div class="dropdown">
+                                                    <div class="col-sm-8 sfSelectFixer Store">
+                                                        <apex:selectList value="{! surveyTransfer.StoreID__c }" multiselect="false" size="1" styleClass="selectpicker" html-data-width="100%">
+                                                            <apex:selectOptions value="{! storesOptions }"/>
+                                                        </apex:selectList>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel> -->
+                                        <apex:outputpanel layout="none" rendered="{!$CurrentPage.parameters.app == 'ICON'}">
+                                        <div class="row ">
+                                            <div class="form-group col-sm-10" >
+                                                <label for="dropdownMenu01" class="control-label">{!$Label.VO_Chanel}</label>
+                                                <div class="dropdown">
+                                                    <div class="col-sm-12 sfSelectFixer Chanel">
+                                                        <apex:inputField value="{!surveyForModal.Channel__c}" styleClass="selectChannel" style="font-size: 50px;" html-data-width="100%"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <apex:outputPanel layout="none" rendered="{!surveyForModal.Type__c == 'Recovery Act'}">
+                                                <div class="form-group col-sm-10">
+                                                    <label for="dropdownMenu02" class="control-label">{!$Label.VO_Root_cause_for_dissatisfaction}</label>
+                                                    <div class="dropdown">
+                                                        <div class="col-sm-12 sfSelectFixer rootCause">
+                                                            <apex:inputField value="{!surveyForModal.RootCause__c}" styleClass="selectpicker multiple" html-data-width="100%"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span id='oldValuesRoot' style="display:none">
+                                                    {!surveyForModal.RootCause__c}
+                                                </span>
+                                                 <div class="form-group col-sm-6 ">
+                                                    <span style="display:none">
+                                                        <apex:inputField value="{!surveyForModal.SurveyType__c}"/>
+                                                        <apex:inputField value="{!surveyForModal.RootCause__c}" styleClass="selectpicker" html-data-width="100%"/>
+
+                                                    </span>
+                                                </div>
+
+                                            </apex:outputPanel>
+                                        </div>
+                                        </apex:outputpanel>
+                                        <apex:outputpanel layout="none" rendered="{!$CurrentPage.parameters.app != 'ICON'}">
+                                        <div class="row ">
+                                            <div class="form-group col-sm-6" >
+                                                <label for="dropdownMenu01" class="control-label">{!$Label.VO_Chanel}</label>
+                                                <div class="dropdown">
+                                                    <div class="col-sm-8 sfSelectFixer Chanel">
+                                                        <apex:inputField value="{!surveyForModal.Channel__c}" styleClass="selectpicker"  html-data-width="100%"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <apex:outputPanel layout="none" rendered="{!surveyForModal.Type__c == 'Recovery Act'}">
+                                                <div class="form-group col-sm-6">
+                                                    <label for="dropdownMenu02" class="control-label">{!$Label.VO_Root_cause_for_dissatisfaction}</label>
+                                                    <div class="dropdown">
+                                                        <div class="col-sm-8 sfSelectFixer rootCause">
+                                                            <apex:inputField value="{!surveyForModal.RootCause__c}" styleClass="selectpicker" html-data-width="100%"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span id='oldValuesRoot' style="display:none">
+                                                    {!surveyForModal.RootCause__c}
+                                                </span>
+                                                 <div class="form-group col-sm-6 ">
+                                                    <span style="display:none">
+                                                        <apex:inputField value="{!surveyForModal.SurveyType__c}"/>
+                                                        <apex:inputField value="{!surveyForModal.RootCause__c}" styleClass="selectpicker" html-data-width="100%"/>
+
+                                                    </span>
+                                                </div>
+
+                                            </apex:outputPanel>
+                                        </div>
+                                        </apex:outputpanel>
+                                        <div class="form-group">
+                                            <label for="dropdownMenu01" class="control-label">{!$Label.VO_Comment_history}</label>
+                                            <textarea id="commentHistory" readonly="" class="form-control" style="height:200px;">{!surveyForModal.Comment_History__c}</textarea>
+                                            <script>
+
+                                                $('#commentHistory').attr('readonly', true);
+                                            </script>
+
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <apex:inputField styleClass="CACheckBox" value="{!surveyForModal.Action_delegated_to_CA__c}"/>{!$Label.VO_Action_delegated_to_CA}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dropdownMenu01" class="control-label">{!$Label.VO_Comment}</label>
+                                            <textarea class="form-control" id='newComment' style="height:100px;font-size:20px;"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="alert alert-danger alert-dismissible fade in errorMsgBlock" style="display: none;">
+                                        <ul>
+                                            <apex:outputPanel rendered="{!$CurrentPage.parameters.app != 'ICON'}" >
+                                                <li class="errorMsg" style="display: none;" >
+                                                    {!$Label.VO_FOLLOWUP_ERROR_MESSAGE}
+                                                </li>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!$CurrentPage.parameters.app == 'ICON'}" >
+                                                <li class="errorMsg" style="display: none;" >
+                                                    {!$Label.VO_FOLLOWUP_ERROR_MESSAGE_ICON}
+                                                </li>
+                                            </apex:outputPanel>
+                                            <li  class="errorMsgBannedWord" style="display: none;">
+                                                  {!$Label.VO_FOLLOWUP_ERROR_BANNED_WORD}
+                                                    <span class="BanWordList"></span>
+                                                    {!$Label.VO_FOLLOWUP_ERROR_BANNED_WORD2}
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <apex:outputPanel layout="none" rendered="{!IF(userReadOnlyOnSurveys,false,true)}">
+                                            <div class="pull-left ">
+                                            </div>
+                                            <div class="pull-right">
+                                                <div class="btn btn-default" onclick="saveModalJS();">{!$Label.VO_Save_Action}</div>
+                                                <div class="btn btn-success save" id="closeButtonModal" onclick="closeModalJS();">{!$Label.VO_Close_the_case}</div>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!IF(userReadOnlyOnSurveys,true,false)}">
+                                            <div class="pull-left ">
+                                                <div class="btn btn-danger" onclick="$.magnificPopup.close();">
+                                                    {!$Label.VO_Cancel}
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </div>
+                            </div>
+                        </div>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/VO_Case_Details.js')}"></script>
+                                    <!-- Dust.js and dust-helper.js -html template -->
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/dust-full.min.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/dust-helpers.min.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/dust_util.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/libraries/bootstrap-select.min.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.VO,'VO/js/custom-js/bannedWordsHandler.js')}"></script>
+
+             <script id="tmpl_RootMulty" type="text/dust-template">
+              <select class="selectpicker" multiple>
+                 {#.}
+                    {?selected}
+                     <option selected>{value}</option>
+                    {:else}
+                      <option>{value}</option>
+                    {/selected}
+                 {/.}
+              </select>
+            </script>
+            <script>
+            $(".selectChannel").change(function(){
+                if($(".selectChannel option:selected").text()==="No action")
+            {
+                $("#closeButtonModal").css("display","none");
+            }
+            else {
+                $("#closeButtonModal").css("display","");
+            }
+        });
+
+            </script>
+
+
+
+
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:form>
+            <script type="text/javascript"> newrelic.addPageAction('VOcaseDetails', {execTime: (((new Date).getTime())-startTimeMs)}); </script>
+       </apex:define>
+    </apex:composition>
+</apex:page>

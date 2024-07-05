@@ -1,0 +1,19 @@
+<apex:component controller="VO_Email_StoreManager_CTRL" access="global" >
+    <apex:attribute name="st" type="String" description="Store code of the attendee" assignTo="{!storeCode}" />
+    <apex:attribute name="usrId" type="String" description="User Id of the attendee" assignTo="{!userId}" />
+    <p><b>Store {!storeCode}&nbsp;-&nbsp;{!storeName}</b></p>
+    <p>Some clients shared their feedback after their experience. You now have:</p>
+    <!-- <p><b>&nbsp;&nbsp;-&nbsp;&nbsp;New recovery act(s) to address : {!nbRecoveryActs}</b></p> -->
+    <apex:outputpanel layout="none" rendered="{!IF(isAfterSalesUser || isSalesUser,false , true)}">
+         <p><b>&nbsp;&nbsp;-&nbsp;&nbsp;New Recovery Act(s) to address : {!nbRecoveryActs}</b></p>
+    </apex:outputpanel>
+    <apex:outputpanel layout="none" rendered="{!IF(isAfterSalesUser || isSalesUser,true , false)}">
+         <p><b>&nbsp;&nbsp;-&nbsp;&nbsp;New Recovery Act(s) for Sales or After Sales to address : {!nbRecoveryActs}</b></p>
+    </apex:outputpanel>
+    <p><b>&nbsp;&nbsp;-&nbsp;&nbsp;New Delighted Client(s) to celebrate : {!nbDelighteds}</b></p>
+    <apex:outputpanel layout="none" rendered="{!IF(isAfterSalesUser,true , false)}">
+        <p><b>&nbsp;&nbsp;-&nbsp;&nbsp;New Promoters(s) for Sales or After Sales to celebrate : {!NbPromoters}</b></p>
+    </apex:outputpanel>
+    
+    <p>To review your client’s survey results in details, access <a href="https://{!srv}.salesforce.com/apex/vo_specific_statistics" target="blank">VOICE</a>.</p>
+</apex:component>

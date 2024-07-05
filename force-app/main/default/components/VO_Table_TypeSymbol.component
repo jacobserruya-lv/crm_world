@@ -1,0 +1,19 @@
+<apex:component >
+    <apex:attribute name="type" description="The type of the survay."
+                    type="String" />
+    <h4 class="margin-no">
+        <apex:outputpanel layout="none" rendered="{!IF(CONTAINS(type, 'Neutral'),true , false)}">
+            <span class="fa fa-meh-o" style="color:#808080"></span>
+        </apex:outputpanel>
+        <apex:outputpanel layout="none" rendered="{!IF(CONTAINS(type, 'Promoter'),true , false)}">
+            <span class="fa fa-volume-up" style="color:#3d8af7"></span>
+        </apex:outputpanel>
+        <apex:outputpanel layout="none" rendered="{!IF(CONTAINS(type, 'Recovery Act'),true , false)}">
+            <span class="fa fa-plus" style="color:#ff0000"></span>
+        </apex:outputpanel>
+        <apex:outputpanel layout="none" rendered="{!IF(CONTAINS(type, 'Delighted Client'),true , false)}">
+            <span class="fa fa-smile-o" style="color:#72bb53"></span>
+        </apex:outputpanel>
+    </h4>
+
+</apex:component>
