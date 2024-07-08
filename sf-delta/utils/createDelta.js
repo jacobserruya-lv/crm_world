@@ -44,7 +44,7 @@ const createDelta = (projectPath, baseBranch) => {
   let modifiedFiles = getModifiedFiles(baseBranch);
 
   console.log(`=== GENERATING DELTA PROJECT FOLDER ===`);
-  console.log(`=== TOTAL FILES : '${modifiedFiles.length}' ===`); 
+  console.log(`from : ` + projectPath); 
 
   // Filter out -meta.xml files from the staticresources path
   modifiedFiles = modifiedFiles.filter(file => {

@@ -7,3 +7,5 @@
 /cspTrustedSites      
 /certs                 
 /profiles               
+/layouts/Alias__c-Tribe Layout
+/layouts/Alias__c-Tribe Page Layout
