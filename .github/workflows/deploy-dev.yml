@@ -8,7 +8,7 @@ on:
       - reopened
       - closed
     branches:
-      - 'main'
+      - 'DEV'
       
   workflow_dispatch:
 
