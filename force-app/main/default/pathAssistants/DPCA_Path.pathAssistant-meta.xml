@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>DPCA Path</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Client confirms his interest in DPCA service&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Interested</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;No contact with the client yet&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Client confirms that He is not interested in DPCA service&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Not Interested</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Client is contacted but no response yet &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Pending</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Digital_Private_CA</recordTypeName>
+</PathAssistant>

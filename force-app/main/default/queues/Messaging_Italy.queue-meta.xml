@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Messaging Italy</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>admin</publicGroup>
+            <publicGroup>Chat_Italy</publicGroup>
+            <publicGroup>CSC_Italy</publicGroup>
+        </publicGroups>
+        <users>
+            <user>adriana.moncourrier.ext@louisvuitton.com.prd</user>
+            <user>alain.vendrasco@louisvuitton.com.prd</user>
+            <user>alessandra.cappelluti@louisvuitton.com.prd</user>
+            <user>andrea.pedrizzetti@louisvuitton.com.prd</user>
+            <user>antonella.mangini@louisvuitton.com.prd</user>
+            <user>chioma.orisakwe@louisvuitton.com.prd</user>
+            <user>federica.mazzarelli@louisvuitton.com.prd</user>
+            <user>kamil.alem@louisvuitton.com.prd</user>
+            <user>laura.ferrazzi@louisvuitton.com.prd</user>
+            <user>ludovica.bosi@louisvuitton.com.prd</user>
+            <user>martina.torricelli@louisvuitton.com.prd</user>
+            <user>ricardo-david.velasquezrodriguez@louisvuitton.com.prd</user>
+            <user>samuel.bouaziz.ext@louisvuitton.com.prd</user>
+            <user>sarah.niderkorn.ext@louisvuitton.com.prd</user>
+            <user>sarah.puzio@louisvuitton.com.prd</user>
+            <user>valentina.benini@louisvuitton.com.prd</user>
+            <user>valeria.detiberis@louisvuitton.com.prd</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Messaging_Routing</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>MessagingSession</sobjectType>
+    </queueSobject>
+</Queue>

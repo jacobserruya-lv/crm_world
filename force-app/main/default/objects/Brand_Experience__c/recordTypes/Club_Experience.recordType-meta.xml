@@ -4,27 +4,4 @@
     <active>true</active>
     <description>used to create Experiences assigned to a Club</description>
     <label>Club Experience</label>
-    <picklistValues>
-        <picklist>Status__c</picklist>
-        <values>
-            <fullName>Draft</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>Ended</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ongoing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Partially Ready</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ready</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
 </RecordType>

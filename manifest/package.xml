@@ -2,80 +2,392 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
 		<members>*</members>
-		<name>DuplicateRule</name>
+		<name>NetworkBranding</name>
+	</types>
+	<types>
+		<members>NotificationTypeConfig</members>
+		<name>NotificationTypeConfig</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>EntitlementProcess</name>
+		<name>OauthCustomScope</name>
+	</types>
+	<types>
+		<members>IndividualGDPRState_map_IndividualGDPRState_1712925414104</members>
+		<members>TenantBillingUsageEvent_map_TenantBillingUsageEvent_1718433377352</members>
+		<members>TenantEntitlementTransaction_map_TenantEntitlementTransaction_1718433304766</members>
+		<members>TenantUsageTypeMultiplier_map_TenantUsageTypeMultiplier_1718433297572</members>
+		<name>ObjectSourceTargetMap</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>EntitlementTemplate</name>
-	</types>
-	<types>
-		<members>Case.Reassignment of New cases</members>
-		<name>EscalationRule</name>
-	</types>
-	<types>
-		<members>Case</members>
-		<name>EscalationRules</name>
+		<name>PathAssistant</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>ExperienceBundle</name>
+		<name>PermissionSet</name>
+	</types>
+	<types>
+		<members>NY_Squad</members>
+		<members>force__CopilotSalesforceAdminPSG</members>
+		<members>force__CopilotSalesforceUserPSG</members>
+		<members>force__ScaleCenterUsers</members>
+		<name>PermissionSetGroup</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>HomePageComponent</name>
+		<name>PlatformCachePartition</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>HomePageLayout</name>
-	</types>
-	<types>
-		<members>IframeWhiteListUrlSettings</members>
-		<name>IframeWhiteListUrlSettings</name>
+		<name>PlatformEventChannel</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>InstalledPackage</name>
-	</types>
-	<types>
-		<members>SalesforceDotCom_00Di0000000HF7A</members>
-		<name>InternalDataConnector</name>
+		<name>PlatformEventChannelMember</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>KeywordList</name>
+		<name>PostTemplate</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>Layout</name>
-	</types>
-	<types>
-		<members>Empty</members>
-		<members>ICONiCS_Templates</members>
-		<members>Logo_Lv_SPOOrder</members>
-		<members>Mother_s_day</members>
-		<members>Outreach_template</members>
-		<members>SPO_AlertNewBrief</members>
-		<name>Letterhead</name>
+		<name>PresenceDeclineReason</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>LightningBolt</name>
+		<name>PresenceUserConfig</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>LightningComponentBundle</name>
+		<name>Profile</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>LightningExperienceTheme</name>
+		<name>ProfilePasswordPolicy</name>
 	</types>
 	<types>
 		<members>*</members>
-		<name>LightningMessageChannel</name>
+		<name>ProfileSessionSetting</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>Prompt</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>Queue</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>QueueRoutingConfig</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>QuickAction</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>RecommendationStrategy</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>RecordActionDeployment</name>
+	</types>
+	<types>
+		<members>Account.ACC_PersonAccount</members>
+		<members>Account.Business_Account</members>
+		<members>Account.Person_Account_Prospect</members>
+		<members>Banned_Words__c.FR</members>
+		<members>Brand_Experience_Variation__c.Content</members>
+		<members>Brand_Experience_Variation__c.Digital_Event_Variation</members>
+		<members>Brand_Experience_Variation__c.Exclusive_Offer</members>
+		<members>Brand_Experience_Variation__c.Physical_Event</members>
+		<members>Brand_Experience__c.Club_Experience</members>
+		<members>Brand_Experience__c.Experience</members>
+		<members>CareService__c.DistantCareService</members>
+		<members>CareService__c.StoreCareService</members>
+		<members>Case.Approval</members>
+		<members>Case.Call_Case</members>
+		<members>Case.Care_Service</members>
+		<members>Case.Chat</members>
+		<members>Case.Clienteling</members>
+		<members>Case.Digital_Private_CA</members>
+		<members>Case.InboundCall</members>
+		<members>Case.Operation_Exception</members>
+		<members>Case.Product_On_Demand_with_sku</members>
+		<members>Case.Product_on_Demand_without_sku</members>
+		<members>Case.Remote_Consent</members>
+		<members>Case.SPAM</members>
+		<members>Case.Web_Email_Case</members>
+		<members>Event.Appointments</members>
+		<members>Event.Availability</members>
+		<members>Event.Event_Appointment</members>
+		<members>Event.Golden</members>
+		<members>Event.Key_Dates</members>
+		<members>Event.Online_Appointment</members>
+		<members>Event__c.Business_Event</members>
+		<members>Exclusive_Campaign_Order__c.Exclusive_Campaign_Order</members>
+		<members>Exclusive_Campaign_Order__c.Locked_Exclusive_Campaign_Order</members>
+		<members>Experience__c.Business_Experience</members>
+		<members>Gift__c.Business_Gift</members>
+		<members>Hotel__c.Business_Hotel</members>
+		<members>Knowledge__kav.External</members>
+		<members>Knowledge__kav.Internal</members>
+		<members>LiveChatTranscript.Live_Chat</members>
+		<members>ManagementLevel1__c.ManagementLevel1</members>
+		<members>ManagementLevel2__c.ManagementLevel2</members>
+		<members>ManagementLevel3__c.ManagementLevel3</members>
+		<members>MessagingSession.Messaging</members>
+		<members>Opportunity.Perso_Order</members>
+		<members>Opportunity.RT_SPO_OPP_Acc</members>
+		<members>Opportunity.RT_SPO_OPP_LeatherGood</members>
+		<members>Opportunity.RT_SPO_OPP_Watch</members>
+		<members>Opportunity.Special_Order</members>
+		<members>Opportunity.Special_Order_Brief</members>
+		<members>PreReservation__c.Pre_Reservation</members>
+		<members>Program__c.Business_Program</members>
+		<members>Program__c.Template_Program</members>
+		<members>QuickText.Quick_Text_CSC</members>
+		<members>Restaurant__c.Business_Restaurant</members>
+		<members>SPO_FirmOrder__c.Firm_Order</members>
+		<members>SPO_FirmOrder__c.SPO_FirmOrder</members>
+		<members>Store__c.Store</members>
+		<members>Task.Approval</members>
+		<members>Task.CSC_Call</members>
+		<members>Task.CSC_Email</members>
+		<members>Task.DREAMContact</members>
+		<members>Task.ICONICS_Chat</members>
+		<members>Task.ICONICS_Clienteling</members>
+		<members>Task.ICONiCS_Messaging</members>
+		<members>Task.TSK_To_Do</members>
+		<members>Task.To_Do_Assistant</members>
+		<members>Task.To_Do_Concierge</members>
+		<members>Transport__c.Business_transport</members>
+		<members>Zone__c.Zone</members>
+		<members>afl__afl_Article_Feedback__c.afl__recordTypeGetPicklist</members>
+		<members>cnx__Connects_Configuration__c.cnx__Model_S</members>
+		<members>cnx__Connects_Configuration__c.cnx__Salesforce_Omni_Channel</members>
+		<members>cnx__Connects_Configuration__c.cnx__Universal_Queue</members>
+		<members>cnx__Connects_Configuration__c.cnx__Universal_Queue_Legacy</members>
+		<members>cnx__Connects_Configuration__c.cnx__Voice_Only</members>
+		<members>et4ae5__Automated_Send__c.et4ae5__Active</members>
+		<members>et4ae5__Automated_Send__c.et4ae5__Inactive</members>
+		<members>et4ae5__SMSDefinition__c.et4ae5__Queued_SMS_Definition</members>
+		<members>et4ae5__SMSDefinition__c.et4ae5__SMS_Definition</members>
+		<members>et4ae5__SendDefinition__c.et4ae5__Queued_Send_Definition</members>
+		<members>et4ae5__SendDefinition__c.et4ae5__Send_Definition</members>
+		<members>et4ae5__SendDefinition__c.et4ae5__Trackable_Send_Definition</members>
+		<name>RecordType</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>RedirectWhitelistUrl</name>
+	</types>
+	<types>
+		<members>ATG_API</members>
+		<members>ATG_API2</members>
+		<members>ATG_API_China</members>
+		<members>ATG_API_ORG_CHINA</members>
+		<members>Account_LouisVuitton</members>
+		<members>Alpha_URL</members>
+		<members>BarcodeGeneration</members>
+		<members>CATALOG_API_PRP</members>
+		<members>Catalogue_API_PRD</members>
+		<members>Catalogue_ATG_AU</members>
+		<members>Catalogue_ATG_BR</members>
+		<members>Catalogue_ATG_CA</members>
+		<members>Catalogue_ATG_CN</members>
+		<members>Catalogue_ATG_DE</members>
+		<members>Catalogue_ATG_ES</members>
+		<members>Catalogue_ATG_Euroland</members>
+		<members>Catalogue_ATG_FR</members>
+		<members>Catalogue_ATG_IT</members>
+		<members>Catalogue_ATG_JP</members>
+		<members>Catalogue_ATG_KOREA</members>
+		<members>Catalogue_ATG_UK</members>
+		<members>Catalogue_ATG_US</members>
+		<members>Catalogue_KBRW_API</members>
+		<members>Catalogue_KBRW_API_Mediator</members>
+		<members>Client360</members>
+		<members>Client_Targe_Api</members>
+		<members>Community_Site</members>
+		<members>Custom_MetaData_Loader</members>
+		<members>Custom_MetaData_LoaderV2</members>
+		<members>ET4AE5_MCC_TokenService</members>
+		<members>ET4AE5_MCC_TokenServicev2</members>
+		<members>Fractalist</members>
+		<members>Fractalist_v2</members>
+		<members>Google_APIs</members>
+		<members>Google_Account</members>
+		<members>Google_Analytics_API</members>
+		<members>Icanhazip</members>
+		<members>Kakao_API</members>
+		<members>Kakao_Auth</members>
+		<members>LV_INT</members>
+		<members>LV_PRD</members>
+		<members>Line</members>
+		<members>Louis_Vuitton_Img</members>
+		<members>LvAkamai</members>
+		<members>MIY_Fluid_API</members>
+		<members>MIY_Heroku</members>
+		<members>MIY_Threekit_API</members>
+		<members>MarketingCloud</members>
+		<members>MarketingCloudAuth</members>
+		<members>MetadataAPI</members>
+		<members>MetadataAPI2</members>
+		<members>Now_yours_APP</members>
+		<members>RMS_EAI_ClientAdvisorEnquiry</members>
+		<members>RMS_EAI_ClientCreateUpdate</members>
+		<members>RMS_EAI_ClientEnquiry</members>
+		<members>RMS_EAI_ClientSearch</members>
+		<members>RMS_EAI_ProductSearch</members>
+		<members>RMS_EAI_SalesCreation</members>
+		<members>RMS_EAI_StoreGetID</members>
+		<members>SalesforceApex</members>
+		<members>SalesforceLogin</members>
+		<members>Shortener_URL_CHINA</members>
+		<members>Shortener_URL_WW</members>
+		<members>TEST_B2C</members>
+		<members>TenantSpecificAuth_mcydkmypx9w3xcb5pdys9</members>
+		<members>TenantSpecificLegacy_mcydkmypx9w3xcb5pdy</members>
+		<members>TenantSpecificRest_mcydkmypx9w3xcb5pdys9</members>
+		<members>TenantSpecificSoap_mcydkmypx9w3xcb5pdys9</members>
+		<members>TenantSpecificToken_mcydkmypx9w3xcb5pdys</members>
+		<members>Tencent</members>
+		<members>Tencent_v2</members>
+		<members>Wardrobing_Canvas</members>
+		<members>WeChat</members>
+		<members>akamaiStores</members>
+		<members>et4ae5__ET_IMH_REST_PrdSup</members>
+		<members>et4ae5__ET_IMH_REST_s1</members>
+		<members>et4ae5__ET_IMH_REST_s10</members>
+		<members>et4ae5__ET_IMH_REST_s11</members>
+		<members>et4ae5__ET_IMH_REST_s12</members>
+		<members>et4ae5__ET_IMH_REST_s13</members>
+		<members>et4ae5__ET_IMH_REST_s1_r</members>
+		<members>et4ae5__ET_IMH_REST_s4</members>
+		<members>et4ae5__ET_IMH_REST_s50</members>
+		<members>et4ae5__ET_IMH_REST_s51</members>
+		<members>et4ae5__ET_IMH_REST_s6</members>
+		<members>et4ae5__ET_MC_REST_PrdSup</members>
+		<members>et4ae5__ET_MC_REST_S11</members>
+		<members>et4ae5__ET_MC_REST_S12</members>
+		<members>et4ae5__ET_MC_REST_S13</members>
+		<members>et4ae5__ET_MC_REST_s1</members>
+		<members>et4ae5__ET_MC_REST_s10</members>
+		<members>et4ae5__ET_MC_REST_s1_r</members>
+		<members>et4ae5__ET_MC_REST_s4</members>
+		<members>et4ae5__ET_MC_REST_s50</members>
+		<members>et4ae5__ET_MC_REST_s51</members>
+		<members>et4ae5__ET_MC_REST_s6</members>
+		<members>et4ae5__ET_MC_REST_s7</members>
+		<members>et4ae5__ET_MC_REST_s8</members>
+		<members>et4ae5__ET_SOAP</members>
+		<members>et4ae5__Fuel_API</members>
+		<members>et4ae5__Fuel_Auth_API</members>
+		<members>et4ae5__OAuth_Login</members>
+		<members>et4ae5__PrdSup_Auth</members>
+		<members>et4ae5__PrdSup_Fuel_API</members>
+		<members>et4ae5__PrdSup_Login</members>
+		<members>et4ae5__PrdSup_Rest</members>
+		<members>et4ae5__PrdSup_Soap</members>
+		<members>et4ae5__S10_Auth</members>
+		<members>et4ae5__S10_Rest</members>
+		<members>et4ae5__S10_Soap</members>
+		<members>et4ae5__S11_Auth</members>
+		<members>et4ae5__S11_Rest</members>
+		<members>et4ae5__S11_Soap</members>
+		<members>et4ae5__S12_Auth</members>
+		<members>et4ae5__S12_Rest</members>
+		<members>et4ae5__S12_Soap</members>
+		<members>et4ae5__S13_Auth</members>
+		<members>et4ae5__S13_Rest</members>
+		<members>et4ae5__S13_Soap</members>
+		<members>et4ae5__S1_Auth</members>
+		<members>et4ae5__S1_Rest</members>
+		<members>et4ae5__S1_Soap</members>
+		<members>et4ae5__S4_Auth</members>
+		<members>et4ae5__S4_Rest</members>
+		<members>et4ae5__S4_Soap</members>
+		<members>et4ae5__S50_Auth</members>
+		<members>et4ae5__S50_Soap</members>
+		<members>et4ae5__S51_Auth</members>
+		<members>et4ae5__S51_Soap</members>
+		<members>et4ae5__S5_Auth</members>
+		<members>et4ae5__S5_Rest</members>
+		<members>et4ae5__S5_Soap</members>
+		<members>et4ae5__S6_Auth</members>
+		<members>et4ae5__S6_Rest</members>
+		<members>et4ae5__S6_Soap</members>
+		<members>et4ae5__S7_Auth</members>
+		<members>et4ae5__S7_Rest</members>
+		<members>et4ae5__S7_Soap</members>
+		<members>et4ae5__S8_Auth</members>
+		<members>et4ae5__S8_Rest</members>
+		<members>et4ae5__S8_Soap</members>
+		<members>et4ae5__s50_Rest</members>
+		<members>et4ae5__s51_Rest</members>
+		<members>footprint__na35</members>
+		<members>gaston_prod</members>
+		<members>gaston_token</members>
+		<members>google</members>
+		<members>org_secure5_cn</members>
+		<members>prp_api_vuitton</members>
+		<members>purecloud__AWS_S3_Apne1</members>
+		<members>purecloud__AWS_S3_Apne1_standard</members>
+		<members>purecloud__AWS_S3_Apne2</members>
+		<members>purecloud__AWS_S3_Apne2_standard</members>
+		<members>purecloud__AWS_S3_Aps1</members>
+		<members>purecloud__AWS_S3_Aps1_standard</members>
+		<members>purecloud__AWS_S3_Apse2</members>
+		<members>purecloud__AWS_S3_Apse2_standard</members>
+		<members>purecloud__AWS_S3_Cac1</members>
+		<members>purecloud__AWS_S3_Cac1_standard</members>
+		<members>purecloud__AWS_S3_Euc1</members>
+		<members>purecloud__AWS_S3_Euc1_standard</members>
+		<members>purecloud__AWS_S3_Euw1</members>
+		<members>purecloud__AWS_S3_Euw1_standard</members>
+		<members>purecloud__AWS_S3_Euw2</members>
+		<members>purecloud__AWS_S3_Euw2_standard</members>
+		<members>purecloud__AWS_S3_FEDRAMP</members>
+		<members>purecloud__AWS_S3_FEDRAMP_standard</members>
+		<members>purecloud__AWS_S3_Use1</members>
+		<members>purecloud__AWS_S3_Use1_standard</members>
+		<members>purecloud__AWS_S3_Usw2</members>
+		<members>purecloud__AWS_S3_Usw2_standard</members>
+		<members>purecloud__GenesysCloudLoginMaximus</members>
+		<members>purecloud__GenesysCloudLoginUSGov</members>
+		<members>purecloud__GenesysCloudMaximus</members>
+		<members>purecloud__GenesysCloudUSGov</members>
+		<members>purecloud__NewRelic</members>
+		<members>purecloud__PureCloud</members>
+		<members>purecloud__PureCloudAPNE2</members>
+		<members>purecloud__PureCloudAPS1</members>
+		<members>purecloud__PureCloudAU</members>
+		<members>purecloud__PureCloudCAC1</members>
+		<members>purecloud__PureCloudDE</members>
+		<members>purecloud__PureCloudEUW2</members>
+		<members>purecloud__PureCloudIE</members>
+		<members>purecloud__PureCloudJP</members>
+		<members>purecloud__PureCloudLogin</members>
+		<members>purecloud__PureCloudLoginAPNE2</members>
+		<members>purecloud__PureCloudLoginAPS1</members>
+		<members>purecloud__PureCloudLoginAU</members>
+		<members>purecloud__PureCloudLoginCAC1</members>
+		<members>purecloud__PureCloudLoginDE</members>
+		<members>purecloud__PureCloudLoginEUW2</members>
+		<members>purecloud__PureCloudLoginIE</members>
+		<members>purecloud__PureCloudLoginJP</members>
+		<members>purecloud__PureCloudLoginUSW2</members>
+		<members>purecloud__PureCloudUSW2</members>
+		<members>purecloud__WebhookProdAU</members>
+		<members>purecloud__WebhookProdIE</members>
+		<members>purecloud__WebhookProdJP</members>
+		<members>purecloud__WebhookProdUS</members>
+		<members>sc_lightning__sightcall_prod</members>
+		<members>tsunagaru_binding_link</members>
+		<name>RemoteSiteSetting</name>
 	</types>
 	<version>60.0</version>
 </Package>

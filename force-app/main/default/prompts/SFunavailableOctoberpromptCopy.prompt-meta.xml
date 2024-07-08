@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>SF unavailable October prompt Copy</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;Please know that the&amp;nbsp;upgrade of&lt;strong&gt; Salesforce release &quot;Winter&amp;nbsp;2023&lt;/strong&gt;&quot;, on production environment, will occur on&lt;strong&gt; Saturday, the 15th&amp;nbsp;of&amp;nbsp;October 2022&amp;nbsp;between&amp;nbsp;08:00 AM&amp;nbsp;and 08:05 AM&amp;nbsp;CET.&lt;/strong&gt; The APIs and the Salesforce applications will also be unavailable&amp;nbsp;during five minutes&amp;nbsp;at maximum&amp;nbsp;before&amp;nbsp;going back to regular use.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68);&quot;&gt;Before&amp;nbsp;going back to regular use, please reload the page.&lt;/span&gt;&lt;/p&gt;</body>
+        <customApplication>ICONiCS</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2022-10-16</endDate>
+        <header>Salesforce Maintenance</header>
+        <isPublished>false</isPublished>
+        <masterLabel>SF unavailable October prompt Copy</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2022-09-20</startDate>
+        <timesToDisplay>1</timesToDisplay>
+        <title>Salesforce Unavailable - Oct. 15</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

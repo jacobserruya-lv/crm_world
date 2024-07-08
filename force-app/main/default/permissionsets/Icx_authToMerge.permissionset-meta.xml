@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>ICX_Account_Highlight</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ICX_Client360_API_Helper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ICX_Client360_SF</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ICX_WS_Manual_Merge</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>icx_Client360_API</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>This permission is giving the user the ability to do a merge request to C360 on the search of the CLIENT 360 APP.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Icx_authToMerge</label>
+</PermissionSet>

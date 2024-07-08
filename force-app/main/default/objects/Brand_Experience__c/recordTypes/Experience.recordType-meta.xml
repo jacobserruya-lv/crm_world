@@ -5,27 +5,4 @@
     <compactLayoutAssignment>Experience_Compact_Layout</compactLayoutAssignment>
     <description>used to create Experiences</description>
     <label>Experience</label>
-    <picklistValues>
-        <picklist>Status__c</picklist>
-        <values>
-            <fullName>Draft</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ended</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ongoing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Partially Ready</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ready</fullName>
-            <default>true</default>
-        </values>
-    </picklistValues>
 </RecordType>

@@ -3,31 +3,4 @@
     <fullName>Business_Gift</fullName>
     <active>true</active>
     <label>Business Gift</label>
-    <picklistValues>
-        <picklist>Gift_Name__c</picklist>
-        <values>
-            <fullName>Champagne</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Chocolates</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Flowers</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LV Gift</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Non LV Gift</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wine</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
 </RecordType>

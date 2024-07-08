@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Messaging Malaysia</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Chat_Malaysia</publicGroup>
+            <publicGroup>Chat_Singapore</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueRoutingConfig>Messaging_Routing</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>MessagingSession</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ICX_OOB</name>
+    </customPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ICX TWIST AU &amp; NZ</label>
+</PermissionSet>

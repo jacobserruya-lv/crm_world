@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>CareService__c</entityName>
+    <fieldName>ICONiCS_Status__c</fieldName>
+    <masterLabel>Care Service Status Path</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;ICONiCS Detail Status: &lt;/span&gt;Shipped to Client &amp;gt; Delivered to Client&lt;/p&gt;</info>
+        <picklistValueName>Delivery</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;ICONiCS Detail Status : &lt;/span&gt;New Request &amp;gt; Assigned &amp;gt; Pending Customer information &amp;gt; Initiated in MyRepairs as a Draft &amp;gt; Created in MyRepairs &amp;gt; Preliminary Quote Pending Validation&lt;/p&gt;</info>
+        <picklistValueName>New &amp; Preliminary assesment</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;ICONiCS Detail Status : &lt;/span&gt;Waiting for Payment &amp;gt; Payment Confirmed&lt;/p&gt;</info>
+        <picklistValueName>Payment</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;ICONiCS Detail Status : &lt;/span&gt;Order pending validation &amp;gt; Order accepted &amp;gt; Waiting for Spare parts &amp;gt; Repair in progress &amp;gt; Repair finalized&lt;/p&gt;</info>
+        <picklistValueName>Repair</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;ICONiCS Detail Status : &lt;/span&gt;Preliminary Quote Validated &amp;gt; Shipped to Repair Center &amp;gt; Received in Repair Center&lt;/p&gt;</info>
+        <picklistValueName>Validation &amp; Shipping</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>DistantCareService</recordTypeName>
+</PathAssistant>
