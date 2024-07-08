@@ -8,7 +8,7 @@ on:
       - reopened
       - closed
     branches:
-      - 'DEV'
+      - 'main'
       
   workflow_dispatch:
 
@@ -56,16 +56,6 @@ jobs:
           if [ -f "delta/main/default/package.xml" ]; then
             sfdx force:source:deploy --sourcepath delta/main/default --checkonly --targetusername ${{ vars.ALIAS}} --verbose
           else
-            echo "The DELTA does not exist. Nothing to deploy"
-          fi
-
-      - name: Deploy to Salesforce
-        if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
-        run: |
-          if [ -f "delta/main/default/package.xml" ]; then
-            # sfdx force:source:deploy --sourcepath delta/main/default --targetusername ${{ vars.ALIAS}} --verbose
-            echo "Nothing to deploy for now"
-          else
-            echo "The DELTA does not exist. Nothing to deploy"
+            echo "The DELTA does not exist. Nothing to validate"
           fi
 
