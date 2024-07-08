@@ -1,5 +1,5 @@
 name: DEV
-run-name: ${{ github.actor }} is launching | DEV  🚀
+run-name: ${{ github.actor }} is launching | DEV 🚀
 
 on:
   pull_request:
