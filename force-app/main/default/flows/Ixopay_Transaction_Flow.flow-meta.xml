@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <decisions>
+        <name>Check_Payment_Status</name>
+        <label>Check Payment Status</label>
+        <locationX>446</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Success</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Success</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Care_Service__r.ICONiCS_Status_Detail__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Initiated</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Care_Service__r.ICONiCS_Status_Detail__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Care_Service_1</targetReference>
+            </connector>
+            <label>Success</label>
+        </rules>
+        <rules>
+            <name>Three_Errors</name>
+            <conditionLogic>1 AND ((2 AND 3) OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Error</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Care_Service__r.Payment_Error_Count__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>2.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Care_Service__r.ICONiCS_Status_Detail__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Initiated</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Care_Service__r.ICONiCS_Status_Detail__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Care_Service_Status_2</targetReference>
+            </connector>
+            <label>Three Errors</label>
+        </rules>
+        <rules>
+            <name>One_Error</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Error</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Care_Service__r.ICONiCS_Status_Detail__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Initiated</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reset_PBL_on_Care_Service</targetReference>
+            </connector>
+            <label>One Error</label>
+        </rules>
+    </decisions>
+    <description>Payment Review fix</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>TODAY</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>Ixopay Transaction Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Ixopay Transaction Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Reset_PBL_on_Care_Service</name>
+        <label>Reset PBL on Care Service</label>
+        <locationX>578</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>PBL_Link__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PBL_Status__c</field>
+            <value>
+                <stringValue>Error</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.Care_Service__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Care_Service_1</name>
+        <label>Update Care Service Status</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>ICONiCS_Status_Detail__c</field>
+            <value>
+                <stringValue>Payment Received</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Last_ICONiCS_Status_Changed_Date__c</field>
+            <value>
+                <elementReference>TODAY</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Last_MYLV_Care_Status_Changed_Date__c</field>
+            <value>
+                <elementReference>TODAY</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MYLV_Care_Status__c</field>
+            <value>
+                <stringValue>shipping_in_preparation</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PBL_Status__c</field>
+            <value>
+                <stringValue>Success</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.Care_Service__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Care_Service_Status_2</name>
+        <label>Update Care Service Status</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>ICONiCS_Status_Detail__c</field>
+            <value>
+                <stringValue>Payment Error</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Last_ICONiCS_Status_Changed_Date__c</field>
+            <value>
+                <elementReference>TODAY</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Last_MYLV_Care_Status_Changed_Date__c</field>
+            <value>
+                <elementReference>TODAY</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MYLV_Care_Status__c</field>
+            <value>
+                <stringValue>payment_contact</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.Care_Service__r</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Payment_Status</targetReference>
+        </connector>
+        <object>Ixopay_Transaction__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

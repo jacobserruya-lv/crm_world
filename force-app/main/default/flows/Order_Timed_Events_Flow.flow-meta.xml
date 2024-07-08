@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>today</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>Order Timed Events {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Order Timed Events Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Cancel_obsolete_briefs</name>
+        <label>Cancel obsolete briefs</label>
+        <locationX>776</locationX>
+        <locationY>474</locationY>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Brief in progress</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>SPO_Date_Cancelled_by_Production__c</field>
+            <value>
+                <elementReference>today</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SPO_StopBriefComment__c</field>
+            <value>
+                <elementReference>Notsubmittedforquotationfor6months</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SPO_StopBriefReason__c</field>
+            <value>
+                <stringValue>Production - Other</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Cancelled by Production</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>650</locationX>
+        <locationY>52</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Brief in progress</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>ScheduledCancel_obsolete_briefs</name>
+            <connector>
+                <targetReference>Cancel_obsolete_briefs</targetReference>
+            </connector>
+            <label>180 days after</label>
+            <offsetNumber>180</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Notsubmittedforquotationfor6months</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Not submitted for quotation for 6 months</stringValue>
+        </value>
+    </variables>
+</Flow>

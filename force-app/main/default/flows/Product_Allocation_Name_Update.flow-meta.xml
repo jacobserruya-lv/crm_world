@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>Migrated from the: Product Allocation Name Update workflow rule
+Workflow rule description: &quot;</description>
+    <formulas>
+        <name>Product_Allocation_Combo_Field_UpdateFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT($Record.Zone__c)!=NULL, (TEXT($Record.Zone__c) + &quot; - &quot; + $Record.Product__r.SKU__c), &quot;&quot;)
+
+/*IF(TEXT(Zone__c)!=NULL, (TEXT(Zone__c) + &quot; - &quot; + Product__r.SKU__c), (&quot;STORE - &quot; + Product__r.SKU__c))*/
+
+/*TEXT(Zone__c) + &quot; - &quot; +  Product__r.SKU__c*/</expression>
+    </formulas>
+    <formulas>
+        <name>Product_Allocation_Name_UpdateFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT($Record.Zone__c)!=NULL, (TEXT($Record.Zone__c) + &quot; - &quot; + $Record.Product__r.SKU__c), (&quot;STORE - &quot; + $Record.Product__r.SKU__c))
+/*TEXT(Zone__c) + &quot; - &quot; +  Product__r.SKU__c*/</expression>
+    </formulas>
+    <label>Product Allocation Name Update</label>
+    <migratedFromWorkflowRuleName>Product Allocation Name Update</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>mainUpdate</name>
+        <label>mainUpdate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Product_Allocation_Name_UpdateFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Zone_Product_Combo__c</field>
+            <value>
+                <elementReference>Product_Allocation_Combo_Field_UpdateFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>mainUpdate</targetReference>
+        </connector>
+        <object>Product_Allocation__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <description>Default record type for SPO</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>OpportunityRecordTypeDefault</name>
+        <dataType>String</dataType>
+        <expression>IF(OR(ISPICKVAL({!$Record.ApplicationSource__c}, &quot;SPO&quot;), ISPICKVAL({!$Record.StageName}, &quot;Brief in progress&quot;)), {!Get_Record_Type_Id.Id}, {!$Record.RecordType.Id})</expression>
+    </formulas>
+    <interviewLabel>SPO Record Type {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SPO Record Type</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Record_Type_Id</name>
+        <label>Get Record Type Id</label>
+        <locationX>943</locationX>
+        <locationY>149</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>SPO_Record_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Special_Order_Brief</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Opportunity</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Default Record Type for SPO</description>
+        <name>SPO_Record_Type</name>
+        <label>SPO Record Type</label>
+        <locationX>943</locationX>
+        <locationY>348</locationY>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>OpportunityRecordTypeDefault</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>458</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Get_Record_Type_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ApplicationSource__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>SPO</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Brief in progress</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

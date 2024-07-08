@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <name>Assign_Special_Order_Brief_Record_Type</name>
+        <label>Assign Special Order Brief Record Type</label>
+        <locationX>885</locationX>
+        <locationY>414</locationY>
+        <assignmentItems>
+            <assignToReference>SpecialOrderBriefRecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Assign_Record_Type_Id.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Record_Type_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Special_Order_Record_Type</name>
+        <label>Assign Special Order Record Type</label>
+        <locationX>892</locationX>
+        <locationY>796</locationY>
+        <assignmentItems>
+            <assignToReference>SpecialOrderRecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Assign_Record_Type_Id.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Record_Type_Id</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Assign_Special_Order_Record_Type_Id</name>
+        <label>Assign Special Order Record Type Id</label>
+        <locationX>880</locationX>
+        <locationY>599</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Special_Order_Type</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Assign_Record_Type_Id.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Special_Order</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Special_Order_Record_Type</targetReference>
+            </connector>
+            <label>Special Order Type</label>
+        </rules>
+        <rules>
+            <name>Special_Order_Brief_Type</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Assign_Record_Type_Id.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Special_Order_Brief</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Special_Order_Brief_Record_Type</targetReference>
+            </connector>
+            <label>Special Order Brief Type</label>
+        </rules>
+    </decisions>
+    <description>Record Type change from &apos;Special Order Brief&apos; to &apos;Special Order&apos; when the stage goes to &quot;Quotation in Progress&quot;</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>NewRecordType</name>
+        <dataType>String</dataType>
+        <expression>IF({!$Record.RecordType.Id} ={!SpecialOrderBriefRecordTypeId},  {!SpecialOrderRecordTypeId},  {!$Record.RecordType.Id})</expression>
+    </formulas>
+    <interviewLabel>SPO - Change RT depending on Stage {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SPO - Change RT depending on Stage</label>
+    <loops>
+        <name>Assign_Record_Type_Id</name>
+        <label>Assign Record Type Id</label>
+        <locationX>583</locationX>
+        <locationY>596</locationY>
+        <collectionReference>Get_Record_Type_Id</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Special_Order_Record_Type_Id</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>SPO_Update_RT</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Record_Type_Id</name>
+        <label>Get Record Type Id</label>
+        <locationX>583</locationX>
+        <locationY>389</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Record_Type_Id</targetReference>
+        </connector>
+        <filterLogic>(1 OR 2) AND 3</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Special_Order</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Special_Order_Brief</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Opportunity</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update record type of the order to &apos;Special Order&apos;</description>
+        <name>SPO_Update_RT</name>
+        <label>SPO - Update RT</label>
+        <locationX>582</locationX>
+        <locationY>799</locationY>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>NewRecordType</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>458</locationX>
+        <locationY>47</locationY>
+        <connector>
+            <targetReference>Get_Record_Type_Id</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND ({!$Record.RecordType.Name} = &quot;Special Order Brief&quot;,  ISPICKVAL({!$Record.StageName}, &quot;Quotation in progress&quot;), {!$User.BypassWF__c}=False)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>SpecialOrderBriefRecordTypeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>SpecialOrderRecordTypeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

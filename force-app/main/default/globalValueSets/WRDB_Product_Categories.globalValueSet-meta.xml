@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>BAGS</fullName>
+        <default>false</default>
+        <label>BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>SMALL LEATHER GOODS</fullName>
+        <default>false</default>
+        <label>SMALL LEATHER GOODS</label>
+    </customValue>
+    <customValue>
+        <fullName>LEATHER GOODS</fullName>
+        <default>false</default>
+        <label>LEATHER GOODS</label>
+    </customValue>
+    <customValue>
+        <fullName>READY TO WEAR</fullName>
+        <default>false</default>
+        <label>READY TO WEAR</label>
+    </customValue>
+    <customValue>
+        <fullName>SHOES</fullName>
+        <default>false</default>
+        <label>SHOES</label>
+    </customValue>
+    <customValue>
+        <fullName>TRAVEL</fullName>
+        <default>false</default>
+        <label>TRAVEL</label>
+    </customValue>
+    <customValue>
+        <fullName>HANDBAGS</fullName>
+        <default>false</default>
+        <label>HANDBAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>FRAGRANCES</fullName>
+        <default>false</default>
+        <label>FRAGRANCES</label>
+    </customValue>
+    <customValue>
+        <fullName>JEWELRY</fullName>
+        <default>false</default>
+        <label>JEWELRY</label>
+    </customValue>
+    <customValue>
+        <fullName>ACCESSORIES</fullName>
+        <default>false</default>
+        <label>ACCESSORIES</label>
+    </customValue>
+    <customValue>
+        <fullName>PERFUME</fullName>
+        <default>false</default>
+        <label>PERFUME</label>
+    </customValue>
+    <customValue>
+        <fullName>BACKPACKS</fullName>
+        <default>false</default>
+        <label>BACKPACKS</label>
+    </customValue>
+    <customValue>
+        <fullName>MESSENGER BAGS</fullName>
+        <default>false</default>
+        <label>MESSENGER BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>SMALL BAGS</fullName>
+        <default>false</default>
+        <label>SMALL BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>BUSINESS BAGS</fullName>
+        <default>false</default>
+        <label>BUSINESS BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>TOTE BAGS</fullName>
+        <default>false</default>
+        <label>TOTE BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>LONG WALLETS</fullName>
+        <default>false</default>
+        <label>LONG WALLETS</label>
+    </customValue>
+    <customValue>
+        <fullName>COMPACT WALLETS</fullName>
+        <default>false</default>
+        <label>COMPACT WALLETS</label>
+    </customValue>
+    <customValue>
+        <fullName>KEY AND CARD HOLDERS</fullName>
+        <default>false</default>
+        <label>KEY AND CARD HOLDERS</label>
+    </customValue>
+    <customValue>
+        <fullName>PHONE CASES</fullName>
+        <default>false</default>
+        <label>PHONE CASES</label>
+    </customValue>
+    <customValue>
+        <fullName>ROLLING LUGGAGE</fullName>
+        <default>false</default>
+        <label>ROLLING LUGGAGE</label>
+    </customValue>
+    <customValue>
+        <fullName>SOFTSIDED LUGGAGE</fullName>
+        <default>false</default>
+        <label>SOFTSIDED LUGGAGE</label>
+    </customValue>
+    <customValue>
+        <fullName>HARDSIDED LUGGAGE</fullName>
+        <default>false</default>
+        <label>HARDSIDED LUGGAGE</label>
+    </customValue>
+    <customValue>
+        <fullName>TRAVEL ACCESSORIES</fullName>
+        <default>false</default>
+        <label>TRAVEL ACCESSORIES</label>
+    </customValue>
+    <customValue>
+        <fullName>BELTS</fullName>
+        <default>false</default>
+        <label>BELTS</label>
+    </customValue>
+    <customValue>
+        <fullName>SCARVES &amp; HATS</fullName>
+        <default>false</default>
+        <label>SCARVES &amp; HATS</label>
+    </customValue>
+    <customValue>
+        <fullName>TIES &amp; MORE</fullName>
+        <default>false</default>
+        <label>TIES &amp; MORE</label>
+    </customValue>
+    <customValue>
+        <fullName>FASHION JEWELRY</fullName>
+        <default>false</default>
+        <label>FASHION JEWELRY</label>
+    </customValue>
+    <customValue>
+        <fullName>LEATHER BRACELETS</fullName>
+        <default>false</default>
+        <label>LEATHER BRACELETS</label>
+    </customValue>
+    <customValue>
+        <fullName>SUNGLASSES</fullName>
+        <default>false</default>
+        <label>SUNGLASSES</label>
+    </customValue>
+    <customValue>
+        <fullName>KEY HOLDERS AND MORE</fullName>
+        <default>false</default>
+        <label>KEY HOLDERS AND MORE</label>
+    </customValue>
+    <customValue>
+        <fullName>EARPHONES</fullName>
+        <default>false</default>
+        <label>EARPHONES</label>
+    </customValue>
+    <customValue>
+        <fullName>BOOTS</fullName>
+        <default>false</default>
+        <label>BOOTS</label>
+    </customValue>
+    <customValue>
+        <fullName>LOAFER &amp; DRIVERS</fullName>
+        <default>false</default>
+        <label>LOAFER &amp; DRIVERS</label>
+    </customValue>
+    <customValue>
+        <fullName>BUCKLES AND LACE-UPS</fullName>
+        <default>false</default>
+        <label>BUCKLES AND LACE-UPS</label>
+    </customValue>
+    <customValue>
+        <fullName>SNEAKERS</fullName>
+        <default>false</default>
+        <label>SNEAKERS</label>
+    </customValue>
+    <customValue>
+        <fullName>SANDALS</fullName>
+        <default>false</default>
+        <label>SANDALS</label>
+    </customValue>
+    <customValue>
+        <fullName>LEATHER</fullName>
+        <default>false</default>
+        <label>LEATHER</label>
+    </customValue>
+    <customValue>
+        <fullName>COATS &amp; OUTWEAR</fullName>
+        <default>false</default>
+        <label>COATS &amp; OUTWEAR</label>
+    </customValue>
+    <customValue>
+        <fullName>JACKETS</fullName>
+        <default>false</default>
+        <label>JACKETS</label>
+    </customValue>
+    <customValue>
+        <fullName>SHIRTS</fullName>
+        <default>false</default>
+        <label>SHIRTS</label>
+    </customValue>
+    <customValue>
+        <fullName>T-SHIRTS, POLOS AND SWEATSHIRTS</fullName>
+        <default>false</default>
+        <label>T-SHIRTS, POLOS AND SWEATSHIRTS</label>
+    </customValue>
+    <customValue>
+        <fullName>KNITWEAR</fullName>
+        <default>false</default>
+        <label>KNITWEAR</label>
+    </customValue>
+    <customValue>
+        <fullName>PANTS</fullName>
+        <default>false</default>
+        <label>PANTS</label>
+    </customValue>
+    <customValue>
+        <fullName>DENIM</fullName>
+        <default>false</default>
+        <label>DENIM</label>
+    </customValue>
+    <customValue>
+        <fullName>SWIMWEAR</fullName>
+        <default>false</default>
+        <label>SWIMWEAR</label>
+    </customValue>
+    <customValue>
+        <fullName>TIMEPIECES</fullName>
+        <default>false</default>
+        <label>TIMEPIECES</label>
+    </customValue>
+    <customValue>
+        <fullName>CONNECTED OBJECTS</fullName>
+        <default>false</default>
+        <label>CONNECTED OBJECTS</label>
+    </customValue>
+    <customValue>
+        <fullName>FINE JEWELRY</fullName>
+        <default>false</default>
+        <label>FINE JEWELRY</label>
+    </customValue>
+    <customValue>
+        <fullName>MONOGRAM BAGS</fullName>
+        <default>false</default>
+        <label>MONOGRAM BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>ICONI BAGS</fullName>
+        <default>false</default>
+        <label>ICONI BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>TOP HANDLES</fullName>
+        <default>false</default>
+        <label>TOP HANDLES</label>
+    </customValue>
+    <customValue>
+        <fullName>SHOULDER BAGS &amp; TOTES</fullName>
+        <default>false</default>
+        <label>SHOULDER BAGS &amp; TOTES</label>
+    </customValue>
+    <customValue>
+        <fullName>CROSS BODY BAGS</fullName>
+        <default>false</default>
+        <label>CROSS BODY BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>CLUTCHES &amp; EVENING</fullName>
+        <default>false</default>
+        <label>CLUTCHES &amp; EVENING</label>
+    </customValue>
+    <customValue>
+        <fullName>EXOTIC LEATHER BAGS</fullName>
+        <default>false</default>
+        <label>EXOTIC LEATHER BAGS</label>
+    </customValue>
+    <customValue>
+        <fullName>CHAIN WALLETS</fullName>
+        <default>false</default>
+        <label>CHAIN WALLETS</label>
+    </customValue>
+    <customValue>
+        <fullName>POUCHES</fullName>
+        <default>false</default>
+        <label>POUCHES</label>
+    </customValue>
+    <customValue>
+        <fullName>EXOTIC LEATHER WALLETS</fullName>
+        <default>false</default>
+        <label>EXOTIC LEATHER WALLETS</label>
+    </customValue>
+    <customValue>
+        <fullName>SCARVES AND SHAWLS</fullName>
+        <default>false</default>
+        <label>SCARVES AND SHAWLS</label>
+    </customValue>
+    <customValue>
+        <fullName>SILK</fullName>
+        <default>false</default>
+        <label>SILK</label>
+    </customValue>
+    <customValue>
+        <fullName>FASHION JEWELLERY</fullName>
+        <default>false</default>
+        <label>FASHION JEWELLERY</label>
+    </customValue>
+    <customValue>
+        <fullName>LEATHERS AND FURS</fullName>
+        <default>false</default>
+        <label>LEATHERS AND FURS</label>
+    </customValue>
+    <customValue>
+        <fullName>JACKETS AND COATS</fullName>
+        <default>false</default>
+        <label>JACKETS AND COATS</label>
+    </customValue>
+    <customValue>
+        <fullName>DRESSES</fullName>
+        <default>false</default>
+        <label>DRESSES</label>
+    </customValue>
+    <customValue>
+        <fullName>EVENING DRESSES</fullName>
+        <default>false</default>
+        <label>EVENING DRESSES</label>
+    </customValue>
+    <customValue>
+        <fullName>TOPS</fullName>
+        <default>false</default>
+        <label>TOPS</label>
+    </customValue>
+    <customValue>
+        <fullName>SKIRTS</fullName>
+        <default>false</default>
+        <label>SKIRTS</label>
+    </customValue>
+    <customValue>
+        <fullName>ANKLE BOOTS AND BOOTS</fullName>
+        <default>false</default>
+        <label>ANKLE BOOTS AND BOOTS</label>
+    </customValue>
+    <customValue>
+        <fullName>PUMPS</fullName>
+        <default>false</default>
+        <label>PUMPS</label>
+    </customValue>
+    <customValue>
+        <fullName>FLAT SHOES</fullName>
+        <default>false</default>
+        <label>FLAT SHOES</label>
+    </customValue>
+    <customValue>
+        <fullName>HOME SHOES</fullName>
+        <default>false</default>
+        <label>HOME SHOES</label>
+    </customValue>
+    <customValue>
+        <fullName>FINE JEWELLERY</fullName>
+        <default>false</default>
+        <label>FINE JEWELLERY</label>
+    </customValue>
+    <masterLabel>WRDB Product Categories</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

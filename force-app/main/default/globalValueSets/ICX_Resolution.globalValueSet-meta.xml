@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Immediate Response</fullName>
+        <default>false</default>
+        <label>Immediate Response</label>
+    </customValue>
+    <customValue>
+        <fullName>Request Creation (MyCR - POD - Request)</fullName>
+        <default>false</default>
+        <label>Request Creation (MyCR /  POD / Request / DCS)</label>
+    </customValue>
+    <customValue>
+        <fullName>Escalation</fullName>
+        <default>false</default>
+        <label>Escalation</label>
+    </customValue>
+    <customValue>
+        <fullName>Transfer</fullName>
+        <default>false</default>
+        <label>Transfer</label>
+    </customValue>
+    <customValue>
+        <fullName>Cut Call / Wrong Number</fullName>
+        <default>false</default>
+        <label>Cut Call / Wrong Number</label>
+    </customValue>
+    <customValue>
+        <fullName>Book an Appointment</fullName>
+        <default>false</default>
+        <label>Book an Appointment</label>
+    </customValue>
+    <customValue>
+        <fullName>Client Reached</fullName>
+        <default>false</default>
+        <label>Client Reached</label>
+    </customValue>
+    <customValue>
+        <fullName>Client Interested or confirmed</fullName>
+        <default>false</default>
+        <label>Client Interested or confirmed</label>
+    </customValue>
+    <customValue>
+        <fullName>Immediate Transaction</fullName>
+        <default>false</default>
+        <label>Immediate Transaction</label>
+    </customValue>
+    <customValue>
+        <fullName>Send Mail Card (sample)</fullName>
+        <default>false</default>
+        <label>Send Mail Card (sample)</label>
+    </customValue>
+    <customValue>
+        <fullName>Send (e-) Business Card</fullName>
+        <default>false</default>
+        <label>Send (e-) Business Card</label>
+    </customValue>
+    <customValue>
+        <fullName>Not available / Voice mail left</fullName>
+        <default>false</default>
+        <label>Not available / Voice mail left</label>
+    </customValue>
+    <customValue>
+        <fullName>Call back another time</fullName>
+        <default>false</default>
+        <label>Call back another time</label>
+    </customValue>
+    <customValue>
+        <fullName>Client not interested</fullName>
+        <default>false</default>
+        <label>Client not interested</label>
+    </customValue>
+    <customValue>
+        <fullName>Do not disturb / Do not call back</fullName>
+        <default>false</default>
+        <label>Do not disturb / Do not call back</label>
+    </customValue>
+    <customValue>
+        <fullName>POD with Sku</fullName>
+        <default>false</default>
+        <label>POD with Sku</label>
+    </customValue>
+    <customValue>
+        <fullName>POD without Sku</fullName>
+        <default>false</default>
+        <label>POD without Sku</label>
+    </customValue>
+    <customValue>
+        <fullName>No Response Required</fullName>
+        <default>false</default>
+        <label>No Response Required</label>
+    </customValue>
+    <customValue>
+        <fullName>Not available, Voice mail left</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Not available, Voice mail left</label>
+    </customValue>
+    <customValue>
+        <fullName>My CR (event update, follow-up)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>My CR (event update, follow-up)</label>
+    </customValue>
+    <customValue>
+        <fullName>Do not disturb, Do not call back</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Do not disturb, Do not call back</label>
+    </customValue>
+    <customValue>
+        <fullName>Appointment booked</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Appointment booked</label>
+    </customValue>
+    <customValue>
+        <fullName>Transfer to Headquarters</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Transfer to Headquarters</label>
+    </customValue>
+    <customValue>
+        <fullName>Sent Catalogue/ Brochure/ TYC/ Invitation</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Sent Catalogue/ Brochure/ TYC/ Invitation</label>
+    </customValue>
+    <customValue>
+        <fullName>Transfer to Store</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Transfer to Store</label>
+    </customValue>
+    <customValue>
+        <fullName>Request to Store</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Resquest to Store</label>
+    </customValue>
+    <customValue>
+        <fullName>Reply Made</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Reply Made</label>
+    </customValue>
+    <customValue>
+        <fullName>Reply to be made by CSC</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Reply to be made by CSC</label>
+    </customValue>
+    <customValue>
+        <fullName>Product on Demand, Waitinglist</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Product on Demand, Waitinglist</label>
+    </customValue>
+    <customValue>
+        <fullName>Wrong number</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Wrong number</label>
+    </customValue>
+    <customValue>
+        <fullName>Cut Call</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Cut Call</label>
+    </customValue>
+    <masterLabel>ICX_Resolution</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

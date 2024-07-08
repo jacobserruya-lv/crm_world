@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Belts</fullName>
+        <default>false</default>
+        <label>Belts</label>
+    </customValue>
+    <customValue>
+        <fullName>Leather goods</fullName>
+        <default>false</default>
+        <label>Leather goods</label>
+    </customValue>
+    <description>Holds the different categories of a product</description>
+    <masterLabel>Product Category</masterLabel>
+    <sorted>true</sorted>
+</GlobalValueSet>

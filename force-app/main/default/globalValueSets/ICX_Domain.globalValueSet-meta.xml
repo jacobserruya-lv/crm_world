@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Cruise</fullName>
+        <default>false</default>
+        <label>Cruise</label>
+    </customValue>
+    <customValue>
+        <fullName>FW</fullName>
+        <default>false</default>
+        <label>FW</label>
+    </customValue>
+    <customValue>
+        <fullName>In Store</fullName>
+        <default>false</default>
+        <label>In Store</label>
+    </customValue>
+    <customValue>
+        <fullName>LV Policy</fullName>
+        <default>false</default>
+        <label>LV Policy</label>
+    </customValue>
+    <customValue>
+        <fullName>Mistake/Bugs</fullName>
+        <default>false</default>
+        <label>Mistake/Bugs</label>
+    </customValue>
+    <customValue>
+        <fullName>Modification</fullName>
+        <default>false</default>
+        <label>Modification</label>
+    </customValue>
+    <customValue>
+        <fullName>Modify</fullName>
+        <default>false</default>
+        <label>Modify</label>
+    </customValue>
+    <customValue>
+        <fullName>MyLV</fullName>
+        <default>false</default>
+        <label>MyLV</label>
+    </customValue>
+    <customValue>
+        <fullName>Product on Demand</fullName>
+        <default>false</default>
+        <label>Product on Demand</label>
+    </customValue>
+    <customValue>
+        <fullName>Navigation</fullName>
+        <default>false</default>
+        <label>Navigation</label>
+    </customValue>
+    <customValue>
+        <fullName>Payment</fullName>
+        <default>false</default>
+        <label>Payment</label>
+    </customValue>
+    <customValue>
+        <fullName>Place</fullName>
+        <default>false</default>
+        <label>Place</label>
+    </customValue>
+    <customValue>
+        <fullName>Precision</fullName>
+        <default>false</default>
+        <label>Precision</label>
+    </customValue>
+    <customValue>
+        <fullName>Price</fullName>
+        <default>false</default>
+        <label>Price</label>
+    </customValue>
+    <customValue>
+        <fullName>Procedure</fullName>
+        <default>false</default>
+        <label>Procedure</label>
+    </customValue>
+    <customValue>
+        <fullName>Procedure &amp; Options</fullName>
+        <default>false</default>
+        <label>Procedure &amp; Options</label>
+    </customValue>
+    <customValue>
+        <fullName>Refund Amount</fullName>
+        <default>false</default>
+        <label>Refund Amount</label>
+    </customValue>
+    <customValue>
+        <fullName>Rejected Order</fullName>
+        <default>false</default>
+        <label>Rejected Order</label>
+    </customValue>
+    <customValue>
+        <fullName>SS</fullName>
+        <default>false</default>
+        <label>SS</label>
+    </customValue>
+    <customValue>
+        <fullName>Status</fullName>
+        <default>false</default>
+        <label>Status</label>
+    </customValue>
+    <customValue>
+        <fullName>Status/Tracking</fullName>
+        <default>false</default>
+        <label>Status/Tracking</label>
+    </customValue>
+    <customValue>
+        <fullName>Tax Form Missing</fullName>
+        <default>false</default>
+        <label>Tax Form Missing</label>
+    </customValue>
+    <customValue>
+        <fullName>Client wants a duplicate</fullName>
+        <default>false</default>
+        <label>Client wants a duplicate</label>
+    </customValue>
+    <customValue>
+        <fullName>Client can not download the invoice in MyLV</fullName>
+        <default>false</default>
+        <label>Client can not download the invoice in MyLV</label>
+    </customValue>
+    <customValue>
+        <fullName>MyPR</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>MyPR</label>
+    </customValue>
+    <masterLabel>ICX_Domain</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

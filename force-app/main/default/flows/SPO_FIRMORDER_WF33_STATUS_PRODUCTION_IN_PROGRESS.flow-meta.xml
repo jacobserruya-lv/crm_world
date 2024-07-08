@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <description>Update Opportunity &gt; Stage Name (problem in Process Builder with mass updating)
+Note: maybe the Batch size in ETL settings corrects this problem with Process Builder</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Dateinprogress</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>SPO_FIRMORDER_WF33_STATUS_PRODUCTION IN PROGRESS {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SPO_FIRMORDER_WF33_STATUS_PRODUCTION IN PROGRESS</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>OpportunityStageIsInProgress</name>
+        <label>OpportunityStageIsInProgress</label>
+        <locationX>650</locationX>
+        <locationY>415</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.SPO_BriefName__r.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>SPO_Date_In_progress__c</field>
+            <value>
+                <elementReference>Dateinprogress</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>In progress</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <start>
+        <locationX>458</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>OpportunityStageIsInProgress</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND((ISPICKVAL({!$Record.SPO_FirmOrderStatus__c},&quot;Production in progress&quot;) || ISPICKVAL({!$Record.SPO_FirmOrderStatus__c},&quot;Sent to MyPR&quot;)), {!$User.BypassWF__c}=False)</filterFormula>
+        <object>SPO_FirmOrder__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>VarOrderName</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>VarOrderNumber</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>$Record.SPO_BriefNumber__c</elementReference>
+        </value>
+    </variables>
+</Flow>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <name>Default_Store_not_null</name>
+        <label>Default Store not null</label>
+        <locationX>333</locationX>
+        <locationY>52</locationY>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>Default_Store_ID_is_null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarRuningUserDefaultStore</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Store_Lookup</targetReference>
+            </connector>
+            <label>Default Store ID is not null</label>
+        </rules>
+    </decisions>
+    <description>Update the store of the case according to the default store of the owner of the case.
+Used for Product on Demand recordtypes</description>
+    <interviewLabel>ICX_StoreCaseUpdate {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>ICX_GetStoreID</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Store_Lookup</name>
+        <label>Store Lookup</label>
+        <locationX>346</locationX>
+        <locationY>226</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RetailStoreId__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>VarRuningUserDefaultStore</elementReference>
+            </value>
+        </filters>
+        <object>Store__c</object>
+        <outputAssignments>
+            <assignToReference>VarStoreID</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <startElementReference>Default_Store_not_null</startElementReference>
+    <status>Active</status>
+    <variables>
+        <description>Default Store of the running user.
+Used for Product on Demand (specific record types of Case)</description>
+        <name>VarRuningUserDefaultStore</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>VarStoreID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

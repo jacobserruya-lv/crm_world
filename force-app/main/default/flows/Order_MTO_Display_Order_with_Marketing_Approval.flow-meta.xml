@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>For MTO display order, if marketing approval = Yes, then the box field Send to ERP has to be checked</description>
+    <environments>Default</environments>
+    <interviewLabel>Order - MTO Display Order with Marketing Approval {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Order - MTO Display Order with Marketing Approval</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Check the field Send to ERP</description>
+        <name>Send_to_ERP_checked</name>
+        <label>Send to ERP checked</label>
+        <locationX>776</locationX>
+        <locationY>383</locationY>
+        <inputAssignments>
+            <field>Send_to_ERP__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>650</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Send_to_ERP_checked</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND({!$Record.SPO_DisplayOrder__c}=True,   ISPICKVAL({!$Record.SPO_OrderType__c}, &quot;MTO on Catalog (Hardsided)&quot;) , ISPICKVAL( {!$Record.SPO_MarketingApproval__c}, &quot;Yes&quot;), {!$User.BypassWF__c}=False)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

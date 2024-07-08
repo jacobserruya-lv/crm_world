@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Event launched to update the ICX_Account_Highlight component with a Task WhatId.</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Current Record Id</description>
+        <fieldName>currentRecordId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Account ID</description>
+        <fieldName>recordId</fieldName>
+    </lightningMessageFields>
+    <masterLabel>SampleMessageChannel</masterLabel>
+</LightningMessageChannel>

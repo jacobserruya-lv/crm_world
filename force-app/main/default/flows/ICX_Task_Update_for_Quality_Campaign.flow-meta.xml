@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <interviewLabel>ICX Task Update for Quality Campaign {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>ICX Task Update for Quality Campaign</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Task_Update</name>
+        <label>Task Update</label>
+        <locationX>276</locationX>
+        <locationY>104</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>VarTaskId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Category__c</field>
+            <value>
+                <stringValue>Phoenix</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>Call regarding Quality calling campaign</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Domaine__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Nature__c</field>
+            <value>
+                <stringValue>Service and General Information</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Resolution__c</field>
+            <value>
+                <stringValue>Immediate Response</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <startElementReference>Task_Update</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>VarTaskId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>
