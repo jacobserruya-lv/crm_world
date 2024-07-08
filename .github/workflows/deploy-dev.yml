@@ -44,7 +44,7 @@ jobs:
       - name: Generate DELTA
         if: ${{ github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'closed' && github.event.pull_request.merged == true) }}
         run: | 
-          node sf-delta/index.js --projectPath force-c360 --baseBranch ${{ vars.TARGET_DIFF }}
+          node sf-delta/index.js --projectPath force-client --baseBranch ${{ vars.TARGET_DIFF }}
           node sf-delta/index.js --projectPath force-iconics --baseBranch ${{ vars.TARGET_DIFF }}
           node sf-delta/index.js --projectPath force-identity--baseBranch ${{ vars.TARGET_DIFF }}
           node sf-delta/index.js --projectPath force-twist --baseBranch ${{ vars.TARGET_DIFF }}
