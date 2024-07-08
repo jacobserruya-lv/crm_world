@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ICX_Twist_Order_Page</name>
+    </customPermissions>
+    <description>A temporary permission set, in order to allow a range of users accessing the Twist Order Page</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ICX - Order Details Page Access</label>
+</PermissionSet>

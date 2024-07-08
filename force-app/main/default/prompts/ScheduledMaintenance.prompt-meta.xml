@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Scheduled Maintenance</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;We’ll have &lt;u style=&quot;color: rgb(197, 90, 17);&quot;&gt;a technical maintenance&lt;/u&gt;&lt;span style=&quot;color: rgb(197, 90, 17);&quot;&gt;&amp;nbsp;&lt;/span&gt;planned on Saturday11th February due to Release Salesforce “Spring 2023”.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt; &lt;/p&gt;&lt;p&gt; Therefore, Salesforce applications will be unavailable for 5 minutes (between 08:00 AM 08:05 AM central Europe time, Paris) before going back to regular use.&lt;/p&gt;</body>
+        <customApplication>ICONiCS</customApplication>
+        <delayDays>1</delayDays>
+        <description>Maintenance of 11th of Feb</description>
+        <displayType>DockedComposer</displayType>
+        <endDate>2023-02-11</endDate>
+        <header>Technical Maintenance Feb 11</header>
+        <image>Technical_maintenance1</image>
+        <imageAltText>Scheduled Maintenance Feb 11</imageAltText>
+        <imageLocation>Bottom</imageLocation>
+        <isPublished>false</isPublished>
+        <masterLabel>Scheduled Maintenance</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2023-01-30</startDate>
+        <targetPageKey1>home</targetPageKey1>
+        <targetPageType>standard__namedPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>Salesforce Applications unavailable</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

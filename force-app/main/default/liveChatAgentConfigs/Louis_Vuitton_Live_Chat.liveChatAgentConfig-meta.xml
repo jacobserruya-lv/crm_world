@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LiveChatAgentConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <profiles>
+            <profile>admin</profile>
+            <profile>iconics_corporate</profile>
+            <profile>iconics_sa</profile>
+            <profile>iconics_sa_manager</profile>
+        </profiles>
+    </assignments>
+    <autoGreeting>Welcome to Louis Vuitton, my name is {!User_FirstName}, how can I help you?</autoGreeting>
+    <criticalWaitTime>100</criticalWaitTime>
+    <customAgentName>Louis Vuitton Client Services</customAgentName>
+    <disableTransferConferenceGreeting>false</disableTransferConferenceGreeting>
+    <enableAgentFileTransfer>true</enableAgentFileTransfer>
+    <enableAgentSneakPeek>true</enableAgentSneakPeek>
+    <enableAssistanceFlag>false</enableAssistanceFlag>
+    <enableAutoAwayOnDecline>false</enableAutoAwayOnDecline>
+    <enableAutoAwayOnPushTimeout>true</enableAutoAwayOnPushTimeout>
+    <enableChatConferencing>false</enableChatConferencing>
+    <enableChatMonitoring>true</enableChatMonitoring>
+    <enableChatTransferToAgent>true</enableChatTransferToAgent>
+    <enableChatTransferToButton>true</enableChatTransferToButton>
+    <enableChatTransferToSkill>false</enableChatTransferToSkill>
+    <enableLogoutSound>true</enableLogoutSound>
+    <enableNotifications>true</enableNotifications>
+    <enableRequestSound>true</enableRequestSound>
+    <enableSneakPeek>false</enableSneakPeek>
+    <enableVisitorBlocking>true</enableVisitorBlocking>
+    <enableWhisperMessage>true</enableWhisperMessage>
+    <label>Louis Vuitton Live Chat</label>
+    <transferableButtons>
+        <button>Australia</button>
+        <button>Brasil</button>
+        <button>Canada_En</button>
+        <button>Canada_Fr</button>
+        <button>China</button>
+        <button>Euroland</button>
+        <button>France</button>
+        <button>Germany</button>
+        <button>HongKongEN</button>
+        <button>HongKongZH</button>
+        <button>India</button>
+        <button>Indonesia_EN</button>
+        <button>Indonesia_ID</button>
+        <button>Italy</button>
+        <button>Japan</button>
+        <button>Korea</button>
+        <button>Malaysia</button>
+        <button>New_Zealand</button>
+        <button>Russia</button>
+        <button>Singapore_EN</button>
+        <button>Singapore_ZH</button>
+        <button>Spain</button>
+        <button>Taiwan</button>
+        <button>Thailand_EN</button>
+        <button>Thailand_TH</button>
+        <button>United_Kingdom</button>
+        <button>United_States</button>
+        <button>Vietnam</button>
+    </transferableButtons>
+</LiveChatAgentConfig>

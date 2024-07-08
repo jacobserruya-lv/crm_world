@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Functional Maintenance RMS</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt;A &lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;; color: rgb(197, 90, 17);&quot;&gt;functional Maintenance on RMS CONSO application &lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;; color: rgb(56, 56, 55);&quot;&gt;is&lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;; color: rgb(197, 90, 17);&quot;&gt; &lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt;planned on Thursday October 13&lt;/span&gt;&lt;sup style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt;th&lt;/sup&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt; from 6:00 AM to 8:00 AM central Europe time, Paris (12:00 PM to 2:00 PM Singapore time).&lt;/span&gt;&lt;/p&gt;&lt;p&gt; &lt;/p&gt;&lt;p&gt; Main Impacts in &lt;u style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt;Catalog Desktop&lt;/u&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt; and in &lt;/span&gt;&lt;u style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt;ICONICS&lt;/u&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt; are:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt; &lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt;Catalog Desktop: &lt;/strong&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;font-family: Wingdings;&quot;&gt;à&lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt; No Stock for RMS Stores at that time.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt;ICONICS:&lt;/strong&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;span style=&quot;font-family: Wingdings;&quot;&gt;à&lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;Louis Vuitton&amp;quot;;&quot;&gt; No Client receipt duplicate.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</body>
+        <customApplication>ICONiCS</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2022-10-14</endDate>
+        <header>Functional Maintenance on RMS CONSO</header>
+        <image>Maintenance1</image>
+        <imageAltText>Maintenance</imageAltText>
+        <imageLocation>Bottom</imageLocation>
+        <isPublished>false</isPublished>
+        <masterLabel>Functional Maintenance RMS</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2022-10-11</startDate>
+        <targetPageKey1>home</targetPageKey1>
+        <targetPageType>standard__namedPage</targetPageType>
+        <timesToDisplay>6</timesToDisplay>
+        <title>Impact in Catalog Desktop &amp; ICONICS</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

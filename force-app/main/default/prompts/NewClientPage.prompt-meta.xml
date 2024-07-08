@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>New Client Page</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;The New Client Form in Salesforce will officially be launched &lt;span style=&quot;color: rgb(68, 68, 68);&quot;&gt;🚀&lt;/span&gt; on&amp;nbsp;&lt;strong style=&quot;color: rgb(202, 174, 60);&quot;&gt;18th of April &lt;/strong&gt;at 8:30 am Paris time, &lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;You&apos;ll discover a new Client Page in ICONICS with vertical Highlight panel and a new Global Overview screen.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;This new Page will contain more information and will allow you to have a better visibility on Client information.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(211, 189, 48);&quot;&gt;A refresh of Salesforce page &lt;/strong&gt;might be necessary once it&apos;s done and if you have a difficulty to access the page, please  try to  delete your browser navigation history.&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</body>
+        <customApplication>ICONiCS</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2023-04-18</endDate>
+        <header>New Client Page</header>
+        <image>Page_client</image>
+        <imageAltText>Client Page</imageAltText>
+        <imageLocation>Bottom</imageLocation>
+        <isPublished>false</isPublished>
+        <masterLabel>New Client Page</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2023-04-14</startDate>
+        <targetPageKey1>home</targetPageKey1>
+        <targetPageType>standard__namedPage</targetPageType>
+        <timesToDisplay>5</timesToDisplay>
+        <title>New Client Page is coming soon!</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LiveChatButton xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <autoGreeting>ルイ・ヴィトン チャットサービスをご利用いただきありがとうございます。わたくし{!User_LastName}が対応させていただきます。</autoGreeting>
+    <chasitorIdleTimeout>180</chasitorIdleTimeout>
+    <chasitorIdleTimeoutWarning>120</chasitorIdleTimeoutWarning>
+    <customAgentName>Louis Vuitton Client Services</customAgentName>
+    <deployments/>
+    <enableQueue>false</enableQueue>
+    <isActive>true</isActive>
+    <label>Japan</label>
+    <optionsCustomRoutingIsEnabled>false</optionsCustomRoutingIsEnabled>
+    <optionsHasChasitorIdleTimeout>true</optionsHasChasitorIdleTimeout>
+    <optionsHasInviteAfterAccept>false</optionsHasInviteAfterAccept>
+    <optionsHasInviteAfterReject>false</optionsHasInviteAfterReject>
+    <optionsHasRerouteDeclinedRequest>false</optionsHasRerouteDeclinedRequest>
+    <optionsIsAutoAccept>false</optionsIsAutoAccept>
+    <optionsIsInviteAutoRemove>false</optionsIsInviteAutoRemove>
+    <routingType xsi:nil="true"/>
+    <type>Standard</type>
+    <windowLanguage>ja</windowLanguage>
+</LiveChatButton>

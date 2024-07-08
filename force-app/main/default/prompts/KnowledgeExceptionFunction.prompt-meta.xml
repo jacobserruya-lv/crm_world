@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Knowledge Exception Function</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;Exception section has moved to the Top.&lt;/p&gt;&lt;p&gt;So, you don&apos;t need to scroll until the end of the article to see it.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</body>
+        <customApplication>ICONiCS</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2022-05-05</endDate>
+        <header>What&apos;s new?</header>
+        <image>Knowledge_Exception</image>
+        <imageAltText>Knowledge Exception</imageAltText>
+        <imageLocation>Bottom</imageLocation>
+        <isPublished>false</isPublished>
+        <masterLabel>Knowledge Exception Function</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2022-04-15</startDate>
+        <targetPageKey1>Knowledge__kav</targetPageKey1>
+        <targetPageKey2>list</targetPageKey2>
+        <targetPageType>standard__objectPage</targetPageType>
+        <timesToDisplay>20</timesToDisplay>
+        <title>Knowledge Articles Improvement</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

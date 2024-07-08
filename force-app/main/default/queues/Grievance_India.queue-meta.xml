@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>grievanceofficer.in@contact.louisvuitton.com</email>
+    <name>Grievance India</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>CSC_India</publicGroup>
+        </publicGroups>
+        <users>
+            <user>parul.aggarwal@louisvuitton.com.prd</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Emails_routing</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>
