@@ -10,7 +10,9 @@
 * 1.0       02-22-2022        Imad.alsidchikh.ext@louisvuitton.com     Initial Version
 * 1.1       06-19-2023        hamza.bouzid.ext@louisvuitton.com Dynamic insert of json in log
 * 1.2       11-13-2023        yann.aquilon.ext@louisvuitton.com take care of Null value from JSon
+* 1.3       01-06-2024        ayoub.lameghaizi.ext@louisvuitton.com log errors of the event bus publish 
 *****************************************************************************************************/
+
 public without sharing class TR_C360_IntegrationManager_Utils {
     
     
@@ -60,6 +62,32 @@ public without sharing class TR_C360_IntegrationManager_Utils {
                 }
                 // Call method to publish events
                 List<Database.SaveResult> results = EventBus.publish(inkEvents);
+                // error handling of the EventBus publish
+                if(results.size()>0){
+                    List<C360_Logs__c> logsToInsert = new List<C360_Logs__c>();
+                    for(Database.SaveResult res : results){
+                        if(!res.isSuccess()){
+                            //get errors
+                            
+                            Map<String, String> logParams = new Map<String, String>{
+                                'apex_class'=>'TR_C360_IntegrationManager_Utils',
+                                    'apex_Limits' => TR_C360_IntegrationManager_Utils.getCurrentOrgLimits(),
+                                    'application'=>TR_Constants.APPEVENT,
+                                    'duration'=>'',
+                                    'eventUuidLog'=>'',
+                                    'json'=> String.valueOf(inkEvents),
+                                    'logLevel'=>'ERROR',
+                                    'logMessage'=>'',
+                                    'hasError'=>'true',
+                                    'error_Message'=>'Fields:' + res.getErrors()[0].getFields() + '\n\nStatus Code:' + res.getErrors()[0].getStatusCode()+'\n\n'+res.getErrors()[0].getMessage(),
+                                    'Object_Type'=>'Account',
+                                    'record_Id'=>'',
+                                    'logType'=>'Outgoing_flow_platformEventBus'};
+                            logsToInsert.add(TR_C360_Utils.CreateLog(logParams));
+                        }
+                    }
+                    database.insert(logsToInsert);
+                }
                 //System.debug('INSERT' + results);
             }
         }catch(Exception e) {
@@ -120,7 +148,6 @@ public without sharing class TR_C360_IntegrationManager_Utils {
                 String stAcc = '{';
                 for(TR_C360_Field_Mapping__mdt st :mappingRds){
                     if(mObjct.containskey(st.C360_Field__c) && st.Is_From_C360__c){
-                        system.debug('### YAAAA  YAAA ' + st.C360_Field__c );
                         if (st.C360_Field__c == 'nationality_code') System.debug(' ## YAA ' + mObjct.get(st.C360_Field__c));
                         if(st.C360_Field__c != 'salesforceId'){
                             

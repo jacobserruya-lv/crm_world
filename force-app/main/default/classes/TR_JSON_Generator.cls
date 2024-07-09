@@ -37,7 +37,10 @@ public class TR_JSON_Generator {
         gen.writeStartObject();
         if (acc.Id !=   null)  gen.writeStringField('salesforceId', acc.Id); else gen.writeNullField('salesforceId'); 
         gen.writeNullField('atgId');  
-        if (acc.DREAMID__c !=   null)  gen.writeStringField('dreamId', acc.DREAMID__c); else gen.writeNullField('dreamId'); 
+        if (acc.DREAMID__c !=   null)  gen.writeStringField('dreamId', acc.DREAMID__c); else gen.writeNullField('dreamId');
+        //@AyLame: CF-314 adding the new field C360GoldenID__c
+        if (acc.C360GoldenID__c !=   null) gen.writeStringField('c360GoldenId', acc.C360GoldenID__c); else gen.writeNullField('c360GoldenId');
+        //if (acc.masterC360GoldenID__c !=   null) gen.writeStringField('masterC360GoldenId', acc.masterC360GoldenID__c); else gen.writeNullField('masterC360GoldenId');
         if(usIdentity != null && !usIdentity.isEmpty() && usIdentity.Size()>0){
             if(usIdentity[0] != null && String.isNotBlank(usIdentity[0].Id)){
                 gen.writeStringField('userIdentitySalesforceId',usIdentity[0].Id);  
@@ -145,9 +148,9 @@ public class TR_JSON_Generator {
         if (acc.TECH_OwnerManuallyChanged__c  &&  acc.Owner.WWEmployeeNumber__c != null ) gen.writeStringField('worldwideId',acc.Owner.WWEmployeeNumber__c);  else gen.writeNullField('worldwideId');
         gen.writeStringField('name',(acc.TECH_OwnerManuallyChanged__c && acc.CAName__c != null? acc.CAName__c : ''));
         gen.writeEndObject();
-        if (acc.TECH_OwnerManuallyChanged__c && acc.TECH_ManualReassignmentDate__c != null)	 
-       	gen.writeDateField('forcedAttachmentDate', date.newinstance(acc.TECH_ManualReassignmentDate__c.year(), acc.TECH_ManualReassignmentDate__c.month(), acc.TECH_ManualReassignmentDate__c.day()));
-       	//end Fix Attempt to de-reference a null object (CF-66)
+        if (acc.TECH_OwnerManuallyChanged__c && acc.TECH_ManualReassignmentDate__c != null)  
+        gen.writeDateField('forcedAttachmentDate', date.newinstance(acc.TECH_ManualReassignmentDate__c.year(), acc.TECH_ManualReassignmentDate__c.month(), acc.TECH_ManualReassignmentDate__c.day()));
+        //end Fix Attempt to de-reference a null object (CF-66)
         gen.writeBooleanField('isChangedManually',acc.TECH_OwnerManuallyChanged__c);
         gen.writeEndObject();
         gen.writeFieldName('title');
