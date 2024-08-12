@@ -4,6 +4,7 @@ const { getModifiedFiles } = require('./getModifiedFiles');
 
 /*
  * Mapping of file extensions to exclude Salesforce component types.
+ * This array is exported to an external file 
  */
 /*const excludeMetadata = [
   '/customMetadata', // customMetadata

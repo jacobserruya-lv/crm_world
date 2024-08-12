@@ -1,0 +1,23 @@
+name: SFoA DEV
+run-name: ${{ github.actor }} is launching | DEV 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'DEV-v1'
+  push:
+    branches:
+      - 'DEV-v1'
+  workflow_dispatch:
+
+jobs:
+  DEV1_validate_only:
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'DEV'
+      generate_delta: true
+      validate_only: true

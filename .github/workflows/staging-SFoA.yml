@@ -1,0 +1,31 @@
+name: SFoA STAGING
+run-name: ${{ github.actor }} is launching | STAGING 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'STAGING-v1'
+  push:
+    branches:
+      - 'STAGING-v1'
+  workflow_dispatch:
+
+jobs:
+  PPROD_validate_only:
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'STAGING'
+      generate_delta: true
+      validate_only: true
+
+  PPROD_deploy:
+    if: github.event_name == 'push'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'STAGING'
+      generate_delta: true
+      validate_only: false

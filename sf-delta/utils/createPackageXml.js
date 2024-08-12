@@ -54,7 +54,6 @@ const createPackageXml = async (apiVersion) => {
     return;
   }
   
-  console.log(`=== GENERATING PACKAGE XML ===`);
   const packageXmlPath = path.join(deltaPath, 'package.xml');
   const existingPackage = await readExistingPackageXml(packageXmlPath);
 
@@ -73,9 +72,6 @@ const createPackageXml = async (apiVersion) => {
   
   const packageXml = buildPackageXml(components, apiVersion);
   savePackageXml(packageXmlPath, packageXml);
-
-  console.log(`=== GENERATED PACKAGE XML AT ${packageXmlPath} ===`);
-
   fs.readFile(packageXmlPath, 'utf8', (err, data) => {
     if (err) {
       console.error(err);

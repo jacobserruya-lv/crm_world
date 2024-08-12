@@ -1,0 +1,31 @@
+name: SFoA INT
+run-name: ${{ github.actor }} is launching | INT 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'INT-v1'
+  push:
+    branches:
+      - 'INT-v1'
+  workflow_dispatch:
+
+jobs:
+  INT_validate_only:
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INTEG'
+      generate_delta: true
+      validate_only: true
+
+  INT_deploy:
+    if: github.event_name == 'push'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INTEG'
+      generate_delta: true
+      validate_only: false
