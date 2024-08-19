@@ -138,9 +138,8 @@ export default class Icx_dreamSearch extends NavigationMixin(LightningElement)  
 
    }
 
-   get permissionToMerge()
-   {
-       return  this.isMemberOfGroup;
+   get permissionToMerge(){
+        return  this.isMemberOfGroup;
    }
 
 
@@ -521,6 +520,7 @@ export default class Icx_dreamSearch extends NavigationMixin(LightningElement)  
         this.searchDataLenght = this.searchData.length;
 
         if(this.isMemberOfGroup)
+        //    if(hasAuthtoMerge)
         {
 
             this.tableData.headers = [
@@ -704,28 +704,30 @@ export default class Icx_dreamSearch extends NavigationMixin(LightningElement)  
             this.MyLVModalError = true;
             this.MyLVError=true;
         }
-        else{
-            let clients ="clients";
-            let clientsArray = this.clientsDetails.map(item =>{
-                let clientItem = {
-                    "dreamId":item.dreamId,
-                    "salesforceId":item.salesforceId,
-                    "userIdentitySalesforceId":item.userIdentitySalesforceId
-                };
-                return clientItem;
-            });
-           
-            let clientsToMergeArray = JSON.stringify(clientsArray);
-            sendToMerge({clientToMerge:clientsToMergeArray})
-            .then((result)=>{
-                console.log('merge manul OK', result);
+        
+        let clients ="clients";
+        let clientsArray = this.clientsDetails.map(item =>{
+            let clientItem = {
+                "dreamId":item.dreamId,
+                "salesforceId":item.salesforceId,
+                "userIdentitySalesforceId":item.userIdentitySalesforceId
+            };
+            return clientItem;
+        });
+        
+        let clientsToMergeArray = JSON.stringify(clientsArray);
+        sendToMerge({clientToMerge:clientsToMergeArray})
+        .then((result)=>{
+            console.log('merge manual OK', result);
+            if(!this.MyLVModalError){
                 this.MergesSuccessModal = true;
-            })
-            .catch((error)=>{
-                console.error('error merge manul', error);
+            }
+        })
+        .catch((error)=>{
+            console.error('error merge manual', error);
 
-            });
-        }
+        });
+        
         this.isMergeModalOpen = false;
 
         
