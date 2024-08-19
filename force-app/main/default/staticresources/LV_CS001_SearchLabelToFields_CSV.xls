@@ -1,0 +1,15 @@
+Name, fields__c
+ZipCode, PrimaryZipCode__pc
+Country,"SPO_Country_code__pc,PrimaryCountry__pc"
+City,PrimaryCity__pc
+Phone,"PersonMobilePhone, Phone, PersonHomePhone,  LocalMobilePhone__pc, LocalWorkPhone__pc,LocalHomePhone__pc"
+InternationalPhone,"PersonMobilePhone,Phone,PersonHomePhone"
+Email,personEmail
+Passport,PassportNumber__pc
+Owner,ownerId
+LocalPhone,"LocalMobilePhone__pc,LocalWorkPhone__c,LocalHomePhone__c"
+LastName2,Lastname2__pc
+LastName,lastName
+FirstName2,Firstname2__pc
+FirstName,firstName
+DreamId,DREAMID__c

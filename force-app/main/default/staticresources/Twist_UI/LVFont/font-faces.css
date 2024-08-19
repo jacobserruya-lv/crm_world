@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-light-webfont.woff2') format('woff2'), url('./louisvuitton-light-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-lightoblique-webfont.woff2') format('woff2'), url('./louisvuitton-lightoblique-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-regular-webfont.woff2') format('woff2'), url('./louisvuitton-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-oblique-webfont.woff2') format('woff2'), url('./louisvuitton-oblique-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-medium-webfont.woff2') format('woff2'), url('./louisvuitton-medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-mediumoblique-webfont.woff2') format('woff2'), url('./louisvuitton-mediumoblique-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-demi-webfont.woff2') format('woff2'), url('./louisvuitton-demi-webfont.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-demioblique-webfont.woff2') format('woff2'), url('./louisvuitton-demioblique-webfont.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-bold-webfont.woff2') format('woff2'), url('./louisvuitton-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LouisVuitton';
+  src: url('./louisvuitton-boldoblique-webfont.woff2') format('woff2'), url('./louisvuitton-boldoblique-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Louis Vuitton Arabic";
+  font-weight: 400;
+  font-style: normal;
+  src: url("./AvenirW05-Regular.woff2") format("woff2"), url("./AvenirW05-Regular.woff") format("woff");
+}
+
+
+
+@font-face {
+  font-family: "Louis Vuitton Arabic";
+  font-weight: 600;
+  font-style: normal;
+  src: url("./AvenirW05-Heavy.woff2") format("woff2"), url("./AvenirW05-Heavy.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Louis Vuitton Arabic";
+  font-weight: 600;
+  font-style: normal;
+  src: url("./LouisVuitton-Light.woff2") format("woff2"), url("./LouisVuitton-Light.woff") format("woff");
+}

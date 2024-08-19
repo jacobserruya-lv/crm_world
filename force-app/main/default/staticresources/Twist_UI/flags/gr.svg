@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" viewBox="0 0 640 480">
+  <g transform="scale(5.33)">
+    <path fill="#0d5eaf" d="M0 0h135v10H0z"/>
+    <path fill="#fff" d="M0 10h135v10H0z"/>
+    <path fill="#0d5eaf" d="M0 20h135v10H0z"/>
+    <path fill="#fff" d="M0 30h135v10H0z"/>
+    <path fill="#0d5eaf" d="M0 40h135v10H0z"/>
+    <path fill="#fff" d="M0 50h135v10H0z"/>
+    <path fill="#0d5eaf" d="M0 60h135v10H0z"/>
+    <path fill="#fff" d="M0 70h135v10H0z"/>
+    <path fill="#0d5eaf" d="M0 80h135v10H0zM0 0h50v50H0z"/>
+    <path fill="#fff" d="M20 0h10v50H20z"/>
+    <path fill="#fff" d="M0 20h50v10H0z"/>
+  </g>
+</svg>

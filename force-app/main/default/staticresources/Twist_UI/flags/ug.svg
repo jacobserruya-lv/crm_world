@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" viewBox="0 0 640 480">
+  <g transform="translate(80) scale(.9375)">
+    <path fill="#ffe700" fill-rule="evenodd" d="M-128 341.4h768v85.3h-768z"/>
+    <path fill-rule="evenodd" d="M-128 256h768v85.3h-768z"/>
+    <path fill="#de3908" fill-rule="evenodd" d="M-128 170.7h768V256h-768z"/>
+    <path fill="#ffe700" fill-rule="evenodd" d="M-128 85.4h768v85.3h-768z"/>
+    <path fill-rule="evenodd" d="M-128 0h768v85.3h-768z"/>
+    <path fill="#de3908" fill-rule="evenodd" d="M-128 426.7h768V512h-768z"/>
+  </g>
+</svg>

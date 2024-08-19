@@ -1,0 +1,619 @@
+@font-face {
+  font-family: "LouisVuitton-Medium";
+  src: url(./fonts/LOUISVUITTON-MEDIUM.OTF?orgId=00D780000000OiI&orgId=00Di0000000HF7A&orgId=00D2f0000000n1I) format("opentype");
+}
+
+@font-face {
+  font-family: "LouisVuitton-Regular";
+  src: url(./fonts/LOUISVUITTON-REGULAR.OTF?orgId=00D780000000OiI&orgId=00Di0000000HF7A&orgId=00D2f0000000n1I) format("opentype");
+}
+
+@font-face {
+  font-family: "LouisVuitton-Demi";
+  src: url(./fonts/LOUISVUITTON-DEMI.OTF?orgId=00D780000000OiI&orgId=00Di0000000HF7A&orgId=00D2f0000000n1I) format("opentype");
+}
+
+@media (max-width: 90rem) {
+  flexipage-component2 {
+    width: 101.86% !important;
+  }
+}
+
+.region .slds-m-bottom_medium {
+  overflow: hidden;
+}
+
+flexipage-component2 {
+  top: -4.2rem;
+  left: -1.2rem;
+  position: relative;
+  background-color: #fff;
+  width: 101%;
+  height: fit-content;
+  padding-left: 2.4rem;
+  padding-bottom: 0.7rem;
+  overflow-x: hidden;
+}
+
+.slds-template_default {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.toastContainer.slds-notify_container.slds-is-relative {
+  top: 45vh !important;
+}
+
+.slds-theme--success a:not(.slds-button--neutral) {
+  border: none !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+.slds-path__nav .slds-is-current:first-child {
+  border-color: #0070d2 !important;
+}
+
+.slds-path__item.slds-is-current {
+  background: #0070d2;
+}
+
+.slds-path__item.slds-is-current:before {
+  background: #0070d2 !important;
+  border-color: #0070d2 !important;
+}
+
+.slds-path__item.slds-is-current:after {
+  background: #0070d2 !important;
+  border-color: #0070d2 !important;
+}
+
+.slds-path__item.slds-is-current:hover {
+  background: #0070d2 !important;
+  border-color: #0070d2 !important;
+}
+
+a[aria-selected=true] .slds-path__title, .slds-is-complete .slds-path__title, .slds-is-current .slds-path__title {
+  font-family: LouisVuitton-Regular;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+c-ct_main-container .slds-path__title {
+  font-family: LouisVuitton-Regular;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #191009;
+}
+
+c-ct_main-container span.slds-path__stage:before {
+  font-family: LouisVuitton-Regular;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  display: inline;
+  margin-right: 5pt;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  content: "Search Clients";
+  white-space: nowrap;
+}
+
+c-ct_main-container lightning-progress-step:nth-child(2) > a > span.slds-path__stage:before {
+  font-family: LouisVuitton-Regular;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  display: inline;
+  margin-right: 5pt;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  content: "Action Selection";
+  white-space: nowrap;
+}
+
+c-ct_main-container lightning-primitive-icon {
+  position: inherit;
+}
+
+c-ct_searchable-combobox .input-search lightning-primitive-icon {
+  position: initial;
+}
+
+c-ct_main-container .slds-form-element__control .slds-checkbox {
+  font-family: LouisVuitton-Regular;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #706e6b;
+}
+
+c-ct_main-container lightning-combobox .slds-truncate {
+  margin-left: 1rem;
+  margin-block: auto;
+  font-family: LouisVuitton-Regular;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #706e6b;
+}
+
+c-ct_main-container input {
+  font-family: LouisVuitton-Regular;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #706e6b;
+}
+
+c-ct_main-container input::placeholder {
+  font-family: LouisVuitton-Regular;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #706e6b;
+}
+
+c-ct_main-container .slds-accordion__summary-action span {
+  font-family: LouisVuitton-Medium;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #191009;
+}
+
+c-ct_main-container .slds-accordion__summary-action {
+  height: 32px;
+  margin: 0 0 17px;
+  padding: 4px 12px 8px 8px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #f6f5f3;
+}
+
+c-ct_main-container button lightning-primitive-icon {
+  color: #191009;
+}
+
+c-ct_main-container .slds-accordion__section {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+c-ct_main-container .slds-accordion__list-item {
+  border: none;
+}
+
+c-ct_main-container .slds-accordion__summary {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+c-ct_main-container .slds-accordion__list-item:first-child {
+  margin-top: 1.2rem;
+}
+
+c-ct_main-container legend {
+  font-family: LouisVuitton-Medium;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #191009 !important;
+  white-space: nowrap;
+}
+
+c-ct_search-filters-clients .filters-gender label {
+  font-family: LouisVuitton-Medium;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #191009 !important;
+  white-space: nowrap;
+}
+
+c-ct_main-container .slds-checkbox {
+  margin: 4pt auto 4pt auto;
+}
+
+c-ct_main-container .slds-checkbox_toggle {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-top: 8pt;
+}
+
+c-ct_main-container .slds-form-element__label {
+  margin-bottom: 7pt;
+}
+
+c-ct_main-container .slds-checkbox_faux_container {
+  margin-right: 7pt;
+}
+
+c-ct_search-filters-store-hierarchy lightning-combobox[c-ct_searchfiltersstorehierarchy_ct_searchfiltersstorehierarchy] {
+  width: 100%;
+}
+
+c-ct_search-filters-store-hierarchy label[lightning-combobox_combobox] {
+  font-family: LouisVuitton-Medium;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #191009;
+  white-space: nowrap;
+}
+
+c-ct_search-filters-store-hierarchy input[aria-readonly=true][lightning-baseCombobox_baseCombobox] {
+  padding-left: 19pt;
+}
+
+c-ct_search-filters-store-hierarchy .prefered-ca input[aria-readonly=true][lightning-baseCombobox_baseCombobox] {
+  padding-left: 0.8rem;
+}
+
+.default-store input[aria-readonly=true][lightning-baseCombobox_baseCombobox] {
+  padding-left: 22pt;
+}
+
+.filters-empty-client-list .slds-form-element__label {
+  font-family: LouisVuitton-Regular;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.31;
+  letter-spacing: normal;
+  color: #191009;
+  display: contents;
+}
+
+.filters-empty-client-list .slds-checkbox_toggle {
+  width: 280px;
+}
+
+c-ct_search-filters-store-hierarchy .slds-form-element__help {
+  display: none;
+}
+
+c-ct_search-filters-purchase-history .purchase-category .slds-radio {
+  margin: 7pt 7pt 7pt 4pt;
+}
+
+c-ct_search-filters-purchase-history div.slds-grid.filter-wrapper.product-category-wrap > lightning-checkbox-group > fieldset > div > span {
+  width: 50%;
+  white-space: nowrap;
+}
+
+c-ct_search-filters-purchase-history .product-category-wrap div[lightning-checkboxgroup_checkboxgroup] {
+  display: flex;
+  flex-direction: column;
+  flex-flow: wrap;
+  width: 200%;
+}
+
+c-ct_search-filters-purchase-history .category-include span.slds-checkbox_faux, .category-exclude span.slds-checkbox_faux {
+  border-radius: 50%;
+}
+
+c-ct_search-filters-purchase-history .category-include [type=checkbox]:checked + .slds-checkbox__label .slds-checkbox_faux:after, .category-exclude [type=checkbox]:checked + .slds-checkbox__label .slds-checkbox_faux:after {
+  width: 0.5rem;
+  height: 0.5rem;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: var(--lwc-borderRadiusCircle, 50%);
+  background: none;
+  background-color: var(
+    --sds-c-radio-mark-color-foreground,
+    var(--lwc-brandAccessible, rgb(0, 112, 210))
+  );
+}
+
+.reset-filters-btn > .slds-button.slds-button_neutral {
+  width: max-content;
+  height: 32px;
+  padding: 1px 30px;
+  border-radius: 4px;
+  border: solid 1px #dddbda;
+  background-color: #ffffff;
+}
+
+.search-clients-btn > .slds-button.slds-button_brand {
+  width: max-content;
+  height: 32px;
+  padding: 1px 16px;
+  border-radius: 4px;
+  background-color: #0070d2;
+}
+
+.search-clients-btn > .slds-button.slds-button_brand[disabled] {
+  background-color: #666666;
+}
+
+.result-list-filters-icon .slds-icon_small {
+  fill: #080707;
+}
+
+.slds-button__icon_left {
+  color: #0070d2;
+  display: flex;
+}
+
+button.slds-button.slds-button_neutral {
+  color: #0070d2;
+}
+
+.button-and-result-success-icon .slds-icon-text-success {
+  fill: white;
+  transform: scale(0.55);
+  position: relative;
+  left: 1pt;
+  top: 1.2pt;
+}
+
+.button-and-result-summary-back-btn .slds-button_neutral {
+  padding: 0 1rem 0 0.5rem;
+}
+
+.result-list-info-wrapper lightning-helptext lightning-primitive-icon {
+  color: #005fb2;
+  width: 13pt;
+  height: 14pt;
+  transform: scale(1.2);
+}
+
+c-ct_result-list .slds-input-has-icon_left-right lightning-primitive-icon {
+  position: initial;
+}
+
+lightning-base-combobox-item[aria-checked=true] lightning-icon {
+  position: relative;
+  left: -0.7rem;
+}
+
+c-ct_result-list thead .slds-resizable__divider {
+  display: none;
+}
+
+c-ct_result-list thead .slds-button__icon {
+  display: none;
+}
+
+c-ct_result-list thead .slds-truncate {
+  font-family: LouisVuitton-Regular;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #3e3e3c;
+}
+
+c-ct_result-list button lightning-primitive-icon {
+  color: unset !important;
+  margin-bottom: 1px !important;
+}
+
+@media (max-width: 90.063rem) {
+  c-ct_new-sa-selection .slds-popover_edit {
+    width: 10% !important;
+    margin-left: 4rem !important;
+  }
+}
+
+c-ct_new-sa-selection .slds-table tbody tr {
+  line-height: 1.8rem;
+}
+
+c-ct_new-sa-selection .slds-grid_align-end {
+  justify-content: end;
+}
+
+c-ct_new-sa-selection .slds-table_header-fixed_container {
+  padding-top: 34px;
+}
+
+c-ct_new-sa-selection .slds-table_header-fixed_container.slds-scrollable_x {
+  height: max-content !important;
+}
+
+c-ct_new-sa-selection .dt-outer-container {
+  height: max-content !important;
+}
+
+c-ct_new-sa-selection .slds-accordion__list-item:first-child {
+  margin-top: 0;
+}
+
+c-ct_new-sa-selection lightning-combobox.slds-form-element {
+  width: 100%;
+}
+
+c-ct_new-sa-selection .store-location input[aria-readonly=true][lightning-baseCombobox_baseCombobox] {
+  padding-left: 22pt;
+}
+
+c-ct_new-sa-selection .new-sa-selection-adviser button > lightning-primitive-icon {
+  display: none;
+}
+
+c-ct_new-sa-selection .slds-popover_edit {
+  width: auto;
+  height: 2.8rem;
+}
+
+c-ct_new-sa-selection .slds-popover {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+c-ct_new-sa-selection tr td:nth-last-child(2) span.slds-grid.slds-grid_align-spread {
+  display: flex;
+  line-height: 2rem;
+  height: 2rem;
+  padding-right: var(
+    --sds-c-input-spacing-horizontal-end,
+    var(--lwc-spacingMedium, 1rem)
+  );
+  padding-left: var(
+    --sds-c-input-spacing-horizontal-start,
+    var(--lwc-spacingSmall, 0.75rem)
+  );
+  width: 100%;
+  border: var(--lwc-borderWidthThin, 1px) solid var(
+      --sds-c-input-color-border,
+      var(--lwc-colorBorderInput, rgb(221, 219, 218))
+    );
+  border-radius: var(
+    --sds-c-input-radius-border,
+    var(--lwc-borderRadiusMedium, 0.25rem)
+  );
+  background-color: var(
+    --sds-c-input-color-background,
+    var(--lwc-colorBackgroundInput, rgb(255, 255, 255))
+  );
+  color: var(--sds-c-input-text-color);
+  box-shadow: var(--sds-c-input-shadow);
+  transition: border var(--lwc-durationQuickly, 0.1s) linear, background-color var(--lwc-durationQuickly, 0.1s) linear;
+}
+
+c-ct_new-sa-selection lightning-card.new-sa-card article {
+  width: auto;
+  height: 84px;
+  border-radius: 4px;
+  border: solid 1px #dddbda;
+  background-color: #ffffff;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+c-ct_new-sa-selection .slds-radio .slds-form-element__label {
+  font-family: LouisVuitton-Demi;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: black;
+}
+
+c-ct_new-sa-selection .slds-cell-edit .slds-button:hover {
+  box-shadow: none !important;
+}
+
+c-ct_new-sa-selection .slds-cell-edit .slds-button {
+  box-shadow: none !important;
+}
+
+.close-modal-btn lightning-primitive-icon {
+  color: #ffffff !important;
+  transform: scale(1.5);
+}
+
+.exclusive-sales-modal .slds-form-element__label, .client-list-modal .slds-form-element__label {
+  margin-bottom: 5pt;
+  font-family: LouisVuitton-Medium;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #191009;
+}
+
+.create-empty-checklist .slds-form-element__label {
+  font-family: LouisVuitton-Regular;
+  font-size: 16px !important;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.31;
+  letter-spacing: normal;
+  text-align: center;
+  color: #191009;
+}
+
+.exclusive-sales-modal .slds-required, .client-list-modal .slds-required {
+  display: none;
+}
+
+.exclusive-sales-modal input[aria-readonly=true][lightning-baseCombobox_baseCombobox], .client-list-modal input[aria-readonly=true][lightning-baseCombobox_baseCombobox] {
+  padding-left: 0.75rem;
+}
+
+.exclusive-sales-modal input::placeholder, .client-list-modal input::placeholder {
+  font-family: LouisVuitton-Regular;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #706e6b;
+}
+
+.border-none .slds-input {
+  border: none;
+}
+
+.exclusive-sales-icon-toogle .slds-form-element__label {
+  display: contents;
+  font-family: LouisVuitton-Regular;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.31;
+  letter-spacing: normal;
+  color: #191009;
+}

@@ -1,0 +1,936 @@
+/* Begin: errors handling */
+.component .component__form lightning-input.error .slds-form-element__label,
+.component .component__form lightning-combobox.slds-has-error .slds-form-element__label,
+.component .component__form lightning-input.slds-has-error .slds-form-element__label {
+  color: black;
+}
+
+.slds-scope .slds-required {
+  color: #000 !important;
+  margin: 0 !important;
+}
+
+.slds-scope .component.is--registration lightning-icon,
+.slds-scope .component.is--registration lightning-button-icon {
+  right: 20px;
+  left: unset;
+}
+
+.component.is--registration .component__form .slds-form-element__help {
+  color: #c53929;
+  font-size: 13px;
+  position: absolute;
+  width: 300px;
+}
+
+.component.is--registration .component__form c-twist-password-validity-criteria .wrapper.visible {
+  padding-bottom: 20px;
+}
+
+.component.is--registration .component__form p.component__text,
+.component.is--registration .inside__component p.component__text {
+  padding-bottom: 14px;
+  max-width: 520px;
+}
+
+.component.is--registration .component__form p.component__text lightning-formatted-text.form__link,
+.component.is--registration .component__form p.text lightning-formatted-text.form__link {
+  margin-left: 3px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.component .component__form lightning-input.error input.slds-input {
+  border-color: #c53929;
+}
+
+.component.is--registration .components__form lightning-input.slds-form-element,
+.component.is--registration .components__form lightning-combobox.slds-form-element,
+.component.is--registration .form lightning-input.slds-form-element {
+  padding-bottom: 26px;
+  position: relative;
+
+}
+
+.component .component__form lightning-input input {
+  outline: none;
+}
+
+.component .component__form .field-error-message {
+  font-size: 14px;
+  color: #c53929;
+}
+
+.component .global-error-message {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #c53929;
+}
+
+.component .component__form lightning-input .slds-form-element__label,
+.component .component__form .slds-form-element__label {
+  font-size: 14px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #19110b;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.component .component__form lightning-input input.slds-input {
+  height: 48px;
+  padding: 0 16px;
+  border: solid 1px #eae8e4;
+  background-color: #fff;
+  border-radius: 4px;
+  color: #000;
+}
+
+.component .component__form lightning-input input.slds-input:focus,
+.component .component__form lightning-input input.slds-input:active {
+  border: solid 1px #000000;
+  box-shadow: none;
+}
+
+.component lightning-base-combobox-item {
+  color: #000
+}
+
+.component .component__form .slds-combobox__input:focus {
+  outline: none;
+  border-color: #eae8e4;
+  box-shadow: none;
+}
+
+.slds-scope .slds-combobox__input {
+  outline: none;
+}
+
+.slds-scope .slds-form-element__label {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #19110b;
+  margin-bottom: 8px;
+
+}
+
+.component.is--registration .component__form .slds-combobox__input.slds-input_faux {
+  height: 48px;
+  border: solid 1px #eae8e4;
+  background: #fff;
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  padding:0 16px;
+}
+
+.component .component__form .form__text lightning-formatted-url {
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #19110b;
+  text-decoration: underline;
+  margin-bottom: 18px;
+}
+
+.eye-icon__wrapper input::-ms-reveal {
+  display: none;
+}
+
+input::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
+.component .component__form .form__button button {
+  border: 1px solid #19110b;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #fff;
+  padding: 14px 122px;
+  background-color: #000000;
+  margin-bottom: 16px;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
+}
+
+.component .component__form .forms__button button {
+  color: black;
+  background-color: white;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+  text-align: center;
+  padding: 14px 0;
+  width: 100%;
+  border-radius: 24px;
+}
+
+.component .component__form .form__button button:hover {
+  background-color:#ffffff;
+  color: #19110b;
+}
+.component .component__form .form__button button:focus {
+  background-color:#fff;
+  color:#19110b;
+  box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px #19110b;
+}
+
+.success-message {
+  color: #000;
+  padding-bottom: 20px;
+  height: 283px;
+  font-family: LouisVuitton;
+  font-size: 18px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.56;
+  letter-spacing: 0.4px;
+  text-align: left;
+}
+
+.form__link {
+  cursor: pointer;
+  color: #19110b;
+  text-decoration: underline;
+  margin-left: 3px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+}
+
+.form__link button.slds-button_neutral.slds-button,
+.form__link button.slds-button--neutral.slds-button {
+  border: none;
+  color: inherit;
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+.form__link button.slds-button_neutral.slds-button, .form__link button.slds-button--neutral.slds-button{
+  color: var(--revamp-black, #000);
+  font-family: LouisVuitton;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+.twist-password-field-container .eye-icon {
+  position: absolute;
+  right: 22px;
+  bottom: 16px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.component.is--registration .components__form .hidden-input-logo__wrapper .slds-input__icon.slds-input__icon_right {
+  display: none;
+}
+
+.component.is--registration .components__form .hidden-input-logo__wrapper {
+  position: relative;
+}
+
+.component.is--registration .components__form .hidden-input-logo__wrapper lightning-input input.slds-input:focus,
+.component.is--registration .components__form .hidden-input-logo__wrapper lightning-input input.slds-input:active {
+  border: 1px solid #000000;
+}
+
+.component.is--registration .components__form .hidden-input-logo__wrapper .registration-chevron {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-40%);
+  right: 22px;
+  max-width: 16px;
+  pointer-events: none;
+}
+
+.rtl .component.is--registration .components__form .hidden-input-logo__wrapper .registration-chevron {
+  left: 22px;
+  right: unset;
+}
+
+.twist-password-field-container .eye-iconSmall {
+  position: absolute;
+  right: 22px;
+  bottom: 16px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  font-family: LouisVuitton;
+  align-items: baseline;
+  width: 100%;
+}
+
+.ltr {
+  direction: ltr !important;
+}
+
+.rtl {
+  direction: rtl !important;
+  font-family: "Louis Vuitton Arabic" !important;
+}
+
+.rtl .item__icon {
+  padding-left: 1.125rem;
+}
+
+.rtl .item-text {
+  text-align: start;
+}
+
+.rtl * {
+  font-family: "Louis Vuitton Arabic" !important;
+
+}
+
+.rtl .main {
+  margin-right: 26.3vw;
+}
+
+.rtl .component {
+  align-items: flex-start;
+  font-family: "Louis Vuitton Arabic" !important;
+
+}
+
+.rtl .success-message {
+  text-align: right;
+}
+
+.rtl .title {
+  text-align: end;
+  direction: ltr;
+}
+
+.rtl .twist-password-field-container .eye-icon {
+  left: 22px;
+  right: auto !important;
+}
+
+.rtl .twist-modal__header .component__title {
+  text-align: right !important;
+  margin-right: 50px;
+
+}
+
+.rtl .twist-modal__content {
+  text-align: right !important;
+}
+
+.rtl .twist-password-field-container .eye-iconSmall {
+  left: 22px;
+  right: auto;
+}
+
+.rtl .twist-modal__header-close {
+  border-right: solid 1px #eae8e4;
+  border-left: solid 0 #eae8e4 !important;
+  border-radius: 0 0 0 0 !important;
+}
+
+.rtl .header__item {
+  justify-content: flex-start;
+}
+
+.rtl .header__item-logo {
+  padding-left: 7px;
+}
+
+.rtl .header__item-login {
+  border-right: 1px solid #b39d90;
+  padding-right: 7px;
+  border-left:0 solid #b39d90
+}
+
+.rtl .register {
+  direction: ltr;
+  margin-left: 163px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.rtl .register__link {
+  margin-left: 14px;
+}
+
+.rtl .arrow-back {
+  flex-direction: initial;
+}
+
+.rtl .component .component__title {
+  text-align: right;
+}
+
+.rtl .button__container .register__text {
+  direction: rtl;
+}
+
+.rtl .button__container {
+  float: left;
+  max-width: none;
+}
+
+.rtl .footer__links {
+  text-align: right !important;
+  margin-right: 0 !important;
+  padding-left: 20px;
+}
+
+.rtl .footer__logo-arab {
+  display: block !important;
+}
+
+.rtl .footer__link-followUs {
+  margin-right: 0 !important;
+}
+
+.slds-scope .rtl .slds-input__icon-group.slds-input__icon-group_right {
+  right: unset !important;
+  left: 55px;
+}
+
+.slds-scope .rtl .component.is--registration lightning-button-icon {
+  right: unset !important;
+  left: 20px;
+}
+
+.rtl .registers {
+  margin-left: 124px;
+}
+
+.rtl .arrow-icon {
+  transform: scale(-1);
+}
+
+.rtl .button__container-wrap .localisation-icon {
+  right: 22px;
+}
+
+.rtl .button__container-wrap .phone-icon {
+  right: 22px;
+}
+
+.component .component__form .slds-form-element__help {
+  color: #c53929;
+  font-size: 14px;
+}
+
+.rtl .twist-password-field-container lightning-input input.slds-input {
+  direction: ltr !important;
+  text-align: right;
+}
+
+.rtl .is--registration .component__text lightning-formatted-text:before {
+  content: "\00a0";
+}
+
+.button__container {
+  max-width: 100%;
+  float: right;
+}
+
+.component .component__title {
+  font-size: 24px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 32px;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #000;
+  margin-bottom: 16px;
+  font-family: LouisVuitton;
+}
+
+.header__item-login {
+  font-family: LouisVuitton;
+  border-left: 1px solid #b39d90;
+  padding-left: 7px;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #000000;
+  text-transform: uppercase;
+  padding-top: 4px;
+}
+
+.register {
+  margin-right: 91px;
+}
+
+.contentRegion.comm-layout-column.slds-col--padded {
+  padding-right:0;
+  padding-left:0;
+}
+
+.forceCommunitySection .cb-section_column:only-child {
+  /* padding-right:0; 
+  padding-left:0;  */
+  padding: 0;
+}
+
+.arrow-back {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+
+.form__link_privacy_policy {
+  cursor: pointer;
+  color: #19110b;
+  text-decoration: underline;
+}
+
+.form__link_terms_conditions {
+  cursor: pointer;
+  color: #19110b;
+  text-decoration: underline;
+}
+
+.component__text {
+  font-size: 16px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+  color: #000;
+  margin-bottom: 24px;
+}
+
+.main__section {
+  width: 45.41vw;
+}
+
+.component__form {
+  width: 100%;
+}
+
+.inside-footer {
+  width: 100%;
+}
+
+.button__container-wrap {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  margin-left: 9.3vw;
+  margin-right: 9.3vw;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 92px;
+  padding-top: 64px;
+  min-height: calc(100vh - 236px);
+
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button-error-page {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.components__form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.component.is--registration .components__form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 20px;
+}
+
+.right {
+  width: 49%;
+}
+
+.left {
+  width: 49%;
+}
+.line_button {
+  text-decoration: none !important;
+  color: white !important;
+  width: 100%;
+  border-radius: 100vmax;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  padding: 13px;
+  background-color: #00b901 !important;
+  margin-bottom: 16px;
+}
+.div-line {
+  width: 100%;
+}
+.line-icon-svg {
+  filter: invert(100%) sepia(0%) saturate(24%) hue-rotate(114deg) brightness(108%) contrast(108%);
+  width: 1.5em; 
+  height:1.5em; 
+  margin-right:0.5rem; 
+  position: relative; 
+}
+.component .component__form .line__button button:hover {
+  background-color: #ffffff;
+  color: #19110b;
+}
+.component .component__form .line__button button:focus {
+  background-color: #fff;
+  color:#19110b;
+  box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px#19110b;
+}
+
+
+.component .component__form .continue__button button {
+  border: 1px solid #19110b;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #fff;
+  padding: 14px 122px;
+  background-color: #000000;
+  margin-bottom: 16px;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
+}
+.component .component__form .continue__button button:hover {
+  background-color: #ffffff;
+  color: #19110b;
+}
+.component .component__form .continue__button button:focus {
+  background-color:#fff;
+  color:#19110b;
+  box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px #19110b;
+}
+.component-confirmation-page {
+  display: flex;
+  flex-direction: column;
+  font-family: LouisVuitton;
+  align-items: center;
+  width: 100%;
+}
+
+.inside__component {
+  width: 50%;
+  margin-left: 28%;
+}
+
+.component .component__form .leave__button button {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #000000;
+  background-color: #fff;
+  float: right;
+  border: solid 1px #19110b;
+  border-radius: 24px;
+  padding: 14px;
+  margin-bottom: 16px;
+  text-decoration: none;
+  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
+}
+.component .component__form .leave__button button:hover {
+  background-color: #19110b;
+  color: #ffffff;
+}
+.component .component__form .leave__button button:focus {
+  background-color:#19110b;
+  color:#fff;
+  box-shadow:inset 0 0 0 2px #19110b,inset 0 0 0 3px #fff;
+}
+
+.component .component__form .continue__buttons button {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #fff;
+  background-color: #000000;
+  float: right;
+  border: solid 1px #19110b;
+  border-radius: 24px;
+  padding: 14px;
+  margin-bottom: 16px;
+  text-decoration: none;
+  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
+
+}
+.component .component__form .continue__buttons button:hover {
+  background-color: #ffffff;
+  color: #19110b;
+}
+.component .component__form .continue__buttons button:focus {
+  background-color:#fff;
+  color:#19110b;
+  box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px #19110b;
+}
+
+.title {
+  padding: 32px 32px 0;
+  font-size: 10px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #19110b;
+  text-transform: uppercase;
+}
+
+.registers {
+  padding-right: 80px;
+}
+
+
+
+@media (max-width: 520px) {
+
+  .button__container-wrap {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+  }
+
+  .main {
+    max-width: 100%;
+    margin: 0 8px;
+  }
+
+  .footer {
+    max-width: 100%;
+  }
+
+  .main {
+    max-width: 100%;
+    margin: 0 8px;
+  }
+
+  .component .component__form .forms__button button {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer__links {
+    text-align: start;
+    font-size: 15px;
+    margin-top: 5px;
+    padding-right: 0;
+  }
+
+  .components__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rtl .footer__links {
+    text-align: right !important;
+    margin-right: 0 !important;
+    padding-left: 20px;
+  }
+
+  .rtl .collapse_tittle.active::after {
+    margin-left: 0 !important;
+  }
+
+  .rtl .collapse_tittle::after {
+    margin-left: 0 !important;
+  }
+
+  .component .component__form .form__button button {
+    width: 100%;
+    /* padding: 14px 0; */
+  }
+
+  .calendar {
+    display: block !important;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 53%;
+    right: 20px;
+    left: unset;
+  }
+
+  .rtl .calendar {
+    display: block !important;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 53%;
+    left: 20px !important;
+    right: unset !important;
+  }
+
+  .component .component__title {
+    font-size: 24px;
+    /* margin-top: 50px; */
+    margin-bottom: 20px;
+  }
+
+  .component__text {
+    font-size: 14px;
+    text-align: start;
+    margin-bottom: 34px;
+
+  }
+
+  .button__container-wrap {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+  }
+
+  .main__section {
+    width: 100%;
+  }
+
+  /* .rtl .twist-password-field-container .eye-icon {
+    left: 22px;
+    right: auto;
+  } */
+  .twist-password-field-container .eye-icon {
+    position: absolute;
+    right: 22px;
+    bottom: 19px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+  }
+
+  .main {
+    flex-direction: column;
+    max-width: 620px;
+    margin: auto;
+  }
+
+  .footer {
+    flex-direction: column;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .button__container-wrap {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+  }
+
+  .button-error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .component .component__form .forms__button button {
+    font-size: 12px;
+  }
+
+  .text {
+    text-align: start;
+    padding:0;
+  }
+
+  .rtl .text {
+    padding-right: 12px;
+  }
+
+}
+
+.category {
+  width: 240px;
+}
+
+@media(max-width: 990px) {
+  .rtl .register {
+    margin-right:0;
+  }
+}
+
+#auraErrorMessage {
+  display: none;
+}

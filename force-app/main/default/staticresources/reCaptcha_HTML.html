@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script>
+            function appendRecaptchaScriptToDocument(siteKey) {
+                var scriptElement = document.createElement("script");
+                scriptElement.src = `https://www.google.com/recaptcha/enterprise.js?render=${siteKey}`;
+                document.querySelector('head').appendChild(scriptElement);
+            }
+
+            const siteKey = new URLSearchParams(location.search).get('sitekey');
+            appendRecaptchaScriptToDocument(siteKey);
+
+            window.addEventListener('load', e => {
+                grecaptcha.enterprise.ready(function() {
+                    grecaptcha.enterprise.execute(siteKey, {action: 'submit'})
+                    .then(token => {
+                        parent.postMessage({ "reCaptchaToken": token }, location.origin);
+                        //setTimeout(() => { parent.postMessage({ "reCaptchaToken": token }, location.origin); }, 100); // to avoid a false positive bot identification by Google
+                    })
+                    .catch(error => {
+                        console.error('Errror when loading reCAPTCHA: ' + error);
+                    });
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+    </body>
+</html>

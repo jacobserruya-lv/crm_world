@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" viewBox="0 0 640 480">
+<path fill="#006" d="M0 0h640v480H0z"/>
+<path fill="#006" fill-rule="evenodd" d="M0 0h400v200H0z"/>
+<path fill="#fff" d="M0 0v25.6l317.1 203h40v-25.5L39.9 0H0zm357 0v25.6l-317 203H0v-25.5L317.1 0h40z"/>
+<path fill="#fff" d="M148.8 0v228.6h59.5V0h-59.5zM0 76.2v76.2h357V76.2H0z"/>
+<path fill="#c00" d="M0 91.5v45.7h357V91.5H0zM160.7 0v228.6h35.7V0h-35.7zM0 228.6l119-76.2h26.6l-119 76.2H0zM0 0l119 76.2H92.4L0 17V0zm211.4 76.2L330.4 0h26.7L238 76.2h-26.7zm145.7 152.4l-119-76.2h26.6l92.4 59.2v17z"/>
+</svg>

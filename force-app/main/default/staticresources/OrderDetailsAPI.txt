@@ -1,0 +1,346 @@
+{
+    "xstore_request_id": "220041298",
+    "transaction": {
+        "total": 2482.35,
+        "tax_amount": 202.35,
+        "subtotal": 2280,
+        "deposit_rate": 1,
+        "deposit": 2482.35,
+        "date": "2022-02-07T22:51:27.303Z",
+        "currency": "USD",
+        "balance_due": 0,
+        "additional_fees": null
+    },
+    "tenders": [
+        {
+            "payment_method": null,
+            "description": "VIS",
+            "amount": 2482.35,
+            "account": "1111"
+        }
+    ],
+    "system": "ATG",
+    "sold_to": {
+        "type": null,
+        "phone2": null,
+        "phone1": "+19177154485",
+        "nationality": "",
+        "name": {
+            "suffix": "",
+            "prefix": "",
+            "middle": "",
+            "last": "LEE",
+            "first": "Jiyoung"
+        },
+        "fiscal": {
+            "tax_type": "",
+            "tax_system": "",
+            "tax_invoice_number": "",
+            "tax_invoice_date": "",
+            "tax_code": "",
+            "legal_email": "",
+            "fiscal_code": "",
+            "destination_code": "",
+            "charity_code": ""
+        },
+        "email": "jiyoung.lee@louisvuitton.com",
+        "customer_no": "C011073561",
+        "address": {
+            "province": "NY",
+            "postal_code": "10035-4520",
+            "country": "US",
+            "city": "New York",
+            "address4": "",
+            "address3": "",
+            "address2": "#501",
+            "address1": "1787 Madison Ave"
+        }
+    },
+    "shipments": [],
+    "risk_manual_review": null,
+    "risk_auto_reviewed": null,
+    "requesting_location": {
+        "xstore_id": "3190",
+        "type": "XSTORE",
+        "rms_id": "UEC",
+        "purchase_org": "US20",
+        "name": "CLIENT SERVICE USA"
+    },
+    "order_lines": [
+        {
+            "unit_price": 2482.35,
+            "eta": {
+                "min": "2023-11-16",
+                "max": "2023-12-14"
+            },
+            "fulfillment_type": "DELIVERY",
+            "creation_date": "2022-02-07T22:51:27.464Z",
+            "invoice": {
+                "id": null,
+                "date": null
+            },
+            "qty": 1,
+            "logs": [
+                {
+                    "status": "created",
+                    "message": "Order created",
+                    "location": {
+                        "xstore_id": "3190",
+                        "type": "XSTORE",
+                        "rms_id": "UEC",
+                        "purchase_org": "US20",
+                        "name": "CLIENT SERVICE USA"
+                    },
+                    "date": "2022-02-07T22:51:27.483Z",
+                    "by": "ATG"
+                },
+                {
+                    "status": "pending",
+                    "message": "Pending",
+                    "location": {
+                        "xstore_id": "UEZ",
+                        "type": "DC",
+                        "rms_id": "UEZ",
+                        "purchase_org": "US10",
+                        "name": "Digital Piscataway"
+                    },
+                    "date": "2022-02-07T22:51:27.594Z",
+                    "by": "KBRW"
+                },
+                {
+                    "status": "pending",
+                    "message": "Order sent",
+                    "location": {},
+                    "date": "2022-02-07T22:51:32.295Z",
+                    "by": "Iconics"
+                },
+                {
+                    "status": "pending",
+                    "message": "Order updated",
+                    "location": {
+                        "xstore_id": "UEZ",
+                        "type": "DC",
+                        "rms_id": "UEZ",
+                        "purchase_org": "US10",
+                        "name": "Digital Piscataway"
+                    },
+                    "date": "2022-02-07T22:55:48.273Z",
+                    "by": "ATG"
+                },
+                {
+                    "status": "new",
+                    "message": "Pending order confirmed",
+                    "location": {
+                        "xstore_id": "UEZ",
+                        "type": "DC",
+                        "rms_id": "UEZ",
+                        "purchase_org": "US10",
+                        "name": "Digital Piscataway"
+                    },
+                    "date": "2022-02-07T22:56:24.476Z",
+                    "by": "ATG"
+                },
+                {
+                    "status": "new",
+                    "message": "Updated to \"new\"",
+                    "location": {},
+                    "date": "2022-02-07T22:56:25.287Z",
+                    "by": "Iconics"
+                },
+                {
+                    "status": "new",
+                    "message": "Salesforce MTO order sent",
+                    "location": {
+                        "xstore_id": "UEZ",
+                        "type": "DC",
+                        "rms_id": "UEZ",
+                        "purchase_org": "US10",
+                        "name": "Digital Piscataway"
+                    },
+                    "date": "2022-02-07T23:01:33.089Z",
+                    "by": "Now Yours"
+                },
+                {
+                    "status": "pushed_sap",
+                    "message": "Order pushed in SAP",
+                    "location": {
+                        "xstore_id": "UEZ",
+                        "type": "DC",
+                        "rms_id": "UEZ",
+                        "purchase_org": "US10",
+                        "name": "Digital Piscataway"
+                    },
+                    "date": "2022-02-07T23:01:37.052Z",
+                    "by": "KBRW"
+                },
+                {
+                    "status": "pushed_sap",
+                    "message": "Updated to \"pushed_sap\"",
+                    "location": {},
+                    "date": "2022-02-07T23:01:37.952Z",
+                    "by": "Iconics"
+                },
+                {
+                    "status": "polled",
+                    "message": "Order received in SAP",
+                    "location": {
+                        "xstore_id": "UEZ",
+                        "type": "DC",
+                        "rms_id": "UEZ",
+                        "purchase_org": "US10",
+                        "name": "Digital Piscataway"
+                    },
+                    "date": "2022-02-07T23:01:42.517Z",
+                    "by": "SAP"
+                },
+                {
+                    "status": "polled",
+                    "message": "Updated to \"polled\"",
+                    "location": {},
+                    "date": "2022-02-07T23:01:43.190Z",
+                    "by": "Iconics"
+                }
+            ],
+            "delivery_method_code": "0",
+            "line_amount": null,
+            "pur_group": "ZSC",
+            "id": "lvorder2022-02-07-qrdwz1",
+            "item_id": "P00138",
+            "item_description": "SPEEDY 30 BA.MLVH MNG",
+            "unit_price_tax_free": null,
+            "vat_classification": "",
+            "priority": null,
+            "revised_leadtime": {},
+            "engraving_number": null,
+            "line_amount_tax_free": null,
+            "segments": [],
+            "line_number": 1,
+            "available_actions": [
+                "update_order_line",
+                "cancel_by_lv",
+                "unfulfill",
+                "accept",
+                "system_reject",
+                "update_order",
+                "cancel",
+                "cancel_by_customer",
+                "push_metapack_au",
+                "retry_push_sap_interco",
+                "push_metapack_apac",
+                "update_bundle_parent",
+                "retry_tracking_number"
+            ],
+            "status": "polled",
+            "customizations": [
+                {
+                    "message": "Happy Monday!",
+                    "code": "GM"
+                },
+                {
+                    "message": "41950019",
+                    "code": "recipeId"
+                },
+                {
+                    "message": "008944",
+                    "code": "digitalProductId"
+                }
+            ],
+            "leadtime": {
+                "min": 28,
+                "max": 56
+            },
+            "tax_amount": 404.7,
+            "item_stock_category": null,
+            "vat_specificity": "",
+            "delivery_fees": null,
+            "pickup_location": {
+                "xstore_id": "3190",
+                "type": "XSTORE",
+                "rms_id": "UEC",
+                "purchase_org": "US20",
+                "name": "CLIENT SERVICE USA"
+            },
+            "order_type": "DELIVERY",
+            "return_location": {
+                "xstore_id": "UEZ",
+                "type": "DC",
+                "rms_id": "UEZ",
+                "purchase_org": "US10",
+                "name": "Digital Piscataway"
+            },
+            "request_id": "0123456789",
+            "score": "HIGH",
+            "discount": {
+                "id": "",
+                "description": "",
+                "amount": null
+            },
+            "taxes": [
+                {
+                    "rate": 0,
+                    "description": "VatTax",
+                    "amount": "202.35"
+                },
+                {
+                    "rate": 0.04,
+                    "description": "CityTax",
+                    "amount": "102.60"
+                },
+                {
+                    "rate": 0.04,
+                    "description": "StateTax",
+                    "amount": "91.20"
+                },
+                {
+                    "rate": 0,
+                    "description": "SpecialTax",
+                    "amount": "8.55"
+                }
+            ],
+            "source_location": {
+                "xstore_id": "UEZ",
+                "type": "DC",
+                "rms_id": "UEZ",
+                "purchase_org": "US10",
+                "name": "Digital Piscataway"
+            },
+            "employee_id": "WEB",
+            "revised_eta": {
+                "min": "2022-03-07",
+                "max": "2022-04-04"
+            },
+            "ship_to": {
+                "type": null,
+                "name": {
+                    "suffix": "",
+                    "prefix": "",
+                    "middle": "",
+                    "last": "LEE",
+                    "first": "Jiyoung",
+                    "company_name": null
+                },
+                "address": {
+                    "province": "NY",
+                    "postal_code": "10035-4520",
+                    "country": "US",
+                    "city": "New York",
+                    "address4": "",
+                    "address3": "",
+                    "address2": "#501",
+                    "address1": "1787 Madison Ave"
+                }
+            },
+            "linked_shipping_groups": []
+        }
+    ],
+    "order_id": "pi1365946",
+    "gift": null,
+    "creation_date": "2022-02-07T22:51:27.464Z",
+    "channel": "ECO",
+    "approval_confirmed": null,
+    "CA": {
+        "employee_id": "",
+        "WWEmployeeId": "",
+        "CACode": ""
+    }
+}

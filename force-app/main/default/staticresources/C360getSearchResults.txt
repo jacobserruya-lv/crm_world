@@ -1,0 +1,14 @@
+[
+   {
+        "lastName": "Shen",
+        "firstName": "Yan",
+        "lastName2": null,
+        "firstName2": null,
+        "birthDate": null,
+        "passportNumbers": null,
+        "fiscalNumbers": null,
+        "workPhoneNumber": {
+            "internationalPhoneNumber": null,
+            "nationalPhoneNumber": null
+        }
+]

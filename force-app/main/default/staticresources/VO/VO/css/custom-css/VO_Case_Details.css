@@ -1,0 +1,31 @@
+.innerPanel 
+{
+			background-color: #fff;
+			font-weight: bold;
+			color: black;
+}
+.rowStyle
+{
+			border: none;
+			padding-top: 7px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			color: #555;
+			background-color: transparent;
+			min-height: 26px;
+}
+.margin-right-lg 
+{
+			margin-right: 160px;
+}
+.answerRow
+{
+			margin-left: 30px;
+
+}
+
+.multypickListFeedBack:nth-child(even) 
+{
+			background-color: #EEE;
+
+}

@@ -1,0 +1,19 @@
+Name,Value__c
+NewOpportunityCloseDate,60
+NewOpportunityStage,Brief in progress
+Painting Folder Name,HARDSIDED_Painting_Offer
+PersonAccountRecordTypeName,Person Account
+ProductNotFoundSKU,M99999
+WSCallNoCall,Call
+WSTimeOut,100000
+LanguagesLabelNames,LV_SO_English;LV_SO_Italian;LV_SO_Japanese;LV_SO_Korean;LV_SO_Chinese_Traditional;LV_SO_Chinese_Simplified;LV_SO_Portuguese_Brazilian
+LanguageCodesByLabel,en_US;it;ja;ko;zh_TW;zh_CN;pt_BR
+ProductsReferentialSubFamilies,"HARSIDE LUGGAGE;TRUNKS;HARDSIDE TRAVEL ACCESSORIES;OTHER TRAVEL ACCESSORIES;ECRITOIRE TRUNK;CALLIGRAPHY CASE;LIBRARY TRUNK;BOOK TRUNK;ATTACHE CASE;""MODELS"" PRESIDENT & DIPLOMATE"
+ProductsRefLiningMaterialDefaultValue,#N/A
+ClientSearch,https://salesforce-prp.vuitton.biz:11813/ws/WSLV013.webService.v1_0:clientSearch/WSClientSearch_WebServices_clientSearch_Port
+ClientEnquiry,https://salesforce-prp.vuitton.biz:11812/ws/WSLV012.webService.v1_0:clientDetailEnquiry/WSLV012_webService_v1_0_clientDetailEnquiry_Port
+ClientCreationUpdate,https://salesforce-prp.vuitton.biz:11804/ws/WSLV004.webService.v2_0:clientCreationUpdate/WSLV004_webService_v2_0_clientCreationUpdate_Port
+ClientAdvisorEnquiry,https://salesforce-prp.vuitton.biz:11818/ws/WSLV018.webService.v1_0:clientAdvisorEnquiry/WSLV018_webService_v1_0_clientAdvisorEnquiry_Port
+ProductSearch,http://185.75.125.104:10817/ws/WSLV017.webService.v1_0:itemSearch/WSLV017_webService_v1_0_itemSearch_Port
+SalesCreation,https://salesforce-prp.vuitton.biz:11803/ws/WSLV003.webService.v2_0:salesCreation/WSLV003_webService_v2_0_salesCreation_Port
+StoreGetId,http://185.75.125.104:10816/ws/WSLV016.webService.v1_0:storeGetID/WSLV016_webService_v1_0_storeGetID_Port

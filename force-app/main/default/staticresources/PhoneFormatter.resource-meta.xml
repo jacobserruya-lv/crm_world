@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>application/x-zip-compressed</contentType>
+    <description>https://github.com/jackocnr/intl-tel-input
+intl-tel-input-12.1.0. Built from the &apos;build&apos; folder
++ jquery.min.js from https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
++ libphonenumber-8.9.2 (README.txt)</description>
+</StaticResource>

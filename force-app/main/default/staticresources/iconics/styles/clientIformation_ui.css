@@ -1,0 +1,25 @@
+.slds-form-element__label
+{
+    font-weight: 700;
+}
+
+.slds-border_bottom .slds-form-element__static.slds-form-element__label{
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+}
+
+.slds-border_bottom .slds-form-element__static
+{
+    font-weight: 700;
+}
+
+.forceStyle .slds-form .form-element__label, .forceStyle .slds-form .slds-form-element__label 
+{
+    /* overflow-wrap: break-word; */
+    word-wrap: break-word;
+    /* -webkit-hyphens: auto; */
+    width: -webkit-fill-available;
+    /* -ms-hyphens: auto; */
+    hyphens: auto;
+}

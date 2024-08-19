@@ -1,0 +1,162 @@
+{
+    "dseCreationTimestamp": "2022-11-08T09:55:07Z",
+    "dseModificationTimestamp": "2022-12-23T08:24:00Z",
+    "lastName": "Zhuang",
+    "firstName": "John",
+    "lastName2": null,
+    "firstName2": null,
+    "birthDate": null,
+    "title": null,
+    "gender": {
+        "code": "2",
+        "label": "m"
+    },
+    "civility": {
+        "code": "02",
+        "label": "Monsieur"
+    },
+    "nationality": {
+        "code": "CHN",
+        "label": "Chinese"
+    },
+    "clientType": {
+        "code": "02",
+        "label": "Client"
+    },
+    "passportNumbers": null,
+    "fiscalNumbers": null,
+    "sifNumbers": null,
+    "isPep": null,
+    "isOptinToReceiveMarketingEmails": false,
+    "isOptinToReceiveRepairCaseEmails": null,
+    "isOptinToReceiveNewsletterEmails": null,
+    "isOptinToReceiveSms": false,
+    "isOptinToReceiveCalls": false,
+    "isOptinToReceiveMails": false,
+    "socialMediaConsents": null,
+    "creationDate": "2013-08-20T02:34:00Z",
+    "modificationDate": "2021-03-16T14:33:00Z",
+    "channelSubscriptions": [
+        {
+            "channel": {
+                "code": "STO",
+                "label": "Store"
+            },
+            "subscriptionDate": "2013-08-19T00:00:00Z"
+        }
+    ],
+    "residencePostalAddress": {
+        "addressLine1": "天河区兴盛路10-2，1002房",
+        "addressLine2": null,
+        "addressLine3": null,
+        "countryCodeIso": "CHN",
+        "postalCode": "510000",
+        "state": "广东省",
+        "city": "广州市",
+        "stateStatus": 1
+    },
+    "billingPostalAddresses": null,
+    "deliveryPostalAddresses": null,
+    "otherPostalAddresses": null,
+    "accounts": null,
+    "preferredLanguage": null,
+    "interestCenterClientAdvisorPlaces": null,
+    "greyMarketStatus": null,
+    "greyMarketStatusDate": null,
+    "isSignificantClient": true,
+    "hasSharedEmail": null,
+    "hasSharedPhone": null,
+    "isChineseTraveller": "CN",
+    "interestsCalculated": null,
+    "firstTransactionDate": "2013-08-18T00:00:00Z",
+    "lastTransactionDate": "2013-08-18T00:00:00Z",
+    "canBeContactedByMail": false,
+    "canBeContactedByEmail": false,
+    "canBeContactedByPhoneCall": false,
+    "canBeContactedBySms": false,
+    "attachment": {
+        "clientAdvisor": {
+            "worldwideId": "TECHWW",
+            "name": "WW Technical user"
+        },
+        "forcedAttachmentDate": null,
+        "forcedAttachmentStore": "NE6",
+        "forcedAttachmentStoreCountryCodeIso": "CHN"
+    },
+    "lastContactDate": "2013-08-18T00:00:00Z",
+    "historicalTurnOverEuro": "0.000000",
+    "historicalTurnOverUsd": "0.000000",
+    "historicalTurnOverYen": "0.000000",
+    "historicalTurnOverYuan": "0.000000",
+    "segmentation": "No Segmentation",
+    "is50k": false,
+    "is10kytm": true,
+    "is50kytm": true,
+    "hasHardside": false,
+    "auditTrail": {
+        "sourceApplicationCode": null,
+        "touchApplicationCode": null,
+        "touchApplicationLabel": null,
+        "userLogin": null,
+        "userName": null,
+        "clientTimestamp": null,
+        "storeCode": null,
+        "countryCodeIso": null,
+        "clientServiceCenterCode": null,
+        "deviceNumber": null
+    },
+    "identifiers": {
+        "worldwideId": "G001362743",
+        "dreamId": "69953383",
+        "salesforceId": null,
+        "userIdentitySalesforceId": null,
+        "atgId": null,
+        "rmsLocalIds": [
+            {
+                "rmsLocalId": "623015",
+                "countryCodeIso": "CHN"
+            }
+        ],
+        "c360GoldenId": "2c657c0d-6103-4ecc-81d9-1b759caf6d8d"
+    },
+    "isACelebrity": null,
+    "clientAdvisorForcedAttachment": {
+        "clientAdvisor": {
+            "worldwideId": null,
+            "name": null
+        },
+        "forcedAttachmentDate": "2015-11-15T02:17:00Z"
+    },
+    "storeWhereClientWasCreated": null,
+    "storeWhereClientWasLastModified": null,
+    "storeForcedAttachment": {
+        "store": {
+            "code": "",
+            "label": "LV GUANGZHOU TAIKOO HUI",
+            "countryCodeIso": null
+        },
+        "forcedAttachmentDate": "2015-11-15T02:17:00Z"
+    },
+    "emailAddress": {
+        "emailAddress": null
+    },
+    "workPhoneNumber": {
+        "phoneNumber": null,
+        "countryCodeIso": null,
+        "internationalPrefix": null
+    },
+    "homePhoneNumber": {
+        "phoneNumber": null,
+        "countryCodeIso": null,
+        "internationalPrefix": null
+    },
+    "mobilePhoneNumber": {
+        "phoneNumber": "18988831222",
+        "countryCodeIso": null,
+        "internationalPrefix": "+86"
+    },
+    "productIdentificationNumbers": null,
+    "isActiveInSalesForce": null,
+    "isGloballyOptin": null,
+    "canBeReachedGlobally": null
+}

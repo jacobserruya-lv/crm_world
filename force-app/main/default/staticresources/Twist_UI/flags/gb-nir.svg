@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" viewBox="0 0 640 480">
+  <rect width="640" height="480" fill="#fff" fill-rule="evenodd" rx="0" ry="0"/>
+  <rect id="a" width="640" height="96" y="192" fill="#c00" fill-rule="evenodd" rx="0" ry="0"/>
+  <use width="600" height="300" transform="matrix(0 .75 -1 0 560 0)" xlink:href="#a"/>
+  <path fill="#fff" stroke="#161111" stroke-width="1.6" d="M320 357.6l-30.9-64.2-70.9 5.4 40-58.8-40-58.8 71 5.4 30.8-64.1 30.9 64 70.9-5.3-40 58.8 40 58.8-71-5.4z"/>
+</svg>

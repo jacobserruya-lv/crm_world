@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" viewBox="0 0 640 480">
+  <g transform="translate(160) scale(.9375)">
+    <path fill="#198a00" d="M-256 0h768v512h-768z"/>
+    <path fill="#ef7d00" d="M421.9 184H512v328h-90.1z"/>
+    <path d="M331.9 183.8h90v328h-90z"/>
+    <path fill="#de2010" d="M240 184h91.9v328h-92z"/>
+  </g>
+</svg>

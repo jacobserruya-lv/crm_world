@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="15px" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>Star empty</title>
+    <desc>Created with Sketch.</desc>
+    <g id="favoriteFalse" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Catalog-with-tooltip-and-favorite" transform="translate(-326.000000, -477.000000)" stroke="#BEA498" stroke-width="0.5">
+            <path d="M335.928721,482.692396 L340.419315,482.674991 C340.976288,482.674991 341.219964,483.406018 340.750018,483.736721 L337.129694,486.364937 L338.522126,490.611856 C338.69618,491.151423 338.069586,491.603964 337.617045,491.273261 L333.996721,488.62764 L330.376396,491.273261 C329.923856,491.603964 329.314667,491.151423 329.488721,490.611856 L330.881153,486.364937 L327.243423,483.736721 C326.790883,483.406018 327.034559,482.674991 327.591532,482.674991 L332.064721,482.692396 L333.439748,478.428072 C333.613802,477.888505 334.37964,477.888505 334.553694,478.428072 L335.928721,482.692396 Z" id="Star-empty"></path>
+        </g>
+    </g>
+</svg>
