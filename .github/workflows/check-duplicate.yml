@@ -1,0 +1,54 @@
+name: Metadata Duplicate check
+run-name: ${{ github.actor }} is launching | Metadata Duplicate check 🔍
+
+on:
+  workflow_call:  
+    inputs:
+      directories:
+        required: true
+        type: string
+
+jobs:
+  check-duplicates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          clean: true
+          ref: ${{ github.head_ref }}  # This ensures that the workflow checks out the branch or tag that triggered the workflow
+
+      - name: Check for duplicate files
+        run: |
+          directories="${{ inputs.directories }}"  # Access the passed input
+          declare -A file_map
+          duplicates=""
+
+          for dir in $directories; do
+            if [[ -d "$dir" ]]; then
+              while IFS= read -r -d '' file; do
+                filename=$(basename "$file")
+                
+                # Ignore .gitkeep files
+                if [[ "$filename" == ".gitkeep" ]]; then
+                  continue
+                fi
+
+                if [[ ${file_map[$filename]} ]]; then
+                  duplicates+="<==> $file is a duplicate of ${file_map[$filename]}"$'\n' # Output logs for duplicate files
+                else
+                  file_map[$filename]=$file
+                fi
+              done < <(find "$dir" -type f -print0)
+            else
+              echo "Directory does not exist: $dir"
+            fi
+          done
+
+          if [[ -n "$duplicates" ]]; then
+            echo "Duplicate files detected:"
+            echo "$duplicates"
+            exit 1  # Exit with an error code to fail the job
+          else
+            echo "No duplicate files found."
+          fi

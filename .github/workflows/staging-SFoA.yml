@@ -1,0 +1,37 @@
+name: SFoA STAGING
+run-name: ${{ github.actor }} - ${{ github.event_name }} | Salesforce on Alibaba Cloud STAGING 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'staging-cn'
+      - 'staging-common'
+  push:
+    branches:
+      - 'staging-cn'
+      - 'staging-common'
+  workflow_dispatch:
+
+jobs:
+  PPROD_validate_only:
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'STAGING-CN'
+      generate_delta: true
+      validate_only: true
+    secrets:
+       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}  
+
+  PPROD_deploy:
+    if: github.event_name == 'push'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'STAGING-CN'
+      generate_delta: true
+      validate_only: false
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}     

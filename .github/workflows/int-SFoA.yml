@@ -1,0 +1,45 @@
+name: SFoA INT
+run-name: ${{ github.actor }} - ${{ github.event_name }} | Salesforce on Alibaba Cloud INT 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'int-cn'
+      - 'dev-cn'
+      - 'int-common'
+      - 'dev-common'
+  push:
+    branches:
+      - 'int-cn'
+      - 'int-common'
+  workflow_dispatch:
+
+jobs:
+  check-duplicates:
+    uses: './.github/workflows/check-duplicate.yml'
+    with:
+      directories: ${{ vars.DIRECTORIES_CN }}  # Pass the directories variable
+
+  INT_validate_only:
+    needs: check-duplicates  # Ensure this job runs only after the duplicate check is successful.
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-CN'
+      generate_delta: true
+      validate_only: true
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}  
+
+  INT_deploy:
+    if: github.event_name == 'push'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-CN'
+      generate_delta: true
+      validate_only: false
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

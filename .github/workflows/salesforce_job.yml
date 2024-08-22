@@ -1,0 +1,98 @@
+name: Salesforce Job
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      generate_delta:
+        required: true
+        type: boolean
+      validate_only:
+        required: true
+        type: boolean
+    secrets:
+      PRIVATE_KEY:
+        required: true
+        
+  workflow_dispatch:    
+
+jobs:
+  run:
+    runs-on: compose-self-hosted
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - name: Install dependencies
+        run: npm install 
+
+      - name: Install Salesforce CLI
+        run: npm install @salesforce/cli --global
+
+      - name: Authenticate with Salesforce Org
+        run: |  
+           TEMP_KEY_FILE=$(mktemp)
+           echo "${{ secrets.PRIVATE_KEY }}" > "$TEMP_KEY_FILE"
+           sfdx force:auth:jwt:grant --clientid ${{ vars.CONSUMER_KEY }} -f "$TEMP_KEY_FILE" --username ${{ vars.USERNAME}} --instanceurl ${{ vars.INSTANCE_URL}} --setalias ${{ vars.ALIAS }}
+           rm "$TEMP_KEY_FILE"
+
+      - name: Set directories variable based on branch
+        run: |
+
+          TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+
+          if [[ "$TARGET_BRANCH" == *ww ]]; then
+            directories="${{ vars.DIRECTORIES_WW }}"
+          elif [[ "$TARGET_BRANCH" == *cn ]]; then
+            directories="${{ vars.DIRECTORIES_CN }}"
+          elif [[ "$TARGET_BRANCH" == *common ]]; then
+            directories="${{ vars.DIRECTORIES_COMMON }}"
+          else
+            echo "No matching target branch found, using default directories"
+            directories="${{ vars.DEFAULT_DIRECTORIES }}"  # Define this in your repository variables
+          fi
+          echo "directories=$directories" >> $GITHUB_ENV
+      - name: Generate DELTA for validation
+        if: ${{ inputs.generate_delta && inputs.validate_only }}
+        run: | 
+          for dir in ${{ env.directories }}; do
+            node sf-delta/index.js --projectPath $dir --baseBranch ${{ vars.TARGET_DIFF }}..HEAD
+          done
+
+      - name: Generate DELTA for deployment
+        if: ${{ inputs.generate_delta && !inputs.validate_only }}
+        run: | 
+          for dir in ${{ env.directories }}; do
+            node sf-delta/index.js --projectPath $dir --baseBranch ${{ vars.TARGET_DIFF }}..HEAD^
+          done
+
+      - name: Validate to Salesforce (Check Only)
+        if: ${{ inputs.validate_only }}
+        run: |
+          if [ -f "delta/main/default/package.xml" ]; then
+            if [[ "${{ inputs.environment }}" == *"STAGING"* ]]; then
+              sfdx force:source:deploy --sourcepath delta/main/default --checkonly --targetusername ${{ vars.ALIAS }} --verbose --testlevel RunAllTestsInOrg
+            else
+              sfdx force:source:deploy --sourcepath delta/main/default --checkonly --targetusername ${{ vars.ALIAS }} --verbose
+            fi
+          else
+            echo "The DELTA does not exist. Nothing to validate"
+          fi
+
+      - name: Deploy to Salesforce
+        if: ${{ !inputs.validate_only }}
+        run: |
+          if [ -f "delta/main/default/package.xml" ]; then
+            sfdx force:source:deploy --sourcepath delta/main/default --targetusername ${{ vars.ALIAS }} --verbose
+          else
+ 

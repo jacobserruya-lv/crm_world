@@ -1,0 +1,160 @@
+name: Metadata Orchestration
+run-name: ${{ github.actor }} is launching | Metadata Orchestration ⚖️
+
+on:
+  push:
+    branches:
+     - 'dev-cn'
+     - 'dev-ww'
+  workflow_dispatch:    
+
+jobs:
+  check-duplicates:
+    uses: './.github/workflows/check-duplicate.yml'
+    with:
+      directories: ${{ github.ref == 'refs/heads/dev-ww' && vars.DIRECTORIES_WW || github.ref == 'refs/heads/dev-cn' && vars.DIRECTORIES_CN }}  # Pass the correct directories variable
+
+  update-branches:
+    runs-on: ubuntu-latest
+    needs: check-duplicates  # Ensure this job runs only after the duplicate check is successful.
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: LouisVuitton/crm_world
+          token: ${{ secrets.PAT_SF }}
+          clean: true
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'Metadata orchestrator'
+          git config --global user.email 'Metadata-orchestrator@github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_SF }}@github.com/LouisVuitton/crm_world.git
+
+      - name: Fetch all branches
+        run: |
+          git fetch --all
+
+      - name: Get modified files from the last commit
+        id: get_modified_files
+        run: |
+          CURRENT_BRANCH="${{ github.ref }}"
+          BASE_BRANCH=$(git merge-base origin/dev-common HEAD)
+          files=$(git diff --name-only $BASE_BRANCH..HEAD)
+
+          if [[ "$CURRENT_BRANCH" == "refs/heads/dev-ww" ]]; then
+            directories="${{ vars.DIRECTORIES_WW }}"
+          elif [[ "$CURRENT_BRANCH" == "refs/heads/dev-cn" ]]; then
+            directories="${{ vars.DIRECTORIES_CN }}"
+          else
+            echo "Branch not recognized, exiting."
+            exit 1
+          fi
+
+          filtered_files=""
+
+          while IFS= read -r file; do
+            for dir in $directories; do
+              if [[ $file == $dir/* ]]; then
+                echo "Adding file from $dir: $file"
+                filtered_files+="$file"$'\n'
+                break  # Exit the loop once a matching directory is found
+              elif [[ $file == force-app/* ]]; then
+                echo "Ignoring file from force-app: $file"
+              fi
+            done
+          done <<< "$files"
+
+          echo "$filtered_files" > files_to_move.txt
+          echo "Filtered modified files: $filtered_files"
+
+      - name: Checkout COMMON branch
+        run: |
+          git fetch origin dev-common
+          git checkout dev-common
+
+      - name: Log files to be removed and backup
+        run: |
+          touch deleted_files.txt
+          mkdir -p backup
+          
+          # Set the directories variable based on the branch name
+          if [[ "${{ github.ref }}" == "refs/heads/dev-ww" ]]; then
+            directories="${{ vars.DIRECTORIES_WW }}"
+          elif [[ "${{ github.ref }}" == "refs/heads/dev-cn" ]]; then
+            directories="${{ vars.DIRECTORIES_CN }}"
+          fi
+
+          while IFS= read -r file; do
+            original_file_path=""
+            found=false
+            
+            # Check each directory to find the original file path
+            for dir in $directories; do
+              # Check if the directory exists before using it with find
+              if [[ -d "$dir" ]]; then
+                # Search for the file in the current directory
+                found_file=$(find "$dir" -name "$(basename "$file")" -print -quit)
+                if [[ -n "$found_file" ]]; then
+                  original_file_path="$found_file"
+                  found=true
+                  break
+                fi
+              else
+                echo "Directory does not exist: $dir"
+              fi
+            done
+            
+            echo "Original path: $original_file_path"
+            if [[ "$found" == true && -f "$original_file_path" ]]; then
+              # Create backup and remove the original file
+              mkdir -p "$(dirname "backup/$original_file_path")"
+              cp "$original_file_path" "backup/$original_file_path"
+              echo "Removing file: $original_file_path"
+              git rm "$original_file_path"
+              echo "$original_file_path" >> deleted_files.txt
+            else
+              echo "File not found: $file"
+            fi
+          done < files_to_move.txt
+
+          git commit -m "Remove files moved to WW & SFoA" || echo "No changes to commit"
+          git push origin dev-common
+
+      - name: Add Files to Alternate Branch
+        run: |
+          TARGET_BRANCH=${{ github.ref }}
+          if [[ "$TARGET_BRANCH" == "refs/heads/dev-ww" ]]; then
+            ALTERNATE_BRANCH="dev-cn"
+          else
+            ALTERNATE_BRANCH="dev-ww"
+          fi
+
+          git fetch origin $ALTERNATE_BRANCH
+          git checkout $ALTERNATE_BRANCH
+
+           if [[ "${{ github.ref }}" == "dev-ww" ]]; then
+            directories="${{ vars.DIRECTORIES_WW }}"
+          elif [[ "${{ github.ref }}" == "dev-cn" ]]; then
+            directories="${{ vars.DIRECTORIES_CN }}"
+          else
+            echo "No matching branch found, using default directories"
+          fi
+        
+          default_dir="force-app"
+
+          while IFS= read -r file; do
+            file_added=false
+            
+            # Always add files to force-app
+            target_file="${default_dir}/${file#*/}"
+            echo "Adding file to default directory: $target_file"
+            mkdir -p "$(dirname "$target_file")"
+            cp "backup/$file" "$target_file"
+            git add "$target_file"
+            
+          done < deleted_files.txt
+
+          git commit -m "Add files moved from pipeline-COM" || echo "No changes to commit"
+          git push origin $ALTERNATE_BRANCH

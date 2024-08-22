@@ -1,0 +1,31 @@
+name: SFoA DEV
+run-name: ${{ github.actor }} - ${{ github.event_name }} | Salesforce on Alibaba Cloud DEV 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'DEV-v1'
+  push:
+    branches:
+      - 'DEV-v1'
+  workflow_dispatch:
+
+jobs:
+  check-duplicates:
+    uses: './.github/workflows/check-duplicate.yml'
+    with:
+      directories: ${{ vars.DIRECTORIES }}  # Pass the directories variable
+      
+  DEV1_validate_only:
+    needs: check-duplicates  # Ensure this job runs only after the duplicate check is successful.
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'DEV'
+      generate_delta: true
+      validate_only: true
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
