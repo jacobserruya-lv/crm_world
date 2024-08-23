@@ -34,6 +34,11 @@ jobs:
                   continue
                 fi
 
+                # Skip files located in StaticRessources folder
+                if [[ "$file" == */staticresources/* ]]; then
+                  continue
+                fi
+                
                 if [[ ${file_map[$filename]} ]]; then
                   duplicates+="<==> $file is a duplicate of ${file_map[$filename]}"$'\n' # Output logs for duplicate files
                 else

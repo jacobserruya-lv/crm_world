@@ -4,19 +4,14 @@ run-name: ${{ github.actor }} is launching | Metadata Orchestration ⚖️
 on:
   push:
     branches:
-     - 'dev-cn'
-     - 'dev-ww'
+      - 'dev-cn'
+      - 'dev-ww'
   workflow_dispatch:    
 
 jobs:
-  check-duplicates:
-    uses: './.github/workflows/check-duplicate.yml'
-    with:
-      directories: ${{ github.ref == 'refs/heads/dev-ww' && vars.DIRECTORIES_WW || github.ref == 'refs/heads/dev-cn' && vars.DIRECTORIES_CN }}  # Pass the correct directories variable
 
   update-branches:
     runs-on: ubuntu-latest
-    needs: check-duplicates  # Ensure this job runs only after the duplicate check is successful.
 
     steps:
       - name: Checkout code
@@ -40,9 +35,18 @@ jobs:
         id: get_modified_files
         run: |
           CURRENT_BRANCH="${{ github.ref }}"
-          BASE_BRANCH=$(git merge-base origin/dev-common HEAD)
-          files=$(git diff --name-only $BASE_BRANCH..HEAD)
+          # Ensure the correct history depth is available
+          git fetch --depth=2
 
+          # Check if HEAD^ exists and get the list of modified files
+          if git rev-parse HEAD^ > /dev/null 2>&1; then
+            files=$(git diff --name-only HEAD^..HEAD)
+          else
+            echo "Previous commit (HEAD^) not found, using HEAD only."
+            files=$(git diff-tree --no-commit-id --name-only -r HEAD)
+          fi
+      
+          # Set the directories variable based on the current branch
           if [[ "$CURRENT_BRANCH" == "refs/heads/dev-ww" ]]; then
             directories="${{ vars.DIRECTORIES_WW }}"
           elif [[ "$CURRENT_BRANCH" == "refs/heads/dev-cn" ]]; then
@@ -51,9 +55,9 @@ jobs:
             echo "Branch not recognized, exiting."
             exit 1
           fi
-
+      
+          # Filter files to include only those in the specified directories and not in force-app
           filtered_files=""
-
           while IFS= read -r file; do
             for dir in $directories; do
               if [[ $file == $dir/* ]]; then
@@ -65,11 +69,12 @@ jobs:
               fi
             done
           done <<< "$files"
-
+      
+          # Save the filtered files list
           echo "$filtered_files" > files_to_move.txt
           echo "Filtered modified files: $filtered_files"
 
-      - name: Checkout COMMON branch
+      - name: Check out and update dev-common branch
         run: |
           git fetch origin dev-common
           git checkout dev-common
@@ -134,7 +139,7 @@ jobs:
           git fetch origin $ALTERNATE_BRANCH
           git checkout $ALTERNATE_BRANCH
 
-           if [[ "${{ github.ref }}" == "dev-ww" ]]; then
+          if [[ "${{ github.ref }}" == "dev-ww" ]]; then
             directories="${{ vars.DIRECTORIES_WW }}"
           elif [[ "${{ github.ref }}" == "dev-cn" ]]; then
             directories="${{ vars.DIRECTORIES_CN }}"
