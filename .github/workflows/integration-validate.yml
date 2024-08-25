@@ -32,7 +32,7 @@ jobs:
 
   INT_validate_only_ww:
     needs: [check-duplicates]
-    if: needs.check-duplicates.outputs.skip == 'false' && (github.head_ref == 'int-ww' || github.head_ref == 'dev-ww' || github.head_ref == 'int-common' || github.head_ref == 'dev-common')
+    if: (github.base_ref  == 'int-ww' || github.base_ref  == 'dev-ww' || github.head_ref == 'int-common' || github.base_ref  == 'dev-common')
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-WW'
@@ -43,11 +43,11 @@ jobs:
 
   INT_validate_only_cn:
     needs: [check-duplicates]
-    if: needs.check-duplicates.outputs.skip == 'false' && (github.head_ref == 'int-cn' || github.head_ref == 'dev-cn' || github.head_ref == 'int-common' || github.head_ref == 'dev-common')
+    if: (github.base_ref  == 'int-cn' || github.base_ref  == 'dev-cn' || github.base_ref  == 'int-common' || github.base_ref  == 'dev-common')
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-CN'
       generate_delta: true
       validate_only: true
     secrets:
-      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }} 

@@ -14,7 +14,7 @@ on:
 
 jobs:
   PPROD_validate_only_ww:
-    if: github.head_ref == 'staging-ww' || github.head_ref == 'staging-common'
+    if: github.base_ref == 'staging-ww' || github.base_ref == 'staging-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'STAGING-WW'
@@ -24,7 +24,7 @@ jobs:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
   PPROD_validate_only_cn:
-    if: github.head_ref == 'staging-cn' || github.head_ref == 'staging-common'
+    if: github.base_ref == 'staging-cn' || github.base_ref == 'staging-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'STAGING-CN'

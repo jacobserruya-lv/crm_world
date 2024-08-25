@@ -14,7 +14,7 @@ on:
 
 jobs:
   PROD_validate_only_ww:
-    if: github.head_ref == 'prod-ww' || github.head_ref == 'prod-common'
+    if: github.base_ref == 'prod-ww' || github.base_ref == 'prod-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'PROD-WW'
@@ -24,7 +24,7 @@ jobs:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
   PROD_validate_only_cn:
-    if: github.head_ref == 'prod-cn' || github.head_ref == 'prod-common'
+    if: github.base_ref == 'prod-cn' || github.base_ref == 'prod-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'PROD-CN'
