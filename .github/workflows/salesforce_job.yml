@@ -16,7 +16,6 @@ on:
       PRIVATE_KEY:
         required: true
         
-  workflow_dispatch:    
 
 jobs:
   run:

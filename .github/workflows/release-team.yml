@@ -1,5 +1,5 @@
 name: Release Team
-run-name: ${{ github.actor }} is launching | Release Team 🚚📦
+run-name: ${{ github.actor }} is launching | Release branch ${{ github.event.inputs.team }} | [${{ github.event.inputs.team }} to ${{ github.event.inputs.team }}] 🚚📦
 
 on:
   workflow_dispatch:
