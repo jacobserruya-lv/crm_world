@@ -1,0 +1,75 @@
+.section__container {
+    font-size: 12px;
+}
+
+.modal__container {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
+
+.slds-modal__container {
+    padding-bottom: 0;
+}
+
+.ifram-design {
+    background-color: white;
+}
+
+.modal__container--header {
+    background-color: white;
+    position: relative;
+}
+
+.modal__container--header .slds-button_icon.slds-modal__close {
+    right: 4px;
+    position: absolute;
+    bottom: 0;
+    color: darkgray;
+}
+
+.custom-persoButton {
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+    color: var(--c-lvdsEternity, #19110b);
+    justify-content: center;
+    display: flex;
+}
+
+.persoBtn {
+    height: 40px;
+    padding: 8px 12px;
+    background-color: #fff;
+    box-shadow: var(--c-lvdsShadow1, 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.08));
+    border-radius: 80px;
+    font-size: 14px;
+    margin-left: 0.75rem;
+    align-items: center;
+}
+
+.persoBtn__staticPage {
+    bottom: 2.25px;
+    background-color: unset;
+    font-size: 13px;
+}
+
+.imgIcon:active {
+
+    transform: scale(0.95);
+}
+
+.imgIcon {
+    height: 13px;
+    padding-right: 3px;
+}
+
+.custom-persoButton:hover {
+    cursor: pointer;
+
+}
+
+.custom-persoButton:active {
+    transform: scale(0.95);
+}

@@ -1,9 +1,0 @@
-<aura:component implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName" controller="SO_OpportunitySPAController">
-
-    <aura:attribute name="orderSettings" type="OrderSettings__c" /> 
-    
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-
-    <!-- <lightning:button variant="brand" label="New" onclick="{!c.doInit}" /> -->
-    <h1>{!$Label.c.LV_SO_Reclick_Order_Tab}</h1>
-</aura:component>

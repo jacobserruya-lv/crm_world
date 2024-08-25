@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Order_Or_OrderShipping</fullName>
-    <active>true</active>
-    <description>Order__c and OrderShipping__c can&apos;t be setted both</description>
-    <errorConditionFormula>AND( ISNULL(Order__c) ,  ISNULL(Order_Shipping__c) )</errorConditionFormula>
-    <errorMessage>You must fill in either &quot;Order__c&quot; or &quot;Order_Shipping__c&quot; but not both.</errorMessage>
-</ValidationRule>

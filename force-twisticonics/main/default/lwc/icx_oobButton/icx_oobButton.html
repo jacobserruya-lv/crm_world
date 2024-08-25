@@ -1,0 +1,13 @@
+<template>
+  <template if:true={isButtonVisible}>
+    <div class={btnClass} >
+        <div class=" slds-is-relative  " >
+            <lightning-spinner if:true={isFetching} alternative-text="Loading" size="small"></lightning-spinner>
+        <div class="oob_btn" onclick={OOB_onclick}>
+          <p class="oob_text"> {label} </p>
+        </div>
+    </div>
+        
+      </div>   
+    </template>
+</template>

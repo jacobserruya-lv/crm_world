@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <deploymentStatus>Deployed</deploymentStatus>
-    <description>Convertlab publisher for change or creation of chinese User and Store</description>
-    <eventType>HighVolume</eventType>
-    <label>Convertlab_Publisher</label>
-    <pluralLabel>Convertlab_Publishers</pluralLabel>
-    <publishBehavior>PublishAfterCommit</publishBehavior>
-</CustomObject>

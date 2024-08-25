@@ -1,0 +1,84 @@
+.THIS .pc3-multi-picklist__btn {
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+    font: t(lvdsOverlineMedium);
+    font-size: 1rem;
+    padding: 0.75rem 1.125rem;
+    justify-content: space-between;
+    color: t(lvdsEternity);
+    border-color: #eae8e4;
+}
+.THIS.pc3-multi-picklist_empty .pc3-multi-picklist__btn {
+    color: #9b9793;
+}
+.THIS .pc3-multi-picklist__btn .slds-button__icon {
+    vertical-align: baseline;
+    color: #9b9793;
+}
+.THIS .pc3-multi-picklist__title {
+    margin-bottom: 0.75rem;
+    line-height: 1;
+}
+.THIS .pc3-multi-picklist__dropdown-wrap {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+}
+.THIS.pc3-multi-picklist .slds-dropdown {
+    padding: 0;
+    margin: 0.5rem 0;
+    border: 1px solid t(lvdsWestarGrey70);
+    box-shadow: t(lvdsShadow3);
+    border-radius: 0;
+    z-index: 10;
+    position: relative;
+}
+.THIS.slds-picklist.slds-is-open .slds-dropdown {
+    width: auto;
+    max-width: 100%;
+}
+.THIS .pc3-multi-picklist__search {
+    padding: 0.625rem 1.125rem;
+}
+.THIS .pc3-multi-picklist__search .slds-input {
+    background: t(lvdsWestarGrey30);
+    border-radius: 1rem;
+    font-size: 1rem;
+    border: none;
+}
+.THIS .pc3-multi-picklist__select-all {
+    padding: 0.625rem 1.125rem;
+    display: flex;
+    justify-content: space-between;
+}
+.THIS .pc3-multi-picklist__select-all .slds-button {
+    color: t(lvdsEternity);
+    text-transform: uppercase;
+    font: t(lvdsOverlineMedium);
+    font-weight: 600;
+}
+.THIS .pc3-multi-picklist__select-all .slds-button:disabled {
+    color: #9b9793;
+}
+.THIS .pc3-multi-picklist__item {
+    font: t(lvdsListItemLReg);
+}
+.THIS .pc3-multi-picklist__item > a {
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+    justify-content: flex-start;
+}
+.THIS .pc3-multi-picklist__item .slds-icon_container {
+    margin-right: 0.5rem;
+}
+.THIS .pc3-multi-picklist__item:not(.pc3-multi-picklist__item_selected) .slds-icon_container {
+    color: #d0cfce;
+}
+.THIS .pc3-multi-picklist__count-summary {
+    background: t(lvdsWestarGrey30);
+    color: #595552;
+    font: t(lvdsListItemLMed);
+    padding: 1rem 2rem;
+    text-align: center;
+}

@@ -1,4 +1,0 @@
-<apex:page contentType="text/plain">
-User-agent: * # applies to all robots
-Disallow: / # disallow all
-</apex:page>

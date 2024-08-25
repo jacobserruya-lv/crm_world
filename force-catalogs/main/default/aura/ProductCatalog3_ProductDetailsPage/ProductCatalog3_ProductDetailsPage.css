@@ -1,0 +1,16 @@
+.THIS {
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+    background: white;
+}
+
+.THIS .pc3-details-page__section {
+    display: flex;
+    flex-direction: column;
+    width: 37.5%;
+}
+.THIS .pc3-details-page__main {
+    width: 62.5%;
+    border-right: 1px solid t(lvBrandLight);
+}

@@ -1,0 +1,50 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="Ctrl_ProductCatalog"
+    access="global">
+    <aura:attribute name="favorite" default="false" type="Boolean" />
+    <aura:attribute name="myFavorites" type="List" default="[]" />
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="statusText" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.myFavorites}" action="{!c.isFavorite}" />
+
+    <aura:registerEvent name="productCatalogUpdateFavoriteList" type="c:ProductCatalogUpdateFavoriteListEvent" />
+    
+
+    <div class="{!'pc3-search-result-item' + (v.favorite ? ' pc3-search-result-item_favorite' : '')}">
+        <div class="pc3-search-result-item__carousel-wrap">
+            <div class="pc3-search-result-item__badges">
+                <aura:if isTrue="{!and(v.product.isPersoProduct, empty(v.statusText)) }">
+                    <div class="pc3-product-badge pc3-product-badge_dot-form pc3-product-badge_type_now-yours"
+                    title="Now Yours"
+                    >Now Yours</div>
+                </aura:if>
+                <aura:if isTrue="{!not(empty(v.statusText))}">
+                    <div class="{!'pc3-product-badge pc3-product-badge_dot-form pc3-product-badge_type_'+v.product.status}"
+                    title="{!empty(v.statusText) ? v.product.status : v.statusText}"
+                    >{!empty(v.statusText) ? v.product.status : v.statusText}</div>
+                </aura:if>
+            </div>
+
+            <c:ProductCatalog3_SearchResultItemCarousel product="{!v.product}" slides="{!v.product.images}" slideWidth="220" href="{!'#'+v.product.id}" />
+        </div>
+        <div class="pc3-search-result-item__summary">
+            <div class="pc3-search-result-item__name" title="{!v.product.name}">{!v.product.name}</div>
+            <div class="pc3-search-result-item__sku">{!v.product.sku}</div>
+            <lightning:button class="pc3-search-result-item__favorite-btn" variant="bare"
+                onclick="{! c.handleFavoriteClick }">
+                <aura:if isTrue="{!v.favorite}">
+                    <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#star-filled'}"
+                        class="pc3-search-result-item__favorite-icon"
+                        size="x-small" alternativeText="Remove from Favorites" />
+                    <aura:set attribute="else">
+                        <lightning:icon src="{!$Resource.ProductCatalog3 + '/images/sprites.svg#star-empty'}"
+                            class="pc3-search-result-item__favorite-icon" size="x-small"
+                            alternativeText="Add to Favorites" />
+                    </aura:set>
+                </aura:if>
+            </lightning:button>
+
+        </div>
+    </div>
+</aura:component>

@@ -32,7 +32,7 @@ jobs:
 
   INT_validate_only_ww:
     needs: [check-duplicates]
-    if: (github.base_ref  == 'int-ww' || github.base_ref  == 'dev-ww' || github.head_ref == 'int-common' || github.base_ref  == 'dev-common')
+    if: (github.base_ref  == 'int-ww' || github.base_ref  == 'dev-ww' || github.base_ref == 'int-common' || github.base_ref  == 'dev-common')
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-WW'

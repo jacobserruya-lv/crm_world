@@ -1,8 +1,0 @@
-<apex:page standardController="PreReservation__c" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
-	<apex:form >
-
-        <c:ArtycapPurchaseProductComponent record="{! PreReservation__c.Client__c }"/>
-		
-	
-    </apex:form>	
-</apex:page>

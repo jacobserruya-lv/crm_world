@@ -1,0 +1,30 @@
+.oob_btn {
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #299e46;
+    border-radius: 5px;
+    border-color: #299e46;
+    padding: 2%;
+    cursor: pointer;
+    align-items: center;
+ 
+
+
+}
+
+
+
+.oob_container
+{
+    width: 100%;
+    max-width: 200px;
+
+}
+
+
+.oob_text {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+}

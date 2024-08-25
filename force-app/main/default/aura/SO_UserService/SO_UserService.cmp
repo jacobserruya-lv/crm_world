@@ -1,5 +1,0 @@
-<aura:component controller="SO_UserServiceController">
-	<aura:method name="toto" action="">
-    	
-    </aura:method>
-</aura:component>

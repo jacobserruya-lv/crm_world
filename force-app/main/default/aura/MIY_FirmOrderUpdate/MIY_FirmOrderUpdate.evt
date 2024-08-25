@@ -1,5 +1,0 @@
-<aura:event type="APPLICATION" description="Event template">
-    <aura:attribute name="objectId" type="String"/>
-    <aura:attribute name="oldData" type="Object" />
-    <aura:attribute name="newData" type="Object" />
-</aura:event>

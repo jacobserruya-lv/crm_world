@@ -1,0 +1,72 @@
+<aura:component controller="Ctrl_ProductCatalog" access="global">
+    <aura:attribute name="searchTerm" type="String" />
+    <aura:attribute name="options" type="List" default="[
+        {'label': '34', 'value': '34'},
+        {'label': '35', 'value': '35'},
+        {'label': '36', 'value': '36'},
+        {'label': '37', 'value': '37'},
+        {'label': '38', 'value': '38'},
+        {'label': '39', 'value': '39'},
+        {'label': '40', 'value': '40'},
+        {'label': '41', 'value': '41'}
+    ]" />
+
+    <aura:attribute name="valueShoes" type="List" default="38" />
+    <aura:attribute name="valueRtw" type="List" />
+    <aura:attribute name="valueBelts" type="List" />
+    <aura:attribute name="valueRing" type="List" />
+    <aura:attribute name="valueBracelets" type="List" />
+
+    <aura:attribute name="currentPage" type="Integer" default="1" />
+    <aura:attribute name="countPerPage" type="Integer" default="10" />
+
+    <aura:attribute name="selectedStores" type="List" />
+    <aura:attribute name="selectedZone" type="List" />
+    <aura:attribute name="selectedWarehouses" type="List" />
+    <aura:attribute name="digitalStore" type="String" />
+    <aura:attribute name="selectedProduct" type="Object" />
+    <aura:attribute name="totalResult" type="Integer" />
+    <aura:attribute name="timer" type="Integer" />
+    <aura:attribute name="isLoading" type="Boolean" />
+    <aura:attribute name="productsListSF" type="List" />
+    <aura:attribute name="productsSkusSearch" type="List" />
+    <aura:attribute name="page" type="integer" />
+    <aura:attribute name="pages" type="integer" />
+    <aura:attribute name="myFavorites" type="List" default="[]" />
+    <aura:attribute name="productsMap" type="Map" />
+
+    <aura:handler event="c:ProductCatalog3_PaginationCountPerPageEvent" action="{!c.updatePerPageAction}" />
+    <aura:handler event="c:ProductCatalog3_PaginationChangeCurrentPageEvent" action="{!c.updatePageNumber}" />
+    <aura:handler event="c:ProductCatalogUpdateListStores" action="{!c.updateSelectedStores}" />
+    <aura:handler name="change" value="{!v.productsSkusSearch}" action="{!c.onDataReady}" />
+    <!-- <aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChanged}" /> -->
+
+    <div class="pc3-search-results">
+        <div class="pc3-search-results__info-bar">
+            <p>{!v.selectedStores.length} Stores Selected</p>
+        </div>
+        <aura:if isTrue="{!v.isLoading}">
+            <div class="slds-spinner_container">
+                <lightning:spinner variant="brand" size="large" alternativeText='Loading' />
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!not(v.isLoading)}">
+            <aura:if isTrue="{!not(empty(v.searchTerm))}">
+                <div class="pc3-search-results__header">
+                    <div class="pc3-search-results__title-info">
+                        <span class="pc3-search-results__search-term">{!v.searchTerm}</span>
+                        <span class="pc3-search-results__count">({!v.totalResult} results)</span>
+                    </div>
+                </div>
+                <aura:if isTrue="{!v.totalResult > 0}">
+                    <div class="pc3-search-results__results-grid">
+                        <aura:iteration items="{!v.productsListSF}" var="product" indexVar="sku">
+                            <c:ProductCatalog3_SearchResultItem product="{!product}" myFavorites="{!v.myFavorites}" />
+                        </aura:iteration>
+                    </div>
+                </aura:if>
+            </aura:if>
+        </aura:if>
+    </div>
+</aura:component>

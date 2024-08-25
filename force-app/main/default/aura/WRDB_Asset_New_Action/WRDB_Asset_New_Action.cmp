@@ -1,4 +1,0 @@
-<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,lightning:actionOverride" access="global" >
- 
-    <c:wrdb_create_asset>  </c:wrdb_create_asset>
-</aura:component>

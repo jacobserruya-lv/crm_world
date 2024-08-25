@@ -1,4 +1,0 @@
-<aura:event type="APPLICATION" description="Event template">
-	<aura:attribute name="tabTo" type="String"/>
-	<aura:attribute name="action" type="String"/>
-</aura:event>

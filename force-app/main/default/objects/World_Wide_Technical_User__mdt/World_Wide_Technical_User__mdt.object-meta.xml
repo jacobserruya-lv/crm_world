@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>World - Wide Technical User is used by the MyCC flow to define the technical user corresponding to the customer&apos;s country</description>
-    <label>World - Wide Technical User</label>
-    <pluralLabel>World - Wide Technical User</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>

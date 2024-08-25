@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Content</fullName>
-    <active>true</active>
-    <compactLayoutAssignment>Variation_Compact_Layout</compactLayoutAssignment>
-    <description>for Exclusive Content</description>
-    <label>Content</label>
-</RecordType>

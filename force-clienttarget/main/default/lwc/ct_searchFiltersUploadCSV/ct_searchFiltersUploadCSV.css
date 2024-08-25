@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "LouisVuitton-Regular";
+  src: url(@salesforce/resourceURL/fonts/LOUISVUITTON-REGULAR.OTF)
+    format("opentype");
+}
+
+@font-face {
+  font-family: "LouisVuitton-Light";
+  src: url(@salesforce/resourceURL/LOUISVUITTON-LIGHT.OTF) format("opentype");
+}
+
+lightning-file-upload {
+  top: -5pt;
+  position: relative;
+}
+.upload-dream-id-text-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.upload-dream-id-file {
+  display: flex;
+  justify-content: flex-end;
+  width: fit-content;
+  padding-left: 0;
+  margin-left: auto;
+}
+.upload-dream-id-wrapper {
+  margin-top: 1.3rem;
+  margin-bottom: 0.7rem;
+}
+.upload-dream-id-background {
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 10%);
+  background-color: #fbfbfb;
+}
+.upload-dream-id-title, .upload-dream-id-sub-title {
+  width: max-content;
+  height: 25px;
+  font-family: LouisVuitton-Regular;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: center;
+  color: #191009;
+}
+.upload-dream-id-sub-title {
+  font-size: 16px;
+  color: #787673;
+}

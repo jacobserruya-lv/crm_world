@@ -1,3 +1,0 @@
-<aura:component implements="lightningsnapin:prechatUI">
-  <c:ICX_LiveAgentPreChat country="INDEN"></c:ICX_LiveAgentPreChat>
-</aura:component>

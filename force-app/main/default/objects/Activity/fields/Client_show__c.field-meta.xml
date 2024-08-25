@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Client_show__c</fullName>
-    <defaultValue>false</defaultValue>
-    <description>To know if client was present during the appointment or not</description>
-    <externalId>false</externalId>
-    <label>Client show</label>
-    <type>Checkbox</type>
-</CustomField>

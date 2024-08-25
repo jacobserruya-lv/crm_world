@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>EndDateTimeValidity</fullName>
-    <active>true</active>
-    <description>StartDateTime &lt; endDateTime</description>
-    <errorConditionFormula>EndDateTime__c &lt;= StartDateTime__c</errorConditionFormula>
-    <errorDisplayField>EndDateTime__c</errorDisplayField>
-    <errorMessage>EndDateTime__c cannot be smaller than StartDateTime__c</errorMessage>
-</ValidationRule>

@@ -1,7 +1,0 @@
-<aura:event type="APPLICATION" description="Event template" >
-    <aura:attribute name="productVariations" type="Object" description="Product Variations Lists" />
-	<aura:attribute name="product" type="Object" description="Product" />
-	<aura:attribute name="productClicked" type="Boolean" description="If event came from the list" />
-	<aura:attribute name="selectedStores" type="List" description="Stores to get currency" />
-    <aura:attribute name="productVariationsStock" type="List" />
-</aura:event>

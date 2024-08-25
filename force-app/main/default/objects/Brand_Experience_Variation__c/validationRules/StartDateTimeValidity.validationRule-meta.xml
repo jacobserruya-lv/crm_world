@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>StartDateTimeValidity</fullName>
-    <active>true</active>
-    <description>previewDateTime =&lt; startDateTime &lt; endDateTime</description>
-    <errorConditionFormula>StartDateTime__c &gt;= EndDateTime__c</errorConditionFormula>
-    <errorDisplayField>StartDateTime__c</errorDisplayField>
-    <errorMessage>StartDateTime__c must be earlier than EndDateTime__c</errorMessage>
-</ValidationRule>

@@ -1,0 +1,9 @@
+<aura:event type="APPLICATION" description="Event template" >
+	<aura:attribute name="searchKey" type="String" />
+	<aura:attribute name="selectedStores" type="List" />
+	<aura:attribute name="digitalStore" type="String" />
+    <aura:attribute name="selectedWarehouses" type="List" />
+	<aura:attribute name="advencedSearch" type="Boolean" />
+	<aura:attribute name="selectedZone" type="List" />
+	<aura:attribute name="userStores" type="Object" />
+</aura:event>

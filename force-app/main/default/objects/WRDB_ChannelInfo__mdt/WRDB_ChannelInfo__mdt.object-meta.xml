@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>WRDB_ChannelInfo</label>
-    <pluralLabel>WRDB_ChannelInfos</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>

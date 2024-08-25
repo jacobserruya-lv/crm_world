@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Email Setting Configurator Setting</label>
-    <pluralLabel>Email Settings Configurator</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>

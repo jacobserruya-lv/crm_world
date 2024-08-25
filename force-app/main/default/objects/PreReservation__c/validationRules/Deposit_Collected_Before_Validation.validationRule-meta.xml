@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Deposit_Collected_Before_Validation</fullName>
-    <active>true</active>
-    <errorConditionFormula>ISCHANGED(Deposit_collected__c) &amp;&amp; ISBLANK( Serial_Number2__c )</errorConditionFormula>
-    <errorMessage>The pre-reservation should be validated to be finalised</errorMessage>
-</ValidationRule>

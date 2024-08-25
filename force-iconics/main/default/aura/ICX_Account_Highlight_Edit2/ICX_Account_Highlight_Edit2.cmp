@@ -1,0 +1,281 @@
+<aura:component controller="ICX_Account_Highlight">
+
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="simpleAccount" type="Object" />
+    <aura:attribute name="accountError" type="String" />
+    <aura:attribute name="account" type="Object" />
+    <aura:attribute name="salutationOpts" type="List" />
+    <aura:attribute name="genderOpts" type="List" />
+    <aura:attribute name="nationalityOpts" type="List" />
+    <aura:attribute name="languageOpts" type="List" />
+    <aura:attribute name="segmentationOpts" type="List" />
+    <aura:attribute name="typologyOpts" type="List" />
+    <aura:attribute name="phoneCountryCodeOpts" type="List" />
+    <aura:attribute name="countryCodeOpts" type="List" />
+    <aura:attribute name="regionList" type="List" />
+    <aura:attribute name="show" type="boolean" default="false" />
+    <aura:attribute name="province" type="List" />
+    <aura:attribute name="defaultNationality" type="Object" />
+
+
+    <aura:attribute name="taskRecordId" type="Id"
+        description="Get the id of the Task record of the current detail page" />
+    <aura:attribute name="taskPhoneNumber" type="String"
+        description="For Task page layout, if the call is not linked to a client, pre-defined the phone value from the Task record" />
+    <aura:attribute name="suppliedEmail" type="String"
+        description="For Case page layout, if the request is not linked to a client, pre-defined the email value from the Case record" />
+
+    <aura:attribute name="disabled" type="Boolean" default="false" />
+    <aura:method name="save" action="{!c.save}">
+        <aura:attribute name="callback" type="function" />
+    </aura:method>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="phoneEvent" event="c:Account_PhoneFormatterEvent" action="{!c.phoneChanged}" />
+    <aura:registerEvent name="cmpEvent" type="c:ICX_Account_Highlight_Event" />
+    <aura:handler name="addressEvent" event="c:ICX_AddressEvent" action="{!c.addressChanged}" />
+
+    <force:recordData aura:id="recordDataAccount" recordId="{!v.recordId}" mode="EDIT" layoutType="COMPACT"
+        fields="Salutation,Gender__pc,Name,FirstName,LastName,PersonBirthdate,Nationality__pc,
+                              PrimaryAddressLine1__pc, PrimaryAddressLine2__pc, PrimaryAddressLine3__pc, PrimaryCity__pc, PrimaryZipCode__pc, PrimaryStateProvince__pc, SPO_Primary_Province_State__pc, 
+                              PrimaryCountry__pc, SPO_Country_code__pc, SPO_Country__pc, HomeAddressCountryCode__pc,
+                              PersonEmail,LocalMobilePhone__pc, LocalHomePhone__pc,LocalWorkPhone__pc,PersonMobilePhone,
+                              Can_Be_Contacted_By_Email__pc,Can_Be_Contacted_By_Mail__pc,Can_Be_Contacted_By_Phone__pc,Can_Be_Contacted_By_SMS__pc,
+                              PreferredLanguage__pc,DREAMID__c,Segmentation__pc,Ind_10K__c, 
+                              TECH_PhoneCountryCode__pc,MobilePhoneCountryCode__pc, HomePhoneCountrycode__pc, PersonHomePhone, WorkPhoneCountryCode__pc, Phone, 
+                              Store__pr.Name,Owner.Name, OwnerId,LastTrans__pc,LastContactDate__pc,Typology__pc,Source__c,NationalityCountryCode__pc" targetFields="{!v.simpleAccount}" targetRecord="{!v.account}"
+        recordUpdated="{!c.handleRecordUpdated}" targetError="{!v.accountError}" />
+    <lightning:overlayLibrary aura:id="overlayLib" />
+    <lightning:notificationsLibrary aura:id="notifLib" />
+
+    <c:ICX_CaseDataService aura:id="caseService" />
+
+    <c:ICX_Section title="Client">
+        <lightning:layout multipleRows="true" horizontalAlign="start">
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <!--<lightning:input aura:id="Salutation" label="Civility" name="salutation" value="{!v.simpleAccount.Salutation}" />-->
+                <lightning:select aura:id="fieldId" label="Civility" name="salutation"
+                    value="{!v.simpleAccount.Salutation}" onchange="{!c.onCivilityChanged}"
+                    required="{!empty(v.recordId)}">
+                    <aura:if isTrue="{!empty(v.simpleAccount.Salutation)}">
+                        <option label="" value="" selected="selected" />
+                    </aura:if>
+                    <aura:iteration items="{!v.salutationOpts}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.Salutation}" />
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input label="First Name" name="firstname" value="{!v.simpleAccount.FirstName}"
+                    required="{!empty(v.recordId)}" aura:id="fieldId" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input label="Last Name" name="lastname" value="{!v.simpleAccount.LastName}"
+                    required="{!empty(v.recordId)}" aura:id="fieldId" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <!--<lightning:input label="Gender" name="gender" value="{!v.simpleAccount.Gender__pc}" />-->
+                <lightning:select label="Gender" name="gender" value="{!v.simpleAccount.Gender__pc}">
+                    <aura:if isTrue="{!empty(v.simpleAccount.Gender__pc)}">
+                        <option label="" value="" selected="selected" />
+                    </aura:if>
+                    <aura:iteration items="{!v.genderOpts}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.Gender__pc}" />
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input type="date" label="Birthdate" name="birthday"
+                    value="{!v.simpleAccount.PersonBirthdate}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:select label="Nationality/Passport" name="nationality"
+                    value="{!v.simpleAccount.Nationality__pc}">
+                    <aura:if isTrue="{!empty(v.simpleAccount.Nationality__pc)}">
+                        <option label="{!v.defaultNationality.label}" value="{!v.defaultNationality.value}"
+                            selected="selected" />
+                    </aura:if>
+                    <aura:iteration items="{!v.nationalityOpts}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.Nationality__pc}" />
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:select label="Preferred Language" name="language"
+                    value="{!v.simpleAccount.PreferredLanguage__pc}">
+                    <aura:if isTrue="{!empty(v.simpleAccount.PreferredLanguage__pc)}">
+                        <option label="" value="" selected="selected" />
+                    </aura:if>
+                    <aura:iteration items="{!v.languageOpts}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.PreferredLanguage__pc}" />
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input disabled="true" label="Dream Id" name="dream" value="{!v.simpleAccount.DREAMID__c}" />
+            </lightning:layoutItem>
+        </lightning:layout>
+    </c:ICX_Section>
+    <c:ICX_Section title="Contact">
+
+        <div style="position:relative;">
+            <div class="googleSearch">
+                <c:ICX_AddressSearch />
+
+            </div>
+        </div>
+        <br />
+        <lightning:layout multipleRows="true" verticalAlign="end" horizontalAlign="spread" class="slds-p-top_xx-large">
+            <!--lightning:layout multipleRows="true" verticalAlign="end" horizontalAlign="spread"-->
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input label="Address Line 1" name="line1"
+                    value="{!v.simpleAccount.PrimaryAddressLine1__pc}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input label="Address Line 2" name="line2"
+                    value="{!v.simpleAccount.PrimaryAddressLine2__pc}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input label="Address Line 3" name="line3"
+                    value="{!v.simpleAccount.PrimaryAddressLine3__pc}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input label="Town/City" name="city" value="{!v.simpleAccount.PrimaryCity__pc}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:select label="Country/Region" name="country"
+                    value="{!v.simpleAccount.HomeAddressCountryCode__pc}" onchange="{!c.getRegions}" aura:id="fieldId"
+                    required="{!empty(v.recordId)}">
+                    <!--lightning:select label="Country" name="country" value="{!v.simpleAccount.SPO_Country_code__pc}"-->
+                    <!--lightning:input label="Country" name="country" value="{!v.simpleAccount.PrimaryCountry__pc}" /-->
+                    <!--aura:if isTrue="{!and(empty(v.simpleAccount.SPO_Country_code__pc), empty(v.simpleAccount.PrimaryCountry__pc))}"-->
+                    <option label="" value="" />
+                    <!--selected="selected" /-->
+                    <!--/aura:if-->
+                    <!-- Keep the old Primary Country if not empty and country code empty  -->
+                    <!--aura:if isTrue="{!and(empty(v.simpleAccount.HomeAddressCountryCode__pc), !empty(v.simpleAccount.PrimaryCountry__pc))}">
+                            <option label="{!v.simpleAccount.PrimaryCountry__pc}" value="" selected="selected" />
+                        </aura:if-->
+                    <aura:iteration items="{!v.countryCodeOpts}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.HomeAddressCountryCode__pc}" />
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input label="Postal Code" name="zipcode" value="{!v.simpleAccount.PrimaryZipCode__pc}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+
+                <lightning:input label="Province/State" name="state" value="{!v.simpleAccount.PrimaryStateProvince__pc}"
+                    class="{! empty(v.regionList) ? '' : 'slds-hide'}" />
+
+                <lightning:select label="Province/State" name="state"
+                    value="{!v.simpleAccount.PrimaryStateProvince__pc}"
+                    class="{! empty(v.regionList) ? 'slds-hide' : ''}">
+                    <option label="" value="" />
+                    <aura:iteration items="{!v.regionList}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.PrimaryStateProvince__pc}" />
+                    </aura:iteration>
+                </lightning:select>
+                <!--lightning:input label="Province/State" name="state" value="{!v.simpleAccount.PrimaryStateProvince__pc}" /-->
+
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input type="email" label="Personal Email" name="email"
+                    value="{!v.simpleAccount.PersonEmail}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3" flexibility="grow" class="inputTop">
+                <div aura:id="mobileDiv" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3" flexibility="grow" class="inputTop">
+                <div aura:id="homeDiv" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3" flexibility="grow" class="inputTop">
+                <div aura:id="workDiv" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3" flexibility="grow">
+                <!--lightning:layout pullToBoundary="small">
+                        <lightning:layoutItem size="4" padding="horizontal-small">
+                            <lightning:select label="Cty. Code" name="mobilePhoneCountryCode" value="{!v.simpleAccount.MobilePhoneCountryCode__pc}">
+                                <aura:if isTrue="{!empty(v.simpleAccount.MobilePhoneCountryCode__pc)}">
+                                    <option label="" value="" selected="selected" />
+                                </aura:if>
+                                <aura:iteration items="{!v.phoneCountryCodeOpts}" var="item">
+                                    <option label="{!item.label}"
+                                            value="{!item.value}"
+                                            selected="{!item.value == v.simpleAccount.MobilePhoneCountryCode__pc}"
+                                            />
+                                </aura:iteration>
+                            </lightning:select>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="8" padding="horizontal-small">
+                            <lightning:input type="tel" label="Mobile" name="mobile" value="{!v.simpleAccount.PersonMobilePhone}" />
+                        </lightning:layoutItem>
+                    </lightning:layout-->
+                <lightning:layout horizontalAlign="spread" multipleRows="true">
+                    <lightning:layoutItem padding="horizontal-small" size="12">
+                        <lightning:input type="checkbox" label="Can Be Contacted By Mail" name="contactmail"
+                            checked="{!v.simpleAccount.Can_Be_Contacted_By_Mail__pc}" />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="horizontal-small" size="12">
+                        <lightning:input type="checkbox" label="Can Be Contacted By Email" name="contactemail"
+                            checked="{!v.simpleAccount.Can_Be_Contacted_By_Email__pc}" />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="horizontal-small" size="12">
+                        <lightning:input type="checkbox" label="Can Be Contacted By Phone" name="contactphone"
+                            checked="{!v.simpleAccount.Can_Be_Contacted_By_Phone__pc}" />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="horizontal-small" size="12">
+                        <lightning:input type="checkbox" label="Can Be Contacted By SMS" name="contactsms"
+                            checked="{!v.simpleAccount.Can_Be_Contacted_By_SMS__pc}" />
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </c:ICX_Section>
+    <c:ICX_Section title="LV Client">
+        <lightning:layout multipleRows="true" verticalAlign="end" horizontalAlign="spread">
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:select disabled="true" label="10K" name="10K" value="{!v.simpleAccount.Ind_10K__c}">
+                    <aura:if isTrue="{!empty(v.simpleAccount.Ind_10K__c)}">
+                        <option label="" value="" selected="selected" />
+                    </aura:if>
+                    <aura:iteration items="{!v.segmentationOpts}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.Ind_10K__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:select disabled="true" label="Typology" name="typology"
+                    value="{!v.simpleAccount.Typology__pc}">
+                    <!--NI-994-->
+                    <aura:if isTrue="{!empty(v.simpleAccount.Typology__pc)}">
+                        <option label="" value="" selected="selected" />
+                    </aura:if>
+                    <aura:iteration items="{!v.typologyOpts}" var="item">
+                        <option label="{!item.label}" value="{!item.value}"
+                            selected="{!item.value == v.simpleAccount.Typology__pc}" />
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input disabled="true" label="Store" name="store" value="{!v.simpleAccount.Store__pr.Name}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small" size="3">
+                <lightning:input disabled="true" label="Preferred CA" name="preferredCa"
+                    value="{!v.simpleAccount.Owner.Name}" />
+            </lightning:layoutItem>
+        </lightning:layout>
+    </c:ICX_Section>
+    <aura:if isTrue="{!not(v.show)}">
+        <lightning:spinner alternativeText="Loading" />
+    </aura:if>
+
+</aura:component>

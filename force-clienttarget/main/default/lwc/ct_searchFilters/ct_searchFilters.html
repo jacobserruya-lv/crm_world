@@ -1,0 +1,57 @@
+<template>
+  <lightning-accordion
+    class="accordion-wrapper"
+    allow-multiple-sections-open
+    onsectiontoggle={handleSectionToggle}
+    active-section-name={activeSections}
+  >
+    <lightning-accordion-section
+      class="accordion-section-wrapper"
+      name="storehierarchy"
+      label="STORE HIERARCHY"
+    >
+      <c-ct_search-filters-reset
+        slot="actions"
+        name="storehierarchy"
+      ></c-ct_search-filters-reset>
+      <c-ct_search-filters-store-hierarchy
+        main-storage={storage.storeHierarchy}
+        user-settings={userSettings}
+        is-unlock-store-hierarchy={isUnlockStoreHierarchy}
+        onupdateclientlistworkflow={handleEmptyClientListWorkflow}
+        onusersettingsapplied={handleUserSettingsApplied}
+        onstorehierarchymounted={handleStoreHierarchyMounted}
+      ></c-ct_search-filters-store-hierarchy>
+    </lightning-accordion-section>
+    <lightning-accordion-section
+      class={isEmptyClientListClass}
+      name="filters"
+      label="FILTERS"
+    >
+      <c-ct_search-filters-reset
+        slot="actions"
+        name="filters"
+      ></c-ct_search-filters-reset>
+      <c-ct_search-filters-clients
+        is-dream-id-flow={isDreamIdFlow}
+        client-list-workflow={isEmptyClientListWorkflow}
+        onfiltersclientsmounted={handleFiltersClientsMounted}
+      ></c-ct_search-filters-clients>
+    </lightning-accordion-section>
+    <lightning-accordion-section
+      class={isEmptyClientListClass}
+      name="purchasehistory"
+      label="PURCHASE HISTORY INFORMATION"
+    >
+      <c-ct_search-filters-reset
+        slot="actions"
+        name="purchasehistory"
+      ></c-ct_search-filters-reset>
+      <c-ct_search-filters-purchase-history
+        is-dream-id-flow={isDreamIdFlow}
+        client-list-workflow={isEmptyClientListWorkflow}
+        onpurchasehistorysmounted={handlePurchaseHistoryMounted}
+      ></c-ct_search-filters-purchase-history>
+    </lightning-accordion-section>
+  </lightning-accordion>
+</template>

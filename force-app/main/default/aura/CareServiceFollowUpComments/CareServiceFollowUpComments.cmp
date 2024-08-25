@@ -1,9 +1,0 @@
-<aura:component extends="c:CareServiceComments" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
-                  access="global">
-           
-    <aura:set attribute="CommentsType" value="Follow Up" />
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-
-    <!--here comes something specific from the sub component CareServiceFollowUpComponent-->
-	
-</aura:component>

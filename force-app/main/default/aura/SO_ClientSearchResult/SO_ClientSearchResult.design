@@ -1,3 +1,0 @@
-<design:component >
-    <design:attribute name="pageSize" label="Client per page" default="15" description="Number of clients per page" />
-</design:component>

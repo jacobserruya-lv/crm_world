@@ -1,0 +1,36 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="Ctrl_ProductCatalog" access="global">
+
+    <aura:attribute name="productSizes" type="List" default="[]" />
+    <aura:attribute name="myProductData" type="List" default="[]" />
+    <aura:attribute name="productVariationsStock" type="Object" default="[]" />
+    <!--<aura:attribute name="haveAvailabilities" type="Object" default="[]"/>-->
+    <aura:attribute name="myProductNoStock" type="Boolean" default="false" />
+    <aura:attribute name="product" type="Object" />
+
+    <aura:handler name="change" value="{!v.productVariationsStock}" action="{!c.getAvailabilities}" />
+    <aura:handler event="c:ProductCatalogGetProductNoStock" action="{!c.updateMyProductNoStock}" />
+
+    <aura:if isTrue="{!v.productSizes != null}">
+        <aura:if isTrue="{!or(or(or(v.product.productGroup == 'Souliers', v.product.productGroup == 'Accessoires'),v.product.productGroup == 'Ready to wear'), v.product.productGroup == 'Jewelry')
+            }">
+            <div class="pc3-product-sizes">
+                <aura:iteration items="{!v.productSizes}" var="size">
+                    <c:ProductCatalog3_ProductSizeItem product="{!v.product}" productVariant="{!size}" />
+                </aura:iteration>
+            </div>
+            <aura:set attribute="else">
+                    <ui:inputSelect aura:id="selectOtherProductSize" change="{!c.changeSize}">
+                        <ui:inputSelectOption text="{!v.product.sku}"
+                                              label="{!v.product.name}"
+                        />
+        
+                        <aura:iteration items="{!v.productSizes}" var="size">
+                            <ui:inputSelectOption text="{!size.sku}"
+                                                  label="{!size.name}"
+                            />
+                        </aura:iteration>
+                    </ui:inputSelect>
+            </aura:set>
+        </aura:if>
+    </aura:if>
+</aura:component>

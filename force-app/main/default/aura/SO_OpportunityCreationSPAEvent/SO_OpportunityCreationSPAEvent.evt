@@ -1,4 +1,0 @@
-<aura:event type="COMPONENT" description="Event for SO_OpportunityCreationSPA">
-    <aura:attribute type="String" name="componentAction" description="Start_Next / "/>
-    <!--aura:attribute type="Opportunity" name="opp" description="Brief with values"/-->
-</aura:event>

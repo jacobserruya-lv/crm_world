@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>PreviewDateTimeValidity</fullName>
-    <active>true</active>
-    <description>previewDateTime &lt;= startDateTime</description>
-    <errorConditionFormula>PreviewDateTime__c &gt;= StartDateTime__c</errorConditionFormula>
-    <errorDisplayField>PreviewDateTime__c</errorDisplayField>
-    <errorMessage>PreviewDateTime__c must be earlier than StartDateTime__c</errorMessage>
-</ValidationRule>

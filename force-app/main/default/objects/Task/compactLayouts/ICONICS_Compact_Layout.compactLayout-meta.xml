@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ICONICS_Compact_Layout</fullName>
-    <fields>Subject</fields>
-    <fields>CallType</fields>
-    <fields>WhatId</fields>
-    <label>ICONICS Compact Layout</label>
-</CompactLayout>

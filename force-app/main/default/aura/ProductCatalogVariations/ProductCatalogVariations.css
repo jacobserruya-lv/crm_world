@@ -1,9 +1,0 @@
-.THIS {
-}
-.THIS .pc-catalog-vars__variants {
-    margin-top: 0.5rem;
-}
-
-.THIS .pc-catalog-vars__variant + .pc-catalog-vars__variant {
-    margin-left: 7px;
-}

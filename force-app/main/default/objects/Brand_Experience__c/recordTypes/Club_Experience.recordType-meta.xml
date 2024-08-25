@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Club_Experience</fullName>
-    <active>true</active>
-    <description>used to create Experiences assigned to a Club</description>
-    <label>Club Experience</label>
-</RecordType>

@@ -1,0 +1,16 @@
+.expired{
+    border: groove 1px red;
+    border-radius: 2em;
+    color : red;
+    padding: 0.25em;
+  }
+  
+.expired::before {
+  content: 'Expired';
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}

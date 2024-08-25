@@ -1,9 +1,0 @@
-<template>
-    <div class=" slds-p-around_small slds-is-relative  " if:true={isLoading}>
-        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
-    </div>
-    <c-icx_dynamic-table is-with-subtitles if:false={isLoading}
-    my-row-class='row-whith-border rows-hover cursor-pointer inline-noFlex' table-data={tableData} onrecorddetails={navigateToOrder} onviewrecordlist={navigateToViewListPage}>
-</c-icx_dynamic-table>
-
-</template>

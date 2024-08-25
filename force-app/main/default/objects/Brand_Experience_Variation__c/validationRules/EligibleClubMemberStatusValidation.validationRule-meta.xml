@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>EligibleClubMemberStatusValidation</fullName>
-    <active>true</active>
-    <errorConditionFormula>NOT ISBLANK(EligibleClubMemberStatus__c) &amp;&amp; Brand_Experience__r.RecordType.Name != &apos;Club Experience&apos;</errorConditionFormula>
-    <errorDisplayField>EligibleClubMemberStatus__c</errorDisplayField>
-    <errorMessage>EligibleClubMemberStatus cannot be set when Brand_Experience__c.recordType IS NOT “Club Experience”</errorMessage>
-</ValidationRule>

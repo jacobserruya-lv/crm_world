@@ -1,3 +1,0 @@
-<apex:page contentType="Application/JSON">
-{!$Api.Session_ID}
-</apex:page>

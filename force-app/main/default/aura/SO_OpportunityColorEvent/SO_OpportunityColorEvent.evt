@@ -1,3 +1,0 @@
-<aura:event type="COMPONENT" description="Event template">
-    <aura:attribute name="action" type="String" description="set actionvalue from SO_OpportunityColorRead component: cancel, save, editExterior, editInterior"/>
-</aura:event>

@@ -1,4 +1,0 @@
-<aura:event type="APPLICATION" description="Event template">
-    <aura:attribute name="product" type="Object" />
-    <aura:attribute name="fromWhere" type="String"/>
-</aura:event>

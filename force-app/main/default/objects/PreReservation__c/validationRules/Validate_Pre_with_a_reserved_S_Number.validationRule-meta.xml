@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Validate_Pre_with_a_reserved_S_Number</fullName>
-    <active>false</active>
-    <description>On ne peut pas valider 2 pré-réservation avec le meme serial number</description>
-    <errorConditionFormula>AND((ISCHANGED(Status__c)), (TEXT(Status__c) = &apos;Valide&apos;),OR(ISPICKVAL(Serial_Number2__r.Status__c, &apos;Pre-Reserved&apos;),ISPICKVAL(Serial_Number2__r.Status__c, &apos;Reserved&apos;)), NOT( $Permission.Corps_Access ))</errorConditionFormula>
-    <errorDisplayField>Serial_Number2__c</errorDisplayField>
-    <errorMessage>This Serial Number is no longer available. Please select a new Serial Number.</errorMessage>
-</ValidationRule>

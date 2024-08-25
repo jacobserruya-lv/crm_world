@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ExcperienceVariationVisibility</fullName>
-    <active>true</active>
-    <errorConditionFormula>NOT ISPICKVAL(badgeType__c , &apos;Participation to an Experience Variation&apos;) &amp;&amp; NOT ISBLANK( Brand_Experience_Variation__c)</errorConditionFormula>
-    <errorDisplayField>Brand_Experience_Variation__c</errorDisplayField>
-    <errorMessage>Brand_Experience_Variation__c cannot be set when BadgeType__c is not Participation</errorMessage>
-</ValidationRule>

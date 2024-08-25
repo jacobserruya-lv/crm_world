@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR_Date</fullName>
-    <active>false</active>
-    <errorConditionFormula>if(Start_Date__c  &lt;= End_Date__c , false, true)</errorConditionFormula>
-    <errorMessage>&apos;Start date&apos; must be equal or earlier than &apos;End date&apos;</errorMessage>
-</ValidationRule>

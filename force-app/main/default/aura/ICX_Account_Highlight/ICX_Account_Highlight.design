@@ -1,4 +1,0 @@
-<design:component>
-    <design:attribute name="widthXSmall" label="Width in XSMALL" description="Display the component in XSMALL? Indicators at the bottom" />
-    <design:attribute name="accountApi" label="Account field API name of the current object" description="DEPRECATED (can't be used). Used to simplify the usage for all objects with a lookup with Account" />
-</design:component>

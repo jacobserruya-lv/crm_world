@@ -1,0 +1,167 @@
+<aura:component   controller="Ctrl_ProductCatalog" access="global">
+    <aura:attribute name="type" type="String" />
+    <aura:attribute name="open" type="Boolean" />
+    <aura:attribute name="myFavorites" type="List" default="[]" />
+    <aura:attribute name="myFavoritesProducts" type="List" default="[]" />
+    <aura:attribute name="ManagementZoneLevelMap" type="Map" />
+    <aura:attribute name="currentUserData" type="Object" />
+    <aura:attribute name="maxMyList" type="Integer" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.getFavProducts}"/>
+    <aura:handler name="change" value="{!v.myFavorites}" action="{!c.getFavProducts}"/>
+    <aura:handler event="c:ProductCatalog3_updateStoreSetupEvent" action="{!c.closeSidebar}" />
+
+
+
+    <div class="{!'pc3-sidebar' + (v.open ? ' pc3-sidebar_visible' : '')}">
+        <lightning:button class="pc3-sidebar__close-btn" variant="bare" onclick="{!c.closeSidebar}">
+            <lightning:icon src="{!$Resource.LVDS_Iconography + '/lvds.svg#close'}" size="xx-small"
+                alternativeText="Close" />
+        </lightning:button>
+        <aura:if isTrue="{!v.type == 'favorites'}">
+            <div class="pc3-sidebar__title">My Favorites</div>
+            <div class="pc3-sidebar__subtitle">{!v.myFavoritesProducts.length} favorites</div>
+            <div class="pc3-sidebar__content">
+                <ul class="pc3-sidebar__favorites">
+                    <aura:iteration items="{!v.myFavoritesProducts}" var="favorite">
+                        <c:ProductCatalog3_SidebarFavoritesItem favorite="{!favorite}" />
+                    </aura:iteration>
+                </ul>
+            </div>
+        </aura:if>
+        <!--<aura:if isTrue="{!v.type == 'notifications'}">
+            <div class="pc3-sidebar__title">Notifications</div>
+            <div class="pc3-sidebar__content">
+                <ol class="pc3-sidebar__notifications">
+                    <li class="pc3-sidebar__notification pc3-sidebar__notification_new">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Neverfull GM</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">2h</span>
+                    </li>
+                    <li class="pc3-sidebar__notification pc3-sidebar__notification_new">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            One of your favorites, <strong>A-Line Mini Skirt with Button Detail</strong>, is out of stock.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">2h</span>
+                    </li>
+                    <li class="pc3-sidebar__notification pc3-sidebar__notification_new">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Twist MM</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">2h</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Stencil Effect Monogram Jogging Pants</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">4h</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Tambour Damier Cobalt Choronograph</strong> is now available in new variations.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">6h</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Neverfull GM</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1d</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            One of your favorites, <strong>A-Line Mini Skirt with Button Detail</strong>, is out of stock.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1d</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Twist MM</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1d</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Stencil Effect Monogram Jogging Pants</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">4d</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Tambour Damier Cobalt Choronograph</strong> is now available in new variations.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1w</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Neverfull GM</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1w</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            One of your favorites, <strong>A-Line Mini Skirt with Button Detail</strong>, is out of stock.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1w</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Twist MM</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1w</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Stencil Effect Monogram Jogging Pants</strong> is back in stock in <strong>LV Champs-Elysées</strong>.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1w</span>
+                    </li>
+                    <li class="pc3-sidebar__notification">
+                        <img class="pc3-sidebar__notif-img" src="" alt="" />
+                        <p class="pc3-sidebar__notif-text">
+                            <strong>Tambour Damier Cobalt Choronograph</strong> is now available in new variations.
+                        </p>
+                        <span class="pc3-sidebar__notif-new-icon"/>
+                        <span class="pc3-sidebar__notif-time">1w</span>
+                    </li>
+                </ol>
+            </div>
+        </aura:if>-->
+        <aura:if isTrue="{!v.type == 'setup'}">
+            <div class="pc3-sidebar__title">Set default stores</div>
+            <div class="pc3-sidebar__content pc3-sidebar__store-setup">
+                <c:ProductCatalog3_StoreSetup ManagementZoneLevelMap="{!v.ManagementZoneLevelMap}" currentUserData="{!v.currentUserData}" maxMyList="{!v.maxMyList}"/>
+            </div>
+        </aura:if>
+    </div>
+    <div class="pc3-sidebar__shade" onclick="{!c.closeSidebar}" />
+</aura:component>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>RegistrationDateTimeValidity</fullName>
-    <active>true</active>
-    <errorConditionFormula>RegistrationStartDateTime__c &gt; RegistrationEndDateTime__c</errorConditionFormula>
-    <errorMessage>Registration Start date must be set BEFORE Registration End date. Please modify Registration dates.</errorMessage>
-</ValidationRule>

@@ -1,3 +1,0 @@
-<apex:page controller="MIY_PAP_PdfController" standardstylesheets="false" applyHtmlTag="false" showHeader="false"
-           action="{!getBody}"
->error</apex:page>

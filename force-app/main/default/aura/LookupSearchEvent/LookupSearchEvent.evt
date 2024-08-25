@@ -1,8 +1,0 @@
-<!-- Salesforce Lightning Lookup Component
-https://developer.salesforce.com/blogs/2018/07/10-tips-for-implementing-an-efficient-lightning-lookup-component.html
-https://github.com/pozil/sfdc-ui-lookup/tree/master/src/main/default/aura/LookupSearchEvent
--->
-<aura:event access="global" type="COMPONENT" description="Component event associated with the Lookup component. Fired when a search needs to be performed on the server-side.">
-    <aura:attribute type="String" name="action" description="values: ADD / REMOVE"/>
-    <aura:attribute type="Id" name="recordId" description="item id related to the lookup"/>
-</aura:event>

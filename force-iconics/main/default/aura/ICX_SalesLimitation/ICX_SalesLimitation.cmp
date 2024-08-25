@@ -1,0 +1,99 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:lightningQuickAction,lightning:availableForFlowScreens,force:hasRecordId,lightning:isUrlAddressable" access="global" controller="ICX_SalesLimitations">
+    <aura:attribute name="allData" type="List" />
+    <aura:attribute name="filteredData" type="List" />
+    <aura:attribute name="tableData" type="List" />
+    <aura:attribute name="columns" type="Object[]" />
+    <aura:attribute name="pageSize" type="Integer" default="15" />
+    <aura:attribute name="pageSizeOptions" type="Integer[]" default="10,15,20,25,50,100" />
+    <aura:attribute name="currentPageNumber" type="Integer" default="1" />
+    <aura:attribute name="totalPages" type="Integer" default="1" />
+    <aura:attribute name="searchPhrase" type="String" />
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+     <aura:handler event="force:refreshView" action="{!c.doInit}" />
+
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+ 
+    <aura:if isTrue="{! v.isLoading }">
+        <lightning:spinner alternativeText="Loading" />
+    </aura:if>
+ 
+  
+   <lightning:card variant="Narrow" title="{! 'Client Sales and Ongoing Order (' + v.allData.length + ')'}" iconName="utility:cart"  >
+        <aura:set attribute="actions">
+             <lightning:buttonIcon iconName="utility:refresh"  alternativeText="Settings" title="Settings" onclick="{! c.refreshTable }" />
+             <lightning:buttonIcon iconName="utility:download"  alternativeText="Settings" title="Settings" onclick="{! c.exportTable }" /> <!--NI-932-->
+        </aura:set>
+        <lightning:datatable
+           class="slds-p-around_small"
+            aura:id="table"
+            columns="{! v.columns }"
+            data="{! v.tableData }"
+            hideCheckboxColumn="true"
+            keyField="Id" />
+        
+            <div class="slds-text-align_center slds-p-around_small">
+                <lightning:button
+                    label="First"
+                    iconName="utility:left"
+                    iconPosition="left"
+                    onclick="{! c.onFirst }"
+                    disabled="{! v.currentPageNumber == 1 }" />
+                <lightning:button
+                    label="Previous"
+                    iconName="utility:chevronleft"
+                    iconPosition="left"
+                    onclick="{! c.onPrev }"
+                    disabled="{! v.currentPageNumber == 1 }" />
+                <span class="slds-var-p-horizontal_x-small">
+                    Page {! (v.currentPageNumber) } of {! (v.totalPages) }
+                </span>
+                <span class="slds-var-p-horizontal_x-small">
+                    Number of records: {! (v.filteredData.length) }
+                </span>
+                <lightning:button
+                    label="Next"
+                    iconName="utility:chevronright"
+                    iconPosition="right"
+                    onclick="{! c.onNext }"
+                    disabled="{! v.currentPageNumber == v.totalPages }" />
+                <lightning:button
+                    label="Last"
+                    iconName="utility:right"
+                    iconPosition="right"
+                    onclick="{! c.onLast }"        
+                    disabled="{! v.currentPageNumber == v.totalPages }" />
+            </div>
+    </lightning:card>
+    
+</aura:component>
+
+<!--div class="slds-p-around_small slds-grid slds-grid_align-spread slds-grid_vertical-align-start"-->
+<!--div class="slds-text-align_center slds-p-around_small">
+<div>
+    <lightning:select
+        label="Number of records on page:"
+        value="{! v.pageSize }"
+        onchange="{! c.onPageSizeChange }">
+        <aura:iteration items="{! v.pageSizeOptions }" var="opt">
+            <option text="{! opt }"></option>
+        </aura:iteration>
+    </lightning:select>
+</div>
+
+<div class="inline-container slds-grid slds-float_righs lds-size_1-of-3t" >
+    <span class=" slds-col ">
+        <lightning:input
+            variant="label-hidden"
+            placeholder="Search Phrase"
+            type="search"
+            value="{! v.searchPhrase }"
+            onchange="{! c.onChangeSearchPhrase }" />
+    </span>
+    <span class=" slds-col">
+        <lightning:button
+            label="Search"
+            variant="neutral"
+            onclick="{! c.handleSearch }" />
+    </span>
+</div>
+ </div-->

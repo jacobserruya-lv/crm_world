@@ -1,9 +1,0 @@
-<template>
-    <template if:true={isLoading}>
-        <lightning-spinner class="spinner-loader" alternative-text="Loading" size="small"></lightning-spinner>
-    </template>
-    <template if:false={isLoading}>
-        <c-icx_dynamic-table if:true={products} my-row-class={myRowClass} table-data={tableData}
-            click-function={filterTable} onrecorddetails={openProductDetails}></c-icx_dynamic-table>
-    </template>
-</template>

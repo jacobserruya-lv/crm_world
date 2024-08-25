@@ -1,9 +1,0 @@
-{
-    "returnCode": "000",
-    "errorMessage": "Purchase history retrieval successful",
-    "lastRecord": "0",
-    "firstRecord": null,
-    "nbrRcrdRetrieved": "1",
-    "numberOfRecords": "0",
-    "data": []
-}

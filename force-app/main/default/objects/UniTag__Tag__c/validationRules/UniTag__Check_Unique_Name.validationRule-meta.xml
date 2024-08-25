@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>UniTag__Check_Unique_Name</fullName>
-    <active>true</active>
-    <errorConditionFormula>VLOOKUP($ObjectType.UniTag__Tag__c.Fields.Name, $ObjectType.UniTag__Tag__c.Fields.Name, Name) &lt;&gt; null</errorConditionFormula>
-    <errorMessage>The Tag Name must be unique.</errorMessage>
-</ValidationRule>

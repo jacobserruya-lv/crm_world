@@ -1,5 +1,0 @@
-<aura:event type="COMPONENT" description="Event template">
-    <aura:attribute name="type" type="String" default="" description="EXTERIOR1 / EXTERIOR2 / EXTERIOR3 / INTERIOR1 / INTERIOR2"/>
-    <aura:attribute name="comment" type="String" default=""/>
-    <aura:attribute name="otherMaterialComment" type="String" default=""/>
-</aura:event>

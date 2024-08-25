@@ -1,5 +1,0 @@
-<apex:page standardController="Account" extensions="Global_ClientViewDispatch_VFCx" action="{!redirectToPage}">
-
-	<!-- redirects user to client view page according to profile -->
-
-</apex:page>
