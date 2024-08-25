@@ -1,0 +1,231 @@
+name: Metadata Orchestration
+run-name: ${{ github.actor }} is launching | Metadata Orchestration ⚖️
+
+on:
+  push:
+    branches:
+      - 'dev-cn'
+      - 'dev-ww'
+      - 'int-cn'
+      - 'int-ww'
+      - 'staging-cn'
+      - 'staging-ww'
+
+jobs:
+  check-commit:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check_commit.outputs.skip }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: LouisVuitton/crm_world
+          token: ${{ secrets.PAT_SF }}
+          clean: true
+
+      - name: Check for workflow-triggered commit
+        id: check_commit
+        run: |
+          keyword="[AUTO-GENERATED]"
+          
+          commit_message=$(git log -1 --pretty=%B)
+          if [[ $commit_message == *"$keyword"* ]]; then
+            echo "Skipping workflow execution due to workflow-triggered commit."
+            echo "::set-output name=skip::true"
+          else
+            echo "::set-output name=skip::false"
+          fi
+
+  update-branches:
+    needs: check-commit
+    if: needs.check-commit.outputs.skip == 'false'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: LouisVuitton/crm_world
+          token: ${{ secrets.PAT_SF }}
+          clean: true
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'Metadata orchestrator'
+          git config --global user.email 'Metadata-orchestrator@github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_SF }}@github.com/LouisVuitton/crm_world.git
+
+      - name: Fetch all branches
+        run: |
+          git fetch --all
+          echo "Fetched all branches."
+
+      - name: Get modified files from the last commit
+        id: get_modified_files
+        run: |
+          CURRENT_BRANCH="${{ github.ref }}"
+          git fetch --depth=2
+
+          if git rev-parse HEAD^ > /dev/null 2>&1; then
+            files=$(git diff --name-only HEAD^..HEAD)
+          else
+            files=$(git diff-tree --no-commit-id --name-only -r HEAD)
+          fi
+
+          echo "Modified files:"
+          echo "$files"
+
+          declare -A directories_map=(
+            ["refs/heads/dev-ww"]="${{ vars.DIRECTORIES_WW }}"
+            ["refs/heads/dev-cn"]="${{ vars.DIRECTORIES_CN }}"
+            ["refs/heads/int-ww"]="${{ vars.DIRECTORIES_WW }}"
+            ["refs/heads/int-cn"]="${{ vars.DIRECTORIES_CN }}"
+            ["refs/heads/staging-ww"]="${{ vars.DIRECTORIES_WW }}"
+            ["refs/heads/staging-cn"]="${{ vars.DIRECTORIES_CN }}"
+          )
+
+          directories="${directories_map[$CURRENT_BRANCH]}"
+          echo "Directories to check: $directories"
+
+          if [ -z "$directories" ]; then
+            echo "Branch not recognized, exiting."
+            exit 1
+          fi
+
+          filtered_files=""
+          while IFS= read -r file; do
+            if [ -n "$file" ]; then
+              for dir in $directories; do
+                if [[ $file == $dir/* ]]; then
+                  filtered_files+="$file"$'\n'
+                  break
+                fi
+              done
+            fi
+          done <<< "$files"
+
+          echo "Filtered modified files:"
+          echo "$filtered_files"
+          echo "$filtered_files" > files_to_check.txt
+
+      - name: Check out and update common branch
+        run: |
+          keyword="[AUTO-GENERATED]"
+          CURRENT_BRANCH="${{ github.ref }}"
+          declare -A common_branch_map=(
+            ["refs/heads/dev-ww"]="dev-common"
+            ["refs/heads/dev-cn"]="dev-common"
+            ["refs/heads/int-ww"]="int-common"
+            ["refs/heads/int-cn"]="int-common"
+            ["refs/heads/staging-ww"]="staging-common"
+            ["refs/heads/staging-cn"]="staging-common"
+          )
+
+          common_branch="${common_branch_map[$CURRENT_BRANCH]}"
+
+          if [ -z "$common_branch" ]; then
+            echo "Branch not recognized for common branch update, exiting."
+            exit 1
+          fi
+
+          echo "Checking out common branch: $common_branch"
+          git fetch origin $common_branch
+          git checkout $common_branch
+
+      - name: Log files to be removed and backup
+        run: |
+          touch deleted_files.txt
+          mkdir -p backup
+
+          directories_common="${{ vars.DIRECTORIES_COMMON }}"
+          echo "Common directories to check: $directories_common"
+
+          while IFS= read -r file; do
+            if [ -n "$file" ]; then
+              file_name="${file#*/}"
+              echo "Processing file: $file"
+              echo "Transformed path: $file_name"
+
+              file_found=false
+              for dir_common in $directories_common; do
+                path_common="$dir_common/$file_name"
+                echo "Checking path: $path_common"
+                if [ -e "$path_common" ]; then
+                  echo "Deleting file $file_name from $path_common"
+                  mkdir -p "$(dirname "backup/$path_common")"
+                  cp -r "$path_common" "backup/$path_common"
+                  git rm "$path_common"
+                  echo "$path_common" >> deleted_files.txt
+                  echo "File backed up and removed: $path_common"
+                  file_found=true
+                  break
+                fi
+              done
+
+              if [ "$file_found" = false ]; then
+                echo "File not found: $file_name in any common directory"
+              fi
+            fi
+          done < files_to_check.txt
+
+          echo "Files to be deleted:"
+          cat deleted_files.txt
+
+          git commit -m "Remove files moved to WW & SFoA [AUTO-GENERATED]" || echo "No changes to commit"
+          git push origin $common_branch
+
+      - name: Verify backup files
+        run: |
+          echo "Contents of backup directory:"
+          ls -R backup
+          echo "Backup directory verification complete."
+
+      - name: Add deleted files to Alternate Branch
+        run: |
+          TARGET_BRANCH="${{ github.ref }}"
+          declare -A alternate_branch_map=(
+            ["refs/heads/dev-ww"]="dev-cn"
+            ["refs/heads/dev-cn"]="dev-ww"
+            ["refs/heads/int-ww"]="int-cn"
+            ["refs/heads/int-cn"]="int-ww"
+            ["refs/heads/staging-ww"]="staging-cn"
+            ["refs/heads/staging-cn"]="staging-ww"
+          )
+
+          ALTERNATE_BRANCH="${alternate_branch_map[$TARGET_BRANCH]}"
+
+          if [ -z "$ALTERNATE_BRANCH" ]; then
+            echo "No matching branch found, exiting."
+            exit 1
+          fi
+
+          echo "Checking out alternate branch: $ALTERNATE_BRANCH"
+          git fetch origin $ALTERNATE_BRANCH
+          git checkout $ALTERNATE_BRANCH
+
+          # Set the default directory for restoration
+          default_dir="force-app"
+          echo "Restoring files to default directory: $default_dir"
+
+          while IFS= read -r file; do
+            if [ -n "$file" ]; then
+              # Adjust the target file path
+              target_file="${default_dir}/${file#*/}"
+              backup_file="backup/${file}"
+              
+              # Verify if the backup file exists
+              if [ -f "$backup_file" ]; then
+                echo "Restoring file: $target_file from $backup_file"
+                mkdir -p "$(dirname "$target_file")"
+                cp -r "$backup_file" "$target_file"
+                git add "$target_file"
+              else
+                echo "Warning: File $backup_file not found in backup, skipping."
+              fi
+            fi
+          done < deleted_files.txt
+
+          git commit -m "Add files moved from pipeline-COM [AUTO-GENERATED]" || echo "No changes to commit"
+          git push origin $ALTERNATE_BRANCH

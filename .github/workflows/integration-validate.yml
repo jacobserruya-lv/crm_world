@@ -1,0 +1,53 @@
+name: INTEGRATION VALIDATE
+run-name: ${{ github.actor }} | INTEGRATION VALIDATE 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'int-ww'
+      - 'dev-ww'
+      - 'int-common'
+      - 'dev-common'
+      - 'int-cn'
+      - 'dev-cn'
+  workflow_dispatch:
+
+jobs:
+  check-duplicates:
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/check-duplicate.yml'
+    with:
+      directories: >-
+        ${{ 
+          startsWith(github.head_ref || github.ref_name, 'int-cn') || startsWith(github.head_ref || github.ref_name, 'dev-cn')
+          && vars.DIRECTORIES_CN
+          || startsWith(github.head_ref || github.ref_name, 'int-ww') || startsWith(github.head_ref || github.ref_name, 'dev-ww')
+          && vars.DIRECTORIES_WW
+          || startsWith(github.head_ref || github.ref_name, 'int-common') || startsWith(github.head_ref || github.ref_name, 'dev-common')
+          && vars.DIRECTORIES_COMMON
+        }}
+
+  INT_validate_only_ww:
+    needs: [check-duplicates]
+    if: needs.check-duplicates.outputs.skip == 'false' && (github.head_ref == 'int-ww' || github.head_ref == 'dev-ww' || github.head_ref == 'int-common' || github.head_ref == 'dev-common')
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-WW'
+      generate_delta: true
+      validate_only: true
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+  INT_validate_only_cn:
+    needs: [check-duplicates]
+    if: needs.check-duplicates.outputs.skip == 'false' && (github.head_ref == 'int-cn' || github.head_ref == 'dev-cn' || github.head_ref == 'int-common' || github.head_ref == 'dev-common')
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-CN'
+      generate_delta: true
+      validate_only: true
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

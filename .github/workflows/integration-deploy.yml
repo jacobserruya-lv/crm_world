@@ -1,0 +1,58 @@
+name: INTEGRATION DEPLOY
+run-name: ${{ github.actor }} | INTEGRATION DEPLOY 🚀
+
+on:
+  push:
+    branches:
+      - 'int-ww'
+      - 'int-common'
+      - 'int-cn'
+  workflow_dispatch:
+
+jobs:
+  check-commit:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check_commit.outputs.skip }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: LouisVuitton/crm_world
+          token: ${{ secrets.PAT_SF }}
+          fetch-depth: 2
+
+      - name: Check for workflow-triggered commit
+        id: check_commit
+        run: |
+          keyword="[AUTO-GENERATED]"
+          commit_message=$(git log -1 --pretty=%B)
+          if [[ $commit_message == *"$keyword"* ]]; then
+            echo "Skipping workflow execution due to workflow-triggered commit."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+  INT_deploy_ww:
+    needs: [check-commit]
+    if: needs.check-commit.outputs.skip == 'false' && ( github.ref == 'refs/heads/int-ww' || github.ref == 'refs/heads/int-common')
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-WW'
+      generate_delta: true
+      validate_only: false
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+  INT_deploy_cn:
+    needs: [check-commit]
+    if: needs.check-commit.outputs.skip == 'false' && ( github.ref == 'refs/heads/int-cn' || github.ref == 'refs/heads/int-common')
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-CN'
+      generate_delta: true
+      validate_only: false
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

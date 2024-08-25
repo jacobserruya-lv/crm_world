@@ -1,0 +1,58 @@
+name: STAGING DEPLOY
+run-name: ${{ github.actor }} | STAGING DEPLOY 🚀
+
+on:
+  push:
+    branches:
+      - 'staging-ww'
+      - 'staging-common'
+      - 'staging-cn'
+  workflow_dispatch:
+
+jobs:
+  check-commit:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check_commit.outputs.skip }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: LouisVuitton/crm_world
+          token: ${{ secrets.PAT_SF }}
+          fetch-depth: 2
+
+      - name: Check for workflow-triggered commit
+        id: check_commit
+        run: |
+          keyword="[AUTO-GENERATED]"
+          commit_message=$(git log -1 --pretty=%B)
+          if [[ $commit_message == *"$keyword"* ]]; then
+            echo "Skipping workflow execution due to workflow-triggered commit."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi   
+
+  PPROD_deploy_ww:
+    needs: [check-commit]
+    if: needs.check-commit.outputs.skip == 'false' && ( github.ref == 'refs/heads/staging-ww' || github.ref == 'refs/heads/staging-common')
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'STAGING-WW'
+      generate_delta: true
+      validate_only: false
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+  PPROD_deploy_cn:
+    needs: [check-commit]
+    if: needs.check-commit.outputs.skip == 'false' && ( github.ref == 'refs/heads/staging-cn' || github.ref == 'refs/heads/staging-common')
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'STAGING-CN'
+      generate_delta: true
+      validate_only: false
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

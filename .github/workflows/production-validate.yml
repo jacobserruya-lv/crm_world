@@ -1,0 +1,34 @@
+name: PRODUCTION VALIDATE
+run-name: ${{ github.actor }} | PRODUCTION VALIDATE 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'prod-ww'
+      - 'prod-common'
+      - 'prod-cn'
+  workflow_dispatch:
+
+jobs:
+  PROD_validate_only_ww:
+    if: github.head_ref == 'prod-ww' || github.head_ref == 'prod-common'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'PROD-WW'
+      generate_delta: true
+      validate_only: true
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+  PROD_validate_only_cn:
+    if: github.head_ref == 'prod-cn' || github.head_ref == 'prod-common'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'PROD-CN'
+      generate_delta: true
+      validate_only: true
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

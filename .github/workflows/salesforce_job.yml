@@ -48,8 +48,15 @@ jobs:
 
       - name: Set directories variable based on branch
         run: |
-
-          TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+          # Determine the branch name based on the event type
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            TARGET_BRANCH="${{ github.ref_name }}"
+          else
+            echo "Unsupported event type: ${{ github.event_name }}"
+            exit 1
+          fi
 
           if [[ "$TARGET_BRANCH" == *ww ]]; then
             directories="${{ vars.DIRECTORIES_WW }}"
@@ -59,9 +66,9 @@ jobs:
             directories="${{ vars.DIRECTORIES_COMMON }}"
           else
             echo "No matching target branch found, using default directories"
-            directories="${{ vars.DEFAULT_DIRECTORIES }}"  # Define this in your repository variables
           fi
           echo "directories=$directories" >> $GITHUB_ENV
+
       - name: Generate DELTA for validation
         if: ${{ inputs.generate_delta && inputs.validate_only }}
         run: | 
@@ -94,5 +101,6 @@ jobs:
         run: |
           if [ -f "delta/main/default/package.xml" ]; then
             sfdx force:source:deploy --sourcepath delta/main/default --targetusername ${{ vars.ALIAS }} --verbose
-          else
- 
+           else
+            echo "The DELTA does not exist. Nothing to Deploy"
+          fi
