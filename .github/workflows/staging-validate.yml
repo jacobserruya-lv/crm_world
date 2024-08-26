@@ -20,6 +20,7 @@ jobs:
       environment: 'STAGING-WW'
       generate_delta: true
       validate_only: true
+      target: ${{ github.base_ref }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
@@ -30,5 +31,6 @@ jobs:
       environment: 'STAGING-CN'
       generate_delta: true
       validate_only: true
+      target: ${{ github.base_ref }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

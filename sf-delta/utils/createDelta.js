@@ -42,7 +42,7 @@ try {
  */
 const createDelta = (projectPath, baseBranch) => {
   const deltaPath = 'delta/main/default'; // Folder to deploy to targeted SF ORG
-  let modifiedFiles = getModifiedFiles(baseBranch);
+  let modifiedFiles = getModifiedFiles(projectPath, baseBranch);
 
   console.log(`=== GENERATING DELTA PROJECT FOLDER ===`);
   console.log(`from : ` + projectPath); 

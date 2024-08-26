@@ -22,32 +22,34 @@ jobs:
     with:
       directories: >-
         ${{ 
-          startsWith(github.head_ref || github.ref_name, 'int-cn') || startsWith(github.head_ref || github.ref_name, 'dev-cn')
+          (startsWith(github.head_ref || github.ref_name, 'int-cn') || startsWith(github.head_ref || github.ref_name, 'dev-cn')) 
           && vars.DIRECTORIES_CN
-          || startsWith(github.head_ref || github.ref_name, 'int-ww') || startsWith(github.head_ref || github.ref_name, 'dev-ww')
+          || (startsWith(github.head_ref || github.ref_name, 'int-ww') || startsWith(github.head_ref || github.ref_name, 'dev-ww')) 
           && vars.DIRECTORIES_WW
-          || startsWith(github.head_ref || github.ref_name, 'int-common') || startsWith(github.head_ref || github.ref_name, 'dev-common')
+          || (startsWith(github.head_ref || github.ref_name, 'int-common') || startsWith(github.head_ref || github.ref_name, 'dev-common')) 
           && vars.DIRECTORIES_COMMON
         }}
 
   INT_validate_only_ww:
     needs: [check-duplicates]
-    if: (github.base_ref  == 'int-ww' || github.base_ref  == 'dev-ww' || github.base_ref == 'int-common' || github.base_ref  == 'dev-common')
+    if: github.base_ref == 'int-ww' || github.base_ref == 'dev-ww' || github.base_ref == 'int-common' || github.base_ref == 'dev-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-WW'
       generate_delta: true
       validate_only: true
+      target: ${{ github.base_ref }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
   INT_validate_only_cn:
     needs: [check-duplicates]
-    if: (github.base_ref  == 'int-cn' || github.base_ref  == 'dev-cn' || github.base_ref  == 'int-common' || github.base_ref  == 'dev-common')
+    if: github.base_ref == 'int-cn' || github.base_ref == 'dev-cn' || github.base_ref == 'int-common' || github.base_ref == 'dev-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-CN'
       generate_delta: true
       validate_only: true
+      target: ${{ github.base_ref }}
     secrets:
-      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }} 
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

@@ -23,12 +23,14 @@ jobs:
           directories="${{ inputs.directories }}"  # Access the passed input
           declare -A file_map
           duplicates=""
-
+          
+          echo $file_map
           # Combine all directories into a single find command
           while IFS= read -r -d '' file; do
             # Extract the relative path of the file
             relative_path="${file#*/}"
             relative_path="${relative_path#*/}"
+            echo $relative_path
 
             # Skip files that contain 'gitkeep' in the path
             if [[ "$relative_path" == *gitkeep* ]]; then

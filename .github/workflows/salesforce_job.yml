@@ -12,6 +12,9 @@ on:
       validate_only:
         required: true
         type: boolean
+      target:
+        required: true
+        type: string 
     secrets:
       PRIVATE_KEY:
         required: true
@@ -72,14 +75,14 @@ jobs:
         if: ${{ inputs.generate_delta && inputs.validate_only }}
         run: | 
           for dir in ${{ env.directories }}; do
-            node sf-delta/index.js --projectPath $dir --baseBranch ${{ vars.TARGET_DIFF }}..HEAD
+            node sf-delta/index.js --projectPath $dir --baseBranch ${{ inputs.target }}..HEAD
           done
 
       - name: Generate DELTA for deployment
         if: ${{ inputs.generate_delta && !inputs.validate_only }}
         run: | 
           for dir in ${{ env.directories }}; do
-            node sf-delta/index.js --projectPath $dir --baseBranch ${{ vars.TARGET_DIFF }}..HEAD^
+            node sf-delta/index.js --projectPath $dir --baseBranch ${{ inputs.target }}..HEAD^
           done
 
       - name: Validate to Salesforce (Check Only)
