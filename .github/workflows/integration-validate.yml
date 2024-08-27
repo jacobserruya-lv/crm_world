@@ -8,30 +8,14 @@ on:
       - synchronize
     branches:
       - 'int-ww'
-      - 'dev-ww'
       - 'int-common'
-      - 'dev-common'
       - 'int-cn'
-      - 'dev-cn'
   workflow_dispatch:
 
 jobs:
-  check-duplicates:
-    if: github.event_name == 'pull_request' && ( github.base_ref == 'dev-cn' ||github.base_ref == 'dev-ww' || github.base_ref == 'dev-common')
-    uses: './.github/workflows/check-duplicate.yml'
-    with:
-      directories: >-
-        ${{ 
-          (github.base_ref == 'int-cn' || github.base_ref == 'dev-cn') 
-          && vars.DIRECTORIES_CN
-          || (github.base_ref == 'int-ww' || github.base_ref == 'dev-ww') 
-          && vars.DIRECTORIES_WW
-          || (github.base_ref == 'int-common' || github.base_ref == 'dev-common') 
-          && vars.DIRECTORIES_COMMON
-        }}
 
   INT_validate_only_ww:
-    if: (needs.check-duplicates.result == 'success' && (github.base_ref == 'dev-ww' || github.base_ref == 'dev-common' )) || ( github.base_ref == 'int-ww' ||  github.base_ref == 'int-common')
+    if: github.base_ref == 'int-ww' ||  github.base_ref == 'int-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-WW'
@@ -42,7 +26,7 @@ jobs:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
   INT_validate_only_cn:
-    if: (needs.check-duplicates.result == 'success' && (github.base_ref == 'dev-cn' || github.base_ref == 'dev-common' )) || ( github.base_ref == 'int-cn' ||  github.base_ref == 'int-common')
+    if: github.base_ref == 'int-cn' ||  github.base_ref == 'int-common'
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-CN'
@@ -51,3 +35,4 @@ jobs:
       target: ${{ github.base_ref }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+

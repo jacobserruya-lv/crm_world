@@ -43,7 +43,7 @@ jobs:
       environment: 'PROD-WW'
       generate_delta: true
       validate_only: false
-      target: ${{ github.ref }}
+      target: ${{ github.ref_head }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
@@ -55,6 +55,6 @@ jobs:
       environment: 'PROD-CN'
       generate_delta: true
       validate_only: false
-      target: ${{ github.ref }}
+      target: ${{ github.ref_head }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

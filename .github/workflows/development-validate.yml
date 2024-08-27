@@ -1,0 +1,53 @@
+name: DEVELOPMENT VALIDATE
+run-name: ${{ github.actor }} | DEVELOPMENT VALIDATE from ${{ github.base_ref }} 🚀
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'dev-ww'
+      - 'dev-common'
+      - 'dev-cn'
+  workflow_dispatch:
+
+jobs:
+  check-duplicates:
+    if: github.event_name == 'pull_request'
+    uses: './.github/workflows/check-duplicate.yml'
+    with:
+      directories: >-
+        ${{ 
+          (github.base_ref == 'dev-cn') 
+          && vars.DIRECTORIES_CN
+          || (github.base_ref == 'dev-ww') 
+          && vars.DIRECTORIES_WW
+          || (github.base_ref == 'dev-common') 
+          && vars.DIRECTORIES_COMMON
+        }}
+
+  DEV_validate_only_ww:
+    needs: check-duplicates
+    if: github.base_ref == 'dev-ww' || github.base_ref == 'dev-common'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-WW'
+      generate_delta: true
+      validate_only: true
+      target: ${{ github.base_ref }}
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+  DEV_validate_only_cn:
+    needs: check-duplicates
+    if: github.base_ref == 'dev-cn' || github.base_ref == 'dev-common'
+    uses: './.github/workflows/salesforce_job.yml'
+    with:
+      environment: 'INT-CN'
+      generate_delta: true
+      validate_only: true
+      target: ${{ github.base_ref }}
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
