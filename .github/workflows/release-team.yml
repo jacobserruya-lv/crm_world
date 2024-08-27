@@ -1,0 +1,125 @@
+name: Release Team
+run-name: ${{ github.actor }} | ${{ github.event.inputs.target }} | Release branch ${{ github.event.inputs.team }} 🚚📦
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'The source branch'
+        required: true
+        type: choice
+        options:
+        - int-common
+        - staging-common
+        - prod-common
+        - int-ww
+        - staging-ww
+        - prod-ww
+        - int-cn
+        - staging-cn
+        - prod-cn
+      target:
+        description: 'The target branch'
+        required: true
+        type: choice
+        options:
+        - int-ww
+        - staging-ww
+        - prod-ww
+        - int-cn
+        - staging-cn
+        - prod-cn
+        - int-common
+        - staging-common
+        - prod-common
+      team:
+        description: 'The team`s folder'
+        required: true
+        type: choice
+        options:
+        - force-app
+        - force-catalogs
+        - force-clientforce
+        - force-clienttarget
+        - force-dcs
+        - force-emailcomposer
+        - force-icon
+        - force-iconics
+        - force-identity
+        - force-iw
+        - force-knowledge
+        - force-omnichannel
+        - force-osa
+        - force-twist
+        - force-twisticonics
+
+
+      release_branch:
+        description: 'The name of the release branch to create'
+        required: true
+
+jobs:
+  check-authorization:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+    - name: Check if user is authorized
+      run: |
+        AUTHORIZED_USERS=(${{ vars.RELEASE_MANAGERS }})
+        if [[ ! " ${AUTHORIZED_USERS[@]} " =~ " ${GITHUB_ACTOR} " ]]; then
+          echo "You are not authorized to run this workflow."
+          exit 1
+        else
+          echo "User ${GITHUB_ACTOR} is authorized."
+        fi
+
+  create-release-branch:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    needs: check-authorization
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: LouisVuitton/crm_world
+        token: ${{ secrets.PAT_SF }}
+        clean: true
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'Release Manager'
+        git config --global user.email 'Release-Manager@github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.PAT_SF }}@github.com/LouisVuitton/crm_world.git
+        echo "Configured Git remote to: $(git remote get-url origin)"
+          
+    - name: Fetch all branches and checkout target branch
+      run: |
+        TARGET_BRANCH="${{ github.event.inputs.target }}"
+        git fetch --all
+        git checkout $TARGET_BRANCH
+        
+    - name: Create new release branch from target branch
+      run: |
+        RELEASE_BRANCH="${{ github.event.inputs.release_branch }}"
+        git checkout -b $RELEASE_BRANCH
+
+    - name: Checkout the specified team from the source branch
+      run: |
+        TEAM="${{ github.event.inputs.team }}"
+        SOURCE_BRANCH="${{ github.event.inputs.source }}"
+        RELEASE_BRANCH="${{ github.event.inputs.release_branch }}"
+
+        git fetch origin $SOURCE_BRANCH
+        echo "Folder: $TEAM"
+        echo "Source Branch: $SOURCE_BRANCH"
+        echo "Release Branch: $RELEASE_BRANCH"
+
+        git checkout origin/$SOURCE_BRANCH -- $TEAM
+        
+        git add $TEAM
+        git commit -m "Added $TEAM from $SOURCE_BRANCH to $RELEASE_BRANCH"
+
+    - name: Push changes to the release branch
+      run: |
+        git push --set-upstream origin ${{ github.event.inputs.release_branch }}
