@@ -23,14 +23,13 @@ jobs:
           directories="${{ inputs.directories }}"  # Access the passed input
           declare -A file_map
           duplicates=""
-          
-          echo $file_map
+        
           # Combine all directories into a single find command
           while IFS= read -r -d '' file; do
             # Extract the relative path of the file
             relative_path="${file#*/}"
             relative_path="${relative_path#*/}"
-            echo $relative_path
+           
 
             # Skip files that contain 'gitkeep' in the path
             if [[ "$relative_path" == *gitkeep* ]]; then
@@ -50,7 +49,6 @@ jobs:
             echo "$duplicates" >> duplicate.log
             echo "Duplicate files detected. See duplicate.log for details."
             cat duplicate.log
-            exit 1
           else
             echo "No duplicate files found." > duplicate.log
             echo "No duplicate files found."
@@ -62,3 +60,12 @@ jobs:
         with:
           name: duplicate-log
           path: duplicate.log
+
+      - name: Check for duplicates and fail if found
+        run: |
+          if grep -q "Duplicate files detected" duplicate.log; then
+            echo "Duplicate files were found. Failing the check."
+            exit 1
+          else
+            echo "No duplicates found. Check passes."
+          fi

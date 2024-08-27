@@ -1,5 +1,5 @@
 name: INTEGRATION VALIDATE
-run-name: ${{ github.actor }} | INTEGRATION VALIDATE 🚀
+run-name: ${{ github.actor }} | INTEGRATION VALIDATE from ${{ github.base_ref }} 🚀
 
 on:
   pull_request:
@@ -17,22 +17,21 @@ on:
 
 jobs:
   check-duplicates:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && ( github.base_ref == 'dev-cn' ||github.base_ref == 'dev-ww' || github.base_ref == 'dev-common')
     uses: './.github/workflows/check-duplicate.yml'
     with:
       directories: >-
         ${{ 
-          (startsWith(github.head_ref || github.ref_name, 'int-cn') || startsWith(github.head_ref || github.ref_name, 'dev-cn')) 
+          (github.base_ref == 'int-cn' || github.base_ref == 'dev-cn') 
           && vars.DIRECTORIES_CN
-          || (startsWith(github.head_ref || github.ref_name, 'int-ww') || startsWith(github.head_ref || github.ref_name, 'dev-ww')) 
+          || (github.base_ref == 'int-ww' || github.base_ref == 'dev-ww') 
           && vars.DIRECTORIES_WW
-          || (startsWith(github.head_ref || github.ref_name, 'int-common') || startsWith(github.head_ref || github.ref_name, 'dev-common')) 
+          || (github.base_ref == 'int-common' || github.base_ref == 'dev-common') 
           && vars.DIRECTORIES_COMMON
         }}
 
   INT_validate_only_ww:
-    needs: [check-duplicates]
-    if: github.base_ref == 'int-ww' || github.base_ref == 'dev-ww' || github.base_ref == 'int-common' || github.base_ref == 'dev-common'
+    if: (needs.check-duplicates.result == 'success' && (github.base_ref == 'dev-ww' || github.base_ref == 'dev-common' )) || ( github.base_ref == 'int-ww' ||  github.base_ref == 'int-common')
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-WW'
@@ -43,8 +42,7 @@ jobs:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
   INT_validate_only_cn:
-    needs: [check-duplicates]
-    if: github.base_ref == 'int-cn' || github.base_ref == 'dev-cn' || github.base_ref == 'int-common' || github.base_ref == 'dev-common'
+    if: (needs.check-duplicates.result == 'success' && (github.base_ref == 'dev-cn' || github.base_ref == 'dev-common' )) || ( github.base_ref == 'int-cn' ||  github.base_ref == 'int-common')
     uses: './.github/workflows/salesforce_job.yml'
     with:
       environment: 'INT-CN'

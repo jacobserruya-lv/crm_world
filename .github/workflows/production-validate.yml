@@ -1,5 +1,5 @@
 name: PRODUCTION VALIDATE
-run-name: ${{ github.actor }} | PRODUCTION VALIDATE 🚀
+run-name: ${{ github.actor }} | PRODUCTION VALIDATE from ${{ github.base_ref }} 🚀
 
 on:
   pull_request:

@@ -1,5 +1,5 @@
 name: PRODUCTION DEPLOY
-run-name: ${{ github.actor }} | PRODUCTION DEPLOY 🚀
+run-name: ${{ github.actor }} | PRODUCTION DEPLOY from ${{ github.base_ref }} 🚀
 
 on:
   push:

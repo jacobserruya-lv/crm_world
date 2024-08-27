@@ -1,5 +1,5 @@
 name: STAGING DEPLOY
-run-name: ${{ github.actor }} | STAGING DEPLOY 🚀
+run-name: ${{ github.actor }} | STAGING DEPLOY from ${{ github.base_ref }} 🚀
 
 on:
   push:

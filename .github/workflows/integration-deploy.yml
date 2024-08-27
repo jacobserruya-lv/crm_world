@@ -1,5 +1,5 @@
 name: INTEGRATION DEPLOY
-run-name: ${{ github.actor }} | INTEGRATION DEPLOY 🚀
+run-name: ${{ github.actor }} | INTEGRATION DEPLOY from ${{ github.base_ref }} 🚀
 
 on:
   push:
