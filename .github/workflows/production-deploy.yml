@@ -1,5 +1,5 @@
 name: PRODUCTION DEPLOY
-run-name: ${{ github.actor }} | PRODUCTION DEPLOY from ${{ github.base_ref }} 🚀
+run-name: ${{ github.actor }} | PRODUCTION DEPLOY from ${{ github.ref_name }} 🚀
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
       environment: 'PROD-WW'
       generate_delta: true
       validate_only: false
-      target: ${{ github.ref_head }}
+      target: ${{ github.ref_name }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
@@ -55,6 +55,6 @@ jobs:
       environment: 'PROD-CN'
       generate_delta: true
       validate_only: false
-      target: ${{ github.ref_head }}
+      target: ${{ github.ref_name }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

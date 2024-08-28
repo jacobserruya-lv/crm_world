@@ -1,5 +1,5 @@
 name: STAGING DEPLOY
-run-name: ${{ github.actor }} | STAGING DEPLOY from ${{ github.base_ref }} 🚀
+run-name: ${{ github.actor }} | STAGING DEPLOY from ${{ github.ref_name }} 🚀
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
       environment: 'STAGING-WW'
       generate_delta: true
       validate_only: false
-      target: ${{ github.ref_head }}
+      target: ${{ github.ref_name }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
@@ -55,6 +55,6 @@ jobs:
       environment: 'STAGING-CN'
       generate_delta: true
       validate_only: false
-      target: ${{ github.ref_head }}
+      target: ${{ github.ref_name }}
     secrets:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
