@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "LouisVuitton-Regular";
+    src: url(@salesforce/resourceURL/fonts/LOUISVUITTON-REGULAR.OTF)
+      format("opentype");
+}
+
+.dropdown-absolute-wrapper {
+    position: relative;
+    width: 100%;
+    
+}
+.dropdown-absolute {
+    position: absolute;
+    z-index: 900;
+    width: 100%;
+    background-color: white; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+    width: 100%; 
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.slds-box_border {
+    border: 0;
+    padding: 5px 0;
+}
+
+ .slds-form-element {
+    padding-bottom: 1rem;
+} 
+
+.second-grid{
+    width:68%;
+}
+.button-group{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.row{
+    display: flex;
+}

@@ -39,9 +39,10 @@ public with sharing class EventAppointmentTriggerHandler {
         Map<Id, Brand_Experience_Variation_Member__c> membersForUpdated = new Map<Id, Brand_Experience_Variation_Member__c>();// in order to avoid multiple
         // Map<Id, Brand_Experience_Variation__c> variationsForUpdated = new Map<Id, Brand_Experience_Variation__c>();// in order to avoid multiple
 
+        Id eventAppointmentRecordType = Schema.SObjectType.Event.getRecordTypeInfosByDeveloperName().get('Event_Appointment').getRecordTypeId();
 
         for (Event appntmnt : apptmntList) {
-            if (appntmnt.Subject=='Event') {
+            if (appntmnt.recordTypeId==eventAppointmentRecordType && String.isNotEmpty(appntmnt.Event__c)) {
                 appointmentsMap.put(appntmnt.Id, appntmnt); 
             }
         }

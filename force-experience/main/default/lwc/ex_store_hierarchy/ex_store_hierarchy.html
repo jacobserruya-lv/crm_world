@@ -1,0 +1,239 @@
+<template>
+	<lightning-card>
+		<template if:true={isSaving}>
+            <div >
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+	    <div class="section-title">STORE HIERARCHY</div>
+		
+			<div class="slds-grid slds-gutters" >
+				
+		
+					<!-- Management Zone Level -->
+					<div class="slds-col" onmouseleave={mousehandler}>
+						<!-- Below code is for lightning input search box which will filter picklist result based on inputs given by user -->
+						<lightning-input type="search" label={labels.managementZoneLevel} onchange={handleSearch} value={searchTerm}
+							onblur={blurhandler} onfocusout={focuhandler} onclick={clickhandler} placeholder={itemcounts} disabled={isLevel0Disabled}>
+						</lightning-input>
+
+						<!-- Below code is for Select/Clear All function -->
+						<template if:true={showDropdown}>
+							<div class="dropdown-absolute-wrapper">
+								<div class="dropdown-absolute">
+									<div class="slds-grid slds-wrap">
+										<template if:true={showselectall}>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<a href="javascript.void(0)" onclick={selectall}>{labels.selectAll}</a>
+											</div>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<div class="slds-float_right">
+													<a href="javascript.void(0)" onclick={handleclearall}>{labels.clearAll}</a>
+												</div>
+											</div>
+										</template>				
+									</div>
+
+									<!-- Below code will show dropdown picklist -->
+									
+										<div class="slds-box_border " style="width:100%">
+											<ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+												<template for:each={zoneLevels} for:item="level0">
+													<li key={level0.Id} class="dropdown-item">
+														<lightning-input type="checkbox" checked={level0.isChecked} label={level0.Name}
+															value={level0.Id} onchange={handleSelection}>
+														</lightning-input>
+													</li>
+												</template>
+											</ul>
+										</div>
+									
+								</div>
+							</div>
+						</template>
+					</div>
+                    
+					<!-- Level 1  -->
+					<div class="slds-col" onmouseleave={mousehandler1}>
+
+						<!-- Below code is for lightning input search box which will filter picklist result based on inputs given by user -->
+						
+						<lightning-input type="search" label={labels.managementZoneSubLevel1} onchange={handleSearch1} value={searchTerm1}
+							onblur={blurhandler1} onfocusout={focuhandler} onclick={clickhandler1} placeholder={itemcounts1} disabled={isLevel1Disabled}>
+						</lightning-input>
+
+						<!-- Below code is for Select/Clear All function -->
+						<template if:true={showDropdown1}>
+							<div class="dropdown-absolute-wrapper">
+								<div class="dropdown-absolute">
+									<div class="slds-grid slds-wrap">
+										<template if:true={showselectall1}>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<a href="javascript.void(0)" onclick={selectall1}>{labels.selectAll}</a>
+											</div>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<div class="slds-float_right">
+													<a href="javascript.void(0)" onclick={handleclearall1}>{labels.clearAll}</a>
+												</div>
+											</div>
+										</template>				
+									</div>
+
+						<!-- Below code will show dropdown picklist -->
+						
+									<div class="slds-box_border " style="width:100%">
+										<ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+											<template for:each={zoneLevels1} for:item="level1">
+												<li key={level1.Id} class="dropdown-item">
+													<lightning-input type="checkbox" checked={level1.isChecked} label={level1.Name}
+														value={level1.Id} onchange={handleSelection1}>
+													</lightning-input>
+												</li>
+											</template>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</template>
+					</div>
+
+					<!-- Level 2  -->
+					<div class="slds-col" onmouseleave={mousehandler2}>
+
+						<!-- Below code is for lightning input search box which will filter picklist result based on inputs given by user -->
+						<lightning-input type="search" label={labels.managementZoneSubLevel2} onchange={handleSearch2} value={searchTerm2}
+							onblur={blurhandler2} onfocusout={focuhandler} onclick={clickhandler2} placeholder={itemcounts2} disabled={isLevel2Disabled}>
+						</lightning-input>
+
+						<!-- Below code is for Select/Clear All function -->
+						<template if:true={showDropdown2}>
+							<div class="dropdown-absolute-wrapper">
+								<div class="dropdown-absolute">
+									<div class="slds-grid slds-wrap">
+										<template if:true={showselectall2}>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<a href="javascript.void(0)" onclick={selectall2}>{labels.selectAll}</a>
+											</div>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<div class="slds-float_right">
+													<a href="javascript.void(0)" onclick={handleclearall2}>{labels.clearAll}</a>
+												</div>
+											</div>
+										</template>				
+									</div>
+
+						<!-- Below code will show dropdown picklist -->
+						
+									<div class="slds-box_border " style="width:100%">
+										<ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+											<template for:each={zoneLevels2} for:item="level2">
+												<li key={level2.Id} class="dropdown-item">
+													<lightning-input type="checkbox" checked={level2.isChecked} label={level2.Name}
+														value={level2.Id} onchange={handleSelection2}>
+													</lightning-input>
+												</li>
+											</template>
+										</ul>
+									</div>
+							    </div>
+						    </div>	
+						</template>
+					</div>
+						
+			</div>
+				
+			<div class="slds-grid slds-gutters second-grid" >
+					<!-- Level 3  -->
+					<div class="slds-col" onmouseleave={mousehandler3}>
+
+						<!-- Below code is for lightning input search box which will filter picklist result based on inputs given by user -->
+						<lightning-input type="search" label={labels.managementZoneSubLevel3} onchange={handleSearch3} value={searchTerm3} 
+							onblur={blurhandler3} onfocusout={focuhandler} onclick={clickhandler3} placeholder={itemcounts3} disabled={isLevel3Disabled}>
+						</lightning-input>
+
+						<!-- Below code is for Select/Clear All function -->
+						<template if:true={showDropdown3}>
+							<div class="dropdown-absolute-wrapper">
+								<div class="dropdown-absolute">
+									<div class="slds-grid slds-wrap">
+										<template if:true={showselectall3}>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<a href="javascript.void(0)" onclick={selectall3}>{labels.selectAll}</a>
+											</div>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<div class="slds-float_right">
+													<a href="javascript.void(0)" onclick={handleclearall3}>{labels.clearAll}</a>
+												</div>
+											</div>
+										</template>				
+									</div>
+
+						<!-- Below code will show dropdown picklist -->
+								
+									<div class="slds-box_border " style="width:100%">
+										<ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+											<template for:each={zoneLevels3} for:item="level3">
+												<li key={level3.Id} class="dropdown-item">
+													<lightning-input type="checkbox" checked={level3.isChecked} label={level3.Name}
+														value={level3.Id} onchange={handleSelection3}>
+													</lightning-input>
+												</li>
+											</template>
+										</ul>
+									</div>
+								</div>
+							</div>	
+						</template>
+					</div>
+
+					<!-- Default Store  -->
+					<div class="slds-col" onmouseleave={mousehandler4}>
+
+						<div class="row">
+						<!-- Below code is for lightning input search box which will filter picklist result based on inputs given by user -->
+							<span if:true={isCreationModal} style="color: red;padding-right: 2px;">*</span>
+							<lightning-input type="search" label={labels.store} onchange={handleSearch4} value={searchTerm4}
+								onblur={blurhandler4} onfocusout={focuhandler} onclick={clickhandler4} placeholder={itemcounts4} disabled={isLevel4Disabled}>
+							</lightning-input>
+						</div>
+						<!-- Below code is for Select/Clear All function -->
+						<template if:true={showDropdown4}>
+							<div class="dropdown-absolute-wrapper">
+								<div class="dropdown-absolute">
+									<div class="slds-grid slds-wrap">
+										<template if:true={showselectall4}>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<a href="javascript.void(0)" onclick={selectall4}>{labels.selectAll}</a>
+											</div>
+											<div class="slds-col slds-large-size_6-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+												<div class="slds-float_right">
+													<a href="javascript.void(0)" onclick={handleclearall4}>{labels.clearAll}</a>
+												</div>
+											</div>
+										</template>				
+									</div>
+
+						<!-- Below code will show dropdown picklist -->
+						
+									<div class="slds-box_border " style="width:100%">
+										<ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+											<template for:each={zoneLevels4} for:item="level4">
+												<li key={level4.Id} class="dropdown-item">
+													<lightning-input type="checkbox" checked={level4.isChecked} label={level4.Name}
+														value={level4.Id} onchange={handleSelection4}>
+													</lightning-input>
+												</li>
+											</template>
+										</ul>
+									</div>
+								</div>
+							</div>		
+						</template>
+					</div>				
+			</div>
+		<lightning-button-group if:true={showSaveCancel} class="button-group">
+			<lightning-button label={labels.cancel} variant="neutral" onclick={handleCancel}></lightning-button>
+			<lightning-button label={labels.update} variant="brand" type="submit" onclick={handleSave}></lightning-button>
+		</lightning-button-group>
+	</lightning-card>
+</template>

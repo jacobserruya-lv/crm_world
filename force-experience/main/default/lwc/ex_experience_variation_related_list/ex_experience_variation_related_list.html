@@ -1,0 +1,24 @@
+<template>
+    <div class="slds-box slds-theme_shade card-container">
+        <div class="header-container">
+            <div class="title-container">
+                <lightning-icon icon-name="custom:custom56" size="small" ></lightning-icon>
+                <span class="slds-text-heading_small header-title">{labels.inStoreEventActivations}</span>
+                <span class="slds-text-heading_small">({numberOfRecords})</span>
+            </div>
+            <div>
+                <lightning-button if:true={displayNewBtn} class="slds-text-align_right" label="New" onclick={openModal}></lightning-button>
+            </div>
+        </div>
+        <div class="slds-scrollable" style="height:auto; width: auto" >
+             <lightning-datatable
+                data={variations} 
+                columns={cols} 
+                key-field="id"
+                column-widths-mode="auto"
+                hide-checkbox-column> 
+            </lightning-datatable>
+        </div>
+    </div>
+    <c-ex_activation_creation_modal is-open={isOpenModal} experience-id={recordId} record-type-id={variationRecordTypeId} record-type-name={variationRTName} onclosemodal={closeModal}></c-ex_activation_creation_modal>
+</template>

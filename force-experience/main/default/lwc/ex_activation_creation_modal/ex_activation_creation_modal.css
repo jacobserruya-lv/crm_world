@@ -1,0 +1,47 @@
+
+.title {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+    font-family: "LouisVuitton-Regular", sans-serif;
+ }
+.components{
+    padding:20px;
+ }
+ .button-group1{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap:10px;
+    text-align: right;
+    font-family: "LouisVuitton-Regular", sans-serif;
+    font-size: 14px;
+}
+.button-group2{
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap:10px;
+    text-align: right;
+    font-family: "LouisVuitton-Regular", sans-serif;
+    font-size: 14px;
+}
+.footer {
+    z-index: 2;
+    position: sticky;
+    bottom: 0;
+}
+.store{
+    font-size: 12px;
+    padding: 4px 0 10px;
+}
+.rowContainer{
+    display: flex;
+    flex-direction: column;
+}
+.columnContainer{
+    display: flex;
+    width: -webkit-fill-available;
+}

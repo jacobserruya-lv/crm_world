@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Product Presentation</fullName>
+        <default>false</default>
+        <label>Product Presentation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Birthday / Anniversary</fullName>
+        <default>false</default>
+        <label>Birthday / Anniversary</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Care Services</fullName>
+        <default>false</default>
+        <label>Care Services</label>
+    </standardValue>
+    <standardValue>
+        <fullName>In-Store Animation</fullName>
+        <default>false</default>
+        <label>In-Store Animation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Reservation / Pick-up</fullName>
+        <default>false</default>
+        <label>Reservation / Pick-up</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Return / Exchange</fullName>
+        <default>false</default>
+        <label>Return / Exchange</label>
+    </standardValue>
+    <standardValue>
+        <fullName>RTW preview</fullName>
+        <default>false</default>
+        <label>RTW preview</label>
+    </standardValue>
+    <standardValue>
+        <fullName>HE（HS/EXOTIC/ON)</fullName>
+        <default>false</default>
+        <label>HE（HS/EXOTIC/ON)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>HJ / HW</fullName>
+        <default>false</default>
+        <label>HJ / HW</label>
+    </standardValue>
+    <standardValue>
+        <fullName>BD/anniversary</fullName>
+        <default>false</default>
+        <label>BD/anniversary</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Fulfil final payment</fullName>
+        <default>false</default>
+        <label>Fulfil final payment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Instore animation</fullName>
+        <default>false</default>
+        <label>Instore animation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Event</fullName>
+        <default>false</default>
+        <label>Event</label>
+    </standardValue>
+</StandardValueSet>

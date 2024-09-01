@@ -1,0 +1,21 @@
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #dcdcdc;
+    
+}
+.title-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 700;
+}
+.header-title {
+    padding: 10px;
+}
+.card-container{
+    padding: 0;
+}

@@ -1,0 +1,83 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCancel}>
+                <lightning-icon icon-name="utility:close" alternative-text="close"></lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+
+            <div class="slds-modal__content content">
+                <template if:true={isSaving}>
+                    <div class="spinner_container">
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </div>
+                </template>
+
+
+                <div class="titleContainer">
+                    <div class="title">{labels.createNewEvent}</div>
+                </div>
+                
+                <template lwc:if={isChooseRTStep}>
+                    <lightning-radio-group
+                        name="recordType"
+                        label="Select a record type"
+                        value={value}
+                        options={recordTypeOptions}
+                        onchange={handleRTChange}
+                        variant ="label-inline"
+                        class="components"
+                        >
+                    </lightning-radio-group>
+                </template>
+                <template lwc:else>
+                    <div class="components">
+                    
+                        <div class="lwcson">
+                            <c-ex_store_hierarchy onstoreselected={storeselected}></c-ex_store_hierarchy>
+                        </div>
+                        <lightning-card>
+                            <div class="section-title">{labels.eventDetails}</div>
+                                <div class="slds-grid slds-gutters" >
+                                    <lightning-record-edit-form object-api-name="Brand_Experience__c" record-type-id={eventRecord.recordTypeId}>
+                                            <div class="slds-grid">
+                                                <div class="slds-col">  
+                                                    <lightning-input class = "eventName" label="Event Name" onchange={saveName} required></lightning-input>  
+                                                    <div class="DateTime slds-form-element">
+                                                        <div class="row "><!--slds-p-around_small-->
+                                                            <h2 class="header"><span style="color: #b71c1c">*</span> {labels.startDate}</h2>
+                                                            <lightning-input class="DateTimeInput" variant="label-hidden" type="datetime" onchange={saveStart} required></lightning-input>
+                                                        </div>
+                                                        <div class="row slds-p-around_small">
+                                                            <h2 class="header"><span style="color: #b71c1c">*</span> {labels.endDate}</h2>
+                                                            <lightning-input class="endDate DateTimeInput" variant="label-hidden" type="datetime"  onchange={saveEnd} required></lightning-input>
+                                                        </div>
+                                                    </div>
+                                                    <lightning-input-field field-name="Type__c" onchange={saveType} value={typeVal} required></lightning-input-field>
+                                                    <lightning-input-field field-name="Sub_Type__c" onchange={saveSubType} required></lightning-input-field>
+                                                    <lightning-input-field field-name="Description__c" onchange={saveDescription}></lightning-input-field>
+
+                                                </div>  
+                                            </div>
+                                    </lightning-record-edit-form>
+                                </div>
+                        </lightning-card>           
+                    </div>    
+                </template>
+                
+
+                
+                <div class="footer">
+                    <div class="button-group">
+                        <lightning-button variant="neutral" label={labels.cancel} title={labels.cancel} onclick={handleCancel} class="cancel-button"></lightning-button>
+                        <lightning-button lwc:if={isChooseRTStep} variant="brand" type ="submit" label={labels.next} onclick={handleNext} class="create-button" disabled={disabledNextBtn}></lightning-button>
+                        <lightning-button lwc:else variant="brand" type ="submit" label={labels.create}  title={labels.create} onclick={handleSave} class="create-button" disabled={disableSaveFlag}></lightning-button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

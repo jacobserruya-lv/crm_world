@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Experience</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Experience_Compact_Layout</compactLayoutAssignment>
+    <description>used to create Experiences</description>
+    <label>In-Store Animation</label>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ended</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ongoing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partially Ready</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ready</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Celebrations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High End %28Exotic%2C RAREX%2C Home%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store opening</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>In-Store Animation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

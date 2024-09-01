@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_user_store_hierarchy__c</fullName>
+    <description>return True if the store matches with the running user store hierarchy. If the user store hierarchy is not defined return False</description>
+    <externalId>false</externalId>
+    <formula>IF( NOT( ISBLANK(TEXT($User.DefaultStore__c)) ) , IF( TEXT($User.DefaultStore__c) == Store__r.RetailStoreId__c, TRUE, FALSE) ,
+IF( NOT( ISBLANK(TEXT($User.MGMT_ZONE_SUB_LEVEL3__c)) ), IF(TEXT($User.MGMT_ZONE_SUB_LEVEL3__c) == TEXT(Store__r.MGMT_ZONE_SUB_LEVEL3__c), TRUE, FALSE),
+IF( NOT( ISBLANK(TEXT($User.MGMT_ZONE_SUB_LEVEL2__c)) ), IF(TEXT($User.MGMT_ZONE_SUB_LEVEL2__c) == TEXT(Store__r.MGMT_ZONE_SUB_LEVEL2__c), TRUE, FALSE) ,
+IF( NOT( ISBLANK(TEXT($User.MGMT_ZONE_SUB_LEVEL1__c)) ) , IF(TEXT($User.MGMT_ZONE_SUB_LEVEL1__c) == TEXT(Store__r.MGMT_ZONE_SUB_LEVEL1__c), TRUE, FALSE) ,
+IF( NOT( ISBLANK(TEXT($User.MANAGEMENT_ZONE_LEVEL__c)) ) , IF(TEXT($User.MANAGEMENT_ZONE_LEVEL__c) == TEXT(Store__r.MANAGEMENT_ZONE_LEVEL__c), TRUE, FALSE) , FALSE ) ) ) ) )</formula>
+    <label>Is user store hierarchy</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

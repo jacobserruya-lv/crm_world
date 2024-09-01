@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-box ">
+        <lightning-card  title={title} class="slds-m-around_small ">
+            <p class="slds-align_absolute-center font">
+                
+                <b class="blueColor font"> {counter} </b>
+                <b if:true={displayCounter2} class=" blueColor font">  /  </b>
+                <b if:true={displayCounter2} class="font"> {counter2} </b>
+            </p>
+            <!-- <p slot="footer">View Report</p> -->
+        </lightning-card>
+
+    </div>
+  
+
+</template>

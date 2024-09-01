@@ -6,11 +6,14 @@ public with sharing class BL_Experience_Variation_Helper {
         experienceType = 'Experience';
         String startDateQuery = String.isNotEmpty(startAfter) ? 'StartDateTime__c >= ' + startAfter : '';
         String endDateQuery = String.isNotEmpty(endBefore) ? 'EndDateTime__c <= ' + endBefore : '';
+        String inStoreEvent = '(Store__r.RetailStoreId__c = \'' +  me.basicInfos.DefaultStore__c + '\' AND RecordTypeId = \'' +  BL_Experience_Variation_Utils.getRecordTypeExperienceVariation('InStore') + '\' AND' +' Brand_Experience__r.RecordTypeId = \'' + BL_Experience_Variation_Utils.getRecordTypeExperience(experienceType) + '\')'; 
+      
+        List<String> expIds = getBrandExperienceOutOfStoreInMyScope(me.basicInfos, startDateQuery, endDateQuery);
+        String outOfStore = !expIds.isEmpty() ? ' ID IN '+ BL_Utils.convertToString(expIds) : '';
 
         List<Map<String, Object>> experienceVariations = new BL_EasyQuery()
             .useCase(BL_Experiences_Constants.USE_CASE_EXPERIENCE_VARIATION)
-            .condition('Store__r.RetailStoreId__c = \'' +  me.basicInfos.DefaultStore__c + '\'')
-            .addCondition('Brand_Experience__r.RecordTypeId = \'' + BL_Experience_Variation_Utils.getRecordTypeExperience(experienceType) + '\'')
+            .condition(' ( ' + inStoreEvent + ( !expIds.isEmpty() ? ' OR ' + outOfStore : '') +  ' ) ')
             .addCondition('Status__c IN' +  BL_Utils.convertToString(new List<String> {'Ready','Ended' ,'Participation Opened'}))
             .addCondition(startDateQuery)
             .addCondition(endDateQuery)
@@ -186,7 +189,32 @@ public with sharing class BL_Experience_Variation_Helper {
         return null;
     }
 
-    
 
+
+    public static List<String> getBrandExperienceOutOfStoreInMyScope(User currentUser, String startAfter, String endBefore ){
+        String startDateQuery = String.isNotEmpty(startAfter) ? 'Brand_Experience_Variation__r.StartDateTime__c >= ' + startAfter : '';
+        String endDateQuery = String.isNotEmpty(endBefore) ? 'Brand_Experience_Variation__r.EndDateTime__c <= ' + endBefore : '';
+        String assignedCaCondition =  'Assigned_CA__c = \'' + currentUser.Id + '\'' ;
+        String storeCondition = 'Assigned_CA__r.DefaultStore__c = \'' + currentUser.DefaultStore__c + '\'';
+        String ownerCondition = currentUser.TECH_IsManager__c ? storeCondition :  assignedCaCondition ;
+
+        List<String> experienceIds = new List<String>();
+        List<AggregateResult> expaggregatExperiences = new BL_EasyQuery()
+            .objectname('Brand_Experience_Variation_Member__c')
+            .fields(new List<String> {'Brand_Experience_Variation__c'})
+            .condition('Brand_Experience_Variation__r.RecordTypeId = \'' + BL_Experience_Variation_Utils.getRecordTypeExperienceVariation('OutOfStore')+ '\'' )
+            .addCondition(startDateQuery)
+            .addCondition(endDateQuery )
+            .addCondition('Brand_Experience_Variation__r.Status__c IN' +  BL_Utils.convertToString(new List<String> {'Ready','Ended' ,'Participation Opened'}))
+            .addCondition(ownerCondition + ' GROUP BY  Brand_Experience_Variation__c')
+            .executeQuery()
+            .getSObjects();
+
+        for(AggregateResult agg : expaggregatExperiences){
+            experienceIds.add( (String) agg.get('Brand_Experience_Variation__c'));
+        }
+
+        return experienceIds;
+    }
     
 }

@@ -1,0 +1,86 @@
+<template>
+    <template if:true={isOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                <div class="slds-modal__content">
+                    <lightning-record-edit-form object-api-name="Brand_Experience_Variation__c"  record-type-id={recordTypeId} onsuccess={handleSuccess} onerror={handleError} onsubmit={handleSubmit}>
+                        <div class ="slds-modal__header slds-text-heading--medium">{labels.title}</div><!--concat recordtype label-->
+                        <div class="components">
+                            <div class="slds-grid slds-wrap" style={showFirstStep}>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="Name" required ></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input type="text" label={labels.eventAndExperience} value={experienceName} read-only></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="StartDateTime__c" value={experienceStartDate} required ></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="EndDateTime__c" value={experienceEndDate} required ></lightning-input-field>
+                                </div>
+
+                                <div lwc:if={isInStoreRT} class="columnContainer">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field field-name="inStoreEventFormat__c" required ></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="store"><span style="color: red;">*</span> Store</div>
+                                        <c-ex_custom_lookup record-id={experienceId} object-api-name="Brand_Experience_Store_Hierarchy__c" onstoreselected={saveStore}></c-ex_custom_lookup>
+                                    </div>
+                                </div>
+                                
+                                <div lwc:else class="slds-col slds-size_1-of-1">
+                                    <lightning-input-field field-name="formatedAddress__c" required ></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1">
+                                    <lightning-input-field field-name="Description__c" ></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="Target_Sales__c"  ></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="Currency__c" value={currencyDefaultVal}></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="Nb_Target_Clients__c"  ></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="Brand_Experience__c" value={experienceId} class="slds-hidden" ></lightning-input-field>
+                                </div>
+                            </div>
+                            <div class="rowContainer" style={showSecondStep}>
+                                <lightning-input type="toggle" label="Nomination in ICON ?"  data-fieldname="Nomination_By_CA__c" checked={nominationDefaultVal} disabled></lightning-input>
+                                <lightning-input type="toggle" label="Guests ?" data-fieldname="Guests_Authorized__c" checked></lightning-input>
+                                <lightning-input type="toggle" label="Appointments Mandatory ?" data-fieldname="Required_Appointment__c" checked></lightning-input>
+                                <lightning-input-field field-name="Appointment_Type__c" value="Free Slot" ></lightning-input-field>
+                                <lightning-input type="toggle" label="Attendance Filing in Icon" data-fieldname="AttendanceByCA__c" checked={attendanceDefaultVal} disabled></lightning-input>
+
+                            </div>
+                        </div>
+
+                        <div class=" slds-modal__footer footer">
+                            <!-- <div class="button-group"> -->
+                                <div lwc:if={isFirstStep} class="button-group1">
+                                    <lightning-button variant="brand" label={labels.next} title={labels.next} onclick={handleNext} class="create-button"></lightning-button>
+                                </div>
+                                <div lwc:else class="button-group2">
+                                    <lightning-button variant="neutral" label={labels.previous} title={labels.previous} onclick={handlePrevious} class="previous-button"></lightning-button>  
+                                    <lightning-button  variant="brand" type ="submit" label={labels.create} title={labels.create} class="create-button"></lightning-button>
+
+                                </div>
+                            <!-- </div> -->
+                        </div> 
+                     </lightning-record-edit-form>
+                    
+                    </div>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template> 

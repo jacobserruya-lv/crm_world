@@ -1,0 +1,17 @@
+<!-- MyVisualforcePage.page -->
+<apex:page>
+    <apex:includeLightning />
+    <div id="lightningContainer"></div>
+    <script>
+        $Lightning.use("c:ContainerApp", function() {
+            $Lightning.createComponent(
+                "c:NewEventExperienceButtonWrapper",
+                {},
+                "lightningContainer",
+                function(component) {
+                    console.log("Component created:", component);
+                }
+            );
+        });
+    </script>
+</apex:page>

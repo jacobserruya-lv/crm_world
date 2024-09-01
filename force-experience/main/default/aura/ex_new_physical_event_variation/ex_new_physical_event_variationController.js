@@ -23,8 +23,22 @@
 
     handleSubmit: function(component, event, helper) {
         event.preventDefault();
-       
-        const fields = event.getParam('fields');       
+        debugger
+        var childCmp = component.find("childCmp");
+        var selectedStore = childCmp.get("v.value");
+        if (selectedStore==null || selectedStore=="") {
+            component.set("v.errorMessage", "Complete this field.");
+            component.set("v.isStoreFilled", false);
+            return;
+        }
+        else{
+            component.set("v.errorMessage", "");
+            component.set("v.isStoreFilled", true);
+        }
+        console.log("selectedStore:", selectedStore);
+        const fields = event.getParam('fields');
+        fields.Store__c = selectedStore;
+
         component.find('recordEditForm').submit(fields);
         var resultsToast = $A.get("e.force:showToast");
                     resultsToast.setParams({
@@ -34,11 +48,7 @@
                     });
                    // component.destroy();                 
                     resultsToast.fire();
-          
-           
-
     },
-
     handleSuccess : function(component, event, helper) {
         var record = event.getParam("response");
         // ID of updated or created record
@@ -81,10 +91,5 @@
         });
     
         $A.enqueueAction(action);  
-
-           
-           
         }
-    
-   
 })

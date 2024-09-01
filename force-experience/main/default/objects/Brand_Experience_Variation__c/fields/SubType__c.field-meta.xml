@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubType__c</fullName>
+    <description>A subType of an Brand Experience Variation</description>
+    <externalId>false</externalId>
+    <label>Sub-type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Digital</fullName>
+                <default>false</default>
+                <label>Digital</label>
+            </value>
+            <value>
+                <fullName>Pre-order</fullName>
+                <default>false</default>
+                <label>Pre-order</label>
+            </value>
+            <value>
+                <fullName>Exclusive Drop</fullName>
+                <default>false</default>
+                <label>Exclusive Drop</label>
+            </value>
+            <value>
+                <fullName>Webview</fullName>
+                <default>false</default>
+                <label>Webview</label>
+            </value>
+            <value>
+                <fullName>Physical</fullName>
+                <default>false</default>
+                <label>In Store</label>
+            </value>
+            <value>
+                <fullName>Out of Store</fullName>
+                <default>false</default>
+                <label>Out of Store</label>
+            </value>
+            <value>
+                <fullName>Early Bird</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Early Bird</label>
+            </value>
+            <value>
+                <fullName>In-Person</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>In-Person</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Event</controllingFieldValue>
+            <valueName>Digital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Event</controllingFieldValue>
+            <valueName>Physical</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exclusive Offer</controllingFieldValue>
+            <valueName>Pre-order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exclusive Offer</controllingFieldValue>
+            <valueName>Exclusive Drop</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Content</controllingFieldValue>
+            <valueName>Webview</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

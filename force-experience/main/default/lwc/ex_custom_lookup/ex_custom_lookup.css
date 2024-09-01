@@ -1,0 +1,10 @@
+.pillSize{
+    display: grid;
+    height: 31.996px;
+}
+.noResultsLabel{
+    padding-left: 8px;
+}
+.icon{
+    margin-left: 3px;
+}
