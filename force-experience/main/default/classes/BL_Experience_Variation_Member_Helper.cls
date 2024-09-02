@@ -246,7 +246,11 @@ public with sharing class BL_Experience_Variation_Member_Helper {
         String ownerCondition = 'Assigned_CA__c = \'' + me.basicInfos.Id + '\'';
        
         if(String.isNotEmpty(storeCode) && me.basicInfos.TECH_IsManager__c ){
-            ownerCondition =  'Brand_Experience_Variation__r.Store__r.RetailStoreId__c = \'' + storeCode + '\'';
+
+            String inStore = '(Brand_Experience_Variation__r.Store__r.RetailStoreId__c = \'' + storeCode + '\' AND Brand_Experience_Variation__r.RecordTypeId = \'' +  BL_Experience_Variation_Utils.getRecordTypeExperienceVariation('InStore') +'\' )';
+            String outStore = '(Assigned_CA__r.DefaultStore__C = \'' + storeCode + '\' AND Brand_Experience_Variation__r.RecordTypeId = \'' +  BL_Experience_Variation_Utils.getRecordTypeExperienceVariation('OutOfStore') +'\' )';
+
+            ownerCondition =  '('+ inStore +' OR ' + outStore+')';
         }
         if (!caIdsList.isEmpty() && me.basicInfos.TECH_IsManager__c){
 

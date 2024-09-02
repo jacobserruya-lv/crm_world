@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Experience_Variation</label>
+    <protected>false</protected>
+    <values>
+        <field>FieldsMappingJson__c</field>
+        <value xsi:type="xsd:string">[
+  {
+    &quot;SFFieldPath&quot;: &quot;Description__c&quot;,
+    &quot;SFLabel&quot;: &quot;Description&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;description&quot;,
+    &quot;Save_to_SF&quot;: true,
+    &quot;Send_to_Clienteling_App&quot;: true,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;EndDateTime__c&quot;,
+    &quot;SFLabel&quot;: &quot;End Date &amp; Time&quot;,
+    &quot;FieldType&quot;: &quot;DateTime&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;endDate&quot;,
+    &quot;Save_to_SF&quot;: true,
+    &quot;Send_to_Clienteling_App&quot;: true,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;StartDateTime__c&quot;,
+    &quot;SFLabel&quot;: &quot;Start Date &amp; Time&quot;,
+    &quot;FieldType&quot;: &quot;DateTime&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;startDate&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;Save_to_SF&quot;: true,
+    &quot;Send_to_Clienteling_App&quot;: true,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;IsCurrency&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Name&quot;,
+    &quot;SFLabel&quot;: &quot;Variation Name&quot;,
+    &quot;FieldType&quot;: &quot;String&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;name&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Store__r.Name&quot;,
+    &quot;SFLabel&quot;: &quot;Store&quot;,
+    &quot;FieldType&quot;: &quot;Reference&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;storeLocation&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Id&quot;,
+    &quot;SFLabel&quot;: &quot;Record ID&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;id&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Status__c&quot;,
+    &quot;SFLabel&quot;: &quot;Variation Status&quot;,
+    &quot;FieldType&quot;: &quot;Picklist&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;status&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: true,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;Wrapper_Field_Name&quot;: &quot;type&quot;,
+    &quot;SFFieldPath&quot;: &quot;RecordType.name&quot;,
+    &quot;SFLabel&quot;: &quot;Record Type ID&quot;,
+    &quot;FieldType&quot;: &quot;Reference&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Nb_Target_Clients__c&quot;,
+    &quot;SFLabel&quot;: &quot;Target Nb Guests&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;clientsTargetNumber&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Target_Sales__c&quot;,
+    &quot;SFLabel&quot;: &quot;Target Sales&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;targetSales&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;Wrapper_Field_Name&quot;: &quot;clientsConfirmedNumber&quot;,
+    &quot;SFFieldPath&quot;: &quot;Nb_Confirmed_Clients__c&quot;,
+    &quot;SFLabel&quot;: &quot;Clients Confirmed Number&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Nb_Participated_Clients__c&quot;,
+    &quot;SFLabel&quot;: &quot;Participated Clients&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;clientsParticipatedNumber&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;Wrapper_Field_Name&quot;: &quot;clientsNominatedNumber&quot;,
+    &quot;SFFieldPath&quot;: &quot;Nb_Nominated_Clients__c&quot;,
+    &quot;SFLabel&quot;: &quot;Clients Nominated Number&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Currency__c&quot;,
+    &quot;SFLabel&quot;: &quot;Currency&quot;,
+    &quot;FieldType&quot;: &quot;Picklist&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;currency&quot;,
+    &quot;Send_to_Clienteling_App&quot;: true,
+    &quot;Save_to_SF&quot;: true,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Nb_Fill_Attendance_Clients__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;clientsFillAttendanceNumber&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;SFLabel&quot;: &quot;Clients Fill Attendance Number&quot;,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;formatedAddress__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;address&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;SFLabel&quot;: &quot;Event Address&quot;,
+    &quot;FieldType&quot;: &quot;String&quot;,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Brand_Experience__r.Sub_Type__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;experienceSubType&quot;,
+    &quot;Send_to_Clienteling_App&quot;: true,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Brand_Experience__r.Type__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;experienceType&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Experience_Variation&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000Gug4YAC&quot;,
+      &quot;Label&quot;: &quot;Experience_Variation&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Experience_Variation&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  }
+]</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ObjectName__c</field>
+        <value xsi:type="xsd:string">Brand_Experience_Variation__c</value>
+    </values>
+    <values>
+        <field>QueryConditionJson__c</field>
+        <value xsi:type="xsd:string">[]</value>
+    </values>
+    <values>
+        <field>QueryCondition__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

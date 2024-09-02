@@ -1,0 +1,13 @@
+.card-container{
+    padding: unset;
+}
+.header-container{
+    padding: 10px;
+}
+.title{
+    font-size: 0.75rem;
+}
+.search{
+    display: flex;
+    justify-content: space-between;
+}

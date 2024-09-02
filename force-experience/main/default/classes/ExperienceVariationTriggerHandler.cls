@@ -44,11 +44,8 @@ public with sharing class ExperienceVariationTriggerHandler {
             checkLimitRegistrationValue(variation);
             Boolean isExperienceRecordType =checkExperienceRecordType(experience.RecordTypeId);
             setCARegistration(variation, isExperienceRecordType);
-            setGuestsAuthorized(variation, isExperienceRecordType);
-            setNominationByCA(variation, physicalEventRTId, isExperienceRecordType);  
             setTargetingMethod(variation,isExperienceRecordType);
             setVariationTypes(variation);
-            setAttendanceByCA(variation, physicalEventRTId, isExperienceRecordType);
 
             //SE-344 Fill currency__c when Store__c is filled if currency__c is not filled **Keman WU**
             if(variation.RecordTypeId == physicalEventRTId && variation.Currency__c == null && variation.Store__c != null ){
@@ -57,7 +54,7 @@ public with sharing class ExperienceVariationTriggerHandler {
         }
     }
     private static boolean checkExperienceRecordType(Id recordType) {
-        return recordType == BL_Experience_Variation_Utils.getRecordTypeExperience('Experience');
+        return (recordType == BL_Experience_Variation_Utils.getRecordTypeExperience('Experience') || recordType == BL_Experience_Variation_Utils.getRecordTypeExperience('OutOfStore')) ;
     }
    
     public static void handleAfterUpdate(List<Brand_Experience_Variation__c> newList, Map<Id, Brand_Experience_Variation__c> oldMap) {
@@ -68,9 +65,10 @@ public with sharing class ExperienceVariationTriggerHandler {
         for (Brand_Experience_Variation__c variation : newList) {
             Brand_Experience_Variation__c oldVariation = oldMap.get(variation.Id);
             if (variation.status__c != oldVariation.status__c) {
+                //ESTHER- when status is ready and not 'to contact' not such value...?
                 if (variation.status__c == 'Ready') {
                     variationIdsToSentPush.add(variation.Id);
-                    variationIdsToSentPush.add(variation.Id);
+                    variationIdsToSentPush.add(variation.Id);//is double check why this
                 }
                 if(!experiencesIdsToCheck.contains(variation.Brand_Experience__c)){
                     experiencesIdsToCheck.add(variation.Brand_Experience__c);
@@ -176,7 +174,8 @@ public with sharing class ExperienceVariationTriggerHandler {
             Brand_Experience_Variation__c oldVariation = oldMap.get(variation.Id);
             Boolean statusChanged = variation.status__c != oldVariation.status__c ;
             Boolean statusIsReady =  variation.status__c == 'Ready';
-            Boolean isExperienceRecordType = recordTypeByVariation.get(variation.Id) == BL_Experience_Variation_Utils.getRecordTypeExperience('Experience');
+            //in store or out of store
+            Boolean isExperienceRecordType = (recordTypeByVariation.get(variation.Id) == BL_Experience_Variation_Utils.getRecordTypeExperience('Experience') || recordTypeByVariation.get(variation.Id) == BL_Experience_Variation_Utils.getRecordTypeExperience('OutOfStore'));
 
             if (statusChanged && statusIsReady && isExperienceRecordType){
                 variation.RegistrationStartDateTime__c = System.now() ;
@@ -229,6 +228,7 @@ public with sharing class ExperienceVariationTriggerHandler {
                 variation.Guests_Authorized__c = true; //Default value is false, True only if Event.RT='Experience' AND variation.RT='Physical_Event'
             }
         }
+
     }
     private static void setRequiredAppointment(Brand_Experience_Variation__c variation, boolean isExperienceRecordType) {
         if(isExperienceRecordType){
@@ -259,22 +259,23 @@ public with sharing class ExperienceVariationTriggerHandler {
     }
     private static void setVariationTypes(Brand_Experience_Variation__c variation) {
         Id physicalEventRTId =Schema.SObjectType.Brand_Experience_Variation__c.getRecordTypeInfosByDeveloperName().get('Physical_Event').getRecordTypeId();
+        Id outOfStoreEventRTId =Schema.SObjectType.Brand_Experience_Variation__c.getRecordTypeInfosByDeveloperName().get('Out_of_Store_Event').getRecordTypeId();
         Id contentRTId =Schema.SObjectType.Brand_Experience_Variation__c.getRecordTypeInfosByDeveloperName().get('Content').getRecordTypeId();
         Id digitalEventRTId =Schema.SObjectType.Brand_Experience_Variation__c.getRecordTypeInfosByDeveloperName().get('Digital_Event_Variation').getRecordTypeId();
         Id exclusiveOfferEventRTId =Schema.SObjectType.Brand_Experience_Variation__c.getRecordTypeInfosByDeveloperName().get('Exclusive_Offer').getRecordTypeId();
-        if (variation.RecordTypeId==physicalEventRTId) {
+        if (variation.RecordTypeId == physicalEventRTId || variation.RecordTypeId == outOfStoreEventRTId) {
             variation.Type__c = 'Event';
             variation.SubType__c = 'Physical';
         }
-        else if (variation.RecordTypeId==contentRTId) {
+        else if (variation.RecordTypeId == contentRTId) {
             variation.Type__c = 'Content';
             variation.SubType__c = 'Webview';
         }
-        else if (variation.RecordTypeId==digitalEventRTId) {
+        else if (variation.RecordTypeId == digitalEventRTId) {
             variation.Type__c = 'Event';
             variation.SubType__c = 'Digital';
         }
-        else if (variation.RecordTypeId==exclusiveOfferEventRTId) {
+        else if (variation.RecordTypeId == exclusiveOfferEventRTId) {
             variation.Type__c = 'Exclusive Offer';
             variation.SubType__c = 'Exclusive Drop';
         }

@@ -1,0 +1,28 @@
+<template>
+    <div class="slds-box slds-theme_shade card-container">
+        <div class="header-container">
+            <div class="title-container">
+                <lightning-icon icon-name="standard:groups" size="small" ></lightning-icon>
+                <span class="slds-text-heading_small header-title">{labels.invitees}</span>
+                <span class="slds-text-heading_small">({numberOfRecords})</span>
+            </div>
+            <div>
+                <lightning-button class="slds-text-align_right" label="New" onclick={openNewModal}></lightning-button>
+            </div>
+        </div>
+        <div if:true={numberOfRecords} class="slds-scrollable" style="height:auto; width: auto" >
+             <lightning-datatable
+                data={records} 
+                columns={cols} 
+                key-field="id"
+                column-widths-mode="auto"
+                hide-checkbox-column> 
+            </lightning-datatable>
+        </div>
+        <!-- By default, 50 values are diplayed. A “Show All” button enables to expand the Related List -->
+        <div if:true={numberOfRecords} class="slds-card__footer"> 
+            <a lwc:if={isViewAll} onclick={toggleView}>{labels.viewLess}</a>
+            <a lwc:else onclick={toggleView}>{labels.viewAll}</a>
+        </div>
+    </div>
+</template>

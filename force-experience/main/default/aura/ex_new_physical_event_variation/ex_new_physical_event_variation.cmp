@@ -2,8 +2,11 @@
     
    
     <aura:attribute name="parentFieldId" access="global" type="String" /> 
-    <aura:attribute name="recordTypeId" access="global" type="String" />   
+    <aura:attribute name="recordTypeId" access="global" type="String" />
+    <aura:attribute name="restrictedValues" type="String[]" />   
     <aura:attribute name="isOpen" type="boolean" default="true"/>
+    <aura:attribute name="isStoreFilled" type="Boolean" default="true"/>
+    <aura:attribute name="errorMessage" type="String"/>
    
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:if isTrue="{!v.isOpen}">
@@ -34,10 +37,17 @@
                         <div class="slds-col slds-size_1-of-2">
                             <lightning:inputField fieldName="inStoreEventFormat__c" required="true"  />
                         </div>
-                        <div class="slds-col slds-size_1-of-2">
-                            <lightning:inputField fieldName="Store__c"  required="true"/>
+                        <div class="slds-col slds-size_1-of-2 slds-form-element__label slds-p-top_small">
+                            <div class="{! 'slds-form-element' + (v.isStoreFilled ? '' : ' slds-has-error') }">
+                                <div><span style="color: red;">*</span> Store
+                                    <c:CusomLookup aura:id="childCmp" recordId="{!v.parentFieldId}" />
+                                </div>
+                                <aura:if isTrue="{!not(v.isStoreFilled)}">
+                                    <div class="slds-col slds-size_1-of-2 slds-form-element__label slds-form-element__help">{!v.errorMessage}</div>
+                                </aura:if>
+                            </div> 
                         </div>
-                        
+                                              
                         <div class="slds-col slds-size_1-of-1"> 
                             <lightning:inputField fieldName="Description__c" />  
                         </div>                      

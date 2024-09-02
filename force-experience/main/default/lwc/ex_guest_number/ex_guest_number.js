@@ -1,3 +1,5 @@
+
+// NOT IN USE ANYMORE, has been replaced by ex_nomination_kpi
 import { LightningElement, api, wire } from 'lwc';
     import {  getRecord, getFieldValue } from "lightning/uiRecordApi";
     

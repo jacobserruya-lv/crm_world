@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Global_Nb_Guest__c</fullName>
+    <description>Roll-up Summary(SUM Brand_Experience_Variation__c.Nb_Guest__c)</description>
+    <externalId>false</externalId>
+    <label>Guests</label>
+    <summarizedField>Brand_Experience_Variation__c.Nb_Guest__c</summarizedField>
+    <summaryForeignKey>Brand_Experience_Variation__c.Brand_Experience__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

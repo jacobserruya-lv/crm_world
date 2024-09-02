@@ -1,0 +1,4 @@
+<!-- auraWrapper.cmp -->
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId, force:lightningQuickAction" access="global">
+    <c:ex_new_brand_experience_modal/>
+</aura:component>

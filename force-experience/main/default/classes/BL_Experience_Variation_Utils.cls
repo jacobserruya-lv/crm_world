@@ -44,8 +44,24 @@ public with sharing class BL_Experience_Variation_Utils {
             when 'Experience' {
                 return Schema.SObjectType.Brand_Experience__c.getRecordTypeInfosByDeveloperName().get('Experience').getRecordTypeId();
             }
+            when 'OutOfStore' {
+                return Schema.SObjectType.Brand_Experience__c.getRecordTypeInfosByDeveloperName().get('Out_of_Store_Event').getRecordTypeId();
+            }
             when 'Club' {
                 return Schema.SObjectType.Brand_Experience__c.getRecordTypeInfosByDeveloperName().get('Club_Experience').getRecordTypeId();
+            }
+        }
+        return null;
+    }
+
+    public static Id getRecordTypeExperienceVariation(String variationType){
+        
+        switch on variationType {
+            when 'InStore' {
+                return Schema.SObjectType.Brand_Experience_Variation__c.getRecordTypeInfosByDeveloperName().get('Physical_Event').getRecordTypeId();
+            }
+            when 'OutOfStore' {
+                return Schema.SObjectType.Brand_Experience_Variation__c.getRecordTypeInfosByDeveloperName().get('Out_of_Store_Event').getRecordTypeId();
             }
         }
         return null;
