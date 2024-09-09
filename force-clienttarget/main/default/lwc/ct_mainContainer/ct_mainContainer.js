@@ -16,6 +16,7 @@ import getIsAllClientsInMyPerimeter from "@salesforce/apex/CL_controller.getIsAl
 import isAllFromOneStore from "@salesforce/apex/CT_CSVParseController.isAllFromOneStore";
 import isAllClientsWithStore from "@salesforce/apex/CT_CSVParseController.isAllClientsWithStore";
 import getClientsMissingStore from "@salesforce/apex/CT_CSVParseController.getClientsMissingStore";
+import getUnattachedDreamIds from "@salesforce/apex/CL_controller.getUnattachedDreamIds";
 import getAllStores from "@salesforce/apex/CL_controller.getAllStores";
 import CL_STATE_EXCHANGE_CHANNEL from "@salesforce/messageChannel/clStateExchange__c";
 import CL_STATE_RESET_CHANNEL from "@salesforce/messageChannel/clStateReset__c";
@@ -96,6 +97,10 @@ export default class Ct_mainContainer extends LightningElement {
     dreamIds: "$storage.dreamIdList"
   })
   clientsMissingStore;
+  @wire(getUnattachedDreamIds, {
+    dreamIds: "$storage.dreamIdList"
+  })
+  unattachedDreamIds;
   @wire(getAllStores)
   allStoresList;
   @wire(getQueryConfig)
@@ -360,33 +365,16 @@ export default class Ct_mainContainer extends LightningElement {
   handleDeleteClients() {
     const clientsToDelete = [
       ...(this.notInPerimeterClients || []),
-      ...(this.clientsMissingStore.data || [])
+      ...(this.clientsMissingStore?.data || []),
+      ...(this.unattachedDreamIds?.data || [])
     ];
-    const clientsDreamIds = clientsToDelete.map((c) => c.DREAMID__c);
-    const isToDeleteDreamId = (c) =>
-      clientsDreamIds.indexOf(c.DREAMID__c) == -1;
+    const isToDeleteDreamId = (c) => clientsToDelete.indexOf(c.DREAMID__c) == -1;
     const updatedList = [...this.storage.clientList].filter(isToDeleteDreamId);
     const payload = { handleNewClientList: updatedList };
     publish(this.messageContext, CL_STATE_EXCHANGE_CHANNEL, payload);
 
     this.notInPerimeterClients = [];
     this.template.querySelector("c-ct_result-list")?.reloadClients(updatedList);
-  }
-
-  handleDownloadClients() {
-    const clientsToDownload = [
-      ...(this.notInPerimeterClients || []),
-      ...(this.clientsMissingStore.data || [])
-    ];
-    const clientsDreamIds = clientsToDownload.map((c) => c.DREAMID__c);
-    const csvContent = clientsDreamIds.join("\n");
-    const downloadElement = document.createElement("a");
-    downloadElement.href =
-      "data:text/csv;charset=utf-8," + encodeURI(csvContent);
-    downloadElement.target = "_self";
-    downloadElement.download = "to_delete_dreamIds.csv";
-    document.body.appendChild(downloadElement);
-    downloadElement.click();
   }
 
   get isClientListCreatedHeader() {

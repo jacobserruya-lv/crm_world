@@ -1,8 +1,10 @@
 import { track, api, LightningElement, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import getAllEventVariationById from "@salesforce/apex/CL_controller.getAllEventVariationById";
 import getAllPublishedEvents from "@salesforce/apex/CL_controller.getAllPublishedEvents";
-import addClientsToAnEventFromBatch from '@salesforce/apex/CL_controller.addClientsToAnEventFromBatch'
+import addClientsToAnEventFromBatch from '@salesforce/apex/CL_controller.addClientsToAnEventFromBatch';
+import EVENT_TYPE_FIELD from "@salesforce/schema/Brand_Experience__c.Type__c";
 
 export default class ct_addClientsToAnEventModal extends LightningElement {
   defaultRecordTypeId = "012000000000000AAA";
@@ -20,7 +22,11 @@ export default class ct_addClientsToAnEventModal extends LightningElement {
   eventSearchValue = '';
   variationSearchValue = '';
 
-  @wire(getAllPublishedEvents)
+  eventTypeValue = '';
+
+  @wire(getAllPublishedEvents, {
+    eventType: '$eventTypeValue'
+  })
   publishedEvents;
 
   @wire(getAllEventVariationById, {
@@ -28,7 +34,17 @@ export default class ct_addClientsToAnEventModal extends LightningElement {
   })
   publishedVariations;
 
+  @wire(getPicklistValues,{
+    recordTypeId: '$defaultRecordTypeId',
+    fieldApiName: EVENT_TYPE_FIELD
+  }) eventTypePicklist;
+
+  get eventTypeOptions() {
+    return this.eventTypePicklist?.data?.values || [];
+  }
+
   get eventOptions() {
+    console.log(this.publishedEvents);
     return this.publishedEvents?.data?.filter(({ Name }) => !this.eventSearchValue || Name.includes(this.eventSearchValue))
                                       ?.map(({ Name, Id }) => ({ label: Name, value: Id }));
   }
@@ -61,6 +77,10 @@ export default class ct_addClientsToAnEventModal extends LightningElement {
 
   eventOnFocus() {
     this.eventId  = '';
+  }
+
+  handleEventTypeValueChanged = (event) => {
+    this.eventTypeValue = event.detail.value;
   }
 
   handleEventChange = (value) => {
@@ -121,6 +141,7 @@ export default class ct_addClientsToAnEventModal extends LightningElement {
     addClientsToAnEventFromBatch({
       eventId: this.eventId,
       variationId: this.variationId,
+      eventType: this.eventTypeValue,
       dreamIdsList: [...this.storage.dreamIdList]
     })
       .then(({ jobId, errorFileId }) => {
