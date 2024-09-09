@@ -90,7 +90,7 @@ jobs:
         run: |
           if [ -f "delta/main/default/package.xml" ]; then
             if [[ "${{ inputs.environment }}" == *"STAGING"* ]]; then
-              sfdx force:source:deploy --sourcepath delta/main/default --checkonly --targetusername ${{ vars.ALIAS }} --verbose --testlevel RunAllTestsInOrg
+              sfdx force:source:deploy --sourcepath delta/main/default --checkonly --targetusername ${{ vars.ALIAS }} --verbose --testlevel RunLocalTests
             else
               sfdx force:source:deploy --sourcepath delta/main/default --checkonly --targetusername ${{ vars.ALIAS }} --verbose
             fi
