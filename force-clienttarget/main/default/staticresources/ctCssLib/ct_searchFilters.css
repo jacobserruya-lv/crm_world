@@ -380,7 +380,7 @@ c-ct_search-filters-purchase-history .category-include [type=checkbox]:checked +
   fill: #080707;
 }
 
-.slds-button__icon_left {
+c-ct_main-container .slds-button__icon_left {
   color: #0070d2;
   display: flex;
 }
@@ -616,4 +616,23 @@ c-ct_new-sa-selection .slds-cell-edit .slds-button {
   line-height: 1.31;
   letter-spacing: normal;
   color: #191009;
+}
+
+.event-modal-col > c-ct_searchable-combobox > .slds-p-around_medium { 
+  padding: 0;
+}
+
+.event-modal-col > c-ct_searchable-combobox .slds-form-element__label { 
+  visibility: hidden !important;
+}
+
+.event-modal-col .event-type button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.event-modal-col > c-ct_searchable-combobox input {
+  border-left: unset;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }

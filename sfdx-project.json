@@ -1,9 +1,10 @@
 {
   "packageDirectories": [
     {
-      "path": "force-app",
+      "path": "force-clienttarget",
       "default": true
     }
+    
   ],
   "name": "lv",
   "namespace": "",
