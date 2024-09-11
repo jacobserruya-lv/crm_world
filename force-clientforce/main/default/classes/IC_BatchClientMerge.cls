@@ -8,7 +8,6 @@ Create date: Dec 2014
 Details
 -------
 
-
 Update History
 --------------
 03/08/2016 MTOU - adding perfume infos on client merge
