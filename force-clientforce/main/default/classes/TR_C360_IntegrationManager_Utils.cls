@@ -20,13 +20,15 @@ public without sharing class TR_C360_IntegrationManager_Utils {
     public static Map<String, Contact> contRecordMap;
     
     public static void initSendMethod(Set<Id> accIds,Set<Id> timIds){
-        if(System.IsBatch() == false && System.isFuture() == false){ 
+        System.debug('System.IsBatch() : '+ System.IsBatch());
+        System.debug('System.isFuture() : '+ System.isFuture());        
+        if(System.IsBatch() == false && System.isFuture() == false){
             callSendMethodAs(accIds, timIds);
         }else{
             callSendMethodS(accIds,timIds);  
         }
     }
-    @future
+    @future(callout=true)
     public static void callSendMethodAs(Set<Id> accIds,Set<Id> timIds){
         sendChangeToClient360(accIds,timIds);   
     }
@@ -57,36 +59,43 @@ public without sharing class TR_C360_IntegrationManager_Utils {
                     List<Social_Media_Identifier__c> smis =(List<Social_Media_Identifier__c>) getRecordsFromMaps(smiRecordMap,TIM.AccountId__c,TIM.Object_Name__c);
                     List<User> usIdentity =(List<User>) getRecordsFromMap(usersIdentityMap,TIM.AccountId__c,'User');
                     String bodyJson = TR_JSON_Generator.generateJSONContent(accs[0],usIdentity,smis,TIM,currentUserRecords);
-                    inkEvents.add(new C360_Tech_Event__e(Body_Json__c=bodyJson,TR_Object_Id__c=TIM.Object_Id__c,TR_Object_Name__c=TIM.Object_Name__c,Tech_Integration_Id__c=TIM.Id));
+                    //if Chinese client, call webeservice
+                    if(TIM.is_C360_Synchronous__c){
+                        callWS(accs[0],bodyJson,accs[0].C360GoldenID__c,TIM);
+                    }else {
+                        inkEvents.add(new C360_Tech_Event__e(Body_Json__c=bodyJson,TR_Object_Id__c=TIM.Object_Id__c,TR_Object_Name__c=TIM.Object_Name__c,Tech_Integration_Id__c=TIM.Id));
+                    }
                     intMan.put(TIM.Id, TIM);
                 }
-                // Call method to publish events
-                List<Database.SaveResult> results = EventBus.publish(inkEvents);
-                // error handling of the EventBus publish
-                if(results.size()>0){
-                    List<C360_Logs__c> logsToInsert = new List<C360_Logs__c>();
-                    for(Database.SaveResult res : results){
-                        if(!res.isSuccess()){
-                            //get errors
-                            
-                            Map<String, String> logParams = new Map<String, String>{
-                                'apex_class'=>'TR_C360_IntegrationManager_Utils',
-                                    'apex_Limits' => TR_C360_IntegrationManager_Utils.getCurrentOrgLimits(),
-                                    'application'=>TR_Constants.APPEVENT,
-                                    'duration'=>'',
-                                    'eventUuidLog'=>'',
-                                    'json'=> String.valueOf(inkEvents),
-                                    'logLevel'=>'ERROR',
-                                    'logMessage'=>'',
-                                    'hasError'=>'true',
-                                    'error_Message'=>'Fields:' + res.getErrors()[0].getFields() + '\n\nStatus Code:' + res.getErrors()[0].getStatusCode()+'\n\n'+res.getErrors()[0].getMessage(),
-                                    'Object_Type'=>'Account',
-                                    'record_Id'=>'',
-                                    'logType'=>'Outgoing_flow_platformEventBus'};
-                            logsToInsert.add(TR_C360_Utils.CreateLog(logParams));
+                if(inkEvents.size()>0){
+                    // Call method to publish events
+                    List<Database.SaveResult> results = EventBus.publish(inkEvents);
+                    // error handling of the EventBus publish
+                    if(results.size()>0){
+                        List<C360_Logs__c> logsToInsert = new List<C360_Logs__c>();
+                        for(Database.SaveResult res : results){
+                            if(!res.isSuccess()){
+                                //get errors
+                                
+                                Map<String, String> logParams = new Map<String, String>{
+                                    'apex_class'=>'TR_C360_IntegrationManager_Utils',
+                                        'apex_Limits' => TR_C360_IntegrationManager_Utils.getCurrentOrgLimits(),
+                                        'application'=>TR_Constants.APPEVENT,
+                                        'duration'=>'',
+                                        'eventUuidLog'=>'',
+                                        'json'=> String.valueOf(inkEvents),
+                                        'logLevel'=>'ERROR',
+                                        'logMessage'=>'',
+                                        'hasError'=>'true',
+                                        'error_Message'=>'Fields:' + res.getErrors()[0].getFields() + '\n\nStatus Code:' + res.getErrors()[0].getStatusCode()+'\n\n'+res.getErrors()[0].getMessage(),
+                                        'Object_Type'=>'Account',
+                                        'record_Id'=>'',
+                                        'logType'=>'Outgoing_flow_platformEventBus'};
+                                logsToInsert.add(TR_C360_Utils.CreateLog(logParams));
+                            }
                         }
+                        database.insert(logsToInsert);
                     }
-                    database.insert(logsToInsert);
                 }
                 //System.debug('INSERT' + results);
             }
@@ -104,9 +113,131 @@ public without sharing class TR_C360_IntegrationManager_Utils {
                     'error_Message'=>e.getStackTraceString() + '\n\n' + e.getMessage() + '\n\nlineNumber:' + e.getLineNumber(),
                     'Object_Type'=>'Account',
                     'record_Id'=>'',
-                    'logType'=>'Outgoing_flow'};
-                        database.insert(TR_C360_Utils.CreateLog(logParams));
+                    'logType'=>'Outgoing_flow'
+                };
+            database.insert(TR_C360_Utils.CreateLog(logParams));
         }
+    }
+    public static HttpResponse callWS(Account acc,String jsonBody, String c360GoldenId,TECH_IntegrationManager__c tim){
+        try {
+            System.debug('into callWS : '+ acc);
+            if (jsonBody == null) {
+                System.debug('jsonBody is null');
+                return null;
+            }
+            // Set the endpoint URL using the Named Credential
+            String callout = 'callout:MULESOFT_CLIENT_eAPI_CN';
+            String endpoint = callout+'/clients';
+            //String endpoint = 'https://int.api.louisvuitton.cn/cst-cn/sfdc-client-eapi/v1/clients';
+            
+            String method = 'POST';
+            if (c360GoldenId != null) {
+                endpoint += ('/'+c360GoldenId);
+                method = 'PUT';
+            }
+            Http http = new Http();
+            HttpRequest request = new HttpRequest();
+            request.setEndpoint(endpoint);
+            request.setMethod(method);
+            request.setTimeout(60000);
+            request.setHeader('Encoding', 'UTF-8');
+            request.setHeader('Accept', 'application/json');
+            request.setHeader('Content-Type', 'application/json');
+            request.setHeader('client_id', '{!$Credential.UserName}');
+            request.setHeader('client_secret', '{!$Credential.Password}');
+            request.setHeader('isSynchronous', 'True');
+            if(jsonBody != null) request.setBody(jsonBody);
+
+            System.debug('request : '+ request);
+            System.debug('HttpRequest jsonBody : '+ jsonBody);
+            System.debug('before send HttpRequest');
+            HttpResponse res = http.send(request);
+            handleResponse(acc, res, tim, endPoint, jsonBody);
+            return res;        
+        } catch (Exception e) {
+            Map<String, String> logParams = new Map<String, String>{
+                'apex_class'=>'TR_C360_IntegrationManager_Utils',
+                    'apex_Limits' => TR_C360_IntegrationManager_Utils.getCurrentOrgLimits(),
+                    'application'=>TR_Constants.APPEVENT,
+                    'duration'=>'',
+                    'eventUuidLog'=>'',
+                    'json'=> '',
+                    'logLevel'=>'ERROR',
+                    'logMessage'=>'',
+                    'hasError'=>'true',
+                    'error_Message'=>e.getStackTraceString() + '\n\n' + e.getMessage() + '\n\nlineNumber:' + e.getLineNumber(),
+                    'Object_Type'=>'Account',
+                    'record_Id'=>tim.id,
+                    'SalesforceID' => acc.id,
+                    'logType'=>'Outgoing_flow'
+                };
+                database.insert(TR_C360_Utils.CreateLog(logParams));
+                tim.Done__c = false;
+                tim.Error__c = true;
+                tim.Retry__c ++;
+                tim.Error_Status__c = 'ApexError';
+                update tim;
+                return null;
+        }
+
+    }    
+
+    public static void handleResponse(Account acc,HttpResponse response, TECH_IntegrationManager__c IntegrationManager, String endPoint, String jsonBody) {
+
+            System.debug('HTTP response : '+ response);
+            // If the request is successful, parse the JSON response.
+            if (response.getStatusCode() == 200 || response.getStatusCode() == 201) {
+                // Get the response body as a string
+                String responseBody = response.getBody();
+                System.debug('responseBody : '+ responseBody);
+                
+                // Parse the JSON response
+                Map<String, Object> parsedJson = (Map<String, Object>) JSON.deserializeUntyped(responseBody);
+                
+                // Navigate to the c360GoldenId value
+                Map<String, Object> identifiers = (Map<String, Object>) parsedJson.get('identifiers');
+                String c360GoldenId = (String) identifiers.get('c360GoldenId');
+                System.debug('c360GoldenId: ' + c360GoldenId);
+                // Update the account with the new C360 ID
+                acc.C360GoldenID__c = c360GoldenId;
+                
+                // Output the c360GoldenId value
+                IntegrationManager.Done__c = true;
+                IntegrationManager.Retry__c ++;
+                IntegrationManager.Error__c = false;
+                IntegrationManager.Error_Status__c = '';
+                //IntegrationManager.Other_Details__c=response.getBody();//TODO: to comment
+                update acc;
+                update IntegrationManager;
+            }
+            
+            // If the request returned an error code retry.
+            else {
+                IntegrationManager.Done__c = false;
+                IntegrationManager.Error__c = true;
+                IntegrationManager.Retry__c ++;
+                IntegrationManager.Error_Status__c = String.valueOf(response.getStatusCode());
+                IntegrationManager.Other_Details__c=response.getBody();
+                Map<String, String> logParams = new Map<String, String>{
+                    'apex_class'=>'TR_C360_IntegrationManager_Utils',
+                        'apex_Limits' => TR_C360_IntegrationManager_Utils.getCurrentOrgLimits(),
+                        'application'=>TR_Constants.APPEVENT,
+                        'duration'=>'',
+                        'eventUuidLog'=>'',
+                        'json'=> '',
+                        'logLevel'=>'ERROR',
+                        'logMessage'=>'',
+                        'hasError'=>'true',
+                        'error_Message'=>String.valueOf(response.getStatusCode()) + '\n\n' +response.getBody(),
+                        'Object_Type'=>'Account',
+                        'record_Id'=>'',
+                        'SalesforceID' => acc.id,
+                        'logType'=>'Outgoing_flow'};
+                database.insert(TR_C360_Utils.CreateLog(logParams));
+                update IntegrationManager;
+            }
+
+
     }
     public static void setAccountEventBus(C360_Tech_Event_Return_Flow__e evt ,DateTime startTime){
         List<Account> acctManagsById = new List<Account>();
@@ -165,7 +296,7 @@ public without sharing class TR_C360_IntegrationManager_Utils {
                     }
                 }
                 stAcc = stAcc.removeEnd(',')+'}';
-                Account acc = (Account)JSON.deserialize(stAcc, Account.class); 
+                Account acc = (Account)JSON.deserialize(stAcc, Account.class);
                 if(String.isNotBlank(acc.SPO_Country_code__pc) && String.isBlank(acc.PrimaryCountry__pc)){
                     acc.PrimaryCountry__pc =  TR_C360_Utils.getCountry(acc.SPO_Country_code__pc);
                 }
@@ -223,6 +354,7 @@ public without sharing class TR_C360_IntegrationManager_Utils {
         log.TR_APEX_Limits__c = TR_C360_IntegrationManager_Utils.getCurrentOrgLimits();
         database.insert(log);
     }
+
     public static  Map<String, account> getAccountRecords(Set<Id> accountIds){
         List<Account> accountRecords = new List<Account>();
         Map<String, Account> acctRecordMap = new Map<String,Account>();
@@ -249,7 +381,7 @@ public without sharing class TR_C360_IntegrationManager_Utils {
     public static List<TECH_IntegrationManager__c> getTechManagerRecords(Set<Id> techManagerIds){
         List<TECH_IntegrationManager__c> integManags = new List<TECH_IntegrationManager__c>();
         if(techManagerIds.size()>0){
-            integManags = [SELECT Id, Object_Name__c, Object_Id__c,Operation__c,Trigger_Event__c,AccountId__c,CreatedDate from TECH_IntegrationManager__c where Id IN : techManagerIds];
+            integManags = [SELECT Id, Object_Name__c, Object_Id__c,Operation__c,Trigger_Event__c,AccountId__c,CreatedDate,is_C360_Synchronous__c,Retry__c from TECH_IntegrationManager__c where Id IN : techManagerIds];
         }
         If(integManags.size()>0){
             return integManags;
