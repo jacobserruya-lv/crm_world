@@ -22,7 +22,7 @@ on:
 
 jobs:
   run:
-    runs-on: compose-self-hosted
+    runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
     steps:
