@@ -17,34 +17,28 @@
         Please choose an action
       </div>
       <!-- <div class="button-and-result-summary-hr-line"></div> -->
-      <template if:true={isRemoveMessageDisplay}>
-        <template for:each={removeClientsMessages} for:item="messageItem">
-          <div class="delete-clients-message-container" key={messageItem}>
-            <div class="delete-clients-message">
-              <span>{messageItem}</span>
-            </div>
-          </div>
-        </template>
-        <div class="delete-clients-message">
-          <span>{downloadClientsMessage}</span>
-          <lightning-button-icon
-            icon-name="utility:download"
-            alternative-text="Csv Download"
-            size="small"
-            class="slds-m-left_xx-small" 
-            title="Download" 
-            onclick={handleDownloadClients}>
-          </lightning-button-icon>
-          <lightning-button-icon
-            icon-name="utility:delete"
-            alternative-text="Delete"
-            size="small"
-            class="slds-m-left_xx-small" 
-            title="Delete" 
-            onclick={handleDeleteClients}>
-          </lightning-button-icon>
-        </div>
-      </template>
+      <div if:true={isRemoveMessageDisplay} class="not-in-perimeter">
+        <span>{removeClientsMessage}</span>
+        <lightning-button-icon
+          icon-name="utility:delete"
+          alternative-text="Delete"
+          size="small"
+          class="slds-m-left_xx-small" 
+          title="Delete" 
+          onclick={handleDeleteClients}>
+        </lightning-button-icon>
+      </div>
+      <div if:true={isRemoveMessageDisplay} class="not-in-perimeter">
+        <span>{downloadClientsMessage}</span>
+        <lightning-button-icon
+          icon-name="utility:download"
+          alternative-text="Csv Download"
+          size="small"
+          class="slds-m-left_xx-small" 
+          title="Download" 
+          onclick={handleDownloadClients}>
+        </lightning-button-icon>
+      </div>
     </div>
     <div class="slds-col button-and-result-summary-fixer"></div>
   </div>

@@ -285,23 +285,14 @@ public with sharing class CT_CSVParseController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<String> getClientsMissingStore(list<String> dreamIds) {
-        list<String> missingStoreDreamIds = new list<String>();
-        list<Account> contacts = [
+    public static List<Account> getClientsMissingStore(list<String> dreamIds) {
+        return [
             SELECT Id, DREAMID__c
             FROM Account
             WHERE DREAMID__c IN :dreamIds 
                 AND Store__pr.Id = null
                 AND Owner.DefaultStore__c = null
         ];
-
-        if (contacts.size() > 0) {
-          for (Account c : contacts) {
-            missingStoreDreamIds.add(c.DREAMID__c);
-          }
-        }
-
-        return missingStoreDreamIds;
     }
 
     @AuraEnabled(cacheable=true)
