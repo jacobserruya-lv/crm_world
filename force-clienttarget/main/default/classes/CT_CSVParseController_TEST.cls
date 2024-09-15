@@ -121,7 +121,7 @@ public with sharing class CT_CSVParseController_TEST {
     @isTest
     public static void getClientsMissingStore_TEST() {
         List<String> dreamIds = new List<String>{'85739682','85740498','85743511','56119070','56268685'};
-        List<SObject> accounts = CT_CSVParseController.getClientsMissingStore(dreamIds);
+        List<String> accounts = CT_CSVParseController.getClientsMissingStore(dreamIds);
     }
 
     @isTest

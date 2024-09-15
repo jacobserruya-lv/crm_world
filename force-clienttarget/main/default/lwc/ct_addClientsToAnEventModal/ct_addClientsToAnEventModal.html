@@ -29,6 +29,17 @@
       >
         <div class="slds-grid slds-gutters actions-component-wrapper">
           <div class="slds-col event-modal-col">
+            <lightning-combobox
+              class="event-type"
+              name="progress"
+              label="Event Details"
+              value={eventTypeValue}
+              placeholder="Event Type"
+              options={eventTypeOptions}
+              onchange={handleEventTypeValueChanged}
+            >
+            </lightning-combobox>
+           
             <c-ct_searchable-combobox
               title="Select Event"
               is-required={isEventRequired}

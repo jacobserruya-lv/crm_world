@@ -91,3 +91,22 @@
   margin-right: auto;
   color: #ba0517;
 }
+
+.event-combobox {
+  width: -webkit-fill-available;
+}
+
+.event-type {
+  width: 30%;
+  border-right: unset;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.event-modal-col {
+  display: flex;
+}
+
+.event-modal-col > .slds-p-around_medium { 
+  padding: 0 !important;
+}
