@@ -380,7 +380,7 @@ c-ct_search-filters-purchase-history .category-include [type=checkbox]:checked +
   fill: #080707;
 }
 
-c-ct_main-container .slds-button__icon_left {
+.slds-button__icon_left {
   color: #0070d2;
   display: flex;
 }
@@ -460,13 +460,13 @@ c-ct_new-sa-selection .slds-table_header-fixed_container {
   padding-top: 34px;
 }
 
-c-ct_new-sa-selection .slds-table_header-fixed_container.slds-scrollable_x {
+/* c-ct_new-sa-selection .slds-table_header-fixed_container.slds-scrollable_x {
   height: max-content !important;
-}
+} */
 
-c-ct_new-sa-selection .dt-outer-container {
+/* c-ct_new-sa-selection .dt-outer-container {
   height: max-content !important;
-}
+} */
 
 c-ct_new-sa-selection .slds-accordion__list-item:first-child {
   margin-top: 0;
@@ -618,21 +618,6 @@ c-ct_new-sa-selection .slds-cell-edit .slds-button {
   color: #191009;
 }
 
-.event-modal-col > c-ct_searchable-combobox > .slds-p-around_medium { 
-  padding: 0;
-}
-
-.event-modal-col > c-ct_searchable-combobox .slds-form-element__label { 
-  visibility: hidden !important;
-}
-
-.event-modal-col .event-type button {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.event-modal-col > c-ct_searchable-combobox input {
-  border-left: unset;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+.hide-select-all .slds-checkbox:has(input.datatable-select-all) {
+  display: none !important;
 }

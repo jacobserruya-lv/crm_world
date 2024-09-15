@@ -16,12 +16,11 @@ import getIsAllClientsInMyPerimeter from "@salesforce/apex/CL_controller.getIsAl
 import isAllFromOneStore from "@salesforce/apex/CT_CSVParseController.isAllFromOneStore";
 import isAllClientsWithStore from "@salesforce/apex/CT_CSVParseController.isAllClientsWithStore";
 import getClientsMissingStore from "@salesforce/apex/CT_CSVParseController.getClientsMissingStore";
-import getUnattachedDreamIds from "@salesforce/apex/CL_controller.getUnattachedDreamIds";
 import getAllStores from "@salesforce/apex/CL_controller.getAllStores";
 import CL_STATE_EXCHANGE_CHANNEL from "@salesforce/messageChannel/clStateExchange__c";
 import CL_STATE_RESET_CHANNEL from "@salesforce/messageChannel/clStateReset__c";
 import ct_searchFilters from "@salesforce/resourceUrl/ctCssLib";
-import getUnlockStoreProfilesSettings from "@salesforce/apex/CL_controller.getUnlockStoreProfilesSettings";
+import getActionPermissionByProfile from "@salesforce/apex/CL_controller.getActionPermissionByProfile";
 import { MarketingEngineQueryBuilder} from './ct_marketingEngineQueryBuilder';
 import * as Types from "./ct_types";
 
@@ -37,7 +36,8 @@ export default class Ct_mainContainer extends LightningElement {
     purchaseHistory: null,
     clientList: null,
     clientListInfo: null,
-    eventInfo: null
+    eventInfo: null,
+    campaignInfo: null
   };
   @track isLoading = false;
   spinnerText = "Search for Clients";
@@ -57,14 +57,18 @@ export default class Ct_mainContainer extends LightningElement {
   isReassignStep = false;
   isClientListCreatedStep = false;
   isClientAddedToAnEventStep = false;
+  isClientPushedToCampaignStep = false;
   isEmptyClientListCreatedStep = false;
   isExclusiveAccessStep = false;
   isCreateClientListModal = false;
   isExclusiveSalesModal = false;
   isAddClientsToAnEventModal = false;
+  isPushToCampaign = false;
   isClientListCreatedSuccessfully = false;
   isAddingClientsToEventFinished = false;
   isAddingClientsToEventFinishedWithTotalError = false;
+  isPushingClientsToCampaignFinished = false;
+  isPushingClientsToCampaignFinishedWithTotalError = false;
   isAllClientsInMyPerimeter = false;
   isTriggeredFromFirstPage = false;
   unlockStoreHierarchy = false;
@@ -97,16 +101,14 @@ export default class Ct_mainContainer extends LightningElement {
     dreamIds: "$storage.dreamIdList"
   })
   clientsMissingStore;
-  @wire(getUnattachedDreamIds, {
-    dreamIds: "$storage.dreamIdList"
-  })
-  unattachedDreamIds;
   @wire(getAllStores)
   allStoresList;
   @wire(getQueryConfig)
   queryConfigMdt;
   @wire(MessageContext)
   messageContext;
+
+  userCanPushToCampaign = false;
 
   constructor() {
     super();
@@ -131,6 +133,10 @@ export default class Ct_mainContainer extends LightningElement {
     this.isAddClientsToAnEventModal = !this.isAddClientsToAnEventModal;
   }
 
+  goToPushToCampaign() {
+    this.isPushToCampaign = !this.isPushToCampaign;
+  }
+
   handleClientCreatedSuccessfully() {
     this.isClientListCreatedSuccessfully = true;
   }
@@ -141,23 +147,26 @@ export default class Ct_mainContainer extends LightningElement {
     this.isAddingClientsToEventFinished = true;
   }
 
-  connectedCallback() {
-    getUnlockStoreProfilesSettings().then((data) => {
-      if (data) {
-        const profiles = data.unlockStoreProfiles
-          ?.replace(/\s/g, "")
-          ?.split(",");
-        const currentProfileName = data.currentProfileName?.replace(/\s/g, "");
-        this.unlockStoreHierarchy = profiles?.includes(currentProfileName);
+  handlePushingClientsToCampaignFinished(event) {
+    this.isPushingClientsToCampaignFinishedWithTotalError =
+      event.detail.errorsListLength === this.storage.dreamIdList.length;
+    this.isPushingClientsToCampaignFinished = true;
+  }
 
-        Promise.all([
-          loadStyle(this, ct_searchFilters + "/ct_searchFilters.css")
-        ]).catch((error) => {
-          console.log(error.body.message);
-        });
-        this.isFirstStep = true;
-        this.subscribeToMessageChannel();
+  connectedCallback() {
+    getActionPermissionByProfile().then((data) => {
+      if (data) {
+        this.unlockStoreHierarchy = data.unlockStoreProfiles;
+        this.userCanPushToCampaign = data.pushToCampaign;
       }
+
+      Promise.all([
+        loadStyle(this, ct_searchFilters + "/ct_searchFilters.css")
+      ]).catch((error) => {
+        console.log(error.body.message);
+      });
+      this.isFirstStep = true;
+      this.subscribeToMessageChannel();
     });
   }
 
@@ -365,16 +374,22 @@ export default class Ct_mainContainer extends LightningElement {
   handleDeleteClients() {
     const clientsToDelete = [
       ...(this.notInPerimeterClients || []),
-      ...(this.clientsMissingStore?.data || []),
-      ...(this.unattachedDreamIds?.data || [])
+      ...(this.clientsMissingStore.data || [])
     ];
-    const isToDeleteDreamId = (c) => clientsToDelete.indexOf(c.DREAMID__c) == -1;
+    const clientsDreamIds = clientsToDelete.map((c) => c.DREAMID__c);
+    const isToDeleteDreamId = (c) =>
+      clientsDreamIds.indexOf(c.DREAMID__c) == -1;
     const updatedList = [...this.storage.clientList].filter(isToDeleteDreamId);
     const payload = { handleNewClientList: updatedList };
     publish(this.messageContext, CL_STATE_EXCHANGE_CHANNEL, payload);
 
     this.notInPerimeterClients = [];
     this.template.querySelector("c-ct_result-list")?.reloadClients(updatedList);
+  }
+
+  get isCampaignFlow() {
+    return this.storage.assignedCaByDreamId &&
+           Object.values(this.storage.assignedCaByDreamId).filter(Boolean).length;
   }
 
   get isClientListCreatedHeader() {
@@ -389,6 +404,18 @@ export default class Ct_mainContainer extends LightningElement {
       : this.isAddingClientsToEventFinishedWithTotalError
       ? "couldn't add any of the clients to the event"
       : "Clients successfully added to the Event";
+  }
+
+  get campaignId() {
+    return this.storage?.campaignInfo?.id;
+  }
+  
+  get clientsPushedToCampaignHeader() {
+    return !this.isPushingClientsToCampaignFinished
+      ? "Pushing clients to the campaign in progress"
+      : this.isPushingClientsToCampaignFinishedWithTotalError
+      ? "couldn't push any of the clients to the campaign"
+      : "Clients successfully pushed to the Campaign";
   }
 
   /**
@@ -538,8 +565,6 @@ export default class Ct_mainContainer extends LightningElement {
   initializeClients(data) {
     this.error = this.clientListOnDreamIdResult.error;
     this.storage.clientList = data;
-
-    const olderDreamIds = [...this.storage.dreamIdList];
     this.storage.dreamIdList = this.storage.clientList.map((c) => c.DREAMID__c);
 
     //Delete Fake Id From DreamIds
@@ -549,11 +574,6 @@ export default class Ct_mainContainer extends LightningElement {
     if (fakeId?.includes("FakeIdToIgnoreCache")) {
       this.storage.dreamIdList.pop();
     }
-
-    const notFoundDreamIds = olderDreamIds.filter(
-      (id) => this.storage.dreamIdList.indexOf(id) < 0
-    );
-    console.log(notFoundDreamIds);
   }
 
   checkIfValueInState(storage) {
@@ -608,12 +628,12 @@ export default class Ct_mainContainer extends LightningElement {
     } else if (message.purchaseHistory) {
       this.makeStateExchange(type, message.purchaseHistory);
     } else if (message.handleDreamIdListUpdate) {
-      this.storage.dreamIdList = null;
-      this.storage.dreamIdList = message.handleDreamIdListUpdate;
+      const newDreamIds = message.handleDreamIdListUpdate.dreamIds;
       this.storage.dreamIdList = [
-        ...this.storage.dreamIdList,
+        ...newDreamIds,
         "FakeIdToIgnoreCache" + Date.now()
       ]; // Ignore cache By Fake data
+      this.storage.assignedCaByDreamId = message.handleDreamIdListUpdate.assignedCaByDreamId;
     } else if (message.handleNewClientList) {
       this.storage.clientList = null;
       this.storage.clientList = message.handleNewClientList;
@@ -771,6 +791,7 @@ export default class Ct_mainContainer extends LightningElement {
     this.isReassignStep = false;
     this.isClientListCreatedStep = false;
     this.isClientAddedToAnEventStep = false;
+    this.isClientPushedToCampaignStep = false;
     this.isEmptyClientListCreatedStep = false;
     this.isExclusiveAccessStep = false;
     this.isEmptyClientList = false;
@@ -789,6 +810,7 @@ export default class Ct_mainContainer extends LightningElement {
     this.isReassignStep = false;
     this.isClientListCreatedStep = false;
     this.isClientAddedToAnEventStep = false;
+    this.isClientPushedToCampaignStep = false;
     this.isEmptyClientListCreatedStep = false;
     this.isExclusiveAccessStep = false;
     return this.isActionSelectionStep;
@@ -800,6 +822,7 @@ export default class Ct_mainContainer extends LightningElement {
     this.isReassignStep = true;
     this.isClientListCreatedStep = false;
     this.isClientAddedToAnEventStep = false;
+    this.isClientPushedToCampaignStep = false;
     this.isEmptyClientListCreatedStep = false;
     this.isExclusiveAccessStep = false;
   }
@@ -830,6 +853,22 @@ export default class Ct_mainContainer extends LightningElement {
   goToEventSummary(event) {
     this.storage.eventInfo = event.detail.eventInfo;
     this.isClientAddedToAnEventStep = true;
+    this.isClientPushedToCampaignStep = false;
+    this.isFirstStep = false;
+    this.isActionSelectionStep = false;
+    this.isReassignStep = false;
+    this.isClientListCreatedStep = false;
+    this.isEmptyClientListCreatedStep = false;
+    this.isExclusiveAccessStep = false;
+    this.isClientListCreatedSuccessfully = false;
+    this.isAddingClientsToEventFinished = false;
+    this.isAddingClientsToEventFinishedWithTotalError = false;
+  }
+
+  goToCampaignSummery(event) {
+    this.storage.campaignInfo = event.detail.campaignInfo;
+    this.isClientPushedToCampaignStep = true;
+    this.isClientAddedToAnEventStep = false;
     this.isFirstStep = false;
     this.isActionSelectionStep = false;
     this.isReassignStep = false;

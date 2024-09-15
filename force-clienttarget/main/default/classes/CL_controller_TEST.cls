@@ -27,7 +27,7 @@ public with sharing class CL_controller_TEST {
     @isTest
     public static void getClientList_TEST() {
         List<String> dreamIds = new List<String>{'85739682','85740498','85743511','56119070','56268685'};
-        List<Account> clients = CL_controller.getClientList(dreamIds, 'cache');
+        List<Account> clients = CL_controller.getClientList(dreamIds, null, 'cache');
         List<Account> clients2 = CL_controller.getBasicClientList(dreamIds);
     }
 
@@ -83,7 +83,7 @@ public with sharing class CL_controller_TEST {
         List<String> dreamIds = new List<String>{'85739682','85740498','85743511','56119070','56268685'};
         CL_controller.getIsAllClientsInMyZone('15', dreamIds);
         CL_controller.getExclusiveOfferSettings();
-        CL_controller.getUnlockStoreProfilesSettings();
+        CL_controller.getActionPermissionByProfile();
         CL_controller.getCurrentUserSettings();
     }
     
@@ -147,7 +147,7 @@ public with sharing class CL_controller_TEST {
 
         Brand_Experience_Variation__c exVar = new Brand_Experience_Variation__c();
         exVar.Brand_Experience__c = ex.Id;
-        //exVar.Store__c = store.Id;
+        exVar.Store__c = store.Id;
         exVar.Name = 'test';
         exVar.Status__c = 'Draft';
         exVar.StartDateTime__c = DateTime.Now().AddDays(46);
@@ -162,12 +162,12 @@ public with sharing class CL_controller_TEST {
 		User user = createUser();
         Account acc = createAccount(user.Id, dreamIds[0]);
 
-        List<Brand_Experience__c> events = CL_controller.getAllPublishedEvents('');
+        List<Brand_Experience__c> events = CL_controller.getAllPublishedEvents();
         List<Brand_Experience_Variation__c> variations = CL_controller.getAllEventVariationById(ex.Id);
 
-        CL_controller.addClientsToAnEventFromBatch(ex.Id, null, null, dreamIds);
-        CL_controller.addClientsToAnEventFromBatch(ex.Id, exVar.Id, null, dreamIds);
-        CL_controller.addClientsToAnEventFromBatch(ex.Id, exVar.Id, null, dreamIds); // Duplicate
+        CL_controller.addClientsToAnEventFromBatch(ex.Id, null, dreamIds);
+        CL_controller.addClientsToAnEventFromBatch(ex.Id, exVar.Id, dreamIds);
+        CL_controller.addClientsToAnEventFromBatch(ex.Id, exVar.Id, dreamIds); // Duplicate
         Test.stopTest();
     }
 
