@@ -48,7 +48,9 @@ public with sharing class Ex_nomination_kpi_controller {
                             if(objectApiName == 'Brand_Experience__c' && recordtypeName == 'Experience'){
                                 query += EX_Store_Hierarchy_Utils.getStoreHierarchyCond_memberLevel(runningUser);
                             }
-                            query += EX_Store_Hierarchy_Utils.getCAHierarchyCond_memberLevel(runningUser);
+                            else if((objectApiName == 'Brand_Experience__c' && recordtypeName == 'Out_of_Store_Event') || (objectApiName == 'Brand_Experience_Variation__c' && recordTypeName == 'Out_of_Store_Event')){
+                                query += EX_Store_Hierarchy_Utils.getCAHierarchyCond_memberLevel(runningUser);
+                            }
                         }
                         
                     }

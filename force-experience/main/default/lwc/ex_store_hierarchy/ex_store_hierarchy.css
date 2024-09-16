@@ -11,7 +11,7 @@
 }
 .dropdown-absolute {
     position: absolute;
-    z-index: 900;
+    z-index: 9;
     width: 100%;
     background-color: white; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
@@ -39,4 +39,14 @@
 }
 .row{
     display: flex;
+}
+.section-title{
+    font-weight: bold;
+    font-size: 14px;
+    background: #f4f4f4;
+    padding: 0.7rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    width: 100%;
+    /* font-family: "LouisVuitton-Regular", sans-serif; */
 }
