@@ -66,6 +66,9 @@ private class ExVariationMemberTriggerHandler_TEST {
             Unique_Key__c = acc.DREAMID__c + '_' + clubSneakers.Name
         );
         insert clubM;
+
+        IM_Notifications__c notificationTemplate = new IM_Notifications__c(Name='en_US',Experience_member_approved__c= 'New client(s) added to the event list : "{0}"', VariationMemberNomination__c='Your client "{0}" has been Approved by your manager' );
+        insert notificationTemplate;
     }
 
     @isTest

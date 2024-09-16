@@ -65,10 +65,8 @@ public with sharing class ExperienceVariationTriggerHandler {
         for (Brand_Experience_Variation__c variation : newList) {
             Brand_Experience_Variation__c oldVariation = oldMap.get(variation.Id);
             if (variation.status__c != oldVariation.status__c) {
-                //ESTHER- when status is ready and not 'to contact' not such value...?
                 if (variation.status__c == 'Ready') {
                     variationIdsToSentPush.add(variation.Id);
-                    variationIdsToSentPush.add(variation.Id);//is double check why this
                 }
                 if(!experiencesIdsToCheck.contains(variation.Brand_Experience__c)){
                     experiencesIdsToCheck.add(variation.Brand_Experience__c);
@@ -78,7 +76,6 @@ public with sharing class ExperienceVariationTriggerHandler {
             }
            
             if( variation.status__c != oldVariation.status__c || variation.RequiredClientRegistration__c != oldVariation.RequiredClientRegistration__c ){
-                experiencesVariationsIdsToCheck.add(variation.Id);
                 experiencesVariationsIdsToCheck.add(variation.Id);
             }
             
