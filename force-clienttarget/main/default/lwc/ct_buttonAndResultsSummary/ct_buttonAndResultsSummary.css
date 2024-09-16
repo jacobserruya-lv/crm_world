@@ -49,7 +49,7 @@
   margin-bottom: 19pt;
   left: -26%;
 }
-.not-in-perimeter {
+.delete-clients-message {
   position: relative;
   left: -6%;
   font-family: LouisVuitton-Regular;
@@ -61,4 +61,9 @@
   letter-spacing: normal;
   text-align: center;
   color: #D0342C;
+  margin-bottom: 5px;
+}
+
+.delete-clients-action {
+  margin-top: 15px;
 }
