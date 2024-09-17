@@ -12,7 +12,9 @@ global class CT_PushClientsToCampaignBatch implements Database.Batchable<sObject
       assignedCaByDreamId = assignedCaByDreamIdMap;
       campaignId = campaign;
       errorFileId = errorFile;
+    }
 
+    global Database.QueryLocator start(Database.BatchableContext BC) {
       List<User> users = [
         SELECT Id, WWEmployeeNumber__c
         FROM User
@@ -20,12 +22,11 @@ global class CT_PushClientsToCampaignBatch implements Database.Batchable<sObject
         AND WWEmployeeNumber__c 
           IN :assignedCaByDreamId.values()
       ];
+      
       for (User u : users) {
         userByLVMId.put(u.WWEmployeeNumber__c, u.Id);
       }
-    }
 
-    global Database.QueryLocator start(Database.BatchableContext BC) {
       return Database.getQueryLocator([SELECT Id, DREAMID__c FROM Account WHERE DREAMID__c IN :dreamIds]);
     }
 
