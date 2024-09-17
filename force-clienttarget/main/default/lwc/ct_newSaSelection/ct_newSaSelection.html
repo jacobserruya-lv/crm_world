@@ -21,57 +21,63 @@
         padding="around-small"
         class="custom-box new-sa-selection-table"
       >
-        <div class="scrollable">
+        <template if:true={hideCheckboxFromTable}>
           <lightning-datatable
-            lwc:ref="dataTable"
-            enable-infinite-loading={enableInfiniteLoading}
-            onloadmore={onLoadMore}
             key-field="id"
             data={listData}
             columns={columns}
-            class={hideSelectAllClass}
-            selected-rows={activeSelectedRows}
-            row-number-offset={rowOffset}
-            show-row-number-column
-            is-loading={isTableLoading}
-            onrowselection={handleSelectedClientRowData}
-            max-row-selection={maxRowSelection}
-            onrowaction={handleRowAction}>
+            onclick={handleWarning}
+            onrowaction={handleRowAction}
+            hide-checkbox-column
           >
           </lightning-datatable>
-        </div>
-        <div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none footer-buttons">
-          <lightning-layout>
-            <lightning-layout-item flexibility="auto">
-              <div class="custom-box slds-box slds-text-align_center">
-                <lightning-button
-                  label="Cancel"
-                  title="Cancel"
-                  disabled={disabledCancelButton}
-                  onclick={handleAssignmentCancellation}
-                  class="slds-m-left_x-small"
-                ></lightning-button>
+        </template>
 
-                <lightning-button
-                  variant="brand"
-                  label="Save"
-                  title="Save"
-                  disabled={disabledSaveButton}
-                  onclick={handleSaveAssignment}
-                  class="slds-m-left_x-small"
-                ></lightning-button>
+        <template if:false={hideCheckboxFromTable}>
+          <div class="scrollable">
+            <lightning-datatable
+              key-field="id"
+              data={listData}
+              columns={columns}
+              selected-rows={selectedRows}
+              onrowselection={handleSelectedClientRowData}
+              onrowaction={handleRowAction}>
+            >
+            </lightning-datatable>
+          </div>
+          <div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none footer-buttons">
+            <lightning-layout>
+              <lightning-layout-item flexibility="auto">
+                <div class="custom-box slds-box slds-text-align_center">
+                  <lightning-button
+                    label="Cancel"
+                    title="Cancel"
+                    disabled={disabledCancelButton}
+                    onclick={handleAssignmentCancellation}
+                    class="slds-m-left_x-small"
+                  ></lightning-button>
 
-                <lightning-button
-                  variant="brand-outline"
-                  label="Done"
-                  title="Done and Go back"
-                  onclick={openDoneModel}
-                  class="slds-m-left_x-small"
-                ></lightning-button>
-              </div>
-            </lightning-layout-item>
-          </lightning-layout>
-        </div>
+                  <lightning-button
+                    variant="brand"
+                    label="Save"
+                    title="Save"
+                    disabled={disabledSaveButton}
+                    onclick={handleSaveAssignment}
+                    class="slds-m-left_x-small"
+                  ></lightning-button>
+
+                  <lightning-button
+                    variant="brand-outline"
+                    label="Done"
+                    title="Done and Go back"
+                    onclick={openDoneModel}
+                    class="slds-m-left_x-small"
+                  ></lightning-button>
+                </div>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+        </template>
       </lightning-layout-item>
       <lightning-layout-item
         flexibility="auto"

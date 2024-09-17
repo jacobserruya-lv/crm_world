@@ -9,10 +9,7 @@ import {
 } from "lightning/messageService";
 import CL_STATE_EXCHANGE_CHANNEL from "@salesforce/messageChannel/clStateExchange__c";
 import CL_STATE_RESET_CHANNEL from "@salesforce/messageChannel/clStateReset__c";
-import Papa from "@salesforce/resourceUrl/PapaParse";
 import readCSV from "@salesforce/apex/CT_CSVParseController.readCSVFile";
-import { loadScript } from "lightning/platformResourceLoader";
-
 
 const columns = [{ label: "DreamId", fieldName: "DreamId" }];
 export default class Ct_uploadCSV extends LightningElement {
@@ -21,7 +18,7 @@ export default class Ct_uploadCSV extends LightningElement {
   @api isFilterSelectionFlow;
   @track error;
   @track columns = columns;
-  @track data = { dreamIds: [], assignedCaByDreamId: {} };
+  @track data;
   isDreamIdFlow;
   subscription;
   @wire(MessageContext)
@@ -30,12 +27,6 @@ export default class Ct_uploadCSV extends LightningElement {
   // accepted parameters
   get acceptedFormats() {
     return [".csv"];
-  }
-
-  renderedCallback() {
-    loadScript(this, Papa)
-    .then((res) => console.log('Loaded papa'))
-    .catch(error => console.log(error));
   }
 
   connectedCallback() {
@@ -62,7 +53,7 @@ export default class Ct_uploadCSV extends LightningElement {
 
   handleResetMessage(message) {
     if (message.handleFiltersReset === "dreamidlistreset") {
-      this.data = { dreamIds: [], assignedCaByDreamId: {} };
+      this.data = [];
       this.isDreamIdFlow = false;
       this.dispatchEvent(
         new CustomEvent("dreamidflow", {
@@ -85,24 +76,11 @@ export default class Ct_uploadCSV extends LightningElement {
     // calling apex class
     readCSV({ idContentDocument: uploadedFiles[0].documentId })
       .then((result) => {
-        const parsedData = this.papaCsvParse(result);
-        const assignedCaByDreamId = {};
-        const dreamIds = [];
-        
-        // Not using reduce since it takes way more time
-        parsedData.forEach((line) => {
-          dreamIds.push(line[0]);
-          assignedCaByDreamId[line[0]] = line?.[1] || null;
-        });
-      
-        if (dreamIds.length > 50000) {
+        this.data = result.split('\n').map(l => l.replace("\r", "").replace("﻿", "")).filter(l => !!l);
+        if (this.data.length > 50000) {
           throw 'Too many results, We currently do not support more than 50,000 results!';
         }
-
         this.isDreamIdFlow = true;
-
-        this.data = { dreamIds, assignedCaByDreamId };
-
         this.dispatchEvent(
           new CustomEvent("dreamidflow", {
             detail: {
@@ -122,7 +100,7 @@ export default class Ct_uploadCSV extends LightningElement {
               "Salesforce",
               {
                 idsArray,
-                label: `${this.data?.dreamIds?.length}`
+                label: `${this.data.length}`
               }
             ],
             variant: "success",
@@ -149,11 +127,6 @@ export default class Ct_uploadCSV extends LightningElement {
           })
         );
       });
-  }
-
-  papaCsvParse(csvContent) {
-    const parsedCsv = window.Papa.parse(csvContent);
-    return parsedCsv.data.filter(row => !!row.toString()).map(row => row.map(field => field.replace(/\s/g, "")));
   }
 
   get textHeaderForComponent() {

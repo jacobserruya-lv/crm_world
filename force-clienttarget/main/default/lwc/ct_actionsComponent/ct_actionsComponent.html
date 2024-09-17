@@ -1,61 +1,46 @@
 <template>
   <div class="slds-grid slds-gutters actions-component-wrapper">
-    <template if:false={isCampaignFlow}>
-      <div class="slds-col">
-        <div class="slds-box slds-p-around_medium actions-component-element">
-          <p class="actions-component-element-header">Create client list</p>
-          <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToCreateClientList}>
-            Get Started
-          </button>
-          <p class="error-message" if:true={disableRegularCreation}>{clientListDisabledMessage}</p>
-        </div>
+    <div class="slds-col">
+      <div class="slds-box slds-p-around_medium actions-component-element">
+        <p class="actions-component-element-header">Create client list</p>
+        <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToCreateClientList}>
+          Get Started
+        </button>
+        <p class="error-message" if:true={disableRegularCreation}>{clientListDisabledMessage}</p>
       </div>
-  
-      <div if:true={isExclusiveOfferDisplayed} class="slds-col">
-        <div class="slds-box slds-p-around_medium actions-component-element">
-          <p class="actions-component-element-header">Give access to exclusive offer</p>
-          <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToExclusiveSales}
-            disabled={disabeldExclusiveCreation}>
-            Get Started
-          </button>
-          <p class="error-message" if:true={disabeldExclusiveCreation}>{exclusiveDisabledMessage}</p>
-        </div>
-      </div>
-  
-      <div class="slds-col">
-        <div class="slds-box slds-p-around_medium actions-component-element">
-          <p class="actions-component-element-header">Reattach clients</p>
-          <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToReassign}
-            disabled={disabeldReattach}>
-            Get Started
-          </button>
-          <p class="error-message" if:true={disabeldReattach}>{reattachDisabeldMessage}</p>
-        </div>
-      </div>
-  
-      <div class="slds-col">
-        <div class="slds-box slds-p-around_medium actions-component-element">
-          <p class="actions-component-element-header">Add client to an Event</p>
-          <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToAddClientsToAnEvent}
-            disabled={disableAddClientToAnEvent}>
-            Get Started
-          </button>
-          <p class="error-message" if:true={disableAddClientToAnEvent}>{eventDisabledMessage}</p>
-        </div>
-      </div>
-    </template>
+    </div>
 
-    <template if:true={userCanPushToCampaign}>
-      <div class="slds-col">
-        <div class="slds-box slds-p-around_medium actions-component-element">
-          <p class="actions-component-element-header">Push to campaign</p>
-          <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToPushToCampaign}
-            disabled={disablePushToCampaign}>
-            Get Started
-          </button>
-          <p class="error-message" if:true={disablePushToCampaign}>{eventDisabledMessage}</p>
-        </div>
+    <div if:true={isExclusiveOfferDisplayed} class="slds-col">
+      <div class="slds-box slds-p-around_medium actions-component-element">
+        <p class="actions-component-element-header">Give access to exclusive offer</p>
+        <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToExclusiveSales}
+          disabled={disabeldExclusiveCreation}>
+          Get Started
+        </button>
+        <p class="error-message" if:true={disabeldExclusiveCreation}>{exclusiveDisabledMessage}</p>
       </div>
-    </template>
+    </div>
+
+    <div class="slds-col">
+      <div class="slds-box slds-p-around_medium actions-component-element">
+        <p class="actions-component-element-header">Reattach clients</p>
+        <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToReassign}
+          disabled={disabeldReattach}>
+          Get Started
+        </button>
+        <p class="error-message" if:true={disabeldReattach}>{reattachDisabeldMessage}</p>
+      </div>
+    </div>
+
+    <div class="slds-col">
+      <div class="slds-box slds-p-around_medium actions-component-element">
+        <p class="actions-component-element-header">Add client to an Event</p>
+        <button class="slds-button slds-button_brand actions-component-element-btn" onclick={goToAddClientsToAnEvent}
+          disabled={disableAddClientToAnEvent}>
+          Get Started
+        </button>
+        <p class="error-message" if:true={disableAddClientToAnEvent}>{eventDisabledMessage}</p>
+      </div>
+    </div>
   </div>
 </template>

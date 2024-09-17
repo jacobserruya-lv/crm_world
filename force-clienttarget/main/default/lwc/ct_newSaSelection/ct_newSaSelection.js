@@ -9,10 +9,8 @@ import { refreshApex } from '@salesforce/apex';
 import CL_STATE_EXCHANGE_CHANNEL from "@salesforce/messageChannel/clStateExchange__c";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import createReassignCL from "@salesforce/apex/CT_CSVParseController.createReassignCL";
-import assignCampaignMembersToCA from "@salesforce/apex/CT_CampaignController.assignCampaignMembersToCA";
 import getClientListJobDetails from "@salesforce/apex/CL_controller.getClientListJobDetails";
 import getNumberofClientsForCAList from "@salesforce/apex/CL_controller.getNumberofClientsForCAList";
-import getNumberOfCampaignMembersAttachedToCA from "@salesforce/apex/CT_CampaignController.getNumberOfClientsAttachedToCA";
 import deleteChildJob from "@salesforce/apex/CL_controller.deleteChildJob";
 import Icon from "@salesforce/resourceUrl/ctCssLib";
 
@@ -58,18 +56,13 @@ const columns = [
 
 export default class Ct_newSaSelection extends LightningElement {
   @api name;
-  @api customColumn;
-  @api rowOffset = 0;
   @api storeHierarchy;
   @api clientList;
   @api clientsAmount;
   @api isDreamIdFlow;
   @api isReassignStep;
-  @api enableInfiniteLoading;
-  @api campaignId;
   @api isUnlockStoreHierarchy;
   @api selectedRows = [];
-  @api allTableIds = [];
   @api newCaIsAssigned = false;
   @api defaultStoreId;
   @api store = {
@@ -87,7 +80,7 @@ export default class Ct_newSaSelection extends LightningElement {
   locationIconUrlPNG = `${Icon}/icons/location/location@3x.png`;
   homeIconUrlPNG = `${Icon}/icons/home/home@3x.png`;
   activeSections = ["newMainCA"];
-  columns = this.customColumn || columns;
+  columns = columns;
   selectedClientAdvisorValue = "";
   selectedClientAdvisorName = "";
   url = window.location.hostname;
@@ -98,36 +91,8 @@ export default class Ct_newSaSelection extends LightningElement {
     caIdsList: "$preferedCaIds"
   })
   numberOfClientsForCA;
-  @wire(getNumberOfCampaignMembersAttachedToCA, {
-    caIdsList: "$preferedCaIds",
-    campaignId: "$campaignId"
-  })
-  numberOfCampaignMembersForCA;
 
-  connectedCallback() { 
-    if (this.campaignId) {
-      const assignedCaColumn = {
-        label: "Assigned CA",
-        fieldName: "linkToCaAccount",
-        type: "url",
-        typeAttributes: {
-          label: { fieldName: "preferredCa" },
-          tooltip: "Assigned CA",
-          target: "_blank"
-        }
-      };
-      const newAssignedCaColumn = {
-        label: "New Assigned CA",
-        fieldName: "caToAssign",
-        type: "text"
-      };
-      const newCaLabelIndex = this.columns.findIndex(o => o.label == "New preferred CA");
-      const caLabelIndex = this.columns.findIndex(o => o.label == "Preferred CA");
-      this.columns = this.columns.toSpliced(4, 0, { label: "Segmentation", fieldName: "segmentation" });
-      this.columns = this.columns.toSpliced(caLabelIndex + 1, 1, assignedCaColumn);
-      this.columns = this.columns.toSpliced(newCaLabelIndex + 1, 1, newAssignedCaColumn);  
-    }
-
+  connectedCallback() {
     this.subscribeToMessageChannel();
     this.dispatchEvent(new CustomEvent("newsaselectionmounted"));
     this.refreshTableData();
@@ -153,11 +118,6 @@ export default class Ct_newSaSelection extends LightningElement {
     this.updateDataTable(this.selectedRows);
   }
 
-  @api 
-  closeTableLoader() {
-    if (this.refs?.dataTable) this.refs.dataTable.isLoading = false;
-  }
-  
   unsubscribeToMessageChannel() {
     unsubscribe(this.stateSubscription);
     this.stateSubscription = null;
@@ -204,15 +164,6 @@ export default class Ct_newSaSelection extends LightningElement {
     this.dispatchEvent(new CustomEvent("doneassignment"));
   }
 
-  onLoadMore(event) {
-    if (!this.enableInfiniteLoading) {
-      return false;
-    }
-    
-    this.refs.dataTable.isLoading = true;
-    requestAnimationFrame(() => this.dispatchEvent(new CustomEvent("tableloadmore")));
-  }
-
   openDoneModel() {
     if (
       this.selectedClientAdvisorValue &&
@@ -242,10 +193,6 @@ export default class Ct_newSaSelection extends LightningElement {
     return this.selectedRows?.length;
   }
 
-  get activeSelectedRows() {
-    return this.selectedRows;
-  }
-
   set listData(value) {
     this.clientTableData = value;
   }
@@ -254,32 +201,23 @@ export default class Ct_newSaSelection extends LightningElement {
     return this.clientList ? this.clientTableData : null;
   }
 
-  get hideSelectAllClass() {
-    return this.enableInfiniteLoading ? 'hide-select-all' : '';
-  }
-
   get clientAdvisors() {
-    const numberOfClientsList = this.campaignId ? this.campaignMembersForCAList : this.clientsForCAList;
     return this.storeHierarchy?.prefered_ca?.map(ca => {
       return {
         ...ca,
-        clients: numberOfClientsList?.[ca.options[0].value] ?? 0
+        clients: this.clientsForCAList ? this.clientsForCAList[ca.options[0].value] ?? 0 : 0
       }
     }) ?? [];
   }
 
   get preferedCaIds() {
     const fakeIdToIgnoreCache = Date.now();
-    const ids = this.storeHierarchy?.prefered_ca?.map(ca => ca.options[0].value) || [];
+    const ids = this.storeHierarchy?.prefered_ca?.map(ca => ca.options[0].value);
     return [...ids, fakeIdToIgnoreCache];
   }
 
   get clientsForCAList() {
     return this.numberOfClientsForCA.data;
-  }
-
-  get campaignMembersForCAList() {
-    return this.numberOfCampaignMembersForCA.data;
   }
 
   get disabledSaveButton() {
@@ -334,48 +272,20 @@ export default class Ct_newSaSelection extends LightningElement {
   }
 
   handleSelectedClientRowData(event) {
-    const dataTable = this.refs.dataTable;
+    const dataTable = this.template.querySelector("lightning-datatable");
     if (dataTable) {
-      const eventConfig = event?.detail?.config || {};
-      if (['rowSelect', 'rowDeselect'].includes(eventConfig.action)) {
-        this.handleOneRowSelection(eventConfig.action, eventConfig.value);
-      } else {
-        const clientsToReassign = [];
-        dataTable.getSelectedRows().forEach((row) => {
-          clientsToReassign.push(row.id);
-          if (this.selectedRows.indexOf(row.id) < 0) {
-            this.selectedRows = [...this.selectedRows, row.id];
-          }
-        });
-  
-        if (eventConfig.action === 'deselectAllRows') {
-          const allPageIds = this.enableInfiniteLoading ? [...this.allTableIds] : [...this.listData].map(c => c.id);
-          const elementsToUnCheck = allPageIds.filter(id => clientsToReassign.indexOf(id) < 0);
-          this.selectedRows = this.selectedRows.filter(r => !elementsToUnCheck.includes(r));
+      const selectedPageRows = dataTable.getSelectedRows();
+      const clientsToReassign = [];
+      selectedPageRows.map((row) => {
+        clientsToReassign.push(row.id);
+        if (this.selectedRows.indexOf(row.id) < 0) {
+          this.selectedRows = [...this.selectedRows, row.id];
         }
-  
-        this.updateDataTable(clientsToReassign);
-      }
-    }
-  }
-
-  handleOneRowSelection(action, value) {
-    const valueIndex = this.listData.findIndex(c => c.id == value)
-    if (valueIndex > -1) {
-      let caToAssign;
-
-      if (action == 'rowSelect') {
-        this.selectedRows = [...this.selectedRows, value];
-        caToAssign = (this.selectedClientAdvisorName || '');
-      } else {
-        this.selectedRows = [...this.selectedRows].filter(r => r !== value);
-        caToAssign = '';
-      }
-      
-      this.listData = this.listData.toSpliced(valueIndex, 1, {
-        ...this.listData[valueIndex],
-        caToAssign
-      });  
+      });
+      const allPageIds = [...this.listData].map(c => c.id);
+      const elementsToUnCheck = allPageIds.filter(id => clientsToReassign.indexOf(id) < 0);
+      this.selectedRows = this.selectedRows.filter(r => !elementsToUnCheck.includes(r));
+      this.updateDataTable(clientsToReassign);
     }
   }
 
@@ -391,7 +301,7 @@ export default class Ct_newSaSelection extends LightningElement {
   }
 
   getCopyData(data) {
-    return data ? JSON.parse(JSON.stringify(data)) : [];
+    return JSON.parse(JSON.stringify(data));
   }
 
   handleAssignmentCancellation() {
@@ -408,11 +318,9 @@ export default class Ct_newSaSelection extends LightningElement {
     this.selectedRows = [...new Set([...this.selectedRows])];
     this.loadSpinner(true, 'Loading results, please wait, This may take some time');
 
-    const assignedAction = this.campaignId ? assignCampaignMembersToCA : createReassignCL;
-    assignedAction({
+    createReassignCL({
       clientIdsList: this.selectedRows,
-      caId: this.selectedClientAdvisorValue,
-      ...(this.campaignId && { campaignId: this.campaignId })
+      caId: this.selectedClientAdvisorValue
     })
       .then((result) => {
         if (result && result !== 'null') {
@@ -471,7 +379,6 @@ export default class Ct_newSaSelection extends LightningElement {
   @api
   updateDataAfterReassignFinish() {
     refreshApex(this.numberOfClientsForCA);
-    refreshApex(this.numberOfCampaignMembersForCA);
     this.handleStoreHierarchyReset();
     this.loadSpinner(false);
     this.handleWarning(

@@ -21,7 +21,7 @@
             is-loading={searchLoader}
           ></lightning-input>
 
-          <div class="pagination" if:false={enableInfiniteLoading}>
+          <div class="pagination">
             <span class="pages-amount">{pageDescription}</span>
             <lightning-button-icon disabled={isFirstPage} icon-name="utility:chevronleft" alternative-text="Prev" title="Prev" onclick={prevPage} class="slds-m-left_xx-small"></lightning-button-icon>
             <lightning-button-icon disabled={isLastPage} icon-name="utility:chevronright" alternative-text="Next" title="Next" onclick={nextPage} class="slds-m-left_xx-small"></lightning-button-icon>
@@ -44,14 +44,9 @@
         <template if:true={enableNewSelection}>
           <c-ct_new-sa-selection
             onnewsaselectionmounted={handleNewSaSelectionMounted}
-            campaign-id={campaignId}
-            row-offset={rowOffset}
-            enable-infinite-loading={enableInfiniteLoading}
-            all-table-ids={allTableIds}
             is-reassign-step={isReassignStep}
             store-hierarchy={storeHierarchy}
-            ontableloadmore={onLoadMore}
-            client-list={tableData}
+            client-list={paginationData}
             clients-amount={fullClientsAmount}
             is-dream-id-flow={isDreamIdFlow}
             is-unlock-store-hierarchy={isUnlockStoreHierarchy}

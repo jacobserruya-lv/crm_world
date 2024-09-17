@@ -14,7 +14,6 @@
 .actions-component-wrapper > .slds-col {
   width: 30%;
   position: relative;
-  max-width: 400px;
 }
 
 .actions-component-element {
