@@ -13,7 +13,13 @@ global class CT_PushClientsToCampaignBatch implements Database.Batchable<sObject
       campaignId = campaign;
       errorFileId = errorFile;
 
-      List<User> users = [SELECT Id, WWEmployeeNumber__c FROM User WHERE WWEmployeeNumber__c IN :assignedCaByDreamId.values()];
+      List<User> users = [
+        SELECT Id, WWEmployeeNumber__c
+        FROM User
+        WHERE WWEmployeeNumber__c != null
+        AND WWEmployeeNumber__c 
+          IN :assignedCaByDreamId.values()
+      ];
       for (User u : users) {
         userByLVMId.put(u.WWEmployeeNumber__c, u.Id);
       }
