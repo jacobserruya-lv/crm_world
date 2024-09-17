@@ -460,13 +460,13 @@ c-ct_new-sa-selection .slds-table_header-fixed_container {
   padding-top: 34px;
 }
 
-c-ct_new-sa-selection .slds-table_header-fixed_container.slds-scrollable_x {
+/* c-ct_new-sa-selection .slds-table_header-fixed_container.slds-scrollable_x {
   height: max-content !important;
-}
+} */
 
-c-ct_new-sa-selection .dt-outer-container {
+/* c-ct_new-sa-selection .dt-outer-container {
   height: max-content !important;
-}
+} */
 
 c-ct_new-sa-selection .slds-accordion__list-item:first-child {
   margin-top: 0;
@@ -616,6 +616,10 @@ c-ct_new-sa-selection .slds-cell-edit .slds-button {
   line-height: 1.31;
   letter-spacing: normal;
   color: #191009;
+}
+
+.hide-select-all .slds-checkbox:has(input.datatable-select-all) {
+  display: none !important;
 }
 
 .event-modal-col > c-ct_searchable-combobox > .slds-p-around_medium { 
