@@ -75,8 +75,8 @@ export default class Icx_surveyPage extends NavigationMixin(LightningElement) {
     selectInput() {
 
         this.listViewTitle = [
-            { label: 'MyCSCFeedback', value: 'My CSC Feedback' }]
-        // { label: 'MyTeamDigitalFeedback', value: 'My Team Digital Feedback' }];
+            { label: 'MyCSCFeedback', value: 'My CSC Feedback' },
+            { label: 'MyTeamDigitalFeedback', value: 'My Team Digital Feedback' }];
 
         if (this.isManager) this.listViewTitle.splice(1, 0, { label: 'MyTeamCSCFeedback', value: 'My Team CSC Feedback' },);
 
@@ -158,35 +158,35 @@ export default class Icx_surveyPage extends NavigationMixin(LightningElement) {
     }
 
     tableFormatted(survey) {
-        /////////////////////////////////   REMOVE CA SCORE AND LIST VIEW 'My Team Digital Feedback' FOR V1    ////////////////////////////////////
+        /////////////////////////////////   REMOVE CA SCORE    ////////////////////////////////////
 
-        // if (this.listViewTitleSelected == 'My Team Digital Feedback') {
-        //     return survey = [
-        //         { value: survey.createdDate ? survey.createdDate : '-', type: 'text', label: 'Feedback Date' },
-        //         { value: survey.surveyType ? this.getIconFortitle(survey.surveyType) : '-', type: 'text', label: 'Survey Name', isTextWithIcon: true },
-        //         { value: survey.clientName ? survey.clientName : '-', type: 'text', label: 'Client Name' },
-        //         // { value: survey.segmentation ? survey.segmentation : '-', type: 'text', label: 'Segmentation' },
-        //         // {
-        //         //     value: survey.CAScore ? this.getIconFortitle(survey.CAScore) : '-', type: 'text', label: 'CA Score', isTextWithIcon: survey.CAScore ? true : false
-        //         // },
-        //         { value: survey.globalScore ? survey.globalScore : '-', type: 'text', label: 'Satisfaction Score', isRating: survey.globalScore ? true : false },
-        //         { value: survey.status ? survey.status : '-', type: 'text', label: 'Status' },
-        //         { value: survey.advisorCSRole ? survey.advisorCSRole : survey.CAName ? survey.CAName : '-', type: 'text', label: survey.advisorCSRole ? 'Advisor CS Role' : 'CA Name' },
-        //     ]
-        // } else {
-        return survey = [
-            { value: survey.createdDate ? survey.createdDate : '-', type: 'text', label: 'Feedback Date' },
-            { value: survey.surveyType ? this.getIconFortitle(survey.surveyType) : '-', type: 'text', label: 'Survey Name', isTextWithIcon: true },
-            { value: survey.clientName ? survey.clientName : '-', type: 'text', label: 'Client Name' },
-            // { value: survey.segmentation ? survey.segmentation : '-', type: 'text', label: 'Segmentation' },
-            // {
-            //     value: survey.CAScore ? this.getIconFortitle(survey.CAScore) : '-', type: 'text', label: 'CA Score', isTextWithIcon: survey.CAScore ? true : false
-            // },
-            { value: survey.globalScore ? survey.globalScore : '-', type: 'text', label: 'Satisfaction Score', isRating: survey.globalScore ? true : false },
-            { value: survey.status ? survey.status : '-', type: 'text', label: 'Status' },
-            { value: survey.advisorCSRole ? survey.advisorCSRole : survey.CAName ? survey.CAName : '-', type: 'text', label: survey.advisorCSRole ? 'Advisor CS Role' : 'CA Name' },
-        ]
-        // }
+        if (this.listViewTitleSelected == 'My Team Digital Feedback') {
+            return survey = [
+                { value: survey.createdDate ? survey.createdDate : '-', type: 'text', label: 'Feedback Date' },
+                { value: survey.surveyType ? this.getIconFortitle(survey.surveyType) : '-', type: 'text', label: 'Survey Name', isTextWithIcon: true },
+                { value: survey.clientName ? survey.clientName : '-', type: 'text', label: 'Client Name' },
+                // { value: survey.segmentation ? survey.segmentation : '-', type: 'text', label: 'Segmentation' },
+                // {
+                //     value: survey.CAScore ? this.getIconFortitle(survey.CAScore) : '-', type: 'text', label: 'CA Score', isTextWithIcon: survey.CAScore ? true : false
+                // },
+                { value: survey.globalScore ? survey.globalScore : '-', type: 'text', label: 'Satisfaction Score', isRating: survey.globalScore ? true : false },
+                { value: survey.status ? survey.status : '-', type: 'text', label: 'Status' },
+                { value: survey.advisorCSRole ? survey.advisorCSRole : survey.CAName ? survey.CAName : '-', type: 'text', label: survey.advisorCSRole ? 'Advisor CS Role' : 'CA Name' },
+            ]
+        } else {
+            return survey = [
+                { value: survey.createdDate ? survey.createdDate : '-', type: 'text', label: 'Feedback Date' },
+                { value: survey.surveyType ? this.getIconFortitle(survey.surveyType) : '-', type: 'text', label: 'Survey Name', isTextWithIcon: true },
+                { value: survey.clientName ? survey.clientName : '-', type: 'text', label: 'Client Name' },
+                // { value: survey.segmentation ? survey.segmentation : '-', type: 'text', label: 'Segmentation' },
+                // {
+                //     value: survey.CAScore ? this.getIconFortitle(survey.CAScore) : '-', type: 'text', label: 'CA Score', isTextWithIcon: survey.CAScore ? true : false
+                // },
+                { value: survey.globalScore ? survey.globalScore : '-', type: 'text', label: 'Satisfaction Score', isRating: survey.globalScore ? true : false },
+                { value: survey.status ? survey.status : '-', type: 'text', label: 'Status' },
+                { value: survey.advisorCSRole ? survey.advisorCSRole : survey.CAName ? survey.CAName : '-', type: 'text', label: survey.advisorCSRole ? 'Advisor CS Role' : 'CA Name' },
+            ]
+        }
 
 
     }
