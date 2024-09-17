@@ -23,6 +23,9 @@ const symbolByCurrency = {
 };
 
 export default class Ct_resultList extends LightningElement {
+  @api campaignId = '';
+  @api customPageSize;
+  @api enableInfiniteLoading;
   @api isExclusiveAccessStep;
   @api isReassignStep;
   @api isActionSelectionStep;
@@ -45,6 +48,8 @@ export default class Ct_resultList extends LightningElement {
   ignoreCache = 'ignorecache' + Date.now();
   storeRetail;
   tableLoader = true;
+  resultWasRefreshed = false;
+  isRefreshedDueTheDeletion = false;
 
   @wire(getRecord, {
     recordId: CURRENT_USER_ID,
@@ -59,12 +64,16 @@ export default class Ct_resultList extends LightningElement {
 
   @wire(getClientList, {
     dreamIds: "$paginationDreamIds",
+    campaignId: "$campaignIdFetcher",
     ignoreCache: "$ignoreCache"
   })
   fullClientsList({data, error}) {
-    if (data) {
+    if (data && !this.isRefreshedDueTheDeletion) {
       this.fullClients = data;
-      this.paginationData = this.initializeClients(data);
+      const shouldMergeResult = !!this.enableInfiniteLoading && !this.searchLoading && !this.resultWasRefreshed;
+      this.paginationData = shouldMergeResult ? 
+        this.setOfObjects([...this.paginationData, ...this.initializeClients(data)]) :
+        this.initializeClients(data);
       if (!this.storeRetail && this.isReassignStep) {
         this.storeRetail = this.getStoreRetail();
       }
@@ -72,9 +81,11 @@ export default class Ct_resultList extends LightningElement {
         this.page = 0;
         this.searchLoading = false;
       }
+      this.resultWasRefreshed = false;
       this.tableLoader = false;
       this.refreshReassignTable();
     }
+    this.isRefreshedDueTheDeletion = false;
   };
 
   url = window.location.hostname;
@@ -87,7 +98,6 @@ export default class Ct_resultList extends LightningElement {
   reassignTableElement;
   dataForResultTable;
   page = 0;
-  pageSize = 20;
   activeSections = ["RESULTS"];
   columns = [
     {
@@ -100,7 +110,6 @@ export default class Ct_resultList extends LightningElement {
         target: "_blank"
       }
     },
-    //{ label: "Segmentation", fieldName: "segmentation" },
     { label: "12MR", fieldName: "purchasePeriod" },
     { label: "Last Transaction", fieldName: "lastTransaction", type: "date" },
     {
@@ -126,6 +135,10 @@ export default class Ct_resultList extends LightningElement {
     },
   ];
 
+  get pageSize() {
+    return Number(this.customPageSize) || 20;
+  }
+
   get storeHierarchy() {
     return this.mainStorage;
   }
@@ -138,28 +151,49 @@ export default class Ct_resultList extends LightningElement {
     return (this.page * this.pageSize) + this.pageSize;
   }
 
+  get rowOffset() {
+    return this.enableInfiniteLoading ? 0 : this.startIndex;
+  }
+
   get paginationDreamIds() {
     return [...this.listData].slice(this.startIndex, this.endIndex).map(c => c.DREAMID__c);
   }
 
+  get tableData() {
+    return this.paginationData;
+  }
+
+  get allTableIds() { 
+    return [...this.listData].map(c => c.Id);
+  }
+
+  get campaignIdFetcher() {
+    return this.campaignId || this.ignoreCache;
+  }
+
   initializeClients(clients) {
-    return clients.map((client) => 
-      ({
-        id: client?.Id,
-        name: client?.Name,
-        linkToClientAccount: `https://${this.url}/lightning/r/Account/${client?.Id}/view`,
-        segmentation: client?.Segmentation_To_Display__c,
-        purchasePeriod: this.getTurnoverByCurrency(client),
-        lastTransaction: client?.LastTrans__pc,
-        dreamId: client?.DREAMID__c,
-        preferredCa: client?.Owner?.Name,
-        preferredCaId: client?.Owner?.Id,
-        linkToCaAccount: `https://${this.url}/lightning/r/Account/${client?.Owner?.Id}/view`,
-        attachedStore: client?.Store__pr?.Name || this.getStoreNameByRetailId(client?.Owner?.DefaultStore__c),
-        country: client?.PrimaryCountry__pc,
-        storeId: client?.Store__pr?.RetailStoreId__c || client?.Owner?.DefaultStore__c,
-        caToAssign: ""
-      })
+    return clients.map((client) => {
+        const campaignMember = this.campaignId ? client.Campaign_Members__r?.[0] : null;
+        const linkToCampaignAssignedCa =  campaignMember?.AssignedCA__c ? 
+          `https://${this.url}/lightning/r/Account/${campaignMember.AssignedCA__c}/view` : null;
+
+        return {
+          id: client?.Id,
+          name: client?.Name,
+          linkToClientAccount: `https://${this.url}/lightning/r/Account/${client?.Id}/view`,
+          segmentation: client?.Sub_Segment__c, //client?.Segmentation_To_Display__c,
+          purchasePeriod: this.getTurnoverByCurrency(client),
+          lastTransaction: client?.LastTrans__pc,
+          dreamId: client?.DREAMID__c,
+          preferredCa: this.campaignId ? campaignMember?.AssignedCA__r?.Name : client?.Owner?.Name,
+          preferredCaId: this.campaignId ? campaignMember?.AssignedCA__c : client?.Owner?.Id,
+          linkToCaAccount: this.campaignId ? linkToCampaignAssignedCa : `https://${this.url}/lightning/r/Account/${client?.Owner?.Id}/view`,
+          attachedStore: client?.Store__pr?.Name || this.getStoreNameByRetailId(client?.Owner?.DefaultStore__c),
+          country: client?.PrimaryCountry__pc,
+          storeId: client?.Store__pr?.RetailStoreId__c || client?.Owner?.DefaultStore__c,
+          caToAssign: ""
+        }
+      }
     );
   }
 
@@ -200,9 +234,22 @@ export default class Ct_resultList extends LightningElement {
 
   refreshReassignTable() {
     if (this.reassignTableElement) {
-      this.reassignTableElement.clientList = this.paginationData;
+      this.reassignTableElement.clientList = this.tableData;
       this.reassignTableElement.refreshTableData();
+      this.reassignTableElement.closeTableLoader();
     }   
+  }
+
+  onLoadMore(event) {
+    if (this.searchLoader) {
+      return;
+    }
+
+    if (this.listData.length > this.endIndex) {
+      this.nextPage();
+    } else if (this.reassignTableElement) {
+      this.reassignTableElement.closeTableLoader();
+    }
   }
 
   connectedCallback() {
@@ -215,7 +262,7 @@ export default class Ct_resultList extends LightningElement {
         this.dispatchEvent(new CustomEvent('loadspinner', {detail: {isLoading: false}, bubbles: true, composed: true})); 
         this.isRenderd = true;
       }
-    } else {
+    } else if (!this.reassignTableElement) {
       this.reassignTableElement = this.template.querySelector('c-ct_new-sa-selection');
     }
   }
@@ -239,8 +286,14 @@ export default class Ct_resultList extends LightningElement {
     this.dispatchEvent(new CustomEvent('loadspinner', {detail: {isLoading: false}, bubbles: true, composed: true}));
   }
 
+  resetInfiniteLoading() {
+    this.resultWasRefreshed = true;
+    this.page = 0;
+  }
+
   handleReassignSuccessfully(event) {
     this.ignoreCache = 'ignorecache' + Date.now();
+    this.resetInfiniteLoading();
     if (this.inputSearch) {
       this.handleResultSearch();
     }
@@ -257,20 +310,20 @@ export default class Ct_resultList extends LightningElement {
 
   handleUserSettingsApplied(event) {
     this.dispatchEvent(
-      new CustomEvent("usersettingsapplied", { detail: event.detail })
+      new CustomEvent("usersettingsapplied", { detail: event.detail, bubbles: true })
     );
   }
 
   handleStoreHierarchyMounted() {
-    this.dispatchEvent(new CustomEvent("storehierarchymounted"));
+    this.dispatchEvent(new CustomEvent("storehierarchymounted", { bubbles: true }));
   }
 
   handleNewSaSelectionMounted() {
-    this.dispatchEvent(new CustomEvent("newsaselectionmounted"));
+    this.dispatchEvent(new CustomEvent("newsaselectionmounted", { bubbles: true }));
   }
 
   handleDoneAssignment() {
-    this.dispatchEvent(new CustomEvent("doneassignment"));
+    this.dispatchEvent(new CustomEvent("goback", { detail: { reset: true } }));
   }
 
   handleResultSearch(event = null) {
@@ -310,6 +363,9 @@ export default class Ct_resultList extends LightningElement {
         this.searchHistory = [];
       }
       this.inputSearch = queryTerm;
+      if (this.enableInfiniteLoading) {
+        this.resetInfiniteLoading();
+      }
     }, 1000);
   }
 
@@ -320,6 +376,13 @@ export default class Ct_resultList extends LightningElement {
 
   deleteRow(row) {
     const { id } = row;
+
+    if (this.enableInfiniteLoading) {
+      this.isRefreshedDueTheDeletion = true;
+      this.paginationData = [...this.paginationData].filter(c => c.id !== id);
+      this.refreshReassignTable();
+    }
+
     const isNotClientId = (c) => c.Id !== id;
     this.listData = [...this.listData].filter(isNotClientId);
     this.clientList = [...this.clientList].filter(isNotClientId);
@@ -332,7 +395,7 @@ export default class Ct_resultList extends LightningElement {
                             this.fullClients?.find(c => !!c?.Owner?.DefaultStore__c);
     const storeLabel = clientWithStore?.Store__pr?.Name ?? this.allStoresList?.data[clientWithStore?.Owner?.DefaultStore__c];
     const storeValue = clientWithStore?.Store__pr?.RetailStoreId__c ?? clientWithStore?.Owner?.DefaultStore__c;
-    return {value: storeValue, label: storeLabel};
+    return { value: storeValue, label: storeLabel };
   }
 
   get showDataTable() {
@@ -349,8 +412,13 @@ export default class Ct_resultList extends LightningElement {
   }
 
   get enableNewSelection() {
-    return this.isReassignStep && !!this.storeRetail;
+    return this.campaignId || (this.isReassignStep && !!this.storeRetail);
   }
   
+  setOfObjects(array, identifier = "id") {
+    const alreadyExist = {};
+    return array.filter((obj) => !alreadyExist[obj[identifier]] && (alreadyExist[obj[identifier]] = true));
+  }
+
   handleSectionToggle() {}
 }
