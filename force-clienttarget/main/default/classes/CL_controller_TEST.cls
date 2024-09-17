@@ -26,8 +26,13 @@ public with sharing class CL_controller_TEST {
 
     @isTest
     public static void getClientList_TEST() {
+        Campaign__c cmp = new Campaign__c();
+        cmp.Name = 'test';
+        cmp.Status__c = 'Ongoing';
+        insert cmp;
+
         List<String> dreamIds = new List<String>{'85739682','85740498','85743511','56119070','56268685'};
-        List<Account> clients = CL_controller.getClientList(dreamIds, '', 'cache');
+        List<Account> clients = CL_controller.getClientList(dreamIds, cmp.Id, 'cache');
         List<Account> clients2 = CL_controller.getBasicClientList(dreamIds);
     }
 
