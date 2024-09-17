@@ -10,9 +10,8 @@ private class PPR_PurchProductTrigger_TEST {
       AttachedStoreCode__pc = 'UEC',
       PersonEmail = 'test@test.com',
       SPO_Country_code__pc = 'USA'
-    );
+    );    
     insert acc;
-
     Club_and_Seasons__c clubSneakers = new Club_and_Seasons__c(
       Name = 'Sneakers'
     );
@@ -26,8 +25,20 @@ private class PPR_PurchProductTrigger_TEST {
       lastStatusUpdated__c = system.now(),
       Unique_Key__c = acc.DREAMID__c + '_' + clubSneakers.Name
     );
+    GiftCatalog__c giftCatalog = new GiftCatalog__c(
+      GiftCategory__c = 'Capucines',
+      Name = 'Capucines',
+      SKUGift__c = 'N92831'
+    );
+    User user = IC_Test_Common.prepareTestUser('System Administrator');
+    user.DefaultStore__c = 'N03';
+    user.WWEmployeeNumber__c = 'FRE21953645';
+    Store__c store = new Store__c(RetailStoreId__c = 'N03', name = 'LV SHANGHAI PLAZA 66' );
+    
     insert clubM;
-
+    insert giftCatalog;
+    insert user;
+	  insert store;
     /*LV_Club_Setting__mdt setting = new LV_Club_Setting__mdt();
     setting.label
     setting.DeveloperName = 'Sneakers';
@@ -69,6 +80,16 @@ private class PPR_PurchProductTrigger_TEST {
     pprp3.RMSSKUCode__c = '1AB8RU';
     pprp3.quantity__c = -1;
     pprlList.add(pprp3);
+      
+    PPR_PurchProduct__c pprp4 = new PPR_PurchProduct__c();
+    pprp4.Client__c = user1.Id;
+    pprp4.TicketNumber__c = '195141ge65';
+    pprp4.RMSSKUCode__c = 'N92831';
+    pprp4.quantity__c = 1;
+    pprp4.WWEmployeeNumber__c = 'FRE21953645';
+    pprp4.Amount__c = 0;
+    pprp4.StoreRetailCode__c = 'N03';
+    pprlList.add(pprp4);
 
     Test.startTest();
     insert pprlList;

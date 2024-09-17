@@ -83,11 +83,11 @@ public with sharing class CL_controller {
   }
 
   @AuraEnabled(cacheable=true)
-  public static List<SObject> getIsAllClientsInMyPerimeter(
+  public static List<String> getIsAllClientsInMyPerimeter(
     String type, String zone, List<String> dreamIds
   ) {
     if (String.isBlank(zone) || String.isBlank(type)) {
-      return new List<SObject>();
+      return new List<String>();
     }
 
     Map<String, String> clientOwnerZone = getZoneParameterByType(type);
@@ -104,7 +104,13 @@ public with sharing class CL_controller {
     System.debug('getIsAllClientsInMyPerimeter => baseQuery: ' + baseQuery);
     System.debug('getIsAllClientsInMyPerimeter => clientsCount: ' + clients.size());
 
-    return clients;
+    List<String> notInPerimeterDreamIds = new List<String>();
+
+    for (SObject c : clients) {
+      notInPerimeterDreamIds.add(((Account) c).DREAMID__c);
+    }
+
+    return notInPerimeterDreamIds;
   }
 
   public static Map<String, String> getZoneParameterByType(String type) {
@@ -375,6 +381,26 @@ public with sharing class CL_controller {
   }
 
   @AuraEnabled(cacheable=true)
+  public static list<String> getUnattachedDreamIds(list<String> dreamIds) {
+    list<String> unattachedDreamIds = new list<String>();
+    list<Account> contacts = [
+      SELECT DREAMID__c
+      FROM Account
+      WHERE DREAMID__c in :dreamIds
+      AND (Owner.IsTechnicalUser__c = TRUE
+      OR OwnerId = NULL)
+    ];
+
+    if (contacts.size() > 0) {
+      for (Account c : contacts) {
+        unattachedDreamIds.add(c.DREAMID__c);
+      }
+    }
+
+    return unattachedDreamIds;
+  }
+
+  @AuraEnabled(cacheable=true)
   public static List<Map<String, String>> getNotContactableClients(list<String> dreamIds, List<String> phoneCountries) {
     List<Map<String, String>> notContactableClients = new List<Map<String, String>> ();
     
@@ -455,11 +481,15 @@ public with sharing class CL_controller {
   }
 
   @AuraEnabled(cacheable=true)
-  public static List<Brand_Experience__c> getAllPublishedEvents() {
+  public static List<Brand_Experience__c> getAllPublishedEvents(String eventType) {
     return [
-      SELECT Id, Name, Description__c,  StartDate__c, EndDate__c
+      SELECT Id, Name, Type__c, Description__c,  StartDate__c, EndDate__c
       FROM Brand_Experience__c
-      WHERE Status__c = 'Ready'
+      WHERE Status__c != 'Ended'
+      AND ID IN(
+        SELECT Brand_Experience__c FROM Brand_Experience_Variation__c WHERE Status__c != 'ENDED'
+      )
+      AND Type__c = :eventType
       AND RecordType.DeveloperName != 'Club_Experience'
     ];
   }
@@ -481,6 +511,7 @@ public with sharing class CL_controller {
   public static Map<String, String> addClientsToAnEventFromBatch(
     String eventId,
     String variationId,
+    String eventType,
     List<String> dreamIdsList
   ) {
     ContentVersion cv = new ContentVersion();
