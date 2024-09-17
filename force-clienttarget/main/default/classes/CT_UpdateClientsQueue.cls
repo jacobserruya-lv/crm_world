@@ -1,7 +1,7 @@
 global with sharing class CT_UpdateClientsQueue implements Queueable {
-    List<SObject> accountsToUpdate = new List<SObject>();
+    List<Account> accountsToUpdate = new List<Account>();
 
-    public CT_UpdateClientsQueue(List<SObject> accList) {
+    public CT_UpdateClientsQueue(List<Account> accList) {
         accountsToUpdate = accList;
     }
 

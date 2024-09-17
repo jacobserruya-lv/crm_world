@@ -1,6 +1,16 @@
 // CI CD Test
 public with sharing class CL_controller {
   public class CustomException extends Exception {}
+  
+  public class MTEngineContact {
+    public String dream_id;
+    public String first_transaction_date_hist;
+    public Boolean contactable_by_email;
+  }
+
+  public class MTEngineResponse {
+    public List<MTEngineContact> Contacts;
+  }
 
   @AuraEnabled(cacheable=true)
   public static List<AggregateResult> getManagementZoneLevel() {
@@ -211,16 +221,11 @@ public with sharing class CL_controller {
   }
 
   @AuraEnabled(cacheable=true)
-  public static List<Account> getClientList(list<String> dreamIds, String campaignId, String ignoreCache) {
-    if (campaignId.startsWith('ignorecache')) {
-      campaignId = null;
-    }
-
+  public static List<Account> getClientList(list<String> dreamIds, String ignoreCache) {
     return [
       SELECT Id,
             Name,
             Segmentation_To_Display__c,
-            Sub_Segment__c,
             LastTrans__pc, DREAMID__c,
             Owner.Name,
             Owner.LastName,
@@ -232,14 +237,7 @@ public with sharing class CL_controller {
             Turnover12mrTaxInclEUR__pc,
             Turnover12mrTaxInclUSD__pc,
             Turnover12mrTaxInclJPY__pc,
-            PrimaryCountry__pc,
-            (
-              SELECT AssignedCA__c, AssignedCA__r.Name
-              FROM Campaign_Members__r
-              WHERE Campaign__c = :campaignId
-              ORDER BY CreatedDate DESC
-              LIMIT 1
-            )
+            PrimaryCountry__pc
       FROM Account
       WHERE DREAMID__c != null AND DREAMID__c IN :dreamIds
     ];
@@ -440,20 +438,16 @@ public with sharing class CL_controller {
   }
 
   @AuraEnabled(cacheable=true)
-  public static Map<String, Boolean> getActionPermissionByProfile() {
-    Map<String, Boolean> permissionByAction = new Map<String, Boolean>();
-
+  public static Map<String, String> getUnlockStoreProfilesSettings() {
     Id profileId = UserInfo.getProfileId();
     List<Profile> profiles = [SELECT Name FROM Profile WHERE Id = :profileId LIMIT 1];
     String profileName = profiles[0].Name;
-
-    List<CT_Action_Permissions__mdt> actionPermissions = [SELECT Label, profiles__c FROM CT_Action_Permissions__mdt];
-
-    for (CT_Action_Permissions__mdt ap : actionPermissions) {
-      permissionByAction.put(ap.Label, ap.profiles__c.contains(profileName));
-    }
+    CT_unlockAuthorizedProfiles__c unlockStoreSettings = [SELECT profiles__c FROM CT_unlockAuthorizedProfiles__c];
     
-    return permissionByAction;
+    return new Map<String, String> {
+      'unlockStoreProfiles' => unlockStoreSettings.profiles__c,
+      'currentProfileName' => profileName
+    };
   }
 
   @AuraEnabled(cacheable=true)

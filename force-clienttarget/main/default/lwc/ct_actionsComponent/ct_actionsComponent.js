@@ -8,8 +8,6 @@ export default class Ct_actionsComponent extends LightningElement {
   @api isAllClientsWithStore;
   @api isClentListEmpty;
   @api isUnlockStoreHierarchy;
-  @api userCanPushToCampaign;
-  @api isCampaignFlow;
 
   @wire(getIsAllClientsInMyZone)
   allClientsInMyZone;
@@ -46,15 +44,7 @@ export default class Ct_actionsComponent extends LightningElement {
     this.dispatchEvent(new CustomEvent('gottoaddclientstoanevent'));
   }
 
-  goToPushToCampaign() {
-    this.dispatchEvent(new CustomEvent('gotopushtocampaign'));
-  }
-
   get disableAddClientToAnEvent () {
-    return !this.isAllClientsWithStore || !this.isAllClientsInMyPerimeter || this.isClentListEmpty;
-  }
-
-  get disablePushToCampaign () {
     return !this.isAllClientsWithStore || !this.isAllClientsInMyPerimeter || this.isClentListEmpty;
   }
 

@@ -49,7 +49,6 @@
  * @property {ClientFilters} clientFilters
  * @property {PurchaseHistory} purchaseHistory
  * @property {Object} eventInfo
- * @property {Object} campaignInfo
  */
 
 /**

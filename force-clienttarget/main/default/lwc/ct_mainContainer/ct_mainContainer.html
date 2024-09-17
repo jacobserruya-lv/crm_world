@@ -57,14 +57,11 @@
       ongotocreateclientlist={goToCreateClientList}
       ongotoexclusivesales={goToExclusiveSales}
       ongottoaddclientstoanevent={goToAddClientsToAnEvent}
-      ongotopushtocampaign={goToPushToCampaign}
-      is-campaign-flow={isCampaignFlow}
       is-clent-list-empty={isClentListEmpty}
       is-all-dream-ids-from-one-store={isAllDreamIdsFromOneStore}
       is-all-clients-in-my-perimeter={isAllClientsInMyPerimeter}
       is-all-clients-with-store={isAllClientsWithStore}
       is-unlock-store-hierarchy={unlockStoreHierarchy}
-      user-can-push-to-campaign={userCanPushToCampaign}
     ></c-ct_actions-component>
     <c-ct_result-list
       onnewsaselectionmounted={handleNewSaSelectionMounted}
@@ -89,18 +86,16 @@
       ongoback={goBack}
     ></c-ct_generic-header-and-button>
 
-    <c-ct_result-list
-      is-reassign-step
-      custom-page-size=50
-      main-storage={storage.storeHierarchy}
-      client-list={storage.clientList}
+    <c-ct_reassign-results
+      storage={storage}
       all-stores-list={allStoresList}
+      is-reassign-step={isReassignStep}
       is-unlock-store-hierarchy={unlockStoreHierarchy}
       onstorehierarchymounted={handleStoreHierarchyMounted}
       onusersettingsapplied={handleUserSettingsApplied}
       onnewsaselectionmounted={handleNewSaSelectionMounted}
       ongoback={goBack}
-    ></c-ct_result-list>
+    ></c-ct_reassign-results>
   </template>
 
   <!-- CL created -->
@@ -183,39 +178,6 @@
     ></c-ct_result-list>
   </template>
 
-  <template if:true={isClientPushedToCampaignStep}>
-    <c-ct_search-filters-breadcrumbs
-      is-client-pushed-to-campaign-step={isClientPushedToCampaignStep}
-    ></c-ct_search-filters-breadcrumbs>
-
-    <c-ct_generic-header-and-button
-      header-title={clientsPushedToCampaignHeader}
-      is-error={isPushingClientsToCampaignFinishedWithTotalError}
-      ongoback={goBack}
-    ></c-ct_generic-header-and-button>
-
-    <c-ct_campaign-details
-      campaign-info={storage.campaignInfo}
-      onpushingclientstocampaignfinish={handlePushingClientsToCampaignFinished}
-    ></c-ct_campaign-details>
-
-    <template if:true={isPushingClientsToCampaignFinished}>
-      <c-ct_result-list
-        campaign-id={campaignId}
-        custom-page-size=50
-        main-storage={storage.storeHierarchy}
-        client-list={storage.clientList}
-        all-stores-list={allStoresList}
-        is-reassign-step
-        is-unlock-store-hierarchy={unlockStoreHierarchy}
-        onstorehierarchymounted={handleStoreHierarchyMounted}
-        onusersettingsapplied={handleUserSettingsApplied}
-        onnewsaselectionmounted={handleNewSaSelectionMounted}
-        ongoback={goBack}
-      ></c-ct_result-list>
-    </template>
-  </template>
-
   <template if:true={isCreateClientListModal}>
     <c-ct_create-client-list-modal
       storage={storage}
@@ -244,13 +206,5 @@
         onclientsaddedtoanevent={goToEventSummary}
         ondestroyeventmodal={goToAddClientsToAnEvent}
       ></c-ct_add-clients-to-an-event-modal>
-    </template>
-
-    <template if:true={isPushToCampaign}>
-      <c-ct_push-to-campaign-modal 
-        storage={storage}
-        onclientspushedtocampaign={goToCampaignSummery}
-        ondestroycampaignmodal={goToPushToCampaign}
-      ></c-ct_push-to-campaign-modal>
     </template>
 </template>

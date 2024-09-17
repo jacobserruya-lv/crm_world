@@ -136,8 +136,7 @@
   background: white;
 }    
 .scrollable {
-  /* overflow-y: scroll; */
-  height: 600px;
+  overflow-y: scroll;
   max-height: 60vh;
 }
 @media (min-height: 800px) {

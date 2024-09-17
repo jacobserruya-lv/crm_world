@@ -27,7 +27,7 @@ public with sharing class CL_controller_TEST {
     @isTest
     public static void getClientList_TEST() {
         List<String> dreamIds = new List<String>{'85739682','85740498','85743511','56119070','56268685'};
-        List<Account> clients = CL_controller.getClientList(dreamIds, null, 'cache');
+        List<Account> clients = CL_controller.getClientList(dreamIds, 'cache');
         List<Account> clients2 = CL_controller.getBasicClientList(dreamIds);
     }
 
@@ -83,7 +83,7 @@ public with sharing class CL_controller_TEST {
         List<String> dreamIds = new List<String>{'85739682','85740498','85743511','56119070','56268685'};
         CL_controller.getIsAllClientsInMyZone('15', dreamIds);
         CL_controller.getExclusiveOfferSettings();
-        CL_controller.getActionPermissionByProfile();
+        CL_controller.getUnlockStoreProfilesSettings();
         CL_controller.getCurrentUserSettings();
     }
     
