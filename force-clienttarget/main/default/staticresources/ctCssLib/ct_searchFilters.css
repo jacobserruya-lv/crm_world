@@ -14,16 +14,16 @@
 }
 
 @media (max-width: 90rem) {
-  flexipage-component2 {
+  flexipage-component2:has(c-ct_main-container) {
     width: 101.86% !important;
   }
 }
 
-.region .slds-m-bottom_medium {
+.region .slds-m-bottom_medium:has(c-ct_main-container) {
   overflow: hidden;
 }
 
-flexipage-component2 {
+flexipage-component2:has(c-ct_main-container) {
   top: -4.2rem;
   left: -1.2rem;
   position: relative;
@@ -35,10 +35,10 @@ flexipage-component2 {
   overflow-x: hidden;
 }
 
-.slds-template_default {
+/* .slds-template_default {
   padding-left: 0;
   padding-right: 0;
-}
+} */
 
 .toastContainer.slds-notify_container.slds-is-relative {
   top: 45vh !important;
