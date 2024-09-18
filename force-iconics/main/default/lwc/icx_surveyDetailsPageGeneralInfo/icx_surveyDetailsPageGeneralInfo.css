@@ -1,0 +1,36 @@
+.container__card {
+    --slds-c-accordion-color-border: #E5E5E5;
+    --slds-c-accordion-summary-color-background: #F9F9F9;
+    --slds-c-accordion-sizing-border: 1px;
+    --slds-c-accordion-heading-font-size: 13px;
+    --slds-c-accordion-section-spacing-block-end: 15px;
+    --slds-c-accordion-section-spacing-block-start: 15px;
+}
+
+.container__card--field {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    border-bottom: 1px solid #D3D3D3;
+    width: 100%;
+    font-weight: 500;
+}
+
+.container__card--contain {
+    flex: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container__card--title {
+    color: #706E6B;
+    font-size: 11px;
+    flex: 50%;
+}
+
+.container__card--value {
+    font-size: 13px;
+    flex: 50%;
+    margin: 0 20px;
+}
