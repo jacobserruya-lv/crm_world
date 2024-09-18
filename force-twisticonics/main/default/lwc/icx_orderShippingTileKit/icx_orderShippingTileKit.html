@@ -1,0 +1,35 @@
+<template>
+    <div class="container">
+        <div class="container__section--img">
+            <img src={pictureUrl} class="imgProduct" alt="Product picture" width="100" />
+        </div>
+        <div class="container__section--text">
+            <div class="info__text title">{product.productName}</div>
+            <div class="info__text currency">
+                <lightning-formatted-number value={product.line_amount}
+                    minimum-fraction-digits="2"></lightning-formatted-number>
+                {product.line_amount} {productCurrency}
+            </div>
+            <div class="info__text status">Product Status: {orderStatus}</div>
+            <div class="info">
+                <div class="info__product">
+                    <div class="tile__container--icon">
+                        <img src={itemIdIconSrc} alt="product SKU" />
+                        <p>{product.item_id}</p>
+                    </div>
+                    <div class="tile__container--icon">
+                        <img src={parcelNumberIconSrc} alt="Parcel number" />
+                        <p>{product.shippingLineNumber}</p>
+                    </div>
+                    <div class="tile__container--icon">
+                        <img src={trackingNumberIconSrc} alt="Tracking number" />
+                        <p>{trackingNumber}</p>
+                    </div>
+                </div>
+                <div class="info__product--right">Quantity: {product.qty}</div>
+            </div>
+        </div>
+
+    </div>
+
+</template>

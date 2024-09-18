@@ -1,30 +1,47 @@
 <template>
-        <div class={tileClass} onclick={handleClick} onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
-            <div class="slds-grid">
-                <div>
-                    <span>            
-                        <img
-                        src={pictureUrl}
-                        class="product slds-align_absolute-center"
-                        alt="Product picture"
-                        width="100"
-                        />
-                    </span>
+    <div class={tileClass} onclick={handleClick} onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
+        <div class="slds-grid tile__container--content">
+            <div class="tile__container--img">
+                <span>
+                    <img src={pictureUrl} class="product slds-align_absolute-center" alt="Product picture"
+                        width="100" />
+                </span>
+            </div>
+            <div class="tile__container--productInfo">
+                <div class="tile__container--productInfoText">
+                    <div class="tile__container--productInfo--header">
+                        <div class="title slds-text-align_left text ">{product.productName}</div>
+                        <div class="slds-text-align_left text">
+                            <template
+                                lwc:if={_orderShipping.discount.amount}>{product.line_amount}&nbsp;{product.currency_Z}</template>
+                            <template lwc:else>{product.unit_price}&nbsp;{product.currency_Z}</template>
+                        </div>
+                        <div class="slds-text-align_left text">Product Status: {product.statusIconics}</div>
+                    </div>
+                    <div lwc:if={isKitProduct} class="tile__container--productInfo--infoKit">
+                        <img src={kitIcon} class="tile__container--icon" alt="Kit" />
+                    </div>
                 </div>
-                <div>
-                    <p class="title slds-text-align_left">{product.productName}</p>
-                    <p class="slds-text-align_left">
-                        <template if:false={_orderShipping.discount.amount}>{product.unit_price}&nbsp;{product.currency_Z}</template>
-                        <template if:true={_orderShipping.discount.amount}>{product.line_amount}&nbsp;{product.currency_Z}</template>                        
-                    </p>
-                    <p class="slds-text-align_left">Product Status: {product.statusIconics}</p>
-                    <p><lightning-icon icon-name="utility:quote" alternative-text="Order" size="x-small" title="SKU"></lightning-icon> {product.item_id}</p>
-                    <p><lightning-icon icon-name="utility:fulfillment_order" alternative-text="Order" size="x-small" title="Parcel number"></lightning-icon>{product.shippingNumber}</p>
-                    <p><lightning-icon icon-name="utility:transport_heavy_truck" alternative-text="Order" size="x-small" title="Tracking number"></lightning-icon>{product.shipment.tracking_number}</p>
-                    <p class="slds-text-align_left">Quantity: {product.qty}</p>
-                    <!-- <p class="title slds-text-align_left">Current Location: {_orderShipping.location}</p> -->
-                    <!-- <p class="title slds-text-align_left">Delivery Type: {_orderShipping.deliveryType }</p> -->
+                <div class="tile__container--productInfoNumbers">
+                    <div>
+                        <div class="tile__container--icon">
+                            <img src={itemIdIconSrc} alt="product id" />
+                            <p>{product.item_id}</p>
+                        </div>
+                        <div class="tile__container--icon">
+                            <img src={parcelNumberIconSrc} alt="Parcel number" />
+                            <p>{product.shippingNumber}</p>
+                        </div>
+                        <div class="tile__container--icon">
+                            <img src={trackingNumberIconSrc} alt="Tracking number" />
+                            <p>{product.shipment.tracking_number}</p>
+                        </div>
+                    </div>
+                    <div class="slds-text-align_left">Quantity: {product.qty}</div>
                 </div>
+                <!-- <p class="title slds-text-align_left">Current Location: {_orderShipping.location}</p> -->
+                <!-- <p class="title slds-text-align_left">Delivery Type: {_orderShipping.deliveryType }</p> -->
             </div>
         </div>
+    </div>
 </template>

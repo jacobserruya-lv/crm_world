@@ -1,0 +1,15 @@
+<template>
+    <div class="container">
+        <div class="container__title">
+            <div>Components</div>
+            <div class="container__title--line"></div>
+        </div>
+        <div class="container__lines">
+            <template lwc:if={products} for:each={products} for:item="product">
+                <c-icx_order-shipping-tile-kit key={product.id} product={product} product-currency={productCurrency}
+                    order-status={orderStatus} tracking-number={trackingNumber}>
+                </c-icx_order-shipping-tile-kit>
+            </template>
+        </div>
+    </div>
+</template>

@@ -1,3 +1,8 @@
+.tileList__container {
+    border-top: 1px solid rgba(174, 174, 174, 1);
+    padding-top: 30px;
+}
+
 .slds-card {
     background: rgb(243, 242, 242);
 }
@@ -16,8 +21,3 @@ c-icx_order-shipping-tile {
     min-width: 100px;
     flex: none;
 }
-/*
-c-paginator {
-    display: block;
-}
-*/
