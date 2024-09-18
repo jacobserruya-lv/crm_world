@@ -3,6 +3,50 @@ public without sharing class WS_OrderDetails {
     // "system":"SFB2C"
 
     @AuraEnabled
+    public static JSON2KbrwOrderV2 getOrderDetailsTwistV2(string orderId) {
+        JSON2KbrwOrderV2 orderDetails = new JSON2KbrwOrderV2();
+
+        try { 
+            Http http = new Http();    
+            HttpRequest request = new HttpRequest();
+
+            string endPoint = '/spl-eu/cust-orders-oms/v1/api/orders/v2/'+ orderId;
+            request.setEndpoint('callout:MULESOFT_KBRW' + endPoint);
+            request.setMethod('GET');
+            request.setTimeout(120000);
+            request.setHeader('Encoding', 'UTF-8');
+            request.setHeader('Accept', 'application/json');
+            request.setHeader('Content-Type', 'application/json');            
+            request.setHeader('client_id', '{!$Credential.UserName}');
+            request.setHeader('client_secret', '{!$Credential.Password}');
+
+            HttpResponse response = http.send(request);
+            if (response.getStatusCode() == 200 ) {
+                JSON2KbrwOrderV2 mySerializer = new JSON2KbrwOrderV2();
+                System.debug('JGU dto start: '+response.getBody());
+                orderDetails = (JSON2KbrwOrderV2) mySerializer.deserialize(response.getBody(), JSON2KbrwOrderV2.class);
+                System.debug('JGU dto: '+orderDetails);
+                System.debug('JGU dto:requesting_system '+orderDetails.requesting_system);
+                System.debug('JGU dto:createdDate '+orderDetails.createdDate);
+
+            } else if (response.getStatusCode() == 404 ){
+                system.debug('JGU-orderDetails : 404');
+            } else{              
+                system.debug('JGU-orderDetails : 500 /'+response.getStatusCode());              
+                system.debug('JGU-orderDetails : '+response);
+                throw new AuraHandledException(response.getStatus());   
+            }
+
+            system.debug('JGU-orderDetails :' + orderDetails);
+            return orderDetails;
+        } catch (Exception e) {
+            system.debug('JGU-Exception :' + e);            
+            system.debug('JGU-Exception getMessage:' + e.getMessage());
+            throw new AuraHandledException(e.getMessage());  
+        } 
+    }
+
+    @AuraEnabled
     public static JSON2KbrwOrder getOrderDetailsTwist(string orderId) {
         JSON2KbrwOrder orderDetails = new JSON2KbrwOrder();
 

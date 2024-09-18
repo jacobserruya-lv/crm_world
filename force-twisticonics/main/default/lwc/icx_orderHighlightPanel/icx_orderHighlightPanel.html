@@ -1,4 +1,4 @@
-<template>    
+<template>
     <div class="slds-page-header">
         <template if:false={orderdetailsapi}>
             Loading - Please wait...
@@ -8,21 +8,18 @@
             <div class="slds-media">
                 <!-- "Icon" column -->
                 <div class="slds-media__figure">
-                    <span class="slds-icon_container slds-icon-standard-orders">
-                        <svg class="slds-icon" aria-hidden="true">
-                            <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#orders"></use>
-                        </svg>
-                    </span>
+                    <img class="iconFirst" src={orderDetailsImgSrc} alt="icon order details" />
                 </div>
                 <!-- "Order Number" column -->
                 <div class="slds-media__body">
                     <div class="slds-page-header__name">
                         <div class="slds-page-header__name-title">
                             <h1>
-                                <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">Order Number</span>
+                                <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">Order
+                                    Number</span>
                                 <span class="slds-page-header__row ">
-                                        {orderdetailsapi.order_id}
-                                    </span>
+                                    {orderdetailsapi.order_id}
+                                </span>
                             </h1>
                         </div>
                     </div>
@@ -33,7 +30,8 @@
                         <div class="slds-page-header__name-title">
                             <h1>
                                 <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">Client</span>
-                                <span class="slds-page-header__row "><a data-record-id={orderdetailsapi.account.Id} onclick={handleOpenRecord}>{orderdetailsapi.account.Name}</a></span>
+                                <span class="slds-page-header__row "><a data-record-id={orderdetailsapi.account.Id}
+                                        onclick={handleOpenRecord}>{orderdetailsapi.account.Name}</a></span>
                             </h1>
                         </div>
                     </div>
@@ -44,7 +42,8 @@
                         <div class="slds-page-header__name-title">
                             <h1>
                                 <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">Store</span>
-                                <span class="slds-page-header__row "><a data-record-id={orderdetailsapi.store.Id} onclick={handleOpenRecord}>{orderdetailsapi.store.Name}</a></span>
+                                <span class="slds-page-header__row "><a data-record-id={orderdetailsapi.store.Id}
+                                        onclick={handleOpenRecord}>{orderdetailsapi.store.Name}</a></span>
                             </h1>
                         </div>
                     </div>
@@ -83,8 +82,8 @@
                             <h1>
                                 <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">Date</span>
                                 <span class="slds-page-header__row ">
-                                    <lightning-formatted-date-time value={orderdetailsapi.createdDate} year="numeric" month="long" day="2-digit"
-                                    ></lightning-formatted-date-time></span>
+                                    <lightning-formatted-date-time value={orderdetailsapi.createdDate} year="numeric"
+                                        month="long" day="2-digit"></lightning-formatted-date-time></span>
                             </h1>
                         </div>
                     </div>
@@ -95,7 +94,8 @@
                         <div class="slds-page-header__name">
                             <div class="slds-page-header__name-title">
                                 <h1>
-                                    <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">Order Status</span>
+                                    <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">Order
+                                        Status</span>
                                     <span class="slds-page-header__row">{orderdetailsapi.orderStatusIconics}</span>
                                 </h1>
                             </div>
@@ -107,14 +107,17 @@
                     <div class="slds-page-header__name">
                         <div class="slds-page-header__name-title">
                             <h1>
-                                <span class="slds-page-header__row slds-hyphenate slds-text-title_bold">#Products(Returned)</span>
-                                <span class="slds-page-header__row ">{orderdetailsapi.sumOfProducts}<span if:true={orderdetailsapi.sumOfProductsReturned} class="red_number"> ({orderdetailsapi.sumOfProductsReturned})</span> </span>
+                                <span
+                                    class="slds-page-header__row slds-hyphenate slds-text-title_bold">#Products(Returned)</span>
+                                <span class="slds-page-header__row ">{orderdetailsapi.sumOfProducts}<span
+                                        if:true={orderdetailsapi.sumOfProductsReturned} class="red_number">
+                                        ({orderdetailsapi.sumOfProductsReturned})</span> </span>
                             </h1>
                         </div>
                     </div>
                 </div>
 
-<!--
+                <!--
                 <lightning-combobox
                 name="progress"
                 label=""
@@ -128,27 +131,22 @@
                 <div class="slds-media__body">
                     <div class="slds-page-header__name">
                         <div class="slds-page-header__name-title">
-                        <lightning-button-menu class="lgc-bg" onselect={handleAction} alternative-text="Show Order Actions" variant="border-inversed" label="Order&nbsp;Actions" icon-name="utility:info_alt">
-                            <template for:each={optionsToDisplay} for:item="action">
-                                <template if:true={action.disabled}>
-                                    <lightning-menu-item
-                                        label={action.label}
-                                        value={action.value}
-                                        key={action.label}
-                                        disabled
-                                    >
-                                    </lightning-menu-item>
+                            <lightning-button-menu class="lgc-bg" onselect={handleAction}
+                                alternative-text="Show Order Actions" variant="border-inversed"
+                                label="Order&nbsp;Actions" icon-name="utility:info_alt">
+                                <template for:each={optionsToDisplay} for:item="action">
+                                    <template if:true={action.disabled}>
+                                        <lightning-menu-item label={action.label} value={action.value}
+                                            key={action.label} disabled>
+                                        </lightning-menu-item>
+                                    </template>
+                                    <template if:false={action.disabled}>
+                                        <lightning-menu-item label={action.label} value={action.value}
+                                            key={action.label}>
+                                        </lightning-menu-item>
+                                    </template>
                                 </template>
-                                <template if:false={action.disabled}>
-                                    <lightning-menu-item
-                                        label={action.label}
-                                        value={action.value}
-                                        key={action.label}
-                                    >
-                                    </lightning-menu-item>
-                                </template>
-                            </template>
-                        </lightning-button-menu>
+                            </lightning-button-menu>
                         </div>
                     </div>
                 </div>

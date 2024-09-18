@@ -230,6 +230,7 @@ global with sharing class WS_Orders {
                     orderline.ProductReferential__c = (mapProduct.get(o.sku) != null ? mapProduct.get(o.sku).id : null); 
                     orderline.SKU__c=o.sku;
                     orderline.OrderShipping__c = (mapShipping.get(o.shippingNumber) != null ? mapShipping.get(o.shippingNumber).id : null);
+                    orderline.Line_Number__c = o.lineNumber != null ? o.lineNumber : null;
                     orderline.Initial_Eta_Min__c = o.initial_eta_min!=null? date.newInstance(Integer.ValueOF(o.initial_eta_min.replaceAll('\\s+', '').split('-')[0]),Integer.ValueOF(o.initial_eta_min.replaceAll('\\s+', '').split('-')[1]),Integer.ValueOF(o.initial_eta_min.replaceAll('\\s+', '').split('-')[2])):null;
                     orderline.Initial_Eta_Max__c = o.initial_eta_max!=null? date.newInstance(Integer.ValueOF(o.initial_eta_max.replaceAll('\\s+', '').split('-')[0]),Integer.ValueOF(o.initial_eta_max.replaceAll('\\s+', '').split('-')[1]),Integer.ValueOF(o.initial_eta_max.replaceAll('\\s+', '').split('-')[2])):null;
 
@@ -249,8 +250,18 @@ global with sharing class WS_Orders {
         Account exactAccount;
         List<Account> exactAccountList = new List<Account>();
         if(c.customer_no != null) {
+
             //exact match between WWClientID__c (Order) vs WW_RMSId__c (Account)
-            exactAccountList = [SELECT Id,PrimaryAddressLine1__pc FROM Account WHERE WW_RMSId__c=: c.customer_no limit 1];
+            if(c.customer_no.length()==10)
+            {
+
+                exactAccountList = [SELECT Id,PrimaryAddressLine1__pc FROM Account WHERE WW_RMSId__c=: c.customer_no limit 1];
+            }
+            else if(c.customer_no.length()==36)
+            {
+                exactAccountList = [SELECT Id,PrimaryAddressLine1__pc FROM Account WHERE C360GoldenID__c=: c.customer_no limit 1];
+
+            }
         }
 
         if(exactAccountList?.size() > 0){ 
