@@ -68,10 +68,18 @@ export default class Ct_pushToCampaignModal extends LightningElement {
       this.errorMsg = '';
   
       this.loadSpinner(true, 'Adding clients to the campaign, please wait');
+      const assignedCaByDreamId = this.storage.assignedCaByDreamId || {};
       
+      if (Object.keys(assignedCaByDreamId).length == 0) {
+        // Not using reduce since it takes way more time
+        this.storage.dreamIdList.forEach((dreamId) => {
+          assignedCaByDreamId[dreamId] = null;
+        });
+      }
+
       pushClientsToCampaignFromBatch({
         campaignId: this.campaignId,
-        assignedCaByDreamId: this.storage.assignedCaByDreamId
+        assignedCaByDreamId: assignedCaByDreamId
       })
         .then(({ jobId, errorFileId }) => {
           const selectedCampaign = new CustomEvent("clientspushedtocampaign", {
