@@ -21,6 +21,7 @@ export default class Icx_campaignProductSkuList extends NavigationMixin(Lightnin
     @track pageSize = 5;
     @track pageIndex = 0;
     percentOnScroll = 70;
+    listskus = []
 
     // _tableData = [];
     // get tableData() {
@@ -42,10 +43,15 @@ export default class Icx_campaignProductSkuList extends NavigationMixin(Lightnin
     connectedCallback() {
         this.isLoading = true;
         this.initHeader();
+        console.log(this.campaignId)
 
         if (this.campaignId) {
             this.initProductList();
         }
+    }
+
+    renderedCallBack() {
+        this.initHeader();
     }
 
 
@@ -57,8 +63,8 @@ export default class Icx_campaignProductSkuList extends NavigationMixin(Lightnin
 
                 getProductSKUList({ pageSize: this.pageSize, pageIndex: this.pageIndex, campaignId: this.campaignId })
                     .then(data => {
-                        console.log('getProductSKUList: ' + data);
-
+                        console.log('getProductSKUList: ' + JSON.stringify(data));
+                        this.listskus = data;
                         const tableDataRows = this.handleProductFormat(data);
 
                         if (!this.tableData.rows || this.tableData.rows === null) {
@@ -118,16 +124,6 @@ export default class Icx_campaignProductSkuList extends NavigationMixin(Lightnin
     }
 
 
-    handleNavigation(event) {
-        this[NavigationMixin.Navigate]({
-            type: "standard__recordPage",
-            attributes: {
-                recordId: event.detail,
-                actionName: 'view',
-            },
-        });
-    }
-
 
     handleProductFormat(data) {
         const userManager = this.getIsUserManager();
@@ -164,7 +160,11 @@ export default class Icx_campaignProductSkuList extends NavigationMixin(Lightnin
         });
         this.dispatchEvent(evt);
         this.initProductList();
-        location.reload(true);
+        setTimeout(this.reloadPage, 1000);
+    }
+
+    reloadPage() {
+        return location.reload(true)
     }
 
     initProductList() {
