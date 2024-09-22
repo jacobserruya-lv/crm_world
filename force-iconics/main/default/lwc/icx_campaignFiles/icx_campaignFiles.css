@@ -1,0 +1,24 @@
+.file_container
+{
+    background-color: lightgray;
+    display: flex;
+    padding: 12px;
+    justify-content: space-between;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    box-shadow: 2px 2px 4px lightgray;
+}
+
+.text_value
+{
+    font-size: 14px;
+    font-weight: bold;
+    /* flex: 8; */
+}
+.icon_style
+{
+
+}
+.icon_style:hover{
+    cursor: pointer;
+}

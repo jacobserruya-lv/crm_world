@@ -1,0 +1,41 @@
+<template>
+    <lightning-card  variant="Narrow" >
+        <lightning-spinner alternative-text="Loading" size="small" if:true={isLoading}></lightning-spinner> 
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="1" padding="around-small" >
+                <template if:false={showDescription}><lightning-button-icon icon-name="utility:chevronright" onclick={handleOpenDescription} ></lightning-button-icon></template>
+                <template if:true={showDescription}><lightning-button-icon icon-name="utility:chevrondown" onclick={handleCloseDescription}></lightning-button-icon></template>
+            </lightning-layout-item>
+            <lightning-layout-item size="9" padding="around-small" >
+                <lightning-progress-indicator current-step={currentStatus} type="path" has-error="false" variant="base">
+                    <template if:true={pathValues} for:each={pathValues} for:item="step" for:index="index">
+                        <lightning-progress-step data-index={index} data-value={step.value}
+                         onclick={handleSelect} key={step.value} label={step.label}
+                            value={step.value}>
+                        </lightning-progress-step>
+                    </template>
+                </lightning-progress-indicator>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="2">
+                <lightning-button variant="brand" label="Mark as Current Value" class="slds-m-left_x-small" onclick={handleChangeStatus} ></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item padding="around-small" size="2">
+                <p style="font-weight: bold">Status: {currentStatus} </p>
+            </lightning-layout-item>
+        </lightning-layout>
+        <template lwc:if={showDescription}>
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" padding="around-small">
+                    <p style="font-weight: bold">Guidance for Success</p>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <p>{statusDescription}</p> 
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+        
+
+    </lightning-card>
+</template>
