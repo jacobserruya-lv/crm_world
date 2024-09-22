@@ -12,8 +12,8 @@ public class BL_ICON_Batch_TaskAssistant_TEST {
         insert u;
         TaskAssistant__c task = new TaskAssistant__c(ToDoType__c = 'first rtw purchase', WWEmployeeNumber__c = '987654321', StoreCode__c = 'AAA', dreamId__c = '12345678', IsArchieved__c = false, DueDate__c = Date.today().addDays(-6)) ;
         TaskAssistant__c task1 = new TaskAssistant__c(ToDoType__c = 'first rtw purchase', WWEmployeeNumber__c = '987654321', StoreCode__c = 'AAA', dreamId__c = '12345678', IsArchieved__c = true, DueDate__c = Date.today().addDays(-40)) ;
-
-        insert new List<TaskAssistant__c>{task, task1};   
+        TaskAssistant__c task3 = new TaskAssistant__c(ToDoType__c = 'first rtw purchase', WWEmployeeNumber__c = '987654321', StoreCode__c = 'AAA', IsArchieved__c = true, DueDate__c = Date.today().addDays(5)) ;
+        insert new List<TaskAssistant__c>{task, task1, task3};   
     }
 
     @isTest
@@ -45,6 +45,19 @@ public class BL_ICON_Batch_TaskAssistant_TEST {
     public static void testBatchArchiveTaskAssistant() {
         Test.startTest();
         BL_ICON_Batch_Archive_TaskAssistant batch = new BL_ICON_Batch_Archive_TaskAssistant();
+        Database.executeBatch(batch);
+    Test.stopTest();
+    }
+
+    @isTest
+    public static void testBatchCorrectionTaskAssistant() {
+        Test.startTest();
+
+        TaskAssistant__c task = [SELECT ID FROM TaskAssistant__c WHERE dreamId__c = NULL] ;
+        task.dreamId__c = '12345678';
+        update task;
+
+        BL_ICON_Batch_Correction_TaskAssistant batch = new BL_ICON_Batch_Correction_TaskAssistant();
         Database.executeBatch(batch);
         Test.stopTest();
     }
