@@ -6,21 +6,31 @@ public with sharing class TaskAssistantQueueable implements Queueable {
     }
     
     public void execute(QueueableContext context) {
+        updateTaskAssisant(records);
+    }
+
+    public static void updateTaskAssisant(List<TaskAssistant__c> taskAssistants){
         List<TaskAssistant__c> tasksToUpdate = new List<TaskAssistant__c>();
         List<String> wwEmployees =  new List<String>();
         Map<String,Id> ownersMap = new Map<String,Id>(); 
 
-        for(TaskAssistant__c task : records){
+        for(TaskAssistant__c task : taskAssistants){
             if(String.isNotEmpty(task.WWEmployeeNumber__c))
                 wwEmployees.add(task.WWEmployeeNumber__c);
         }
 
         ownersMap = getOwnerMap(wwEmployees);
 
-        for(TaskAssistant__c record : records){
+        for(TaskAssistant__c record : taskAssistants){
             TaskAssistant__c task = record.clone(true,true,true,true);
-            task.Client__r = new Account(DreamId__c = task.dreamId__c);
-            task.Store__r = new Store__c(RetailStoreId__c = task.StoreCode__c); 
+
+            if(String.isNotEmpty(task.dreamId__c)){
+                task.Client__r = new Account(DreamId__c = task.dreamId__c);
+
+            }
+            if(String.isNotEmpty(task.StoreCode__c)){
+                task.Store__r = new Store__c(RetailStoreId__c = task.StoreCode__c); 
+            }
 
             if(ownersMap.containsKey(task.WWEmployeeNumber__c)){
                 task.OwnerId = ownersMap.get(task.WWEmployeeNumber__c);
@@ -32,6 +42,8 @@ public with sharing class TaskAssistantQueueable implements Queueable {
             Database.update(tasksToUpdate,false);
         }    
     }
+
+
 
     public static Map<String,Id> getOwnerMap(List<String> wwEmployees){
         Map<String,Id> ownersMap = new Map<String,Id>(); 
