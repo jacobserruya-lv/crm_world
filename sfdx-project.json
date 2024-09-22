@@ -2,6 +2,10 @@
   "packageDirectories": [
     {
       "path": "force-clienttarget",
+      "default": false
+    },
+    {
+      "path": "force-icon",
       "default": true
     }
     
