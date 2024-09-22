@@ -1,0 +1,46 @@
+<template>
+    <div class="slds-grid slds-grid_align-end" style="top: 30px">
+        <template lwc:if={isManager}>
+        <div class="slds-col">
+            <lightning-button label="New campaign" title="" onclick={createNewCampaign}  class="slds-m-left_x-small"></lightning-button>
+        </div>
+        </template>
+        <div class="slds-col">
+            <lightning-button label="Campaign Dashboard" title="" class="slds-m-left_x-small"></lightning-button>
+        </div>
+    </div>
+    <div>
+        <lightning-tabset class="tab-campaign">
+            <lightning-tab label="Campaign"> 
+                <c-icx_campaign-dynamic-table 
+                searchholder="Search for a campaign"
+                table-data={campaignDataTable} 
+                show-search-bar="true"
+                onfetchmoredata={handleFetchMoreData}
+                show-more-data={showMoreCampaignData}
+                onnamesearch={handleSearchCampaign}
+                filter-definitions={campaignFilterDefinitions}
+                table-type="campaignList"
+                onapplyfilter={handleApplyFilter}
+                is-loading={isCampaignLoading}
+                >
+            </c-icx_campaign-dynamic-table>
+            </lightning-tab>
+            <lightning-tab label="Client List">
+                <c-icx_campaign-dynamic-table 
+                searchholder="Search for a client"
+                table-data={memberDataList} 
+                show-search-bar="true"
+                onfetchmoredata={handleFetchMoreData}
+                show-more-data={showMoreMemberData}
+                onnamesearch={handleSearchCampaign}
+                table-type="memberList"
+                filter-definitions={mamberFilterDefinitions}
+                onapplyfilter={handleApplyFilter}
+                is-loading={isCampaignLoading}
+                >
+            </c-icx_campaign-dynamic-table>
+            </lightning-tab>
+        </lightning-tabset>
+    </div>
+</template>

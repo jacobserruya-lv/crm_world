@@ -1,0 +1,27 @@
+:host {
+    --slds-c-card-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.1);
+    --slds-c-card-radius-border: 0.5rem;
+}
+
+.search-bar{
+    margin: 10px 0 35px 0;
+}
+
+.filter-card{
+    z-index: 100;
+    position: absolute;
+    right: 3%;
+    max-height: 600px;
+    width: 300px;
+    box-shadow: 2px 8px 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-title{
+    font-size: 15px;
+    font-weight: bolder;
+    margin-left: 15px;
+}
+
+.filter-menu{
+    margin: 5px 10px 5px 10px;
+}

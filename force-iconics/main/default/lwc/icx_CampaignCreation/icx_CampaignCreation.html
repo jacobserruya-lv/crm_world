@@ -1,0 +1,40 @@
+<template>
+    <div class="page_layout">
+        <lightning-button class="margin_bottom_small" if:false={isFirstStep} variant="brand-outline" label="Back"  icon-name="utility:back" onclick={handleBack}></lightning-button>
+        
+        <p class="title margin_bottom">New Clienteling Campaign</p>
+        <p class="sub_title margin_bottom">Please fill information</p>
+       
+        <template if:true={isFirstStep}>
+            <lightning-input class="margin_bottom_small" required label="Campaign Name" value={campaignNameValue} onchange={handleCampaigneNameChange}></lightning-input>
+            <div class="form_center_content margin_bottom_small">
+                <div class="description_style margin_right">
+                    <lightning-textarea class="description_content" label="Description"  value={descriptionValue} onchange={handleDescriptionChange}></lightning-textarea>
+                </div>
+                <div>
+                    <div class="display_flex margin_bottom_small">
+                        <div class="margin_right">
+                            <lightning-input type="date" label="Start Date" required value={startDateValue} onchange={handleStartDateChange}></lightning-input>
+                        </div>
+                        <lightning-input type="date" label="End Date" min={startDate} required value={endDateValue} onchange={handleEndDateChange}></lightning-input>
+                    </div>
+                    <lightning-combobox class="margin_bottom_small" label="Country / Region" placeholder=" " required options={countryOptions}  value={countryValue} onchange={handleCountryChange} ></lightning-combobox>
+                    <lightning-combobox label="Priority" placeholder=" " required options={priorityOptions}  value={priorityValue} onchange={handlePriorityChange} ></lightning-combobox>
+                    
+                </div>
+            </div>
+            <lightning-textarea class="toolkit_comment margin_bottom_small" label="ToolKit Comment" value={toolkitCommentValue} onchange={handleToolkitCommentChange}></lightning-textarea>
+            <div class="margin_bottom_small">
+                <div class="file_content">
+                    <c-icx_campaign-files if:true={isFileAvailable}  content-version-list={contentVersionList} is-delete-available="true" ondeletefile={handleDeleteFile}></c-icx_campaign-files>
+                </div>
+                <lightning-file-upload label="Toolkit" name="fileUploader" accept={acceptedFormats} record-id={myRecordId} onuploadfinished={handleUploadFinished} multiple></lightning-file-upload>
+            </div>
+        </template>
+        <template if:false={isFirstStep}>
+                <c-icx_campaign-new-product prodcut-s-k-u-list={productSKUList} prodcut-s-k-u-list-all={productSKUListAll} onproductskulist={handleProductSKUList} > </c-icx_campaign-new-product>
+        </template>
+        <button if:true={isFirstStep} class="slds-button slds-button_brand slds-button_stretch" disabled={isNextDisabled} onclick={handleNext}> Next</button>
+        <button if:false={isFirstStep} class="slds-button slds-button_brand slds-button_stretch" disabled={isCreateDisabled} onclick={handleCreate}> Create</button>
+    </div>
+</template>

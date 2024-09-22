@@ -1,0 +1,70 @@
+<template>
+    <div class="layout_content">
+        <!-- column 1 -->
+        <div class="div_column1">
+            <div class="div_container">
+                <div class="text_label"> Campaign Name </div>
+                <div class="text_value link" onclick={handleNavigateToCampaign}> {name} </div>
+            </div>
+            <div class="div_container">
+                <div class="text_label"> Description </div>
+                <div class="text_value"> {description} </div>
+            </div>
+            <div class="div_container">
+                <div class="text_label"> Toolkit </div>
+                <div class="file_container">
+                    <c-icx_campaign-files content-version-list={contentVersionList} is-download-available="true"></c-icx_campaign-files>
+                      </div>
+            </div>
+            <div class="div_container">
+                <div class="text_label"> Toolkit Comment </div>
+                <div class="text_value"> {toolkitComments} </div>
+            </div>
+        </div>
+        <!-- column 2 -->
+        <div class="div_column2">
+                <div class="div_container">
+                    <div class="text_label"> <span if:false={isUserManager}>My </span>Campaign Status </div>
+                    <div class="text_value"> {status} </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_label"> <span if:false={isUserManager}>My </span>Targeted Clients </div>
+                    <div class="text_value"> {allMemberCount} </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_label"> <span if:false={isUserManager}>My </span>Contactable Clients </div>
+                    <div class="text_value"> {allMemberContactableCount} </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_label"> <span if:false={isUserManager}>My </span>Contacted Clients </div>
+                    <div class="text_value"> {allMemberContactedCount} </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_label"> <span if:false={isUserManager}>My </span>Interested Clients </div>
+                    <div class="text_value"> {allMemberInterestedCount} </div>
+                </div>
+            <!-- <template lwc:else>
+                <div class="div_container">
+                    <div class="text_label"> My Campaign Status </div>
+                    <div class="text_value"> {myStatus} </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_label"> My Targeted Clients </div>
+                    <div class="text_value"> {allMyMemberCount}  </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_content text_label"> My Contactable Clients </div>
+                    <div class="text_content text_value"> {allMyMemberContactableCount} </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_label">  My Contacted Clients </div>
+                    <div class="text_value"> {allMyMemberContactedCount} </div>
+                </div>
+                <div class="div_container">
+                    <div class="text_label"> My Interested Clients </div>
+                    <div class="text_value"> {allMyMemberInterestedCount} </div>
+                </div>
+            </template> -->
+        </div>
+    </div>
+</template>

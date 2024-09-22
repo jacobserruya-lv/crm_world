@@ -1,0 +1,16 @@
+<template>
+    <lightning-modal-header label="New client"></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-p-bottom_large">
+            <lightning-record-edit-form object-api-name="CampaignMember__c">
+                <lightning-input-field field-name="Member__c" onchange={handleClientId}> </lightning-input-field>
+                <lightning-input-field field-name="AssignedCA__c" value={caId} onchange={handleCAId} required> </lightning-input-field>
+                <lightning-input-field field-name="Campaign__c" value={campaignId} disabled></lightning-input-field>
+            </lightning-record-edit-form>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button style="margin-left: 15px" label="Cancel" onclick={handleClose}></lightning-button>
+        <lightning-button label="Create" onclick={handleCreate}></lightning-button>
+    </lightning-modal-footer>
+</template>

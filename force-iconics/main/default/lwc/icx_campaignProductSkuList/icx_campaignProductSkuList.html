@@ -1,0 +1,15 @@
+<template>
+    <div class="productList_container">
+        <div data-id="productTable" onscroll={checkScroll} style="height:300px;overflow:auto;">
+            <c-icx_dynamic-table my-row-class='row-whith-border ' table-data={tableData}
+                onlinkdetails={handleNavigation} onimagedetails={handleDeletion}>
+            </c-icx_dynamic-table>
+
+            <template lwc:if={isLoading}>
+                <div class=" slds-p-around_small slds-is-relative">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>
