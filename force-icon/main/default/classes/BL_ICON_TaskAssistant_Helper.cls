@@ -6,7 +6,7 @@ public with sharing class BL_ICON_TaskAssistant_Helper extends BL_WS_Request{
         List<String> filtersList = new List<String>();
 		String addCondition = '';
         String condition = '';
-        String storeId = [SELECT Id FROM Store__c WHERE RetailStoreId__c = :me.basicInfos.DefaultStore__c].Id;
+        String storeId = [SELECT Id FROM Store__c WHERE RetailStoreId__c = :me.basicInfos.DefaultStore__c]?.Id;
         String dateToCheck = DateTime.now().addDays(-5).format('yyyy-MM-dd');
 
         if((status != null && status.contains('ongoing')) || String.isEmpty(status)){  
