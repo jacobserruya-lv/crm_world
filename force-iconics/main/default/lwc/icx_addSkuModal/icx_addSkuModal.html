@@ -1,0 +1,10 @@
+<template>
+    <lightning-modal-header label="Add Sku"></lightning-modal-header>
+    <lightning-modal-body>
+        <c-icx_campaign-new-product prodcut-s-k-u-list={productSKUList} prodcut-s-k-u-list-all={productSKUList}
+            onproductskulist={handleProductSKUList}></c-icx_campaign-new-product>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Add" onclick={handleAddSku}></lightning-button>
+    </lightning-modal-footer>
+</template>
