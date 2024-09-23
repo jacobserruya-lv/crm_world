@@ -36,7 +36,6 @@ private class TR_IntegrationManagerHandler_TEST {
             setting2.Is_Active_C360_Integration__c=true;
             //setting2.Included_Profile__c = 'System Administrator';
             setting2.Included_UserName__c=UserInfo.getUserName();
-            setting2.Included_Countries__c='CHN;CHINA';
             System.debug('UserInfo.getUserName(): '+UserInfo.getUserName());
             settings.add(setting);
             settings.add(setting2);
@@ -149,6 +148,8 @@ private class TR_IntegrationManagerHandler_TEST {
             
         }
     }
+
+
     @isTest
     static void createAccountTest2SAProfile() {
         User sa1 = IC_TestFactory.createUser('sa1'+String.valueOf(System.today())+'@lvtest.com', IC_UTILS.getSAProfile());
@@ -189,7 +190,7 @@ private class TR_IntegrationManagerHandler_TEST {
             List<TECH_IntegrationManager__c> tim = [SELECT Id, Operation__c  FROM TECH_IntegrationManager__c  where Object_Id__c  = :acc3.Id];
             
             System.assertEquals(1,tim.size());
-            System.assertEquals(TR_Constants.CREATE_CL360,tim[0].Operation__c);
+           System.assertEquals(TR_Constants.CREATE_CL360,tim[0].Operation__c);
             
         }
     }
