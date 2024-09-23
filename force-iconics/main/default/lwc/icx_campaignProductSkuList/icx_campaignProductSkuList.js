@@ -23,14 +23,6 @@ export default class Icx_campaignProductSkuList extends NavigationMixin(Lightnin
     percentOnScroll = 70;
     listskus = []
 
-    // _tableData = [];
-    // get tableData() {
-    //     return this._tableData;
-    // }
-    // set tableData(data) {
-    //     this._tableData = data;
-    // }
-
     managerProfileList = ['ICONiCS_SA_Manager', 'System Administrator', 'System Admin_Corporate'];
 
     @wire(getRecord, {

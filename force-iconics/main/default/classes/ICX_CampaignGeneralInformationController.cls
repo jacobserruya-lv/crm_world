@@ -20,7 +20,6 @@ public with sharing class ICX_CampaignGeneralInformationController {
     public static List<CampaignCatalogItem__c> getProductSKUList(String campaignId, Integer pageSize, Integer pageIndex){
         system.debug('getProductSKUList : ' +campaignId);
         try {
-
             return [SELECT ID,SKU__c,CampaignProduct__r.Id,CampaignProduct__r.Name FROM CampaignCatalogItem__c WHERE Campaign__c=:campaignId  LIMIT:pageSize OFFSET:pageIndex];
             
         } catch (Exception e) {
