@@ -337,7 +337,8 @@ export default class Ct_newSaSelection extends LightningElement {
     const dataTable = this.refs.dataTable;
     if (dataTable) {
       const eventConfig = event?.detail?.config || {};
-      if (['rowSelect', 'rowDeselect'].includes(eventConfig.action)) {
+      const numberOfSelection = Math.abs(dataTable.getSelectedRows()?.length - this.selectedRows?.length);
+      if (['rowSelect', 'rowDeselect'].includes(eventConfig.action) && numberOfSelection == 1) {
         this.handleOneRowSelection(eventConfig.action, eventConfig.value);
       } else {
         const clientsToReassign = [];
@@ -348,7 +349,7 @@ export default class Ct_newSaSelection extends LightningElement {
           }
         });
   
-        if (eventConfig.action === 'deselectAllRows') {
+        if (['deselectAllRows', 'rowDeselect'].includes(eventConfig.action)) {
           const allPageIds = this.enableInfiniteLoading ? [...this.allTableIds] : [...this.listData].map(c => c.id);
           const elementsToUnCheck = allPageIds.filter(id => clientsToReassign.indexOf(id) < 0);
           this.selectedRows = this.selectedRows.filter(r => !elementsToUnCheck.includes(r));
