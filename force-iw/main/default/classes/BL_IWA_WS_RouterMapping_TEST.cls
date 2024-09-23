@@ -138,6 +138,99 @@ public static void testGetConfig(){
 
 }
 
+@isTest
+public static void testGetProducts(){  
+    ProductCatalogue__c product = new ProductCatalogue__c(SKU__c='TST321');
+    insert product;
 
+    BL_AppSettings.setAppSettings('iwa');
+    BL_IWA_Products blProduct = new BL_IWA_Products();
+   
+    User u = IC_Test_Common.prepareTestUser('System Administrator');
+    u.DefaultStore__c = '1234';
+    insert u;
+    system.runAs(u) {
+     
+        blProduct.me = (BL_UserInfo) Type.forName('BL_ICON_UserInfo').newInstance();
+        blProduct.requestBody = new Map<String,Object>{'skus'=> new List<String>{'TST321'}};
+        Test.startTest();
+        blProduct.executePOST();
+        Test.stopTest();
+    }
+}
+
+@isTest
+public static void testGetUser(){  
+    ProductCatalogue__c product = new ProductCatalogue__c(SKU__c='TST321');
+    insert product;
+
+    BL_AppSettings.setAppSettings('iwa');
+    BL_IWA_Users bluser = new BL_IWA_Users();
+   
+    User u = IC_Test_Common.prepareTestUser('System Administrator');
+    u.DefaultStore__c = '1234';
+    insert u;
+    system.runAs(u) {
+
+        Store__c store = new Store__c(Name = 'test', RetailStoreId__c = u.DefaultStore__c);
+        insert store;
+        bluser.me = (BL_UserInfo) Type.forName('BL_ICON_UserInfo').newInstance();
+        bluser.queryParams = new Map < String, String > {
+            'searchterm' => 'test'
+        };
+     
+        Test.startTest();
+        bluser.executeGET();
+        Test.stopTest();
+    }
+
+}
+@isTest
+public static void testGetUserbyStoreCode(){  
+    BL_AppSettings.setAppSettings('iwa');
+    BL_IWA_Users bluser = new BL_IWA_Users();
+   
+    User u = IC_Test_Common.prepareTestUser('System Administrator');
+    u.DefaultStore__c = 'A06';
+    insert u;
+    system.runAs(u) {
+
+        Store__c store = new Store__c(Name = 'test', RetailStoreId__c = u.DefaultStore__c);
+        insert store;
+        bluser.me = (BL_UserInfo) Type.forName('BL_ICON_UserInfo').newInstance();
+        bluser.queryParams = new Map < String, String > {
+            'storeCode' => 'A06'
+        };
+     
+        Test.startTest();
+        bluser.executeGET();
+        Test.stopTest();
+    }
+}
+
+@isTest
+public static void testGetfile(){  
+    ProductCatalogue__c product = new ProductCatalogue__c(SKU__c='TST321');
+    insert product;
+
+    BL_AppSettings.setAppSettings('iwa');
+    BL_IWA_files blfile = new BL_IWA_files();
+   
+    User u = IC_Test_Common.prepareTestUser('System Administrator');
+    u.DefaultStore__c = 'A06';
+    insert u;
+    system.runAs(u) {
+
+        blfile.me = (BL_UserInfo) Type.forName('BL_ICON_UserInfo').newInstance();         
+        blfile.requestBody = new Map<String,Object> {
+            'filesNames'=>  new List<String>{'test-image-name.png'},
+            'method' => 'upload'
+        };
+
+        Test.startTest();
+        blfile.executePOST();
+        Test.stopTest();
+    }
+}
 
 }
