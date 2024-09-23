@@ -1,16 +1,16 @@
 {
   "packageDirectories": [
     {
-<<<<<<< HEAD
-      "path": "force-clientforce",
-=======
       "path": "force-clienttarget",
       "default": false
     },
     {
       "path": "force-icon",
->>>>>>> dev-ww
       "default": true
+    },
+    {
+      "path": "force-iw",
+      "default": false
     }
     
   ],
