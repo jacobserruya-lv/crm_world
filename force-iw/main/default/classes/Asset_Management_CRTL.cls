@@ -1,6 +1,6 @@
 public with sharing class Asset_Management_CRTL {
 
-        public String appSettings {
+        public String appSettings { 
              get{
                 String jsonInput =  [SELECT id ,Custom_Parameters__c  
                          FROM  BL_App_Setting__mdt 
