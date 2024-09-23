@@ -11,6 +11,10 @@
     {
       "path": "force-iw",
       "default": false
+    },
+    {
+      "path": "force-app",
+      "default": false
     }
     
   ],

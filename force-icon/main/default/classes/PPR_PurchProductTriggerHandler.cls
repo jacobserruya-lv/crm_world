@@ -9,9 +9,10 @@
  * Ver       Date            Author      		                     Modification
  * 1.0       06-20-2023      calevm@balink.net     Initial Version
  * 1.1       07-26-2023      calevm@balink.net     Updated logic to handle new requirements
+ * 1.2       07-16-2024      meirb@balink.net      Add logic in order to create client gift items
  **/
 
-public class PPR_PurchProductTriggerHandler {
+ public class PPR_PurchProductTriggerHandler {
   public static void handleAfterInsert(
     List<PPR_PurchProduct__c> newTransactionList
   ) {
@@ -76,7 +77,8 @@ public class PPR_PurchProductTriggerHandler {
       setting.clubNameFilter__c
     );
 
-    Map<Id, Club_MemberShip__c> clubMemberShipListById = new Map<Id, Club_MemberShip__c>();
+    Map<Id, Club_MemberShip__c> clubMemberShipListById = new Map<Id, Club_MemberShip__c>();    
+    
     if (!clubMemberShipList.isEmpty()) {
       for (Club_MemberShip__c cmsl : clubMemberShipList) {
         clubMemberShipListById.put(cmsl.clientId__c, cmsl);
@@ -122,7 +124,6 @@ public class PPR_PurchProductTriggerHandler {
           cwBySku.containsKey(pprp.RMSSKUCode__c + pprp.Client__c)
         ) {
           ccwListToDelete.add(cwBySku.get(pprp.RMSSKUCode__c + pprp.Client__c));
-
           Integer calculateQuantity = clientSkuQuantityCounter.get(pprp.RMSSKUCode__c + pprp.Client__c);
           clientSkuQuantityCounter.put(pprp.RMSSKUCode__c + pprp.Client__c, calculateQuantity + 1);
         }
@@ -137,6 +138,21 @@ public class PPR_PurchProductTriggerHandler {
         ccwMapToDelete.putAll(ccwListToDelete);
         Database.delete(ccwMapToDelete.values(), false);
       }
+    }
+
+    checkIfGiftProduct(newTransactionList);
+  }
+
+  private static void checkIfGiftProduct(List<PPR_PurchProduct__c> transactionList ) {
+    List<PPR_PurchProduct__c> purchaseProductGift = new List<PPR_PurchProduct__c>();
+    for (PPR_PurchProduct__c pprp : transactionList) {
+      if(pprp.Amount__c == 0){
+        purchaseProductGift.add(pprp);
+      }
+    }
+
+    if(!purchaseProductGift.isEmpty()){
+      System.enqueueJob(new ClientGiftQueueable(purchaseProductGift));
     }
   }
 
@@ -200,4 +216,5 @@ public class PPR_PurchProductTriggerHandler {
     }
     return skus;
   }
+
 }
