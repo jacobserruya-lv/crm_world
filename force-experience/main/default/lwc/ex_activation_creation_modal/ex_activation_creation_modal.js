@@ -46,7 +46,8 @@ export default class Ex_activation_creation_modal extends LightningElement {
         return this.recordTypeName == IN_STORE_RT ? true : false;
     }
     get attendanceDefaultVal() {
-        return this.recordTypeName == IN_STORE_RT ? true : false;
+        return true;
+        // return this.recordTypeName == IN_STORE_RT ? true : false;
     }
     get currencyDefaultVal() {
         return this.recordTypeName == OUT_STORE_RT ? 'EUR' : '';

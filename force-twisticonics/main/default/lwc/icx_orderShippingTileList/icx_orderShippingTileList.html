@@ -1,22 +1,18 @@
 <template>
-    <div class="slds-box slds-box_x-small">
+    <div class="tileList__container">
         <template if:true={orderdetailsapi}>
             <template if:true={orderdetailsapi.order_lines.length}>
                 <div class="content">
-                    <template
-                        for:each={orderdetailsapi.order_lines}
-                        for:item="product"
-                    >
-                        <c-icx_order-shipping-tile
-                            key={product.id}
-                            product={product}
-                            isselectedproduct={isFirst}
-                            onselected={handleProductSelected}
-                            class="slds-var-m-around_x-small"
-                        >
+                    <template for:each={orderdetailsapi.order_lines} for:item="product">
+                        <c-icx_order-shipping-tile key={product.id} product={product} isselectedproduct={isFirst}
+                            onselected={handleProductSelected} class="slds-var-m-around_x-small">
                         </c-icx_order-shipping-tile>
                     </template>
                 </div>
+                <template if:true={isKitProduct}>
+                    <c-icx_order-shipping-kit-components
+                        product-selected={productSelected}></c-icx_order-shipping-kit-components>
+                </template>
             </template>
             <template if:false={orderdetailsapi.order_lines.length}>
                 <div class="slds-var-p-around_large">

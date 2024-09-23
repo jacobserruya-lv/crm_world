@@ -1,0 +1,23 @@
+.layout_content {
+    /* width: 80%; */
+    justify-content: center;
+    border-radius: 7px;
+    background: white;
+    box-shadow: 6px 7px 12px gray;
+    margin: 0 auto;
+    position: relative;
+}
+
+.layout_content .add__btn {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+}
+
+/* .layout_content .tabContainer .slds-tabs_default__nav {
+    border-radius: 10px 10px 0 0;
+    background: rgba(249, 249, 249, 1);
+    height: 55px;
+    display: flex;
+    align-items: center;
+} */

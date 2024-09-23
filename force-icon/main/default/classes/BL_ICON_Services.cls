@@ -39,8 +39,7 @@ global with sharing class BL_ICON_Services extends BL_WS_Request implements BL_W
                     .condition('Id = \''+ featureId + '\'')
                     .executeQuery()
                     .getMappedObject();
-                
-				 if(record.get('feedbackID') != null){
+                if(record.get('feedbackID') != null){
                     Object answers = new BL_EasyQuery()
                         .useCase(BL_ICON_Constants.USE_CASE_VOICE_ANSWERS)
                         .condition('due__Diduenjoy_Feedback__r.due__InternalId__c = \''+ record.get('feedbackID') + '\'')
@@ -50,7 +49,7 @@ global with sharing class BL_ICON_Services extends BL_WS_Request implements BL_W
 
                     record.put('answers', answers);
                 }
-                
+
                 if(record.get('idTransaction') != null){
                     Object transactions = new BL_EasyQuery()
                         .useCase(BL_ICON_Constants.USE_CASE_PURSHASE)
@@ -64,23 +63,8 @@ global with sharing class BL_ICON_Services extends BL_WS_Request implements BL_W
             }
 
             when 'requests' {
-                
-                // ---- remove after china mediator Swagger update 
-        		// ---- start feature
-                if( (getQueryParameter('feature') == 'xstoreOrders' || getQueryParameter('feature') == 'nyorders')  && getQueryParameter('uqp') == 'true'){
-                    
-                    Object records =  new BL_EasyQuery()
-                    .useCase( getQueryParameter('feature') == 'xstoreOrders' ? BL_ICON_Constants.USE_CASE_XSTORE_ORDERS_FULL : BL_ICON_Constants.USE_CASE_NY_ORDERS_FULL)
-                    .condition('Id = \''+ featureId + '\'')
-                    .orderBy('CreatedDate DESC')
-                    .executeQuery()
-                    .getMappedObject();
-                   
-                    return records;
-                }
-        		// ---- end feature
-
-
+               
+ 				
                 Map<String,Object>  records = new BL_EasyQuery()
                 .useCase(BL_ICON_Constants.USE_CASE_CLIENT_REQUEST_FULL)
                 .condition('Id = \''+ featureId + '\'')
@@ -202,15 +186,17 @@ global with sharing class BL_ICON_Services extends BL_WS_Request implements BL_W
             }
         }
 
-        if((String) obj.get('status') == 'Closed' || (Boolean) obj.get('isClosedByIcon')){
+        if(((obj.containsKey('status') && (String) obj.get('status') == 'Closed') || 
+            (obj.containsKey('isClosedByIcon') && (Boolean) obj.get('isClosedByIcon'))) &&
+            obj.containsKey('to_do_type')) {
 
-            BL_ICON_Todos_Helper.closeToDoAssistant(featureId, (String) obj.get('to_do_type'));
-
+            BL_ICON_Todos_Helper.closeToDoAssistant(featureId, (String)obj.get('to_do_type'));
         }
         return  response;
 
 
 
+       //x throw new BL_Exceptions.CLTException('FEATURE IS MISSING');
     }
     
 }

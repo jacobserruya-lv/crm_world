@@ -1,0 +1,17 @@
+<template>
+    <div class="layout_content">
+        <lightning-tabset>
+            <lightning-tab label="General Information">
+                <c-icx_campaign-general-information-details
+                    campaign-id={campaignId}></c-icx_campaign-general-information-details>
+            </lightning-tab>
+            <lightning-tab label="Products SKU" onactive={handleActive} value="productsSku">
+                <c-icx_campaign-product-sku-list campaign-id={campaignId}></c-icx_campaign-product-sku-list>
+            </lightning-tab>
+        </lightning-tabset>
+        <template if:true={isProductSkuTab}>
+            <lightning-button variant="neutral" label="Add Sku" class="add__btn"
+                onclick={handleAddSku}></lightning-button>
+        </template>
+    </div>
+</template>

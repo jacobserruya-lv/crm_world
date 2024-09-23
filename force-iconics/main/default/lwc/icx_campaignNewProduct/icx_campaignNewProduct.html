@@ -1,0 +1,26 @@
+<template>
+    <div class="product_layout display_flex margin_bottom_small">
+        <div class="margin_right">
+            <lightning-file-upload label="Product file" name="fileUploader" accept={acceptedFormats} record-id={myRecordId} onuploadfinished={handleUploadFinished}></lightning-file-upload>
+        </div>
+        <span onkeypress={handleProductEntered}>
+            <lightning-input type="search" class="margin_bottom_small" label="Product SKU" onchange={handleProductChange} ></lightning-input>
+        </span>
+    </div>
+    <template if:true={isProductListAvailable}>
+        <div>
+            <p class="sku_nb margin_bottom_small">Number of SKU : {productSKUList.length}</p>
+        </div>
+        <template for:each={productSKUListAll} for:item="productSKUList">
+            <div key={productSKUList} class="display_flex margin_bottom_small">
+                <template for:each={productSKUList} for:item="product">
+                    <div key={product.Id} class="sku_content">
+                        <p class="margin_right">{product.skuName}</p>
+                        <lightning-icon  data-id={product.Id}  class="icon_style" icon-name="utility:close" size="xx-small" alternative-text="Delete" title="Delete" onclick={handleDeleteSKU}></lightning-icon>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <button  class="slds-button slds-button_neutral margin_bottom_small"  onclick={handleClearAll}> Clear All</button>
+    </template>
+</template>

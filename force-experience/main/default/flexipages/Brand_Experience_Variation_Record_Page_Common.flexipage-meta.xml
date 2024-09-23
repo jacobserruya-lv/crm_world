@@ -1046,82 +1046,6 @@
                 <identifier>c_ex_invitees_related_list</identifier>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>defaultNumberofRecordsToDisplay</name>
-                    <value>50</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>defaultRecordType</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>displayType</name>
-                    <value>List</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>filter</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideOnNoRecord</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>iconName</name>
-                    <value>standard:groups</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>layoutType</name>
-                    <value>1 Column</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>maxNumberofRecordsToDisplay</name>
-                    <value>500</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>newRecord</name>
-                    <value>Standard</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>objectAPIName</name>
-                    <value>Brand_Experience_Variation_Member__c</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>parentField</name>
-                    <value>Brand_Experience_Variation__c</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>parentObjectIdField</name>
-                    <value>Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListName</name>
-                    <value>Experience_Variations_Members</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showHeader</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showMenuAction</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showRefreshButton</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>sort</name>
-                    <value>CreatedDate DESC</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Invitees</value>
-                </componentInstanceProperties>
-                <componentName>CMTD:EnhancedRelatedList</componentName>
-                <identifier>CMTD_EnhancedRelatedList</identifier>
-            </componentInstance>
-        </itemInstances>
         <name>detailTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1255,6 +1179,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
+                    <value>Client Status Follow up</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>reportFilter</name>
@@ -1271,12 +1196,7 @@
                 <componentName>flexipage:reportChart</componentName>
                 <identifier>flexipage_reportChart</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Brand_Experience__r.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Experience</rightValue>
-                    </criteria>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
@@ -1308,7 +1228,61 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Client Satuts Follow up</value>
+                    <value>Client Status Follow up</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>reportFilter</name>
+                    <value>Brand_Experience_Variation__c.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>reportName</name>
+                    <value>EX_In_Store_Followup_WQ2</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showRefreshButton</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart5</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 5 AND(2 OR 3 OR 4)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Brand_Experience__r.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Experience</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ICON_SA</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ICON_SA Manager</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ICON_Corporate</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.Edit_Store_Hierarchy}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>cacheAge</name>
+                    <value>1440</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Client Status Follow up</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>reportFilter</name>
@@ -1325,7 +1299,7 @@
                 <componentName>flexipage:reportChart</componentName>
                 <identifier>flexipage_reportChart3</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 6 AND(2 OR 3 OR 4 OR 5)</booleanFilter>
+                    <booleanFilter>1 AND 6 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Brand_Experience__r.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -1339,7 +1313,7 @@
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>ICON_SA_Manager</rightValue>
+                        <rightValue>ICON_SA Manager</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
@@ -1375,6 +1349,65 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>reportName</name>
+                    <value>EX_In_Store_Attendance_Experience_Yyz</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showRefreshButton</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart6</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 5 AND 6 AND (2 OR 3 OR 4 )</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Brand_Experience__r.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Experience</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ICON_SA</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ICON_Corporate</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ICON_SA Manager</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.Edit_Store_Hierarchy}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Ended</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>cacheAge</name>
+                    <value>1440</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Attendance</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>reportFilter</name>
+                    <value>Brand_Experience_Variation__c.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>reportName</name>
                     <value>Attendance_Experience_PJQ</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1384,12 +1417,7 @@
                 <componentName>flexipage:reportChart</componentName>
                 <identifier>flexipage_reportChart2</identifier>
                 <visibilityRule>
-                    <booleanFilter>6 AND (1 OR 2 OR 3 OR 4 OR 5)</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Brand_Experience__r.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Experience</rightValue>
-                    </criteria>
+                    <booleanFilter>5 AND (1 OR 2 OR 3 OR 4)</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
@@ -1457,7 +1485,7 @@
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>ICON_SA_Manager</rightValue>
+                        <rightValue>ICON_SA Manager</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>

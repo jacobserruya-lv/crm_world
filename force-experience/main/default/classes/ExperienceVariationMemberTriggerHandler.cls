@@ -4,6 +4,9 @@ public with sharing class ExperienceVariationMemberTriggerHandler {
             when BEFORE_INSERT {
                 handleBeforeInsert(newList);
             }
+            when AFTER_INSERT {
+                handleAfterInsert(newList);
+            }
             when BEFORE_UPDATE {
                 handleBeforeUpdate(newList,oldMap);
             }
@@ -54,6 +57,40 @@ public with sharing class ExperienceVariationMemberTriggerHandler {
                         member.Status__c = 'Rejected' ;
                     }
                 }         
+        }
+    }
+
+    public static void handleAfterInsert(List<Brand_Experience_Variation_Member__c> newList) {
+        try{
+        
+            List<Push_Notification_Item__c> notificationItems = new List<Push_Notification_Item__c>();
+            
+            for (Brand_Experience_Variation_Member__c member : [SELECT Id, NominationStatus__c, Assigned_CA__c, Brand_Experience_Variation__r.Name FROM Brand_Experience_Variation_Member__c WHERE ID IN: newList]) {
+                if(member.NominationStatus__c == 'Approved'){
+
+                    String caLanguage = UserInfo.getLocale();
+                    String variationName = member.Brand_Experience_Variation__r.Name;
+                    String assignedCA =  member.Assigned_CA__c ; 
+                    String memberId =  member.Id;
+
+                    String placeholder = IM_SendPushNotifications.getNotificationTemplate(caLanguage, 'Experience_member_approved__c');
+                    List<String> fillers = new String[]{variationName};
+                        
+                    Push_Notification_Item__c push = new Push_Notification_Item__c(
+                            Body__c = String.format(placeholder, fillers),
+                            Type__c = 'Variation_Member',
+                            ObjectId__c = memberId,
+                            UserRecipient__c  = assignedCA
+                        );
+
+                        notificationItems.add(push);
+                }
+            }
+            if(!notificationItems.isEmpty()){
+                Database.insert(notificationItems, false);
+            }
+        } catch (Exception e) {
+            System.debug(e);
         }
     }
 
@@ -174,12 +211,13 @@ public with sharing class ExperienceVariationMemberTriggerHandler {
             Map<Id, Brand_Experience_Variation_Member__c> memberWithAppointmentForUpdate = new  Map<Id, Brand_Experience_Variation_Member__c>();
             Map<Id, Brand_Experience_Variation_Member__c> oldMemberWithAppointment = new  Map<Id, Brand_Experience_Variation_Member__c>();
 
-            for (Brand_Experience_Variation_Member__c member : [SELECT Id, NominationStatus__c, Assigned_CA__c, Client__r.Name, rsvpState__c,Attendance__c, (SELECT Id, Status__c, Brand_Experience_Variation_Member__r.rsvpState__c, Brand_Experience_Variation_Member__r.Attendance__c FROM Activation_Member_s_Guests__r) FROM Brand_Experience_Variation_Member__c WHERE ID IN: newList]) {
+            for (Brand_Experience_Variation_Member__c member : [SELECT Id, NominationStatus__c, Assigned_CA__c, Client__r.Name, rsvpState__c,Attendance__c, Brand_Experience_Variation__r.Status__c, (SELECT Id, Status__c, Brand_Experience_Variation_Member__r.rsvpState__c, Brand_Experience_Variation_Member__r.Attendance__c FROM Activation_Member_s_Guests__r) FROM Brand_Experience_Variation_Member__c WHERE ID IN: newList]) {
 
                 Brand_Experience_Variation_Member__c oldMember = oldMembers.get(member.Id);
                 String nominationStatus = member.NominationStatus__c;
 
-                if(oldMember.NominationStatus__c != nominationStatus && nominationStatuses.contains(nominationStatus) && String.isNotEmpty(member.Assigned_CA__c) ){
+                if(oldMember.NominationStatus__c != nominationStatus && nominationStatuses.contains(nominationStatus) && String.isNotEmpty(member.Assigned_CA__c) 
+                    && (member.Brand_Experience_Variation__r.Status__c == 'Ready' || member.Brand_Experience_Variation__r.Status__c == 'Participation Opened')){
 
                     String caLanguage = UserInfo.getLocale();
                     String clientName = member.Client__r.Name;

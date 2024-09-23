@@ -1,0 +1,27 @@
+<template>
+    <div>
+        <lightning-tabset class="tab-campaign">
+            <lightning-tab label="Client"> 
+                <c-icx_campaign-dynamic-table 
+                        table-data={clientDataTable}                    
+                        table-type="clientList"
+                        is-loading={isClientLoading}
+                        onfetchmoredata={handleFetchMoreData}
+                        show-more-data={showMoreClientData}
+                        onrecorddetails={navigateToCampaignMemberRecord}
+                        >
+                    </c-icx_campaign-dynamic-table>
+            </lightning-tab>
+            <template lwc:if={isManager}>
+                <lightning-tab label="CA List">
+                    <c-icx_campaign-dynamic-table 
+                        table-data={caDataTable}                    
+                        table-type="caList"
+                        is-loading={isCAListLoading}
+                        >
+                    </c-icx_campaign-dynamic-table>
+                </lightning-tab>
+            </template>
+        </lightning-tabset>
+    </div>
+</template>

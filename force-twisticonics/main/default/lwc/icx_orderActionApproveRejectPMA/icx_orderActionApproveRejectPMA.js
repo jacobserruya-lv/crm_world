@@ -7,7 +7,7 @@ export default class Icx_orderActionApproveRejectPMA extends LightningModal {
     @api orderdetailsapi; // Order__c.orderNumber__c
     @api products; // list of product to display
     @api orderaction; // [{ label: 'Exchange', value: 'exchange' }, { label: 'Return', value: 'return' }, ...] 
-    
+
     isLoading = false;
     @track selectedaction = '';
 
@@ -30,46 +30,36 @@ export default class Icx_orderActionApproveRejectPMA extends LightningModal {
         this.isLoading = true;
         this.disableClose = true;
 
-        let isOk = true;   
-        
+        let isOk = true;
+
         isOk = (this.selectedaction != null) && (this.selectedaction != '');
 
-        if (isOk){
+        if (isOk) {
             var jsonResponse = [];
-            var bodyToSend;
+            // var bodyToSend;
             // For each product selected
-            for (let i=0; i<this.products.length; i++) {
-                let productToApproveRefusePMA =  this.products[i];            
-
-                bodyToSend  = {
-                    requesting_system: 'ICONICS',
-                    id: productToApproveRefusePMA.request_id,
-                    line_number: parseInt(productToApproveRefusePMA.line_number),
-                    item_id: productToApproveRefusePMA.item_id,
-                    action_message: '',
-                    action: this.selectedaction
-                }
-
-                console.log('Icx_orderActionApproveRejectPMA-bodyToSend'+bodyToSend);
-                console.log('Icx_orderActionApproveRejectPMA-bodyToSend'+JSON.stringify(bodyToSend));
+            for (let i = 0; i < this.products.length; i++) {
+                let productToApproveRefusePMA = this.products[i];
+                console.log('Icx_orderActionApproveRejectPMA - sendAction params', productToApproveRefusePMA.request_id, productToApproveRefusePMA.item_id, this.selectedaction, productToApproveRefusePMA.reason.Id);
 
                 await sendAction({
-                    body : bodyToSend,
-                    shippingId: productToApproveRefusePMA.reason.Id
+                    orderId: productToApproveRefusePMA.request_id,
+                    orderAction: this.selectedaction,
+                    shippingId: productToApproveRefusePMA.reason.Id,
                 })
-                .then(result => {           
-                    console.log('Icx_orderActionApproveRejectPMA-result OK: '+JSON.stringify(result));
-                    jsonResponse.push(result);
-                })
-                .catch(error => {
-                    console.log('Icx_orderActionApproveRejectPMA-result Error: '+JSON.stringify(error.body.message));
-                    let response = {
-                        "status": "error",
-                        "message": JSON.stringify(error.body.message)
-                    };
+                    .then(result => {
+                        console.log('Icx_orderActionApproveRejectPMA-result OK: ' + JSON.stringify(result));
+                        jsonResponse.push(result);
+                    })
+                    .catch(error => {
+                        console.log('Icx_orderActionApproveRejectPMA-result Error: ' + JSON.stringify(error.body.message));
+                        let response = {
+                            "status": "error",
+                            "message": JSON.stringify(error.body.message)
+                        };
 
-                    jsonResponse.push(response);
-                });
+                        jsonResponse.push(response);
+                    });
             }
 
             this.isLoading = false;
@@ -77,7 +67,7 @@ export default class Icx_orderActionApproveRejectPMA extends LightningModal {
 
             this.close(jsonResponse);
         }
-        else {            
+        else {
             this.isLoading = false;
             this.disableClose = false;
         }

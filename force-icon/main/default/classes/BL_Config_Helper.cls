@@ -10,6 +10,7 @@ public with sharing class BL_Config_Helper {
     static final string JSONRoot_Translations          = 'translations';
     static final string JSONRoot_Mapping               = 'mapping';
     static final string JSONRoot_StoreHierarchy        = 'storeHierarchy';
+    static final string JSONRoot_VoiceConfig           = 'voiceConfig';
     static final string JSONRoot_SharingChannels        = 'sharingChannel';
     static final string JSONRoot_Locals        = 'locals';
 
@@ -24,7 +25,8 @@ public with sharing class BL_Config_Helper {
            JSONRoot_Picklist            => getPicklists(applicationName),
            JSONRoot_EmailTemplateFields => getEmailTemplatesFields(),
            JSONRoot_Translations        => BL_ICON_Translation_Helper.getTranslationData(language ,'ICON'),
-           JSONRoot_Mapping             => getMapping()
+           JSONRoot_Mapping             => getMapping(),
+           JSONRoot_VoiceConfig         => getVoiceSetting()
         };
 
     }
@@ -72,6 +74,12 @@ public with sharing class BL_Config_Helper {
                 }
                 when 'locals' {
                     result.put(JSONRoot_Locals, getLocals());
+                }
+                when 'hierarchy'{ 
+                    result.put(JSONRoot_StoreHierarchy, getStoreHierarchyDictionary());
+                }
+                when 'voice'{ 
+                    result.put(JSONRoot_VoiceConfig, getVoiceSetting());
                 }
             }
         }
@@ -171,27 +179,73 @@ public with sharing class BL_Config_Helper {
         return channels;
     }    
 
-    public static List<Map<String, String>> getLocals() {
-        List<Map<String, String>> locals = new List<Map<String, String>>();              
-        List<CountryLanguage__c> countries = [ SELECT Country__r.name, ATG_Locale__c, Dispatch_Country__c FROM CountryLanguage__c  WHERE Default__c = TRUE AND ATG_Locale__c != NULL AND ATG_Locale__c != 'eng-e1' ];
+    public static List<Map<String, Object>> getLocals() {
         
+        List<Map<String, Object>> locals =  new BL_EasyQuery()
+        .useCase(BL_ICON_Constants.USE_CASE_COUNTRY_LANGUAGE)
+        .executeQuery()
+        .getMappedObjects();
+
         locals.add(
-            new Map<String, String>  {
+            new Map<String, Object>  {
                 'country' => 'INTERNATIONAL',
                 'local' => 'eng-e1'
             }
         );
-
-        for (CountryLanguage__c country : countries) {
-            locals.add(
-                new Map<String, String>  {
-                    'country' => country.Country__r.name,
-                    'local' => country.ATG_Locale__c,
-                    'dispatchCountry' => country.Dispatch_Country__c
-                }
-            );
-        }
-
+        
         return locals;
     }  
+
+    public static Object getStoreHierarchyDictionary(){
+
+        Map<String,String> zoneCountry = new Map<String,String>();
+        Map<String,Map<String,Object>> countryStore = new Map<String,Map<String,Object>>();
+        Map<String,Map<String,Object>>  zoneCountries = new Map<String,Map<String,Object>> ();
+
+        for(Store__c store : [ SELECT management_zone_level_tech__c, storecountry__c, retailstoreid__c ,storetype__c, Time_Zone_Id__c, name 
+                               FROM store__c
+                               WHERE status__c IN ('Open','Opening soon') AND management_zone_level_tech__c  != null AND storecountry__c != null]){
+
+            if(!countryStore.containsKey(store.storecountry__c)){
+
+                countryStore.put(store.storecountry__c , new Map<String,Object>());
+            }
+
+            Map<String,Object> storeCode = new Map<String,Object> { store.retailstoreid__c => store.name};
+                                   
+            countryStore.get(store.storecountry__c).putAll(storeCode);
+                        
+            zoneCountry.put(store.storecountry__c ,store.management_zone_level_tech__c);
+         }
+
+        for(String countryKey : zoneCountry.keySet()){
+            
+            String zone = zoneCountry.get(countryKey);
+            
+			if(!zoneCountries.containsKey(zone)){
+
+                zoneCountries.put(zone , new Map<String,Object>());
+            }
+            Map<String,Object> countries = new Map<String,Object>{countryKey => countryStore.get(countryKey)};
+                
+            zoneCountries.get(zone).putAll(countries);
+        }
+
+        return zoneCountries;
+
+    } 
+    
+    public static Object getVoiceSetting(){
+        Map<String,Object> settings = new Map<String,Object>();
+        List<DUE_Setting__mdt> voiceSettings =[ SELECT Value__c, Type__c FROM DUE_Setting__mdt  ];
+
+        try {
+            for(DUE_Setting__mdt setting : voiceSettings){ 
+                settings.put(setting.Type__c, JSON.deserializeUntyped(setting.Value__c));   
+            }   
+        } catch (Exception e) {
+            system.debug('Error in parsing voice settings');
+        }
+        return settings;
+    }
 }

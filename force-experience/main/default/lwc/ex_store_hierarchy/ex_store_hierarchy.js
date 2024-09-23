@@ -57,11 +57,11 @@ export default class ex_store_hierarchy extends LightningElement {
     selectedItems3 = [];
     selectedItems4 = [];
 
-    selectedLevelNames = [];
-    selectedLevelNames1 = [];
-    selectedLevelNames2 = [];
-    selectedLevelNames3 = [];
-    selectedLevelNames4 = [];
+    // selectedLevelNames = [];
+    // selectedLevelNames1 = [];
+    // selectedLevelNames2 = [];
+    // selectedLevelNames3 = [];
+    // selectedLevelNames4 = [];
  
     selectedObject = false;    
     searchTerm = '';
@@ -100,10 +100,10 @@ export default class ex_store_hierarchy extends LightningElement {
 
 
     connectedCallback(){
-        Promise.all([
-            loadStyle(this, CssLvClub + "/CssLvClub.css"),
-           // loadStyle(this, LVFont + "/LVFont.css")    
-          ])
+        // Promise.all([
+        //     loadStyle(this, CssLvClub + "/CssLvClub.css"),
+        //    // loadStyle(this, LVFont + "/LVFont.css")    
+        //   ])
         getLevel0 ()
         .then((result) => {
             result.map((zone) => {
@@ -142,22 +142,22 @@ export default class ex_store_hierarchy extends LightningElement {
                 this.pushIfNotExists(this.selectedItems3Origin, element, 'zoneSubLevel3Name', 'zoneSubLevel3');
                 this.selectedItems4Origin.push({Name:element.retailStoreName, Id:element.retailStoreId});
            
-                this.selectedLevelNames = this.selectedItemsOrigin.map(level => level.Name);
-                this.selectedLevelNames1 = this.selectedItems1Origin.map(level => level.Name);
-                this.selectedLevelNames2 = this.selectedItems2Origin.map(level => level.Name);
-                this.selectedLevelNames3 = this.selectedItems3Origin.map(level => level.Name);
-                this.selectedLevelNames4 = this.selectedItems4Origin.map(level => level.Name);
+                // this.selectedLevelNames = this.selectedItemsOrigin.map(level => level.Name);
+                // this.selectedLevelNames1 = this.selectedItems1Origin.map(level => level.Name);
+                // this.selectedLevelNames2 = this.selectedItems2Origin.map(level => level.Name);
+                // this.selectedLevelNames3 = this.selectedItems3Origin.map(level => level.Name);
+                // this.selectedLevelNames4 = this.selectedItems4Origin.map(level => level.Name)
+
             }
             this.populateListWithOrigin();
             this.checkEditPermisions();
         })
         .catch((error) => {
-            console.log('getSelectedStores error',error);
+            console.log('getSelectedStores error',JSON.stringify(error));
         });
         
     }
     checkEditPermisions(){
-        debugger
         hasEditPermissions()
             .then(result => {
                 this.isLevel0Disabled = this.isLevel1Disabled = this.isLevel2Disabled= this.isLevel3Disabled=this.isLevel4Disabled=!result;
@@ -201,10 +201,10 @@ export default class ex_store_hierarchy extends LightningElement {
                 });
             });
                     
-        this.selectedLevelNames1 = this.selectedItems1.map(level => level.Name);
+        let oldSelectedLevelNames1 = this.selectedLevelNames1;
         this.selectedItems1 = [];
         for(var myItem of this.picklistZoneLevel1){ 
-            if(this.selectedLevelNames1.includes(myItem.Name))
+            if(oldSelectedLevelNames1.includes(myItem.Name))
             this.selectedItems1.push(myItem);
             }
         this.itemcounts1 = this.selectedItems1.length > 0 ? `${this.selectedItems1.length} ` + this.labels.optionsSelected : this.labels.noneSelected;
@@ -226,6 +226,7 @@ export default class ex_store_hierarchy extends LightningElement {
 
     @wire(getLevel2, {selectedManagementZoneSubLevel1: "$selectedLevelNames1" })
     wiredLevel2(result) {
+
         if (result.data) { 
             this.picklistZoneLevel2 = [];
             result.data.map((zone) => {
@@ -237,10 +238,10 @@ export default class ex_store_hierarchy extends LightningElement {
                 
             
             });        
-            this.selectedLevelNames2 = this.selectedItems2.map(level => level.Name);
+            let oldSelectedLevelNames2 = this.selectedLevelNames2;
             this.selectedItems2 = [];
             for(var myItem of this.picklistZoneLevel2){ 
-                if(this.selectedLevelNames2.includes(myItem.Name))
+                if(oldSelectedLevelNames2.includes(myItem.Name))
                 this.selectedItems2.push(myItem);
                 }
             this.itemcounts2 = this.selectedItems2.length > 0 ? `${this.selectedItems2.length} ` + this.labels.optionsSelected : this.labels.noneSelected;
@@ -261,6 +262,7 @@ export default class ex_store_hierarchy extends LightningElement {
      
     @wire(getLevel3, {selectedManagementZoneSubLevel2: "$selectedLevelNames2" })
     wiredLevel3(result) {  
+
         if (result.data) { 
             this.picklistZoneLevel3 = [];
             result.data.map((zone) => {
@@ -271,10 +273,10 @@ export default class ex_store_hierarchy extends LightningElement {
                 });
             });
                     
-        this.selectedLevelNames3 = this.selectedItems3.map(level => level.Name);
+        let oldSelectedLevelNames3 = this.selectedLevelNames3;
         this.selectedItems3 = [];
         for(var myItem of this.picklistZoneLevel3){ 
-            if(this.selectedLevelNames3.includes(myItem.Name))
+            if(oldSelectedLevelNames3.includes(myItem.Name))
             this.selectedItems3.push(myItem);
             }
         this.itemcounts3 = this.selectedItems3.length > 0 ? `${this.selectedItems3.length} ` + this.labels.optionsSelected : this.labels.noneSelected;
@@ -296,6 +298,7 @@ export default class ex_store_hierarchy extends LightningElement {
 
     @wire(getLevel4, {selectedManagementZoneSubLevel3: "$selectedLevelNames3" })
     wiredLevel4(result) { 
+
       if (result.data) { 
           this.picklistZoneLevel4 = [];
           result.data.map((zone) => {
@@ -305,10 +308,10 @@ export default class ex_store_hierarchy extends LightningElement {
                   Id: zone.RetailStoreId__c
                 });
             });          
-        this.selectedLevelNames4 = this.selectedItems4.map(level => level.Name);
+        let oldSelectedLevelNames4 = this.selectedLevelNames4;
         this.selectedItems4 = [];
         for(var myItem of this.picklistZoneLevel4){ 
-            if(this.selectedLevelNames4.includes(myItem.Name))
+            if(oldSelectedLevelNames4.includes(myItem.Name))
             this.selectedItems4.push(myItem);
           }
         this.itemcounts4 = this.selectedItems4.length > 0 ? `${this.selectedItems4.length} `+ this.labels.optionsSelected : this.labels.noneSelected;
@@ -328,10 +331,26 @@ export default class ex_store_hierarchy extends LightningElement {
           }
     }
 
+    get selectedLevelNames(){
+        return this.selectedItems0.map(level => level.Name);
+    }
+    get selectedLevelNames1(){
+        return this.selectedItems1.map(level => level.Name);
+    }
+    get selectedLevelNames2(){
+        return this.selectedItems2.map(level => level.Name);
+    }
+    get selectedLevelNames3(){
+        return this.selectedItems3.map(level => level.Name);
+    }
+    get selectedLevelNames4(){
+        return this.selectedItems4.map(level => level.Name);
+    }
+
     //this function is used to show the dropdown list
     get zoneLevels() {    
        if (this.picklistZoneLevel) { 
-                this.selectedLevelNames = this.selectedItems0.map(level => level.Name);
+                // this.selectedLevelNames = this.selectedItems0.map(level => level.Name);
                  return this.picklistZoneLevel.map(level => {
                     //below logic is used to show check mark (✓) in dropdown checklist
                     const isChecked = this.selectedLevelNames.includes(level.Name);
@@ -349,9 +368,10 @@ export default class ex_store_hierarchy extends LightningElement {
             }  
     }
 
+   
     get zoneLevels1() {
         if (this.picklistZoneLevel1) {
-                this.selectedLevelNames1 = this.selectedItems1.map(level => level.Name);                
+                // this.selectedLevelNames1 = this.selectedItems1.map(level => level.Name);                
                 return this.picklistZoneLevel1.map(level => {
 
                     //below logic is used to show check mark (✓) in dropdown checklist
@@ -372,8 +392,9 @@ export default class ex_store_hierarchy extends LightningElement {
     }
 
     get zoneLevels2() {
+
         if (this.picklistZoneLevel2) {
-            this.selectedLevelNames2 = this.selectedItems2.map(level => level.Name);         
+            // this.selectedLevelNames2 = this.selectedItems2.map(level => level.Name);         
             return this.picklistZoneLevel2.map(level => {
 
                 //below logic is used to show check mark (✓) in dropdown checklist
@@ -393,8 +414,9 @@ export default class ex_store_hierarchy extends LightningElement {
     }
 
     get zoneLevels3() {
+
         if (this.picklistZoneLevel3) {
-            this.selectedLevelNames3 = this.selectedItems3.map(level => level.Name);          
+            // this.selectedLevelNames3 = this.selectedItems3.map(level => level.Name);          
             return this.picklistZoneLevel3.map(level => {
                 //below logic is used to show check mark (✓) in dropdown checklist
                 const isChecked = this.selectedLevelNames3.includes(level.Name);
@@ -414,8 +436,9 @@ export default class ex_store_hierarchy extends LightningElement {
 
 
     get zoneLevels4() {
+
         if (this.picklistZoneLevel4) {
-            this.selectedLevelNames4 = this.selectedItems4.map(level => level.Name);                              
+            // this.selectedLevelNames4 = this.selectedItems4.map(level => level.Name);                              
             return this.picklistZoneLevel4.map(level => {
                 //below logic is used to show check mark (✓) in dropdown checklist
                 const isChecked = this.selectedLevelNames4.includes(level.Name);
@@ -472,10 +495,10 @@ export default class ex_store_hierarchy extends LightningElement {
         
     }
     //this function is used when user check/uncheck/selects (✓) an item in dropdown picklist
-    handleSelection(event) {       
+    handleSelection(event) {   
         const selectedLevelId = event.target.value;
         const isChecked = event.target.checked;        
-
+        console.log(JSON.stringify(this.picklistZoneLevel));
             //below logic is used to show check mark (✓) in dropdown checklist
             if (isChecked) {                
                 const selectedLevel = this.picklistZoneLevel.find(level => level.Id === selectedLevelId);
@@ -486,6 +509,9 @@ export default class ex_store_hierarchy extends LightningElement {
                 this.selectedItems0 = this.selectedItems0.filter(level => level.Id !== selectedLevelId);
                 this.updateMode=true;
             }
+            console.log('selecteditems',JSON.stringify(this.selectedItems0));
+            // this.selectedLevelNames = this.selectedItems0.map(level => level.Name);
+
         
         this.itemcounts = this.selectedItems0.length > 0 ? `${this.selectedItems0.length} ` + this.labels.optionsSelected : this.labels.noneSelected;
 
@@ -604,7 +630,8 @@ export default class ex_store_hierarchy extends LightningElement {
         this.showselectall = true;
       
     }
-    clickhandler1(event) {       
+    clickhandler1(event) {    
+   
         this.mouse = false;
         this.showDropdown1 = true;        
         this.showselectall1 = true;       

@@ -55,7 +55,8 @@ public class BL_ICON_WS_RouterMapping extends BL_WS_RouteMapping {
             '/retention/store-ranking' => 'BL_ICON_Retention',
             '/consent' => 'BL_ICON_Ca_Consent',
             '/consent/{id}' => 'BL_ICON_Ca_Consent',
-            '/clients-data' => 'BL_ICON_Client'
+            '/clients-data' => 'BL_ICON_Client',
+            '/task-assistant' => 'BL_ICON_TaskAssistant'
        };
     } 
 

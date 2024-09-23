@@ -1,0 +1,21 @@
+<template>
+    <template if:true={contentVersionList}>
+        <template for:each={contentVersionList} for:item="contentVersion">
+            
+            <div key={contentVersion.Id} class="file_container">
+                <div>
+                    <lightning-icon icon-name={contentVersion.icon} alternative-text={FileType} title={FileType}></lightning-icon>
+                </div>
+                <div>
+                    <p class="text_value">{contentVersion.Title}.{contentVersion.FileExtension}</p>
+                    <p>{contentVersion.Size}</p>
+                    
+                </div>
+                <div>
+                    <lightning-icon if:true={isDownloadAvailable} data-download-url={contentVersion.downloadUrl} class="icon_style" icon-name="utility:chevrondown" size="xx-small" alternative-text="Download" title="Download" onclick={handleDownloadFile}></lightning-icon>
+                    <lightning-icon if:true={isDeleteAvailable} data-content-version-id={contentVersion.Id} class="icon_style" icon-name="utility:close" size="xx-small" alternative-text="Delete" title="Delete" onclick={handleDeleteFile}></lightning-icon>
+                </div>
+            </div>
+        </template>
+    </template>
+</template>
