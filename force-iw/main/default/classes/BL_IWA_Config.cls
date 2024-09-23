@@ -6,6 +6,6 @@ global with sharing class BL_IWA_Config extends BL_WS_Request implements BL_WS_I
         if (features == null)
             features = 'sharing-channels;storeHierarchy;locals';
 
-        return BL_Config_Helper.getConfigByFeatures(features, BL_AppSettings.currentApplicationName);
+        return BL_IWA_Config_Helper.getConfigByFeatures(features, BL_AppSettings.currentApplicationName);
     }
 }
