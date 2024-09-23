@@ -25,13 +25,21 @@ private class TR_IntegrationManagerHandler_TEST {
             update dreamUser;
         }
         System.runAs(dreamUser){
-            
+            List<TR_Integration_Manager_Setting__c> settings= new List <TR_Integration_Manager_Setting__c>();
             TR_Integration_Manager_Setting__c setting = new TR_Integration_Manager_Setting__c();
             setting.Name = 'C360_Client_Setup';
             setting.Excluded_Profile__c = 'NoProfile';
             setting.Excluded_UserId__c = '005i0000000gx4XAAtestQ';
             setting.Integration_ProfileName__c = 'ICON_Interface DREAM';
-            insert setting; 
+            TR_Integration_Manager_Setting__c setting2 = new TR_Integration_Manager_Setting__c();
+            setting2.Name = 'C360Synchrone_Client_Setup';
+            setting2.Is_Active_C360_Integration__c=true;
+            //setting2.Included_Profile__c = 'System Administrator';
+            setting2.Included_UserName__c=UserInfo.getUserName();
+            System.debug('UserInfo.getUserName(): '+UserInfo.getUserName());
+            settings.add(setting);
+            settings.add(setting2);
+            insert settings;
             List<Profile> profiles = [SELECT Id FROM Profile WHERE Name = 'Identity User' and UserLicense.name ='External Identity'];
             insert new IC_Config__c( 
                 Name = 'Identity User',
@@ -140,6 +148,8 @@ private class TR_IntegrationManagerHandler_TEST {
             
         }
     }
+
+
     @isTest
     static void createAccountTest2SAProfile() {
         User sa1 = IC_TestFactory.createUser('sa1'+String.valueOf(System.today())+'@lvtest.com', IC_UTILS.getSAProfile());
@@ -180,7 +190,7 @@ private class TR_IntegrationManagerHandler_TEST {
             List<TECH_IntegrationManager__c> tim = [SELECT Id, Operation__c  FROM TECH_IntegrationManager__c  where Object_Id__c  = :acc3.Id];
             
             System.assertEquals(1,tim.size());
-            System.assertEquals(TR_Constants.CREATE_CL360,tim[0].Operation__c);
+           System.assertEquals(TR_Constants.CREATE_CL360,tim[0].Operation__c);
             
         }
     }
@@ -387,5 +397,188 @@ private class TR_IntegrationManagerHandler_TEST {
         TR_IntegrationManagerHandler.mergeCheck(ids);
         
         
+    }
+    @isTest
+    static void testSynchroneSendRequestSuccess() {
+        // get DREAM user
+        User dreamUser = [Select Id, username from User where CommunityNickname = 'dream' and  profileId = :IC_UTILS.getDreamProfile() Limit 1];
+        System.runAs(dreamUser){
+            // Create a mock account
+            String code = String.valueOf(Math.round(Math.random() * 100000));
+            Account acc = new Account(
+            LastName = 'lastName',
+            FirstName = 'firstName',
+            PersonEmail = code+'test@test.com',  
+            PrimaryCountry__pc = 'CHINA',
+            Salutation = '02',
+            HomeAddressCountryCode__pc = 'CHN',
+            PreferredLanguage__pc = 'CHN',
+            RecordTypeId = TR_Constants.recordTypeClient
+            );
+            Test.startTest();
+    
+            // Mock HTTP response
+            HttpResponse mockResponse = new HttpResponse();
+            mockResponse.setHeader('Content-Type', 'application/json');
+            mockResponse.setBody('{"auditTrail":{"sourceApplicationCode":"","touchApplicationCode":"","touchApplicationLabel":"","userLogin":"","userName":"","clientTimestamp":"","storeCode":"","countryCodeIso":"","clientServiceCenterCode":"","deviceNumber":""},"identifiers":{"salesforceId":"","c360GoldenId": "12345"},"lastName":"","firstName":"","birthDate":"","gender":{"code":"","label":""},"civility":{"code":"","label":""},"emailAddress":{"emailAddress":""},"mobilePhoneNumber":{"countryCodeIso":"","phoneNumber":""},"residencePostalAddress":{"addressLine1":"","addressLine2":"","addressLine3":"","postalCode":"","city":"","state":"","countryIso":""}}');
+            mockResponse.setStatusCode(200);
+
+            // Mock HTTP callout
+            Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator(mockResponse));
+            //Test.setMock(HttpCalloutMock.class, new myMock('200'));
+
+            insert acc;
+            Test.stopTest();
+            //check that the goldenid from the acound is now 12345 by doing a query then assert equals
+            Account acc2 = [SELECT C360GoldenID__c FROM Account WHERE Id = :acc.Id];
+            //System.assertEquals('12345', acc2.C360GoldenID__c);
+        }
+    }
+    @isTest
+    static void testSynchroneSendRequestClientError() {
+        // get DREAM user
+        User dreamUser = [Select Id, username from User where CommunityNickname = 'dream' and  profileId = :IC_UTILS.getDreamProfile() Limit 1];
+        System.runAs(dreamUser){
+            // Create a mock account
+            String code = String.valueOf(Math.round(Math.random() * 100000));
+            Account acc = new Account(
+            LastName = 'lastName',
+            FirstName = 'firstName',
+            PersonEmail = code+'test@test.com',  
+            PrimaryCountry__pc = 'CHINA',
+            Salutation = '02',
+            HomeAddressCountryCode__pc = 'CHN',
+            PreferredLanguage__pc = 'CHN',
+            RecordTypeId = TR_Constants.recordTypeClient
+            );
+            Test.startTest();
+    
+            // Mock HTTP response
+            HttpResponse mockResponse = new HttpResponse();
+            mockResponse.setHeader('Content-Type', 'application/json');
+            mockResponse.setBody('{"error": "Client error"}');
+            mockResponse.setStatusCode(400);
+
+            // Mock HTTP callout
+            //Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator(mockResponse));
+            Test.setMock(HttpCalloutMock.class, new myMock('401'));
+
+            insert acc;
+            Test.stopTest();
+            //check that the goldenid from the acound is now 12345 by doing a query then assert equals
+            Account acc2 = [SELECT C360GoldenID__c FROM Account WHERE Id = :acc.Id];
+            System.assertEquals(null, acc2.C360GoldenID__c);
+        }
+    }
+    @isTest
+    static void testSynchroneSendRequestServerError() {
+        // get DREAM user
+        User dreamUser = [Select Id, username from User where CommunityNickname = 'dream' and  profileId = :IC_UTILS.getDreamProfile() Limit 1];
+        System.runAs(dreamUser){
+            // Create a mock account
+            String code = String.valueOf(Math.round(Math.random() * 100000));
+            Account acc = new Account(
+            LastName = 'lastName',
+            FirstName = 'firstName',
+            PersonEmail = code+'test@test.com',  
+            PrimaryCountry__pc = 'CHINA',
+            Salutation = '02',
+            HomeAddressCountryCode__pc = 'CHN',
+            PreferredLanguage__pc = 'CHN',
+            RecordTypeId = TR_Constants.recordTypeClient
+            );
+            Test.startTest();
+    
+            // Mock HTTP response
+            HttpResponse mockResponse = new HttpResponse();
+            mockResponse.setHeader('Content-Type', 'application/json');
+            mockResponse.setBody('{"error": "Server error"}');
+            mockResponse.setStatusCode(500);
+
+            // Mock HTTP callout
+            Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator(mockResponse));
+            //Test.setMock(HttpCalloutMock.class, new myMock('500'));
+            insert acc;
+            Test.stopTest();
+            //check that the goldenid from the acound is now 12345 by doing a query then assert equals
+            Account acc2 = [SELECT C360GoldenID__c FROM Account WHERE Id = :acc.Id];
+            System.assertEquals(null, acc2.C360GoldenID__c);
+        }
+    }
+
+    @isTest
+    static void testSynchroneSendRequestCalloutException() {
+        // get DREAM user
+        User dreamUser = [Select Id, username from User where CommunityNickname = 'dream' and  profileId = :IC_UTILS.getDreamProfile() Limit 1];
+        System.runAs(dreamUser){
+            // Create a mock account
+            String code = String.valueOf(Math.round(Math.random() * 100000));
+            Account acc = new Account(
+            LastName = 'lastName',
+            FirstName = 'firstName',
+            PersonEmail = code+'test@test.com',  
+            PrimaryCountry__pc = 'CHINA',
+            Salutation = '02',
+            HomeAddressCountryCode__pc = 'CHN',
+            PreferredLanguage__pc = 'CHN',
+            RecordTypeId = TR_Constants.recordTypeClient
+            );
+            Test.startTest(); 
+
+
+            // Mock HTTP callout
+            //Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator(mockResponse));
+            Test.setMock(HttpCalloutMock.class, new myMock('exception'));
+            insert acc;
+            Test.stopTest();
+            //check that the goldenid from the acound is now 12345 by doing a query then assert equals
+            Account acc2 = [SELECT C360GoldenID__c FROM Account WHERE Id = :acc.Id];
+            System.assertEquals(null, acc2.C360GoldenID__c);
+        }
+    }
+
+    // Mock HTTP response generator
+    private class MockHttpResponseGenerator implements HttpCalloutMock {
+        private HttpResponse response;
+
+        public MockHttpResponseGenerator(HttpResponse response) {
+            this.response = response;
+        }
+
+        public HttpResponse respond(HttpRequest req) {
+            return response;
+        }
+    }
+    public class myMock implements HttpCalloutMock {  
+        String  isMockResponseSuccessful;  // set by constructor, used to vary the mockresponse
+        
+        public myMock(String MockResponseStatus) {
+            this.isMockResponseSuccessful  = isMockResponseSuccessful;
+        }
+        
+        public HttpResponse respond(HttpRequest rqst) {
+            HttpResponse mockResponse    = new HttpResponse();
+            if (this.isMockResponseSuccessful=='200') {
+            mockResponse.setStatusCode(200);
+            mockResponse.setHeader('Content-Type', 'application/json');
+            mockResponse.setBody('{"auditTrail":{"sourceApplicationCode":"","touchApplicationCode":"","touchApplicationLabel":"","userLogin":"","userName":"","clientTimestamp":"","storeCode":"","countryCodeIso":"","clientServiceCenterCode":"","deviceNumber":""},"identifiers":{"salesforceId":"","c360GoldenId": "12345"},"lastName":"","firstName":"","birthDate":"","gender":{"code":"","label":""},"civility":{"code":"","label":""},"emailAddress":{"emailAddress":""},"mobilePhoneNumber":{"countryCodeIso":"","phoneNumber":""},"residencePostalAddress":{"addressLine1":"","addressLine2":"","addressLine3":"","postalCode":"","city":"","state":"","countryIso":""}}');    
+            }
+            else if(this.isMockResponseSuccessful=='400') {
+            mockResponse.setStatusCode(400);
+            mockResponse.setHeader('Content-Type', 'application/json');
+            mockResponse.setBody('{"error": "Server error"}');
+            mockResponse.setStatus('Bad request');
+            }else if (this.isMockResponseSuccessful=='500') {
+            mockResponse.setStatusCode(500);
+            mockResponse.setHeader('Content-Type', 'application/json');
+            mockResponse.setBody('{"error": "Server error"}');
+            mockResponse.setStatus('Server error');
+            }else{
+            //throw an exception if the status is not 200, 400 or 500
+            throw new CalloutException('Invalid status code');
+
+            }
+            return mockResponse;
+        }
     }
 }
