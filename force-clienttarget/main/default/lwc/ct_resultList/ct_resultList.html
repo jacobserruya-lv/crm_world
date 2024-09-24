@@ -43,6 +43,7 @@
 
         <template if:true={enableNewSelection}>
           <c-ct_new-sa-selection
+            custom-columns={selectionTableColumns}
             onnewsaselectionmounted={handleNewSaSelectionMounted}
             campaign-id={campaignId}
             row-offset={rowOffset}
