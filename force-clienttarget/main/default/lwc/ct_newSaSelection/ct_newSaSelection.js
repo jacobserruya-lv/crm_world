@@ -58,7 +58,7 @@ const columns = [
 
 export default class Ct_newSaSelection extends LightningElement {
   @api name;
-  @api customColumn;
+  @api customColumns;
   @api rowOffset = 0;
   @api storeHierarchy;
   @api clientList;
@@ -87,7 +87,7 @@ export default class Ct_newSaSelection extends LightningElement {
   locationIconUrlPNG = `${Icon}/icons/location/location@3x.png`;
   homeIconUrlPNG = `${Icon}/icons/home/home@3x.png`;
   activeSections = ["newMainCA"];
-  columns = this.customColumn || columns;
+  columns = columns;
   selectedClientAdvisorValue = "";
   selectedClientAdvisorName = "";
   url = window.location.hostname;
@@ -105,29 +105,9 @@ export default class Ct_newSaSelection extends LightningElement {
   numberOfCampaignMembersForCA;
 
   connectedCallback() { 
-    if (this.campaignId) {
-      const assignedCaColumn = {
-        label: "Assigned CA",
-        fieldName: "linkToCaAccount",
-        type: "url",
-        typeAttributes: {
-          label: { fieldName: "preferredCa" },
-          tooltip: "Assigned CA",
-          target: "_blank"
-        }
-      };
-      const newAssignedCaColumn = {
-        label: "New Assigned CA",
-        fieldName: "caToAssign",
-        type: "text"
-      };
-      const newCaLabelIndex = this.columns.findIndex(o => o.label == "New preferred CA");
-      const caLabelIndex = this.columns.findIndex(o => o.label == "Preferred CA");
-      this.columns = this.columns.toSpliced(4, 0, { label: "Segmentation", fieldName: "segmentation" });
-      this.columns = this.columns.toSpliced(caLabelIndex + 1, 1, assignedCaColumn);
-      this.columns = this.columns.toSpliced(newCaLabelIndex + 1, 1, newAssignedCaColumn);  
+    if (this.customColumns.length) {
+      this.columns = this.customColumns;
     }
-
     this.subscribeToMessageChannel();
     this.dispatchEvent(new CustomEvent("newsaselectionmounted"));
     this.refreshTableData();
