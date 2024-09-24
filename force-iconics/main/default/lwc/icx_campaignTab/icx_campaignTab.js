@@ -220,11 +220,9 @@ export default class Icx_campaignTab extends NavigationMixin(LightningElement) {
         const tableType = event.detail.tableType;
         if (tableType === 'campaignList') {
             this.campaignFilters = event.detail.key;
-            // this.campaignNameSearch = null;
             this.initialData('campaignList');
         } else if (tableType === 'memberList') {
             this.memberFilters = event.detail.key;
-            // this.memberNameSearch = null;
             this.initialData('memberList');
         }
     }
