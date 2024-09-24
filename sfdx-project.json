@@ -5,6 +5,10 @@
       "default": false
     },
     {
+      "path": "force-clientforce",
+      "default": false
+    },
+    {
       "path": "force-icon",
       "default": false
     },
