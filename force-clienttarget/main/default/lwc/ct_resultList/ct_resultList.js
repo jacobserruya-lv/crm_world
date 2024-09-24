@@ -8,6 +8,7 @@ import getClientList from "@salesforce/apex/CL_controller.getClientList";
 import CURRENT_USER_ID from "@salesforce/user/Id";
 import CURRENT_USER_CURRENCY from "@salesforce/schema/User.Currency__c";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import { regularColumns, campaignColumns, reattachColumns } from "./tableColumns";
 
 const turnoverByCurrency = {
   'USD': 'Turnover12mrTaxInclUSD__pc',
@@ -99,41 +100,9 @@ export default class Ct_resultList extends LightningElement {
   dataForResultTable;
   page = 0;
   activeSections = ["RESULTS"];
-  columns = [
-    {
-      label: "Name",
-      fieldName: "linkToClientAccount",
-      type: "url",
-      typeAttributes: {
-        label: { fieldName: "name" },
-        tooltip: "Name",
-        target: "_blank"
-      }
-    },
-    { label: "12MR", fieldName: "purchasePeriod" },
-    { label: "Last Transaction", fieldName: "lastTransaction", type: "date" },
-    {
-      label: "DreamID",
-      fieldName: "dreamId",
-      cellAttributes: { alignment: "left" }
-    },
-    {
-      label: "Preferred CA",
-      fieldName: "linkToCaAccount",
-      type: "url",
-      typeAttributes: {
-        label: { fieldName: "preferredCa" },
-        tooltip: "Preferred CA",
-        target: "_blank"
-      }
-    },
-    { label: "Attached Store", fieldName: "attachedStore" },
-    { label: "Country/Region", fieldName: "country" },
-    {
-      type: 'action',
-      typeAttributes: { rowActions: [{ label: 'Delete', name: 'delete' }] },
-    },
-  ];
+
+  columns = regularColumns;
+  selectionTableColumns = [];
 
   get pageSize() {
     return Number(this.customPageSize) || 20;
@@ -254,6 +223,7 @@ export default class Ct_resultList extends LightningElement {
 
   connectedCallback() {
     this.listData = this.clientList ? [...this.clientList] : [];
+    this.selectionTableColumns = this.campaignId ? campaignColumns : reattachColumns;
   }
 
   renderedCallback() {

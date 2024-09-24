@@ -8,7 +8,9 @@ public class BL_IWA_WS_RouterMapping extends BL_WS_RouteMapping {
             '/clients/{clientId}' => 'BL_IWA_Client',
             '/clients' => 'BL_IWA_SearchClient',
             '/activities/tasks' => 'BL_IWA_Task',
-            '/sharing' => 'SharingClass'
+            '/products' =>'BL_IWA_Products', 
+            '/users' =>'BL_IWA_Users', 
+            '/ns-files-info' =>'BL_IWA_files'
         };
     }
 }

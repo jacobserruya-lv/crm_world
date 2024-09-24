@@ -1,0 +1,28 @@
+<apex:page 
+  showHeader="false" 
+  cache="false" 
+  sidebar="false" 
+  standardStyleSheets="false" 
+  applyBodyTag="false"
+  applyHtmlTag="false" 
+  docType="html-5.0" 
+  readOnly="true"
+  controller="Asset_Management_CRTL"
+  >
+  <head>
+    <base href="{!URLFOR($Resource.AssetManagement,'/')}" />
+    <title>Asset Management</title>
+    <script type="text/javascript">
+      const sessionId = '{!$Api.Session_ID}';
+      const domain = window.location.origin;
+      const envVariables = {!appSettings};
+    </script>
+    <script type="module" contentType="text/html;charset=UTF-8"  src="./assets/index-1028c032.js"></script>
+    <link rel="stylesheet" href="./assets/index-eba92340.css"/>
+  </head>
+
+  <body>
+    <div id="root"></div>
+      
+  </body>
+</apex:page>

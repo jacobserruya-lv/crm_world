@@ -1,0 +1,17 @@
+<template>
+    <div class="slds-grid">
+        <div>
+            <h1 style="font-size:28px; font-weight: 500px;">{campaignName}</h1>
+        </div>
+        <div class="slds-col_bump-left">
+            <lightning-button label="Add clients" class="slds-m-left_x-small"
+                onclick={handleAddClient}></lightning-button>
+        </div>
+        <template lwc:if={isShowCancelButton}>
+            <div>
+                <lightning-button label="Cancel Campaign" class="slds-m-left_x-small"
+                    onclick={handleCancel}></lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

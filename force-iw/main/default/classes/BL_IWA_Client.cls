@@ -10,7 +10,7 @@ global with sharing class BL_IWA_Client extends BL_WS_Request implements BL_WS_I
 
     public static Object getClient(String clientId) {
         List<Map<String, Object>> clientData = (List<Map<String, Object>>) new BL_EasyQuery()
-        .useCase(BL_ICON_Constants.USE_CASE_IW_CLIENT)
+        .useCase(BL_IWA_Constants.USE_CASE_IW_CLIENT)
         .condition('Id = \'' + clientId + '\'')
         .usage(BL_EasyQuery.Usage.FOR_REFERENCE)
         .limitCount(1)
