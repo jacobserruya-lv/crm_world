@@ -29,7 +29,8 @@ March 19 /JM/ send push when reassigned manually
 Feb-March 2020 / BW / Denodo - CLient anonymization
 Nov 20 / DD / Add validity check to prevent Store__pc override
 May 2021 / IASC / Add a control and delete transactions in some conditions For DataChinaIsolation
-Feb 2024 / Modified By ouramdane.a : Catch Anonymization Errors (CF-86) & Anonymize Birthdate CF-18)
+Feb 2024 / Modified By ouramdane.aouci : Catch Anonymization Errors (CF-86) & Anonymize Birthdate CF-18)
+Sept 2024 / OA / Handle the Exclude_SFMC__c value (Exclude or not the account for SFMC) - CF-1570
 */
 // "with sharing" problem: Identity users can't do a SOQL in the User object => checkManuallyChange: line 123 (System.QueryException: List has no rows for assignment to SObject)
 public without sharing class IC_PersonAccount_TRG {
@@ -65,6 +66,7 @@ public without sharing class IC_PersonAccount_TRG {
         TR_Constants.startTime = System.now();
         switch on triggerEvent {
             when BEFORE_INSERT {
+               
                 handleBeforeInsert(newList);
             }
             when BEFORE_UPDATE {
@@ -76,14 +78,22 @@ public without sharing class IC_PersonAccount_TRG {
             when AFTER_INSERT{
                 handleAfterInsert(newList);
             }
-            when else {
+            when BEFORE_DELETE {
                 checkIsGoldenClient(oldMap);
-                //do nothing for AFTER_UNDELETE, BEFORE_DELETE, or BEFORE_UPDATE
+            }when else{
+                //do nothing for AFTER_UNDELETE, or BEFORE_UPDATE
             }
         }
     }
     
     public static void handleBeforeInsert(List<Account> newList) {
+        
+        
+       //Migration WF -> APEX Code CLI_WF03_BirthdayCalculation 
+      
+            
+            
+        
         If (IC_Utils.canTrigger('ACCOUNT')) {
             /* Deactivated by MTOU - ICON Owner
 IC_PersonAccount_TRG.checkIfActifSA(Trigger.new);
@@ -110,8 +120,16 @@ IC_PersonAccount_TRG.checkIfActifSA(Trigger.new);
                 }
             }
         }
+        if (IC_Utils.canTrigger('ACCOUNT_CHECK')){
+            accountCheck(newList, new Map<Id,Account>());        
+        }
         
         updateCountry(newList, null);
+        
+        //Handle the Exclude_SFMC__c value (Exclude or not the account for SFMC) - CF-1570
+        If(IC_Utils.canTrigger('ACCOUNT_FLAG_FOR_SFMC')){
+			IC_PersonAccount_TRG.updateSFMCFlag(newList, null);
+		}
     }
     
     // code from Account_BeforeUpdate trigger desactivated
@@ -136,16 +154,23 @@ IC_PersonAccount_TRG.checkIfActifSA(Trigger.new);
             if(!bannedWords.isEmpty())
                 Trigger.new[0].addError(String.format(Label.IC_Banned_Words_Message, new String[] {String.join(bannedWords,',')}));
         }
+        if (IC_Utils.canTrigger('ACCOUNT_CHECK')){
+            accountCheck(newList, oldMap);
+        }
         
         anonymizeUser(newList);
         greyMarket(newList, oldMap);
         updateCountry(newList, oldMap);
+        
+        //Handle the Exclude_SFMC__c value (Exclude or not the account for SFMC) - CF-1570
+		If(IC_Utils.canTrigger('ACCOUNT_FLAG_FOR_SFMC')){
+			IC_PersonAccount_TRG.updateSFMCFlag(newList, oldMap);
+		}
     }
     //Method for trigger Account_BeforeUpdate 
     public static void handleAfterUpdate(Map<Id, Account> oldMap ,Map<Id, Account> newMap ,List<Account> newList) {
         If (IC_Utils.canTrigger('ACCOUNT')) {
             IC_PersonAccount_TRG.cleanAccount(oldMap ,newList);
-
             TR_IntegrationManagerHandler.afterUpdate(oldMap ,newMap,newList,TR_Constants.UPDATE_CL360);
         }   
     }
@@ -156,15 +181,80 @@ IC_PersonAccount_TRG.checkIfActifSA(Trigger.new);
         }  
     }
     public static void checkIsGoldenClient( Map<Id, Account>  oldMap){
-     
-            for (id accid: oldMap.keySet()){
-                if (Trigger.isDelete && oldMap.get(accid).Tech_ClientField__c == 'GoldenClient'){
-                    throw new AccountException('You can not delete this client');
-                }
+        
+        for (id accid: oldMap.keySet()){
+            if (Trigger.isDelete && oldMap.get(accid).Tech_ClientField__c == 'GoldenClient'){
+                throw new AccountException('You can not delete this client');
             }
-    
-
+        }
     }
+
+    public static void accountCheck(List<Account> newList, Map<ID,Account> oldmap){
+        // User UserDetails  = [SELECT id, BypassWF__c from user where id =: UserInfo.getUserId() limit 1];
+         
+     
+         Boolean runCheckAnniversary = false;
+         Boolean runCheckBirthdate = false;
+         for (Account acc: newList){
+             if( acc.Unsubscribe__pc  && !acc.PersonHasOptedOutOfEmail){
+                 acc.PersonHasOptedOutOfEmail = true; 
+             }
+             if (oldmap.size()>0){
+                 if (oldmap.get(acc.id).AttachedStoreCountry__pc != acc.AttachedStoreCountry__pc) {
+                    acc.TECH_AttachedStoreCountry__c = acc.AttachedStoreCountry__pc; System.debug('YAAA OKKKK  ' );}
+                 if(oldmap.get(acc.id).Can_Be_Contacted_By_Email__pc != acc.Can_Be_Contacted_By_Email__pc){
+ 
+                     acc.PersonHasOptedOutOfEmail = !acc.Can_Be_Contacted_By_Email__pc;
+                 }else if (oldmap.get(acc.id).PersonHasOptedOutOfEmail != acc.PersonHasOptedOutOfEmail ){
+                     acc.Can_Be_Contacted_By_Email__pc = !acc.PersonHasOptedOutOfEmail;
+ 
+                 }
+              if (oldmap.get(acc.id).AnniversaryDay__pc != acc.AnniversaryDay__pc 
+                  || oldmap.get(acc.id).AnniversaryMonth__pc != acc.AnniversaryMonth__pc 
+                  || oldmap.get(acc.id).AnniversaryYear__pc != acc.AnniversaryYear__pc ) runCheckAnniversary = true;
+             if (oldmap.get(acc.id).BirthdateDay__pc != acc.BirthdateDay__pc 
+                  || oldmap.get(acc.id).BirthdateMonth__pc != acc.BirthdateMonth__pc 
+                  || oldmap.get(acc.id).BirthdateYear__pc != acc.BirthdateYear__pc) runCheckBirthdate = true;
+             }else { 
+                 if (acc.PersonBirthdate == null) runCheckBirthdate = true;
+                 if (acc.Anniversary__pc == null ) runCheckAnniversary = true;
+                 
+                 acc.TECH_AttachedStoreCountry__c = acc.AttachedStoreCountry__pc;
+             }
+             //Aniversary calculate
+             if(runCheckAnniversary){
+                 if (acc.AnniversaryDay__pc == null || acc.AnniversaryMonth__pc ==null){
+                     acc.Anniversary__pc = null;
+                 }else if(acc.AnniversaryYear__pc == null){
+                     acc.AnniversaryYear__pc = '1904';
+                     acc.Anniversary__pc = date.newInstance(Integer.valueOF(acc.AnniversaryYear__pc), 
+                                                         Integer.Valueof(acc.AnniversaryMonth__pc), 
+                                                         Integer.ValueOF(acc.AnniversaryDay__pc));
+                 }else {
+                     acc.Anniversary__pc = date.newInstance(Integer.valueOF(acc.AnniversaryYear__pc), 
+                                                         Integer.Valueof(acc.AnniversaryMonth__pc), 
+                                                         Integer.ValueOF(acc.AnniversaryDay__pc));
+ 
+                 }
+             }
+             if(runCheckBirthdate){
+                 //Birthdate
+                 if ( acc.BirthdateDay__pc	== null || acc.BirthdateMonth__pc ==null){
+                     acc.PersonBirthdate = null ;
+                 }else if (acc.BirthdateYear__pc == null){
+                     acc.BirthdateYear__pc = '1904';
+                     acc.PersonBirthdate = date.newInstance(Integer.valueOF(acc.BirthdateYear__pc), 
+                                                         Integer.Valueof(acc.BirthdateMonth__pc), 
+                                                         Integer.ValueOF(acc.BirthdateDay__pc));
+                 }
+                 else{
+                     acc.PersonBirthdate = date.newInstance(Integer.valueOF(acc.BirthdateYear__pc), 
+                                                         Integer.Valueof(acc.BirthdateMonth__pc), 
+                                                         Integer.ValueOF(acc.BirthdateDay__pc));
+                 }
+             }
+         }
+     }
     
 
     /**
@@ -462,7 +552,7 @@ IC_PersonAccount_TRG.checkIfActifSA(Trigger.new);
                     
                 } else {
                     //No errors reported, so anonymize the Accounts
-                    System.debug('No errors, so anonymize the Accounts' + mapAcc.values() );
+                    System.debug('No errors, so anonymize the Accounts');
                     System.debug('mapAcc Size: ' + mapAcc.size());
                     for (Account acc : mapAcc.values()) {
                         if (!acc.LastName.startsWithIgnoreCase('anonymize_') && !acc.LastName.startsWithIgnoreCase('anonymizeG_')) acc.LastName = 'ANONYMIZE_' + acc.Anonymization_key__c;
@@ -573,6 +663,76 @@ IC_PersonAccount_TRG.checkIfActifSA(Trigger.new);
             }
         }
     }
+    
+    //Handle the Exclude_SFMC__c value (Exclude or not the account for SFMC) - CF-1570
+    private static void updateSFMCFlag(List<Account> newList, Map<Id, Account> oldMap){
+        if (oldMap == null) {
+            //On CREATION
+            System.debug('Acct - On CREATION ..');
+            for(Account acc : newList){
+                if(acc.ParallelMarket_Status__pc == 'Blue' || acc.ParallelMarket_Status__pc == 'Red' || acc.Anonymization_date__c != null 
+                   || (acc.Can_Be_Contacted_By_Email__pc == false && acc.Can_Be_Contacted_By_SMS__pc == false 
+                       && acc.Can_Be_Contacted_By_Phone__pc == false && acc.Can_Be_Contacted_By_Mail__pc == false 
+                       && acc.Can_Be_Contacted_By_LVApp__c == false)){
+                           //Account will be excluded
+                           acc.Exclude_SFMC__c = true;
+                       } 
+            }
+            
+        } else {
+            //On UPDATE
+            System.debug('Acct - On UPDATE ..');
+            Map<Id, Account> accMap = new Map<Id, Account>(newList);
+            Set<Id> setAccountIds = new Set<Id>();
+            
+            for(Account acc : newList){
+                //The condition values have changed ?
+                if(acc.ParallelMarket_Status__pc != oldMap.get(acc.Id).ParallelMarket_Status__pc || acc.Anonymization_date__c != oldMap.get(acc.Id).Anonymization_date__c 
+                   || acc.Can_Be_Contacted_By_Email__pc != oldMap.get(acc.Id).Can_Be_Contacted_By_Email__pc || acc.Can_Be_Contacted_By_SMS__pc != oldMap.get(acc.Id).Can_Be_Contacted_By_SMS__pc
+                   || acc.Can_Be_Contacted_By_Phone__pc != oldMap.get(acc.Id).Can_Be_Contacted_By_Phone__pc || acc.Can_Be_Contacted_By_Mail__pc != oldMap.get(acc.Id).Can_Be_Contacted_By_Mail__pc
+                   || acc.Can_Be_Contacted_By_LVApp__c != oldMap.get(acc.Id).Can_Be_Contacted_By_LVApp__c){
+                       
+                       if(acc.ParallelMarket_Status__pc == 'Blue' || acc.ParallelMarket_Status__pc == 'Red' || acc.Anonymization_date__c != null){
+                           //Account will be excluded
+                           System.debug('Case-A. Acc will be excluded: ' + acc.Id);
+                           acc.Exclude_SFMC__c = true;
+                           
+                       } else if(acc.Can_Be_Contacted_By_Email__pc == false && acc.Can_Be_Contacted_By_SMS__pc == false 
+                                 && acc.Can_Be_Contacted_By_Phone__pc == false && acc.Can_Be_Contacted_By_Mail__pc == false 
+                                 && acc.Can_Be_Contacted_By_LVApp__c == false) {
+                                     System.debug('Case-B. Check his contactability via smi. Acc: ' + acc.Id);
+                                     setAccountIds.add(acc.Id); //Check his contactability via smi
+                                     
+                                 } else {
+                                     //Client can be contacted
+                                     System.debug('Case-C. Client can be contacted, will not be excluded: ' + acc.Id);
+                                     acc.Exclude_SFMC__c = false;  //will not be excluded
+                                 }
+                   }
+            }
+            
+            //Check the client contactability through SMI
+            if(setAccountIds.size() > 0 ) {
+                List<Social_Media_Identifier__c> smiList = [SELECT Id, Client__c, Client__r.Exclude_SFMC__c FROM Social_Media_Identifier__c WHERE Client__c IN :setAccountIds AND Opt_In__c = true];
+                if(smiList.size() > 0 ) {
+                    //Accounts contactable by at least one SMI, therefore, they will not be excluded
+                    for(Social_Media_Identifier__c smi : smiList){
+                        //Client can be contacted
+                        System.debug('Case-D. Opt_In=true. Acc will not be excluded: ' + smi.Client__c);
+                        accMap.get(smi.Client__c).Exclude_SFMC__c = false; //will not be excluded
+                        setAccountIds.remove(smi.Client__c);
+                    } 
+                }
+                
+                //Other clients are not contactable via smi, so to be excluded
+                for(Id i : setAccountIds){
+                    System.debug('Case-E. Acc will be excluded: ' + accMap.get(i).Id);
+                    accMap.get(i).Exclude_SFMC__c = true;  //Account will be excluded
+                }
+            }
+        } 
+    }
+		
     //TECH_ChinaVisibility__c For ChinaDataIsolation if Value of flag equal to INT_CN_ATT Delete All  PPR_PurchProduct__c 
     public static void cleanAccount(Map<Id, Account> oldMap, List<Account> newList) {
         List<Account> acct = new List<Account>();
