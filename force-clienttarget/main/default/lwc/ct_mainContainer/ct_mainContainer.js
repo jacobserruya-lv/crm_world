@@ -800,6 +800,10 @@ export default class Ct_mainContainer extends LightningElement {
     this.isExclusiveAccessStep = false;
     this.isEmptyClientList = false;
     this.isAllClientsInMyPerimeter = false;
+    this.isAddingClientsToEventFinished = false;
+    this.isAddingClientsToEventFinishedWithTotalError = false;
+    this.isPushingClientsToCampaignFinished = false;
+    this.isPushingClientsToCampaignFinishedWithTotalError = false;
 
     if (event?.detail?.reset) {
       setTimeout(() => this.handleAllFiltersReset(), 200);

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductGifting</fullName>
+    <active>true</active>
+    <description>Gift with SKU</description>
+    <label>Product Gifting</label>
+    <picklistValues>
+        <picklist>GiftCategory__c</picklist>
+        <values>
+            <fullName>Capucines</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exotics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High W%26J</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jewelry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leather Bags</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Men Bags</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Men RTW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Men Shoes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nomades%2FHardsided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perfume</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Watches</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Women RTW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Women Shoes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

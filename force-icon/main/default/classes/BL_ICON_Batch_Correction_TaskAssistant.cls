@@ -1,4 +1,4 @@
-global without sharing class BL_ICON_Batch_Correction_TaskAssistant implements Database.Batchable<sObject>{
+global without sharing class BL_ICON_Batch_Correction_TaskAssistant implements Database.Batchable<sObject> , Schedulable{
     public String query;
     global BL_ICON_Batch_Correction_TaskAssistant(){	
         query = 'SELECT Id,WWEmployeeNumber__c, StoreCode__c, DreamId__c FROM TaskAssistant__c WHERE Client__c = NULL AND DueDate__c >= TODAY';
@@ -19,4 +19,9 @@ global without sharing class BL_ICON_Batch_Correction_TaskAssistant implements D
     }
 
     global void finish(Database.BatchableContext CD){}
+
+    global void execute(SchedulableContext sc) {
+        BL_ICON_Batch_Correction_TaskAssistant job = new BL_ICON_Batch_Correction_TaskAssistant();
+        ID batchprocessid = Database.executeBatch(job, 200);
+    }
 }

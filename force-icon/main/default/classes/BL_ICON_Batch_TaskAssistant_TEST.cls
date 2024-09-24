@@ -29,7 +29,7 @@ public class BL_ICON_Batch_TaskAssistant_TEST {
         Test.startTest();
         BL_ICON_Scheduler_Batch_Purge_Assistant schd = new BL_ICON_Scheduler_Batch_Purge_Assistant();
         String cron = '0 0 23 * * ?';
-        System.schedule('BL_ICON_Scheduler_Batch_Purge_Assistant', cron, schd);
+        System.schedule('testSechdulerBatchPurgeTaskAssistant', cron, schd);
         Test.stopTest();
     }
     @isTest
@@ -37,7 +37,7 @@ public class BL_ICON_Batch_TaskAssistant_TEST {
         Test.startTest();
         BL_ICON_Scheduler_Batch_ArchiveAssistant schd = new BL_ICON_Scheduler_Batch_ArchiveAssistant();
         String cron = '0 0 23 * * ?';
-        System.schedule('BL_ICON_Scheduler_Batch_ArchiveAssistant', cron, schd);
+        System.schedule('testSechdulerBatchArchivedTaskAssistant', cron, schd);
         Test.stopTest();
     }
 
@@ -61,4 +61,13 @@ public class BL_ICON_Batch_TaskAssistant_TEST {
         Database.executeBatch(batch);
         Test.stopTest();
     }
+    @isTest
+    public static void testSechdulerBatchCorrecttionTaskAssistant() {
+        Test.startTest();
+        BL_ICON_Batch_Correction_TaskAssistant schd = new BL_ICON_Batch_Correction_TaskAssistant();
+        String cron = '0 0 23 * * ?';
+        System.schedule('testSechdulerBatchCorrecttionTaskAssistant', cron, schd);
+        Test.stopTest();
+    }
+
 }

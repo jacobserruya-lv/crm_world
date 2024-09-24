@@ -559,7 +559,8 @@ public class ICX_TestFactory {
             Country__c = countryId,
             Language__c = languageId,
             Salesforce_Language__c = 'en_us',
-            VoiceAPILanguages__c = 'it'
+            VoiceAPILanguages__c = 'it',
+            Default__c = true
         );
         return countryLanguageRecord;
     }
@@ -573,5 +574,41 @@ public class ICX_TestFactory {
         return languageRecord;
     }
 
+    public static Campaign__c createCampaign(){
+        Campaign__c camRecord = new Campaign__c(
+            Name = 'Test Campaign',
+            Country__c = 'FRA',
+            Description__c = 'test test',
+            StartDate__c = 	Date.today(),
+            EndDate__c = Date.today().addDays(30),
+            Priority__c = '8',
+            Status__c = 'New'
+        );
+        
+        return camRecord;
+    }
+    
+    public static CampaignMember__c createCampaignMember(Id CampaignId, Id CAId, Id ClientId){
+        CampaignMember__c camMember= new CampaignMember__c(
+            Name = 'Test Member',
+            Status__c = 'New',
+            Member__c = ClientId,
+            Interested__c = 'No',
+            Contacted__c = 'No',
+            AssignedCA__c = CAId,
+            Campaign__c = CampaignId); 
+            return camMember;
+        }
+
+    public static ContentVersion createSingleContentVersion(){
+        ContentVersion contentVersion = new ContentVersion(
+            Title = 'Penguins',
+            PathOnClient = 'Penguins.jpg',
+            VersionData = Blob.valueOf('Test Content'),
+            IsMajorVersion = true,
+            origin = 'H'
+        );
+        return contentVersion;
+    }
 
 }
