@@ -1,50 +1,9 @@
 {
   "packageDirectories": [
     {
-      "path": "force-clienttarget",
-      "default": false
-    },
-    {
       "path": "force-clientforce",
       "default": false
-    },
-    {
-      "path": "force-icon",
-      "default": false
-    },
-    {
-      "path": "force-iw",
-      "default": false
-    },
-    {
-      "path": "force-app",
-      "default": true
-    },
-    {
-      "path": "force-iconics",
-      "default": false
-    },
-    {
-      "path": "force-twisticonics",
-      "default": false
-    },
-    {
-      "path": "force-dcs",
-      "default": false
-    },
-    {
-      "path": "force-knowledge",
-      "default": false
-    },
-    {
-      "path": "force-catalogs",
-      "default": false
-    },
-    {
-      "path": "force-emailcomposer",
-      "default": false
     }
-    
   ],
   "name": "lv",
   "namespace": "",
