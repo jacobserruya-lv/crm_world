@@ -4,62 +4,66 @@
             <div class="search-bar">
                 <lightning-layout horizontal-align="space">
                     <lightning-layout-item size="11" alignment-bump="top" padding="around-medium">
-                        <div> <lightning-input name="search bar" type="search" onchange={handleNameChange} placeholder={searchholder}></lightning-input> </div>
+                        <div> <lightning-input name="search bar" type="search" onchange={handleNameChange}
+                                placeholder={searchholder}></lightning-input> </div>
                     </lightning-layout-item>
                     <lightning-layout-item size="1" alignment-bump="top" padding="around-medium">
-                        <div><lightning-button label="Filter" title="" icon-name="utility:filterList" class="slds-m-left_x-small" onclick={handleOpenFilter} icon-position="right"></lightning-button></div>
+                        <div><lightning-button label="Filter" title="" icon-name="utility:filterList"
+                                class="slds-m-left_x-small" onclick={handleOpenFilter}
+                                icon-position="right"></lightning-button></div>
                     </lightning-layout-item>
                 </lightning-layout>
                 <template lwc:if={openfilter}>
                     <lightning-card class="filter-card">
                         <div class="slds-grid">
-                             <div class="slds-col  slds-size_1-of-3" style="margin-left: 10px"><lightning-button-icon icon-name="utility:close" alternative-text="closed" variant="bare" onclick={handleClose} ></lightning-button-icon></div>
-                             <div class="slds-col  slds-size_2-of-3 card-title"><h2>Filter</h2></div>
+                            <div class="slds-col  slds-size_1-of-3" style="margin-left: 10px"><lightning-button-icon
+                                    icon-name="utility:close" alternative-text="closed" variant="bare"
+                                    onclick={handleClose}></lightning-button-icon></div>
+                            <div class="slds-col  slds-size_2-of-3 card-title">
+                                <h2>Filter</h2>
+                            </div>
                         </div>
                         <hr>
                         <div class="slds-grid slds-grid_vertical">
                             <template for:each={formatFilterDefiniations} for:item="filter">
                                 <template lwc:if={filter.isPicklist}>
                                     <div key={filter.field} class="slds-col filter-menu">
-                                    <lightning-combobox 
-                                    name={filter.field} 
-                                    label={filter.label} 
-                                    placeholder="Select"
-                                    options={filter.newoptions}
-                                    onchange={handlePicklistFilterChange}
-                                    value={filter.history}
-                                    ></lightning-combobox>
+                                        <lightning-combobox name={filter.field} label={filter.label}
+                                            placeholder="Select" options={filter.newoptions}
+                                            onchange={handlePicklistFilterChange}
+                                            value={filter.history}></lightning-combobox>
                                     </div>
                                 </template>
                                 <template lwc:elseif={filter.isInput}>
                                     <div key={filter.field} class="slds-col filter-menu">
-                                        <lightning-input name={filter.field} label={filter.label} placeholder="Search for a Campaign" onchange={handleInputFilterChange}></lightning-input>
+                                        <lightning-input name={filter.field} label={filter.label}
+                                            placeholder="Search for a Campaign"
+                                            onchange={handleInputFilterChange}></lightning-input>
                                     </div>
                                 </template>
                             </template>
                             <div class="slds-col">
                                 <div class="slds-grid slds-grid_align-center" style="margin:10px 0 20px 0">
                                     <div class="slds-col">
-                                        <lightning-button variant="brand" label="Apply" title=""  class="slds-m-left_x-small" onclick={handleApplyFilters}></lightning-button>
+                                        <lightning-button variant="brand" label="Apply" title=""
+                                            class="slds-m-left_x-small" onclick={handleApplyFilters}></lightning-button>
                                     </div>
                                     <div class="slds-col">
-                                        <lightning-button variant="brand" label="Clear Filter" title="" class="slds-m-left_x-small" onclick={handleCleanFilters}></lightning-button>
+                                        <lightning-button variant="brand" label="Clear Filter" title=""
+                                            class="slds-m-left_x-small" onclick={handleCleanFilters}></lightning-button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </lightning-card> 
+                    </lightning-card>
                 </template>
             </div>
         </template>
     </div>
     <div class="campaign-data-container">
         <div data-id="campaignTable" onscroll={checkScroll} style="height:600px;overflow:auto;">
-            <c-icx_dynamic-table is-with-subtitles 
-            my-row-class='row-whith-border row-colors'  
-            table-data={tableData}
-            onrecorddetails={handleNavigateToRecordPage}
-            onlinkdetails={handleNavigation}>
+            <c-icx_dynamic-table is-with-subtitles my-row-class='row-whith-border row-colors' table-data={tableData}
+                onrecorddetails={handleNavigateToRecordPage} onlinkdetails={handleNavigation}>
             </c-icx_dynamic-table>
             <template lwc:if={isLoading}>
                 <div class=" slds-p-around_small slds-is-relative">

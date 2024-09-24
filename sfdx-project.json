@@ -6,7 +6,7 @@
     },
     {
       "path": "force-icon",
-      "default": true
+      "default": false
     },
     {
       "path": "force-iw",
@@ -14,6 +14,30 @@
     },
     {
       "path": "force-app",
+      "default": true
+    },
+    {
+      "path": "force-iconics",
+      "default": false
+    },
+    {
+      "path": "force-twisticonics",
+      "default": false
+    },
+    {
+      "path": "force-dcs",
+      "default": false
+    },
+    {
+      "path": "force-knowledge",
+      "default": false
+    },
+    {
+      "path": "force-catalogs",
+      "default": false
+    },
+    {
+      "path": "force-emailcomposer",
       "default": false
     }
     
