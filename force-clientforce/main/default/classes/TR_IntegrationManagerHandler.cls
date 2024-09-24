@@ -39,7 +39,7 @@ public without sharing class TR_IntegrationManagerHandler {
                            vInManag.StartTime__c = TR_Constants.startTime;
                            //TODO : CF-489 check if client CHINA
                            //System.debug('Client: '+acc);
-                            if (exSetupSync!=null && exSetupSync.Is_Active_C360_Integration__c && exSetupSync.Included_Countries__c.containsIgnoreCase(acc.PrimaryCountry__pc) &&
+                            if (exSetupSync!=null && exSetupSync.Is_Active_C360_Integration__c && acc?.PrimaryCountry__pc!=null && exSetupSync.Included_Countries__c.containsIgnoreCase(acc?.PrimaryCountry__pc) &&
                             (
                                 (String.isNotBlank(exSetupSync.Included_UserName__c) && exSetupSync.Included_UserName__c.containsIgnoreCase(UserInfo.getUserName())) ||
                                 (String.isNotBlank(exSetupSync.Included_Profile__c) && exSetupSync.Included_Profile__c.containsIgnoreCase(TR_Constants.getProfile()))
@@ -73,6 +73,8 @@ public without sharing class TR_IntegrationManagerHandler {
         System.debug('fonction AfterUpdate START');
         //Get C360 custom setting
         TR_Integration_Manager_Setting__c exSetup =  TR_Constants.getClientSetup;
+        //CF-489 check if client CHINA TO SEND UPDATE THROUGH SYNCHRONOUS API 
+        //TR_Integration_Manager_Setting__c exSetupSync =  TR_Constants.getClientSyncSetup;
         Set<Id> acctToMergeIds = new Set<Id>();
         //Get Current User Profile Name
         try{
@@ -110,6 +112,17 @@ public without sharing class TR_IntegrationManagerHandler {
                                        vUpManager.AccountId__c = acct.Id;
                                        vUpManager.Error__c =true;
                                        vUpManager.StartTime__c = TR_Constants.startTime;
+                                       //TODO : CF-489 check if client CHINA TO SEND UPDATE THROUGH SYNCHRONOUS API 
+                                       /*
+                                       if (exSetupSync!= null && exSetupSync.Is_Active_C360_Integration__c && (acct.PrimaryCountry__pc == 'CHINA' || acct.PrimaryCountry__pc == 'CN')  &&
+                                       (
+                                           (String.isNotBlank(exSetupSync.Included_UserName__c) && exSetupSync.Included_UserName__c.containsIgnoreCase(UserInfo.getUserName())) ||
+                                           (String.isNotBlank(exSetupSync.Included_Profile__c) && exSetupSync.Included_Profile__c.containsIgnoreCase(TR_Constants.getProfile()))
+                                       )
+                                       ){
+                                        vUpManager.is_C360_Synchronous__c=true;
+                                       }*/
+                                        
                                        vUpManagers.Add(vUpManager); 
                                    }
                                    
