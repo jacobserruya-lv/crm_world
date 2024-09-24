@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Country</label>
+    <protected>false</protected>
+    <values>
+        <field>FieldsMappingJson__c</field>
+        <value xsi:type="xsd:string">[
+  {
+    &quot;SFFieldPath&quot;: &quot;Iso3Code__c&quot;,
+    &quot;SFLabel&quot;: &quot;Iso3Code&quot;,
+    &quot;FieldType&quot;: &quot;String&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;iso3Code&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Name&quot;,
+    &quot;SFLabel&quot;: &quot;Country&quot;,
+    &quot;FieldType&quot;: &quot;String&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;name&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Wechat__c&quot;,
+    &quot;SFLabel&quot;: &quot;Wechat&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;wechat&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Wechat_CSC__c&quot;,
+    &quot;SFLabel&quot;: &quot;Wechat CSC&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;wechat_CSC&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;WhatsApp__c&quot;,
+    &quot;SFLabel&quot;: &quot;WhatsApp&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;whatsApp&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;WhatsApp_CSC__c&quot;,
+    &quot;SFLabel&quot;: &quot;WhatsApp CSC&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;whatsApp_CSC&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Kakao__c&quot;,
+    &quot;SFLabel&quot;: &quot;Kakao&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;kakao&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Kakao_CSC__c&quot;,
+    &quot;SFLabel&quot;: &quot;Kakao CSC&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;kakao_CSC&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Zalo__c&quot;,
+    &quot;SFLabel&quot;: &quot;Zalo&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;zalo&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Zalo_CSC__c&quot;,
+    &quot;SFLabel&quot;: &quot;Zalo CSC&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;zalo_CSC&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Line__c&quot;,
+    &quot;SFLabel&quot;: &quot;Line&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;line&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Line_CSC__c&quot;,
+    &quot;SFLabel&quot;: &quot;Line CSC&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;line_CSC&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Viber__c&quot;,
+    &quot;SFLabel&quot;: &quot;Viber&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;viber&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Viber_CSC__c&quot;,
+    &quot;SFLabel&quot;: &quot;Viber CSC&quot;,
+    &quot;FieldType&quot;: &quot;Boolean&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;viber&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Country_Info&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GpK6YAK&quot;,
+      &quot;Label&quot;: &quot;Country&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Country_Info&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  }
+]</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ObjectName__c</field>
+        <value xsi:type="xsd:string">Country__c</value>
+    </values>
+    <values>
+        <field>QueryConditionJson__c</field>
+        <value xsi:type="xsd:string">[]</value>
+    </values>
+    <values>
+        <field>QueryCondition__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

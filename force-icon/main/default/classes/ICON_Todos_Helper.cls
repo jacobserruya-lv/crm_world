@@ -194,7 +194,7 @@ public with sharing class ICON_Todos_Helper {
 
     public static void afterUpdateVO_Survey(List<VO_Survey__c> newVOSurveyList, Map<id, VO_Survey__c> newVOSurveyMap, List<VO_Survey__c> oldVOSurveyList, Map<id, VO_Survey__c> oldVOSurveyMap) {
         List<String> listUserIds = new List<String>();  
-        List<String> listVoiceType = new List<String>{'VOICE Store Local Sales','VOICE Store After Sales', 'VOICE CSC Click And Collect', 'VOICE CSC Sales'};          
+        List<String> listVoiceType = new List<String>{'Retail Post Purchase','CSC Post Contact', 'Retail Care Service'};          
         
         List<Task> tasks = new List<Task>();
         Map<String,String> TechnicalUsers = getTechnicalUsers();
@@ -203,59 +203,41 @@ public with sharing class ICON_Todos_Helper {
 
             for(VO_Survey__c voRecord : newVOSurveyList){
 
-                if (String.IsNotEmpty(voRecord.CAName__c) && listVoiceType.contains(voRecord.SurveyType__c)){
+                if (String.IsNotEmpty(voRecord.AdvisorWWId__c) && listVoiceType.contains(voRecord.SurveyType__c)){
                     
-                    listUserIds.add(voRecord.CAName__c);
+                    listUserIds.add(voRecord.AdvisorWWId__c);
                 }
             }
 
-            Set<String> WWEmployeeNumbers = getWWemployeeID(listUserIds);
-            for(User usr :[SELECT Id ,Name,RMS_ID__c, WWEmployeeNumber__c  FROM User WHERE  WWEmployeeNumber__c IN:WWEmployeeNumbers]){
+            // Set<String> WWEmployeeNumbers = new Set<String>([select ]);  getWWemployeeID(listUserIds);
+            for(User usr :[SELECT Id ,Name,RMS_ID__c, WWEmployeeNumber__c  FROM User WHERE  WWEmployeeNumber__c IN:listUserIds]){
 
                 userIDS.put(usr.WWEmployeeNumber__c ,usr.Id);
             }
 
-
-            for(VO_Survey__c voRecord : [SELECT Name,id ,StoreID__c ,Store__c ,Store__r.ISO3_Code__c , SurveyType__c ,CAName__c,OwnerId,ClientDreamID__c,ClientDreamID__r.PersonContactId,Type__c,TECH_CAIds__c,Status__c FROM VO_Survey__c WHERE id IN:newVOSurveyList]){ 
-                
-                String userId = '' ; 
-                if( string.isNotBlank(voRecord.Type__c)  && oldVOSurveyMap.get(voRecord.Id).Type__c != voRecord.Type__c && listVoiceType.contains(voRecord.SurveyType__c)){ 
-                    
-                   if (String.IsNotEmpty(voRecord.CAName__c)){
-
-                        Pattern patternInBrackets = Pattern.compile('\\((.*?)\\)');
-                        Matcher summaryQueryMatcher = patternInBrackets.matcher(voRecord.CAName__c);
-                        while(summaryQueryMatcher.find()) { 
-                            if(userIDS.containskey(summaryQueryMatcher.group(1))) {
-                                
-                                userId = userIDS.get(summaryQueryMatcher.group(1));
-                            }
-                        }
-                    }
-                    //List<String> usersIds = String.isnotBlank(voRecord.TECH_CAIds__c) ?  voRecord.TECH_CAIds__c.split(';') : new List<String>();
-                    //userId = !usersIds.isEmpty() && usersIds.size() > 0 ? usersIds.get(0) :  '' ;
+            
+            for(VO_Survey__c voRecord : [SELECT Name,id ,StoreID__c ,Store__c ,Store__r.ISO3_Code__c , SurveyType__c ,CAName__c,OwnerId,ClientDreamID__c,ClientDreamID__r.PersonContactId,Type__c,TECH_CAIds__c,Status__c, GlobalScore__c, AdvisorWWId__c FROM VO_Survey__c WHERE id IN:newVOSurveyList]){ 
+                if(listVoiceType.contains(voRecord.SurveyType__c) && String.IsNotEmpty(voRecord.AdvisorWWId__c)){ 
                     String CountryIsoCode = voRecord.Store__r.ISO3_Code__c ;
-                    String assignment = (voRecord.Type__c == 'Recovery Act' || String.isBlank(userId) )? 'Manager' :  'CA' ;
-
+                    String assignment = (voRecord.GlobalScore__c < 4 || String.isBlank(voRecord.AdvisorWWId__c) )? 'Manager' :  'CA' ;
                     Task tsk = new Task(
                         To_do_type__c = 'Voice',
                         SourceType__c = 'ICON',
                         Status = 'New',
-                        Subject = voRecord.Name + ' ' + voRecord.Type__c,
+                        Subject = voRecord.Name,
                         WhatId = voRecord.Id,
                         WhoId = voRecord.ClientDreamID__r.PersonContactId,
                         Store_Location__c = voRecord.Store__c, 
                         Assignment__c = assignment,                     
-                        OwnerId = (assignment != 'CA'  ? (TechnicalUsers.Containskey(CountryIsoCode) ? TechnicalUsers.get(CountryIsoCode) : TechnicalUsers.get('Other')) : userId),
+                        OwnerId = (assignment != 'CA'  ? (TechnicalUsers.Containskey(CountryIsoCode) ? TechnicalUsers.get(CountryIsoCode) : TechnicalUsers.get('Other')) : userIDS.get(voRecord.AdvisorWWId__c)),
                         RecordTypeId =TaskTypeId,
                         Todo_Code__c = 'TD_VOICE'
                     );
 
                     tasks.add(tsk);
                 }
-           
-                Database.insert(tasks ,false);
             }
+            Database.insert(tasks ,false);
         }
     }
 

@@ -37,10 +37,9 @@ public with sharing class BL_ICON_Todos_Helper extends BL_WS_Request{
         String storeId = [SELECT Id FROM Store__c WHERE RetailStoreId__c = :me.basicInfos.DefaultStore__c].Id;
 
         if((filters.contains('unassign') || filters.isEmpty())  && me.basicInfos.TECH_IsManager__c  ){
-            
             String managerCondition = me.basicInfos.TECH_IsManager__c ?  ' Assignment__c = \'Reassigned\'  AND Store_Location__c= \'' +  storeId + '\'': ''  ;
             condition =  '('+ managerCondition + ' AND  Status = \'New\') AND  recordTypeId = \''+ TaskTypeId + '\' AND ClosedByIS__c = False AND CreatedDate = LAST_N_DAYS:365' ;
-            mappedTask.put('unassign', getListTask( condition));     
+            mappedTask.put('unassign', getListTask( condition));  
         }  
 
         if(filters.contains('ongoing') || filters.isEmpty()){
@@ -49,15 +48,17 @@ public with sharing class BL_ICON_Todos_Helper extends BL_WS_Request{
             String ownerCondition = me.basicInfos.TECH_IsManager__c && userId.left(15) == ownerId.left(15) ?  managerCondition : ' OwnerId = \'' + ownerId + '\'' ;
             
             //condition =  ownerCondition + 'AND ((To_do_type__c IN (\'Care Service\', \'Request\', \'Voice\', \'NY Order\', \'Xstore Order\') AND CreatedDate = LAST_N_DAYS:365) OR (To_do_type__c IN (\'Client\', \'Engaged\') AND ActivityDate >= TODAY)) AND  Status =  \'New\' AND IsBadged__c = false  AND  recordTypeId = \''+ TaskTypeId + '\' AND ClosedByIS__c = False' ;
-            condition =  ownerCondition + 'AND ((To_do_type__c IN (\'Care Service\', \'Request\', \'NY Order\', \'Xstore Order\') AND CreatedDate = LAST_N_DAYS:365) OR (To_do_type__c IN (\'Client\', \'Engaged\') AND ActivityDate >= TODAY)) AND  Status =  \'New\' AND IsBadged__c = false  AND  recordTypeId = \''+ TaskTypeId + '\' AND ClosedByIS__c = False' ;
+            condition =  ownerCondition + 'AND ((To_do_type__c IN (\'Care Service\', \'Request\', \'NY Order\', \'Xstore Order\', \'Voice\') AND CreatedDate = LAST_N_DAYS:365) OR (To_do_type__c IN (\'Client\', \'Engaged\') AND ActivityDate >= TODAY)) AND  Status =  \'New\' AND IsBadged__c = false  AND  recordTypeId = \''+ TaskTypeId + '\' AND ClosedByIS__c = False' ;
 
-            mappedTask.put('ongoing', getListTask(condition));        
+            mappedTask.put('ongoing', getListTask(condition)); 
+            mappedTask.put('per', getPercent(ownerId, TaskTypeId, storeId));   
+            mappedTask.put('unassignedTaskCount', getUnassignedTasksCount(TaskTypeId, storeId));       
         }
 
         if(filters.contains('completed') || filters.isEmpty()){
 
            // condition = ' (Status =  \'Completed\'  AND ( OwnerId = \'' + ownerId + '\' OR LastModifiedById = \'' + ownerId + '\' ))  AND  recordTypeId = \''+ TaskTypeId + '\' AND lastModifiedDate = LAST_N_DAYS:7 and To_do_type__c IN (\'Care Service\', \'Request\', \'Voice\', \'NY Order\', \'Xstore Order\', \'Client\') AND ClosedByIS__c = False' ;
-              condition = ' (Status =  \'Completed\'  AND ( OwnerId = \'' + ownerId + '\' OR LastModifiedById = \'' + ownerId + '\' ))  AND  recordTypeId = \''+ TaskTypeId + '\' AND lastModifiedDate = LAST_N_DAYS:7 and To_do_type__c IN (\'Care Service\', \'Request\', \'NY Order\', \'Xstore Order\', \'Client\', \'Engaged\') AND ClosedByIS__c = False' ;
+              condition = ' (Status =  \'Completed\'  AND ( OwnerId = \'' + ownerId + '\' OR LastModifiedById = \'' + ownerId + '\' ))  AND  recordTypeId = \''+ TaskTypeId + '\' AND lastModifiedDate = LAST_N_DAYS:7 and To_do_type__c IN (\'Care Service\', \'Request\', \'NY Order\', \'Xstore Order\',\'Voice\', \'Client\', \'Engaged\') AND ClosedByIS__c = False' ;
 
             mappedTask.put('completed', getListTask(condition));        
         }
@@ -73,6 +74,23 @@ public with sharing class BL_ICON_Todos_Helper extends BL_WS_Request{
 
     }
 
+    public static Decimal getPercent(String ownerId, String TaskTypeId, String storeId){
+        Decimal per = 0.0;
+
+        Integer com = Database.countQuery('select COUNT() FROM Task WHERE (Status =  \'Completed\'  AND ( OwnerId = \'' + ownerId + '\' OR LastModifiedById = \'' + ownerId + '\' ))  AND  recordTypeId = \''+ TaskTypeId + '\' AND lastModifiedDate = LAST_N_DAYS:7 and To_do_type__c IN (\'Care Service\', \'Request\', \'NY Order\', \'Xstore Order\',\'Voice\', \'Client\', \'Engaged\') AND ClosedByIS__c = False' );
+        Integer ong = Database.countQuery('select COUNT() FROM Task WHERE ((Assignment__c = \'Manager\'  AND Store_Location__c = \'' +  storeId + '\') OR  OwnerId = \'' + ownerId + '\' ) AND ((To_do_type__c IN (\'Care Service\', \'Request\', \'NY Order\', \'Xstore Order\', \'Voice\') AND CreatedDate = LAST_N_DAYS:365) OR (To_do_type__c IN (\'Client\', \'Engaged\') AND ActivityDate >= TODAY)) AND  Status =  \'New\' AND IsBadged__c = false  AND  recordTypeId = \''+ TaskTypeId + '\' AND ClosedByIS__c = False' );
+        if(ong + com == 0){
+            return 0.0;
+        }
+        per = (decimal) com / (ong + com);
+        return per;
+    }
+
+    public static Integer getUnassignedTasksCount(String TaskTypeId, String storeId){
+        Integer count = 0;
+        count = Database.countQuery('select COUNT() FROM Task WHERE (Assignment__c = \'Reassigned\' AND Store_Location__c = \''+ storeId + '\'  AND Status = \'New\') AND recordTypeId = \''+ TaskTypeId + '\' AND ClosedByIS__c = False AND CreatedDate = LAST_N_DAYS:365' );
+        return count;
+    }
 
 
     public static List<Map<String,Object>> getListTask (String condition) {
@@ -114,11 +132,16 @@ public with sharing class BL_ICON_Todos_Helper extends BL_WS_Request{
             if((String) record.get('status') == 'Completed'){
                 closeToDoAssistant(whatId, (String) record.get('to_do_type'));    
             }
-            
+            String storeId = [SELECT Id FROM Store__c WHERE RetailStoreId__c = :me.basicInfos.DefaultStore__c].Id;
+            String ownerId = (String)record.get('caId') != null ? (String)record.get('caId') : me.basicInfos.Id;
+            Decimal p = getPercent(ownerId, TaskTypeId, storeId);
+            Integer unassignedTaskCount = getUnassignedTasksCount(TaskTypeId, storeId);
             return new Map<String, Object>{
                 'status' =>'OK',
                 'badges' =>(Integer) countBadges[0].get('cnt') ,
-                'restOfTask' => restOfTask     
+                'restOfTask' => restOfTask,
+                'per' => p,
+                'unassignedTaskCount' => unassignedTaskCount
             };
 
         } catch(Exception ex){
@@ -143,6 +166,9 @@ public static void closeToDoAssistant(String whatId, String toDoType){
             }
             when 'NY Order'{
                 count = [Select id FROM Opportunity WHERE IsClosedByIcon__c = true and id =: whatId].size();
+            }
+            when 'Voice'{
+                count = [Select id FROM VO_Survey__c WHERE Solved__c = true and id =: whatId].size();
             }
         }
         

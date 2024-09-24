@@ -26,6 +26,10 @@ public class IC_BannedWords{
         List<Banned_Words__c> banned = [select Word__c from Banned_Words__c WHERE Language__c = :language];
         Map<String, Schema.SObjectField> fieldsMap = IC_UTILS.getTextFieldMap(sObj);
         Map<String, IconBannedWordsFieldList__c> bannedWordsFieldList = IconBannedWordsFieldList__c.getall();
+        for (String bnfield : bannedWordsFieldList.keySet()){
+            System.debug(' field to verify ' + bnfield);
+            
+        }
         if (banned.size() > 0){
             String regex = '';
             for (Integer i = 0; i < banned.size() - 1; i++){
@@ -34,14 +38,28 @@ public class IC_BannedWords{
             regex = regex + '\\b' + banned[banned.size() - 1].Word__c.toLowerCase() + '\\b';
             regex = regex.toLowerCase();
             System.debug(regex);
+
             Pattern p = Pattern.compile(regex);
             Matcher pm;
             for(sObject obj : objList){
                 if(!customBypassBannedWord(obj, sObj)){
+                    
+                   
                     for (String field : fieldsMap.keySet()){
                         if (field == 'attendees') continue;
                         String fieldValue = String.valueOf(obj.get(field));
+                        if (field== 'description'){
+                              System.debug('obj = ' + obj);
+                        System.debug('field = ' + field);
+                        System.debug('fieldValue = ' + fieldValue );
+                        System.debug(' getField ' + obj.get(field));
+                        System.debug(' getField Coorected ' + obj.get('Description'));
+                        System.debug(' Test ' + bannedWordsFieldList.get(sObj+'.'+field));
+                            
+                        }
+                      
                         if (String.isNotBlank(fieldValue) && (bannedWordsFieldList.get(sObj+'.'+field)!=null || bannedWordsFieldList.get(sObj+'.*')!=null)){
+                            
                             fieldValue = fieldValue.toLowerCase();
                             System.debug('======> field value : ' +fieldValue);
                             pm = p.matcher(fieldValue);

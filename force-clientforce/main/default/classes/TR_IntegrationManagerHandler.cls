@@ -14,14 +14,20 @@ public without sharing class TR_IntegrationManagerHandler {
    public static Boolean run = true; 
    private static Boolean runMerge = true;
     
-    public static void AfterInsert(List<Account> newList,String FirstOP){ 
+    public static void AfterInsert(List<Account> newList,String FirstOP){
         System.debug('fonction AfterInsert START');
+        //CF-489  Get C360 custom setting
+        TR_Integration_Manager_Setting__c exSetupSync =  TR_Constants.getClientSyncSetup;
         List<TECH_IntegrationManager__c> vInManags = new List<TECH_IntegrationManager__c>();
         //Get a custom Settings 
         try{
             TR_Integration_Manager_Setting__c cSetup =  TR_Constants.getClientSetup;
             String profileName = TR_Constants.getProfile();
+            //System.debug('Clients: '+newList);
+            //System.debug('before if setup: '+cSetup);
             If(newList.size()>0 && cSetup != null && cSetup.Is_Active_C360_Integration__c){
+                //System.debug('into if setup: '+cSetup);
+
                        for(Account acc: newList){
                            TECH_IntegrationManager__c vInManag = new TECH_IntegrationManager__c();
                            vInManag.Object_Name__c = TR_Constants.OBJECT_ACCOUNT;
@@ -31,6 +37,17 @@ public without sharing class TR_IntegrationManagerHandler {
                            vInManag.Error__c =true;
                            vInManag.AccountId__c = acc.Id;
                            vInManag.StartTime__c = TR_Constants.startTime;
+                           //TODO : CF-489 check if client CHINA
+                           //System.debug('Client: '+acc);
+                            if (exSetupSync!=null && exSetupSync.Is_Active_C360_Integration__c && exSetupSync.Included_Countries__c.containsIgnoreCase(acc.PrimaryCountry__pc) &&
+                            (
+                                (String.isNotBlank(exSetupSync.Included_UserName__c) && exSetupSync.Included_UserName__c.containsIgnoreCase(UserInfo.getUserName())) ||
+                                (String.isNotBlank(exSetupSync.Included_Profile__c) && exSetupSync.Included_Profile__c.containsIgnoreCase(TR_Constants.getProfile()))
+                            )
+                            ){
+                                System.debug('China Client: TechINTEG.is_C360_Synchronous__c =TRUE');
+                                vInManag.is_C360_Synchronous__c	 =true;
+                            }
                            vInManags.Add(vInManag);    
                        } 
                        If(vInManags.Size()>0){
@@ -79,6 +96,7 @@ public without sharing class TR_IntegrationManagerHandler {
                                        Object v1 = oAcc.get(mappingRecord.SF_Field__c);
                                        Object v2 = nAcc.get(mappingRecord.SF_Field__c);
                                        if (didFieldChange(v1, v2) && mappingRecord.Is_Active__c) {
+                                        //system.debug('CHANGE DETECTED - '+mappingRecord.SF_Field__c + ' changed from ' + v1 + ' to ' + v2);
                                            run = false;
                                            isAccToSend =true;
                                            Break;
