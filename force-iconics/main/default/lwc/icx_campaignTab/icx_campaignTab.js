@@ -6,7 +6,7 @@ import isManagerUser from '@salesforce/apex/ICX_CampaignListViewController.isMan
 //import getCampaignNameList from '@salesforce/apex/ICX_CampaignListViewController.getCampaignNameList';
 
 export default class Icx_campaignTab extends NavigationMixin(LightningElement) {
-
+    debounceTimeout;
     pageSize = 10;
     @track campaignPageIndex = 0;
     @track campaignMemberPageIndex = 0;
@@ -69,17 +69,6 @@ export default class Icx_campaignTab extends NavigationMixin(LightningElement) {
             { type: "text", label: "Client Interest" },
         ];
 
-        /*getCampaignNameList({})
-        .then(data => {
-            if(data !== null){
-                this.mamberFilterDefinitions.push({field: 'Campaign__r.Name', label: 'Campaign Name', options: data});
-                console.log('mamberFilterDefinitions:' +JSON.stringify(this.mamberFilterDefinitions));
-            }
-        })
-        .catch(e=>{
-            console.log('Error occured in getCampaignNameList: ' + JSON.stringify(e));
-        })*/
-
         this.fetchCampaignList();
         this.fetchMemberList();
     }
@@ -91,7 +80,6 @@ export default class Icx_campaignTab extends NavigationMixin(LightningElement) {
             getCampaignsList({ pageSize: this.pageSize, pageIndex: this.campaignPageIndex, nameSearchekey: this.campaignNameSearch, filters: this.campaignFilters })
                 .then(data => {
                     const tableData = this.handleCampaignData(data);
-                    console.log('TableData: ' + JSON.stringify(tableData));
                     if (!this.campaignDataTable.rows || this.campaignDataTable.rows === null) {
                         this.campaignDataTable.rows = tableData;
                     } else {
@@ -111,7 +99,6 @@ export default class Icx_campaignTab extends NavigationMixin(LightningElement) {
                     this.isLoadingMoreCampaignRecords = false;
                     this.campaignPageIndex = parseInt(this.campaignPageIndex) + parseInt(this.pageSize);
                 })
-
         }
     }
 
@@ -213,13 +200,18 @@ export default class Icx_campaignTab extends NavigationMixin(LightningElement) {
         if (tableType === 'campaignList') {
             this.campaignNameSearch = event.detail.key;
             if (this.campaignNameSearch !== null) {
-                this.initialData('campaignList');
-
+                clearTimeout(this.debounceTimeout);
+                this.debounceTimeout = setTimeout(() => {
+                    this.initialData('campaignList');
+                }, 500);
             }
         } else if (tableType === 'memberList') {
             this.memberNameSearch = event.detail.key;
             if (this.memberNameSearch !== null) {
-                this.initialData('memberList');
+                clearTimeout(this.debounceTimeout);
+                this.debounceTimeout = setTimeout(() => {
+                    this.initialData('memberList');
+                }, 500);
             }
         }
     }
@@ -228,11 +220,11 @@ export default class Icx_campaignTab extends NavigationMixin(LightningElement) {
         const tableType = event.detail.tableType;
         if (tableType === 'campaignList') {
             this.campaignFilters = event.detail.key;
-            this.campaignNameSearch = null;
+            // this.campaignNameSearch = null;
             this.initialData('campaignList');
         } else if (tableType === 'memberList') {
             this.memberFilters = event.detail.key;
-            this.memberNameSearch = null;
+            // this.memberNameSearch = null;
             this.initialData('memberList');
         }
     }
