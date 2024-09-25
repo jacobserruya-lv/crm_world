@@ -664,7 +664,6 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
         PersonMobilePhone,
         PersonHomePhone,
         Phone,
-        PersonContact.Email,
         PrimaryAddressCompacted__pc,
         PersonEmail,
         LocalMobilePhone__pc,
@@ -713,7 +712,6 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
     ];
 
     ICX_Client360_API_Helper.accountWrapper contact = new ICX_Client360_API_Helper.accountWrapper();
-    contact.contactEmail = result.PersonContact.Email;
     contact.salutation = result.Salutation;
     contact.Gender_IMG = result.Gender_IMG__pc;
     contact.firstName = result.FirstName;
@@ -1039,24 +1037,28 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
 
     List<VO_Survey__c> myListSurveys = new List<VO_Survey__c>();
     Set<string> myTeamWWEmployeeNumber = new Set<string>();
-    Set<string> myTeamDigital = new Set<string>();
+    // Set<string> myTeamDigital = new Set<string>();
 
     // Id myUserRoleId = UserInfo.getUserRoleId();
-    List<User> myUserInfos = [SELECT Id, UserRoleId, WWEmployeeNumber__c 
+    List<User> myUserInfos = [SELECT Id, UserRoleId, UserRole.Name, WWEmployeeNumber__c 
                               FROM User 
                               WHERE Id = :userId 
                               LIMIT 1];
 
     Id myUserRoleId = myUserInfos[0]?.UserRoleId;
     String myWWEmployeeNumber = myUserInfos[0]?.WWEmployeeNumber__c;
+    String myUserRoleName = myUserInfos[0]?.UserRole.Name;
 
    
-    List<User> myListUserTeamDigital = [SELECT Id, WWEmployeeNumber__c FROM User WHERE UserRoleId =: myUserRoleId];
-    for(user WWemployeeNumber : myListUserTeamDigital) {
-      if(WWemployeeNumber.WWEmployeeNumber__c != null){
-        myTeamDigital.add(WWemployeeNumber.WWEmployeeNumber__c);
-      }
-    }
+    // List<User> myListUserTeamDigital = [SELECT Id, WWEmployeeNumber__c FROM User WHERE UserRoleId =: myUserRoleId];
+    // for(user WWemployeeNumber : myListUserTeamDigital) {
+    //   if(WWemployeeNumber.WWEmployeeNumber__c != null){
+    //     myTeamDigital.add(WWemployeeNumber.WWEmployeeNumber__c);
+    //   }
+    // }
+
+    // system.debug('myListUserTeamDigital : '+myListUserTeamDigital);
+
 
     
     if(isManager) {
@@ -1069,14 +1071,16 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
         }
     }
 
+
+
     if(isDigital) {
       
       String query = 'SELECT id, CreatedDate,SurveyType__c,ClientDreamID__r.Name,ClientDreamID__r.Segmentation__c,' +
-        'GlobalScore__c,  CAName__c, CAScore__c, Store__c, AdvisorWWId__c, Solved__c FROM VO_Survey__c WHERE ';
+        'GlobalScore__c,  CAName__c, CAScore__c, Store__c, AdvisorWWId__c, AdvisorCSRole__c, Solved__c FROM VO_Survey__c WHERE ';
         
         if(isManager) query += ' AdvisorWWId__c IN :myTeamWWEmployeeNumber ';
   
-        else query+= ' AdvisorWWId__c IN :myTeamDigital ';
+        else query+= ' AdvisorCSRole__c = :myUserRoleName ';
 
         query += 'AND ( SurveyType__c = \'ONLINE POST DELIVERY\'  OR  SurveyType__c = \'ONLINE POST PAYMENT\') ' + 
         ' ORDER BY CreatedDate DESC LIMIT :pageSize OFFSET :pageIndex';
@@ -1100,12 +1104,17 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
 
     }
 
+    system.debug('myListSurveys : '+myListSurveys);
+
+
     Map<String,String> advisorCSRole = new Map<String,String>();
   
     List<string> listAdvisorId = new List<string>();
     for(VO_Survey__c survey : myListSurveys) {
-      listAdvisorId.add(survey.AdvisorWWId__c);
+      if(survey.AdvisorWWId__c != null )listAdvisorId.add(survey.AdvisorWWId__c);
     }
+
+    system.debug('listAdvisorId : '+listAdvisorId);
 
     List<User> listUserRoles = [SELECT id, Name, UserRole.Name, WWEmployeeNumber__c  
                             FROM User
@@ -1114,6 +1123,9 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
     for(User usRole :listUserRoles) {
       advisorCSRole.put( usRole.WWEmployeeNumber__c , usRole.UserRole.Name);
     }
+
+    system.debug('advisorCSRole : '+advisorCSRole);
+
 
                                   
     List<ICX_Client360_API_Helper.SurveyWrapper> surveyList = new List<ICX_Client360_API_Helper.SurveyWrapper>();
@@ -1130,7 +1142,8 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
       surveyWrapper.globalScore = survey.GlobalScore__c;
       surveyWrapper.status = survey.Solved__c == true ? 'Resolved' : 'Pending';
       if(isDigital){ 
-        surveyWrapper.advisorCSRole = advisorCSRole.get(survey.AdvisorWWId__c);
+        // surveyWrapper.advisorCSRole = advisorCSRole.get(survey.AdvisorWWId__c);
+        surveyWrapper.advisorCSRole = survey.AdvisorCSRole__c != null ? survey.AdvisorCSRole__c : advisorCSRole.get(survey.AdvisorWWId__c);
       }
       else { 
         surveyWrapper.CAName = survey.CAName__c;
@@ -1139,6 +1152,8 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
 
       surveyList.add(surveyWrapper);
     }
+    system.debug('surveyList : '+surveyList);
+
 
     return surveyList;
   }
@@ -1156,18 +1171,6 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
       if(String.IsNotBlank(req.SuppliedEmail)){
         for(Account a : [SELECT Id, Name, PersonContactId, CreatedDate, LastModifiedDate, Segmentation__c, TECHPreferredCA__c  
                 FROM Account WHERE PersonEmail = :req.SuppliedEmail AND (NOT name LIKE 'anonymize%') LIMIT 100])
-        {        
-          accountList.add(a);
-        }
-      }
-    }
-    
-    if ('MessagingSession '.equalsIgnoreCase(objectName)) {
-      MessagingSession msgs = [SELECT Id, EndUserAccountId FROM MessagingSession WHERE Id = :recordId];
-      String accountId = msgs.EndUserAccountId;
-      if(String.IsNotBlank(accountId)){
-        for(Account a : [SELECT Id, Name, PersonContactId, CreatedDate, LastModifiedDate, Segmentation__c, TECHPreferredCA__c  
-                FROM Account WHERE Id = :msgs.EndUserAccountId LIMIT 100])
         {        
           accountList.add(a);
         }
@@ -1284,13 +1287,4 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
       ];
   }
     
-      @AuraEnabled(cacheable=true)
-  public static List<Case> getClientelingRequests(Id accountId){
-    List<Case> clientelingList = [SELECT Id, CaseNumber, Type, CreatedDate, Status, RecordType.Name
-                                  FROM Case WHERE AccountId =: accountId AND Status = 'New' 
-                                  AND RecordType.Name = 'Clienteling'
-                                  ORDER BY CreatedDate DESC
-                                  LIMIT 3];
-      return clientelingList;
-
-  }}
+}
