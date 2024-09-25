@@ -497,6 +497,11 @@ public with sharing class Ctrl_ProductCatalog {
     mapValuesToFields.put('DigitalStores', digitalStoresMap);
     return mapValuesToFields;
   }
+  
+  @AuraEnabled
+  public static String transformCountryNameToIso2 (String countryName) {
+    return [SELECT Iso2Code__c FROM Country__c WHERE Name = :countryName].Iso2Code__c;
+  }
 
   //Get user store (phisical & digital)
   @AuraEnabled
@@ -1522,24 +1527,37 @@ public with sharing class Ctrl_ProductCatalog {
         String hashInBase64 = EncodingUtil.base64Encode(hmacSHA256);
         system.debug('Webview alpha token '+ hashInBase64.replace('/', '_'));
         return hashInBase64.replace('/', '_');
-    }
-    
-  public static Blob generateHmacSHA256(Blob data, Blob key) {
-
+      }
+      
+      public static Blob generateHmacSHA256(Blob data, Blob key) {
+        
         Blob output = null;
         try {
-            String algorithmName = 'HmacSHA256';
-            Blob hmacData = Crypto.generateMac(algorithmName, data, key);
-            output = hmacData;
+          String algorithmName = 'HmacSHA256';
+          Blob hmacData = Crypto.generateMac(algorithmName, data, key);
+          output = hmacData;
         } catch (Exception e) {
-            // Handle exceptions here
+          // Handle exceptions here
         }
         return output;
+      }
+      
+      @AuraEnabled
+      public static Boolean hasCustomPermission(){
+        return FeatureManagement.checkPermission('ICX_AlphaWebview');
+      }
+      
+      @AuraEnabled(cacheable=true)
+      public static String getSecretJwt() {
+
+      Auth.JWT jwt = new Auth.JWT();
+      jwt.setIss(UserInfo.getUserName());
+
+      // Generate token valid 5min time
+      // This certificate is valid for one year - Expire September 2025
+      Auth.JWS signedToken = new Auth.JWS(jwt, 'CatalogCertWebView');
+      String serializedToken = signedToken.getCompactSerialization();
+      return serializedToken;
     }
 
-@AuraEnabled
-  public static Boolean hasCustomPermission(){
-    return FeatureManagement.checkPermission('ICX_AlphaWebview');
-  }
-    
 }
