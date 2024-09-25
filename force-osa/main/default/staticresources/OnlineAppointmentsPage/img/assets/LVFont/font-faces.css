@@ -1,69 +1,70 @@
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-light-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-light-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-light-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-light-webfont.woff') format('woff');
   font-weight: 300;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-lightoblique-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-lightoblique-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-lightoblique-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-lightoblique-webfont.woff') format('woff');
   font-weight: 300;
   font-style: italic;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-regular-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-regular-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-regular-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-oblique-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-oblique-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-oblique-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-oblique-webfont.woff') format('woff');
   font-weight: normal;
   font-style: italic;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-medium-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-medium-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-medium-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-medium-webfont.woff') format('woff');
   font-weight: 500;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-mediumoblique-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-mediumoblique-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-mediumoblique-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-mediumoblique-webfont.woff') format('woff');
   font-weight: 500;
   font-style: italic;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-demi-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-demi-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-demi-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-demi-webfont.woff') format('woff');
   font-weight: 600;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-demioblique-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-demioblique-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-demioblique-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-demioblique-webfont.woff') format('woff');
   font-weight: 600;
   font-style: italic;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-bold-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-bold-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-bold-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-bold-webfont.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Louis Vuitton';
-  src: url('../fonts/louisvuitton-boldoblique-webfont.woff2?orgId=00Di0000000HF7A') format('woff2'), url('../fonts/louisvuitton-boldoblique-webfont.woff?orgId=00Di0000000HF7A') format('woff');
+  src: url('../fonts/louisvuitton-boldoblique-webfont.woff2') format('woff2'),
+       url('../fonts/louisvuitton-boldoblique-webfont.woff') format('woff');
   font-weight: bold;
   font-style: italic;
 }

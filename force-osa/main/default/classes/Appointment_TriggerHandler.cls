@@ -1,9 +1,9 @@
-public  class Appointment_TriggerHandler {
+public class Appointment_TriggerHandler {
 
     private static final String MSG_ONLINE_APPOINTMENT_CONFIRMED =       Notification_Settings__mdt.getInstance('ONLINE_APPOINTMENT_Confirmed')?.Message_Id__c; 
     private static final String MSG_ONLINE_APPOINTMENT_REMINDER  =       Notification_Settings__mdt.getInstance('ONLINE_APPOINTMENT_Reminder')?.Message_Id__c;
     private static final String MSG_ONLINE_APPOINTMENT_CANCELLED =       Notification_Settings__mdt.getInstance('ONLINE_APPOINTMENT_Cancelled')?.Message_Id__c;
-    //private static final String MSG_ONLINE_APPOINTMENT_UPDATED   =       Notification_Settings__mdt.getInstance('ONLINE_APPOINTMENT_Updated')?.Message_Id__c;
+    private static final String MSG_ONLINE_APPOINTMENT_UPDATED   =       Notification_Settings__mdt.getInstance('ONLINE_APPOINTMENT_Updated')?.Message_Id__c;
     private static final String MSG_DIAMOND_APPOINTMENT_CONFIRMED =      Notification_Settings__mdt.getInstance('WECHAT_DIAMOND_APPOINTMENT_Confirmed')?.Message_Id__c;
     private static final String MSG_DIAMOND_APPOINTMENT_REMINDER =       Notification_Settings__mdt.getInstance('WECHAT_DIAMOND_APPOINTMENT_Reminder')?.Message_Id__c;
     private static final String MSG_DIAMOND_APPOINTMENT_CANCELLED =      Notification_Settings__mdt.getInstance('WECHAT_DIAMOND_APPOINTMENT_Cancelled')?.Message_Id__c;
@@ -12,6 +12,10 @@ public  class Appointment_TriggerHandler {
     private static final String MSG_WECHAT_APPOINTMENT_CANCELLED =       Notification_Settings__mdt.getInstance('WECHAT_ONLINE_APPOINTMENT_Cancelled')?.Message_Id__c;
 
     private static final String ISDEFAULT = 'ISDEFAULT';
+
+    private static final Id eventAppointmentRecordType = Schema.SObjectType.Event.getRecordTypeInfosByDeveloperName().get('Event_Appointment').getRecordTypeId();
+    private static final Id goldenAppointmentRecordType = Schema.SObjectType.Event.getRecordTypeInfosByDeveloperName().get('Golden').getRecordTypeId();
+    private static final Id appointmentRecordType = Schema.SObjectType.Event.getRecordTypeInfosByDeveloperName().get('Appointments').getRecordTypeId();
 
     private static Map<String, CountryLanguage__c> localSetting = new Map<String, CountryLanguage__c>();
     private static Map<String,Map<String,String>> identityURLsByName = new Map<String,Map<String,String>>();
@@ -29,6 +33,17 @@ public  class Appointment_TriggerHandler {
         } 
         else {
             return run;
+        }
+    }
+
+    public static void handleTrigger(List<Event> newList, Map<Id, Event> newMap, List<Event> oldList, Map<Id, Event> oldMap, System.TriggerOperation triggerEvent) {
+        switch on triggerEvent {
+            when BEFORE_DELETE {
+                beforeDelete(oldList);
+            }
+            when else {
+                
+            }
         }
     }
 
@@ -111,15 +126,15 @@ public  class Appointment_TriggerHandler {
     }
 
     public static void beforeUpdate(List<Event> newEventList, Map<id, Event> newEventMap,
-        List<Event> oldEventList, Map<id, Event> oldEventMap){
-        Map<String, String> appointmentsRecordTypes = OnlineAppointments_Utils.getAppointmentRecordTypesId();
+    List<Event> oldEventList, Map<id, Event> oldEventMap){
+    Map<String, String> appointmentsRecordTypes = OnlineAppointments_Utils.getAppointmentRecordTypesId();
 
-        for( Event e : newEventList){
-            if(e.sourceType__c.contains('WECHAT') && e.RecordTypeId == appointmentsRecordTypes.get('Online_Appointment') && e.Subject != 'Wechat Appointment'){
-                e.Subject = 'Wechat Appointment';
-            }
+    for( Event e : newEventList){
+        if(e.sourceType__c.contains('WECHAT') && e.RecordTypeId == appointmentsRecordTypes.get('Online_Appointment') && e.Subject != 'Wechat Appointment'){
+            e.Subject = 'Wechat Appointment';
         }
     }
+}
 
     public static void afterUpdate(List<Event> newEventList, Map<id, Event> oldEventMap) {
 
@@ -133,7 +148,7 @@ public  class Appointment_TriggerHandler {
             MSG_ONLINE_APPOINTMENT_CONFIRMED => new Map<Id,Event>(),
             MSG_ONLINE_APPOINTMENT_REMINDER => new Map<Id,Event>(),
             MSG_ONLINE_APPOINTMENT_CANCELLED => new Map<Id,Event>(),
-           // MSG_ONLINE_APPOINTMENT_UPDATED => new Map<Id,Event>(),
+            MSG_ONLINE_APPOINTMENT_UPDATED => new Map<Id,Event>(),
             MSG_DIAMOND_APPOINTMENT_CONFIRMED  =>  new Map<Id,Event>(),
             MSG_DIAMOND_APPOINTMENT_REMINDER   =>  new Map<Id,Event>(),
             MSG_DIAMOND_APPOINTMENT_CANCELLED =>  new Map<Id,Event>(),
@@ -166,6 +181,8 @@ public  class Appointment_TriggerHandler {
             Boolean oldStatusIsToBeApproved = oldEvent.Status__c == 'To Be Approved';
             Boolean isStatusPending = event.Status__c == 'Pending';
             Boolean isCAIdsChanged = event.CA_Ids__c != oldEvent.CA_Ids__c;
+            Boolean isAvailabilityChanged = event.availabilityId__c != oldEvent.availabilityId__c && event?.availabilityId__c != null;
+
 
             if(isAttendanceChanged && String.isNotEmpty(event?.My_Repairs__c)) {
                 careServiceIds.add(event?.My_Repairs__c);
@@ -204,16 +221,17 @@ public  class Appointment_TriggerHandler {
             }
 
             if(isNotificationAllowed && String.isNotEmpty(event.accountId)){
-                if(isStatusChanged && isStatusCanceled){
+                if((isStatusChanged && isStatusCanceled) || isAvailabilityChanged){
                     reminderNotiftoCancel.add(event.Id);
                 }
                 setEventMapByNotification(event, oldEvent, eventsByMessageId);
             }
+
         }
 
         Map<Id,Account> clients = getClienMap(accountIds);
-        createNotifications(clients, eventsByMessageId);
         updateReminderNotifOnCancel(reminderNotiftoCancel);
+        createNotifications(clients, eventsByMessageId);
 
         // NOTIF: Push Notification To Owner
         if(!pushNotificationAppt.isEmpty()) {
@@ -227,9 +245,11 @@ public  class Appointment_TriggerHandler {
         if(!goldenEventsAddedCas.keySet().isEmpty()){
             sendWecomNotifs(goldenEventsAddedCas,'Golden_Appointment_CA_Added');
         }
+
         if(!goldenEventsRemovedCas.keySet().isEmpty()){
             sendWecomNotifs(goldenEventsRemovedCas,'Golden_Appointment_CA_Removed');
         }
+
         if(!cancelledGoldenWithCAs.keySet().isEmpty()){
             sendWecomNotifs(cancelledGoldenWithCAs,'Golden_Appointment_Cancelled');
         }
@@ -247,6 +267,56 @@ public  class Appointment_TriggerHandler {
         if(!careServiceIds.isEmpty()){
             UpdateCareService(careServiceIds.get(0));
         }   
+
+   
+    }
+
+    public static void beforeDelete(List<Event> eventList) {
+        if (!isAdminUser()) {
+            for (Event e : eventList) {
+                Boolean isAppointmentRecordType = isAppointmentRecordType(e);
+                Boolean isAppointmentAlreadyStarted = e.StartDateTime < DateTime.now();
+
+                if (isAppointmentRecordType && isAppointmentAlreadyStarted) {
+                    e.addError('Cannot delete appointment after the appointment has started');
+                }
+            }
+        }
+    }
+
+
+    public static void validateAppointmentActivityDate(Event appointment, String errMessage) {
+        Boolean isAppointmentRecordType = isAppointmentRecordType(appointment);
+        Datetime appointmentLocalTime = getDateWithoutSeconds(appointment.StartDateTime);
+        DateTime twoHoursFromNow = getDateWithoutSeconds(System.now().addHours(2));
+        Boolean isAppointmentWithin2Hours =  appointmentLocalTime < twoHoursFromNow;
+
+        if (isAppointmentRecordType && isAppointmentWithin2Hours) {
+            appointment.StartDateTime.addError(errMessage);
+        }
+    }
+
+    private static Boolean isAppointmentRecordType(Event e) {
+        Boolean isAppointmentRecordType = 
+                    e.recordTypeId == eventAppointmentRecordType ||
+                    e.recordTypeId == goldenAppointmentRecordType ||
+                    e.recordTypeId == appointmentRecordType;
+        return isAppointmentRecordType;           
+    }
+
+    public static DateTime getDateWithoutSeconds(DateTime dt){
+        return Datetime.newInstance(
+            dt.year(),
+            dt.month(),
+            dt.day(),
+            dt.hour(),
+            dt.minute(),
+            0
+        );
+    }
+
+    public static Boolean isAdminUser() {
+        return  UserInfo.getProfileId().left(15) == Label.IC_System_Admin_Profile_Id.left(15);       
     }
 
     private static Set<Id> getCAsToNotif(String searchfor, String searchIn){
@@ -326,32 +396,36 @@ public  class Appointment_TriggerHandler {
         Boolean isAvailabilityChanged = event.availabilityId__c != oldEvent.availabilityId__c && event?.availabilityId__c != null;
         Boolean isReasonChanged = event.Reason__c != oldEvent.Reason__c && event?.Reason__c != null;
         Boolean wasStatusAssigned = oldEvent.Status__c == 'Assigned';
+        Boolean isStoreChanged = event.Store_Location__c != oldEvent.Store_Location__c;
 
-        if((isOwnerChanged && isChangedByOther && isStatusAssigned) && !containWechatEvent) { 
+        if(containWechatEvent) return;
+
+        if(isOwnerChanged && isChangedByOther && isStatusAssigned) { 
             pushNotificationAppt.add(event);
             notificationTypebyEventId.put(event.Id, 'AppointmentAssigned__c');
         }
 
-        if(isStatusChanged && isStatusCanceled && !containWechatEvent) {
+        if(isStatusChanged && isStatusCanceled) {
             pushNotificationAppt.add(event);
             notificationTypebyEventId.put(event.Id, 'AppointmentCancelled__c');
         }
 
-        // if (((isAvailabilityChanged && wasStatusAssigned) || isReasonChanged) && !containWechatEvent) {
+        //[SE -790] send notif when store is changed
+        if(isStoreChanged && isAvailabilityChanged && isStatusChanged && wasStatusAssigned){
+            Event appointment = oldEvent.clone(true,true,true,true);
+            appointment.status__c = 'Cancelled';
+            pushNotificationAppt.add(appointment);
+            notificationTypebyEventId.put(event.Id, 'AppointmentCancelled__c');
+        }
 
-        //     String notifType = '';
-        //     Event eventToPush = new Event( 
-        //         Id = event.id ,
-        //         OwnerId = oldEvent.OwnerId,
-        //         WhatId = event.WhatId,
-        //         Reason__c = event.Reason__c,
-        //         ActivityDate = event.ActivityDate
-        //     );
-
-        //     notifType = isAvailabilityChanged && wasStatusAssigned ?  'AppointmentSlotChanged__c' :  'AppointmentReasonChange__c';
-        //     pushNotificationAppt.add(eventToPush); 
-        //     notificationTypebyEventId.put(event.Id, notifType);
-        // }
+        if(!isStoreChanged && isAvailabilityChanged && wasStatusAssigned) {
+            Event appointment = oldEvent.clone(true,true,true,true);
+            Store__c aptStore = storeMap.get(event.Store_Location__c);
+            appointment.ActivityDateTime = OnlineAppointments_Utils.getStoreLocalTime(aptStore.Time_Zone_Id__c, event.ActivityDateTime);
+            pushNotificationAppt.add(appointment);
+            notificationTypebyEventId.put(event.Id, 'AppointmentSlotChanged__c');
+        }
+        
     }
 
     public static void setEventMapByNotification(Event event, Event oldEvent , Map<String, Map<Id,Event>> eventsByMessageId){
@@ -390,13 +464,13 @@ public  class Appointment_TriggerHandler {
                 eventsByMessageId.get(MSG_ONLINE_APPOINTMENT_REMINDER).put(event.accountId, event);
             }
         } 
-        /*
-        else if ((isAvailabilityChanged && wasStatusAssigned) || isReasonChanged){
-            
+        
+        else if(isAvailabilityChanged){
             if(!containWechatEvent){
                 eventsByMessageId.get(MSG_ONLINE_APPOINTMENT_UPDATED).put(event.accountId, event);
+                eventsByMessageId.get(MSG_ONLINE_APPOINTMENT_REMINDER).put(event.accountId, event);
             }
-        }*/
+        }
     }
     
     public static void createNotifications(Map<Id,Account> clients, Map<String, Map<Id,Event>> events) {
@@ -451,7 +525,7 @@ public  class Appointment_TriggerHandler {
             MSG_ONLINE_APPOINTMENT_CONFIRMED  =>  'MSG_ONLINE_APPOINTMENT_CONFIRMED' ,
             MSG_ONLINE_APPOINTMENT_REMINDER   =>  'MSG_ONLINE_APPOINTMENT_REMINDER'  ,
             MSG_ONLINE_APPOINTMENT_CANCELLED  =>  'MSG_ONLINE_APPOINTMENT_CANCELLED' ,
-           // MSG_ONLINE_APPOINTMENT_UPDATED    =>  'MSG_ONLINE_APPOINTMENT_UPDATED'   ,
+            MSG_ONLINE_APPOINTMENT_UPDATED    =>  'MSG_ONLINE_APPOINTMENT_UPDATED'   ,
             MSG_DIAMOND_APPOINTMENT_CONFIRMED =>  'MSG_DIAMOND_APPOINTMENT_CONFIRMED',
             MSG_DIAMOND_APPOINTMENT_REMINDER  =>  'MSG_DIAMOND_APPOINTMENT_REMINDER' ,
             MSG_DIAMOND_APPOINTMENT_CANCELLED =>  'MSG_DIAMOND_APPOINTMENT_CANCELLED',
@@ -487,14 +561,14 @@ public  class Appointment_TriggerHandler {
                 };
                 params = getDynamicParams(clients, events, settingParams);
             }
-            // when 'MSG_ONLINE_APPOINTMENT_UPDATED' {
-            //     settingParams =  new Map<String,Object> { 
-            //         'CampaignId' => 'e_storeAppointmentUpdate_mng', 
-            //         'successURLKey' => 'ONLINE_APPOINTMENT',
-            //         'isRealTime' => true
-            //     };
-            //     params = getDynamicParams(clients, events, settingParams);
-            // }
+            when 'MSG_ONLINE_APPOINTMENT_UPDATED' {
+                settingParams =  new Map<String,Object> { 
+                    'CampaignId' => 'e_storeAppointmentUpdate_mng', 
+                    'successURLKey' => 'ONLINE_APPOINTMENT',
+                    'isRealTime' => true
+                };
+                params = getDynamicParams(clients, events, settingParams);
+            }
             when 'MSG_DIAMOND_APPOINTMENT_CANCELLED' {
                params = getWechat_diamond_DynamicParams(clients, events, new Map<String,Object> { 'CampaignId' => 'e_storeAppointmentCancel_mng'}, storeMap, true, null, true);
             }
@@ -795,7 +869,7 @@ public  class Appointment_TriggerHandler {
         //String domain = identityURLsByName.get('Louis Vuitton Domain').get(queryEcommerce);
         String domain = identityURLsByName.get('Louis Vuitton Domain').containsKey(queryEcommerce) ? identityURLsByName.get('Louis Vuitton Domain').get(queryEcommerce) : identityURLsByName.get('Louis Vuitton Domain').get(ISDEFAULT);
 
-      
+        
         String url;
         url = domain + basic_path;
         url = url.replace('lang-country',  parameters?.get('ecommerce'));

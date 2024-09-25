@@ -8,7 +8,7 @@ public without sharing class OnlineAppointments_Utils {
     public static Object getFreeAvailabilities(String storeIds, String datesString, String startDate, String endDate){
                
         Map<Id, Event> availabilitiesMap = getAvailabilitiesMap( storeIds,  datesString,  startDate,  endDate, true);
-        if(availabilitiesMap.size() == 0){
+        if(availabilitiesMap.isEmpty()){
             throw new OnlineAppointmentException('AVAILABILITIES_EMPTY_LIST');
         }
 
@@ -31,12 +31,14 @@ public without sharing class OnlineAppointments_Utils {
             response.add( new StoreAvailabilities(storeId, storeAvailabilitiesMap.get(storeId)));
         }
 
-        if(response.size() == 0){
+        if(response.isEmpty()){
             throw new OnlineAppointmentException('AVAILABILITIES_EMPTY_LIST');
         }
 
         Map<String, Object> result = new Map<String, Object>();
-        result.put('records',response);
+        result.put('records', response);
+        result.put('reasons', OnlineAppointmentsController.getAppointmentReason());
+
         return result;
     }
 
@@ -61,7 +63,7 @@ public without sharing class OnlineAppointments_Utils {
             throw new OnlineAppointmentException('TIMESLOT_NOT_EXIST');
         }
         List<IconSetting__mdt> settings = [Select Number__c From IconSetting__mdt WHERE QualifiedApiName ='OsaPendingValidity'];
-        Integer osaPendingValidity = settings != null && settings.size() > 0 && settings[0].Number__c != null ? settings[0].Number__c.intValue() : 0;
+        Integer osaPendingValidity = settings != null && !settings.isEmpty() && settings[0].Number__c != null ? settings[0].Number__c.intValue() : 0;
         Datetime limitPendingTime = Datetime.now().addMinutes(-osaPendingValidity);
 
         //GET CURRENT ACTIVE ONLINE APPOINTMENTS FOR THE AVAILABILITY ID
@@ -110,6 +112,7 @@ public without sharing class OnlineAppointments_Utils {
         
         //PARSE PARAMS
         List<String> storeCodeList = String.isNotEmpty(storeIds) ? storeIds.split(';') : new List<String>();
+        system.debug(storeCodeList);
         if(storeCodeList.isEmpty()){
             throw new OnlineAppointmentException('STORE_CODE_PARAM_IS_MISSING');
         }
@@ -121,7 +124,7 @@ public without sharing class OnlineAppointments_Utils {
                 dates.add(Date.valueOf(d));
             }
         } 
-        if( dates.size() > 0 ){
+        if(!dates.isEmpty() ){
             dateCondition =  ' AND activityDate IN :dates ' ;
         }else if(String.isNotEmpty(startDate) && String.isNotEmpty(endDate)){
             dateCondition = '  AND activityDate >= '+ startDate + ' AND activityDate <= '+ endDate +' ';
@@ -146,7 +149,7 @@ public without sharing class OnlineAppointments_Utils {
         'RecurrenceInterval, RecurrenceDayofWeekMask, RecurrenceTimeZoneSidKey, DurationInMinutes, RecurrenceActivityId, Store_Location__r.AppointmentType__c '+
         'From Event Where RecordType.DeveloperName = \'Availability\'  AND IsRecurrence = false ' + 
         dateCondition +
-        (storeCodeList.size() > 0 ? ' AND Store_Location__r.RetailStoreId__c IN :storeCodeList ' : '')+
+        (!storeCodeList.isEmpty() ? ' AND Store_Location__r.RetailStoreId__c IN :storeCodeList ' : '')+
         ' ORDER BY startdateTime ASC';
         Map<Id, Event> availabilitiesMap = new Map<ID, Event>((List<Event>)Database.query(query));
 
@@ -159,7 +162,7 @@ public without sharing class OnlineAppointments_Utils {
     public static Map<String, List<Event>> getCurrentOnlineAppointmentsMap(Map<Id, Event> availabilitiesMap){
         //GET CURRENT ONLINE APPT
         List<IconSetting__mdt> settings = [Select Number__c From IconSetting__mdt WHERE QualifiedApiName ='OsaPendingValidity'];
-        Integer osaPendingValidity = settings != null && settings.size() > 0 && settings[0].Number__c != null ? settings[0].Number__c.intValue() : 0;
+        Integer osaPendingValidity = settings != null && !settings.isEmpty() && settings[0].Number__c != null ? settings[0].Number__c.intValue() : 0;
         Map<String, List<Event>> currentOnlineAppointmentsMap = new Map<String, List<Event>>();
         Datetime limitPendingTime = Datetime.now().addMinutes(-osaPendingValidity);
         List<Event> currentOnlineAppointments = [Select Id, Status__c, availabilityId__c
@@ -250,12 +253,9 @@ public without sharing class OnlineAppointments_Utils {
     /*=================================================================================================================*/
     //Create Recurrence Slots
     private static Object createRecurrenceAvailabilities(Event evRef, List<Event> availabilities, Set<Datetime> existingStartimes, String storeCode){
-        for(Event slot : availabilities){
-            system.debug(slot);
-            system.debug('*****slot******');
+        
+        for(Event slot : availabilities){ // Apex Event trigger cannot handle batch operations on recurring events
             insert slot;
-            system.debug(slot);
-
         }
 
         List<Event> availabilitiesRec = [Select Id, Capacity__c, IsRecurrence, RecurrenceStartDateTime, RecurrenceEndDateOnly, RecurrenceType,
@@ -289,7 +289,7 @@ public without sharing class OnlineAppointments_Utils {
         }
         
 
-        if(toDelete.size() > 0){
+        if(!toDelete.isEmpty()){
             delete toDelete;
         }
         
@@ -374,7 +374,7 @@ public without sharing class OnlineAppointments_Utils {
                 }
             }
 
-            if(availabilitiesToUpdate.size() > 0) {
+            if(!availabilitiesToUpdate.isEmpty()) {
                 update availabilitiesToUpdate;
                 
             }
@@ -389,7 +389,7 @@ public without sharing class OnlineAppointments_Utils {
                 }
             }
 
-            if(availabilitiesToDelete.size() > 0) {
+            if(!availabilitiesToDelete.isEmpty()) {
                 delete availabilitiesToDelete;
                 newEv.Id = null;
                 newEv.IsRecurrence = true;
@@ -437,7 +437,7 @@ public without sharing class OnlineAppointments_Utils {
 
     public static Object deleteAvailability(String availabilityId){
         List<IconSetting__mdt> settings = [Select Number__c From IconSetting__mdt WHERE QualifiedApiName ='OsaPendingValidity'];
-        Integer osaPendingValidity = settings != null && settings.size() > 0 && settings[0].Number__c != null ? settings[0].Number__c.intValue() : 0;
+        Integer osaPendingValidity = settings != null && !settings.isEmpty() && settings[0].Number__c != null ? settings[0].Number__c.intValue() : 0;
         Datetime limitPendingTime = Datetime.now().addMinutes(-osaPendingValidity);
 
         //GET CURRENT ACTIVE ONLINE APPOINTMENTS FOR THE AVAILABILITY ID
@@ -449,7 +449,7 @@ public without sharing class OnlineAppointments_Utils {
 
         List<Event> currentOnlineAppointments = Database.query(query);
 
-        if(currentOnlineAppointments.size() > 0){
+        if(!currentOnlineAppointments.isEmpty()){
             throw  new OnlineAppointmentException('Your slot was not deleted because you already have appointments booked by clients');
         } else{
             Event evRef = new Event();
@@ -495,7 +495,7 @@ public without sharing class OnlineAppointments_Utils {
             }
         }
 
-        if(availabilitiesToDelete.size() > 0) {
+        if(!availabilitiesToDelete.isEmpty()) {
             delete availabilitiesToDelete;
             return new Map<String, Object> { 'excludedSlots' => excludedSlots,  'deletedAvailabilities' => (new Map<id, event>(availabilitiesToDelete)).keySet()};
             
@@ -553,7 +553,8 @@ public without sharing class OnlineAppointments_Utils {
         String onlineAppointmentType = (String) bodyMap.get('appointmentType');
         Map<String, String> appRecordTypeIdsMap = getAppointmentRecordTypesId ();
         String careServiceId =  (String) bodyMap.get('careservice');
-
+        String channel = bodyMap.containsKey('channel') ? (String) bodyMap.get('channel') : null;
+        Boolean isRepairAppointment = channel == 'repair' ? true : false;
 
         //GET AVAILABILITY AND CAPACITIES BY ID
         Map<String, Object> availabilityObj = (Map<String, Object>) getFreeCapacityByAvailabilityId(availabilityId, onlineAppointmentId);
@@ -576,9 +577,9 @@ public without sharing class OnlineAppointments_Utils {
                 WHERE Id = :onlineAppointmentId
             ];
 
-            if(onlineAppList.size() > 0){
+            if(!onlineAppList.isEmpty()){
                 onlineAppointment = onlineAppList[0];
-                if(onlineAppointment.Status__c == 'Assigned' || onlineAppointment.Status__c == 'Cancelled'){
+                if(onlineAppointment.Status__c == 'Assigned' || onlineAppointment.Status__c == 'Cancelled'){ //onlineAppointment.Status__c == 'Assigned' ||
                     throw new OnlineAppointmentException('UPDATE_NOT_AUTHORIZED');
                 }
             }
@@ -589,7 +590,6 @@ public without sharing class OnlineAppointments_Utils {
         onlineAppointment.Status__c = (String.isEmpty(status) ? (String.isEmpty(onlineAppointmentId) ? 'Pending' : 'Not Assigned') : status);
         onlineAppointment.Store_Location__c = availability.Store_Location__c;
         onlineAppointment.availabilityId__c = availability.Id;
-        //onlineAppointment.Special_Request__c = (String.isNotEmpty(specialRequest) ? specialRequest:  onlineAppointment.Special_Request__c);
         onlineAppointment.startDateTime = availability.StartDateTime;
         onlineAppointment.endDateTime = availability.EndDateTime;
         onlineAppointment.Reason__c = (String.isNotEmpty(reason) ? reason:  onlineAppointment.Reason__c);
@@ -621,7 +621,7 @@ public without sharing class OnlineAppointments_Utils {
 
             } else if(String.isNotEmpty(userId)){
                 List<User> userIdentity = [SELECT Id, AccountId from User WHERE Id =:userId LIMIT 1 ];
-                if( userIdentity != null && userIdentity.size() > 0){
+                if( userIdentity != null && !userIdentity.isEmpty()){
                     accountId = userIdentity[0].AccountId;
                 }
                 acc.Id = accountId;
@@ -643,7 +643,7 @@ public without sharing class OnlineAppointments_Utils {
         } else if(String.isNotEmpty(userId)){
             
             List<User> userIdentity = [SELECT Id, AccountId from User WHERE Id =:userId LIMIT 1];
-            if( userIdentity != null && userIdentity.size() > 0)
+            if( userIdentity != null && !userIdentity.isEmpty())
                 accountId = userIdentity[0].AccountId;
         } else if(String.isNotBlank(socialId) && String.isNotBlank(sourceType) ){
             accountId = getAccountBySocialId(socialId, sourceType);
@@ -654,25 +654,27 @@ public without sharing class OnlineAppointments_Utils {
          (String.isEmpty(status) || status != 'Pending') || (status == 'Not Assigned' && String.isEmpty(accountId) && String.isNotBlank(onlineAppointment.sourceType__c) && onlineAppointment.sourceType__c.containsIgnoreCase('WECHAT') )){
             throw new OnlineAppointmentException('CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT');
         } 
-        system.debug(String.isNotBlank(onlineAppointmentId) && String.isNotBlank(onlineAppointment.WhatId) && onlineAppointment.WhatId != accountId && status == 'Not Assigned');
-        system.debug(onlineAppointmentId );
-        system.debug(onlineAppointment.WhatId );
-        system.debug(status);
+      
         if(String.isNotBlank(onlineAppointmentId) && String.isNotBlank(onlineAppointment.WhatId) && onlineAppointment.WhatId != accountId && onlineAppointment.Status__c == 'Not Assigned') {	
             throw new OnlineAppointmentException('UPDATE_NOT_AUTHORIZED');
         }
         onlineAppointment.WhatId = String.isNotEmpty(accountId) ? accountId : null;
         sendToRms(accountId, availability.Store_Location__r.RetailStoreId__c, availability.Store_Location__c);
-        
-        system.debug(onlineAppointment);
-        system.debug(onlineAppointment.RecordtypeId);
-        if(String.isBlank(onlineAppointment.Id)) {
-            insert onlineAppointment;
-        } else{
-            update onlineAppointment;
+
+        if(!isRepairAppointment){
+            Map<String,String> settings = getOSASetting(new List<String> {'allowedNbAppointment','minDaysRange'});
+            allowedToCreateAppointment(onlineAppointment , availability ,settings) ;  
         }
-        // Database.upsert(onlineAppointment);
-        system.debug(onlineAppointment);
+
+        
+        Database.upsert(onlineAppointment);
+        
+        // if(String.isBlank(onlineAppointment.Id)) {      
+        //     insert onlineAppointment;
+        // } else{
+        //     update onlineAppointment;
+        // }
+               
         if(onlineAppointment.Status__c == 'Not Assigned' && String.isEmpty(onlineAppointmentId)){
             List<Event> onlineAppList = [
                 SELECT 
@@ -683,7 +685,7 @@ public without sharing class OnlineAppointments_Utils {
                 FROM Event
                 WHERE Id = :onlineAppointment.Id
             ];
-            if(onlineAppList.size() > 0){
+            if(!onlineAppList.isEmpty()){
                 onlineAppointment = onlineAppList[0];
             }
                 
@@ -691,7 +693,39 @@ public without sharing class OnlineAppointments_Utils {
         return new AppointmentWrapper(onlineAppointment, true, false);
     }
 
+    private static void allowedToCreateAppointment(Event currentAppointment ,Event availability,Map<String,String> settings) {
 
+        Integer nbCurrentAppointment = 0 ;
+        Integer nbAllowedAppoitment = integer.ValueOf(settings.get('allowedNbAppointment'));
+        //Datetime availabilityTime = availability.StartDateTime;
+        //Integer minDaysRange = integer.ValueOf(settings.get('minDaysRange')) ;
+        //Datetime minDateRange = availability.StartDateTime.addDays(-minDaysRange);
+
+        List<String> sourceTypes = new List<String>{'WECHAT_DIAMOND','LV_COM'};
+        if(String.isEmpty(currentAppointment.My_Repairs__c) && !String.isEmpty(currentAppointment.WhatId) && sourceTypes.contains(currentAppointment.sourceType__c)){ 
+            nbCurrentAppointment = [ SELECT COUNT()
+                                    FROM Event 
+                                    WHERE RecordTypeId =: appointmentRecordTypesId.get('Online_Appointment')
+                                            AND My_Repairs__c = null 
+                                            AND AccountId =: currentAppointment.WhatId
+                                            AND Status__c IN ('Assigned','Not Assigned')
+                                            AND StartDateTime >= TODAY //AND EndDateTime >=: minDateRange
+                                ];
+
+            if (nbCurrentAppointment >= nbAllowedAppoitment )
+                throw new OnlineAppointmentException('APPOINTMENT_ALREADY_EXISTING');
+        }
+    }
+    
+    private static Map<String,String> getOSASetting(List<String> key) {
+
+        Map<String,String> mapSetting = new Map<String,String>();
+        for(OSA_Setting__mdt setting : [SELECT DeveloperName ,Value__c FROM OSA_Setting__mdt WHERE DeveloperName IN: key] ){
+
+            mapSetting.put(setting.DeveloperName , setting.Value__c );
+        }
+        return mapSetting;
+    }
 
     /*=================================================================================================================*/
     //Get Available Users By appointment
@@ -705,7 +739,7 @@ public without sharing class OnlineAppointments_Utils {
             AND Id = :onlineAppointmentId
         ];
         Map<String, Object> response = new Map<String, Object>();
-        if(onlineApptList.size() > 0){
+        if(!onlineApptList.isEmpty()){
             Event onlineAppt = onlineApptList[0];
             if(onlineAppt.Status__c == 'Assigned' && !checkAnyway){
                 response.put('online_appointment', onlineAppt);
@@ -721,13 +755,12 @@ public without sharing class OnlineAppointments_Utils {
     //Cancel Appointment from LV.com Client Profile (maybe will be used by CSC)
 
     public static Object cancelOnlineAppointmnent(String onlineAppointmentId, String accountId){
-        system.debug('cancelOnlineAppointmnent');
         List<Event> onlineAppt = [Select Id, Status__c, WhatId  
         From Event 
         Where RecordType.DeveloperName = 'Online_Appointment'
         AND Id = :onlineAppointmentId ];
 
-        if(onlineAppt.size() > 0){
+        if(!onlineAppt.isEmpty()){
             //IF PENDING SO DELETE THE ONLINE APPT
             if(String.isBlank(accountId) || onlineAppt[0].WhatId != accountId){
                 throw  new OnlineAppointmentException('CANCELATION_NOT_AUTHORIZED');
@@ -754,7 +787,7 @@ public without sharing class OnlineAppointments_Utils {
         response.put('isAssigned', false);
         List<Event> onlineApptList = [SELECT Id, Status__c, OwnerId From Event WHERE RecordType.DeveloperName = 'Online_Appointment' AND Id = :onlineAppointmentId];
         Event onlineAppt;
-        if(onlineApptList.size() > 0){
+        if(!onlineApptList.isEmpty()){
             onlineAppt = onlineApptList[0];
             if(onlineAppt.Status__c == 'Not Assigned'){
                 onlineAppt.OwnerId = userId != null ? userId : UserInfo.getUserId();
@@ -767,7 +800,7 @@ public without sharing class OnlineAppointments_Utils {
                 response.put('isAssigned', true);
             }
             onlineApptList = [SELECT Id, Status__c, OwnerId, Owner.FirstName, Owner.LastName From Event WHERE RecordType.DeveloperName = 'Online_Appointment' AND Id = :onlineAppointmentId];
-            onlineAppt = onlineApptList.size() > 0 ? onlineApptList[0] : onlineAppt;
+            onlineAppt = !onlineApptList.isEmpty() ? onlineApptList[0] : onlineAppt;
             response.put('appointment', onlineAppt);
             return response;
         }
@@ -795,7 +828,7 @@ public without sharing class OnlineAppointments_Utils {
         
         if(String.isNotEmpty(userId)){
             List<User> userIdentity = [SELECT Id, AccountId from User WHERE Id =:userId LIMIT 1];
-            if( userIdentity != null && userIdentity.size() > 0)
+            if( userIdentity != null && !userIdentity.isEmpty())
                 accountId = userIdentity[0].AccountId;
         } else if(String.isNotBlank(socialId) && String.isNotBlank(sourceType) ){
             accountId = getAccountBySocialId(socialId, sourceType);
@@ -887,7 +920,7 @@ public without sharing class OnlineAppointments_Utils {
                 dates.add(Date.valueOf(d));
             }
         } 
-        if( dates.size() > 0 ){
+        if( !dates.isEmpty() ){
             dateCondition =  ' AND activityDate IN :dates ' ;
         }else if(String.isNotEmpty(startDate) && String.isNotEmpty(endDate)){
             dateCondition = '  AND activityDate >= '+ startDate + ' AND activityDate <= '+ endDate +' ';
@@ -898,7 +931,6 @@ public without sharing class OnlineAppointments_Utils {
             String query = appointmentQueryFields() + ' RecordType.DeveloperName = \'Online_Appointment\' '+
                 'AND Store_Location__r.RetailStoreId__c = :storeCode AND Status__c = \'Not Assigned\' AND activityDate >= LAST_N_DAYS:7 '+ 
                 'ORDER BY ActivityDate ASC ';
-            system.debug(query);
             appointments = Database.query(query);
         } else {
             String query = appointmentQueryFields() + ' RecordType.DeveloperName = \'Online_Appointment\' '+
@@ -946,7 +978,6 @@ public without sharing class OnlineAppointments_Utils {
         }
         String message = (String) bodyMap.get('message');
         String language = (String) bodyMap.get('language');
-        //String specialRequest = (String) bodyMap.get('specialRequest');
         String service = (String) bodyMap.get('service');
         String status = (String) bodyMap.get('status');
         String reason = (String) bodyMap.get('reason');
@@ -975,7 +1006,7 @@ public without sharing class OnlineAppointments_Utils {
                 FROM Event
                 WHERE Id = :onlineAppointmentId
             ];
-            if(onlineAppList.size() > 0){
+            if(!onlineAppList.isEmpty()){
                 onlineAppointment = onlineAppList[0];
             }
         }
@@ -984,7 +1015,6 @@ public without sharing class OnlineAppointments_Utils {
         onlineAppointment.Status__c = (String.isEmpty(status) ? 'Not Assigned' : status);
         onlineAppointment.Store_Location__c = availability.Store_Location__c;
         onlineAppointment.availabilityId__c = availability.Id;
-        //onlineAppointment.Special_Request__c = (String.isNotEmpty(specialRequest) ? specialRequest:  onlineAppointment.Special_Request__c);
         onlineAppointment.startDateTime = availability.StartDateTime;
         onlineAppointment.endDateTime = availability.EndDateTime;
         onlineAppointment.Reason__c = (String.isNotEmpty(reason) ? reason:  onlineAppointment.Reason__c);
@@ -1129,8 +1159,8 @@ public without sharing class OnlineAppointments_Utils {
     public static Void sendToRms(String clientId, String storeCode, String storeId) {
         try {
             if(String.isNotBlank(clientId)){
-                List<Account> clients = [Select id, AttachedStore__pc, Store__pc, AttachedStoreCode__pc from Account where Id =: clientId and RMSId__pc = null];
-                if(clients.size() > 0){
+                List<Account> clients = [Select id, AttachedStore__pc, Store__pc, AttachedStoreCode__pc from Account where Id =: clientId and RMSId__pc = null AND PrimaryCountry__pc NOT IN('CHINA' ,'CN')  Limit 1];
+                if(!clients.isEmpty()){
                     Account client = clients[0];
                     if(String.isBlank(client.AttachedStore__pc)){
                         client.AttachedStore__pc = storeCode;
@@ -1334,7 +1364,7 @@ public without sharing class OnlineAppointments_Utils {
 
         public StoreAvailabilities(String storeId, List<Event> availabilities){
             this.storeId = storeId;
-            this.storeTimeZone = availabilities.size() > 0 && availabilities[0].Store_Location__r != null ? getStoreTimezone(availabilities[0].Store_Location__r.StoreCountry__c, availabilities[0].Store_Location__r.Time_Zone_Id__c) : null;
+            this.storeTimeZone = !availabilities.isEmpty() && availabilities[0].Store_Location__r != null ? getStoreTimezone(availabilities[0].Store_Location__r.StoreCountry__c, availabilities[0].Store_Location__r.Time_Zone_Id__c) : null;
             List<DateSlots> dates = new List<DateSlots>();
             Map<Date, List<Event>> dateSlotMap = new Map<Date, List<Event>>();
             for(Event av : availabilities){
@@ -1440,7 +1470,6 @@ public without sharing class OnlineAppointments_Utils {
             this.recordType = ev.recordType.DeveloperName;
             this.timeZone =  ev.Store_Location__r != null ? getStoreTimezone(ev.Store_Location__r.StoreCountry__c, ev.Store_Location__r.Time_Zone_Id__c) : null;
             this.availableSlotId = ev.AvailabilityId__c;
-            //this.specialRequest = ev.Special_Request__c;
             this.service = ev.Service__c;
             this.language = ev.Language__c;
             this.accountId =  encryptAccountId && ev.WhatId != null ? IDENTITY_Utils.getEncryptedId(ev.WhatId) : ev.WhatId;
@@ -1512,7 +1541,7 @@ public without sharing class OnlineAppointments_Utils {
 
 
     ///Newsletter Update and Callout to marketing cloud -- naomi Jan. 2023
-    public static void NewsLetterMarketingEmail(String accId,String local,Boolean SubscribeToNewsletter){
+    public static void NewsLetterMarketingEmail(String accId, String local, Boolean SubscribeToNewsletter){
         if(accId!=null && SubscribeToNewsletter==true)
         {
         
@@ -1542,7 +1571,7 @@ public without sharing class OnlineAppointments_Utils {
         }
     }
 
-    public static Language_Mapping_ATG_SF__mdt getLocalAndPreferredLanguage(String CountryCodeIso3, String local){
+    public static Language_Mapping_ATG_SF__mdt getLocalAndPreferredLanguage(String countryCodeIso3, String local){
         
         Language_Mapping_ATG_SF__mdt languageLocal = new Language_Mapping_ATG_SF__mdt();
         languageLocal.Language_Iso2__c = 'eng-us'; //local
@@ -1551,9 +1580,9 @@ public without sharing class OnlineAppointments_Utils {
         languageLocal.Country_Iso2__c ='US';
         List<Language_Mapping_ATG_SF__mdt> currentLanguageLocalList = new list<Language_Mapping_ATG_SF__mdt>();
 
-        if(String.isNotBlank(CountryCodeIso3) && CountryCodeIso3 !='USA')  {
+        if(String.isNotBlank(countryCodeIso3) && countryCodeIso3 !='USA')  {
 
-            currentLanguageLocalList = [SELECT ATG__c,Language_Iso2__c,Language_Iso3__c,Country_Iso2__c FROM Language_Mapping_ATG_SF__mdt WHERE Country_Iso3__c =: CountryCodeIso3];
+            currentLanguageLocalList = [SELECT ATG__c,Language_Iso2__c,Language_Iso3__c,Country_Iso2__c FROM Language_Mapping_ATG_SF__mdt WHERE Country_Iso3__c =: countryCodeIso3];
         }
         else if(String.isNotBlank(local) && local !='eng-us')
         {
@@ -1578,6 +1607,103 @@ public without sharing class OnlineAppointments_Utils {
 
         return languageLocal;
     }
+
+    public static Object putOnlineAppointment(Map<String,Object> bodyMap){ 
+
+        //PARSE PARAMS
+        String onlineAppointmentId = (String) bodyMap.get('onlineAppointmentId');
+        String availabilityId = (String) bodyMap.get('availabilityId');
+        String accountId = (String) bodyMap.get('accountId');
+        String socialId = (String) bodyMap.get('socialId');
+        String sourceType = (String) bodyMap.get('sourceType');
+        String userId = (String) bodyMap.get('userId');
+        String reason = (String) bodyMap.get('reason');
+        String onlineAppointmentType = (String) bodyMap.get('appointmentType');
+        Map<String, String> appRecordTypeIdsMap = getAppointmentRecordTypesId ();
+        String careServiceId =  (String) bodyMap.get('careservice');
+        
+        //GET AVAILABILITY AND CAPACITIES BY ID
+        Map<String, Object> availabilityObj = (Map<String, Object>) getFreeCapacityByAvailabilityId(availabilityId, onlineAppointmentId);
+
+        //CHECK FREE CAPACITY
+        if (((Decimal) availabilityObj.get('freeCapacities')) <= 0){
+                throw new OnlineAppointmentException('TIMESLOT_NOT_AVAILABLE');
+        } 
+
+        Event onlineAppointment = new Event();
+
+        List<Event> onlineAppointments = [
+            SELECT 
+                Id, RecordTypeId, RecordType.DeveloperName,Status__c, Store_Location__c, Store_Location__r.RetailStoreId__c,  WhatId, My_Repairs__c, My_Repairs__r.Client__r.Name, 
+                Store_Location__r.Time_Zone_Id__c,Store_Location__r.StoreCountry__c, Store_Location__r.Name, availabilityId__c,Subject,
+                startDateTime, endDateTime, Reason__c, Service__c,OwnerId, Owner.Name, owner.FirstName, owner.LastName,
+                Language__c, Locale__c, Dispatch_Country__c, appointmentType__c, sourceType__c, wechat_openId__c, Store_Location__r.Address__c, Store_Location__r.tech_address__c, Store_Location__r.Local_Name__c, Store_Location__r.PhoneForClient__c
+            FROM Event
+            WHERE Id = :onlineAppointmentId
+        ];
+
+        if(!onlineAppointments.isEmpty()){
+            onlineAppointment = onlineAppointments[0];
+            if(onlineAppointment.Status__c == 'Cancelled'){ 
+                throw new OnlineAppointmentException('UPDATE_NOT_AUTHORIZED');
+            }
+        }
+        
+        Event availability = (Event) availabilityObj.get('availability');
+        onlineAppointment.Store_Location__c = availability.Store_Location__c;
+        onlineAppointment.availabilityId__c = availability.Id;
+        onlineAppointment.startDateTime = availability.StartDateTime;
+        onlineAppointment.endDateTime = availability.EndDateTime;
+        onlineAppointment.Reason__c = (String.isNotEmpty(reason) ? reason:  onlineAppointment.Reason__c);
+        onlineAppointment.My_Repairs__c = (String.isNotEmpty(careServiceId) ? careServiceId:  onlineAppointment.My_Repairs__c);
+        onlineAppointment.appointmentType__c = (String.isNotEmpty(onlineAppointmentType) ? onlineAppointmentType:  onlineAppointment.appointmentType__c);
+
+        
+        //CREATE ONLINEAPPOINTMENT INSTANCE
+
+        if ((String.isBlank(availability.Store_Location__r.appointmentType__c)
+         && onlineAppointment.appointmentType__c == 'distant') 
+         || 
+         (String.isNotBlank(availability.Store_Location__r.appointmentType__c)
+          && (String.isBlank(onlineAppointment.appointmentType__c) || !availability.Store_Location__r.appointmentType__c.containsIgnoreCase(onlineAppointment.appointmentType__c)))) {
+            throw new OnlineAppointmentException('APPOINTMENT_TYPE_NOT_AVAILABLE');
+        }
+        
+        if(String.isNotEmpty(userId)){
+            accountId = [SELECT Id, AccountId from User WHERE Id =:userId LIMIT 1]?.AccountId;
+
+        } else if(String.isNotBlank(socialId) && String.isNotBlank(sourceType) ){
+            accountId = getAccountBySocialId(socialId, sourceType);
+        }
+
+        if(String.isEmpty(accountId) && String.isNotEmpty(availabilityId) ){
+            throw new OnlineAppointmentException('CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT');
+        } 
+      
+        if(String.isNotBlank(onlineAppointmentId) && String.isNotBlank(onlineAppointment.WhatId) && onlineAppointment.WhatId != accountId && onlineAppointment.Status__c == 'Not Assigned') {	
+            throw new OnlineAppointmentException('UPDATE_NOT_AUTHORIZED');
+        }
+        onlineAppointment.WhatId = String.isNotEmpty(accountId) ? accountId : null;
+
+        update onlineAppointment;
+
+        List<Event> onlineAppList = [
+            SELECT 
+                Id, RecordTypeId, RecordType.DeveloperName,Status__c, Store_Location__c, Store_Location__r.RetailStoreId__c, My_Repairs__c, My_Repairs__r.Client__r.Name,
+                Store_Location__r.Time_Zone_Id__c, Store_Location__r.StoreCountry__c, Store_Location__r.Name, availabilityId__c,Subject,
+                startDateTime, endDateTime, Reason__c, Service__c,OwnerId, Owner.Name, owner.FirstName, owner.LastName,
+                Language__c, Locale__c, Dispatch_Country__c, appointmentType__c, WhatId, sourceType__c, Store_Location__r.Address__c, Store_Location__r.tech_address__c, Store_Location__r.Local_Name__c, Store_Location__r.PhoneForClient__c
+            FROM Event
+            WHERE Id = :onlineAppointment.Id
+        ];
+        if(!onlineAppList.isEmpty()){
+            onlineAppointment = onlineAppList[0];
+        }
+                
+        return new AppointmentWrapper(onlineAppointment, true, false);
+    }
+   
+
 
 
 

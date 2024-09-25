@@ -9,15 +9,12 @@
  * 1.0   06-14-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
 **/
 trigger Event_BeforeUpdate on Event (before update) {
-    system.debug('*****AAAAAAAA');
     //Populate salesAmount and Transaction On appointment 
-   list<Event> event = new list<event>();
+    list<Event> event = new list<event>();
     map<String, list<Event>> toAddStore = new map<String, list<Event>>();
     map<String, list<Event>> toAddStoreOwner = new map<String, list<Event>>();
     Map<String, String> appointmentRecordTypesMap = OnlineAppointments_Utils.getAppointmentRecordTypesId();
     for (event e : trigger.new){
-    system.debug('@@@@@@@trigger : ' + e.Purchased_Product__c ); 
-     system.debug('@@@@@@@trigger : ' + trigger.oldmap.get(e.id).Purchased_Product__c ); 
         if (e.Purchased_Product__c != trigger.oldmap.get(e.id).Purchased_Product__c){
         
             event.add(e);
@@ -28,7 +25,7 @@ trigger Event_BeforeUpdate on Event (before update) {
             }
             toAddStore.get(e.OwnerId).add(e);
         }
-        system.debug('AAAAAAAAAA ATTENDANCE: ' + e.attendance__c); 
+
         if(e.attendance__c != trigger.oldmap.get(e.id).attendance__c){
             if(e.attendance__c == 'Yes'){
                 e.ClientNoShow__c = false;
@@ -39,6 +36,10 @@ trigger Event_BeforeUpdate on Event (before update) {
                 e.RelatedTicketNumber__c = null;
                 e.SaleAmount__c = null;
             }
+        }
+
+        if(e.RecordTypeId == appointmentRecordTypesMap.get('Online_Appointment') && e.availabilityId__c != trigger.oldmap.get(e.id).availabilityId__c){
+            e.Status__c = 'Not Assigned';
         }
         
         if((e.RecordTypeId == appointmentRecordTypesMap.get('Online_Appointment') && (e.Status__c != 'Assigned' && e.Status__c != 'Cancelled')) || e.RecordTypeId == appointmentRecordTypesMap.get('Availability')) {
@@ -57,14 +58,9 @@ trigger Event_BeforeUpdate on Event (before update) {
             e.No_Transaction__c = true;
             e.SaleAmount__c = null;
         }
-            if(e.RecordTypeId == appointmentRecordTypesMap.get('Online_Appointment') && e.My_Repairs__c != null) {        
-                 // make event public for identity user 
-                e.IsVisibleInSelfService = true; 
-                //complete whatid by careservice Id for OnlineAppointment linked to CareService
-                //e.WhatId = e.My_Repairs__c;
-                }
-           
-       
+        if(e.RecordTypeId == appointmentRecordTypesMap.get('Online_Appointment') && e.My_Repairs__c != null) { // make event public for identity user 
+            e.IsVisibleInSelfService = true; 
+        }
     }
 
     if(toAddStore.size() > 0){

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Journey_Appointment</label>
+    <protected>false</protected>
+    <values>
+        <field>FieldsMappingJson__c</field>
+        <value xsi:type="xsd:string">[
+  {
+    &quot;SFFieldPath&quot;: &quot;Account.DREAMID__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;dreamId&quot;,
+    &quot;SFLabel&quot;: &quot;Client&quot;,
+    &quot;FieldType&quot;: &quot;Reference&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Store_Location__r.RetailStoreId__c&quot;,
+    &quot;SFLabel&quot;: &quot;Store Location&quot;,
+    &quot;FieldType&quot;: &quot;Reference&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;storeCode&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Account.Salutation&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;civility&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;GetPicklistLabel&quot;: true,
+    &quot;Sub_UseCase&quot;: {},
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Account.FirstName&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;firstname&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;Wrapper_Field_Name&quot;: &quot;lastname&quot;,
+    &quot;SFFieldPath&quot;: &quot;Account.LastName&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Account.Segmentation__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;segmentation&quot;,
+    &quot;GetPicklistLabel&quot;: true,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;StartDateTime&quot;,
+    &quot;SFLabel&quot;: &quot;Start Date Time&quot;,
+    &quot;FieldType&quot;: &quot;DateTime&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;startDate&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;EndDateTime&quot;,
+    &quot;SFLabel&quot;: &quot;End Date Time&quot;,
+    &quot;FieldType&quot;: &quot;DateTime&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;endDate&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Subject&quot;,
+    &quot;SFLabel&quot;: &quot;Subject&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;reasonOfVisit&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;AppointmentType__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;appointmentType&quot;,
+    &quot;SFLabel&quot;: &quot;Appointment Type&quot;,
+    &quot;FieldType&quot;: &quot;Picklist&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;RecordType.Name&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;recordType&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Reason__c&quot;,
+    &quot;SFLabel&quot;: &quot;Reason&quot;,
+    &quot;FieldType&quot;: &quot;Picklist&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;reason&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Account.WW_RMSId__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;clientWWId&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Id&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;technicalId&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;SFLabel&quot;: &quot;Activity ID&quot;,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;Sub_UseCase_DeveloperName&quot;: &quot;&quot;,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;RecordType.DeveloperName&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;RecordTypeDeveloperName&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Account.C360GoldenID__c&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;GoldenId&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;InnerSelect_UseCase&quot;: {},
+    &quot;Sub_UseCase&quot;: {},
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false,
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;Attendance__c&quot;,
+    &quot;SFLabel&quot;: &quot;Attendance&quot;,
+    &quot;FieldType&quot;: &quot;Picklist&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;attendance&quot;,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  },
+  {
+    &quot;SFFieldPath&quot;: &quot;TECH_Appointment_subject_picklist__c&quot;,
+    &quot;SFLabel&quot;: &quot;TECH Appointment subject picklist&quot;,
+    &quot;FieldType&quot;: &quot;Picklist&quot;,
+    &quot;Wrapper_Field_Name&quot;: &quot;suject_golden&quot;,
+    &quot;Is_InnerSelect&quot;: false,
+    &quot;Is_Sub_UseCase&quot;: false,
+    &quot;UseCase&quot;: {
+      &quot;DeveloperName&quot;: &quot;Journey_Appointment&quot;,
+      &quot;Id&quot;: &quot;m0aDM000000GuPUYA0&quot;,
+      &quot;Label&quot;: &quot;Journey_Appointment&quot;
+    },
+    &quot;UseCaseName&quot;: &quot;Journey_Appointment&quot;,
+    &quot;IsCurrency&quot;: false,
+    &quot;Save_to_SF&quot;: false,
+    &quot;Send_to_Clienteling_App&quot;: false,
+    &quot;GetPicklistLabel&quot;: false
+  }
+]</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ObjectName__c</field>
+        <value xsi:type="xsd:string">Event</value>
+    </values>
+    <values>
+        <field>QueryConditionJson__c</field>
+        <value xsi:type="xsd:string">[]</value>
+    </values>
+    <values>
+        <field>QueryCondition__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

@@ -6,14 +6,8 @@ global with sharing class OnlineAppointmentsController {
     //Remote Function
     @RemoteAction
     global static Object getAvailabilities(String params) {        
-         System.debug(params);
-                    
-            
-        Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
-        System.debug(paramsList);
-        
-        // Util_JSONParser parser = Util_JSONParser.createParser(params);
-        // system.debug(parser);
+                           
+        Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);     
 
         User currentUser = getUserInfos();
         
@@ -21,55 +15,35 @@ global with sharing class OnlineAppointmentsController {
         
         String startDate = (String) paramsList.get('startDate');
         String endDate = (String) paramsList.get('endDate'); 
-        system.debug(startDate);
-        system.debug(endDate);
-        system.debug(storeCode);
+
         return OnlineAppointments_Utils.getAvailabilities(storeCode, null, startDate, endDate);          
     }
     
     
     @RemoteAction
     global static Object createAvailabilities(String params) {
-        system.debug('naomi is here');
-        system.debug([SELECT InstanceName FROM Organization WHERE Id = :UserInfo.getOrganizationId()].InstanceName);
-
-        System.debug(params);
-                    
-            
+       
         List<Object> paramsList =  (List<Object>) JSON.deserializeUntyped(params);
-        System.debug(paramsList);
         
         Map<String, Object> availabilitiesJSON = new Map<String, Object>();
         List<DateTime> myList = new List<DateTime>();
         
-        system.debug(paramsList);
         for(Object obj : paramsList){
             Map<String, Object> evObj = (Map<String, Object>) obj;
             Long longtime = (long) evObj.get('RecurrenceStartDateTime');
             myList.add(DateTime.newInstance(longtime));
         }
-            
-        
-        
 
-        system.debug(myList);
         Map<String, Object> evObj = (Map<String,Object>) paramsList[0];
         
         availabilitiesJSON.put('startTimes', myList);
         availabilitiesJSON.put('StoreCode', evObj.get('storeCode'));
         availabilitiesJSON.put('capacities', integer.valueof(evObj.get('capacities')));
         availabilitiesJSON.put('DurationInMinutes', 60);
-        
         availabilitiesJSON.put('IsRecurrence', evObj.get('IsRecurrence'));
-        system.debug('-------IsRecurrence---');
-        system.debug((Boolean) availabilitiesJSON.get('IsRecurrence'));
         
-        system.debug('-------RecurrenceStartDateTime---');
-        system.debug(evObj.get('RecurrenceStartDateTime'));
         Long RecurrenceStartDateTimeL = (Long) evObj.get('RecurrenceStartDateTime');
         availabilitiesJSON.put('RecurrenceStartDateTime', DateTime.newInstance(RecurrenceStartDateTimeL));
-        system.debug('-------RecurrenceEndDateOnly---');
-        system.debug(evObj.get('RecurrenceEndDateOnly'));
         Long RecurrenceEndDateOnlyL = (Long) evObj.get('RecurrenceEndDateOnly');
         
         DateTime RecurrenceEndDateOnlyDT = null; 
@@ -77,8 +51,6 @@ global with sharing class OnlineAppointmentsController {
             RecurrenceEndDateOnlyDT = DateTime.newInstance(RecurrenceEndDateOnlyL);    
         }
         
-        system.debug('RecurrenceEndDateOnlyL');
-        system.debug(RecurrenceEndDateOnlyL);
         if(RecurrenceEndDateOnlyL != null && RecurrenceEndDateOnlyL != 0){
             availabilitiesJSON.put('RecurrenceEndDateOnly', date.newinstance(RecurrenceEndDateOnlyDT.year(), RecurrenceEndDateOnlyDT.month(), RecurrenceEndDateOnlyDT.day()));    
         }
@@ -90,8 +62,6 @@ global with sharing class OnlineAppointmentsController {
         //availabilitiesJSON.put('RecurrenceTimeZoneSidKey', evObj.get('RecurrenceTimeZoneSidKey'));
         availabilitiesJSON.put('RecurrenceDayOfMonth', integer.valueof(evObj.get('RecurrenceDayOfMonth')));
         
-        System.debug('------------- availabilitiesJSON ------------');
-        System.debug(availabilitiesJSON);
 
         // evRef.IsRecurrence = (Boolean) availabilitiesJSON.get('IsRecurrence');
         // evRef.RecurrenceStartDateTime = (dateTime) availabilitiesJSON.get('RecurrenceStartDateTime');
@@ -109,11 +79,7 @@ global with sharing class OnlineAppointmentsController {
     @RemoteAction
     global static Object upsertOnlineAppointmentDesktop(String params) {
             
-        system.debug('nao upsertOnlineAppointmentDesktop');
-        System.debug(params);
-            
         Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
-
         return OnlineAppointments_Utils.upsertOnlineAppointmentDesktop(paramsList);
                
     }
@@ -122,11 +88,7 @@ global with sharing class OnlineAppointmentsController {
     @RemoteAction
     global static Object getOnlineAndTeamAppointments(String params) {
             
-        System.debug(params);
-            
         Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
-        
-        System.debug(paramsList);
         
         Boolean onlyOnline = (Boolean) paramsList.get('onlyOnline'); 
         Boolean onlyUnassigned = (Boolean) paramsList.get('onlyUnassigned');
@@ -141,11 +103,8 @@ global with sharing class OnlineAppointmentsController {
     @RemoteAction
     global static Object cancelOnlineAppointmnent(String params) {
             
-        System.debug(params);
-            
         Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
-        
-        System.debug(paramsList);
+
         String onlineAppointmentId = (String) paramsList.get('onlineAppointmentId');
         String accountId = (String) paramsList.get('accountId');
 
@@ -158,6 +117,71 @@ global with sharing class OnlineAppointmentsController {
         User u = [Select Id, DefaultStore__c, TECH_IsManager__c, FirstName, LastName, FullPhotoUrl, ProfileId, toLabel(MANAGEMENT_ZONE_LEVEL__c), toLabel(MGMT_ZONE_SUB_LEVEL1__c),toLabel(MGMT_ZONE_SUB_LEVEL3__c) From User Where ID = :UserInfo.getUserId()];
       return u;
     }
+
+    @RemoteAction
+    global static List<String> getAppointmentReasons(){
+
+        List<String> reason = new List<String>();
+        String objectName = 'Event';
+        String fieldName = 'Reason__c';
+        String recordTypeId = Event.sObjectType.getDescribe().getRecordTypeInfosByDeveloperName().get('Online_Appointment').getRecordTypeId();
+
+        Map<String, Object> response = getPicklistInfoByRecordType(objectName, recordTypeId, fieldName);  
+
+        if(response.containsKey('values')){
+
+            for(Object value : (List<Object>) response.get('values')){
+                Map<String, Object> picklist = (Map<String, Object>) value;
+                reason.add((String) picklist.get('value'));
+            }
+        }
+        return reason;
+    } 
+
+
+    @RemoteAction
+    global static List<Map<String,String>> getAppointmentReason(){
+
+        List<Map<String,String>> options = new List<Map<String,String>>();
+        String objectName = 'Event';
+        String fieldName = 'Reason__c';
+        String recordTypeId = Event.sObjectType.getDescribe().getRecordTypeInfosByDeveloperName().get('Online_Appointment').getRecordTypeId();
+
+        Map<String, Object> response = getPicklistInfoByRecordType(objectName, recordTypeId, fieldName);  
+
+        if(response.containsKey('values')){
+
+            for(Object value : (List<Object>) response.get('values')){
+                Map<String, Object> picklist = (Map<String, Object>) value;
+
+                Map<String, String> option  =  new Map<String, String>{
+                    'label'=>((String) picklist.get('label')).unescapeHtml4(),
+                    'value'=> (String) picklist.get('value') 
+                }; 
+
+                options.add(option);
+            }
+        }
+        return options;
+    }
+
+
+    public static Map<String, Object> getPicklistInfoByRecordType( String objectName, String recordTypeId, String fieldName ){ 
+
+        String baseUrl = '/services/data/v46.0/ui-api/object-info/';
+
+        baseUrl += objectName + '/picklist-values/' + recordTypeId + '/' + fieldName;
+
+        BL_HTTP_Utils request = new BL_HTTP_Utils()
+        .get(URL.getSalesforceBaseUrl().toExternalForm() + baseUrl)
+        .header('Authorization', 'Bearer ' + UserInfo.getSessionId())
+        .header('Content-Type', 'application/json')
+        .timeout(60000)
+        .call();
+
+        return request.statusCode() == 200 ? (Map<String, Object>) JSON.deserializeUntyped(request.responseBody()) : new Map<String, Object>() ;
+    }
+    
     
     @RemoteAction
     global static User getOneUserInfos(String id){
@@ -178,23 +202,15 @@ global with sharing class OnlineAppointmentsController {
       User currentUser = getUserInfos();
       if(String.isBlank(currentUser.DefaultStore__c)) {throw new OnlineAppointments_Utils.OnlineAppointmentException('USER_HAS_NO_DEFAULT_STORE');}
       Store__c s = [Select Id, Name, Time_Zone_Id__c, RetailStoreId__c, MANAGEMENT_ZONE_LEVEL_TECH__c,StoreCountry__c, AppointmentType__c From Store__c Where RetailStoreId__c =  :currentUser.DefaultStore__c]; 
-      System.debug(s);
       return s;
     }
     
     //getAvailableTeamUsers (Datetime startRange, Datetime endRange)
     @RemoteAction
     global static Object getAvailableTeamUsers(String params) {
-            
-        System.debug(params);
-            
+        
         Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
         
-        System.debug(paramsList);
-        
-        System.debug(paramsList.get('startRange'));
-        System.debug(paramsList.get('endRange'));
-        System.debug(paramsList.get('storeCode'));
         String storeCode = (String) paramsList.get('storeCode');
         String tempStart = (String) paramsList.get('startRange');
         List<String> startDateString = tempStart.split('-');
@@ -212,7 +228,6 @@ global with sharing class OnlineAppointmentsController {
         Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
         String storeCode = (String) paramsList.get('storeCode');
         List<User> userList = OnlineAppointments_Utils.getStoreUsers(storeCode);
-        System.debug(userList);
         return userList;
     }
 
@@ -229,9 +244,7 @@ global with sharing class OnlineAppointmentsController {
     @RemoteAction
     global static Object upsertOnlineAppointment(String params) {
             
-        System.debug(params);
         Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
-        System.debug(paramsList);
         
         return OnlineAppointments_Utils.upsertOnlineAppointment(paramsList);
     }
@@ -239,9 +252,7 @@ global with sharing class OnlineAppointmentsController {
 
     @RemoteAction
     global static Object assignAppointments(String params){
-        System.debug(params);
         Map<String, Object> paramsList = (Map<String, Object>) JSON.deserializeUntyped(params);
-        System.debug(paramsList);
         
         return OnlineAppointments_Utils.assignAppointments((String) paramsList.get('userId'), (String) paramsList.get('onlineAppointmentId'), Boolean.valueOf(paramsList.get('reassignFromManager')));
     }
@@ -249,7 +260,6 @@ global with sharing class OnlineAppointmentsController {
 
     @RemoteAction
     global static Object upsertAvailability(String params) {
-        System.debug(params);                   
             
         List<Object> availabilities =  (List<Object>) JSON.deserializeUntyped(params);
         
@@ -269,9 +279,7 @@ global with sharing class OnlineAppointmentsController {
 
     @RemoteAction
     global static Object updateAvailability(String params) {
-        System.debug(params);
         Map<String, Object> paramsMap = (Map<String, Object>) JSON.deserializeUntyped(params);
-        System.debug(paramsMap);
         
         //PARSE PARAMS
         String storeCode =  (paramsMap.get('storeCode')!= null ? (String) paramsMap.get('storeCode') : getUserInfos().DefaultStore__c);
@@ -324,10 +332,8 @@ global with sharing class OnlineAppointmentsController {
     
     @RemoteAction
     global static Object deleteAvailability(String params) {
-        System.debug(params);      
         
         Map<String, Object> paramsMap = (Map<String, Object>) JSON.deserializeUntyped(params);
-        System.debug(paramsMap);
         
         //PARSE PARAMS
         String availabilityId  = (String) paramsMap.get('availabilityId');
@@ -372,10 +378,8 @@ global with sharing class OnlineAppointmentsController {
 
     @RemoteAction
     global static Void updateStoreSettings(String params){
-        System.debug(params);      
         
         Map<String, Object> paramsMap = (Map<String, Object>) JSON.deserializeUntyped(params);
-        System.debug(paramsMap);
 
         Store__c st = new Store__c(Id = (String)paramsMap.get('storeId'), AppointmentType__c = (String) paramsMap.get('appointmentType'));
         update st;
