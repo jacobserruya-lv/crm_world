@@ -7,6 +7,69 @@ Description: Interface Web Sevice to Save ONLINE Appointments And Get ONLINE App
 
 @RestResource(urlMapping='/OnlineAppointment/*')
 global without sharing class WS_OnlineAppointments {
+    @HttpPut
+    global static void put() {
+        RestRequest req = RestContext.request;
+        system.debug(req.requestURI);
+        String onlineAppointmentId = req.requestURI.substring(req.requestURI.lastIndexOf('/') + 1);
+       
+        RestResponse res = RestContext.response;
+        res.addHeader('Content-Type','application/json');
+        res.statusCode = 200;
+        string response;
+
+        Map<String,Object> body = new Map<String,Object>();
+        if (req.requestBody != null) {
+            body = (Map<String,Object>)JSON.deserializeUntyped(req.requestBody.toString());
+        }
+
+        try{
+            String status = (String) body.get('status');
+            String accountId = (String) body.get('accountId');
+            String socialId = (String) body.get('socialId');
+
+           
+            body.put('onlineAppointmentId', onlineAppointmentId);
+            response = JSON.serialize(OnlineAppointments_Utils.putOnlineAppointment(body),true);
+         
+            res.responseBody = Blob.valueOf(response);
+        }
+        catch(Exception ex){
+            res.statusCode = 500;
+            system.debug(ex.getMessage() + '\n\n' + ex.getLineNumber());
+            OnlineAppointments_Utils.ResponseHandler errorObject = new  OnlineAppointments_Utils.ResponseHandler(null, null, null, null);
+            if(ex.getTypeName() == 'DmlException' ){
+                errorObject = new OnlineAppointments_Utils.ResponseHandler(ex.getDmlType(0), ex.getMessage() + ' Line: ' + ex.getLineNumber(), ex.getDmlFieldNames(0), 'DML_EXCEPTION');
+            } else {
+                if(ex.getMessage() == 'TIMESLOT_NOT_AVAILABLE'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The timeslot is no more available' , null, 'TIMESLOT_NOT_AVAILABLE');
+                    res.statusCode = 200;
+                } else if(ex.getMessage() == 'TIMESLOT_NOT_EXIST'){
+                    errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The timeslot is not existing' , null, 'TIMESLOT_NOT_EXIST');
+                    res.statusCode = 200;
+                } else  if(ex.getMessage() == 'APT_ID_NOT_EXIST'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The appointment is not existing' , null, 'APT_ID_NOT_EXIST');
+                    res.statusCode = 200;
+                } else  if(ex.getMessage() == 'CANCELATION_NOT_AUTHORIZED'){ errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We are not authorized to cancel this appointment.' , null, 'CANCELATION_NOT_AUTHORIZED');
+                    res.statusCode = 200;
+                } else  if(ex.getMessage() == 'CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We cannot assign the appointment without client infos.' , null, 'CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT');
+                    res.statusCode = 200;
+                } else  if(ex.getMessage() == 'UPDATE_NOT_AUTHORIZED'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'You are not authorized to modify this appointment.' , null, 'UPDATE_NOT_AUTHORIZED');
+                    res.statusCode = 200;
+                } else  if(ex.getMessage() == 'APPOINTMENT_TYPE_NOT_AVAILABLE'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The appointment type is not available for this store.' , null, 'APPOINTMENT_TYPE_NOT_AVAILABLE');
+                    res.statusCode = 200;
+                } else  if(ex.getMessage() == 'CANCEL_APT_ID_NOT_EXIST'){
+                    errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We can not canceled your appointment. Please contact the customer service team.' , null, 'CANCEL_APT_ID_NOT_EXIST');
+                    res.statusCode = 200;
+                } else{
+                    errorObject = new OnlineAppointments_Utils.ResponseHandler(null, ex.getMessage() + ' Line: ' + ex.getLineNumber(), null,'GENERIC_ERROR');
+                }
+                
+            }
+            
+            res.responseBody = Blob.valueOf(JSON.serialize(errorObject,true));
+            new Logs.ERROR('WS_OnlineAppointments','API',ex);
+        }
+    }
+
        /*=================================================================================================================*/
     //HTTP Request POST called 
 
@@ -23,7 +86,9 @@ global without sharing class WS_OnlineAppointments {
 
         Map<String,Object> body = new Map<String,Object>();
         if (req.requestBody != null) {
+    
             body = (Map<String,Object>)JSON.deserializeUntyped(req.requestBody.toString());
+                    system.debug('########### '+ body);
         }
 
         try{
@@ -50,28 +115,39 @@ global without sharing class WS_OnlineAppointments {
             if(ex.getTypeName() == 'DmlException' ){
                 errorObject = new OnlineAppointments_Utils.ResponseHandler(ex.getDmlType(0), ex.getMessage() + ' Line: ' + ex.getLineNumber(), ex.getDmlFieldNames(0), 'DML_EXCEPTION');
             } else {
-                if(ex.getMessage() == 'TIMESLOT_NOT_AVAILABLE'){    errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The timeslot is no more available' , null, 'TIMESLOT_NOT_AVAILABLE');
+                if(ex.getMessage() == 'TIMESLOT_NOT_AVAILABLE'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The timeslot is no more available' , null, 'TIMESLOT_NOT_AVAILABLE');
                     res.statusCode = 200;
-                } else if(ex.getMessage() == 'TIMESLOT_NOT_EXIST'){ errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The timeslot is not existing' , null, 'TIMESLOT_NOT_EXIST');
+                } else if(ex.getMessage() == 'TIMESLOT_NOT_EXIST'){
+                    errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The timeslot is not existing' , null, 'TIMESLOT_NOT_EXIST');
                     res.statusCode = 200;
-                } else  if(ex.getMessage() == 'APT_ID_NOT_EXIST'){  errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The appointment is not existing' , null, 'APT_ID_NOT_EXIST');
+                } else  if(ex.getMessage() == 'APT_ID_NOT_EXIST'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The appointment is not existing' , null, 'APT_ID_NOT_EXIST');
                     res.statusCode = 200;
-                } else  if(ex.getMessage() == 'CANCEL_APT_ID_NOT_EXIST'){ errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We can not canceled your appointment. Please contact the customer service team.' , null, 'CANCEL_APT_ID_NOT_EXIST');
+                } else  if(ex.getMessage() == 'CANCEL_APT_ID_NOT_EXIST'){
+                    errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We can not canceled your appointment. Please contact the customer service team.' , null, 'CANCEL_APT_ID_NOT_EXIST');
                     res.statusCode = 200;
                 } else  if(ex.getMessage() == 'CANCELATION_NOT_AUTHORIZED'){ errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We are not authorized to cancel this appointment.' , null, 'CANCELATION_NOT_AUTHORIZED');
                     res.statusCode = 200;
-                } else  if(ex.getMessage() == 'CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT'){ errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We cannot assign the appointment without client infos.' , null, 'CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT');
+                } else  if(ex.getMessage() == 'CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'We cannot assign the appointment without client infos.' , null, 'CANNOT_ASSIGN_APT_WITHOUT_ACCOUNT');
                     res.statusCode = 200;
-                } else  if(ex.getMessage() == 'UPDATE_NOT_AUTHORIZED'){ errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'You are not authorized to modify this appointment.' , null, 'UPDATE_NOT_AUTHORIZED');
+                } else  if(ex.getMessage() == 'UPDATE_NOT_AUTHORIZED'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'You are not authorized to modify this appointment.' , null, 'UPDATE_NOT_AUTHORIZED');
                     res.statusCode = 200;
-                } else  if(ex.getMessage() == 'APPOINTMENT_TYPE_NOT_AVAILABLE'){ errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The appointment type is not available for this store.' , null, 'APPOINTMENT_TYPE_NOT_AVAILABLE');
+                } else  if(ex.getMessage() == 'APPOINTMENT_TYPE_NOT_AVAILABLE'){errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'The appointment type is not available for this store.' , null, 'APPOINTMENT_TYPE_NOT_AVAILABLE');
                     res.statusCode = 200;
-                }else{
+                } else  if(ex.getMessage() == 'APPOINTMENT_ALREADY_EXISTING'){
+                    errorObject = new OnlineAppointments_Utils.ResponseHandler(null, 'Client already has a scheduled appointment' , null, 'APPOINTMENT_ALREADY_EXISTING');
+                    res.statusCode = 403;
+                }
+                
+                else{
                     errorObject = new OnlineAppointments_Utils.ResponseHandler(null, ex.getMessage() + ' Line: ' + ex.getLineNumber(), null,'GENERIC_ERROR');
                 }
+                
             }
             
             res.responseBody = Blob.valueOf(JSON.serialize(errorObject,true));
+
+
+
             new Logs.ERROR('WS_OnlineAppointments','API',ex);
         }
     }

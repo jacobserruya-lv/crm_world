@@ -158,8 +158,10 @@ public class IC_Event_TRG {
        for(User owner : owners){
            for(Event ev : toAddStore.get(owner.Id)){
                try{
-                   if(owner.DefaultStore__c != null && storeMap.get(owner.DefaultStore__c) != null)
-                       ev.Store_Location__c = storeMap.get(owner.DefaultStore__c).Id;
+                   if(owner.DefaultStore__c != null && storeMap.get(owner.DefaultStore__c) != null){
+                    ev.Store_Location__c = storeMap.get(owner.DefaultStore__c).Id;
+                    ev.report_CA_store__c = owner.DefaultStore__c;
+                   }
                } catch(Exception e){
                    system.debug(e.getMessage());
                }

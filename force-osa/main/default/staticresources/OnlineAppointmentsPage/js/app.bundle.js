@@ -352,6 +352,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_3_vue
     __WEBPACK_IMPORTED_MODULE_9__commons_utils__["a" /* default */].isVirtualEnabled();
     __WEBPACK_IMPORTED_MODULE_9__commons_utils__["a" /* default */].getAuthorizedProfiles();
     __WEBPACK_IMPORTED_MODULE_9__commons_utils__["a" /* default */].getUserPermissionSet();
+    __WEBPACK_IMPORTED_MODULE_9__commons_utils__["a" /* default */].getAppointmentReason();
 
     //StoreHierarchyModal.userStore(this.$store.state.storeInfos);
 
@@ -1241,7 +1242,9 @@ __WEBPACK_IMPORTED_MODULE_2_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_3_vue
           "ownerName": "Valentin BARRA",
           "recordType": "Online_Appointment",
           "appointmentType": "distant",
-          "subject": "test"
+          "subject": "test",
+          "reason": "1"
+
         }, {
           "accountId": "00155000tghd00W0qVfAAJ",
           "accountName": "Jerome Barra",
@@ -1631,6 +1634,39 @@ __WEBPACK_IMPORTED_MODULE_2_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_3_vue
         Name: "ICONiCS_SA_Manager" }]);
     }
   },
+  getAppointmentReason() {
+    if (true) {
+      __WEBPACK_IMPORTED_MODULE_1_lightning_container___default.a.callApex('OnlineAppointmentsController.getAppointmentReason', (result, event) => {
+
+        if (event.status && result) {
+
+          const input = JSON.stringify(result);
+          const doc = new DOMParser().parseFromString(input, "text/html");
+          const res = doc.documentElement.textContent;
+
+          __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */].dispatch('setAppointmentReason', JSON.parse(res));
+        } else {
+          __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */].dispatch('setAppointmentReason', []);
+        }
+      });
+    } else {
+      var res = [{
+        "value": "collections_discovery",
+        "label": "Collections Discovery"
+      }, {
+        "value": "Repairs",
+        "label": "Repairs"
+      }, {
+        "value": "Personalization",
+        "label": "Personalization"
+      }, {
+        "value": "exchanges_returns",
+        "label": "Exchanges & Returns"
+      }];
+
+      store.dispatch('setAppointmentReason', res);
+    }
+  },
   getAuthorizedProfiles() {
     if (true) {
       __WEBPACK_IMPORTED_MODULE_1_lightning_container___default.a.callApex('OnlineAppointmentsController.getAuthorizedProfiles', (result, event) => {
@@ -1699,17 +1735,18 @@ __WEBPACK_IMPORTED_MODULE_2_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_3_vue
       console.log('not in production');
     }
   },
-  createOnlineAppointment(availabilityId, accountId, callback, appointmentType, status = undefined, onlineAppointmentId = undefined) {
+  createOnlineAppointment(availabilityId, accountId, callback, appointmentType, reason = undefined, status = undefined, onlineAppointmentId = undefined) {
+
     if (true) {
 
       let params = {
         availabilityId,
         accountId,
         status,
+        reason,
         appointmentType,
         onlineAppointmentId
       };
-
       __WEBPACK_IMPORTED_MODULE_1_lightning_container___default.a.callApex('OnlineAppointmentsController.upsertOnlineAppointmentDesktop', JSON.stringify(params), (result, event) => {
         if (event.status) {
           // console.log('assignAppointments', result);
@@ -2244,7 +2281,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
     isInPilotStores: null,
     isVirtualEnabled: null,
     isFirstLoading: false,
-    isFirstLoadingModal: true //new parameter to know that the modal of store hierarchy was opened on first loading
+    isFirstLoadingModal: true, //new parameter to know that the modal of store hierarchy was opened on first loading
+    appointmentReason: []
   },
   mutations: {
     updateMouseDownTime(state, info) {
@@ -2309,6 +2347,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
     },
     setProfiles(state, info) {
       state.profiles = info;
+    },
+    setAppointmentReason(state, info) {
+      state.appointmentReason = info;
     },
     setEventsMap(state, info) {
       state.eventsMap = info;
@@ -2411,6 +2452,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
     },
     setProfiles(context, info) {
       context.commit('setProfiles', info);
+    },
+    setAppointmentReason(context, info) {
+      context.commit('setAppointmentReason', info);
     },
     setEventsMap(context, info) {
       context.commit('setEventsMap', info);
@@ -4982,6 +5026,25 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALcAAAA+CAIAAADm
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4989,174 +5052,180 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALcAAAA+CAIAAADm
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  name: 'creationOSAModal',
-  components: {},
-  props: ['eventToShow'],
-  data() {
-    return {
-      showModal: true,
-      timeFrom: null,
-      timeTo: null,
-      start: '',
-      selectedRadio: 'inStore',
+    name: 'creationOSAModal',
+    components: {},
+    props: ['eventToShow'],
+    data() {
+        return {
+            showModal: true,
+            timeFrom: null,
+            timeTo: null,
+            start: '',
+            selectedRadio: 'inStore',
 
-      descriptionLimit: 60,
-      entries: [],
-      isLoading: false,
-      model: null,
-      search: null,
-      accountId: null,
-      currentStore: {},
-      storeAPtType: 'inStore;distant'
+            descriptionLimit: 60,
+            entries: [],
+            isLoading: false,
+            model: null,
+            search: null,
+            accountId: null,
+            currentStore: {},
+            storeAPtType: 'inStore;distant',
+            chosenReason: null
 
-    };
-  },
-  methods: {
-    beforeOpen(event) {
-      this.currentStore = this.$store.state.storeInfos;
-      console.log(this.currentStore);
-      let storeAPtType = this.currentStore.AppointmentType__c ? this.currentStore.AppointmentType__c.split(";") : 'inStore';
-      this.selectedRadio = storeAPtType.length < 2 ? storeAPtType[0] : 'inStore';
+        };
     },
-    closeModal() {
-      this.$modal.hide('creationOSAModal');
-      this.$emit('closeAvailability');
-    },
-    fullUserName(data) {
-      return data.FirstName + ' ' + data.LastName;
-    },
-    saveOSA() {
-      console.log(this.availability);
-      this.$store.dispatch("setFirstLoading", true);
-      __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].createOnlineAppointment(this.availability.id, this.model.Id, this.closeModal, this.selectedRadio);
-    },
-    clear() {
-      this.model = null;
-    },
+    methods: {
+        beforeOpen(event) {
+            this.currentStore = this.$store.state.storeInfos;
+            console.log(this.currentStore);
+            let storeAPtType = this.currentStore.AppointmentType__c ? this.currentStore.AppointmentType__c.split(";") : 'inStore';
+            this.selectedRadio = storeAPtType.length < 2 ? storeAPtType[0] : 'inStore';
+        },
+        closeModal() {
+            this.$modal.hide('creationOSAModal');
+            this.$emit('closeAvailability');
+        },
+        fullUserName(data) {
+            return data.FirstName + ' ' + data.LastName;
+        },
+        saveOSA() {
+            console.log(this.availability);
+            this.$store.dispatch("setFirstLoading", true);
+            console.log(this.chosenReason);
+            __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].createOnlineAppointment(this.availability.id, this.model.Id, this.closeModal, this.selectedRadio, this.chosenReason);
+        },
+        clear() {
+            this.model = null;
+        },
 
-    msToTime(ms) {
-      var d = new Date(ms);
-      var f = d.getHours();
-      if (f && f.toString().length == 1) {
-        f = '0' + f;
-      }
-      return f + ':00';
-    },
-    msToDate(ms) {
-      return __WEBPACK_IMPORTED_MODULE_0_moment___default()(ms).tz(this.storeInfos.Time_Zone_Id__c).format('YYYY-MM-DD');
-    },
-    getLocaleHour(datems) {
-
-      let localHour = null;
-      if (datems) {
-        localHour = __WEBPACK_IMPORTED_MODULE_0_moment___default()(datems).tz(this.storeInfos.Time_Zone_Id__c).format('HH');
-      }
-      return localHour;
-    },
-
-    searchByTextClient(val, refreshClient = false) {
-      console.log(val);
-      // Items have already been requested
-      if (!val || val.length < 3) return;
-      // if (this.isLoading) return
-
-      this.isLoading = true;
-
-      if (true) {
-        __WEBPACK_IMPORTED_MODULE_1_lightning_container___default.a.callApex('OnlineAppointmentsController.searchClients', val, (result, event) => {
-          if (event.status) {
-            this.count = result.length;
-            this.entries = result;
-            this.isLoading = false;
-            if (refreshClient && this.model.Id == this.entries[0].Id) {
-              this.model = this.entries[0];
+        msToTime(ms) {
+            var d = new Date(ms);
+            var f = d.getHours();
+            if (f && f.toString().length == 1) {
+                f = '0' + f;
             }
-          } else if (event.type === 'exception') {
-            this.isLoading = false;
-            console.log(event.message + ' : ' + event.where);
-          } else {
-            this.isLoading = false;
-            console.log('Unknown Error', event);
-          }
-        }, { escape: false });
-      } else {
-        let result = [{ Id: "001i000002EdlS4AAJ", Salutation: "MMe", FirstName: "Revaa", LastName: "ABDALAAHI", Name: "Revaa ABDALAAHI", DREAMID__c: 85772245, PersonEmail: "nezhacherif@email.com", Can_Be_Contacted_By_Email__pc: true, Can_Be_Contacted_By_SMS__pc: false }];
-        this.isLoading = false;
-        this.count = result.length;
-        this.entries = result;
-        console.log('not in production');
-      }
+            return f + ':00';
+        },
+        msToDate(ms) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(ms).tz(this.storeInfos.Time_Zone_Id__c).format('YYYY-MM-DD');
+        },
+        getLocaleHour(datems) {
+
+            let localHour = null;
+            if (datems) {
+                localHour = __WEBPACK_IMPORTED_MODULE_0_moment___default()(datems).tz(this.storeInfos.Time_Zone_Id__c).format('HH');
+            }
+            return localHour;
+        },
+
+        searchByTextClient(val, refreshClient = false) {
+            console.log(val);
+            // Items have already been requested
+            if (!val || val.length < 3) return;
+            // if (this.isLoading) return
+
+            this.isLoading = true;
+
+            if (true) {
+                __WEBPACK_IMPORTED_MODULE_1_lightning_container___default.a.callApex('OnlineAppointmentsController.searchClients', val, (result, event) => {
+                    if (event.status) {
+                        this.count = result.length;
+                        this.entries = result;
+                        this.isLoading = false;
+                        if (refreshClient && this.model.Id == this.entries[0].Id) {
+                            this.model = this.entries[0];
+                        }
+                    } else if (event.type === 'exception') {
+                        this.isLoading = false;
+                        console.log(event.message + ' : ' + event.where);
+                    } else {
+                        this.isLoading = false;
+                        console.log('Unknown Error', event);
+                    }
+                }, { escape: false });
+            } else {
+                let result = [{ Id: "001i000002EdlS4AAJ", Salutation: "MMe", FirstName: "Revaa", PersonMobilePhone: "0547821415621", LastName: "ABDALAAHI", Name: "Revaa ABDALAAHI", DREAMID__c: 85772245, PersonEmail: "nezhacherif@email.com", Can_Be_Contacted_By_Email__pc: true, Can_Be_Contacted_By_SMS__pc: false }];
+                this.isLoading = false;
+                this.count = result.length;
+                this.entries = result;
+                console.log('not in production');
+            }
+        },
+
+        refreshClient() {
+            if (this.model) this.searchByTextClient(this.model.DREAMID__c || this.model.Name, true);
+        },
+        filterClients(item, queryText, itemText) {
+            return true;
+        }
+
     },
 
-    refreshClient() {
-      if (this.model) this.searchByTextClient(this.model.DREAMID__c || this.model.Name, true);
+    computed: {
+
+        storeAptType() {
+            let store = this.$store.state.storeInfos;
+            return store && store.AppointmentType__c ? store.AppointmentType__c : "inStore;distant";
+        },
+
+        availability() {
+            if (this.eventToShow) {
+                let eventObj = this.eventToShow;
+                console.log(eventObj);
+                eventObj.timeFrom = this.getLocaleHour(eventObj.gmtStartDateTime ? eventObj.gmtStartDateTime : eventObj.localStartDateTime) + ":00";
+                eventObj.timeTo = this.getLocaleHour(eventObj.gmtEndDateTime) + ":00";
+                eventObj.start = this.msToDate(eventObj.gmtStartDateTime);
+                return eventObj;
+            }
+
+            return {};
+        },
+        nowTime() {
+            var d = new Date();
+            return d;
+        },
+        userProfile() {
+            var allProfiles = this.$store.state.profiles;
+            var actualUser = this.$store.state.userInfos;
+            var userProfile = allProfiles.length > 0 ? allProfiles.find(element => element.Id == actualUser.ProfileId) : '';
+            return userProfile ? userProfile.Name : '';
+        },
+        storeInfos() {
+            return this.$store.state.storeInfos;
+        },
+        isUserActionAuthorized() {
+            return __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].isUserActionAuthorized();
+        },
+        isCSCUser() {
+            return __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].isCSCUser();
+        },
+        currentPath() {
+            return window.location.origin;
+        },
+
+        isClientEligible() {
+            return this.model && this.model.Id && this.model.PersonEmail && (this.model.PersonMobilePhone || this.model.PersonOtherPhone || this.model.PersonHomePhone);
+        },
+        isVirtualEnabled() {
+            return this.$store.state.isVirtualEnabled;
+        },
+        reasonOfAppointment() {
+
+            return this.$store.state.appointmentReason;
+        },
+        hasAppointmentType() {
+            var aptType = this.$store.state.storeInfos.AppointmentType__c;
+            return aptType ? true : false;
+        }
     },
-    filterClients(item, queryText, itemText) {
-      return true;
+
+    watch: {
+        search: __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].debounce(function (newVal) {
+            console.log(newVal);
+            this.searchByTextClient(newVal);
+        }, 500)
     }
-
-  },
-
-  computed: {
-
-    storeAptType() {
-      let store = this.$store.state.storeInfos;
-      return store && store.AppointmentType__c ? store.AppointmentType__c : "inStore;distant";
-    },
-
-    availability() {
-      if (this.eventToShow) {
-        let eventObj = this.eventToShow;
-        console.log(eventObj);
-        eventObj.timeFrom = this.getLocaleHour(eventObj.gmtStartDateTime ? eventObj.gmtStartDateTime : eventObj.localStartDateTime) + ":00";
-        eventObj.timeTo = this.getLocaleHour(eventObj.gmtEndDateTime) + ":00";
-        eventObj.start = this.msToDate(eventObj.gmtStartDateTime);
-        return eventObj;
-      }
-
-      return {};
-    },
-    nowTime() {
-      var d = new Date();
-      return d;
-    },
-    userProfile() {
-      var allProfiles = this.$store.state.profiles;
-      var actualUser = this.$store.state.userInfos;
-      var userProfile = allProfiles.length > 0 ? allProfiles.find(element => element.Id == actualUser.ProfileId) : '';
-      return userProfile ? userProfile.Name : '';
-    },
-    storeInfos() {
-      return this.$store.state.storeInfos;
-    },
-    isUserActionAuthorized() {
-      return __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].isUserActionAuthorized();
-    },
-    isCSCUser() {
-      return __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].isCSCUser();
-    },
-    currentPath() {
-      return window.location.origin;
-    },
-
-    isClientEligible() {
-      return this.model && this.model.Id && this.model.PersonEmail && (this.model.PersonMobilePhone || this.model.PersonOtherPhone || this.model.PersonHomePhone);
-    },
-    isVirtualEnabled() {
-      return this.$store.state.isVirtualEnabled;
-    },
-    hasAppointmentType() {
-      var aptType = this.$store.state.storeInfos.AppointmentType__c;
-      return aptType ? true : false;
-    }
-  },
-
-  watch: {
-    search: __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].debounce(function (newVal) {
-      console.log(newVal);
-      this.searchByTextClient(newVal);
-    }, 500)
-  }
 
 });
 
@@ -5412,6 +5481,29 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALcAAAA+CAIAAADm
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5439,7 +5531,6 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALcAAAA+CAIAAADm
       start: '',
       type: 1, //1 = female
       availableTeamUser: null
-
     };
   },
   methods: {
@@ -5596,6 +5687,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALcAAAA+CAIAAADm
     },
     storeInfos() {
       return this.$store.state.storeInfos;
+    },
+    reasonOfAppointment() {
+      return this.$store.state.appointmentReason;
     },
     isUserActionAuthorized() {
       return __WEBPACK_IMPORTED_MODULE_3__commons_utils__["a" /* default */].isUserActionAuthorized();
@@ -7230,7 +7324,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(116);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fa4fb062_hasScoped_false_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__ = __webpack_require__(575);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_24789fe9_hasScoped_false_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__ = __webpack_require__(575);
 function injectStyle (ssrContext) {
   __webpack_require__(510)
 }
@@ -7250,7 +7344,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_App_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fa4fb062_hasScoped_false_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_24789fe9_hasScoped_false_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -8113,7 +8207,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_CreationOSAModal_vue__ = __webpack_require__(257);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2c334270_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreationOSAModal_vue__ = __webpack_require__(552);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0ab152fe_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreationOSAModal_vue__ = __webpack_require__(552);
 function injectStyle (ssrContext) {
   __webpack_require__(551)
 }
@@ -8128,12 +8222,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-2c334270"
+var __vue_scopeId__ = "data-v-0ab152fe"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_CreationOSAModal_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2c334270_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreationOSAModal_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0ab152fe_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreationOSAModal_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -8154,7 +8248,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showModal)?_c('modal',{staticClass:"creationOSAModal",attrs:{"name":"creationOSAModal","width":"30%","height":"auto"},on:{"close":function($event){_vm.showModal = false},"before-open":_vm.beforeOpen}},[_c('div',{staticClass:"creationOSAModalContent"},[_c('div',{staticClass:"modal-close",on:{"click":function($event){return _vm.closeModal()}}}),_vm._v(" "),_c('div',{staticClass:"modal-assign-header"}),_vm._v(" "),_c('v-container',{staticClass:"inputs-container",staticStyle:{"padding-bottom":"60px"},attrs:{"grid-list-md":"","text-xs-center":""}},[_c('v-layout',{staticStyle:{"align-items":"center"},attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Client")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-autocomplete',{attrs:{"disabled":_vm.isUpdating,"items":_vm.entries,"loading":_vm.isLoading,"search-input":_vm.search,"color":"black","filled":"","clearable":"","placeholder":"Start typing to Search","item-text":"Name","item-value":"Id","return-object":"","append-icon":"mdi-menu-down","clear-icon":"mdi-close","filter":_vm.filterClients},on:{"update:searchInput":function($event){_vm.search=$event},"update:search-input":function($event){_vm.search=$event}},scopedSlots:_vm._u([{key:"item",fn:function(data){return [_c('div',{staticClass:"autocomplete-result-container"},[_c('div',{staticClass:"autocomplete-result-row"},[_c('span',[_vm._v(_vm._s(data.item.Name))]),_vm._v(" "),_c('span',[_vm._v(_vm._s(data.item.DREAMID__c ? data.item.DREAMID__c : ''))])]),_vm._v(" "),_c('div',{staticClass:"autocomplete-result-row"},[_c('span',[_vm._v(_vm._s(data.item.PersonEmail ? data.item.PersonEmail : ""))]),_vm._v(" "),_c('span',[_vm._v(_vm._s(data.item.PersonMobilePhone ? data.item.PersonMobilePhone : ""))])])])]}},{key:"selection",fn:function(data){return [_c('div',[_c('span',[_vm._v(_vm._s(data.item.Name)+" - ")]),_vm._v(" "),_c('span',[_vm._v(_vm._s(data.item.DREAMID__c ? data.item.DREAMID__c : ''))])])]}}],null,false,3951903700),model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}})],1)],1),_vm._v(" "),(_vm.model && !_vm.isClientEligible)?_c('v-layout',{staticStyle:{"align-items":"center"},attrs:{"row":"","wrap":""}},[_c('v-flex',[_c('div',{staticClass:"warningLabel"},[_c('div',[_vm._v("The client has no email and\\or no phone, please fill it in the client page "),_c('a',{attrs:{"href":_vm.currentPath + '/' + (_vm.model ? _vm.model.Id : ''),"target":"_blank"}},[_vm._v(_vm._s(_vm.model ? _vm.model.Name : ''))]),_vm._v(" and refresh\n                        "),_c('v-btn',{staticClass:"refreshClient-btn",on:{"click":_vm.refreshClient}},[_c('v-icon',{attrs:{"size":"20px"}},[_vm._v("mdi-refresh")])],1)],1)])])],1):_vm._e(),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Date")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.start),callback:function ($$v) {_vm.$set(_vm.availability, "start", $$v)},expression:"availability.start"}})],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Hours")])])]),_vm._v(" "),_c('v-flex',{staticStyle:{"display":"flex","padding":"4px 0"},attrs:{"xs5":""}},[_c('v-flex',{attrs:{"xs5":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeFrom),callback:function ($$v) {_vm.$set(_vm.availability, "timeFrom", $$v)},expression:"availability.timeFrom"}})],1),_vm._v(" "),_c('span',{staticClass:"toLabel-assign"},[_vm._v("to")]),_vm._v(" "),_c('v-flex',{attrs:{"xs5":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeTo),callback:function ($$v) {_vm.$set(_vm.availability, "timeTo", $$v)},expression:"availability.timeTo"}})],1)],1)],1),_vm._v(" "),(_vm.isVirtualEnabled)?_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Appointment Type")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-radio-group',{staticClass:"radio-aptType",model:{value:(_vm.selectedRadio),callback:function ($$v) {_vm.selectedRadio=$$v},expression:"selectedRadio"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.storeAptType.includes('inStore')),expression:"storeAptType.includes('inStore')"}],staticClass:"radio-aptType-row"},[_c('v-radio',{attrs:{"label":"In store appointment","value":"inStore","color":"black","on-icon":"mdi-radiobox-marked","off-icon":"mdi-radiobox-blank"}})],1),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.storeAptType.includes('distant') && _vm.hasAppointmentType),expression:"storeAptType.includes('distant') && hasAppointmentType"}],staticClass:"radio-aptType-row"},[_c('v-radio',{attrs:{"label":"Virtual appointment","value":"distant","color":"black","on-icon":"mdi-radiobox-marked","off-icon":"mdi-radiobox-blank"}})],1)])],1)],1):_vm._e()],1),_vm._v(" "),_c('button',{staticClass:"eventTypeBtn delete-btn",on:{"click":function($event){return _vm.closeModal()}}},[_vm._v("\n            Close\n        ")]),_vm._v(" "),(_vm.isCSCUser)?_c('button',{staticClass:"eventTypeBtn",attrs:{"disabled":!_vm.isClientEligible},on:{"click":function($event){return _vm.saveOSA()}}},[_vm._v("\n            Save\n        ")]):_vm._e()],1)]):_vm._e()}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showModal)?_c('modal',{staticClass:"creationOSAModal",attrs:{"name":"creationOSAModal","width":"30%","height":"auto"},on:{"close":function($event){_vm.showModal = false},"before-open":_vm.beforeOpen}},[_c('div',{staticClass:"creationOSAModalContent"},[_c('div',{staticClass:"modal-close",on:{"click":function($event){return _vm.closeModal()}}}),_vm._v(" "),_c('div',{staticClass:"modal-assign-header"}),_vm._v(" "),_c('v-container',{staticClass:"inputs-container",staticStyle:{"padding-bottom":"60px"},attrs:{"grid-list-md":"","text-xs-center":""}},[_c('v-layout',{staticStyle:{"align-items":"center"},attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Client")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-autocomplete',{attrs:{"disabled":_vm.isUpdating,"items":_vm.entries,"loading":_vm.isLoading,"search-input":_vm.search,"color":"black","filled":"","clearable":"","placeholder":"Start typing to Search","item-text":"Name","item-value":"Id","return-object":"","append-icon":"mdi-menu-down","clear-icon":"mdi-close","filter":_vm.filterClients},on:{"update:searchInput":function($event){_vm.search=$event},"update:search-input":function($event){_vm.search=$event}},scopedSlots:_vm._u([{key:"item",fn:function(data){return [_c('div',{staticClass:"autocomplete-result-container"},[_c('div',{staticClass:"autocomplete-result-row"},[_c('span',[_vm._v(_vm._s(data.item.Name))]),_vm._v(" "),_c('span',[_vm._v(_vm._s(data.item.DREAMID__c ? data.item.DREAMID__c : ''))])]),_vm._v(" "),_c('div',{staticClass:"autocomplete-result-row"},[_c('span',[_vm._v(_vm._s(data.item.PersonEmail ? data.item.PersonEmail : ""))]),_vm._v(" "),_c('span',[_vm._v(_vm._s(data.item.PersonMobilePhone ? data.item.PersonMobilePhone : ""))])])])]}},{key:"selection",fn:function(data){return [_c('div',[_c('span',[_vm._v(_vm._s(data.item.Name)+" - ")]),_vm._v(" "),_c('span',[_vm._v(_vm._s(data.item.DREAMID__c ? data.item.DREAMID__c : ''))])])]}}],null,false,3951903700),model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}})],1)],1),_vm._v(" "),(_vm.model && !_vm.isClientEligible)?_c('v-layout',{staticStyle:{"align-items":"center"},attrs:{"row":"","wrap":""}},[_c('v-flex',[_c('div',{staticClass:"warningLabel"},[_c('div',[_vm._v("The client has no email and\\or no phone, please fill it in the client page "),_c('a',{attrs:{"href":_vm.currentPath + '/' + (_vm.model ? _vm.model.Id : ''),"target":"_blank"}},[_vm._v(_vm._s(_vm.model ? _vm.model.Name : ''))]),_vm._v(" and refresh\n                        "),_c('v-btn',{staticClass:"refreshClient-btn",on:{"click":_vm.refreshClient}},[_c('v-icon',{attrs:{"size":"20px"}},[_vm._v("mdi-refresh")])],1)],1)])])],1):_vm._e(),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Date")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.start),callback:function ($$v) {_vm.$set(_vm.availability, "start", $$v)},expression:"availability.start"}})],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Hours")])])]),_vm._v(" "),_c('v-flex',{staticStyle:{"display":"flex","padding":"4px 0"},attrs:{"xs5":""}},[_c('v-flex',{attrs:{"xs5":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeFrom),callback:function ($$v) {_vm.$set(_vm.availability, "timeFrom", $$v)},expression:"availability.timeFrom"}})],1),_vm._v(" "),_c('span',{staticClass:"toLabel-assign"},[_vm._v("to")]),_vm._v(" "),_c('v-flex',{attrs:{"xs5":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeTo),callback:function ($$v) {_vm.$set(_vm.availability, "timeTo", $$v)},expression:"availability.timeTo"}})],1)],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Reason")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-select',{attrs:{"items":_vm.reasonOfAppointment,"item-text":"label","item-value":"value","menu-props":{ bottom: true, offsetY: true },"filled":"","append-icon":"mdi-menu-down"},model:{value:(_vm.chosenReason),callback:function ($$v) {_vm.chosenReason=$$v},expression:"chosenReason"}})],1)],1),_vm._v(" "),(_vm.isVirtualEnabled)?_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Appointment Type")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-radio-group',{staticClass:"radio-aptType",model:{value:(_vm.selectedRadio),callback:function ($$v) {_vm.selectedRadio=$$v},expression:"selectedRadio"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.storeAptType.includes('inStore')),expression:"storeAptType.includes('inStore')"}],staticClass:"radio-aptType-row"},[_c('v-radio',{attrs:{"label":"In store","value":"inStore","color":"black","on-icon":"mdi-radiobox-marked","off-icon":"mdi-radiobox-blank"}})],1),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.storeAptType.includes('distant') && _vm.hasAppointmentType),expression:"storeAptType.includes('distant') && hasAppointmentType"}],staticClass:"radio-aptType-row"},[_c('v-radio',{attrs:{"label":"Virtual","value":"distant","color":"black","on-icon":"mdi-radiobox-marked","off-icon":"mdi-radiobox-blank"}})],1)])],1)],1):_vm._e()],1),_vm._v(" "),_c('button',{staticClass:"eventTypeBtn delete-btn",on:{"click":function($event){return _vm.closeModal()}}},[_vm._v("\n            Close\n        ")]),_vm._v(" "),(_vm.isCSCUser)?_c('button',{staticClass:"eventTypeBtn",attrs:{"disabled":!_vm.isClientEligible},on:{"click":function($event){return _vm.saveOSA()}}},[_vm._v("\n            Save\n        ")]):_vm._e()],1)]):_vm._e()}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -8236,7 +8330,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_AssignEventModal_vue__ = __webpack_require__(259);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_276618aa_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AssignEventModal_vue__ = __webpack_require__(559);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fd8a1db6_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AssignEventModal_vue__ = __webpack_require__(559);
 function injectStyle (ssrContext) {
   __webpack_require__(558)
 }
@@ -8251,12 +8345,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-276618aa"
+var __vue_scopeId__ = "data-v-fd8a1db6"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_AssignEventModal_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_276618aa_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AssignEventModal_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fd8a1db6_hasScoped_true_transformToRequire_video_src_poster_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_AssignEventModal_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -8277,7 +8371,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showModal)?_c('modal',{staticClass:"assignEventModal",attrs:{"name":"assignEventModal","width":"30%","height":"auto"},on:{"close":function($event){_vm.showModal = false}}},[_c('div',{staticClass:"assignEventModalContent"},[_c('div',{staticClass:"modal-close",on:{"click":function($event){return _vm.closeModal()}}}),_vm._v(" "),_c('div',{staticClass:"modal-assign-header"},[_c('a',{attrs:{"href":_vm.currentPath + '/' + _vm.availability.accountId,"target":"_blank"}},[_c('h3',{staticClass:"modal-assign-title"},[_vm._v(_vm._s(_vm.availability.accountName))])]),_vm._v(" "),(_vm.isVirtualEnabled)?_c('h2',{directives:[{name:"show",rawName:"v-show",value:(_vm.eventToShow.appointmentType == 'distant'),expression:"eventToShow.appointmentType == 'distant'"}],staticClass:"virtual_label-box"},[_vm._v("virtual")]):_vm._e()]),_vm._v(" "),_c('v-container',{staticClass:"inputs-container",attrs:{"grid-list-md":"","text-xs-center":""}},[_c('v-layout',{staticStyle:{"align-items":"center"},attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Assign to")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-autocomplete',{attrs:{"items":_vm.availableTeamUsers,"item-text":_vm.fullUserName,"item-value":"Id","disabled":!_vm.isUserActionAuthorized,"placeholder":_vm.eventToShow.ownerName ? _vm.ownerName : ''},model:{value:(_vm.teamUsers),callback:function ($$v) {_vm.teamUsers=$$v},expression:"teamUsers"}},[_c('v-icon',{staticClass:"iconMarginRight",attrs:{"slot":"append"},slot:"append"},[_vm._v("mdi-menu-down")])],1)],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Date")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.start),callback:function ($$v) {_vm.$set(_vm.availability, "start", $$v)},expression:"availability.start"}})],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Hours")])])]),_vm._v(" "),_c('v-flex',{staticStyle:{"display":"flex","padding":"4px 0"},attrs:{"xs9":""}},[_c('v-flex',[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeFrom),callback:function ($$v) {_vm.$set(_vm.availability, "timeFrom", $$v)},expression:"availability.timeFrom"}})],1),_vm._v(" "),_c('span',{staticClass:"toLabel-assign"},[_vm._v("to")]),_vm._v(" "),_c('v-flex',[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeTo),callback:function ($$v) {_vm.$set(_vm.availability, "timeTo", $$v)},expression:"availability.timeTo"}})],1)],1)],1)],1),_vm._v(" "),_c('div',{staticClass:"assign-event-modal__btn-container"},[(_vm.isCSCUser && _vm.availability.recordType == 'Online_Appointment' && _vm.isFutureEvent)?_c('button',{staticClass:"eventTypeBtn cancel-btn",on:{"click":function($event){return _vm.cancelAppointment()}}},[_vm._v("\n                Cancel Appointment\n            ")]):_vm._e(),_vm._v(" "),(_vm.isUserActionAuthorized)?_c('button',{staticClass:"eventTypeBtn",on:{"click":function($event){return _vm.assignEvent()}}},[_vm._v("\n                Save\n            ")]):_vm._e()])],1)]):_vm._e()}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showModal)?_c('modal',{staticClass:"assignEventModal",attrs:{"name":"assignEventModal","width":"30%","height":"auto"},on:{"close":function($event){_vm.showModal = false}}},[_c('div',{staticClass:"assignEventModalContent"},[_c('div',{staticClass:"modal-close",on:{"click":function($event){return _vm.closeModal()}}}),_vm._v(" "),_c('div',{staticClass:"modal-assign-header"},[_c('a',{attrs:{"href":_vm.currentPath + '/' + _vm.availability.accountId,"target":"_blank"}},[_c('h3',{staticClass:"modal-assign-title"},[_vm._v(_vm._s(_vm.availability.accountName))])]),_vm._v(" "),(_vm.isVirtualEnabled)?_c('h2',{directives:[{name:"show",rawName:"v-show",value:(_vm.eventToShow.appointmentType == 'distant'),expression:"eventToShow.appointmentType == 'distant'"}],staticClass:"virtual_label-box"},[_vm._v("virtual")]):_vm._e()]),_vm._v(" "),_c('v-container',{staticClass:"inputs-container",attrs:{"grid-list-md":"","text-xs-center":""}},[_c('v-layout',{staticStyle:{"align-items":"center"},attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Assign to")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-autocomplete',{attrs:{"items":_vm.availableTeamUsers,"item-text":_vm.fullUserName,"item-value":"Id","disabled":!_vm.isUserActionAuthorized,"placeholder":_vm.eventToShow.ownerName ? _vm.ownerName : ''},model:{value:(_vm.teamUsers),callback:function ($$v) {_vm.teamUsers=$$v},expression:"teamUsers"}},[_c('v-icon',{staticClass:"iconMarginRight",attrs:{"slot":"append"},slot:"append"},[_vm._v("mdi-menu-down")])],1)],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Date")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.start),callback:function ($$v) {_vm.$set(_vm.availability, "start", $$v)},expression:"availability.start"}})],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Hours")])])]),_vm._v(" "),_c('v-flex',{staticStyle:{"display":"flex","padding":"4px 0"},attrs:{"xs9":""}},[_c('v-flex',[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeFrom),callback:function ($$v) {_vm.$set(_vm.availability, "timeFrom", $$v)},expression:"availability.timeFrom"}})],1),_vm._v(" "),_c('span',{staticClass:"toLabel-assign"},[_vm._v("to")]),_vm._v(" "),_c('v-flex',[_c('v-text-field',{staticClass:"disabled-input",attrs:{"disabled":"","readonly":""},model:{value:(_vm.availability.timeTo),callback:function ($$v) {_vm.$set(_vm.availability, "timeTo", $$v)},expression:"availability.timeTo"}})],1)],1)],1),_vm._v(" "),_c('v-layout',{staticStyle:{"margin-bottom":"22px"},attrs:{"row":"","wrap":""}},[_c('v-flex',{attrs:{"xs3":""}},[_c('div',{staticClass:"inputsLabel"},[_c('span',[_vm._v("Reason")])])]),_vm._v(" "),_c('v-flex',{attrs:{"xs9":""}},[_c('v-select',{staticClass:"disabled-input",attrs:{"items":_vm.reasonOfAppointment,"item-text":"label","item-value":"value","menu-props":{ bottom: true, offsetY: true },"filled":"","disabled":"","readonly":"","append-icon":"mdi-menu-down"},model:{value:(_vm.eventToShow.reason),callback:function ($$v) {_vm.$set(_vm.eventToShow, "reason", $$v)},expression:"eventToShow.reason"}})],1)],1)],1),_vm._v(" "),_c('div',{staticClass:"assign-event-modal__btn-container"},[(_vm.isCSCUser && _vm.availability.recordType == 'Online_Appointment' && _vm.isFutureEvent)?_c('button',{staticClass:"eventTypeBtn cancel-btn",on:{"click":function($event){return _vm.cancelAppointment()}}},[_vm._v("\n                Cancel Appointment\n            ")]):_vm._e(),_vm._v(" "),(_vm.isUserActionAuthorized)?_c('button',{staticClass:"eventTypeBtn",on:{"click":function($event){return _vm.assignEvent()}}},[_vm._v("\n                Save\n            ")]):_vm._e()])],1)]):_vm._e()}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
