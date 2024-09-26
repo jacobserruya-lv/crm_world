@@ -8,6 +8,9 @@ public class Appointment_TriggerHandler_TEST {
       u.DefaultStore__c = '1234';
       insert u;
 
+      User ca = IC_Test_Common.prepareTestUser('ICON_SA');
+      insert ca;
+
       User u2 = IC_Test_Common.prepareTestUser('System Administrator');
       u.DefaultStore__c = '1234';
       insert u2;
@@ -370,6 +373,43 @@ public class Appointment_TriggerHandler_TEST {
         Test.stopTest();
     }
 
+
+    @isTest
+    static void testHandleBeforeDeleteByIcon() {
+        Id eventAppointmentRecordType = Schema.SObjectType.Event.getRecordTypeInfosByDeveloperName().get('Event_Appointment').getRecordTypeId();
+
+        User iconUser = [SELECT id FROM user WHERE IsActive = TRUE AND Profile.Name = 'ICON_SA' LIMIT 1];
+        User systemUser = [SELECT id FROM user WHERE IsActive = TRUE AND Profile.Name = 'System Administrator' LIMIT 1];
+
+        Event myAppointmentToDelete = new Event(
+        	StartDateTime = System.now().addHours(-1),
+          EndDateTime = System.now().addHours(2),
+          Subject = 'Event',
+          Description= 'Delete test appointment',
+          RecordTypeId = eventAppointmentRecordType,
+          OwnerId = iconUser.Id
+        );
+
+        System.runAs(systemUser){
+          try{
+            insert myAppointmentToDelete;
+          } catch(Exception e) {
+            system.debug('Error : ' + e);
+          }
+        }
+
+        Test.startTest();
+
+        System.runAs(iconUser){
+            try{
+                delete myAppointmentToDelete;
+            } catch(Exception e) {
+                system.debug('Error : ' + e);
+            }
+        }
+
+        Test.stopTest();
+    }
 
     public static Event createEvent(Map<String ,Object> info){
 
