@@ -15,7 +15,7 @@ private class EmailComposer_CTRL_TEST {
         Case request2 = new Case(Origin = 'Email', Status = 'New', Priority = 'Medium',TECH_Queue__c='Sweden', AccountId = acc.Id, Description ='Un case de Test' ,SuppliedEmail='louis@lv.com' ,SuppliedName = 'Europe Louis');
         insert request2;
     
-        Store__c store = new Store__c(Name = 'test', RetailStoreId__c = 'A06');
+        Store__c store = new Store__c(Name = 'test', RetailStoreId__c = 'A06', Store_CountryCode__c='FR');
         insert store;
 
         CareService__c c = new CareService__c(Client__c = acc.id, store__c = store.id, StoreRetailCode__c = store.RetailStoreId__c);
@@ -170,12 +170,12 @@ private class EmailComposer_CTRL_TEST {
         User u = [SELECT id,DefaultStore__c FROM user Where WWEmployeeNumber__c = 'WW198765467'];
         
         system.runAs(u){
+            Test.startTest();
             Account a = new Account(LastName = 'Europe', FirstName='Louis', PersonEmail='louis@lv.com' );
             insert a;
             Task t = new Task();
             insert t;
             Task ta = [SELECT Id FROM Task  LIMIT 1];
-            Test.startTest();
                 PageReference pageRef = Page.EmailComposer_VF;
                 pageRef.getParameters().put('recordId',ta.Id);
                 pageRef.getParameters().put('application','WARDROBING');

@@ -9,7 +9,12 @@
       const domain = window.location.origin;
       const application = '{!application}';
 
+      function refreshRecordPage(){
+        window.parent.postMessage('refresh-page', '*');      
+      }
       const emailDefaultValues = {!emailDefaultValues};
+      emailDefaultValues.onEmailSent = refreshRecordPage;
+      
       /*
      const emailDefaultValues = {
          application: 'ICONICS',

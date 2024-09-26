@@ -8,3 +8,5 @@ global with sharing class BL_EMAIL_Sender extends BL_WS_Request implements BL_WS
         return BL_EMAIL_Sender_Helper.sendEmail((Map<String, Object>) record, application);
     }
 }
+
+

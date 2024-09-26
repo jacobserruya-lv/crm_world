@@ -16,6 +16,7 @@ public with sharing class BL_EMAIL_Constants {
     public static final String USE_CASE_ICONICS_SETTINGS            = 'ICONICS_Settings';
     public static final String USE_CASE_EMAIL_TYPE                  = 'Email Type';
     public static final String USE_CASE_TASK_FIELDS                 = 'Task';
+    public static final String USE_CASE_EMAIL_MESSAGE_FIELDS        = 'UC_EmailMessageEmail';
 
     public static final String JSONRoot_EmailTemplate       = 'emailTemplate';
     public static final String JSONRoot_SenderAddresses     = 'senderAddresses';

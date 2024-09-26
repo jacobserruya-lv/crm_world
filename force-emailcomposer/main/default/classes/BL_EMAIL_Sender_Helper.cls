@@ -41,6 +41,12 @@ public with sharing class BL_EMAIL_Sender_Helper {
                 mail.setHtmlBody(formatEmailBody((String) record.get('body'), refId, referenceId(refId)));
                 mail.setPlainTextBody(getTextMessage(record, recordId));
                 setQueue(sender, refId);
+            }else if(objectType == 'EmailMessage'){
+                EmailMessage em = [SELECT Id, ParentId FROM EmailMessage WHERE Id =:recordId LIMIT 1];
+                if(em.ParentId != null){
+                    mail.setWhatId(em.ParentId);
+                    mail.setHtmlBody(formatEmailBody((String) record.get('body'), em.ParentId, referenceId(em.ParentId)));
+                }
             } else mail.setHtmlBody((String) record.get('body'));
 
     
@@ -230,6 +236,8 @@ public with sharing class BL_EMAIL_Sender_Helper {
         String caseRecordType = '';
         if(objectType == 'Case'){
             caseRecordType = [SELECT Id, recordTypeId FROM Case WHERE Id =: recordId LIMIT 1].recordTypeId;
+        }else if(objectType == 'EmailMessage'){
+            caseRecordType = [SELECT Id, Parent.recordTypeId FROM EmailMessage WHERE Id =:recordId LIMIT 1].Parent.recordTypeId;
         }
 
         if(emailType == 'clienteling' || caseRecordType == (String) requestClientelingRT){
