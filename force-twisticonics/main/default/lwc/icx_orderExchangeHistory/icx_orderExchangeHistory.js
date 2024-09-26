@@ -1,16 +1,16 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
-import {publish,  subscribe, MessageContext } from 'lightning/messageService';
+import { publish, subscribe, MessageContext } from 'lightning/messageService';
 import ORDER_REFRESH_MESSAGE from '@salesforce/messageChannel/OrderRefresh__c';
-import getProductDetails from '@salesforce/apex/Account_OrderDetailsControllerLC.getOrderDetailsTwist';
+import getProductDetails from '@salesforce/apex/Account_OrderDetailsControllerLC.getOrderDetailsTwistV2';
 
 import defaultTemplate from './icx_orderExchangeHistory.html';
 import templateInOrderExchange from './icx_orderExchangeHistoryInOrderExchange.html';
 
-export default class Icx_orderExchangeHistory extends NavigationMixin( LightningElement)  {
+export default class Icx_orderExchangeHistory extends NavigationMixin(LightningElement) {
     @api orderid; // Salesforce ID    
-    @api orderdetailsapi; 
+    @api orderdetailsapi;
 
     @track isLoading = true;
 
@@ -53,8 +53,8 @@ export default class Icx_orderExchangeHistory extends NavigationMixin( Lightning
         return 'height:2rem;';
     }
 
-    render(){
-         return this.orderdetailsapi.isExchange ? templateInOrderExchange: defaultTemplate;
+    render() {
+        return this.orderdetailsapi.isExchange ? templateInOrderExchange : defaultTemplate;
     }
 
     onRefresh() {
@@ -62,7 +62,7 @@ export default class Icx_orderExchangeHistory extends NavigationMixin( Lightning
     }
 
     setData(dataRecords) {
-        console.log('icx_orderExchangeHistory: setData(dataRecords):' +dataRecords);
+        console.log('icx_orderExchangeHistory: setData(dataRecords):' + dataRecords);
         this.exchangeRecords = JSON.parse(dataRecords);
         this.hasExchangeRecords = (this.exchangeRecords.length > 0);
     }
@@ -71,50 +71,50 @@ export default class Icx_orderExchangeHistory extends NavigationMixin( Lightning
     async getExchangeDetails(orderdetailsapi) {
         this.isLoading = true;
 
-        console.log('icx_orderExchangeHistory: getExchangeDetails : '+orderdetailsapi);
+        console.log('icx_orderExchangeHistory: getExchangeDetails : ' + orderdetailsapi);
         const sgDetailsBySgIdp = new Map();
         const sgInPromise = new Set();
         //map1.set('ShippingId', 'orderDetails');
-        
+
         const promiseList = [];
 
         // get the list of SG in current order
-        orderdetailsapi.order_lines.forEach( sg => {
+        orderdetailsapi.order_lines.forEach(sg => {
             sgDetailsBySgIdp.set(sg.request_id, sg);
-            console.log('icx_orderExchangeHistory: sgDetailsBySgIdp: '+sg.request_id);
+            console.log('icx_orderExchangeHistory: sgDetailsBySgIdp: ' + sg.request_id);
         });
-        
+
         if (orderdetailsapi.isExchange) {
             // We have to retrieve the orderId of the initial order
 
-            orderdetailsapi.order_lines.forEach( sg => {
+            orderdetailsapi.order_lines.forEach(sg => {
 
                 // For Each linked SG
                 sg.linked_shipping_groups.forEach(lsg => {
-                    if(lsg.fulfilment_type == 'RETURN') {
+                    if (lsg.fulfilment_type == 'RETURN') {
                         // If the linked SG is not one of the current Order => it is the initial SG of the Exchange 
-                        if(!sgDetailsBySgIdp.get(lsg.request_id) && !sgInPromise.has(lsg.request_id)) {
-                            
-                                console.log('icx_orderExchangeHistory: getProductDetails({orderId: '+lsg.request_id+', isRecordId: false})');
-                                // We retrieve the detail of the linked SG
-                                promiseList.push(new Promise((resolve, reject) => getProductDetails({orderId: lsg.request_id, isRecordId: false}).then(result => {
-                                            resolve(result);
-                                        })
-                                        .catch(error => {
-                                            reject(error);
-                                        })
-                                ));
-                                sgInPromise.add(lsg.request_id);
+                        if (!sgDetailsBySgIdp.get(lsg.request_id) && !sgInPromise.has(lsg.request_id)) {
+
+                            console.log('icx_orderExchangeHistory: getProductDetails({orderId: ' + lsg.request_id + ', isRecordId: false})');
+                            // We retrieve the detail of the linked SG
+                            promiseList.push(new Promise((resolve, reject) => getProductDetails({ orderId: lsg.request_id, isRecordId: false }).then(result => {
+                                resolve(result);
+                            })
+                                .catch(error => {
+                                    reject(error);
+                                })
+                            ));
+                            sgInPromise.add(lsg.request_id);
                         }
-                    }                    
+                    }
                 })
 
-            });     
-            
-            Promise.all(promiseList).then((values) => {     
+            });
+
+            Promise.all(promiseList).then((values) => {
                 let exchangeRecords = [];
                 let orderDisplayed = [];
-                
+
                 values.forEach(orderDetails => {
                     let exchangeRecord = new Map();
 
@@ -129,37 +129,37 @@ export default class Icx_orderExchangeHistory extends NavigationMixin( Lightning
                 this.isLoading = false;
                 this.setData(JSON.stringify(exchangeRecords));
             });
-            
+
         }
         else {
             // For each Return SG we check if it exists an Exchange Order
-            orderdetailsapi.order_lines.forEach( sg => {
+            orderdetailsapi.order_lines.forEach(sg => {
                 // If the SG is a RETRUN
                 if (sg.isReturn) {
                     // For Each linked SG
                     sg.linked_shipping_groups.forEach(lsg => {
                         // If the linked SG is not one of the current Order => it is an Exchange 
-                        if(!sgDetailsBySgIdp.get(lsg.request_id) && !sgInPromise.has(lsg.request_id)) {
-                            console.log('icx_orderExchangeHistory: getProductDetails({orderId: '+lsg.request_id+', isRecordId: false})');
+                        if (!sgDetailsBySgIdp.get(lsg.request_id) && !sgInPromise.has(lsg.request_id)) {
+                            console.log('icx_orderExchangeHistory: getProductDetails({orderId: ' + lsg.request_id + ', isRecordId: false})');
                             sgInPromise.add(lsg.request_id);
                             // We retrieve the detail of the linked SG
-                            promiseList.push(new Promise((resolve, reject) => getProductDetails({orderId: lsg.request_id, isRecordId: false}).then(result => {
-                                        resolve(result);
-                                    })
-                                    .catch(error => {
-                                        reject(error);
-                                    })
+                            promiseList.push(new Promise((resolve, reject) => getProductDetails({ orderId: lsg.request_id, isRecordId: false }).then(result => {
+                                resolve(result);
+                            })
+                                .catch(error => {
+                                    reject(error);
+                                })
                             ));
                         }
-                        
+
                     })
-                } 
+                }
             });
 
             Promise.all(promiseList).then((values) => {
                 console.log('icx_orderExchangeHistory: inside Promise.All');
                 console.log(values);
-                console.log('icx_orderExchangeHistory: inside Promise.All =>'+JSON.stringify(values));
+                console.log('icx_orderExchangeHistory: inside Promise.All =>' + JSON.stringify(values));
 
                 // let exchangeRecord;
                 let orderExcByOrderId = new Map();
@@ -174,36 +174,36 @@ export default class Icx_orderExchangeHistory extends NavigationMixin( Lightning
                 values.forEach(orderDetails => {
                     if (!orderExcByOrderId.has(orderDetails.order_id)) {
                         orderExcByOrderId.set(orderDetails.order_id, orderDetails);
-                        listOfSgExcByOrderExch.set(orderDetails.order_id, {"sgList": [], "sgExchList": []});
-                    }                 
+                        listOfSgExcByOrderExch.set(orderDetails.order_id, { "sgList": [], "sgExchList": [] });
+                    }
 
                     (orderDetails.order_lines).forEach(shipping => {
-                        console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.get(orderDetails.order_id).sgExchList.push :'+shipping.request_id);
+                        console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.get(orderDetails.order_id).sgExchList.push :' + shipping.request_id);
                         listOfSgExcByOrderExch.get(orderDetails.order_id).sgExchList.push(shipping);
 
                         (shipping.linked_shipping_groups).forEach(linkedSG => {
-                            if (sgDetailsBySgIdp.has(linkedSG.request_id)) {                            
-                                console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.get(orderDetails.order_id).sgList.push :'+linkedSG.request_id);
+                            if (sgDetailsBySgIdp.has(linkedSG.request_id)) {
+                                console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.get(orderDetails.order_id).sgList.push :' + linkedSG.request_id);
                                 listOfSgExcByOrderExch.get(orderDetails.order_id).sgList.push(sgDetailsBySgIdp.get(linkedSG.request_id));
                             }
                         });
                     });
-                });            
-                    
-                console.log('icx_orderExchangeHistory: this.exchangeRecords :' + this.exchangeRecords);  
-                console.log('icx_orderExchangeHistory: listOfSgExcByOrderExchs :' + JSON.stringify(listOfSgExcByOrderExch));      
+                });
+
+                console.log('icx_orderExchangeHistory: this.exchangeRecords :' + this.exchangeRecords);
+                console.log('icx_orderExchangeHistory: listOfSgExcByOrderExchs :' + JSON.stringify(listOfSgExcByOrderExch));
 
 
-                listOfSgExcByOrderExch.forEach(function(value, key) {
-                    console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.forEach:key'+ key);
-                    console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.forEach:value'+ value);
+                listOfSgExcByOrderExch.forEach(function (value, key) {
+                    console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.forEach:key' + key);
+                    console.log('icx_orderExchangeHistory: listOfSgExcByOrderExch.forEach:value' + value);
                     let orderDetails = orderExcByOrderId.get(key);
 
                     let exchangeRecord = new Map();
                     let carriageReturn = '\n';
 
                     let sgListDisplayed = [];
-                    
+
                     (listOfSgExcByOrderExch.get(key).sgList).forEach(shipping => {
                         let shippingNumberOld = '';
                         let shippingQtyOld = '';
@@ -236,24 +236,24 @@ export default class Icx_orderExchangeHistory extends NavigationMixin( Lightning
 
                         exchangeRecord.set('shippingExchQty', shippingExchQtyOld + shipping.qty);
                         exchangeRecord.set('shippingExchPrice', shippingExchPriceOld + shipping.initialPrice);
-                        exchangeRecord.set('shippingExchProductName', shippingExchProductNameOld + shipping.productName);                
+                        exchangeRecord.set('shippingExchProductName', shippingExchProductNameOld + shipping.productName);
                     });
 
                     exchangeRecord.set('Date', orderDetails.createdDate);
                     exchangeRecord.set('Owner', orderDetails.ca.Name);
                     exchangeRecord.set('OrderStatus', orderDetails.orderStatusIconics);
-                    
+
                     exchangeRecords.push(Object.fromEntries(exchangeRecord));
-                    
-                    console.log('icx_orderExchangeHistory: Object.fromEntries(exchangeRecord):'+JSON.stringify(exchangeRecords));
-                    }
+
+                    console.log('icx_orderExchangeHistory: Object.fromEntries(exchangeRecord):' + JSON.stringify(exchangeRecords));
+                }
                 )
 
                 // let exchangeRecord = new Map();
-                    
+
                 // exchangeRecord.set('shippingNumber', '1234567\n9876543');
                 // exchangeRecord.set('shippingQty', '1\n1');
-                
+
                 // //exchangeRecords.push(exchangeRecord);
                 // exchangeRecords.push(Object.fromEntries(exchangeRecord));
 
@@ -266,7 +266,7 @@ export default class Icx_orderExchangeHistory extends NavigationMixin( Lightning
                 // return exchangeRecords;
             });
         }
-        
+
     }
 
     // init lifecycle hook known as connectedCallback
