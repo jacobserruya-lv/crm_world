@@ -58,7 +58,9 @@ public class TWIST_Registration_TEST {
             'titleList',
             'socialMediaProviders',
             'forgotPasswordUrl',
-            'legalAge'
+            'legalAge',
+            'googleSocialLoginEnabled',
+            'lineSocialLoginEnabled'
         };
         
         // When
@@ -107,7 +109,10 @@ public class TWIST_Registration_TEST {
             'loginBaseUrl',
             'socialMediaProviders',
             'forgotPasswordUrl',
-            'legalAge'
+            'legalAge',
+            'googleSocialLoginEnabled',
+            'lineSocialLoginEnabled'
+
         };
         
         // When
@@ -157,7 +162,9 @@ public class TWIST_Registration_TEST {
             'loginBaseUrl',
             'socialMediaProviders',
             'forgotPasswordUrl',
-            'legalAge'
+            'legalAge',
+            'googleSocialLoginEnabled',
+            'lineSocialLoginEnabled'
         };
         
         // When
@@ -196,7 +203,7 @@ public class TWIST_Registration_TEST {
     
     @isTest
     static void test_submitRegistrationForm_ok() {
-        Map<String,Object> result = TWIST_Registration.submitRegistrationForm(new Map<String,String>(), new Map<String,Object>(), new Map<String,String>());
+        Map<String,Object> result = TWIST_Registration.submitRegistrationForm(new Map<String,String>(), new Map<String,Object>(), new Map<String,String>(), true);
         Map<String,Object> expected = TWIST_Utils.buildSuccessResponseObject();
         System.assertEquals(result, expected);
     }

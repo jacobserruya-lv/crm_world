@@ -26,7 +26,21 @@ function includesString(string1, string2, ignoreCase) {
     return string1.includes(string2);
 }
 
+
+/**
+ * @param {any} error
+ * @return {String|Object}
+ */
+function getErrorMessage(error) {
+    let result = error;
+    if (typeof error === "object") {
+        result = JSON.stringify(error.hasOwnProperty("body") ? error.body : error);
+    }
+    return result;
+}
+
 export {
     lwcNameToCamelCase,
-    includesString
+    includesString,
+    getErrorMessage
 };

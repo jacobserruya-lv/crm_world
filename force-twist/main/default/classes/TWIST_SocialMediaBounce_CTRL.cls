@@ -81,6 +81,8 @@ public with sharing class TWIST_SocialMediaBounce_CTRL {
                     'categoryGa' => 'mylv',
                     'actionId' => 'social_login_intention',
                     'actionGa' => 'i_already_have_an_account',
+                    'actionType' => this.currentPageParams.get(TWIST_QueryParamKey_CONST.SOCIAL_MEDIA),
+                    'actionPosition' => 'i_already_have_an_account',
                     'labelGa' => 'social_login_intention',
                     'event' => 'click'
                 };
@@ -105,6 +107,8 @@ public with sharing class TWIST_SocialMediaBounce_CTRL {
                         'categoryGa' => 'mylv',
                         'actionId' => 'social_login_failed',
                         'actionGa' => 'i_already_have_an_account',
+                        'actionType' => TWIST_Utils.getSocialProviderTypeByProviderId(this.currentPageParams.get(TWIST_QueryParamKey_CONST.PROVIDER_ID)),
+                        'actionPosition' => 'i_already_have_an_account',
                         'labelGa' => 'social_login_failed',
                         'event' => 'loginFailure',
                         'errorId' => 'Query param ErrorDescription is not a valid base64: ' + this.currentPageParams.get(TWIST_QueryParamKey_CONST.ERROR_DESCRIPTION)
@@ -122,6 +126,8 @@ public with sharing class TWIST_SocialMediaBounce_CTRL {
                     'categoryGa' => 'mylv',
                     'actionId' => 'social_login_failed',
                     'actionGa' => 'i_already_have_an_account',
+                    'actionType' => TWIST_Utils.getSocialProviderTypeByProviderId(this.currentPageParams.get(TWIST_QueryParamKey_CONST.PROVIDER_ID)),
+                    'actionPosition' => 'i_already_have_an_account',
                     'labelGa' => 'social_login_failed',
                     'event' => 'loginFailure',
                     'errorId' => 'Flow step set to FlowStep.ERROR'

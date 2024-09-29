@@ -3,9 +3,11 @@
     <div id="lwc-wrapper-container"/>
 
     <script type="text/javascript">
+        console.time("Page Loading Time"); // JSSI remove
         window.addEventListener("message", event => {
             switch (event.data) {
                 case "hidePageLoader":
+                    console.timeEnd("Page Loading Time"); // JSSI remove
                     document.querySelector(".lv-loader-wrapper").style.display = "none";
                     break;
                 case "showPageLoader":
@@ -33,10 +35,10 @@
                         function(component) {}
                     );
                 }
-              
+
             });
         }
-        
+
         function getWindowFunctionsAsObject() {
             const o = {};
             for (const [key, value] of Object.entries(window)) {

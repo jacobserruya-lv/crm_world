@@ -12,7 +12,7 @@ public with sharing class TWIST_i18nTranslations_TEST {
         settings.Env_In_Reset_Password_Url__c = 'i1f';
         insert settings;
     }
-    
+
     @isTest
     static void test_translateLabelsListWhenLanguageIsNullShouldReturnEmptyMap() {
         // Given

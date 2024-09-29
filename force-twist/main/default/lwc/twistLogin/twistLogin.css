@@ -48,7 +48,7 @@
 }
 .UseAlternativeLoginLinkToSignInTextCss {
     color: black;
-    display: flex;  
+    display: flex;
     padding-top: 24px;
     align-items: center;
 }
@@ -71,10 +71,6 @@
 }
 .twist-login-field-container{
     padding-top: 24px;
-}
-.line-or-text{
-    text-align: center;
-    margin-top:25px
 }
 .activation-section{
     font-size: 14px;

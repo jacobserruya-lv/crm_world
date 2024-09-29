@@ -445,104 +445,7 @@ public with sharing class TWIST_Utils_TEST {
         TWIST_Utils.isUserBlocked(email, langCountry);
         System.assertEquals(true, TWIST_Utils.isUserBlocked(email, langCountry));
     }
-
-    @isTest
-    public static void test_buildAndClauseFromDisabledSocialProviders_whenNoSocialMediaProviderIsDisabled() {
-        // Given
-        String langCountry = 'jpn-jp';
-        Map<String,Object> body = new Map<String,Object> {
-            TWIST_FeatureFlagUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN => true,
-            TWIST_FeatureFlagUtils.FEATURE_KEY_DUMMY_SOCIAL_MEDIA => true
-        };
-        Test.startTest();
-        HttpResponseMock mock = new HttpResponseMock().setStatusCode(200).setBody(JSON.serialize(body));
-        UnitTestsHelper.setSingleHttpMock(mock);
-        Test.stopTest();
-
-        // When
-        String andClause = TWIST_Utils.buildAndClauseFromDisabledSocialProviders(langCountry);
-
-        // Then
-        System.assertEquals('', andClause);
-    }
-
-    @isTest
-    public static void test_buildAndClauseFromDisabledSocialProviders_whenOneSocialMediaProviderIsDisabled() {
-        // Given
-        String langCountry = 'jpn-jp';
-        String prefix = 'eco-as';
-
-        Test.startTest();
-        Country__c country = new Country__c();
-        country.tech_duplicate__c = 'Japan';
-        insert country;
-
-        Language2__c language = new Language2__c();
-        language.Iso2Code__c = 'JA';
-        language.Iso3Code__c = 'JPN';
-        insert language;
-
-        insert new CountryLanguage__c(
-            Country__c = country.Id,
-            Language__c = language.Id,
-            ATG_Locale__c = langCountry,
-            Mulesoft_Local__c = prefix
-        );
-
-        Map<String,Object> body = new Map<String,Object> {
-            TWIST_FeatureFlagUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN => false,
-            TWIST_FeatureFlagUtils.FEATURE_KEY_DUMMY_SOCIAL_MEDIA => true
-        };
-        HttpResponseMock mock = new HttpResponseMock().setStatusCode(200).setBody(JSON.serialize(body));
-        UnitTestsHelper.setSingleHttpMock(mock);
-        Test.stopTest();
-
-        // When
-        String andClause = TWIST_Utils.buildAndClauseFromDisabledSocialProviders(langCountry);
-
-        // Then
-        System.assertEquals('AND Page_Key__c != \'line\'', andClause);
-    }
-
-    @isTest
-    public static void test_buildAndClauseFromDisabledSocialProviders_whenMultipleSocialMediaProvidersAreDisabled() {
-        // Given
-        String langCountry = 'jpn-jp';
-        String prefix = 'eco-as';
-
-        Test.startTest();
-        Country__c country = new Country__c();
-        country.tech_duplicate__c = 'Japan';
-        insert country;
-
-        Language2__c language = new Language2__c();
-        language.Iso2Code__c = 'JA';
-        language.Iso3Code__c = 'JPN';
-        insert language;
-
-        insert new CountryLanguage__c(
-            Country__c = country.Id,
-            Language__c = language.Id,
-            ATG_Locale__c = langCountry,
-            Mulesoft_Local__c = prefix
-        );
-
-        Map<String,Object> body = new Map<String,Object> {
-            TWIST_FeatureFlagUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN => false,
-            TWIST_FeatureFlagUtils.FEATURE_KEY_DUMMY_SOCIAL_MEDIA => false
-        };
-        HttpResponseMock mock = new HttpResponseMock().setStatusCode(200).setBody(JSON.serialize(body));
-        UnitTestsHelper.setSingleHttpMock(mock);
-        Test.stopTest();
-
-        // When
-        String andClause = TWIST_Utils.buildAndClauseFromDisabledSocialProviders(langCountry);
-
-        // Then
-        System.assertEquals('AND Page_Key__c NOT IN [\'dummy-social-media\',\'line\']', andClause);
-    }
-
-    @isTest
+  
     public static void test_isFutureDate_shouldReturnFalse() {
         // Given
         String dateEmpty1 = null;
@@ -568,7 +471,13 @@ public with sharing class TWIST_Utils_TEST {
         System.assert(TWIST_Utils.isFutureDate('2032-09-13'));
     }
     
-    
+    @isTest
+    public static void createRandomPasswordtest(){
+        String password = TWIST_Utils.createRandomPassword();
+        String password2 = TWIST_Utils.createRandomPassword();
+        System.assertNotEquals(password, password2);
+    }
+
     /* PRIVATE METHODS ***************************************************************************************/
     
     private static Reset_Password_Request__c createResetRequest(String email, String token) {

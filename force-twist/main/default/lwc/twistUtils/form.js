@@ -107,7 +107,7 @@ function setFieldErrorMessage(fieldElement, errorMessage) {
 /**
  * @param {Element} fieldElement
  */
-function removeFieldErrorMessage(fieldElement) { // JSSI refactor any call to this method
+function removeFieldErrorMessage(fieldElement) {
     setFieldErrorMessage(fieldElement, "");
 }
 

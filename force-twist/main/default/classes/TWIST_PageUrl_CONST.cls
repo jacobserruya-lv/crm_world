@@ -1,7 +1,7 @@
 public with sharing class TWIST_PageUrl_CONST {
 
     public static final String LOGIN_URL = String.format('TWIST_LWCWrapper?{0}={1}', new List<String> { TWIST_QueryParamKey_CONST.PAGE, TWIST_QueryParamValue_CONST.PAGE_LOGIN });
-    public static final String ALTERNATIVE_LOGIN_URL = 'TWIST_LWCWrapper?page=alternativeLogin';
+    public static final String ALTERNATIVE_LOGIN_URL =String.format('TWIST_LWCWrapper?{0}={1}', new List<String> { TWIST_QueryParamKey_CONST.PAGE, TWIST_QueryParamValue_CONST.PAGE_ALTERNATIVE_LOGIN });
     public static final String FORGOT_PASSWORD_URL = String.format('TWIST_LWCWrapper?{0}={1}', new List<String> { TWIST_QueryParamKey_CONST.PAGE, TWIST_QueryParamValue_CONST.PAGE_FORGOT_PASSWORD });
     public static final String RESET_PASSWORD_URL = String.format('TWIST_LWCWrapper?{0}={1}', new List<String> { TWIST_QueryParamKey_CONST.PAGE, TWIST_QueryParamValue_CONST.PAGE_RESET_PASSWORD });
     public static final String REGISTRATION_URL = String.format('TWIST_LWCWrapper?{0}={1}', new List<String> { TWIST_QueryParamKey_CONST.PAGE, TWIST_QueryParamValue_CONST.PAGE_ACCOUNT_CREATION });

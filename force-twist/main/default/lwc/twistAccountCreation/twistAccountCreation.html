@@ -14,26 +14,38 @@
                     <template if:true={componentConfig.modeInfo.isRegistrationMode}>
 
                         <h1 class="component__title">{customLabels.Twist_Account_Creation_TitleAccountCreation}</h1>
-                        
-                        <template lwc:if={showLineButton}>
-                            <div class="div-line">
-                                <a href={socialMediaProviders.LineLV} class="line_button">
-                                  <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
-                                    {customLabels.Twist_Login_Page_Social_Login_Line}
-                                </a>
-                                <p class="line-or-text">{customLabels.Twist_Social_Line_Text_For_Second_Option}</p>
-                            </div>
-                        </template>
+                        <div class="div-line">
 
-                        <template lwc:if={showLineTWButton}>
-                            <div class="div-line">
-                                <a href={socialMediaProviders.LineLVTW} class="line_button">
-                                  <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
-                                    {customLabels.Twist_Login_Page_Social_Login_Line}
-                                </a>
-                                <p class="line-or-text">{customLabels.Twist_Social_Line_Text_For_Second_Option}</p>
-                            </div>
-                        </template>
+                            <template lwc:if={showLineButton}>
+                                    <a href={socialMediaProviders.LineLV} class="line_button">
+                                    <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
+                                        {customLabels.Twist_Login_Page_Social_Login_Line}
+                                    </a>
+                            </template>
+
+
+                            <template lwc:if={showLineTWButton}>
+                                    <a href={socialMediaProviders.LineLVTW} class="line_button">
+                                    <img class="line-icon-svg" src={twistLineLogo} alt="LINE" title="LINE"/>
+                                        {customLabels.Twist_Login_Page_Social_Login_Line}
+                                    </a>
+                            </template>
+
+                            <template lwc:if={showSocialGoogleButton}>
+                                    <a href={socialMediaProviders.GoogleLV} class="google_button">
+                                    <img class="google-icon-svg" src={twistGoogleLogo} alt="google" title="google"/>
+                                        {customLabels.Twist_Login_Page_Social_Login_Google}
+                                    </a>
+                            </template>
+                            <template lwc:if={showOrText}>
+                                <div class="line-container">
+                                    <div class="line"></div>
+                                    <p class="line-or-text">{customLabels.Twist_Social_Line_Text_For_Second_Option}</p>
+                                    <div class="line"></div>
+                                </div>
+                            </template>
+                        </div>
+
 
                         <p class="component__text">{customLabels.Twist_Account_Creation_TextAccountCreation} </p>
                         <p class="component__text">{customLabels.Twist_Account_Creation_SecondTextAccountCreation}
@@ -290,7 +302,6 @@
                                 </template>
 
                                 <template if:true={registrationFormField.passwordconfirmation}>
-
                                     <div class="twist-password-field-container" >
                                         <lightning-input
                                             data-id={registrationFormField.passwordconfirmation.Field__c}
@@ -302,7 +313,6 @@
                                         </lightning-input>
                                         <img class="eye-iconSmall" src={eyeIconSrcConfirmPassword} onclick={handleToggleShowConfirmPassword} />
                                     </div>
-
                                 </template>
                             </form>
                         </div>
@@ -311,6 +321,75 @@
 
                     <template if:true={registrationFormField.newsletter_agreement}>
                         <template if:false={registrationFormField.privacy_policy}>
+                            <template if:true={registrationFormField.newsletter_agreement.Default_Value__c}>
+                                <div class="privacy-policy">
+                                    <lightning-input if:true={registrationFormField.newsletter_agreement}
+                                        data-id={registrationFormField.newsletter_agreement.Field__c}
+                                        type="checkbox"
+                                        class="checkbox"
+                                        label=""
+                                        autocomplete="off"
+                                        onchange={handleCheckboxChange}
+                                        required={registrationFormField.newsletter_agreement.Is_Required__c}
+                                        value={formData.newsletter_agreement}
+                                        checked>
+                                    </lightning-input>
+                                    <p class="subscribe-text">
+                                        {customLabels.Twist_Account_Creation_CheckFieldLabel}&nbsp;
+                                        <lightning-formatted-text
+                                            class="form__link_privacy_policy"
+                                            value={customLabels.Twist_Account_Creation_CheckFieldLinkLabel}
+                                            onclick={handleTermConditionClick}>
+                                        </lightning-formatted-text>
+                                        .
+                                    </p>
+                                </div>
+                            </template>
+                            <template if:false={registrationFormField.newsletter_agreement.Default_Value__c}>
+                                <div class="privacy-policy">
+                                    <lightning-input if:true={registrationFormField.newsletter_agreement}
+                                        data-id={registrationFormField.newsletter_agreement.Field__c}
+                                        type="checkbox"
+                                        class="checkbox"
+                                        label=""
+                                        autocomplete="off"
+                                        onchange={handleCheckboxChange}
+                                        required={registrationFormField.newsletter_agreement.Is_Required__c}
+                                        value={formData.newsletter_agreement}>
+                                    </lightning-input>
+                                    <p class="subscribe-text">
+                                        {customLabels.Twist_Account_Creation_CheckFieldLabel}&nbsp;
+                                        <lightning-formatted-text
+                                            class="form__link_privacy_policy"
+                                            value={customLabels.Twist_Account_Creation_CheckFieldLinkLabel}
+                                            onclick={handleTermConditionClick}>
+                                        </lightning-formatted-text>
+                                        .
+                                    </p>
+                                </div>
+                            </template>  
+                        </template>
+                    </template>
+
+                <template if:true={registrationFormField.newsletter_agreement}>
+                    <template if:true={registrationFormField.privacy_policy}>
+                        <template if:true={registrationFormField.newsletter_agreement.Default_Value__c}>
+                            <div class="privacy-policy">
+                                <lightning-input if:true={registrationFormField.newsletter_agreement}
+                                    data-id={registrationFormField.newsletter_agreement.Field__c}
+                                    type="checkbox"
+                                    class="checkbox"
+                                    label=""
+                                    autocomplete="off"
+                                    onchange={handleCheckboxChange}
+                                    required={registrationFormField.newsletter_agreement.Is_Required__c}
+                                    value={formData.newsletter_agreement}
+                                    checked>
+                                </lightning-input>
+                                <p class="subscribe-text">{customLabels.Twist_Account_Creation_CheckFieldLabel_Newsletter}&nbsp;</p>
+                            </div>
+                        </template>
+                        <template if:false={registrationFormField.newsletter_agreement.Default_Value__c}>
                             <div class="privacy-policy">
                                 <lightning-input if:true={registrationFormField.newsletter_agreement}
                                     data-id={registrationFormField.newsletter_agreement.Field__c}
@@ -322,34 +401,9 @@
                                     required={registrationFormField.newsletter_agreement.Is_Required__c}
                                     value={formData.newsletter_agreement}>
                                 </lightning-input>
-                                <p class="subscribe-text">
-                                    {customLabels.Twist_Account_Creation_CheckFieldLabel}&nbsp;
-                                    <lightning-formatted-text
-                                        class="form__link_privacy_policy"
-                                        value={customLabels.Twist_Account_Creation_CheckFieldLinkLabel}
-                                        onclick={handleTermConditionClick}>
-                                    </lightning-formatted-text>
-                                    .
-                                </p>
+                                <p class="subscribe-text">{customLabels.Twist_Account_Creation_CheckFieldLabel_Newsletter}&nbsp;</p>
                             </div>
                         </template>
-                    </template>
-
-                <template if:true={registrationFormField.newsletter_agreement}>
-                    <template if:true={registrationFormField.privacy_policy}>
-                        <div class="privacy-policy">
-                            <lightning-input if:true={registrationFormField.newsletter_agreement}
-                                data-id={registrationFormField.newsletter_agreement.Field__c}
-                                type="checkbox"
-                                class="checkbox"
-                                label=""
-                                autocomplete="off"
-                                onchange={handleCheckboxChange}
-                                required={registrationFormField.newsletter_agreement.Is_Required__c}
-                                value={formData.newsletter_agreement}>
-                            </lightning-input>
-                            <p class="subscribe-text">{customLabels.Twist_Account_Creation_CheckFieldLabel_Newsletter}&nbsp;</p>
-                        </div>
                         <div class="privacy-policy">
                             <lightning-input if:true={registrationFormField.privacy_policy}
                                 data-id={registrationFormField.privacy_policy.Field__c}
@@ -372,7 +426,8 @@
                         </div>
                     </template>
                 </template>
-                    
+
+                <template if:true={componentConfig.modeInfo.doNeedVerificationCode}>    
                     <div class="button__wrapper">
                         <div class="button__container">
                             <lightning-button
@@ -384,6 +439,26 @@
                             <p class="under_text">{customLabels.Twist_Account_Creation_EndTextAccountCreation}</p>
                         </div>
                     </div>
+                </template>  
+
+                <template if:false={componentConfig.modeInfo.doNeedVerificationCode}>    
+                    <div class="button__container">
+                        <lightning-button
+                            class="continue__button"
+                            label={customLabels.Twist_Account_Creation_Form_ContinueButtonLabel}
+                            onclick={handleClickOnContinueWithoutActivationCodeButton}>
+                        </lightning-button>
+
+                        <p class="under_text">
+                            {customLabels.Twist_Account_Creation_ByCreatingText}&nbsp;
+                            <lightning-formatted-text
+                                class="form__link_terms_conditions"
+                                value={customLabels.Twist_Account_Creation_TermAndConditionsLink}
+                                onclick={handleTermConditionClick}>
+                            </lightning-formatted-text>
+                        </p>
+                    </div>
+                </template>  
                    
                 </form>
             </div>
@@ -448,7 +523,8 @@
                 activation-code={verificationCode}
                 account-creation-form={formData}
                 query-params={queryParams}
-                social-params={socialParams}>
+                social-params={socialParams}
+                pass-key={passKey}>
             </c-twist-account-confirmation>
         </template>
         <c-twist-login-modal

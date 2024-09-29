@@ -4,5 +4,5 @@
     contentType="text/plain"
     showHeader="false"
     sidebar="false"
-    standardStylesheets="false"><apex:repeat value="{!customLabels}" var="customLabel">"{!customLabel}":"{!$Label[customLabel]}",</apex:repeat>
+    standardStylesheets="false"><apex:repeat value="{!customLabels}" var="customLabel">"{!customLabel}":"{!SUBSTITUTE($Label[customLabel], "\"", "\\\"")}",</apex:repeat>
 </apex:page>

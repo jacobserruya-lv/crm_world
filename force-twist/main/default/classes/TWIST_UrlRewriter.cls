@@ -137,7 +137,10 @@ global with sharing class TWIST_UrlRewriter implements Site.UrlRewriter {
     }
     
     private Boolean isPagekeyOfTypeSocialLogin(String pageKey, String langCountry) {
-        if ('line'.equals(pageKey) && !new TWIST_FeatureFlagUtils(langCountry).isLineSocialLoginEnabled()) {
+        if ('line'.equals(pageKey) && !new TWIST_FlaggedFeatureUtils(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN, langCountry).isEnabled()) {
+            return false;
+        }
+        if ('google'.equals(pageKey) && !new TWIST_FlaggedFeatureUtils(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN, langCountry).isEnabled()) {
             return false;
         }
 
@@ -182,7 +185,7 @@ global with sharing class TWIST_UrlRewriter implements Site.UrlRewriter {
     private Boolean isPagekeyOfTypeAlternativeLogin(String pageKey, String langCountry) {
         Set<String> pageKeys = this.getPagekeys(TWIST_IdentityPathsMdt_CONST.ALTERNATIVE_LOGIN_FORM);
 
-        if (pageKeys.contains(pageKey) && new TWIST_FeatureFlagUtils(langCountry).isAlternativeLoginEnabled()) {
+        if (pageKeys.contains(pageKey) && new TWIST_FlaggedFeatureUtils(TWIST_FlaggedFeatureUtils.FEATURE_KEY_ALTERNATIVE_LOGIN, langCountry).isEnabled()) {
             newUrl = new PageReference(TWIST_PageUrl_CONST.ALTERNATIVE_LOGIN_URL);
             return true;
         }

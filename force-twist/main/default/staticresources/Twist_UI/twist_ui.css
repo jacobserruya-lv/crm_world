@@ -181,6 +181,25 @@ input::-webkit-contacts-auto-fill-button {
   transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
 }
 
+.line-or-text{
+  text-align: center;
+  white-space: nowrap;
+  color: black;
+}
+
+.line-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px; 
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #ccc; 
+  margin: 0 10px; 
+}
+
 .component .component__form .forms__button button {
   color: black;
   background-color: white;
@@ -490,7 +509,7 @@ input::-webkit-contacts-auto-fill-button {
   font-family: LouisVuitton;
   border-left: 1px solid #b39d90;
   padding-left: 7px;
-  font-size: 12px;
+  font-size: 12px !important;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -625,11 +644,33 @@ input::-webkit-contacts-auto-fill-button {
   background-color: #00b901 !important;
   margin-bottom: 16px;
 }
+.google_button{
+  text-decoration: none !important;
+  color: black !important;
+  width: 100%;
+  border-radius: 100vmax;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  padding: 13px;
+  background-color: white !important;
+  margin-bottom: 16px;
+  border-style: solid;
+  border-width: thin;
+}
 .div-line {
   width: 100%;
 }
 .line-icon-svg {
   filter: invert(100%) sepia(0%) saturate(24%) hue-rotate(114deg) brightness(108%) contrast(108%);
+  width: 1.5em; 
+  height:1.5em; 
+  margin-right:0.5rem; 
+  position: relative; 
+}
+.google-icon-svg{
   width: 1.5em; 
   height:1.5em; 
   margin-right:0.5rem; 
@@ -747,9 +788,9 @@ input::-webkit-contacts-auto-fill-button {
 }
 
 .title {
-  padding: 32px 32px 0;
-  font-size: 10px;
-  font-weight: 400;
+  padding: 32px 32px 0 !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
   font-stretch: normal;
   font-style: normal;
   line-height: 16px;
@@ -757,6 +798,7 @@ input::-webkit-contacts-auto-fill-button {
   text-align: left;
   color: #19110b;
   text-transform: uppercase;
+  font-family: LouisVuitton !important;
 }
 
 .registers {

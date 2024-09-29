@@ -144,13 +144,13 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
     global String setPayload(Auth.UserData data){
         TWIST_Settings__c settings = TWIST_Settings__c.getInstance();
         String payload = '{'
-                + '"social_id": "' + data.identifier + '",' 
+                +  (!String.isEmpty(data.email) ? ('"passKey": "' + EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'email'=>data.email, 'rand'=>stringUtils.generateRandomString(10,settings.Email_Token_Chars__c)}) + '",') : '')
+                +  '"data": {' 
+                +  '"authData": "' + EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>data.identifier, 'social_media_type'=>data.provider, 'rand'=>stringUtils.generateRandomString(10,settings.Email_Token_Chars__c)}) + '",'
                 +  (!String.isEmpty(data.email) ? ('"email": "' + data.email + '",') : '')
-            	+  (!String.isEmpty(data.email) ? ('"eid": "' + EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'email'=>data.email, 'rand'=>stringUtils.generateRandomString(10,settings.Email_Token_Chars__c)}) + '",') : '')
                 +  (!String.isEmpty(data.firstname) ? ('"firstname": "' + data.firstname + '",') : '')
                 +  (!String.isEmpty(data.lastname) ? ('"lastname": "' + data.lastname + '",') : '')
-                +  (!String.isEmpty(data.username) ? ('"nickname": "' + data.username + '",') : '')
-                +  (!String.isEmpty(data.provider) ? ('"social_media_type": "' + data.provider + '",') : '');
+                +  (!String.isEmpty(data.username) ? ('"nickname": "' + data.username + '",') : '');
                 //+  '"others": "' + data.attributeMap + '",'
                 
         if(!data.attributeMap.IsEmpty()){
@@ -160,6 +160,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
                    }
             }
         }
+        payload = payload  + '}';
         payload = payload  + '}';
         payload = payload.replace(',}', '}');
 
@@ -209,7 +210,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
     global static void setLog(String userId, String provider, String message){
         new Logs( new Map<String,Object> {
             'level' => 'INFO', 
-            'apexClass' => 'IDENTITY_RegistrationHandler', // JSSI change for Twist
+            'apexClass' => 'IDENTITY_RegistrationHandler', // TODO change for Twist
             'category' => 'EVENT',
             'message' => message,
             'application' => 'SSO',

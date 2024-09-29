@@ -4,8 +4,7 @@ import Twist_UI from '@salesforce/resourceUrl/Twist_UI';
 import apexInitComponentConfig from '@salesforce/apex/TWIST_Login.initComponentConfig';
 import apexTranslateLabels from '@salesforce/apex/TWIST_i18nTranslations.translateLabelsList';
 import apexLogin from '@salesforce/apex/TWIST_Login.login';
-import isAlternativeLoginEnabled from '@salesforce/apex/TWIST_Login.isAlternativeLoginEnabled';
-import isLineButtonEnabled from '@salesforce/apex/TWIST_Login.isLineButtonEnabled';
+import { getErrorMessage } from 'c/twistUtils';
 
 import {
     clearFormErrrors,
@@ -27,14 +26,14 @@ export default class TwistLogin extends LightningElement {
     oQueryParams;
 
     twistLineLogo = Twist_UI + '/Twist_Line_Social_Login_Logo.svg';
+    twistGoogleLogo = Twist_UI + '/logo_google.svg';
     twistEyeIcon = Twist_UI + '/visibility-stroke.svg' ;
     twistEyeStrikeThroughIcon = Twist_UI + '/visibility.svg' ;
 
     @api language;
-    
+
     @track isPasswordShown;
     @track isLoginButtonDisabled = false;
-    @track showOTCLink = false;
     @track eyeIconSrc;
     @track componentConfig = {};
     @track customLabels = {};
@@ -60,8 +59,18 @@ export default class TwistLogin extends LightningElement {
         let urlSplit = location.href.split('?');
         return this.componentConfig.registrationBaseUrl + '?' + urlSplit[1] + (this.oQueryParams.dispatchCountry ? '&dispatchCountry=' + this.oQueryParams.dispatchCountry : '');
     }
+
+    get showOrText() {
+        return this.componentConfig['lineSocialLoginEnabled'] || this.componentConfig['googleSocialLoginEnabled'];
+    }
     get showLineButton() {
-        return this.socialMediaProviders.LineLV && this.showLineButtonAccordingOrigin;
+        return this.socialMediaProviders.LineLV && this.componentConfig['lineSocialLoginEnabled'];
+    }
+    get showSocialGoogleButton() {
+        return this.componentConfig['googleSocialLoginEnabled'];
+    }
+    get showOTCLink() {
+        return this.componentConfig['oneTimeConnectionEnabled'];
     }
     /* Component life cycle ******************************************************************** */
 
@@ -81,7 +90,7 @@ export default class TwistLogin extends LightningElement {
     handleTwistGaLwcRendered() {
         sendPageView.call(this); // Tagging Plan: line 9
     }
-    
+
     handleClickOnLinkToRegistration(e) {
         //Tagging Plan: line 11
         sendEvent.call(this, {
@@ -103,7 +112,7 @@ export default class TwistLogin extends LightningElement {
         this.loginForm.password.value = event.target.value;
         this.updateErrorIfPasswordFieldIsInvalid(event.target.value)
     }
-    
+
     handleClickOnForgotPasswordLink() {
         location.href = this.componentConfig.forgotPasswordUrl;
         //Tagging Plan: line 10
@@ -116,7 +125,6 @@ export default class TwistLogin extends LightningElement {
     }
 
     handleClickOnUseAnAlternativeLoginLink() {
-        location.href = this.componentConfig.alternativeLoginUrl;
             //Tagging Plan: line 41
             sendEvent.call(this, {
                 actionId: 'one_click_login_request',
@@ -126,7 +134,7 @@ export default class TwistLogin extends LightningElement {
                 actionPosition:'i_already_have_an_account'
             });
     }
-    
+
     handleClickOnLoginButton(event) {
         if(this.isFormValid()) {
             this.isLoginButtonDisabled = true;
@@ -142,14 +150,14 @@ export default class TwistLogin extends LightningElement {
             clearFormErrrors(this.loginForm);
 
             this.doLogin();
-            
+
         }
     }
 
     /* Util methods **************************************************************************** */
-            
+
     init() {
-        this.oQueryParams = JSON.parse(this.queryParams);   
+        this.oQueryParams = JSON.parse(this.queryParams);
         Promise.all([
             apexInitComponentConfig({queryParams: this.oQueryParams}),
             apexTranslateLabels({
@@ -168,23 +176,21 @@ export default class TwistLogin extends LightningElement {
                     'Twist_Login_Form_Validation_Password_Empty',
                     'Twist_Login_Form_UseAlternativeLoginLinkToSignIn',
                     'Twist_Login_Page_Social_Login_Line',
+                    'Twist_Login_Page_Social_Login_Google',
                     'Twist_Social_Line_Text_For_Second_Option'
                 ],
                 language: this.language
             }),
-            isAlternativeLoginEnabled({langCountry: this.oQueryParams.langCountry, origin:  this.oQueryParams.origin}),
-            isLineButtonEnabled({langCountry: this.oQueryParams.langCountry, origin:  this.oQueryParams.origin})
         ])
         .then(result => {
             this.componentConfig = result[0];
             this.customLabels = result[1];
             this.socialMediaProviders = result[0]?.socialMediaProviders;
+            console.log(this.socialMediaProviders);
             if (this.componentConfig.isRedirectToRegistration) {
                 this.redirectToRegistration();
                 return;
             }
-            this.showOTCLink = result [2]; 
-            this.showLineButtonAccordingOrigin = result [3];
             this.setPageTitle();
             //TODO
             // if(result[0].mode === "SOCIAL_REGISTRATION") {
@@ -192,7 +198,7 @@ export default class TwistLogin extends LightningElement {
             // }
         })
         .catch(error => {
-            this.loginForm.form.error = `Error: ${error}`;
+            this.loginForm.form.error = getErrorMessage(error);
         })
         .finally(() => {
             if (!this.componentConfig.isRedirectToRegistration) {
@@ -299,7 +305,7 @@ export default class TwistLogin extends LightningElement {
     setPageTitle() {
         document.title = this.customLabels.Twist_Login_Form_PageTitle;
     }
-    
+
     redirectToRegistration(){
         //TO DO IN FUTURE GOOGLE ANALYTICS SEND EVENT
         let urlSplit = location.href.split("?");

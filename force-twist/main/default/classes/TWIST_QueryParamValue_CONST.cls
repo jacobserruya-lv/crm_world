@@ -6,6 +6,7 @@ public with sharing class TWIST_QueryParamValue_CONST {
     public static final String PAGE_ACCOUNT_CREATION = 'accountCreation';
     public static final String PAGE_ERROR_404 = 'error404';
     public static final String PAGE_SOCIAL_LOGIN = 'socialLogin';
+    public static final String PAGE_ALTERNATIVE_LOGIN = 'alternativeLogin';
     
     public static final String DEV_START_URL_LOGIN = 'login';
     public static final String DEV_START_URL_REGISTRATION = 'registration';
@@ -22,7 +23,8 @@ public with sharing class TWIST_QueryParamValue_CONST {
             PAGE_ERROR_404,
             PAGE_SOCIAL_LOGIN,
             DEV_START_URL_LOGIN,
-            DEV_START_URL_REGISTRATION
+            DEV_START_URL_REGISTRATION,
+            PAGE_ALTERNATIVE_LOGIN
         };
     }
 }

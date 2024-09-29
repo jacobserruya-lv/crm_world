@@ -48,19 +48,21 @@ public without sharing class TWIST_Login {
         setIsRedirectToRegistration(accountId, cid);
         getSocialSettings(langCountry, queryParams);
         writeLogs(queryParams);
+        setFeaturesFlags(langCountry, origin);
 
         return componentConfig;
     }
 
     @AuraEnabled(cacheable=false)
     public static Map<String,Object> login(String email, String password, Map<String,Object> queryParams, String language) {
-        
-                String cid = queryParams.get(TWIST_QueryParamKey_CONST.CID) != null ? (String)queryParams.get(TWIST_QueryParamKey_CONST.CID) : null;
+        String cid = queryParams.get(TWIST_QueryParamKey_CONST.CID) != null ? (String)queryParams.get(TWIST_QueryParamKey_CONST.CID) : null;
         String accountId;
         if(cid != null){
             accountId = TWIST_Utils.getAccountId(cid);
         }
         try {
+            email = email.trim();
+            password = password.trim();
             Boolean isFormValid = String.isEmpty(accountId)
                 ? validateFormDataWithEmail(email, password, language)
                 : validateFormDataWithoutEmail(password, language);
@@ -93,19 +95,9 @@ public without sharing class TWIST_Login {
             return TWIST_Utils.buildSuccessResponseObject('redirectUrl', page.getUrl());
         }
         catch(Exception e) {
-            new Logs(new Map<String,Object> { 'level' => 'ERROR', 'apexClass' => 'TWIST_Login', 'category' => 'SYSTEM', 'message' => e.getMessage() }); }
+            new Logs(new Map<String,Object> { 'level' => 'ERROR', 'apexClass' => 'TWIST_Login', 'category' => 'SYSTEM', 'message' => e.getMessage() });
+        }
         return TWIST_Utils.buildFailureResponseObject('form', TWIST_i18nTranslations.translateSingleLabel('Twist_Login_Form_LoginProcessError', language));
-    }
-    @AuraEnabled(cacheable=false)
-    public static Boolean isAlternativeLoginEnabled (String langCountry, String origin){
-       
-        return origin != 'mylv' ? false : new TWIST_FeatureFlagUtils(langCountry).isAlternativeLoginEnabled();
-    }
-
-    @AuraEnabled(cacheable=false)
-    public static Boolean isLineButtonEnabled (String langCountry, String origin){
-
-         return origin != 'mylv' ? false : new TWIST_FeatureFlagUtils(langCountry).isLineSocialLoginEnabled();
     }
 
     /** PRIVATE METHODS *********************************************************************************************** */
@@ -120,7 +112,7 @@ public without sharing class TWIST_Login {
      */
     @testVisible
     private static Boolean validateFormDataWithEmail(String email, String password, String language) {
-        return !String.isEmpty(email) && !String.isEmpty(password) && !IDENTITY_Utils.passwordTooLong(password);
+        return !String.isEmpty(email) && validateFormDataWithoutEmail(password, language);
     }
 
     /**
@@ -275,5 +267,25 @@ public without sharing class TWIST_Login {
         //accountId != null means there is an exisitng user
         componentConfig.put('isRedirectToRegistration', (cid != null && accountId == null) ? true : false) ;
     }
-
+    private static void setFeaturesFlags(String langCountry, String origin) {
+        if(origin != 'mylv'){
+            componentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN, false);
+            componentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN, false);
+            componentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_ALTERNATIVE_LOGIN, false);
+        }
+        else{
+            TWIST_FlaggedFeatureUtils flags = new TWIST_FlaggedFeatureUtils( 
+            new List<String> {
+                TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN,
+                TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN,
+                TWIST_FlaggedFeatureUtils.FEATURE_KEY_ALTERNATIVE_LOGIN
+            },
+            langCountry
+            );
+            componentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN,flags.isLineSocialLoginEnabled());
+            componentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN,flags.isGoogleSocialLoginEnabled());
+            componentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_ALTERNATIVE_LOGIN, flags.isAlternativeLoginEnabled());
+        }
+      
+    }
 }

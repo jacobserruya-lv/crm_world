@@ -23,7 +23,7 @@ public with sharing class TWIST_LWCWrapper_CTRL {
         Boolean isUtmCampaignValid = TWIST_Utils.isUtmCampaignValid(params.get('utm_campaign'));
         Boolean isCareService =  params.get('campaign') != null && params.get('campaign').contains('careService');
         String redirectionDeeplinkValue = isUtmCampaignValid ? 'myexclusive' : isCareService ? 'mycareservice' : '';
-    
+
         if(TWIST_Utils.doRedirectionToLVapp(userAgent, params, isUtmCampaignValid)){
            return getLVappRedirectionLink(params.get('cid'), redirectionDeeplinkValue);
         }
@@ -42,5 +42,5 @@ public with sharing class TWIST_LWCWrapper_CTRL {
             (cid != null ? EncodingUtil.urlEncode(cid, 'UTF-8') : ''),
             redirectionDeeplinkValue
         });
-    }   
+    }
 }

@@ -221,6 +221,9 @@ public without sharing class TWIST_Utils {
     }
     
     public static String buildTwistPageUrl(String pageName, Map<String,Object> queryParams) {
+
+
+
         String url = String.format('{0}{1}/{2}/{3}', new List<String> {
             TWIST_UrlUtils.getCommunityUrl(true),
             (String) queryParams.get(TWIST_QueryParamKey_CONST.LANG_COUNTRY),
@@ -585,18 +588,31 @@ public without sharing class TWIST_Utils {
     }
 
     public static Map<String,String> getSocialProvidersByLangCountry(String langCountry, Map<String,Object> queryParams) {
+        Map<String,String> paths = TWIST_Utils.getPaths(langCountry, 'mylv', '');
         Map<String,String> result = new Map<String,String>();
         List<TWIST_Social_Media__mdt> socialMediaList = [
             SELECT Auth_Provider_Name__c, Page_Key__c
             FROM TWIST_Social_Media__mdt
             WHERE Lang_Country__c = :langCountry
-            AND Auth_Provider_Name__c != 'DummySocialMedia'
-        ];
+            ];
         for (TWIST_Social_Media__mdt socialMedia : socialMediaList) {
             String socialMediaName = socialMedia.Auth_Provider_Name__c;
+            String socialMediaType = socialMedia.Page_Key__c;
+            queryParams.put('redirect_url', EncodingUtil.urlEncode(paths.get(TWIST_IdentityPathsMdt_CONST.LV_SECURE_DOMAIN) + paths.get(TWIST_IdentityPathsMdt_CONST.SOCIAL_LOGIN_SUCCES_PATH) + socialMediaType, 'UTF-8'));
+            queryParams.put('error_redirect_url', EncodingUtil.urlEncode(paths.get(TWIST_IdentityPathsMdt_CONST.LV_API_DOMAIN) + paths.get(TWIST_IdentityPathsMdt_CONST.SOCIAL_LOGIN_ERROR_PATH) + socialMediaType, 'UTF-8'));
             result.put(socialMediaName, buildTwistPageUrl(socialMediaName, queryParams));
         }
         return result;
+    }
+
+    public static String getSocialProviderTypeByProviderId(String ProviderId){
+        String socialProviderType;
+        AuthProvider[] authProvider = [SELECT DeveloperName FROM AuthProvider WHERE Id = :ProviderId LIMIT 1];
+        if(!authProvider.IsEmpty()) {
+            String authProviderName = String.valueOf(authProvider[0].DeveloperName);
+            socialProviderType = getPageKey(authProviderName);
+        }
+        return socialProviderType;
     }
 
     public static Map<String, String> getSplittedPhoneFromFullPhone(String fullPhone) {
@@ -643,7 +659,7 @@ public without sharing class TWIST_Utils {
          if(birthdate != null){
             List<String> partsBirthdate = birthdate.split('-');
             Date birthdateObject = Date.newInstance(Integer.valueOf(partsBirthdate[0]), Integer.valueOf(partsBirthdate[1]), Integer.valueOf(partsBirthdate[2]));
-            return birthdateObject.addYears(legalAge) >= Date.today();
+            return birthdateObject.addYears(legalAge) > Date.today();
         }
         return false;
     }
@@ -664,7 +680,24 @@ public without sharing class TWIST_Utils {
         }
         return false;
     }
-    
+
+    public static string createRandomPassword(){
+
+        String randomVal = '';
+        String upperCaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        String lowerCaseChars = 'abcdefghijklmnopqrstuvwxyz';
+        String specialChars = '*[!#$&()*+,\\-.:;<=>?@\\[\\]^_{|}~]';
+        String digit = '0123456789';
+        String allChars = upperCaseChars + lowerCaseChars + specialChars + digit;
+        Integer maxLength = Integer.valueOf(IDENTITY_Settings__c.getInstance().Password_Maxlength__c);
+        randomVal += StringUtils.generateRandomString(1, upperCaseChars);
+        randomVal += StringUtils.generateRandomString(1, lowerCaseChars);
+        randomVal += StringUtils.generateRandomString(1, digit);
+        randomVal += StringUtils.generateRandomString(1, specialChars);
+        randomVal += StringUtils.generateRandomString(maxLength - 4, allChars);
+        return shuffleString(randomVal);
+    }
+
     /* PRIVATE METHODS ***************************************************************************************/
     
     @TestVisible
@@ -828,28 +861,29 @@ public without sharing class TWIST_Utils {
         return !webOnlyOffers.isEmpty() && !webOnlyOffers.contains(utmCampaign);
     }
 
-    @TestVisible
-    private static String buildAndClauseFromDisabledSocialProviders(String langCountry) {
-        List<String> disabledSocialProviders = new List<String>();
-        TWIST_FeatureFlagUtils flags = new TWIST_FeatureFlagUtils(langCountry);
-        if (!flags.isDummySocialMediaEnabled()) {
-            disabledSocialProviders.add('dummy-social-media'); // this hardcoded string has to match one of the TWIST_Social_Media__mdt.Page_Key__c values
-        }
-        if (!flags.isLineSocialLoginEnabled()) {
-            disabledSocialProviders.add('line'); // this hardcoded string has to match one of the TWIST_Social_Media__mdt.Page_Key__c values
-        }
-        switch on disabledSocialProviders.size() {
-            when 0 { return ''; }
-            when 1 { return String.format('AND Page_Key__c != {0}', new List<String> { '\'' + disabledSocialProviders.get(0) + '\'' }); }
-            when else {
-                for (Integer i=0; i<disabledSocialProviders.size(); i++) {
-                    disabledSocialProviders.set(i, '\'' + disabledSocialProviders.get(i) + '\'' );
-                }
-                return String.format('AND Page_Key__c NOT IN [{0}]', new List<String> { String.join(disabledSocialProviders, ',') });
-            }
-        }
-    }
+    private static String shuffleString(String input) {
 
+        List<String> charList = new List<String>();
+        for (Integer i = 0; i < input.length(); i++) {
+            charList.add(input.substring(i, i + 1));
+        }
+
+        Integer n = charList.size();
+        for (Integer i = 0; i < n; i++) {
+            Integer j = (Integer) Math.floor(Math.random() * n);
+            String temp = charList[i];
+            charList[i] = charList[j];
+            charList[j] = temp;
+        }
+
+        String shuffledString = '';
+        for (String c : charList) {
+            shuffledString += c;
+        }
+
+        return shuffledString.toString();
+    }
+  
     public class CustomException extends Exception {}
     
 }
