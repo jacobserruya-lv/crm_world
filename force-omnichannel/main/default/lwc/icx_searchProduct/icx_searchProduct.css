@@ -1,0 +1,32 @@
+.productContainerSelected
+{
+    display: flex;
+    background-color: white;
+}
+.productContainerCombobox
+{
+    display: flex;
+
+}
+
+.optionName
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+.optionName:hover
+{
+    text-decoration: underline;
+}
+.imgStyle
+{
+    margin-right: 5px;
+}
+.closeIcon
+{
+    justify-content: end;
+    display: flex;
+}
+.closeIcon:hover{
+    cursor: pointer;
+}

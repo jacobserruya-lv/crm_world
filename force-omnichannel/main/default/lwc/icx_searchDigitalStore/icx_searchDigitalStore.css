@@ -1,0 +1,23 @@
+.optionName
+{
+    font-size: 14px;
+}
+.optionCode
+{
+    font-size: 10px;
+}
+.iconClass
+{
+    margin-right: 15px;
+}
+.storeContainer{
+    display: flex;
+}
+.closeIcon
+{
+    justify-content: end;
+    display: flex;
+}
+.closeIcon:hover{
+    cursor: pointer;
+}

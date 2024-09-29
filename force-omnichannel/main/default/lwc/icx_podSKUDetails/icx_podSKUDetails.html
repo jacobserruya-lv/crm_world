@@ -1,0 +1,37 @@
+<template>
+    <div class="container">
+
+        <template if:true={isClosable}>
+            <div>
+                <lightning-icon class="closeIcon" icon-name="utility:close" size="xx-small" alternative-text="Indicates close" onclick={closeSection}></lightning-icon>
+            </div>
+        </template>
+        <div class="productContainer">
+            <div class="imgStyle">
+
+                <img src={selectedProductObj.Image1Url__c} alt="product image" width="100%" />       
+            </div>
+            <div>
+                <p class="optionName" title="Option" onclick={handleNameClick} data-optionid={selectedProductObj.Id} >{selectedProductObj.Name}</p>
+                <p >{selectedProductObj.SKU__c} - {selectedProductObj.SPO_Category__c}</p>
+                
+                <template if:true={isHotSKU}>
+                    <lightning-input
+                    type="checkbox"
+                    label="Hot Sku"
+                    unchecked
+                    onchange={handleHotSkuChange}></lightning-input>
+                </template>
+                
+                <template if:true={isCollection}>
+                    <lightning-combobox
+                    name="Collection"
+                    label="*Collection"
+                    placeholder="Collection"
+                    options={collectionOptions}
+                    onchange={handleCollectionChange}> </lightning-combobox>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

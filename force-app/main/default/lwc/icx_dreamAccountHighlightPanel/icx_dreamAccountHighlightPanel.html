@@ -1,0 +1,1025 @@
+<!--
+  @description       : 
+  @author            : Naomi Baroghel
+  @group             : 
+  @last modified on  : 06-07-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<template>
+  <!-- horizontal highligh panel -->
+  <template if:true={displayHorizontalFormat}>
+    <div class="slds-p-around_small slds-is-relative" if:true={isLoading}>
+      <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </div>
+    <template if:false={isLoading}>
+      <template if:true={account}>
+        <div class="upper_section_horizontal">
+          <div class="highlight_up_container">
+            <div class="client-profile">
+              <div class="highlight__profile-pic">
+                <!--div
+                  if:true={account.segmentationClient}
+                  class="highlight__profile-pic-badge"
+                  title={account.segmentationClient}
+                >
+                  <lightning-formatted-rich-text
+                    value={segmentation}
+                  ></lightning-formatted-rich-text>
+                </div-->
+
+                <lightning-formatted-rich-text title={account.Name} value={Gender_IMG}></lightning-formatted-rich-text>
+              </div>
+
+              <div class="client-details">
+                <div style="cursor: pointer" onclick={handleAccountView}>
+                  <div class={hideSFsearchBar}>
+                    <div>
+                      <lightning-formatted-name class="horizontal-value wrap-text highlight_name account"
+                        first-name={account.firstName} last-name={account.lastName} salutation={account.salutation}>
+                      </lightning-formatted-name>
+                      <span class="horizontal-value highlight_bold highlight_name" if:true={account.title}
+                        onclick={handleAccountView}>
+                        ({account.title})
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <lightning-formatted-name class="horizontal-value wrap-text" first-name={account.firstName2}
+                      last-name={account.lastName2}></lightning-formatted-name>
+                  </div>
+                </div>
+                <div>
+                  <template if:true={account.displayedSegment}>
+                    <lightning-badge label={account.displayedSegment} class={badgeClass}></lightning-badge>
+                  </template>
+                </div>
+
+                <div class="highlight_container">
+                  <div class="client-id">
+                    <span class="highlight_bold slds-truncate highlight__label_dreamId">DREAM ID :
+                    </span>
+                    <p class="horizontal-value horizontal-value slds-truncate" if:true={account.dreamID}>
+                      {account.dreamID}
+                    </p>
+                  </div>
+
+                  <p class="horizontal-label-value slds-truncate" if:false={account.dreamID}>N/A</p>
+
+                  <div class="highlight_borderRight"></div>
+                  <div lwc:dom="manual" class="highlight__flag" title={account.Prefered_Language}>
+                    <!-- <lightning-formatted-rich-text title={account.Prefered_Language} value={Language_IMG}>
+                </lightning-formatted-rich-text> -->
+                  </div>
+
+                  <div class="highlight__LV tooltip_LV">
+                    <lightning-formatted-rich-text data-target-id="tooltip_LV" onclick={displayCloseTooltip_LV}
+                      value={Parallel_Market_IMG}></lightning-formatted-rich-text>
+                    <div data-id="tooltip_LV" class="tooltip_content_LV slds-hide">
+                      <div class="float_right">
+                        <span class="close_btn" data-target-id="tooltip_LV"
+                          onclick={displayCloseTooltip_LV}>&times;</span>
+                      </div>
+                      <div class="tooltip_LV_up_container slds-border_bottom">
+                        <div>
+                          <img src={LV_background_img} alt={account.greyMarketStatus} />
+                        </div>
+                        <div>
+                          <p class="highlight_bold highlight_LV_status">
+                            {account.greyMarketStatus}
+                          </p>
+                        </div>
+                        <div>
+                          <p class="highlight_lightgray">
+                            SINCE {account.greyMarketStatusDate}
+                            <span if:false={account.greyMarketStatusDate}>N/A</span>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="tooltip_LV_down_container">
+                        <div>
+                          <p class="highlight_lightgray highlight_bold tooltip_LV_down_container_title">
+                            Exceeded sales conditions :
+                          </p>
+                          <p class="highlight_bold">
+                            Clients cannot purchase more than 12 leather or small leather goods,
+                            within the last 12 consecutive months
+                          </p>
+                        </div>
+                        <div>
+                          <p class="highlight_lightgray highlight_bold tooltip_LV_down_container_title">
+                            Period :
+                          </p>
+                          <p class="highlight_bold">Last 12 Months</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div if:true={account.birthdate} class="highlight_birthcake">
+                    <lightning-formatted-rich-text value={Birthday_Cake_IMG} title={titleBirthdate}>
+                    </lightning-formatted-rich-text>
+                  </div>
+                </div>
+
+                <div class="oob_horizontal">
+                  <c-icx_oob-button label={oobLabel} btn-class="oob_container" account-id={accountId}
+                    dream-id={account.dreamID}></c-icx_oob-button>
+              </div>
+            </div>
+
+            <div class="highlight_container_up_right">
+              <div if:true={authToEditModal}>
+                <div if:true={identifyObject}>
+                  <img alt="edit" onclick={handleEdit} src={editIcon} />
+                </div>
+                <div if:true={authToEditModal}>
+                  <lightning-layout if:false={identifyObject} class="button_container">
+                    <lightning-layout-item>
+                      <!-- <div if:true={isButtonDisplay}> -->
+                      <lightning-button-menu alternative-text="Show menu">
+                        <lightning-menu-item if:true={editAvailable} value="MenuItemTwo" label="Edit"
+                          onclick={handleEdit} icon-name="utility:edit"></lightning-menu-item>
+
+                        <lightning-menu-item if:true={searchAvailable} value="MenuItemThree" label="Replace"
+                          onclick={handleSearch} icon-name="utility:replace"></lightning-menu-item>
+                      </lightning-button-menu>
+                      <!-- </div> -->
+                    </lightning-layout-item>
+                  </lightning-layout>
+                </div>
+
+
+                </div>
+              </div>
+
+              <div if:true={showSpeakerOrBell} class="right_icon_container">
+                <div class="right_icon" if:true={showSpeaker}>
+                  <lightning-icon class="flashing black-icon" icon-name="utility:announcement"
+                    alternative-text="announcement" title="New Case opened within last 48h" size="x-small">
+                  </lightning-icon>
+                </div>
+                <div class="right_icon" if:true={showBell}>
+                  <lightning-icon class="flashing black-icon" icon-name="utility:alert" alternative-text="alert"
+                    title="3 contacts made within 48h by call, email, webform, Live Chat and/or Messaging"
+                    size="x-small">
+                  </lightning-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight_horizontal_middle_container">
+          <div class={lvfirstSizeSection}>
+            <div class="highlight_horizontal_storeName_middle_detail">
+              <img alt="Client's Store" src={storeIcon} title="Client's Store" class="highlight_horizontal__icon" />
+
+              <div class="highlight_horizontal_storeName__space-between slds-truncate" title={account.StoreRetailID}>
+                <div class="slds-truncate storeName">
+                  <a if:true={account.StoreName} onclick={goToStore} target="_blank">
+                    <p class="slds-truncate" title={account.StoreName}>{account.StoreName}</p>
+                  </a>
+                </div>
+                <div class="slds-truncate storeRetailID">
+                  <p class="horizontal-value slds-truncate" if:false={account.StoreName}>N/A</p>
+
+                  <p class="slds-truncate store-id" title={account.StoreRetailID}>
+                    {account.StoreRetailID}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="highlight_horizontal_middle_detail">
+              <img alt="Preferred CA" src={accountIcon} title="Preferred CA" class="highlight_horizontal__icon" />
+
+              <div class="highlight_horizontal__space-between">
+                <a if:true={account.OwnerName} onclick={goToCA} target="_blank">
+                  <p class="slds-truncate">{account.OwnerName}</p>
+                </a>
+                <p class="horizontal-value slds-truncate" if:false={account.OwnerName}>N/A</p>
+              </div>
+            </div>
+
+            <!--div class="highlight_horizontal_middle_detail">
+              <img alt="Star" src={starIcon} title="Star" class="highlight_horizontal__icon" />
+
+              <div class="highlight_horizontal__space-between">
+                <p if:true={account.segmentationClient} class="highlight_bold">
+                  {account.segmentationClient}
+                </p>
+                <p class="horizontal-value slds-truncate" if:false={account.segmentationClient}>
+                  N/A
+                </p>
+              </div>
+            </div-->
+          </div>
+
+          <div class="second-item">
+            <div class="highlight_horizontal_middle_detail">
+              <img alt="First Purchase Date" src={calendarIcon} title="First Purchase Date"
+                class="highlight_horizontal__icon" />
+              <div class="highlight_horizontal__space-between">
+                <label class="slds-truncate date_horizontal_label_color">First Purchase Date</label>
+                <p class="horizontal-value slds-truncate" if:true={account.firstPurchaseDate}>
+                  {getFirstPurchaseDate}
+                </p>
+                <p class="horizontal-value slds-truncate" if:false={account.firstPurchaseDate}>
+                  N/A
+                </p>
+              </div>
+            </div>
+
+            <div class="highlight_horizontal_middle_detail">
+              <img alt="Last Purchase Date" src={calendarIcon} title="Last Purchase Date"
+                class="highlight_horizontal__icon" />
+              <div class="highlight_horizontal__space-between">
+                <label class="slds-truncate date_horizontal_label_color">Last Purchase Date</label>
+                <p class="horizontal-value slds-truncate" if:true={account.lastPurchaseDate}>
+                  {getLastPurchaseDate}
+                </p>
+                <p class="horizontal-value slds-truncate" if:false={account.lastPurchaseDate}>
+                  N/A
+                </p>
+              </div>
+            </div>
+
+            <div class="highlight_horizontal_middle_detail">
+              <img alt="Last Contact" src={calendarIcon} title="Last Contact" class="highlight_horizontal__icon" />
+              <div class="highlight_horizontal__space-between">
+                <label class="slds-truncate date_horizontal_label_color">Last Contact</label>
+                <p class="horizontal-value slds-truncate" if:true={account.lastContact}>
+                  {getLastContact}
+                </p>
+                <p class="horizontal-value slds-truncate" if:false={account.lastContact}>N/A</p>
+              </div>
+            </div>
+          </div>
+
+          <div class={lvEmailLength}>
+            <div class="highlight_horizontal_middle_detail">
+              <div if:true={account.Subscribed_to_Digital_Concierge} class="highlight_subscribe_middle_detail">
+                <img alt="Digital Concierge" src={bellIcon2} title="Digital Concierge"
+                  class="highlight_horizontal__icon" />
+                <div class="highlight_horizontal__space-between">
+                  <label class="horizontal-value slds-truncate">Subscribed to DPCA services</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="highlight_down_horizontal_container">
+              <div class={MyLVHorizontalBadge}>
+                <!-- if:true={account.dreamID} -->
+                <div class="highlight__LV-horizontal-icon-detail highlight__myLV">
+                  <lightning-formatted-rich-text value={MyLV_IMG} title={myLVTitle}>
+                  </lightning-formatted-rich-text>
+                </div>
+              </div>
+
+              <div class="highlight__horizontal-LV-space-between" name="emailLV">
+                <div class="LV-text">
+                  <lightning-formatted-text class="LV-slds-truncate" title={myLVValue} value={myLVValue}>
+                  </lightning-formatted-text>
+                </div>
+                <div class="LV-lastActivity">
+                  <p class="horizontal-value slds-truncate" if:true={account.lastActivityDate} title={getLastActivity}>
+                    {getLastActivity}
+                  </p>
+                </div>
+                <!-- <p class="horizontal-value slds-truncate" if:false={account.lastActivityDate}>N/A</p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="round-container">
+          <template if:true={doneIndicator}>
+            <div class="highlight_horizontal_request_container">
+              <div class="request_horizontal_container" data-value="pendingAnswers"
+                onmouseenter={handleIndicatorMouserEnter} onmouseleave={handleIndicatorMouserLeave}>
+                <p class="request_horizontal_number">{pendingAnswersLength}</p>
+                <p class="request_horizontal_label">Pending Answers</p>
+
+                <c-icx_account_highlight-indicator-popup if:true={showPendingAnswers} indicators={indicatorList}
+                  show-csc-indicator-pending-answers="true"></c-icx_account_highlight-indicator-popup>
+              </div>
+
+              <div class="request_horizontal_container" data-value="pendingCareService"
+                onmouseenter={handleIndicatorMouserEnter} onmouseleave={handleIndicatorMouserLeave}>
+                <p class="request_horizontal_number">{pendingCareServiceLength}</p>
+                <p class="request_horizontal_label">Pending Care Services</p>
+
+                <c-icx_account_highlight-indicator-popup if:true={showPendingCareService} indicators={indicatorList}
+                  show-csc-indicator-pending-care-service="true"></c-icx_account_highlight-indicator-popup>
+              </div>
+
+              <div class="request_horizontal_container" data-value="pendingComplaints"
+                onmouseenter={handleIndicatorMouserEnter} onmouseleave={handleIndicatorMouserLeave}>
+                <p class="request_horizontal_number red">{complaintsPendingLength}</p>
+                <p class="request_horizontal_label">Pending Complaints</p>
+
+                <c-icx_account_highlight-indicator-popup if:true={showPendingComplaints} indicators={indicatorList}
+                  show-csc-indicator-pending-complaints="true"></c-icx_account_highlight-indicator-popup>
+              </div>
+
+              <div class="request_horizontal_container" data-value="resolvedComplaints"
+                onmouseenter={handleIndicatorMouserEnter} onmouseleave={handleIndicatorMouserLeave}>
+                <p class="request_horizontal_number">{complaintsResolvedLength}</p>
+                <p class="request_horizontal_label">Resolved Complaints</p>
+
+                <c-icx_account_highlight-indicator-popup if:true={showResolvedComplaints} indicators={indicatorList}
+                  show-csc-indicator-resolved-complaints="true"></c-icx_account_highlight-indicator-popup>
+              </div>
+
+              <div class="request_container" data-value="surveysPending" onmouseenter={handleIndicatorMouserEnter}
+                onmouseleave={handleIndicatorMouserLeave}>
+              <div class=" ">
+                <p class="request_horizontal_number red">{surveyPendingLength}</p>
+                <p class="request_label">Pending Feedback</p>
+              </div>
+  
+                <c-icx_account_highlight-indicator-popup if:true={showPendingSurveys} indicators={indicatorList}
+                  show-csc-indicator-pending-surveys="true"></c-icx_account_highlight-indicator-popup>
+              </div>
+            </div>
+          </template>
+
+          <div class="slds-border_bottom highlight_horizontal_contact_container">
+            <div class="horizontal_icon_wrapper">
+              <div class={phoneBadge}>
+                <div class="highlight__icon-detail tooltip">
+                  <div class="icon-horizontal-designed">
+                    <img width="100%" height="auto" data-type="phone" src={phoneIcon} />
+                  </div>
+                  <!-- <a href="tel:06279692289"><span if:true={account.PersonMobilePhone} class="tooltiptext">{account.PersonMobilePhone}</span></a> -->
+                  <div if:true={account.PersonMobilePhone}>
+                    <span if:true={displayCtiIcon} class="tooltiptext">
+                      <lightning-click-to-dial value={account.PersonMobilePhone}>
+                      </lightning-click-to-dial>
+                    </span>
+                    <!-- <template if:false={displayCtiIcon} > <span if:true={account.PersonMobilePhone} class="tooltiptext">{account.PersonMobilePhone}</span></template> -->
+                    <div if:false={displayCtiIcon}>
+                      <span if:false={displayCtiIcon} class="tooltiptext">{account.PersonMobilePhone}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="horizontal_icon_wrapper">
+              <div class={textBadge}>
+                <div class="highlight__icon-detail tooltip">
+                  <div class="icon-horizontal-designed">
+                    <img width="100%" height="auto" data-type="sms" alt={account.PersonMobilePhone} src={textIcon} />
+                  </div>
+                  <a href="tel:06279692289"><span if:true={account.PersonMobilePhone}
+                      class="tooltiptext">{account.PersonMobilePhone}</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="horizontal_icon_wrapper">
+              <div class={emailBadge}>
+                <div class="highlight__icon-detail tooltip">
+                  <div class="icon-horizontal-designed">
+                    <img width="100%" height="auto" data-type="email" alt={account.email} src={emailIcon} />
+                  </div>
+                  <span if:true={account.email} class="tooltiptext">{account.email}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="horizontal_icon_wrapper">
+              <div class={homeBadge}>
+                <div class="highlight__icon-detail tooltip">
+                  <div class="icon-horizontal-designed">
+                    <img width="100%" height="auto" data-type="address" alt={account.address} src={homeIcon} />
+                  </div>
+                  <span if:true={account.address} class="tooltiptext">{account.address}</span>
+                </div>
+              </div>
+            </div>
+            <!-- 
+            <div class="copy=button">
+              <p>Copy</p>
+            </div> -->
+            <!-- <textarea value={fieldsForCopy}></textarea> -->
+
+            <button class="copy-horizontal-button" onclick={copyToClipboard}>Copy</button>
+          </div>
+        </div>
+      </template>
+
+      <!-- empty highlight panel for horizontal -->
+
+      <template if:false={account}>
+        <template if:true={editAvailable}>
+          <div class="slds-border_bottom highlight_up_container_empty">
+            <div>
+
+              <div class="highlight_container">
+                <span class="slds-truncate highlight__label_dreamId highlight_bold">DREAM ID : </span>
+                <!-- <lightning-button label="Search" onclick={handleSearch}></lightning-button> -->
+              <p class="highlight_bold slds-truncate slds-text-align_left">N/A</p>
+            </div>
+
+              <template if:true={authToEditModal}>
+                <div class="oob_horizontal">
+                  <c-icx_oob-button label={oobLabel} btn-class="oob_container"></c-icx_oob-button>
+                </div>
+              </template>
+            </div>
+            
+            <template if:true={authToEditModal}>
+                <div style="display: flex;">
+                <template if:true={isMultiMatch}>    
+                  <c-icx_dream-account-multi-match accountlist={accountList} class="multimatch"></c-icx_dream-account-multi-match>
+                </template>
+            <lightning-layout class="button_container">
+                <lightning-button-icon icon-name="utility:search" onclick={handleSearch}
+                  alternative-text="Search Account" title="Search Account"></lightning-button-icon>
+            </lightning-layout>
+          </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- /////////////////// -->
+
+        <div class="slds-border_bottom highlight_contact_container">
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="phone" alt="" src={phoneIcon} />
+            </div>
+          </div>
+
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="phone" alt="" src={textIcon} />
+            </div>
+          </div>
+
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="email" alt="" src={emailIcon} />
+            </div>
+          </div>
+
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="address" alt="" src={homeIcon} />
+            </div>
+          </div>
+        </div>
+
+        <!-- //////////// -->
+
+        <div class="highlight_request_container">
+          <div class="request_container" data-value="pendingAnswers" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_horizontal_number">0</p>
+              <p class="request_label">Pending Answers</p>
+
+              <!-- <c-icx_account_highlight-indicator-popup if:true={showPendingAnswers} indicators={indicatorList} show-csc-indicator-pending-answers="true" ></c-icx_account_highlight-indicator-popup> -->
+            </div>
+          </div>
+          <div class="request_container" data-value="pendingCareService" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_horizontal_number">0</p>
+              <p class="request_label">Pending Care Services</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showPendingCareService} indicators={indicatorList} show-csc-indicator-pending-care-service="true"></c-icx_account_highlight-indicator-popup> -->
+          </div>
+          <div class="request_container" data-value="pendingComplaints" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_horizontal_number red">0</p>
+              <p class="request_label">Pending Complaints</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showPendingComplaints} indicators={indicatorList} show-csc-indicator-pending-complaints="true" ></c-icx_account_highlight-indicator-popup> -->
+          </div>
+          <div class="request_container" data-value="resolvedComplaints" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_horizontal_number">0</p>
+              <p class="request_label">Resolved Complaints</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showResolvedComplaints} indicators={indicatorList} show-csc-indicator-resolved-complaints="true" ></c-icx_account_highlight-indicator-popup> -->
+          </div>
+          <div class="request_container" data-value="surveysPending" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_horizontal_number red">0</p>
+              <p class="request_label">Pending Feedback</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showResolvedComplaints} indicators={indicatorList} show-csc-indicator-resolved-complaints="true" ></c-icx_account_highlight-indicator-popup> -->
+          </div>
+        </div>
+
+        <!-- /////////////////////////// -->
+      </template>
+    </template>
+  </template>
+
+  <!-- portrait highligh panel -->
+
+  <template if:false={displayHorizontalFormat}>
+    <div class="slds-p-around_small slds-is-relative" if:true={isLoading}>
+      <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </div>
+    <template if:false={isLoading}>
+      <template if:true={account}>
+        <div class="slds-border_bottom highlight_up_container">
+          <div class="client-profile">
+            <div class="highlight__profile-pic">
+              <!--div
+                if:true={account.segmentationClient}
+                class="highlight__profile-pic-badge"
+                title={account.segmentationClient}
+              >
+                <lightning-formatted-rich-text value={segmentation}></lightning-formatted-rich-text>
+              </div-->
+
+              <lightning-formatted-rich-text title={account.Name} value={Gender_IMG}></lightning-formatted-rich-text>
+            </div>
+
+            <div class="client-details">
+              <div style="cursor: pointer" onclick={handleAccountView}>
+                <div class={hideSFsearchBar}>
+                  <div>
+                    <lightning-formatted-name class="highlight_bold wrap-text highlight_name account"
+                      first-name={account.firstName} last-name={account.lastName} salutation={account.salutation}>
+                    </lightning-formatted-name>
+                    <span class="highlight_bold highlight_name" if:true={account.title} onclick={handleAccountView}>
+                      ({account.title})
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <lightning-formatted-name class="highlight_bold wrap-text" first-name={account.firstName2}
+                    last-name={account.lastName2}></lightning-formatted-name>
+                </div>
+              </div>
+              <div>
+                <template if:true={account.displayedSegment}>
+                  <lightning-badge label={account.displayedSegment} class={badgeClass}></lightning-badge>
+                </template>
+              </div>
+
+              <div class="highlight_container">
+                <div class="client-id">
+                  <span class="slds-truncate highlight__label_dreamId highlight_bold">DREAM ID :
+                  </span>
+                  <p class="highlight_bold slds-truncate" if:true={account.dreamID}>
+                    {account.dreamID}
+                  </p>
+                </div>
+
+                <p class="highlight_bold slds-truncate" if:false={account.dreamID}>N/A</p>
+
+                <div class="highlight_borderRight"></div>
+                <div lwc:dom="manual" class="highlight__flag" title={account.Prefered_Language}>
+                  <!-- <lightning-formatted-rich-text title={account.Prefered_Language} value={Language_IMG}>
+              </lightning-formatted-rich-text> -->
+                </div>
+
+                <div class="highlight__LV tooltip_LV">
+                  <lightning-formatted-rich-text data-target-id="tooltip_LV" onclick={displayCloseTooltip_LV}
+                    value={Parallel_Market_IMG}></lightning-formatted-rich-text>
+                  <div data-id="tooltip_LV" class="tooltip_content_LV slds-hide">
+                    <div class="float_right">
+                      <span class="close_btn" data-target-id="tooltip_LV"
+                        onclick={displayCloseTooltip_LV}>&times;</span>
+                    </div>
+                    <div class="tooltip_LV_up_container slds-border_bottom">
+                      <div>
+                        <img src={LV_background_img} alt={account.greyMarketStatus} />
+                      </div>
+                      <div>
+                        <p class="highlight_bold highlight_LV_status">{account.greyMarketStatus}</p>
+                      </div>
+                      <div>
+                        <p class="highlight_lightgray">
+                          SINCE {account.greyMarketStatusDate}
+                          <span if:false={account.greyMarketStatusDate}>N/A</span>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="tooltip_LV_down_container">
+                      <div>
+                        <p class="highlight_lightgray highlight_bold tooltip_LV_down_container_title">
+                          Exceeded sales conditions :
+                        </p>
+                        <p class="highlight_bold">
+                          Clients cannot purchase more than 12 leather or small leather goods,
+                          within the last 12 consecutive months
+                        </p>
+                      </div>
+                      <div>
+                        <p class="highlight_lightgray highlight_bold tooltip_LV_down_container_title">
+                          Period :
+                        </p>
+                        <p class="highlight_bold">Last 12 Months</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div if:true={account.birthdate} class="highlight_birthcake">
+                  <lightning-formatted-rich-text value={Birthday_Cake_IMG} title={titleBirthdate}>
+                  </lightning-formatted-rich-text>
+                </div>
+              </div>
+
+              <template if:true={authToEditModal}>
+                <c-icx_oob-button label={oobLabel} btn-class="oob_container" account-id={accountId}
+                  dream-id={account.dreamID}></c-icx_oob-button>
+              </template>
+            </div>
+          </div>
+
+          <div class="highlight_container_up_right">
+            <!-- <template if:true={editOtherSobjects}> -->
+
+            <div if:true={authToEditModal}>
+              <div if:true={identifyObject}>
+                <img alt="edit" onclick={handleEdit} src={editIcon} />
+              </div>
+              <div if:true={authToEditModal}> 
+                <lightning-layout if:false={identifyObject} class="button_container">
+                  <lightning-layout-item>
+                    <!-- <div if:true={isButtonDisplay}> -->
+                    <lightning-button-menu alternative-text="Show menu">
+                      <lightning-menu-item if:true={editAvailable} value="MenuItemTwo" label="Edit" onclick={handleEdit}
+                        icon-name="utility:edit"></lightning-menu-item>
+
+                      <lightning-menu-item if:true={searchAvailable} value="MenuItemThree" label="Replace"
+                        onclick={handleSearch} icon-name="utility:replace"></lightning-menu-item>
+                    </lightning-button-menu>
+                    <!-- </div> -->
+                  </lightning-layout-item>
+                </lightning-layout>
+              </div>
+            </div>
+            <!-- </template> -->
+
+            <div if:true={showSpeakerOrBell} class="right_icon_container">
+              <div class="right_icon" if:true={showSpeaker}>
+                <lightning-icon class="flashing black-icon" icon-name="utility:announcement"
+                  alternative-text="announcement" title="New Case opened within last 48h" size="x-small">
+                </lightning-icon>
+              </div>
+              <div class="right_icon" if:true={showBell}>
+                <lightning-icon class="flashing black-icon" icon-name="utility:alert" alternative-text="alert"
+                  title="3 contacts made within 48h by call, email, webform, Live Chat and/or Messaging" size="x-small">
+                </lightning-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-border_bottom highlight_middle_container">
+          <div class="highlight_middle_detail">
+            <img alt="Client's Store" src={storeIcon} title="Client's Store" class="highlight__icon" />
+
+            <div class="highlight__space-between">
+              <a if:true={account.StoreName} onclick={goToStore} target="_blank">
+                <p class="slds-truncate">{account.StoreName}</p>
+              </a>
+              <p class="highlight_bold slds-truncate" if:false={account.StoreName}>N/A</p>
+
+              <p class="slds-truncate" title={account.StoreRetailID}>{account.StoreRetailID}</p>
+            </div>
+          </div>
+
+          <div class="highlight_middle_detail">
+            <img alt="Preferred CA" src={accountIcon} title="Preferred CA" class="highlight__icon" />
+
+            <a if:true={account.OwnerName} onclick={goToCA} target="_blank">
+              <p class="slds-truncate">{account.OwnerName}</p>
+            </a>
+
+            <p class="slds-truncate" if:false={account.OwnerName}>N/A</p>
+          </div>
+
+          <!--div class="highlight_middle_detail">
+            <img alt="Star" src={starIcon} title="Star" class="highlight__icon" />
+
+            <p if:true={account.segmentationClient} class="highlight_bold">
+              {account.segmentationClient}
+            </p>
+            <p class="highlight_bold slds-truncate" if:false={account.segmentationClient}>N/A</p>
+          </div-->
+
+          <div class="highlight_middle_detail">
+            <img alt="First Purchase Date" src={calendarIcon} title="First Purchase Date" class="highlight__icon" />
+            <div class="highlight__space-between">
+              <label class="slds-truncate date_label_color">First Purchase Date</label>
+              <p class="highlight_bold slds-truncate" if:true={account.firstPurchaseDate}>
+                {getFirstPurchaseDate}
+              </p>
+              <p class="highlight_bold slds-truncate" if:false={account.firstPurchaseDate}>N/A</p>
+            </div>
+          </div>
+
+          <div class="highlight_middle_detail">
+            <img alt="Last Purchase Date" src={calendarIcon} title="Last Purchase Date" class="highlight__icon" />
+            <div class="highlight__space-between">
+              <label class="slds-truncate date_label_color">Last Purchase Date</label>
+              <p class="highlight_bold slds-truncate" if:true={account.lastPurchaseDate}>
+                {getLastPurchaseDate}
+              </p>
+              <p class="highlight_bold slds-truncate" if:false={account.lastPurchaseDate}>N/A</p>
+            </div>
+          </div>
+
+          <div class="highlight_middle_detail">
+            <img alt="Last Contact" src={calendarIcon} title="Last Contact" class="highlight__icon" />
+            <div class="highlight__space-between">
+              <label class="slds-truncate date_label_color">Last Contact</label>
+              <p class="highlight_bold slds-truncate" if:true={account.lastContact}>
+                {getLastContact}
+              </p>
+              <p class="highlight_bold slds-truncate" if:false={account.lastContact}>N/A</p>
+            </div>
+          </div>
+
+          <!-- for futur use -->
+          <!-- <div class="highlight_middle_detail">
+          <img alt="Newsletter" src={newsletterIcon} title="Newsletter" class="highlight__icon" />
+          <div class="highlight__space-between">
+            <label class="slds-truncate highlight_bold">Subscribed to Newsletter</label>
+  
+          </div>
+        </div> -->
+          <div if:true={account.Subscribed_to_Digital_Concierge} class="highlight_middle_detail">
+            <img alt="Digital Concierge" src={bellIcon2} title="Digital Concierge" class="highlight__icon" />
+            <div class="highlight__space-between">
+              <label class="slds-truncate highlight_bold">Subscribed to DPCA services</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-border_bottom">
+          <div class="highlight_down_container">
+            <div class={MyLVBadge}>
+              <!-- if:true={account.dreamID} -->
+              <div class="highlight__icon-detail highlight__myLV">
+                <lightning-formatted-rich-text value={MyLV_IMG} title={myLVTitle}>
+                </lightning-formatted-rich-text>
+              </div>
+            </div>
+  
+            <div class="highlight__space-between">
+            <lightning-formatted-text class="slds-truncate" value={myLVValue}></lightning-formatted-text>
+              <p class="highlight_bold slds-truncate" if:true={account.lastActivityDate}>
+                {getLastActivity}
+              </p>
+              <p class="highlight_bold slds-truncate" if:false={account.lastActivityDate}>N/A</p>
+            </div>
+           
+
+            
+          </div>
+          <div if:true={isEditUserEnabled} >
+            <div class="editUser_container">
+              <lightning-button class="editUser_btn slds-button_brand" label="Edit MyLV Email" onclick={handleEditUser} >
+              </lightning-button>
+  
+            </div>
+            
+          </div>
+
+        </div>
+       
+        <div class="slds-border_bottom highlight_contact_container">
+          <div class={phoneBadge}>
+            <div class="highlight__icon-detail tooltip">
+              <div class="icon-designed">
+                <img width="100%" height="auto" data-type="phone" src={phoneIcon} />
+              </div>
+              <!-- <a href="tel:06279692289"><span if:true={account.PersonMobilePhone} class="tooltiptext">{account.PersonMobilePhone}</span></a> -->
+              <div if:true={account.PersonMobilePhone}>
+                <span if:true={displayCtiIcon} class="tooltiptext">
+                  <lightning-click-to-dial value={account.PersonMobilePhone}>
+                  </lightning-click-to-dial>
+                </span>
+                <!-- <template if:false={displayCtiIcon} > <span if:true={account.PersonMobilePhone} class="tooltiptext">{account.PersonMobilePhone}</span></template> -->
+                <div if:false={displayCtiIcon}>
+                  <span if:false={displayCtiIcon} class="tooltiptext">{account.PersonMobilePhone}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class={textBadge}>
+            <div class="highlight__icon-detail tooltip">
+              <div class="icon-designed">
+                <img width="100%" height="auto" data-type="sms" alt={account.PersonMobilePhone} src={textIcon} />
+              </div>
+              <a href="tel:06279692289"><span if:true={account.PersonMobilePhone}
+                  class="tooltiptext">{account.PersonMobilePhone}</span></a>
+            </div>
+          </div>
+          <div class={emailBadge}>
+            <div class="highlight__icon-detail tooltip">
+              <div class="icon-designed">
+                <img width="100%" height="auto" data-type="email" alt={account.email} src={emailIcon} />
+              </div>
+              <span if:true={account.email} class="tooltiptext">{account.email}</span>
+            </div>
+          </div>
+          <div class={homeBadge}>
+            <div class="highlight__icon-detail tooltip">
+              <div class="icon-designed">
+                <img width="100%" height="auto" data-type="address" alt={account.address} src={homeIcon} />
+              </div>
+              <span if:true={account.address} class="tooltiptext">{account.address}</span>
+            </div>
+          </div>
+
+          <button class="copy-button" onclick={copyToClipboard}>Copy</button>
+        </div>
+
+        <template if:true={doneIndicator}>
+          <div class="slds-border_bottom highlight_request_container">
+            <div class="request_container" data-value="pendingAnswers" onmouseenter={handleIndicatorMouserEnter}
+              onmouseleave={handleIndicatorMouserLeave}>
+              <div class=" ">
+                <p class="request_number">{pendingAnswersLength}</p>
+                <p class="request_label">Pending Answers</p>
+
+                <c-icx_account_highlight-indicator-popup if:true={showPendingAnswers} indicators={indicatorList}
+                  show-csc-indicator-pending-answers="true"></c-icx_account_highlight-indicator-popup>
+              </div>
+            </div>
+
+            <div class="request_container" data-value="pendingCareService" onmouseenter={handleIndicatorMouserEnter}
+              onmouseleave={handleIndicatorMouserLeave}>
+              <div class=" ">
+                <p class="request_number">{pendingCareServiceLength}</p>
+                <p class="request_label">Pending Care Services</p>
+              </div>
+              <c-icx_account_highlight-indicator-popup if:true={showPendingCareService} indicators={indicatorList}
+                show-csc-indicator-pending-care-service="true"></c-icx_account_highlight-indicator-popup>
+            </div>
+
+            <div class="request_container" data-value="pendingComplaints" onmouseenter={handleIndicatorMouserEnter}
+              onmouseleave={handleIndicatorMouserLeave}>
+              <div class=" ">
+                <p class="request_number red">{complaintsPendingLength}</p>
+                <p class="request_label">Pending Complaints</p>
+              </div>
+              <c-icx_account_highlight-indicator-popup if:true={showPendingComplaints} indicators={indicatorList}
+                show-csc-indicator-pending-complaints="true"></c-icx_account_highlight-indicator-popup>
+            </div>
+
+            <div class="request_container" data-value="resolvedComplaints" onmouseenter={handleIndicatorMouserEnter}
+              onmouseleave={handleIndicatorMouserLeave}>
+              <div class=" ">
+                <p class="request_number">{complaintsResolvedLength}</p>
+                <p class="request_label">Resolved Complaints</p>
+              </div>
+              <c-icx_account_highlight-indicator-popup if:true={showResolvedComplaints} indicators={indicatorList}
+                show-csc-indicator-resolved-complaints="true"></c-icx_account_highlight-indicator-popup>
+            </div>
+
+            <div class="request_container" data-value="surveysPending" onmouseenter={handleIndicatorMouserEnter}
+              onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_number red">{surveyPendingLength}</p>
+              <p class="request_label">Pending Feedback</p>
+          </div>
+
+              <c-icx_account_highlight-indicator-popup if:true={showPendingSurveys} indicators={indicatorList}
+                show-csc-indicator-pending-surveys="true"></c-icx_account_highlight-indicator-popup>
+            </div>
+          </div>
+          
+        </template>
+      </template>
+
+      <!-- empty for portrait -->
+      <template if:false={account}>
+        <template if:true={editAvailable}>
+          <div class="slds-border_bottom highlight_up_container_empty">
+            <div>             
+              <div class="highlight_container">
+                <span class="slds-truncate highlight__label_dreamId highlight_bold">DREAM ID : </span>
+                <!-- <lightning-button label="Search" onclick={handleSearch}></lightning-button> -->
+                <p class="highlight_bold slds-truncate slds-text-align_left">N/A</p>
+               </div>
+                
+                <template if:true={authToEditModal}>
+                <c-icx_oob-button label={oobLabel} btn-class="oob_container"></c-icx_oob-button>
+                </template>
+              </div>
+              <template if:true={authToEditModal}>
+          <div style="display: flex;">
+            <template if:true={isMultiMatch}>    
+              <c-icx_dream-account-multi-match accountlist={accountList} class="multimatch"></c-icx_dream-account-multi-match>
+            </template>    
+                <lightning-layout class="button_container">
+              <lightning-button-icon icon-name="utility:search" onclick={handleSearch}
+                alternative-text="Search Account" title="Search Account"></lightning-button-icon>
+                </lightning-layout>
+          </div>
+              </template>
+          </div>
+        </template>
+
+        <!-- /////////////////// -->
+
+        <div class="slds-border_bottom highlight_contact_container">
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="phone" alt="" src={phoneIcon} />
+            </div>
+          </div>
+
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="phone" alt="" src={textIcon} />
+            </div>
+          </div>
+
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="email" alt="" src={emailIcon} />
+            </div>
+          </div>
+
+          <div class="highlight__icon-detail_badge_red">
+            <div class="highlight__icon-detail">
+              <img data-type="address" alt="" src={homeIcon} />
+            </div>
+          </div>
+        </div>
+
+        <!-- //////////// -->
+
+        <div class="slds-border_bottom highlight_request_container">
+          <div class="request_container" data-value="pendingAnswers" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_number">0</p>
+              <p class="request_label">Pending Answers</p>
+
+              <!-- <c-icx_account_highlight-indicator-popup if:true={showPendingAnswers} indicators={indicatorList} show-csc-indicator-pending-answers="true" ></c-icx_account_highlight-indicator-popup> -->
+            </div>
+          </div>
+          <div class="request_container" data-value="pendingCareService" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_number">0</p>
+              <p class="request_label">Pending Care Services</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showPendingCareService} indicators={indicatorList} show-csc-indicator-pending-care-service="true"></c-icx_account_highlight-indicator-popup> -->
+          </div>
+          <div class="request_container" data-value="pendingComplaints" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_number red">0</p>
+              <p class="request_label">Pending Complaints</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showPendingComplaints} indicators={indicatorList} show-csc-indicator-pending-complaints="true" ></c-icx_account_highlight-indicator-popup> -->
+          </div>
+          <div class="request_container" data-value="resolvedComplaints" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_number">0</p>
+              <p class="request_label">Resolved Complaints</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showResolvedComplaints} indicators={indicatorList} show-csc-indicator-resolved-complaints="true" ></c-icx_account_highlight-indicator-popup> -->
+          </div>
+          <div class="request_container" data-value="pendingSurveys" onmouseenter={handleIndicatorMouserEnter}
+            onmouseleave={handleIndicatorMouserLeave}>
+            <div class=" ">
+              <p class="request_number red">0</p>
+              <p class="request_label">Pending Feedback</p>
+            </div>
+            <!-- <c-icx_account_highlight-indicator-popup if:true={showResolvedComplaints} indicators={indicatorList} show-csc-indicator-resolved-complaints="true" ></c-icx_account_highlight-indicator-popup> -->
+          </div>
+        </div>
+
+        <!-- /////////////////////////// -->
+      </template>
+
+      <!-- </template> -->
+    </template>
+  </template>
+</template>
+
+<!--
+  @description       : 
+  @author            : Naomi Baroghel
+  @group             : 
+  @last modified on  : 06-07-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<!--  -->
