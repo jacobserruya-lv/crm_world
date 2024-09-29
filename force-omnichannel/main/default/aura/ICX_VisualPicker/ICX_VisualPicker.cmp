@@ -32,8 +32,8 @@
                 <aura:iteration items="{!v.itemList}" var="item" indexVar="index">
                     
                     <!--lightning:layoutItem flexibility="grow" size="12" largeDeviceSize="{!v.width == 'SMALL' ? 12 : 1}" mediumDeviceSize="12" smallDeviceSize="12" class="slds-form_compound"-->
-                    <lightning:layoutItem smallDeviceSize="6" mediumDeviceSize="3" largeDeviceSize="{!v.width == 'SMALL' ? '6' : '2'}" size="{!v.width == 'MEDIUM' ? '3' : (v.width == 'SMALL' ? '6' : '2')}">
-                        
+                    <!-- <lightning:layoutItem smallDeviceSize="6" mediumDeviceSize="3" largeDeviceSize="{!v.width == 'SMALL' ? '6' : '2'}" size="{!v.width == 'MEDIUM' ? '3' : (v.width == 'SMALL' ? '6' : '2')}"> -->
+                        <lightning:layoutItem size="3">   
                         <div class="slds-visual-picker slds-visual-picker_small fullWidth"><!--style="width: 20%;"-->
                             <input type="radio" value="{!item.value}" name="options" id="{!'picker-' + item.label}" checked="{!v.selection == item.value ? true : false}"/>
                             

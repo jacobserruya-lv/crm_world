@@ -1,0 +1,49 @@
+<template>
+    <div class="container">
+
+        <lightning-button label="New POD" title="Non-primary action" onclick={handleOnClickNewPOD} class="slds-m-left_x-small"></lightning-button> 
+        <lightning-button label="New OE" title="Non-primary action" onclick={handleOnClickNewOE} class="slds-m-left_x-small"></lightning-button>
+           <div class="flowContainer">
+            <c-csc_request-or-escalation record-id={recordId}></c-csc_request-or-escalation>
+        </div>
+           <div class="flowContainer">
+            <c-csc_escalation-flow-component record-id={recordId}></c-csc_escalation-flow-component >
+        </div>
+    </div>
+
+    <template if:true={isNewPODOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse custom-close-button" title="Close" onclick={closeNewPOD}>
+                       <lightning-icon icon-name="utility:close"
+                          alternative-text="close"
+                          size="small" 
+                          class="custom-close-icon">></lightning-icon>
+                    </button>
+                 </header>
+                 <c-icx_new-p-o-d record-id={recordId} onflowfinish={closeNewPOD}></c-icx_new-p-o-d>
+            </div>
+        </section>
+    </template>
+    <template if:true={isNewOEOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse custom-close-button" title="Close" onclick={closeNewOE}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        size="small"
+                        class="custom-close-icon"></lightning-icon>
+                    </button>
+                 </header>
+                 <lightning-flow
+                 flow-api-name="ICXNewOE"
+                 flow-input-variables={inputVariables}
+                 onstatuschange={handleStatusChange}>
+               </lightning-flow> 
+            </div>
+        </section>
+    </template> 
+    
+</template>

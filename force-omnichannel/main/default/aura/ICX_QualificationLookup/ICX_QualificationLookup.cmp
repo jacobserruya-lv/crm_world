@@ -1,0 +1,122 @@
+<aura:component controller="ICX_CaseQualificationLC" implements="lightning:availableForFlowScreens" >
+
+    <aura:attribute name="width" type="String"/>
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+    
+
+
+    <!-- Input:  -->
+    <aura:attribute name="accountId" type="String" />
+    <aura:attribute name="recordId" type="String" /> <!-- String as Design doesn't support Id type -->
+ 
+    <aura:attribute name="object" type="String" /><!-- default="Task"/-->
+
+    <aura:attribute name="recordTypeId" type="String" access="public"/>
+    <aura:attribute name="fastFieldList" type="List" access="private" description="Fast qualification needs the dependant fields"/>
+    <aura:attribute name="showParentWithChildrenList" type="List" access="private" default="[true, false, true]" description="show parent"/>
+    <aura:attribute name="objectWebService" type="String" access="private" description="Webservice to get dependant picklists based on the Record Type doesn't support Task so workaround"/>
+    <aura:attribute name="picklistFieldValues" type="Object" access="private" description="picklist Field Values list"/>
+    <aura:attribute name="showFastSearch" type="Boolean" default="false" access="public" description="Show combobox search field"/>
+    <aura:attribute name="showPicklist" type="Boolean" default="true" access="public" description="Show combobox search field"/>
+    
+    <!--aura:attribute name="isManualSelection" type="Boolean" access="private" default="false" description="Is manunal selection to avoid BACK button from the next screen then auto-next screen"/-->
+	<!-- -->
+
+    <aura:attribute name="level1Label" type="String" default="ICX_Flow_Qualification_Nature"/>
+    <aura:attribute name="level1Value" type="String" />
+    <aura:attribute name="level1Field" type="String" /><!--default="Nature__c" /-->
+    <aura:attribute name="level1Required" type="Boolean" description="Level 1 field mandatory?" />
+
+    <aura:attribute name="level2Label" type="String" default="ICX_Flow_Qualification_Category"/>
+    <aura:attribute name="level2Value" type="String" />
+    <aura:attribute name="level2Field" type="String" /><!--default="Category__c" /-->
+    <aura:attribute name="level2Required" type="Boolean" description="Level 2 field mandatory?" />
+
+    <aura:attribute name="level3Label" type="String" default="ICX_Flow_Qualification_Domain"/>
+    <aura:attribute name="level3Value" type="String" />
+    <aura:attribute name="level3Field" type="String" /><!-- default="Domaine__c" /-->
+    <aura:attribute name="level3Required" type="Boolean" description="Level 3 field mandatory?" />
+
+    <aura:attribute name="showNatureList" type="Boolean" default="true" />
+    <aura:attribute name="showCategoryList" type="Boolean" default="false" />
+    <aura:attribute name="showDomainList" type="Boolean" default="false" />
+
+    <aura:attribute name="levelCurrent" type="Integer" default="1" />
+    <aura:attribute name="levelLast" type="Integer" default="3" />
+    <aura:attribute name="lastLevelNoResult" type="Boolean" />
+    
+    <aura:attribute name="flowAutoNextOnLastSelection" type="Boolean" default="false" description="[Flow only] Go automatically to the next screen on selection of the last selection"/>
+    
+    <aura:handler name="onQualificationSelected" event="c:ICX_Flow_QualificationEvent" action="{!c.handleSelection}"/>
+    <aura:handler name="onFastQualificationSelectedEvent" event="c:ICX_Flow_FastQualificationEvent" action="{!c.handleFastSelection}"/>
+    <aura:handler name="change" value="{!v.lastLevelNoResult}" action="{!c.onLastLevelNoResult}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:handler name="change" value="{!v.recordTypeId}" action="{!c.findValus}"/>
+    
+    <lightning:messageChannel type="ICX_AccountSelected__c" aura:id="ICX_AccountSelected" />
+    <aura:attribute name="isDoneRendering" type="Boolean" default="false"/>
+    <!-- <aura:handler event="aura:doneRendering" action="{!c.doneRendering}"/> event depecrated since 2019--> 
+	<aura:handler name="render" value="{!this}" action="{!c.doneRendering}"/>
+
+   
+    <div> 
+        <aura:if isTrue="{!v.showFastSearch &amp;&amp; not(empty(v.recordTypeId)) &amp;&amp; not(empty(v.objectWebService))}">
+            <div class="{! v.width == 'SMALL' ? 'paddingSmall' : 'padding'}">
+                <!--c:ICX_Flow_FastQualification recordTypeId="0123D0000008miMQAQ" 
+                                          objectType="Case" 
+                                          fieldLevelList="['Type', 'Category__c', 'Domaine__c']" 
+                                          showParentWithChildrenList="[true, false, true]"
+                                          /-->
+                <c:ICX_Flow_FastQualification recordTypeId="{!v.recordTypeId}" 
+                                              objectType="{!v.objectWebService}" 
+                                              fieldLevelList="{!v.fastFieldList}" 
+                                              showParentWithChildrenList="{!v.showParentWithChildrenList}"
+                                              />
+                
+                <!--lightning:input type="search" aura:id="searchText" placeholder="Fast Qualification" class="padding"/-->
+            </div>
+        </aura:if>
+    </div>
+    <!-- https://www.lightningdesignsystem.com/components/lookups/ -->
+    <div>
+        <aura:if isTrue="{!not(empty(v.level1Field)) &amp;&amp; not(empty(v.picklistFieldValues))}">
+            <!-- TODO problem with CASE object with Record Type (ex: Feature Request is not valid for Call Case)-->
+            <!--c:PicklistFlow qualificationList="{!v.qualificationList}"
+                            field="{!v.level1Field}" visual="Picker" object="{!v.objectWebService}" selectedValue="{!v.level1Value}" selectedLabel="{!v.level1Label}" 
+                            /-->
+            <c:ICX_Flow_QualificationFinder picklistFieldValues="{!v.picklistFieldValues}"
+                                            hierarchyDependantFields="{!v.fastFieldList}"
+                                            field="{!v.level1Field}" object="{!v.objectWebService}" 
+                                            required="{!v.level1Required}"
+                                            selection="{!v.level1Value}" label="{!v.level1Label}" showList="{!v.showNatureList}" level="1" showButton="{!empty(v.level1Value) ? 'false' : 'true'}" 
+                                            selectionLabel="{!v.level1Value}"/>
+                                            <!--selectionLabel="{!v.Nature}"/-->
+            <div class="vertical-line vertical-blue-line verticalCustom"></div>
+            
+            <aura:if isTrue="{!v.levelLast >= 2 &amp;&amp; not(empty(v.picklistFieldValues))}">
+                <c:ICX_Flow_QualificationFinder picklistFieldValues="{!v.picklistFieldValues}"
+                                                hierarchyDependantFields="{!v.fastFieldList}"
+                                                field="{!v.level2Field}" object="{!v.objectWebService}" 
+                                                required="{!v.level2Required}"
+                                                selection="{!v.level2Value}" 
+                                                label="{!v.level2Label}" showList="{!v.showCategoryList}" showButton="{!empty(v.level2Value) ? 'false' : 'true'}" 
+                                                controllingField="{!v.level1Field}" controllingValue="{!v.level1Value}" level="2" noResult="{!v.lastLevelNoResult}"
+                                                selectionLabel="{!v.level2Value}"/>
+                                                <!--selectionLabel="{!v.Category}"/-->
+                <div class="vertical-line vertical-blue-line verticalCustom"></div>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.levelLast >= 3 &amp;&amp; not(empty(v.picklistFieldValues))}">
+                <c:ICX_Flow_QualificationFinder picklistFieldValues="{!v.picklistFieldValues}"
+                                                hierarchyDependantFields="{!v.fastFieldList}"
+                                                field="{!v.level3Field}" object="{!v.objectWebService}" 
+                                                required="{!v.level3Required}"
+                                                selection="{!v.level3Value}" label="{!v.level3Label}" 
+                                                selectionLabel="{!v.level3Value}" showList="{!v.showDomainList}" showButton="{!empty(v.level3Value) ? 'false' : 'true'}" 
+                                                controllingField="{!v.level2Field}" controllingValue="{!v.level2Value}" level="3" noResult="{!v.lastLevelNoResult}"/>
+                <div class="vertical-line vertical-blue-line verticalCustom"></div>
+            </aura:if>
+        </aura:if>
+    </div>
+</aura:component>
