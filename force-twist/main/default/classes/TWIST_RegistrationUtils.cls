@@ -10,9 +10,9 @@ public without sharing class TWIST_RegistrationUtils {
             String username = String.isNotBlank(socialParams.get('email') ) ? socialParams.get('email') : null;
             if(username == null ) return Mode.FULL_SOCIAL_REGISTRATION;
             if(TWIST_Utils.getUserByUsername(username) != null){
-                return  Mode.MATCHING_SOCIAL_REGISTRATION;
+                return Mode.MATCHING_SOCIAL_REGISTRATION;
             }
-            return  Mode.PARTIAL_SOCIAL_REGISTRATION;
+            return Mode.PARTIAL_SOCIAL_REGISTRATION;
         }
         
         if(accountId == null) return Mode.REGISTRATION;
@@ -27,7 +27,7 @@ public without sharing class TWIST_RegistrationUtils {
         
         Boolean hasMyLVUser = TWIST_Utils.canFindMyLVUserWithEmail(client.PersonEmail); //TODO
         
-        if(!hasMyLVUser) return  Mode.PARTIAL_ACTIVATION ;
+        if(!hasMyLVUser) return Mode.PARTIAL_ACTIVATION ;
         
         return Mode.LOGIN;
     }
@@ -41,7 +41,7 @@ public without sharing class TWIST_RegistrationUtils {
         FROM Account
         WHERE Id =: accountId ];
         
-        return  clients.size() > 0  ? clients.get(0) : null ;
+        return clients.size() > 0 ? clients.get(0) : null ;
     }
     
     public static Map<String,TWIST_Form_Registration_Settings__mdt> getFormFieldsByContextAndMode(String countryLanguage, Mode actualMode) {
@@ -56,7 +56,7 @@ public without sharing class TWIST_RegistrationUtils {
         FROM TWIST_Form_Registration_Settings__mdt
         WHERE Country_Language__c =: countryLanguage
         ];
-        for (TWIST_Form_Registration_Settings__mdt  field: fieldsForm) {
+        for (TWIST_Form_Registration_Settings__mdt field: fieldsForm) {
             
             List<String> modes = formRegistrationFields.get(field.Field__c).Modes__c.split(',') ;
             
@@ -91,12 +91,12 @@ public without sharing class TWIST_RegistrationUtils {
         if (!activationCode.isNumeric()) return false;
         
         List<Registration_Code_Verification_Request__c> codes = [
-            SELECT  Id, code__c, State__c, CreatedDate
+            SELECT Id, code__c, State__c, CreatedDate
             FROM Registration_Code_Verification_Request__c
             WHERE Record_Id__c = :identifier AND State__c = :String.valueOf(state)
-            ORDER BY Createddate  DESC
+            ORDER BY Createddate DESC
             LIMIT 1
-        ] ;
+        ];
 
         TWIST_Registration_Form_Settings__c settings = TWIST_Registration_Form_Settings__c.getInstance();
         Decimal validityTime = settings.Code_Validity_Time__c;
@@ -113,36 +113,51 @@ public without sharing class TWIST_RegistrationUtils {
         return false;
     }
 
+    public static Boolean validatePassKey(String passKey, String identifier) {
+        Map<String,Object> passKeyMap = EncryptUtils.getDecryptedMetadata(passKey);
+        if(passKeyMap != null){
+            String passKeyDecrypted = passKeyMap.containsKey('email') ? passKeyMap.get('email').toString() : null ;
+            if(passKeyDecrypted == identifier){
+                return true;
+            }
+        }
+        return false; 
+    }
+
     public static boolean validateForm( Map<String,Object> form, String countrylanguage,Mode actualMode ) {
 
         for (TWIST_Form_Registration_Settings__mdt setting : getFormFieldsByContextAndMode(countrylanguage, actualMode).values()) {
-
-            Boolean isFieldRequired = setting.Is_Required__c  && (!form.containsKey(setting.Field__c) || form.get(setting.Field__c) == null);
-            
-            if(isFieldRequired) throw new CustomException('MISSING FIELD REQUIRED');
+            Boolean isFieldRequired = setting.Is_Required__c && (!form.containsKey(setting.Field__c) || form.get(setting.Field__c) == null);
+            if(isFieldRequired) {
+                throw new CustomException('MISSING FIELD REQUIRED');
+            }
 
             Boolean isFieldMaxLength = setting.Validation_Max_Length__c != null && String.valueOf(form.get(setting.Field__c)).length() > setting.Validation_Max_Length__c;
-            
-            if(isFieldMaxLength) throw new CustomException('MAX LENGHT OUTMODED'); 
-            
+            if(isFieldMaxLength) {
+                throw new CustomException('MAX LENGHT OUTMODED');
+            }
             
             Boolean isValidateInFrom = validateFormData(setting.Field__c, form, countrylanguage);
-            
-            if(isValidateInFrom) throw new CustomException('FORM NOT VALID');
+            if(isValidateInFrom) {
+                throw new CustomException('FORM NOT VALID');
+            }
         }
-        
-        return true ;
+        return true;
     }
 
     public static Boolean validateFormData(String field, Map<String,Object> form, String langCountry) {
-        String fieldValue = (String) form.get(field);
+
+        String fieldValue;
+        if (form.get(field)  != null){
+            fieldValue = form.get(field) instanceof String ?  String.valueOf(form.get(field)).trim() :  String.valueOf(form.get(field));
+        }
         switch on field {
             when 'password' {
-                Map<String,String>  user = new Map<String,String> {'FirstName' => (string) form.get('firstname'), 'LastName' => (string) form.get('lastname') };
+                Map<String,String> user = new Map<String,String> {'FirstName' => (string) form.get('firstname'), 'LastName' => (string) form.get('lastname') };
                 return !TWIST_Utils.doesPasswordMatchStringPattern(fieldValue) || TWIST_Utils.doesPasswordContainUserFirstNameOrLastName(fieldValue, user) ;
             }
             when 'passwordconfirmation' {
-                return  !TWIST_Utils.doPasswordsMatch((String)form.get('password'), fieldValue );
+                return !TWIST_Utils.doPasswordsMatch((String)form.get('password'), fieldValue );
             }
             when 'email' {
                 return !TWIST_Utils.isValidEmail(fieldValue) || isUserIdentity(fieldValue);
@@ -222,7 +237,7 @@ public without sharing class TWIST_RegistrationUtils {
                 }
                 
                 return new Map<String,Object>{
-                    'accountId' =>  accountId,
+                    'accountId' => accountId,
                     'isTrustOrigin' => isTrustOrigin
                 };
             }
@@ -238,16 +253,16 @@ public without sharing class TWIST_RegistrationUtils {
         
         Map<String,String> form = new Map<String,String>();
         
-        if(currentMode == TWIST_RegistrationUtils.Mode.PARTIAL_ACTIVATION ){  // in oder to send email
+        if(currentMode == TWIST_RegistrationUtils.Mode.PARTIAL_ACTIVATION ) { // in oder to send email
             
             Account client = TWIST_RegistrationUtils.getClientById(accountId);
             form = new Map<String,String>{
                 'email' => client.PersonEmail,
-                'firstname'   => client.FirstName,
-                'lastname'    => client.LastName,
+                'firstname' => client.FirstName,
+                'lastname' => client.LastName,
                 'mobile_phone'=> client.PersonMobilePhone,
-                'title'       => client.Salutation,
-                'dreamID'     => client.DREAMID__c,
+                'title' => client.Salutation,
+                'dreamID' => client.DREAMID__c,
                 'login_international_mobile_phone' => client.LoginPhone__pc
             };
         }
@@ -271,7 +286,7 @@ public without sharing class TWIST_RegistrationUtils {
 
     public static Map<String,Object> convertAccountToForm(Account client, Mode currentMode, String countryLanguage){
         Map<String,Object> formData = new Map<String, Object> ();
-        Map<String,TWIST_Form_Registration_Fields__mdt>  fieldsRegistrationMode = TWIST_RegistrationUtils.getFieldsRegistrationMode();
+        Map<String,TWIST_Form_Registration_Fields__mdt> fieldsRegistrationMode = TWIST_RegistrationUtils.getFieldsRegistrationMode();
         Map<String,TWIST_Form_Registration_Settings__mdt> formFieldsByContextAndMode = TWIST_RegistrationUtils.getFormFieldsByContextAndMode(countryLanguage, currentMode);
         for(String key : formFieldsByContextAndMode.keySet()){
             if(fieldsRegistrationMode.containsKey(key) && fieldsRegistrationMode.get(key).Field_Api_Name__c != null) {
@@ -281,21 +296,29 @@ public without sharing class TWIST_RegistrationUtils {
         }
         return formData;
     }
-    
-    public static Map<String,String> setSocialData(String base64SocialId){
+
+    public static Map<String,Object> setSocialData(String base64SocialId){
         // GET SOCIAL DATA
-        Map<String,String> socialParams = new Map<String,String>();
+        Map<String,Object> socialData = new Map<String,Object>();
         if(String.isNotEmpty(base64SocialId) && StringUtils.isValidBase64(base64SocialId)){
             Blob decodedSocialId = EncodingUtil.base64Decode(base64SocialId);
             String payload = decodedSocialId.toString();
-            Map<String,Object> params = (Map<String,Object>) JSON.deserializeUntyped(payload);
-            for (String key : params.keySet()){
-                String cleanedValue = ((String) params.get(key)).trim();
-                socialParams.put(key, cleanedValue);
-                System.debug('<<SOCIAL PARAM:' + key + '  '+ (String)params.get(key));
+            Map<String,Object> jsonElements = (Map<String,Object>) JSON.deserializeUntyped(payload);
+            if(jsonElements.containsKey('passKey')){
+                socialData.put('passKey', ((String) jsonElements.get('passKey')).trim());
+            }
+            if(jsonElements.containsKey('data')){
+                Map<String, Object> data = (Map<String, Object>)jsonElements.get('data');
+                Map<String,String> socialParams = new Map<String,String>();
+                for (String key : data.keySet()){
+                    String cleanedValue = ((String) data.get(key)).trim();
+                    socialParams.put(key, cleanedValue);
+                    System.debug('<<SOCIAL PARAM:' + key + '  '+ (String)data.get(key));
+                }
+                socialData.put('data', socialParams);
             }
         }
-        return socialParams;
+        return socialData;
     }
 
     /*
@@ -303,11 +326,15 @@ public without sharing class TWIST_RegistrationUtils {
     *** RETURN
     */
     public static void setSocialMediaIdentifier(Account client, Map<String,String> socialParams, String userId){
+        Map<String,Object> authDataMap = EncryptUtils.getDecryptedMetadata(socialParams.get('authData'));
+        if(authDataMap == null){
+            return;
+        }
         // INSERT SOCIAL MEDIA IDENTIFIER
         Social_Media_Identifier__c smi = new Social_Media_Identifier__c();
         smi.Client__c = client.Id;
-        smi.Social_Id__c = socialParams.get('social_id');
-        smi.Social_Media_Type__c = socialParams.get('social_media_type');
+        smi.Social_Id__c = authDataMap.get('social_id').toString();
+        smi.Social_Media_Type__c = authDataMap.get('social_media_type').toString();
         smi.Nickname__c = socialParams.get('nickname');
         smi.Opt_In__c = socialParams.get('channel_opted_in') != null ? Boolean.valueOf(socialParams.get('channel_opted_in')) : true;
         if(socialParams.containsKey('picture')){
@@ -325,7 +352,7 @@ public without sharing class TWIST_RegistrationUtils {
             'message' => Label.IDENTITY_Social_Login_Self_Registration,
             'application' => 'SSO',
             'recordId' => userId,
-            'details' => socialParams.get('social_media_type')
+            'details' => authDataMap.get('social_media_type')
         });
     }
 

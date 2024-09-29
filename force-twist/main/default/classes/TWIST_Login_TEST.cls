@@ -28,25 +28,7 @@ public with sharing class TWIST_Login_TEST {
             return res;
         }
     }
-
-    @isTest
-    static void test_callMulesoftOneTimeConnection() {
-
-        RestRequest req = new RestRequest();
-        RestResponse res = new RestResponse(); 
-        req.httpMethod = 'GET';
-        req.requestURI = 'https://int-eu-api.vuitton.net/eco-eu/lvcom-core-conf-eapi/v1/configuration/lang_country';
-        req.addHeader('client_id','eng-us');
-        req.addHeader('client_secret','eng-us');
-        RestContext.request = req;
-        RestContext.response = res;
-        Test.startTest();
-            Test.setMock(HttpCalloutMock.class, new Mock());
-            TWIST_Login.isAlternativeLoginEnabled('eng-us', 'mylv');
-            System.assertEquals(RestContext.response.StatusCode,null);
-        Test.stopTest();
-    }
-
+    
     @isTest
     static void test_initComponentConfig() {
         // Given
@@ -77,7 +59,10 @@ public with sharing class TWIST_Login_TEST {
             'registrationBaseUrl',
             'forgotPasswordUrl',
             'isRedirectToRegistration',
-            'socialMediaProviders'
+            'socialMediaProviders',
+            'googleSocialLoginEnabled',
+            'lineSocialLoginEnabled',
+            'oneTimeConnectionEnabled'
         };
 
         // When

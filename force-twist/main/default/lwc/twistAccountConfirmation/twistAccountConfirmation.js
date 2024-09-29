@@ -11,6 +11,7 @@ export default class TwistAccountConfirmation extends LightningElement {
     @api queryParams
     @api autodata;
     @api socialParams
+    @api passKey
 
     @track error = ""
 
@@ -25,7 +26,8 @@ export default class TwistAccountConfirmation extends LightningElement {
                 identifier: this.accountCreationForm["email"],
                 formData: this.accountCreationForm,
                 queryParams: JSON.parse(this.queryParams),
-                socialParams:  this.socialParams
+                socialParams:  this.socialParams,
+                passKey:  this.passKey
 
             });
             sendEvent.call(this, { // Tagging Plan: lines 34 & 35

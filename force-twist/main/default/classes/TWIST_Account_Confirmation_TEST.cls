@@ -55,7 +55,44 @@ public with sharing class TWIST_Account_Confirmation_TEST {
             'emailconfirmation' => 'test@gmail.com',
             'password' => 'Pass@!123456'
         };
-        Map<String,Object> result = TWIST_Account_Confirmation.createMyLvUserAndRedirect('12345', 'test@test.test', formData, queryParams, new Map<String,String>{});
+        Map<String,Object> result = TWIST_Account_Confirmation.createMyLvUserAndRedirect('12345', 'test@test.test', formData, queryParams, new Map<String,String>{}, '');
+        system.debug('result : '+result);
+        Test.setMock(HttpCalloutMock.class, new GetMockData());
+
+        // When
+        Test.startTest();
+        Map<String,Object> expected = TWIST_Utils.buildFailureResponseObject('form', TWIST_i18nTranslations.translateSingleLabel('CUSTOM_LABEL', 'en')) ;
+        Test.stopTest();
+
+        // Then
+        System.assertEquals(result, expected);
+    }
+    @isTest
+    static void test_createMyLvUserAndRedirect_partialSocialregistrationMode() {
+        // Given
+        Map<String,Object> queryParams = new Map<String,Object> {
+            TWIST_QueryParamKey_CONST.STATE => 'dummy-state',
+            TWIST_QueryParamKey_CONST.CODE_CHALLENGE => 'dummy-code-challenge',
+            TWIST_QueryParamKey_CONST.CLIENT_ID => 'dummy-client-id',
+            TWIST_QueryParamKey_CONST.REDIRECT_URI => 'https://dummy-redirect.uri'
+        };
+        Map<String,String> socialParams = new Map<String,String> {
+            'authData' => EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>'Uf2537919f7f580be5280cd749ce7b86e', 'social_media_type'=>'Google'}),
+            'email' => 'test@gmail.com'
+        };
+
+        Map<String,Object> formData = new Map<String,Object> {
+            'firstname' => 'Test',
+            'country' => 'USA',
+            'lastname' => 'Test',
+            'title' => 'Test',
+            'email' => 'test@gmail.com'
+        };
+
+        String passKey = EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'email'=>'test@gmail.com'});
+
+
+        Map<String,Object> result = TWIST_Account_Confirmation.createMyLvUserAndRedirect('12345', 'test@test.test', formData, queryParams, socialParams, passKey);
         system.debug('result : '+result);
         Test.setMock(HttpCalloutMock.class, new GetMockData());
 
@@ -71,7 +108,7 @@ public with sharing class TWIST_Account_Confirmation_TEST {
     @isTest
     static void test_createMyLvUserAndRedirect_invalidCode() {
 
-        Map<String,Object> result = TWIST_Account_Confirmation.createMyLvUserAndRedirect('', 'test@test.test', new Map<String,Object> {}, new Map<String,Object> {}, new Map<String,String>{});
+        Map<String,Object> result = TWIST_Account_Confirmation.createMyLvUserAndRedirect('', 'test@test.test', new Map<String,Object> {}, new Map<String,Object> {}, new Map<String,String>{}, '');
         Map<String,Object> expected = TWIST_Utils.buildFailureResponseObject('form', TWIST_i18nTranslations.translateSingleLabel('Twist_Account_Creation_Form_AccountCreationProcessError', 'en')) ;
 
         System.assertEquals(result, expected);
@@ -133,14 +170,14 @@ public with sharing class TWIST_Account_Confirmation_TEST {
         User user = Identity_TestFactory.createUser('TEST','TEST','identityUserTest@test.test','0500000000','972');
 
         Map<String,String> socialParams = new Map<String,String> {
-            'social_id' => 'Uf2537919f7f580be5280cd749ce7b86e',
-            'social_media_type' => 'Line'
+            'authData' => EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>'Uf2537919f7f580be5280cd749ce7b86e', 'social_media_type'=>'Line'})
         };
 
         Map<String,Object> queryParams = new Map<String,Object> {
             'dispatchCountry' => 'US',
             'langCountry' => 'eng-e1'
         };
+
 
         TWIST_Account_Confirmation.socialMediaCreationAndLogin('identityUserTest@test.test','test1234', socialParams, queryParams);
     }

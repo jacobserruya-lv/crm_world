@@ -1,7 +1,7 @@
 public without sharing class TWIST_Account_Confirmation {
     
     @AuraEnabled
-    public static Map<String,Object> createMyLvUserAndRedirect(String activationCode, String identifier, Map<String,Object> formData, Map<String,Object> queryParams, Map<String,String> socialParams) {
+    public static Map<String,Object> createMyLvUserAndRedirect(String activationCode, String identifier, Map<String,Object> formData, Map<String,Object> queryParams, Map<String,String> socialParams, String passKey) {
         Map<String,Object> form = new  Map<String,Object>();
 
         String countryLanguage =  queryParams?.containsKey(TWIST_QueryParamKey_CONST.LANG_COUNTRY) ? (String) queryParams.get(TWIST_QueryParamKey_CONST.LANG_COUNTRY) : 'eng-e1' ;
@@ -12,6 +12,8 @@ public without sharing class TWIST_Account_Confirmation {
 
         Map<String, Object> cidMap = TWIST_RegistrationUtils.extractAccountId(cid);
         String accountId = cidMap.containsKey('accountId') ? (string) cidMap.get('accountId') : null ;
+
+        String errorLabel = TWIST_i18nTranslations.translateSingleLabel('Twist_Account_Creation_Form_AccountCreationProcessError', language);
         
         try {
             
@@ -30,14 +32,25 @@ public without sharing class TWIST_Account_Confirmation {
             }
             form.putAll(formData);
             
-            Boolean isCodeValid = String.isNotEmpty(activationCode) && TWIST_RegistrationUtils.validateActivationCode(activationCode ,identifier ,1);
-            if(!isCodeValid) throw new CustomException('CODE NOT VALID')  ;
+            if(String.isNotEmpty(passKey)){
+                Boolean isPassKeyValid = TWIST_RegistrationUtils.validatePassKey(passKey, identifier);
+                if(!isPassKeyValid) throw new CustomException('PASSKEY NOT VALID')  ;
+            }
+            else{
+                Boolean isCodeValid = String.isNotEmpty(activationCode) && TWIST_RegistrationUtils.validateActivationCode(activationCode ,identifier ,1);
+                if(!isCodeValid) throw new CustomException('CODE NOT VALID')  ;
+            }
             
             Boolean isFormValid = TWIST_RegistrationUtils.validateForm(form, countryLanguage, currentMode);
             if(!isFormValid) throw new CustomException('FORM NOT VALID') ;
             
             Account client = convertFormDataToAccount(form ,accountId , currentMode ,countryLanguage);
             
+            if(currentMode == TWIST_RegistrationUtils.Mode.PARTIAL_SOCIAL_REGISTRATION && String.isEmpty(password)) {
+     
+                password = TWIST_Utils.createRandomPassword(); 
+            }
+ 
             Id userId = userCreation(client ,password ,queryParams , currentMode );
             if(userId == null) throw new CustomException('USER CREATION ERROR') ;
             
@@ -61,7 +74,7 @@ public without sharing class TWIST_Account_Confirmation {
                 'application' => origin
             });
             
-            return  TWIST_Utils.buildFailureResponseObject('form', TWIST_i18nTranslations.translateSingleLabel('Twist_Account_Creation_Form_AccountCreationProcessError', language)) ;
+            return  TWIST_Utils.buildFailureResponseObject('form', errorLabel) ;
         }
     }
     //TODO: TO MOVE REGISTRATION CLASS

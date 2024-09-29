@@ -7,7 +7,6 @@ import isValidCode from "@salesforce/apex/TWIST_Registration.isValidCode";
 import submitRegistrationForm from "@salesforce/apex/TWIST_Registration.submitRegistrationForm";
 import getTermConditionLink from "@salesforce/apex/TWIST_Registration.getTermConditionLink";
 import apexIsUserIdentity from "@salesforce/apex/TWIST_Account_Confirmation.isUserIdentity";
-import isLineButtonEnabled from '@salesforce/apex/TWIST_Login.isLineButtonEnabled';
 
 import {
     isEmailValid,
@@ -25,10 +24,9 @@ import {
     lwcNameToCamelCase,
     hasLegalAge,
     includesString,
-    setFieldErrorMessage
+    setFieldErrorMessage,
+    removeFieldErrorMessage
 } from 'c/twistUtils';
-import CnameTarget from "@salesforce/schema/Domain.CnameTarget";
-
 
 export default class TwistAccountCreation extends LightningElement {
     /* Component properties ******************************************************************** */
@@ -42,11 +40,13 @@ export default class TwistAccountCreation extends LightningElement {
     twistLineLogo = Twist_UI + '/Twist_Line_Social_Login_Logo.svg';
     twistLogoLV = Twist_UI + "/SmallLogo.png";
     chevronLV = Twist_UI + "/Chevrons.svg";
+    twistGoogleLogo = Twist_UI + '/logo_google.svg';
     twistEyeIcon = Twist_UI + "/visibility-stroke.svg";
     twistEyeStrikeThroughIcon = Twist_UI + "/visibility.svg";
     currentSection = 1;
     registrationFormField;
     socialParams;
+    passKey;
 
     
     @api language;
@@ -70,7 +70,70 @@ export default class TwistAccountCreation extends LightningElement {
     @wire(getTermConditionLink, { langCountry: "$oQueryParams.langCountry" }) termAndConditionLink;
 
     
-    /* LWC life cycle ********************************************************************************* */
+    get isCurrentSectionActivateYourAccount() {
+        return this.currentSection == 2;
+    }
+    
+    get isCurrentSectionConfirmationMessage() {
+        return this.currentSection == 3;
+    }
+    get regexNoDigitAndSpecialChars() {
+        return "^[\\p{L}'\\-\\s]+$"; // except hyphen and single quote
+    }
+    
+    get isGlobalError() {
+        return this.form.error;
+    }
+    
+    get isEmailDisabled() {
+        return this.componentConfig.modeInfo.isEmailReadOnly || this.isLogInModalDisplayed;
+    }
+    set emailInSystem(val) {
+        this.doesEmailExist = val;
+        this.setErrorMessage(fields.Email, this.doesEmailExist, this.customLabels.Twist_Account_Creation_Form_AccountUserExistsError);
+    }
+    
+    get emailInSystem() {
+        this.setErrorMessage(fields.Email, this.doesEmailExist, this.customLabels.Twist_Account_Creation_Form_AccountUserExistsError);
+        return this.doesEmailExist;
+    }
+    
+    get passwordFieldType() {
+        return this.isPasswordShown ? "text" : "password";
+    }
+    
+    get eyeIconSrcPassword() {
+        return this.isPasswordShown ? this.twistEyeStrikeThroughIcon : this.twistEyeIcon;
+    }
+    
+    get eyeIconSrcConfirmPassword() {
+        return this.isConfirmPasswordShown ? this.twistEyeStrikeThroughIcon : this.twistEyeIcon;
+    }
+    
+    get confirmPasswordFieldType() {
+        return this.isConfirmPasswordShown ? "text" : "password";
+    }
+    
+    get showCountryField(){
+        return this.registrationFormField.country && this.componentConfig.showCountryList;
+    }
+
+    get showOrText() {
+        return this.socialMediaProviders.LineLV || this.socialMediaProviders.LineLVTW || this.showSocialGoogleButton;
+    }
+
+    showSocialMediaButton(providerName) {
+        return this.socialMediaProviders[providerName] && !this.oQueryParams?.social_id;
+      }
+      
+      get showLineButton() {
+        return this.showSocialMediaButton('LineLV') && this.componentConfig['lineSocialLoginEnabled'];
+      }
+      
+      get showLineTWButton() {
+        return this.showSocialMediaButton('LineLVTW');
+      }
+
     
     connectedCallback() {
         this.init();
@@ -146,12 +209,13 @@ export default class TwistAccountCreation extends LightningElement {
                     "Twist_Account_Creation_Wrong_birthdate",
                     "Twist_Account_Creation_Age_Legal_Reached",
                     "Twist_Account_Creation_CheckFieldLabel_Privacy_Policy",
+                    'Twist_Login_Page_Social_Login_Google',
                     "Twist_Account_Creation_CheckFieldLabel_Newsletter",
-                    "Twist_Account_Creation_BirthDate_Inconsistent"
+                    "Twist_Account_Creation_BirthDate_Inconsistent",
+                    "Twist_Reset_Password_Form_Validation_PasswordsDoNotMatch"
                 ],
                 language: this.language
             }),
-            isLineButtonEnabled({langCountry: this.oQueryParams.langCountry, origin:  this.oQueryParams.origin})
         ])
         .then((result) => {
             this.componentConfig = result[0];
@@ -162,6 +226,7 @@ export default class TwistAccountCreation extends LightningElement {
 
             this.formData = result[0]?.formData ? { ...result[0]?.formData } : { ...result[0]?.socialParams };
             this.socialParams = { ...result[0]?.socialParams };
+            this.passKey = result[0]?.passKey ?? '';
 
             this.registrationFormField = result[0]?.form;
             this.maxPasswordLength = result[0]?.form?.password?.Validation_Max_Length__c ?? 20;
@@ -171,6 +236,7 @@ export default class TwistAccountCreation extends LightningElement {
             }
             
             this.customLabels = result[1];
+            this.showSocialGoogleButton = this.componentConfig['googleSocialLoginEnabled'] && !this.oQueryParams?.social_id;
             this.socialMediaProviders = result[0]?.socialMediaProviders;
             this.showLineButtonAccordingOrigin =  result[2];
         })
@@ -204,7 +270,7 @@ export default class TwistAccountCreation extends LightningElement {
     }
 
     get regexNoDigitAndSpecialChars() {
-        return "^[\\p{L}'\\-\\s]+$"; // except hyphen and single quote
+        return "^[\\p{L}\\p{M}'\\-\\s]+$"; // except hyphen and single quote
     }
     
     get isGlobalError() {
@@ -248,14 +314,8 @@ export default class TwistAccountCreation extends LightningElement {
     get showCountryField(){
         return this.registrationFormField.country && this.componentConfig.showCountryList;
     }
-    
-    get showLineButton() {
-        return this.showSocialMediaButton('LineLV') && this.showLineButtonAccordingOrigin;
-    }
 
-    get showLineTWButton() {
-        return this.showSocialMediaButton('LineLVTW');
-    }
+
     
     /* Event handlers ************************************************************************** */
     
@@ -361,6 +421,7 @@ export default class TwistAccountCreation extends LightningElement {
         this.passwordValidityCriteriaElt.setCheckIconRegardingCriteria_HasSpecialChar(hasSpecialChar(password));
 
         const fieldDataId = this.registrationFormField.password.Field__c;
+        removeFieldErrorMessage(this.template.querySelector(`[data-id="${fieldDataId}"]`));
         if (this.isFieldRequiredAndEmpty(fieldDataId, password)) {
             this.setErrorMessage(fieldDataId, this.customLabels.Twist_Form_FieldCantBeEmpty);
         }
@@ -498,6 +559,60 @@ export default class TwistAccountCreation extends LightningElement {
     handleToggleShowConfirmPassword(event) {
         this.isConfirmPasswordShown = !this.isConfirmPasswordShown;
     }
+
+    handleClickOnContinueWithoutActivationCodeButton() {
+        if(!this.isFormValid()) {
+            sendEvent.call(this, { // Tagging Plan: line 55
+                actionId: "account_creation_failed",
+                categoryGa: "mylv",
+                actionGa: "create_an_account",
+                labelGa: "account_creation_failed",
+                errorId: this.getErrorFieldsList()
+            });
+        }
+        else {
+            showPageLoader();
+            //submitform
+            submitRegistrationForm({
+                formData: this.formData,
+                queryParams: this.oQueryParams,
+                socialParams: this.socialParams,
+                doNeedVerificationCode: false
+            })
+            .then(data => {
+                hidePageLoader();
+                if(!data.success) {
+                    sendEvent.call(this, { // Tagging Plan: line 55
+                        actionId: "account_creation_failed",
+                        categoryGa: "mylv",
+                        actionGa: "create_an_account",
+                        labelGa: "account_creation_failed",
+                        errorId: data.form
+                    });
+    
+                    this.form.error = data.form;
+                }
+                else {
+                    sendEvent.call(this, { // Tagging Plan: line 33
+                        actionId: "account_creation_request",
+                        categoryGa: "mylv",
+                        actionGa: "create_an_account",
+                        labelGa: "account_creation_request"
+                    });
+
+                    this.showConfirmationMessageSection();
+                    
+                }
+            })
+            .catch((error) => {
+                console.error("error", error);
+            })
+            .finally(() => {
+                hidePageLoader();
+            });
+            ////
+        }
+    }
    
     /* Util methods **************************************************************************** */
     
@@ -547,7 +662,8 @@ export default class TwistAccountCreation extends LightningElement {
         submitRegistrationForm({
             formData: this.formData,
             queryParams: this.oQueryParams,
-            socialParams: this.socialParams
+            socialParams: this.socialParams,
+            doNeedVerificationCode: true
         })
         .then(data => {
             hidePageLoader();
@@ -752,8 +868,8 @@ export default class TwistAccountCreation extends LightningElement {
                 return false;
 
             case this.registrationFormField.passwordconfirmation?.Field__c:
-                if (fieldValue !== this.formData.passwordconfirmation) {
-                    this.setErrorMessage(fieldDataId, this.customLabels.Twist_Account_Creation_Validation_EmailDoNotMatch);
+                if (fieldValue !== this.formData.password) {
+                    this.setErrorMessage(fieldDataId, this.customLabels.Twist_Reset_Password_Form_Validation_PasswordsDoNotMatch);
                     return true;
                 }
                 return false;

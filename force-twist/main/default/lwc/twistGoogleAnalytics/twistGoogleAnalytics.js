@@ -1,7 +1,7 @@
 import { LightningElement, api } from 'lwc';
 
 export default class TwistGoogleAnalytics extends LightningElement {
-    
+
     eventType2AutodataMethod = {
         event: "sendEvent",
         pageView: "sendPageView"
@@ -9,7 +9,7 @@ export default class TwistGoogleAnalytics extends LightningElement {
 
     @api isPageViewEventSent = false;
     @api autodata;
-    
+
     /**
     * @param {Proxy} payload
     */
@@ -19,7 +19,7 @@ export default class TwistGoogleAnalytics extends LightningElement {
             this.eventType2AutodataMethod.event
         );
     }
-    
+
     /**
     * @param {Object} payload
     */
@@ -33,14 +33,13 @@ export default class TwistGoogleAnalytics extends LightningElement {
             this.isPageViewEventSent = true;
         }
     }
-    
+
     /**
     * @param {Object} payload
     * @param {String} method
     */
     sendGeneric(payload, method) {
         try {
-            // console.log("sendGeneric", payload);
             this.autodata[method](payload);
         }
         catch(e) {
@@ -51,5 +50,5 @@ export default class TwistGoogleAnalytics extends LightningElement {
     renderedCallback() {
         this.dispatchEvent(new Event('twistgalwcrendered'));
     }
-    
+
 }

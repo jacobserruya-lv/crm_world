@@ -17,6 +17,8 @@ private class TWIST_PwdlessEmailVerifGetTokenAPI_TEST {
         
         );
         insert pwdlessEmailVerifRequest;
+        Identity_TestFactory.createSettings();
+        User user = Identity_TestFactory.createUser('TEST','TEST','userName@test.com','0500000000','972');
 
         RestRequest req = new RestRequest();
         RestResponse res = new RestResponse(); 

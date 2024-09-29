@@ -1,5 +1,9 @@
 @istest
 public with sharing class TWIST_RegistrationUtils_TEST {
+    @testSetup
+    static void initData() {
+        Identity_TestFactory.createSettings();
+    }
     
     @isTest
     public static void test_setSocialData_passingInvalidBase64SocialIdShouldReturnEmptyMap() {
@@ -7,7 +11,7 @@ public with sharing class TWIST_RegistrationUtils_TEST {
         String base64SocialId = '!!!';
 
         // When
-        Map<String,String> result = TWIST_RegistrationUtils.setSocialData(base64SocialId);
+        Map<String,Object> result = TWIST_RegistrationUtils.setSocialData(base64SocialId);
 
         // Then
         System.assert(result.isEmpty(), 'ERROR');
@@ -20,8 +24,8 @@ public with sharing class TWIST_RegistrationUtils_TEST {
         String base64SocialId2 = null;
 
         // When
-        Map<String,String> result1 = TWIST_RegistrationUtils.setSocialData(base64SocialId1);
-        Map<String,String> result2 = TWIST_RegistrationUtils.setSocialData(base64SocialId2);
+        Map<String,Object> result1 = TWIST_RegistrationUtils.setSocialData(base64SocialId1);
+        Map<String,Object> result2 = TWIST_RegistrationUtils.setSocialData(base64SocialId2);
 
         // Then
         System.assert(result1.isEmpty(), 'ERROR');
@@ -31,16 +35,19 @@ public with sharing class TWIST_RegistrationUtils_TEST {
     @isTest
     public static void test_setSocialData_nominalCase() {
         // Given
-        Map<String,String> socialIdToBeEncoded = new Map<String,String> { 'key1' => '123', 'key2' => '    dummy-value     ' };
+        Map<String,String> data = new Map<String,String> { 'authData' => 'authData', 'email' => 'test@test.com' };
+        Map<String,Object> socialIdToBeEncoded = new Map<String,Object> { 'passKey' => 'passKey', 'data' => data };
+
+
         String base64SocialId = EncodingUtil.base64Encode(Blob.valueOf(JSON.serialize(socialIdToBeEncoded)));
 
         // When
-        Map<String,String> result = TWIST_RegistrationUtils.setSocialData(base64SocialId);
+        Map<String,Object> result = TWIST_RegistrationUtils.setSocialData(base64SocialId);
 
         // Then
         System.assertEquals(socialIdToBeEncoded.keySet(), result.keySet(), 'ERROR');
-        System.assertEquals(socialIdToBeEncoded.get('key1'), result.get('key1'), 'ERROR');
-        System.assertEquals(socialIdToBeEncoded.get('key2').trim(), result.get('key2'), 'ERROR');
+        System.assertEquals(socialIdToBeEncoded.get('passKey'), result.get('passKey'), 'ERROR');
+        System.assertEquals(socialIdToBeEncoded.get('data'), result.get('data'), 'ERROR');
     }
     
     @isTest
@@ -56,8 +63,7 @@ public with sharing class TWIST_RegistrationUtils_TEST {
         TWIST_RegistrationUtils.setSocialMediaIdentifier(
             Identity_TestFactory.createAccount('test1', 'test1', 'dummy@dummy-test.com', '133456789', '972', true),
             new Map<String,String> {
-                'social_id' => 'dummy-value',
-                'social_media_type' => 'Line',
+                'authData' => EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>'dummy-value', 'social_media_type'=>'Line'}),
                 'nickname' => 'dummy-value'
             },
             'dummy-user-id'

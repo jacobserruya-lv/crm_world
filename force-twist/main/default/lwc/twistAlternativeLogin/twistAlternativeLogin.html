@@ -6,9 +6,11 @@
         
         <!--BACK ARROW LOGIN-->
         <template if:false={isAlternativeLoginPage}>
-            <div class="arrow-back" onclick={handleClickOnBackToLoginPageButton}>
-                <img class="arrow-icon" src={twistArrowIcon} />
-                <p class="component__text_back_to_login">{customLabels.Twist_Forgot_Password_Form_LoginText}</p>
+            <div class="arrow-back">
+                <a href={componentConfig.loginUrl} class="arrow-link">
+                    <img class="arrow-icon" alt="" src={twistArrowIcon} />
+                    <p class="component__text_back_to_login">{customLabels.Twist_Forgot_Password_Form_LoginText}</p>
+                </a>
             </div>
         </template>
 
@@ -29,6 +31,7 @@
                 <!--INPUT FORM-->
                 <lightning-input
                     name="email"
+                    autocomplete="email"
                     class={emailFieldCssClass}
                     type="text"
                     label={customLabels.Twist_Forgot_Password_Form_EmailFieldLabel}

@@ -51,6 +51,7 @@ public without sharing class TWIST_Registration {
         getSocialSettings(langCountry, queryParams);
         setForgotPasswordUrl(langCountry, origin, queryParams);
         writeLogs(queryParams);
+        setFeaturesFlags(langCountry, origin);
         
         return registrationComponentConfig;
     }
@@ -67,7 +68,7 @@ public without sharing class TWIST_Registration {
     }
 
     @AuraEnabled(cacheable=false)
-    public static Map<String,Object> submitRegistrationForm(Map<String,String> formData, Map<String,Object> queryParams, Map<String,String> socialParams) {
+    public static Map<String,Object> submitRegistrationForm(Map<String,String> formData, Map<String,Object> queryParams, Map<String,String> socialParams, Boolean doNeedVerificationCode) {
         Map<String,String> form = new  Map<String,String>();
         String langCountry = (String) queryParams.get(TWIST_QueryParamKey_CONST.LANG_COUNTRY);
 
@@ -86,7 +87,10 @@ public without sharing class TWIST_Registration {
             Boolean isFormValid = TWIST_RegistrationUtils.validateForm(form, langCountry,currentMode);
             if(!isFormValid) return  TWIST_Utils.buildFailureResponseObject('form', TWIST_i18nTranslations.translateSingleLabel('Twist_Account_Creation_Form_AccountCreationProcessError', 'en')) ;
           
-            sendVerificationCode(form, queryParams);
+            if(doNeedVerificationCode){
+                sendVerificationCode(form, queryParams);
+            }
+            
             return TWIST_Utils.buildSuccessResponseObject();
  
         } catch (Exception ex) {
@@ -444,12 +448,19 @@ public without sharing class TWIST_Registration {
             registrationComponentConfig.put('titleList', titleList);
         }
     }
-    
+
     private static void setMode(String accountId, String socialId) {
+        Map<String,Object> socialData = new Map<String,Object>();
         Map<String,String> socialParams = new Map<String,String>();
+        Boolean doNeedVerificationCode = true;
         if(String.isNotEmpty(socialId)){
-            socialParams = TWIST_RegistrationUtils.setSocialData(socialId);
-            registrationComponentConfig.put('socialParams',socialParams);
+            socialData = TWIST_RegistrationUtils.setSocialData(socialId);
+            socialParams =  (Map<String,String>)socialData.get('data');
+            registrationComponentConfig.put('socialParams', socialParams);
+            if(socialData.containsKey('passKey')){
+                registrationComponentConfig.put('passKey',socialData.get('passKey').toString());
+                doNeedVerificationCode = false;
+            }
         }
         TWIST_RegistrationUtils.Mode currentMode = TWIST_RegistrationUtils.getRegistrationMode(accountId, socialParams);
         
@@ -460,7 +471,8 @@ public without sharing class TWIST_Registration {
             'isRegistrationMode' => new List<TWIST_RegistrationUtils.Mode> { TWIST_RegistrationUtils.Mode.FULL_ACTIVATION, TWIST_RegistrationUtils.Mode.REGISTRATION, TWIST_RegistrationUtils.Mode.PARTIAL_SOCIAL_REGISTRATION, TWIST_RegistrationUtils.Mode.FULL_SOCIAL_REGISTRATION }.contains(currentMode),
             'isPartialActivationMode' => currentMode == TWIST_RegistrationUtils.Mode.PARTIAL_ACTIVATION ,
             'isEmailReadOnly' => currentMode == TWIST_RegistrationUtils.Mode.PARTIAL_SOCIAL_REGISTRATION ,
-            'isSocialLogin' => new List<TWIST_RegistrationUtils.Mode> { TWIST_RegistrationUtils.Mode.PARTIAL_SOCIAL_REGISTRATION, TWIST_RegistrationUtils.Mode.FULL_SOCIAL_REGISTRATION }.contains(currentMode)
+            'isSocialLogin' => new List<TWIST_RegistrationUtils.Mode> { TWIST_RegistrationUtils.Mode.PARTIAL_SOCIAL_REGISTRATION, TWIST_RegistrationUtils.Mode.FULL_SOCIAL_REGISTRATION }.contains(currentMode),
+            'doNeedVerificationCode' => doNeedVerificationCode
         });
         
     }
@@ -477,7 +489,6 @@ public without sharing class TWIST_Registration {
         Map<String,Object> settings = TWIST_RegistrationUtils.getSettingsForAgeRestriction(null, langCountry);
         registrationComponentConfig.put('legalAge', settings == null ? 0 : (Integer) settings.get('legalAge'));
     }
-
     private static void setCalendarDateFormat(String langCountry) {
         registrationComponentConfig.put('calendarDateFormat', TWIST_DateUtils.getDateFormatByLangCountry(langCountry));
     }
@@ -510,7 +521,26 @@ public without sharing class TWIST_Registration {
     private static void writeLogs(Map<String,Object> queryParams) {
         TWIST_Utils.writeErrorLogs(queryParams, 'TWIST_Registration');
     }
-    
+
+    private static void setFeaturesFlags(String langCountry, String origin) {
+        if(origin != 'mylv'){
+            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN, false);
+            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN, false);
+        }
+        else{
+            TWIST_FlaggedFeatureUtils flags = new TWIST_FlaggedFeatureUtils( 
+            new List<String> {
+                TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN,
+                TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN
+            },
+            langCountry
+            );
+            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN,flags.isLineSocialLoginEnabled());
+            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN,flags.isGoogleSocialLoginEnabled());
+        }
+      
+    }
+
     public class CustomException extends Exception {}
 }
 

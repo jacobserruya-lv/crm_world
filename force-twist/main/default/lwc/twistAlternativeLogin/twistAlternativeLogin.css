@@ -110,6 +110,10 @@
     width: 32px;
 }
 
+.arrow-link {
+    display: flex;
+    align-items: center;
+}
 
 .email_alternative_login{
     padding-top: 20px;
