@@ -1,0 +1,34 @@
+.optionName
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+.optionName:hover
+{
+    text-decoration: underline;
+}
+.container{
+    display: flex;
+}
+.priceclass
+{
+    display: flex;
+}
+.productContainerParent
+{
+    width: 50%;
+}
+.unknownProductContainer
+{
+    width: 50%;
+}
+
+    .messageContainer {
+        margin-top: 1rem;
+        text-align: center;
+        border: 0px;
+    }
+    .requiredMessage {
+        margin-top: 5px;
+        font-weight: bold;
+    }

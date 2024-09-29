@@ -1,0 +1,40 @@
+<template>
+    <div class="productContainer">
+
+
+        <div>
+
+            <lightning-icon icon-name="action:question_post_action"  alternative-text="Unknown Product" title="Unknown Product"></lightning-icon>
+        </div>
+
+        <div>
+
+            <lightning-input type="text" label="*Product Description"  onchange={handleProductDescriptionChange}></lightning-input>
+
+            <lightning-combobox
+            name="Gender"
+            label="*Gender"
+            placeholder="Gender"
+            options={genderOptions}
+            onchange={handleGenderChange}
+            > </lightning-combobox>
+            
+            <lightning-combobox
+            name="Category"
+            label="*Category"
+            placeholder="Category"
+            options={categoryOptions}
+            onchange={handleCategoryChange}
+            > </lightning-combobox>
+            
+            <lightning-combobox
+            name="Collection"
+            label="*Collection"
+            placeholder="Collection"
+            options={collectionOptions}
+            onchange={handleCollectionChange}
+            > </lightning-combobox>
+        </div>
+        
+    </div>
+</template>

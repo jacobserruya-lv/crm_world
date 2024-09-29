@@ -1,0 +1,40 @@
+<template>
+    <div class="slds-form-element__control">
+        <div class="slds-combobox_container">
+
+            <template if:false={selectedProductObj}>
+            <!-- Search Input -->
+            <lightning-input
+                label="Select Product"
+                type="search"
+                value={searchTerm}
+                onchange={handleInputChange} ></lightning-input>
+
+            <!-- Combobox copied from https://www.lightningdesignsystem.com/components/combobox/ -->
+            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+
+                <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                        <template for:each={autoCompleteOptions} for:item="option">
+                            <li key={option.Id} role="presentation" class="slds-listbox__item" onclick={handleOptionClick} data-id={option.Id} data-name={option.Name}>
+                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                    <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                    <span class="slds-media__body">
+                                        <c-icx_pod-s-k-u-details selected-product-obj={option}   ></c-icx_pod-s-k-u-details>
+                                    </span>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+        </template>
+
+        <template if:true={selectedProductObj}>
+            <c-icx_pod-s-k-u-details selected-product-obj={selectedProductObj} is-closable="true" onclosesection={handleCloseSection}    ></c-icx_pod-s-k-u-details>
+        </template>
+
+        </div>
+    </div>    
+</template>

@@ -1,0 +1,35 @@
+.productContainer
+{
+    display: flex;
+
+}
+.optionName
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+.optionName:hover
+{
+    text-decoration: underline;
+}
+.imgStyle
+{
+    margin-right: 5px;
+}
+.closeIcon
+{
+    justify-content: end;
+    display: flex;
+}
+.closeIcon:hover{
+    cursor: pointer;
+}
+.container{
+    width: 100%;
+
+}
+.imgStyle
+{
+    margin-right: 15px;
+    max-width: 5%;
+}

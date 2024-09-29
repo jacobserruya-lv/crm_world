@@ -1,0 +1,63 @@
+<template>
+    <div class="slds-form-element__control">
+        <div class="slds-combobox_container">
+
+            <template if:false={storeSelected}>
+            <!-- Search Input -->
+            <lightning-input
+                label="*Digital Store"
+                type="search"
+                value={searchTerm}
+                onchange={handleInputChange} ></lightning-input>
+
+            <!-- Combobox copied from https://www.lightningdesignsystem.com/components/combobox/ -->
+            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+
+                <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                        <template for:each={autoCompleteOptions} for:item="option">
+                            <li key={option.Id} role="presentation" class="slds-listbox__item" onclick={handleOptionClick} data-id={option.Id} data-name={option.Name}>
+                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                    <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                    <span class="slds-media__body">
+                                        <div class="storeContainer">
+                                            <div class="iconClass"> 
+                                                <lightning-icon icon-name="custom:custom85" size="small"  alternative-text="Store" title="Store"></lightning-icon>                                        
+                                            </div>
+                                            <div>
+                                                    <p class="optionName" title="Option" data-optionid={option.Id} >{option.Name}</p>
+                                                    <p class="optionCode" >{option.RetailStoreId__c}</p>
+                                            
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+        </template>
+
+        <template if:true={storeSelected}>
+            <div >
+                
+                <div>
+                    <lightning-icon class="closeIcon" icon-name="utility:close" size="xx-small" alternative-text="Indicates close" onclick={handleCloseSection}></lightning-icon>
+                </div>
+                <div class="storeContainer">
+
+                    <lightning-icon class="iconClass" icon-name="custom:custom85"  alternative-text="Store" title="Store"></lightning-icon>                                        
+                    <div>
+                        <p class="optionName" title="Option" data-optionid={storeSelectedObj.Id} >{storeSelectedObj.Name}</p>
+                        <p >{storeSelectedObj.RetailStoreId__c}</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        </div>
+    </div>    
+</template>
