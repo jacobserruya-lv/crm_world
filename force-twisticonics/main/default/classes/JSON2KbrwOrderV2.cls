@@ -106,6 +106,9 @@ public class JSON2KbrwOrderV2 extends JSONReservedSerializer  {
 	public String order_id {get;set;} // OrderId
 	@AuraEnabled
 	public String xstore_request_id {get;set;}	
+	/////////      CSC-1159 Check order version V1 or V2 for manualRefundShippingFees     /////////
+	@AuraEnabled
+	public String version {get;set;}	
 	@AuraEnabled
 	public String preferred_language {get;set;} 
 	@AuraEnabled
@@ -392,14 +395,13 @@ public class JSON2KbrwOrderV2 extends JSONReservedSerializer  {
 						sumOfShippingFeesWithoutTax = (sumOfShippingFeesWithoutTax==null?0:sumOfShippingFeesWithoutTax) + fee.amount_tax_free;
 					}
 				}
-
 			} else if (shipping_groups != null ) {
-				for(Shipping_groups shippingGroups: this.shipping_groups) {					
+				for(Shipping_groups shippingGroups: this.shipping_groups) {
 					if (shippingGroups.shipments != null && !shippingGroups.shipments.isEmpty() ) {
 						sumOfShippingFeesWithoutTax = (sumOfShippingFeesWithoutTax==null?0:sumOfShippingFeesWithoutTax) + (shippingGroups.shipments[0].delivery_fees_without_tax != null ? shippingGroups.shipments[0].delivery_fees_without_tax : 0);					
 					}
 				}
-			}		
+			}
 			return sumOfShippingFeesWithoutTax;
 		}
 	}
@@ -1245,6 +1247,17 @@ public class JSON2KbrwOrderV2 extends JSONReservedSerializer  {
 				// return true;
 				return ( !isReturn
 						&& (status == 'pending') );
+			}
+		}
+
+		// Order action "cancel" (for limited profiles) is eligeable if :
+		// (Status in  ('created','pending approval', 'pendind payment')
+		@AuraEnabled
+		public Boolean isCancelLimitedAvailable {
+			get {
+				return (available_actions.contains('cancel') 
+						&& !isReturn 
+						&& (status == 'created' || status == 'pending' || status == 'pending_payment') );
 			}
 		}
 	}
