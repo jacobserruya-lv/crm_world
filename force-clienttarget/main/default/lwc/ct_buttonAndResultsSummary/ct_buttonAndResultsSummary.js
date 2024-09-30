@@ -33,7 +33,7 @@ export default class Ct_buttonAndResultsSummary extends LightningElement {
 
   get allErrorsDreamIds() {
     return [...new Set([
-      ...(this.notInPerimeterClients || []),
+      ...(this.notInPerimeter || []),
       ...(this.unattachedDreamIds?.data || []),
       ...(this.clientsMissingStore?.data || [])
     ])];
@@ -44,8 +44,26 @@ export default class Ct_buttonAndResultsSummary extends LightningElement {
     this.dispatchEvent(selectedEvent);
   }
 
+  getCsvContent() {
+    let reasonByDreamId = {};
+
+    const addDreamIds = (dreamIds = [], message) => {
+      dreamIds.forEach((dreamId) => {
+        const existMessage = reasonByDreamId[dreamId];
+        const updatedMessage = `${existMessage ? existMessage + '; ' : ''}` + message;
+        reasonByDreamId[dreamId] = updatedMessage;
+      });
+    };
+
+    addDreamIds(this.notInPerimeter, 'Client is not in your perimeter');
+    addDreamIds(this.unattachedDreamIds?.data, 'Client is not attached to a CA');
+    addDreamIds(this.clientsMissingStore?.data, 'Client is not attached to a store');
+    
+    return Object.entries(reasonByDreamId).join('\n');
+  }
+
   handleDownloadClients(event) {
-    const csvContent = this.allErrorsDreamIds.join('\n');
+    const csvContent = this.getCsvContent();
     const downloadElement = document.createElement("a");
     downloadElement.href =
       "data:text/csv;charset=utf-8," + encodeURI(csvContent);
