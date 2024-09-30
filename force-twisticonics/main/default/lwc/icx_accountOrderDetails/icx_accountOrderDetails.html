@@ -4,48 +4,41 @@
             <div class="spinner">
                 Loading - Please wait...
                 <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-        </div>
+            </div>
         </template>
         <template if:true={orderDetails}>
-            <div class="slds-p-bottom_medium">
-                <c-icx_order-highlight-panel
-                    orderdetailsapi={orderDetails}>
-                </c-icx_order-highlight-panel>
-            </div>
-            <div class="slds-p-bottom_medium">
-                <c-icx_order-approval-process
-                    orderdetailsapi={orderDetails}>
-                </c-icx_order-approval-process>
-            </div>
-            <div class="slds-p-bottom_medium">
-                <c-icx_order-details-panel
-                    orderid={recordId}
-                    orderdetailsapi={orderDetails}>       
-                </c-icx_order-details-panel>
-            </div>
-            <div class="slds-p-bottom_medium">
-                <c-icx_order-exchange-history
-                    orderid={recordId}
-                    orderdetailsapi={orderDetails}>       
-                </c-icx_order-exchange-history>
-            </div>
-            <div class="slds-p-bottom_medium">
-                <c-icx_order-shipping-tile-list
-                    orderdetailsapi={orderDetails}>
-                </c-icx_order-shipping-tile-list>
-            </div>
-            <div class="slds-p-bottom_medium">
-                <c-icx_order-shipping-card
-                    orderdetailsapi={orderDetails}>
-                </c-icx_order-shipping-card>
-            </div>
-            <div class="slds-p-bottom_medium">
-                <c-icx_order-traceability
-                    orderdetailsapi={orderDetails}>
-                </c-icx_order-traceability>
+            <div class="container">
+                <div class="slds-p-bottom_medium">
+                    <c-icx_order-highlight-panel orderdetailsapi={orderDetails}>
+                    </c-icx_order-highlight-panel>
+                </div>
+                <div class="slds-p-bottom_medium">
+                    <c-icx_order-approval-process orderdetailsapi={orderDetails}>
+                    </c-icx_order-approval-process>
+                </div>
+                <div class="slds-p-bottom_medium">
+                    <c-icx_order-details-panel orderid={recordId} orderdetailsapi={orderDetails}>
+                    </c-icx_order-details-panel>
+                </div>
+                <div class="slds-p-bottom_medium">
+                    <c-icx_order-exchange-history orderid={recordId} orderdetailsapi={orderDetails}>
+                    </c-icx_order-exchange-history>
+                </div>
+                <div class="slds-p-bottom_medium">
+                    <c-icx_order-shipping-tile-list orderdetailsapi={orderDetails}>
+                    </c-icx_order-shipping-tile-list>
+                </div>
+                <div class="slds-p-bottom_medium">
+                    <c-icx_order-shipping-card orderdetailsapi={orderDetails}>
+                    </c-icx_order-shipping-card>
+                </div>
+                <div class="slds-p-bottom_medium">
+                    <c-icx_order-traceability orderdetailsapi={orderDetails}>
+                    </c-icx_order-traceability>
+                </div>
             </div>
         </template>
-    </template>    
+    </template>
     <template if:true={error}>
         <template lwc:if={isError404}>
             {label.OrderNotExist}

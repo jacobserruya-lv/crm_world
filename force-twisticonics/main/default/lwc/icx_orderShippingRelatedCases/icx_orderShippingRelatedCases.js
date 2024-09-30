@@ -22,7 +22,7 @@ export default class Icx_orderShippingRelatedCases extends NavigationMixin(Light
         return this._orderdetailsapi;
     };
     set orderdetailsapi(orderdetailsapi){
-        this._orderdetailsapi = orderdetailsapi;        
+        this._orderdetailsapi = orderdetailsapi;
     };
 
     @track _product;
@@ -35,6 +35,12 @@ export default class Icx_orderShippingRelatedCases extends NavigationMixin(Light
             this.records = null;
             this.pageToken=null;
             this._product = product;
+        }
+        // else if (this.pageToken != null) {
+        else {
+            this.records = null;
+            this.pageToken=0;
+            this.pageToken=null;
         }
     }
 
@@ -51,10 +57,7 @@ export default class Icx_orderShippingRelatedCases extends NavigationMixin(Light
 
     
     @wire(getUserInfo, { userId : USER_ID  })
-    wiredgetUserInfo({ error, data }) {
- 
-  
- 
+    wiredgetUserInfo({ error, data }) { 
         if (data) {
             
             this.userDetails = data;
@@ -94,7 +97,9 @@ export default class Icx_orderShippingRelatedCases extends NavigationMixin(Light
 
     // I didn't find a way to do work this string directly at the @wire level. (It's why i created this function...)
     get wireWhereClause(){
-        return ' {and:[{Order_Shipping__r: {ShippingNumber__c :{eq: '+this.product.shippingNumber+'}}} ]}';
+        return ' {and:[{Order_Shipping__r: {Id :{eq: '+this.product.reason.Id+'}}} ]}';
+
+        //return ' {and:[{Order_Shipping__r: {ShippingNumber__c :{eq: '+this.product.shippingNumber+'}}} ]}';
 
         // return ' {or:[{ Shipping_group__c: { eq: '+this.product.shippingNumber+' }},{Order_Shipping__r: {ShippingNumber__c :{eq: '+this.product.shippingNumber+'}}} ]}';
 

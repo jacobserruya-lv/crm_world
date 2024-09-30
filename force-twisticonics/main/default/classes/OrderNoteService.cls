@@ -32,12 +32,30 @@ global with sharing class OrderNoteService {
     public static List<Order_Note__c> getOrderNoteByOrders(List<String> orderNumbers, List<String> types) {        
         List<Order_Note__c> orderNotes = [SELECT Id, Type__c, 
                                             Tech_OrderNumber__c, Order__c, Order__r.OrderNumber__c, 
-                                            Tech_ShippingNumber__c, Order_Shipping__c, Order_Shipping__r.ShippingNumber__c ,ClientAdvisor__c, 
+                                            Tech_ShippingNumber__c, Tech_ShippingNumberV2__c, Order_Shipping__c, Order_Shipping__r.ShippingNumber__c ,ClientAdvisor__c, 
                                             Reason__c, toLabel(Reason__c) ReasonLabel, Description__c,CreatedDate
                                         FROM Order_Note__c
                                         WHERE Tech_OrderNumber__c in :orderNumbers
                                           and Type__c in :types];
                                         
+        system.debug(orderNotes);
+
+        return orderNotes;
+    }
+
+    // List of Attached Note related to order or shipping
+    // Param
+    // - recordId : could be "order id" or "shipping id"
+    @auraEnabled(cacheable=true)
+    public static List<Order_Note__c> getAttachedNote(String recordId) {        
+        List<Order_Note__c> orderNotes = [SELECT Id, Description__c, 
+                                            ClientAdvisor__c, ClientAdvisor__r.Name, ClientAdvisor__r.RMS_ID__c,
+                                            CreatedDate, Type__c
+                                        FROM Order_Note__c
+                                        WHERE ((Order__c = :recordId and Order_Shipping__c = null)
+                                          OR (Order_Shipping__c = :recordId))
+                                          AND Type__c = 'ATTACHED_NOTE'
+                                        ORDER BY CreatedDate];
         system.debug(orderNotes);
 
         return orderNotes;
@@ -52,7 +70,7 @@ global with sharing class OrderNoteService {
         List<Case> ApprovalCases = [SELECT Id, Status, CaseNumber,
                                             Approval_Submitter__c, Approval_Type__c, toLabel(Approval_Type__c) ApprovalTypeLabel, 
                                             Order__c, Order__r.OrderNumber__c, 
-                                            Order_Shipping__c, Order_Shipping__r.ShippingNumber__c,
+                                            Order_Shipping__c, Order_Shipping__r.ShippingNumber__c, Order_Shipping__r.ShippingNumberV2__c,
                                             OwnerId, recordTypeId, AccountId, CreatedDate
                                         FROM Case
                                         WHERE recordTypeId = :caseRecordIdApproval
@@ -72,6 +90,8 @@ global with sharing class OrderNoteService {
         Map<String, OrderShipping__c> orderMap = new Map<String, OrderShipping__c>();
         Map<String, OrderShipping__c> orderShippingMap = new Map<String, OrderShipping__c>();
 
+        List<String> shippingNumbersV2 = new List<String>();
+
         // ---------- //
         // JIRA-25028 //
         // ---------- //
@@ -87,13 +107,22 @@ global with sharing class OrderNoteService {
         //     }
         // }
 
-        List<OrderShipping__c> orderShippings = [SELECT Order__r.Id, Order__r.orderNumber__c, Order__r.ownerId__c, Id, ShippingNumber__c 
+        // Kitting -> convert shippingNumber V1 format (xxxxxx-y) to shippingNumber V2 format (xxxxxxx)
+        for(String shippingNumber: shippingNumbers) {
+            shippingNumbersV2.add(shippingNumber.split('-')[0]);
+            if(shippingNumber.contains('-')) {
+                shippingNumbersV2.add(shippingNumber);
+            }
+        }
+
+
+        List<OrderShipping__c> orderShippings = [SELECT Order__r.Id, Order__r.orderNumber__c, Order__r.ownerId__c, Id, ShippingNumber__c, ShippingNumberV2__c 
                                             FROM OrderShipping__c 
-                                            WHERE ShippingNumber__c in :shippingNumbers OR Order__r.orderNumber__c in :orderNumbers];       
+                                            WHERE ShippingNumber__c in :shippingNumbersV2 OR Order__r.orderNumber__c in :orderNumbers];       
 
         for (OrderShipping__c orderShipping: orderShippings) {
             orderMap.put(orderShipping.order__r.orderNumber__c, orderShipping);
-            orderShippingMap.put(orderShipping.ShippingNumber__c, orderShipping);
+            orderShippingMap.put(orderShipping.ShippingNumberV2__c, orderShipping);
         }
 
         Integer nbOfTry = 0;
@@ -106,10 +135,10 @@ global with sharing class OrderNoteService {
                 hasRetry = false;
                 // Does it exist pending : Attached Note, Clienteling Exception or Price adjustment 
                 orderNotes = [SELECT Id, Tech_OrderNumber__c, Order__c, 
-                                Tech_ShippingNumber__c, Order_Shipping__c, ClientAdvisor__c,Type__c,Order__r.Account__c,Order_Shipping__r.Order__r.Account__c
+                                Tech_ShippingNumber__c, Tech_ShippingNumberV2__c, Order_Shipping__c, ClientAdvisor__c,Type__c,Order__r.Account__c,Order_Shipping__r.Order__r.Account__c
                             FROM Order_Note__c
                             WHERE (Order__c = null and Order_Shipping__c = null)
-                            and (Tech_OrderNumber__c in :orderNumbers OR Tech_ShippingNumber__c in :shippingNumbers)
+                            and (Tech_OrderNumber__c in :orderNumbers OR Tech_ShippingNumberV2__c in :shippingNumbersV2)
                             FOR UPDATE];
             }
             catch(QueryException e) {
@@ -129,9 +158,9 @@ global with sharing class OrderNoteService {
             orderNote.Order_Shipping__c = null;
             orderNote.ClientAdvisor__c = orderMap.get(orderNote.Tech_OrderNumber__c)?.Order__r.OwnerId__c;
 
-            if (orderNote.Tech_ShippingNumber__c != null) {                
+            if (orderNote.Tech_ShippingNumberV2__c != null) {                
                 // On Map "Order_Note" avec "Order_Shipping" 
-                orderNote.Order_Shipping__c = orderShippingMap.get(orderNote.Tech_ShippingNumber__c)?.Id;
+                orderNote.Order_Shipping__c = orderShippingMap.get(orderNote.Tech_ShippingNumberV2__c)?.Id;
             }
             if (orderNote.Tech_OrderNumber__c != null) { 
                 // On Map "Order_Note" avec "Order"
@@ -156,6 +185,7 @@ global with sharing class OrderNoteService {
         Map<String, Order_Note__c> orderNodeToCreateCaseMap = new Map<String, Order_Note__c>();
         Map<Id, Id> orderAccountMap = new Map<Id, Id>();
         Map<Id, Id> orderContactMap = new Map<Id, Id>();
+        Map<Id, String> orderCountryMap = new Map<Id, String>();
 
         Map<Id, Id> ShipppingOrderMap = new Map<Id, Id>();
 
@@ -203,14 +233,14 @@ global with sharing class OrderNoteService {
             //need to do 2 query for performance issue
             if(!ShippingId.isEmpty())
             {
-                orderAccount.addAll([SELECT Id, Order__c, Order__r.Account__c,Order__r.Account__r.PersonContactId FROM OrderShipping__c WHERE Id IN: ShippingId ]);
+                orderAccount.addAll([SELECT Id, Order__c, Order__r.Account__c,Order__r.Account__r.PersonContactId, Order__r.Store__r.StoreCountry__c FROM OrderShipping__c WHERE Id IN: ShippingId ]);
             }
             if(!OrderId.isEmpty())
             {
-                orderAccount.addAll ([SELECT Id, Order__c, Order__r.Account__c,Order__r.Account__r.PersonContactId FROM OrderShipping__c WHERE Order__c IN: OrderId]);
+                orderAccount.addAll ([SELECT Id, Order__c, Order__r.Account__c,Order__r.Account__r.PersonContactId, Order__r.Store__r.StoreCountry__c FROM OrderShipping__c WHERE Order__c IN: OrderId]);
             }
 
-        List<User> userCA = [SELECT Id, Country__c FROM User WHERE Id IN: CAList];
+        //List<User> userCA = [SELECT Id, Country__c FROM User WHERE Id IN: CAList];
         
 
         
@@ -232,8 +262,21 @@ global with sharing class OrderNoteService {
             //     }
             // }
 
+            //if country is not in the metadata, we need to map it
+            Map<String,String> countryMap = new Map<String,String> {
+                'USA' => 'UNITED STATES',
+                'MACAU' => 'MACAO'
+            };
+
+            String storeCountry;
+
             for(OrderShipping__c currentOrder : orderAccount)
             {
+                storeCountry = currentOrder.Order__r.Store__r.StoreCountry__c;
+                if(countryMap.get(storeCountry) != null) {
+                    storeCountry = countryMap.get(storeCountry);
+                }
+
                 ShipppingOrderMap.put(currentOrder.Id, currentOrder.Order__c);
                 if(ShippingId.contains(currentOrder.Id) && orderAccountMap.get(currentOrder.Id)==null)
                 {
@@ -244,36 +287,36 @@ global with sharing class OrderNoteService {
                 {
                     orderAccountMap.put(currentOrder.Order__c,currentOrder.Order__r.Account__c);
                     orderContactMap.put(currentOrder.Order__c,currentOrder.Order__r.Account__r.PersonContactId);
-
                 }
+                orderCountryMap.put(currentOrder.Order__c,storeCountry);
             }
         }
-        System.debug('orderAccountMap ' +orderAccountMap);
-        if(userCA.size()>0)
-        {
-            //if country is not in the metadata, we need to map it
-            Map<String,String> countryMap = new Map<String,String> {
-                'USA' => 'UNITED STATES',
-                'MACAU' => 'MACAO'
-            };
-            for(User currentUser : userCA)
-            {
+        // System.debug('orderAccountMap ' +orderAccountMap);
+        // if(userCA.size()>0)
+        // {
+        //     //if country is not in the metadata, we need to map it
+        //     Map<String,String> countryMap = new Map<String,String> {
+        //         'USA' => 'UNITED STATES',
+        //         'MACAU' => 'MACAO'
+        //     };
+        //     for(User currentUser : userCA)
+        //     {
                 
-                if(CACountryMap.get(currentUser.Id)==null)
-                {
-                    String userCountry =currentUser.Country__c;
-                    if(countryMap.get(userCountry) != null) {
-                        userCountry = countryMap.get(userCountry);
-                    }
+        //         if(CACountryMap.get(currentUser.Id)==null)
+        //         {
+        //             String userCountry =currentUser.Country__c;
+        //             if(countryMap.get(userCountry) != null) {
+        //                 userCountry = countryMap.get(userCountry);
+        //             }
      
         
-                    CACountryMap.put(currentUser.Id, userCountry);
-                }
+        //             CACountryMap.put(currentUser.Id, userCountry);
+        //         }
                 
-            }
-        }
+        //     }
+        // }
 
-        List<CountryMapping__mdt> countryMapping = [SELECT Id, QueueApproval__c, Picklist__c FROM CountryMapping__mdt WHERE Picklist__c IN:  CACountryMap.values() AND HasOtherValue__c=false];
+        List<CountryMapping__mdt> countryMapping = [SELECT Id, QueueApproval__c, Picklist__c FROM CountryMapping__mdt WHERE Picklist__c IN:  orderCountryMap.values() AND HasOtherValue__c=false];
 
         for(CountryMapping__mdt countryMap : countryMapping)
         {
@@ -301,9 +344,12 @@ global with sharing class OrderNoteService {
         List<Case> caseToInsert = new List<Case>();
         for(Order_Note__c currentOrderNote : orderNodeToCreateCase)
         {
-            System.debug(' OwnerId CACountryMap ' + CACountryMap.get(currentOrderNote.ClientAdvisor__c));
+            //System.debug(' OwnerId CACountryMap ' + CACountryMap.get(currentOrderNote.ClientAdvisor__c));
+            System.debug('countryQueueIdMap: '+countryQueueIdMap);
+            System.debug('orderCountryMap: '+orderCountryMap);
+            System.debug('currentOrderNote.Order__c: '+currentOrderNote.Order__c);
             
-            System.debug(' OwnerId countryQueueIdMap ' + countryQueueIdMap.get(CACountryMap.get(currentOrderNote.ClientAdvisor__c)));
+            System.debug(' OwnerId countryQueueIdMap ' + countryQueueIdMap.get(orderCountryMap.get(currentOrderNote.Order__c)));
             
             
             Id caseRecordIdApproval = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Approval').getRecordTypeId();
@@ -314,7 +360,12 @@ global with sharing class OrderNoteService {
             currentCase.Subject = 'Approval '+ currentCase.Approval_Type__c;
             currentCase.Order__c = currentOrderNote.Order__c!=null? currentOrderNote.Order__c:ShipppingOrderMap.get(currentOrderNote.Order_Shipping__c);
             currentCase.Order_Shipping__c = currentOrderNote.Order_Shipping__c;
-            currentCase.OwnerId = countryQueueIdMap.get(CACountryMap.get(currentOrderNote.ClientAdvisor__c))!=null?countryQueueIdMap.get(CACountryMap.get(currentOrderNote.ClientAdvisor__c)):currentOrderNote.ClientAdvisor__c!=null?currentOrderNote.ClientAdvisor__c:UserInfo.getUserId();
+            
+            currentCase.OwnerId = countryQueueIdMap.get(OrderCountryMap.get(currentOrderNote.Order__c))!=null?
+                                            countryQueueIdMap.get(OrderCountryMap.get(currentOrderNote.Order__c))
+                                            :currentOrderNote.ClientAdvisor__c!=null?currentOrderNote.ClientAdvisor__c:UserInfo.getUserId();
+            
+
             currentCase.recordTypeId = caseRecordIdApproval;
             currentCase.AccountId = orderAccountMap.get(currentOrderNote.Order__c)!=null?orderAccountMap.get(currentOrderNote.Order__c):orderAccountMap.get(currentOrderNote.Order_Shipping__C);
             currentCase.ContactId = orderContactMap.get(currentOrderNote.Order__c)!=null?orderContactMap.get(currentOrderNote.Order__c):orderContactMap.get(currentOrderNote.Order_Shipping__C);            
