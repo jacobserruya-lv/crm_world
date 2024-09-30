@@ -3,14 +3,14 @@
     <actionCalls>
         <name>objects_Inspection</name>
         <label>objects Inspection</label>
-        <locationX>1172</locationX>
+        <locationX>776</locationX>
         <locationY>134</locationY>
         <actionName>objectsInspection</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>objectObservation</targetReference>
         </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>recordIds</name>
             <value>
@@ -46,7 +46,7 @@
     <actionCalls>
         <name>OpenNewRegularCase</name>
         <label>OpenNewCase</label>
-        <locationX>1106</locationX>
+        <locationX>842</locationX>
         <locationY>1466</locationY>
         <actionName>c:OpenSObject</actionName>
         <actionType>component</actionType>
@@ -62,6 +62,22 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>ParentId_Assignment</name>
+        <label>ParentId Assignment</label>
+        <locationX>512</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>varParentId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>clientIdSearch</targetReference>
+        </connector>
+    </assignments>
     <choices>
         <name>EscakationType</name>
         <choiceText>Escalation</choiceText>
@@ -75,10 +91,10 @@
     <decisions>
         <name>clientIdSearch</name>
         <label>clientIdSearch</label>
-        <locationX>1172</locationX>
-        <locationY>542</locationY>
+        <locationX>776</locationX>
+        <locationY>650</locationY>
         <defaultConnector>
-            <targetReference>Update_MS_EndUser</targetReference>
+            <targetReference>ClientValidate</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default OutcomeAccountId Not Exist</defaultConnectorLabel>
         <rules>
@@ -93,13 +109,6 @@
             </conditions>
             <conditions>
                 <leftValueReference>varAccountId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>varClientName</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -136,7 +145,7 @@
     <decisions>
         <name>objectObservation</name>
         <label>objectObservation</label>
-        <locationX>1172</locationX>
+        <locationX>776</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>clientIdSearch</targetReference>
@@ -206,7 +215,7 @@
     <decisions>
         <name>recordTypeInspection</name>
         <label>recordTypeInspection</label>
-        <locationX>1106</locationX>
+        <locationX>842</locationX>
         <locationY>1058</locationY>
         <defaultConnector>
             <targetReference>Create_Regular_Request</targetReference>
@@ -253,7 +262,7 @@
     <decisions>
         <name>Request_Type</name>
         <label>Request Type</label>
-        <locationX>1172</locationX>
+        <locationX>776</locationX>
         <locationY>950</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -270,21 +279,6 @@
                 <targetReference>Escalation_Flow</targetReference>
             </connector>
             <label>Escalation Type</label>
-        </rules>
-        <rules>
-            <name>displayErrorInResolution</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varResolutionType</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Escalation</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Display_error</targetReference>
-            </connector>
-            <label>displayErrorInResolution</label>
         </rules>
         <rules>
             <name>Ordinary_Type</name>
@@ -315,38 +309,8 @@
             </connector>
             <label>Ordinary Type</label>
         </rules>
-        <rules>
-            <name>displayErrorRequestMissing</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varResolutionType</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Request</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>missingRequetResolution</targetReference>
-            </connector>
-            <label>displayErrorRequestMissing</label>
-        </rules>
-        <rules>
-            <name>noResolutionTypeSelected</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>varResolutionType</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>resolutionEmpty</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>noResolutionSelected</targetReference>
-            </connector>
-            <label>noResolutionTypeSelected</label>
-        </rules>
     </decisions>
-    <description>V54</description>
+    <description>V52</description>
     <environments>Default</environments>
     <formulas>
         <name>FormulaRuningUser</name>
@@ -382,7 +346,7 @@
     <recordCreates>
         <name>Create_Live_Chat_Request</name>
         <label>Create Live Chat Request</label>
-        <locationX>1106</locationX>
+        <locationX>842</locationX>
         <locationY>1166</locationY>
         <assignRecordIdToReference>NewCaseId</assignRecordIdToReference>
         <connector>
@@ -431,12 +395,6 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>ParentId</field>
-            <value>
-                <elementReference>varParentId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Product_Sku__c</field>
             <value>
                 <elementReference>varProductSku</elementReference>
@@ -446,12 +404,6 @@
             <field>Product_Sku_unknown__c</field>
             <value>
                 <elementReference>varUnknwnProductSku</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Qualifications__c</field>
-            <value>
-                <elementReference>varQualifications</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -467,12 +419,6 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Special_Event__c</field>
-            <value>
-                <elementReference>varSpecialEvents</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>SuppliedEmail</field>
             <value>
                 <elementReference>varSuppliedEmail</elementReference>
@@ -485,9 +431,9 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>TECH_NewEmailReceived__c</field>
+            <field>hasParent__c</field>
             <value>
-                <booleanValue>false</booleanValue>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -495,7 +441,7 @@
     <recordCreates>
         <name>Create_Regular_Request</name>
         <label>Create Regular Request</label>
-        <locationX>1370</locationX>
+        <locationX>1106</locationX>
         <locationY>1166</locationY>
         <assignRecordIdToReference>NewCaseId</assignRecordIdToReference>
         <connector>
@@ -505,131 +451,6 @@
             <field>AccountId</field>
             <value>
                 <elementReference>varAccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ChildRequestCreated__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Comment__c</field>
-            <value>
-                <elementReference>varDescription</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ContactId</field>
-            <value>
-                <elementReference>varContactId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>My_Repairs__c</field>
-            <value>
-                <elementReference>VarCareServiceId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Origin</field>
-            <value>
-                <elementReference>varOrigin</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>varOwnerId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ParentId</field>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Product_Sku__c</field>
-            <value>
-                <elementReference>varProductSku</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Product_Sku_unknown__c</field>
-            <value>
-                <elementReference>varUnknwnProductSku</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Qualifications__c</field>
-            <value>
-                <elementReference>varQualifications</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>varRecordTypeId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Resolution__c</field>
-            <value>
-                <elementReference>varResolutionType</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Special_Event__c</field>
-            <value>
-                <elementReference>varSpecialEvents</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>SuppliedEmail</field>
-            <value>
-                <elementReference>varSuppliedEmail</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>SuppliedPhone</field>
-            <value>
-                <elementReference>varSuppliedPhone</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>TECH_Country__c</field>
-            <value>
-                <elementReference>varCountry</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>TECH_NewEmailReceived__c</field>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </inputAssignments>
-        <object>Case</object>
-    </recordCreates>
-    <recordCreates>
-        <name>Create_Unregula_Request</name>
-        <label>Create Unregular Request</label>
-        <locationX>842</locationX>
-        <locationY>1166</locationY>
-        <assignRecordIdToReference>NewCaseId</assignRecordIdToReference>
-        <connector>
-            <targetReference>updateEmailDisplay</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>varAccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ChildRequestCreated__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -681,9 +502,98 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Qualifications__c</field>
+            <field>RecordTypeId</field>
             <value>
-                <elementReference>varQualifications</elementReference>
+                <elementReference>varRecordTypeId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Resolution__c</field>
+            <value>
+                <elementReference>varResolutionType</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SuppliedEmail</field>
+            <value>
+                <elementReference>varSuppliedEmail</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SuppliedPhone</field>
+            <value>
+                <elementReference>varSuppliedPhone</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>TECH_Country__c</field>
+            <value>
+                <elementReference>varCountry</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>hasParent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Unregula_Request</name>
+        <label>Create Unregula Request</label>
+        <locationX>578</locationX>
+        <locationY>1166</locationY>
+        <assignRecordIdToReference>NewCaseId</assignRecordIdToReference>
+        <connector>
+            <targetReference>updateEmailDisplay</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>varAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>varContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>varDescription</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>My_Repairs__c</field>
+            <value>
+                <elementReference>VarCareServiceId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Origin</field>
+            <value>
+                <elementReference>varOrigin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>varOwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Product_Sku__c</field>
+            <value>
+                <elementReference>varProductSku</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Product_Sku_unknown__c</field>
+            <value>
+                <elementReference>varUnknwnProductSku</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -696,12 +606,6 @@
             <field>Resolution__c</field>
             <value>
                 <elementReference>varResolutionType</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Special_Event__c</field>
-            <value>
-                <elementReference>varSpecialEvents</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -735,9 +639,9 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>TECH_NewEmailReceived__c</field>
+            <field>hasParent__c</field>
             <value>
-                <booleanValue>false</booleanValue>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -745,7 +649,7 @@
     <recordLookups>
         <name>Chat</name>
         <label>Live Chat Lookup</label>
-        <locationX>1172</locationX>
+        <locationX>776</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -808,7 +712,7 @@
     <recordLookups>
         <name>MessagingSession</name>
         <label>MessagingSession</label>
-        <locationX>1436</locationX>
+        <locationX>1040</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -824,10 +728,6 @@
         </filters>
         <object>MessagingSession</object>
         <outputAssignments>
-            <assignToReference>varClientName</assignToReference>
-            <field>Client_Name__c</field>
-        </outputAssignments>
-        <outputAssignments>
             <assignToReference>varDescription</assignToReference>
             <field>Comment__c</field>
         </outputAssignments>
@@ -840,12 +740,12 @@
             <field>EndUserAccountId</field>
         </outputAssignments>
         <outputAssignments>
-            <assignToReference>varContactId</assignToReference>
-            <field>EndUserContactId</field>
+            <assignToReference>varAccountId</assignToReference>
+            <field>EndUserAccountId</field>
         </outputAssignments>
         <outputAssignments>
-            <assignToReference>VarMS</assignToReference>
-            <field>MessagingEndUserId</field>
+            <assignToReference>varContactId</assignToReference>
+            <field>EndUserContactId</field>
         </outputAssignments>
         <outputAssignments>
             <assignToReference>varOrigin</assignToReference>
@@ -864,20 +764,12 @@
             <field>Product_SKU__c</field>
         </outputAssignments>
         <outputAssignments>
-            <assignToReference>varQualifications</assignToReference>
-            <field>Qualifications__c</field>
-        </outputAssignments>
-        <outputAssignments>
             <assignToReference>varRecordTypeId</assignToReference>
             <field>RecordTypeId</field>
         </outputAssignments>
         <outputAssignments>
             <assignToReference>varResolutionType</assignToReference>
             <field>Resolution__c</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>varSpecialEvents</assignToReference>
-            <field>Special_Event__c</field>
         </outputAssignments>
         <outputAssignments>
             <assignToReference>varStatus</assignToReference>
@@ -887,7 +779,7 @@
     <recordLookups>
         <name>Request_Lookup</name>
         <label>Request Lookup</label>
-        <locationX>644</locationX>
+        <locationX>248</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -915,6 +807,10 @@
             <field>ContactId</field>
         </outputAssignments>
         <outputAssignments>
+            <assignToReference>varParentId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
             <assignToReference>VarCareServiceId</assignToReference>
             <field>My_Repairs__c</field>
         </outputAssignments>
@@ -925,10 +821,6 @@
         <outputAssignments>
             <assignToReference>varOwnerId</assignToReference>
             <field>OwnerId</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>varParentId</assignToReference>
-            <field>ParentId</field>
         </outputAssignments>
         <outputAssignments>
             <assignToReference>varProductSku</assignToReference>
@@ -951,7 +843,7 @@
             <field>Resolution__c</field>
         </outputAssignments>
         <outputAssignments>
-            <assignToReference>varSpecialEvents</assignToReference>
+            <assignToReference>varSpecialEvent</assignToReference>
             <field>Special_Event__c</field>
         </outputAssignments>
         <outputAssignments>
@@ -978,11 +870,11 @@
     <recordLookups>
         <name>Task_Lookup</name>
         <label>Task Lookup</label>
-        <locationX>908</locationX>
+        <locationX>512</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>clientIdSearch</targetReference>
+            <targetReference>ParentId_Assignment</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1006,8 +898,12 @@
             <field>Description</field>
         </outputAssignments>
         <outputAssignments>
-            <assignToReference>varSpecialEvents</assignToReference>
+            <assignToReference>varSpecialEvent</assignToReference>
             <field>Domaine__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varParentId</assignToReference>
+            <field>Id</field>
         </outputAssignments>
         <outputAssignments>
             <assignToReference>VarCareServiceId</assignToReference>
@@ -1055,33 +951,9 @@
         </outputAssignments>
     </recordLookups>
     <recordUpdates>
-        <name>Update_MS_EndUser</name>
-        <label>Update MS EndUser</label>
-        <locationX>1172</locationX>
-        <locationY>842</locationY>
-        <connector>
-            <targetReference>Request_Type</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>VarMS</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>varAccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <object>MessagingEndUser</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>updateEmailDisplay</name>
         <label>updateEmailDisplay</label>
-        <locationX>1106</locationX>
+        <locationX>842</locationX>
         <locationY>1358</locationY>
         <connector>
             <targetReference>OpenNewRegularCase</targetReference>
@@ -1105,13 +977,13 @@
     <screens>
         <name>ClientSearch</name>
         <label>ClientSearch</label>
-        <locationX>1040</locationX>
-        <locationY>650</locationY>
-        <allowBack>false</allowBack>
+        <locationX>644</locationX>
+        <locationY>758</locationY>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
+        <allowPause>true</allowPause>
         <connector>
-            <targetReference>Update_MS_EndUser</targetReference>
+            <targetReference>Request_Type</targetReference>
         </connector>
         <fields>
             <name>clientValidation</name>
@@ -1131,76 +1003,37 @@
                     <elementReference>varAccountId</elementReference>
                 </value>
             </inputParameters>
-            <inputParameters>
-                <name>showContactabilityValidation</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
-            <outputParameters>
-                <assignToReference>recordId</assignToReference>
-                <name>recordId</name>
-            </outputParameters>
-            <outputParameters>
-                <assignToReference>varAccountId</assignToReference>
-                <name>accountId</name>
-            </outputParameters>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Display_error</name>
-        <label>Display error</label>
-        <locationX>578</locationX>
-        <locationY>1058</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>other_resolution_type</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(157, 31, 31);&quot;&gt;You should choose &apos;escalation&apos; value as resolution&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>missingRequetResolution</name>
-        <label>missingRequetResolution</label>
-        <locationX>1634</locationX>
-        <locationY>1058</locationY>
+        <name>ClientValidate</name>
+        <label>ClientValidate</label>
+        <locationX>908</locationX>
+        <locationY>758</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Request_Type</targetReference>
+        </connector>
         <fields>
-            <name>requestResolutionMissing</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(179, 29, 29);&quot;&gt;You should choose a &apos;request&apos; value as resolution  &lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>noResolutionSelected</name>
-        <label>noResolutionSelected</label>
-        <locationX>1898</locationX>
-        <locationY>1058</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>resoltionMissingError</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(144, 20, 20);&quot;&gt;You should select a resolution type first&lt;/strong&gt;&lt;strong style=&quot;font-size: 18px;&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <name>FirstClientValidate</name>
+            <extensionName>c:iCX_clientValidationHeader</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>1046</locationX>
+        <locationX>650</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>objects_Inspection</targetReference>
@@ -1217,12 +1050,6 @@
         </connector>
         <flowName>Escalation_Flow</flowName>
         <inputAssignments>
-            <name>recordId</name>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <name>VarAccountID</name>
             <value>
                 <elementReference>varAccountId</elementReference>
@@ -1235,15 +1062,21 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <name>varParentId</name>
+            <value>
+                <elementReference>varParentId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>varQualifications</name>
             <value>
                 <elementReference>varQualifications</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <name>varSpecialEvents</name>
+            <name>varSpecialEvent</name>
             <value>
-                <elementReference>varSpecialEvents</elementReference>
+                <elementReference>varSpecialEvent</elementReference>
             </value>
         </inputAssignments>
         <outputAssignments>
@@ -1258,7 +1091,7 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <value>
-            <booleanValue>false</booleanValue>
+            <booleanValue>true</booleanValue>
         </value>
     </variables>
     <variables>
@@ -1317,13 +1150,6 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>varClientName</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>varContactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -1355,13 +1181,6 @@
         </value>
     </variables>
     <variables>
-        <name>VarMS</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>varOrigin</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -1382,11 +1201,8 @@
         <name>varParentId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-        <value>
-            <elementReference>recordId</elementReference>
-        </value>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>varProductId</name>
@@ -1407,7 +1223,7 @@
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
-        <isOutput>false</isOutput>
+        <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>varRecordTypeForMassaging</name>
@@ -1434,7 +1250,7 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>varSpecialEvents</name>
+        <name>varSpecialEvent</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>

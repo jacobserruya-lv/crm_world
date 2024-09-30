@@ -4,7 +4,7 @@
         <name>GetEscalationTeam</name>
         <label>GetEscalationTeam</label>
         <locationX>314</locationX>
-        <locationY>1130</locationY>
+        <locationY>1514</locationY>
         <actionName>ICX_EscalationAction</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -18,6 +18,7 @@
             </value>
         </inputParameters>
         <nameSegment>ICX_EscalationAction</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
         <versionSegment>1</versionSegment>
     </actionCalls>
@@ -25,7 +26,7 @@
         <name>Notification_Assignment</name>
         <label>Notification Assignment</label>
         <locationX>578</locationX>
-        <locationY>1346</locationY>
+        <locationY>1730</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <connector>
@@ -63,6 +64,22 @@
             </value>
         </inputParameters>
         <nameSegment>customNotificationAction</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>ReloadPage_Action_1</name>
+        <label>ReloadPage Action 1</label>
+        <locationX>974</locationX>
+        <locationY>1214</locationY>
+        <actionName>c:ReloadPage</actionName>
+        <actionType>component</actionType>
+        <connector>
+            <targetReference>Assigned_User_Escalation_Empty</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <nameSegment>c:ReloadPage</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>54.0</apiVersion>
@@ -137,7 +154,7 @@
         <name>Notification_Recepient_User</name>
         <label>Notification Recepient User</label>
         <locationX>578</locationX>
-        <locationY>1238</locationY>
+        <locationY>1622</locationY>
         <assignmentItems>
             <assignToReference>NotificationRecepients</assignToReference>
             <operator>Add</operator>
@@ -153,7 +170,7 @@
         <name>Parent_ID_Case_Team_for_New_Case</name>
         <label>Parent ID Case Team for New Case</label>
         <locationX>974</locationX>
-        <locationY>674</locationY>
+        <locationY>890</locationY>
         <assignmentItems>
             <assignToReference>VarCaseID</assignToReference>
             <operator>Assign</operator>
@@ -186,7 +203,7 @@
         <name>Assigned_User_Escalation_Empty</name>
         <label>Assigned User Escalation Empty ?</label>
         <locationX>710</locationX>
-        <locationY>1022</locationY>
+        <locationY>1406</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>User_Empty</name>
@@ -255,7 +272,7 @@
         <name>IsLive_Chat</name>
         <label>Live Chat ?</label>
         <locationX>710</locationX>
-        <locationY>1538</locationY>
+        <locationY>1922</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Live_Chat</name>
@@ -305,7 +322,7 @@
             <label>Update Request</label>
         </rules>
     </decisions>
-    <description>Escalation process - run as system with sharing</description>
+    <description>Escalation process - run as system with sharing V3</description>
     <environments>Default</environments>
     <formulas>
         <name>CaseCallRT</name>
@@ -378,7 +395,7 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         <locationY>566</locationY>
         <assignRecordIdToReference>VarNewCaseID</assignRecordIdToReference>
         <connector>
-            <targetReference>Parent_ID_Case_Team_for_New_Case</targetReference>
+            <targetReference>Get_Parent_record</targetReference>
         </connector>
         <faultConnector>
             <isGoTo>true</isGoTo>
@@ -397,9 +414,9 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Category__c</field>
+            <field>Comment__c</field>
             <value>
-                <elementReference>VarCategory</elementReference>
+                <elementReference>VarDescription</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -457,6 +474,12 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>ParentId</field>
+            <value>
+                <elementReference>FormulaParentID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Product_Sku__c</field>
             <value>
                 <elementReference>VarProductSku</elementReference>
@@ -489,7 +512,7 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         <inputAssignments>
             <field>Special_Event__c</field>
             <value>
-                <elementReference>varSpecialEvents</elementReference>
+                <elementReference>varSpecialEvent</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -529,7 +552,7 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>isHasParent__c</field>
+            <field>hasParent__c</field>
             <value>
                 <booleanValue>true</booleanValue>
             </value>
@@ -540,7 +563,7 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         <name>Get_Notification_ID</name>
         <label>Get Notification ID</label>
         <locationX>578</locationX>
-        <locationY>1130</locationY>
+        <locationY>1514</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Notification_Recepient_User</targetReference>
@@ -562,13 +585,34 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Parent_record</name>
+        <label>Get Parent record</label>
+        <locationX>974</locationX>
+        <locationY>674</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_parent_record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varParentId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Request</name>
         <label>Get Request</label>
         <locationX>974</locationX>
-        <locationY>782</locationY>
+        <locationY>998</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assigned_User_Escalation_Empty</targetReference>
+            <targetReference>updateEmailDisplay</targetReference>
         </connector>
         <faultConnector>
             <isGoTo>true</isGoTo>
@@ -588,6 +632,36 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
             <field>CaseNumber</field>
         </outputAssignments>
     </recordLookups>
+    <recordUpdates>
+        <name>Update_parent_record</name>
+        <label>Update parent record</label>
+        <locationX>974</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>Parent_ID_Case_Team_for_New_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varParentId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ChildRequestCreated__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Tech_Qualif_Not_Completed__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
     <recordUpdates>
         <name>Update_Request_Escalation</name>
         <label>Update Request Escalation</label>
@@ -669,7 +743,7 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         <name>Update_Status_LiveChat</name>
         <label>Update Status LiveChat</label>
         <locationX>446</locationX>
-        <locationY>1646</locationY>
+        <locationY>2030</locationY>
         <faultConnector>
             <targetReference>Fault_Error</targetReference>
         </faultConnector>
@@ -688,6 +762,30 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
             </value>
         </inputAssignments>
         <object>LiveChatTranscript</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>updateEmailDisplay</name>
+        <label>updateEmailDisplay</label>
+        <locationX>974</locationX>
+        <locationY>1106</locationY>
+        <connector>
+            <targetReference>ReloadPage_Action_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>VarCaseID</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>TECH_NewEmailReceived__c</field>
+            <value>
+                <elementReference>isEmailComposerDisplay</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
     </recordUpdates>
     <runInMode>SystemModeWithSharing</runInMode>
     <screens>
@@ -778,7 +876,7 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         <name>Fault_Error</name>
         <label>Fault Error</label>
         <locationX>710</locationX>
-        <locationY>1754</locationY>
+        <locationY>2138</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -803,6 +901,16 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>The user {!$User.FirstName} {!$User.LastName} assigned to you this request escalated {!VarCaseNumber}.</text>
     </textTemplates>
+    <variables>
+        <name>isEmailComposerDisplay</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>true</booleanValue>
+        </value>
+    </variables>
     <variables>
         <name>isNewQualification</name>
         <dataType>Boolean</dataType>
@@ -1011,7 +1119,7 @@ IF({!sObject} = &quot;LiveChatTranscript&quot;, &quot;Social&quot;, {!VarCaseOri
         </value>
     </variables>
     <variables>
-        <name>varSpecialEvents</name>
+        <name>varSpecialEvent</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
