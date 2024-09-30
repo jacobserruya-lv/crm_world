@@ -1,6 +1,8 @@
 import { LightningElement, wire, api, track } from 'lwc';
-import { getRelatedListRecords} from 'lightning/uiRelatedListApi';
+// import { getRelatedListRecords} from 'lightning/uiRelatedListApi';
 import {getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import getAttachedNote from '@salesforce/apex/OrderNoteService.getAttachedNote'
+import { refreshApex } from '@salesforce/apex';
 import USER_ID from '@salesforce/user/Id';
 import NAME_FIELD from '@salesforce/schema/User.Name';
 import RMS_ID_FIELD from '@salesforce/schema/User.RMS_ID__c';
@@ -23,13 +25,16 @@ export default class Icx_orderComment extends LightningElement {
         return this._orderdetailsapi;
     }
     set orderdetailsapi(orderdetailsapi) {
-        this.records = null;
-        console.log('JGU-@api icx_orderComment - @api orderdetailsapi : ' + orderdetailsapi);
+        //this.records = null;
+        console.log('JGU-@api icx_orderComment - @api orderdetailsapi : ' + orderdetailsapi + '// recordId : ' + this.recordid);
         this._orderdetailsapi = orderdetailsapi;
+        refreshApex(this.wiredCommentList);
     };
 
     @track _recordid;
     @track _orderdetailsapi;
+
+    @track wiredCommentList;
 
     @track userId = USER_ID;
     error;
@@ -57,51 +62,50 @@ export default class Icx_orderComment extends LightningElement {
     }
 
     // I didn't find a way to do work this string directly at the @wire level. (It's why i created this function...)
-    get wireWhereClause(){
-       return "{ and: [{Type__c: {eq: 'ATTACHED_NOTE'}},{ or: [ {and : [{Order__c: {eq: " + this.recordid + "}},{Order_Shipping__c: {eq: null}}]},{Order_Shipping__c: {eq: " + this.recordid +"}}]}]}";
-   }
-        
+//     get wireWhereClause(){
+//        return "{ and: [{Type__c: {eq: 'ATTACHED_NOTE'}},{ or: [ {and : [{Order__c: {eq: " + this.recordid + "}},{Order_Shipping__c: {eq: null}}]},{Order_Shipping__c: {eq: " + this.recordid +"}}]}]}";
+//    }
+   
+   @wire(getAttachedNote, {recordId: "$recordid"}) 
+   attachedNoteRecords(result) {
+       this.wiredCommentList = result;
 
-    @wire(getRelatedListRecords, {
-        parentRecordId: "$recordid",
-        relatedListId: 'Order_Notes__r',
-        fields: ['Order_Note__c.Id', 'Order_Note__c.Description__c', 'Order_Note__c.ClientAdvisor__c', 'Order_Note__c.ClientAdvisor__r.Name', 'Order_Note__c.ClientAdvisor__r.RMS_ID__c', 'Order_Note__c.CreatedDate', 'Order_Note__c.Type__c'],
-        sortBy : ['CreatedDate'],
-        pageSize: '$pageSize',
-        where: '$wireWhereClause'
-    })listInfo({ error, data }) {
-        if (data) {
-            console.log('JGU-@wire (dataLoading - id) : '+this.recordid);
+       console.log('JGU-@wire (attachedNoteRecords - id) : '+this.recordid);
+
+       if (result.data) {
+            console.log('JGU-@wire (attachedNoteRecords - result.data) : '+result.data);
             // console.log('JGU-@wire (dataLoading - before) : '+this.dataLoading);
             // console.log('JGU-@wire (dataLoading - data) : '+JSON.stringify(data));
 
             let tempRecords = [];
 
-            data.records.forEach( obj => {
+            result.data.forEach( obj => {
                 let tempRecord = {};
                 tempRecord.id = obj.id;
                 // tempRecord.linkToCase = '/'+tempRecord.id;
-                tempRecord.Description__c = obj.fields.Description__c.value;
+                tempRecord.Description__c = obj.Description__c;
                 // console.log('JGU-@wire (obj.fields.ClientAdvisor__r) : '+obj.fields.ClientAdvisor__r);
                 // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value) : '+obj.fields.ClientAdvisor__r.value);
                 // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value.fields) : '+obj.fields.ClientAdvisor__r.value.fields);
                 // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value.fields.Name) : '+obj.fields.ClientAdvisor__r.value.fields.Name);
                 // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value.fields.Name.value) : '+obj.fields.ClientAdvisor__r.value.fields.Name.value);
-                if (obj.fields.ClientAdvisor__r.value != null) {
-                    tempRecord.ClientAdvisorName = obj.fields.ClientAdvisor__r.value.fields.Name.value;
-                    if (obj.fields.ClientAdvisor__r.value.fields.RMS_ID__c.value) {
-                        tempRecord.ClientAdvisorName = tempRecord.ClientAdvisorName + ' - ' + obj.fields.ClientAdvisor__r.value.fields.RMS_ID__c.value;
+                if (obj.ClientAdvisor__r != null) {
+                    tempRecord.ClientAdvisorName = obj.ClientAdvisor__r.Name;
+                    if (obj.ClientAdvisor__r.RMS_ID__c) {
+                        tempRecord.ClientAdvisorName = tempRecord.ClientAdvisorName + ' - ' + obj.ClientAdvisor__r.RMS_ID__c;
                     }
                 }
                 else tempRecord.ClientAdvisorName = 'CA unknown';
-                tempRecord.createdDate = obj.fields.CreatedDate.value;
+                tempRecord.createdDate = obj.CreatedDate;
                 // tempRecord.status = obj.fields.Status.value;
                 tempRecords.push( tempRecord );
             } );
 
             // Add retrieved records to the current list of records already displayed
-            if (this.records ==  null) this.records = tempRecords.reverse();
-            else this.records = (this.records.reverse().concat(tempRecords)).reverse();
+            // if (this.records ==  null) this.records = tempRecords.reverse();
+            // else this.records = (this.records.reverse().concat(tempRecords)).reverse();
+
+            this.records = tempRecords.reverse();
 
             console.log('JGU-@wire (dataLoading - this.records) :'+ JSON.stringify(this.records));
             // this.currentpageToken = data.currentpageToken;
@@ -109,20 +113,82 @@ export default class Icx_orderComment extends LightningElement {
             // this.hasMore = (this.nextPageToken != null);
             // this.error = undefined;
 
-        } else if (error) {
+        } else if (result.error) {
             // console.log('JGU-@wire | error: '+ error );
             // console.log(error);
             this.error = 'Unknown error';
-            if (Array.isArray(error.body)) {
-                this.error = error.body.map(e => e.message).join(', ');
-            } else if (typeof error.body.message === 'string') {
-                this.error = error.body.message;
+            if (Array.isArray(result.error.body)) {
+                this.error = result.error.body.map(e => e.message).join(', ');
+            } else if (typeof result.error.body.message === 'string') {
+                this.error = result.error.body.message;
             }
             this.records = undefined;
         }
-        // this.dataLoading = false;
-        // console.log('JGU-@wire (dataLoading - after) : '+this.dataLoading);
-    }
+   }
+
+    // @wire(getRelatedListRecords, {
+    //     parentRecordId: "$recordid",
+    //     relatedListId: 'Order_Notes__r',
+    //     fields: ['Order_Note__c.Id', 'Order_Note__c.Description__c', 'Order_Note__c.ClientAdvisor__c', 'Order_Note__c.ClientAdvisor__r.Name', 'Order_Note__c.ClientAdvisor__r.RMS_ID__c', 'Order_Note__c.CreatedDate', 'Order_Note__c.Type__c'],
+    //     sortBy : ['CreatedDate'],
+    //     pageSize: '$pageSize',
+    //     where: '$wireWhereClause'
+    // })listInfo(result) {
+    //     this.wiredCommentList = result;
+
+    //     if (result.data) {
+    //         console.log('JGU-@wire (dataLoading - id) : '+this.recordid);
+    //         // console.log('JGU-@wire (dataLoading - before) : '+this.dataLoading);
+    //         // console.log('JGU-@wire (dataLoading - data) : '+JSON.stringify(data));
+
+    //         let tempRecords = [];
+
+    //         result.data.records.forEach( obj => {
+    //             let tempRecord = {};
+    //             tempRecord.id = obj.id;
+    //             // tempRecord.linkToCase = '/'+tempRecord.id;
+    //             tempRecord.Description__c = obj.fields.Description__c.value;
+    //             // console.log('JGU-@wire (obj.fields.ClientAdvisor__r) : '+obj.fields.ClientAdvisor__r);
+    //             // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value) : '+obj.fields.ClientAdvisor__r.value);
+    //             // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value.fields) : '+obj.fields.ClientAdvisor__r.value.fields);
+    //             // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value.fields.Name) : '+obj.fields.ClientAdvisor__r.value.fields.Name);
+    //             // console.log('JGU-@wire (obj.fields.ClientAdvisor__r.value.fields.Name.value) : '+obj.fields.ClientAdvisor__r.value.fields.Name.value);
+    //             if (obj.fields.ClientAdvisor__r.value != null) {
+    //                 tempRecord.ClientAdvisorName = obj.fields.ClientAdvisor__r.value.fields.Name.value;
+    //                 if (obj.fields.ClientAdvisor__r.value.fields.RMS_ID__c.value) {
+    //                     tempRecord.ClientAdvisorName = tempRecord.ClientAdvisorName + ' - ' + obj.fields.ClientAdvisor__r.value.fields.RMS_ID__c.value;
+    //                 }
+    //             }
+    //             else tempRecord.ClientAdvisorName = 'CA unknown';
+    //             tempRecord.createdDate = obj.fields.CreatedDate.value;
+    //             // tempRecord.status = obj.fields.Status.value;
+    //             tempRecords.push( tempRecord );
+    //         } );
+
+    //         // Add retrieved records to the current list of records already displayed
+    //         if (this.records ==  null) this.records = tempRecords.reverse();
+    //         else this.records = (this.records.reverse().concat(tempRecords)).reverse();
+
+    //         console.log('JGU-@wire (dataLoading - this.records) :'+ JSON.stringify(this.records));
+    //         // this.currentpageToken = data.currentpageToken;
+    //         // this.nextPageToken = data.nextPageToken;
+    //         // this.hasMore = (this.nextPageToken != null);
+    //         // this.error = undefined;
+
+    //     } else if (result.error) {
+    //         // console.log('JGU-@wire | error: '+ error );
+    //         // console.log(error);
+    //         this.error = 'Unknown error';
+    //         if (Array.isArray(result.error.body)) {
+    //             this.error = result.error.body.map(e => e.message).join(', ');
+    //         } else if (typeof result.error.body.message === 'string') {
+    //             this.error = result.error.body.message;
+    //         }
+    //         this.records = undefined;
+    //     }
+    //     // this.dataLoading = false;
+    //     // console.log('JGU-@wire (dataLoading - after) : '+this.dataLoading);
+    // }
 
     @wire(getRecord, {
         recordId: "$userId",

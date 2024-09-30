@@ -6,22 +6,27 @@ public with sharing class ICX_TWIST_OOB_TEST {
     @TestSetup
     static void makeData(){
         List<Country__c> countries = new List<Country__c>{
-            new Country__c(Name='SAUDI ARABIA',    tech_duplicate__c = 'saudia arabia',    Iso2Code__c = 'SA', Iso3Code__c = 'SAU')
+            new Country__c(Name='SAUDI ARABIA',    tech_duplicate__c = 'saudia arabia',    Iso2Code__c = 'SA', Iso3Code__c = 'SAU'),
+            new Country__c(Name='FRANCE', tech_duplicate__c='France', Iso2Code__c = 'FR', Iso3Code__c='FRA')    
         };
         insert countries;
 
         List<Language2__c> languages = new List<Language2__c>{
             new Language2__c(Name='ARABIC', Iso2Code__c = 'AR', Iso3Code__c = 'ARA'),
-            new Language2__c(Name='ENGLISH', Iso2Code__c = 'EN', Iso3Code__c = 'ENG')
+            new Language2__c(Name='ENGLISH', Iso2Code__c = 'EN', Iso3Code__c = 'ENG'),
+            new Language2__c(Name='FRENCH', Iso2Code__c = 'FR', Iso3Code__c = 'FRA')
         };
         insert languages;
 
         List<Country__c> c = [SELECT Id, Name FROM Country__c WHERE Name IN ('SAUDI ARABIA')];
         List<Language2__c> l = [SELECT Id, Name FROM Language2__c WHERE Name IN ('ARABIC', 'ENGLISH')];
+        List<Country__c> c2 = [SELECT Id, Name FROM Country__c WHERE Name IN ('FRANCE')];
+        List<Language2__c> l2 = [SELECT Id, Name FROM Language2__c WHERE Name IN ('FRENCH')];
         
         List<CountryLanguage__c> cl = new List<CountryLanguage__c>{
             new CountryLanguage__c(Name = 'Saudi arabic',      ATG_Locale__c = 'ara-ae', Salesforce_Locale__c = 'ar_SA', Country__c = c[0].Id, Language__c = l[0].Id, Default__c = false, Dispatch_Country__c = 'SA',OOB_Local__c='',Mulesoft_Local__c=''),
-            new CountryLanguage__c(Name = 'Saudi english',     ATG_Locale__c = 'eng-ae', Salesforce_Locale__c = 'ar_SA', Country__c = c[0].Id, Language__c = l[1].Id, Default__c = true, Dispatch_Country__c = 'SA', OOB_Local__c='eng-sa',Mulesoft_Local__c='eco-eu')
+            new CountryLanguage__c(Name = 'Saudi english',     ATG_Locale__c = 'eng-ae', Salesforce_Locale__c = 'ar_SA', Country__c = c[0].Id, Language__c = l[1].Id, Default__c = true, Dispatch_Country__c = 'SA', OOB_Local__c='eng-sa',Mulesoft_Local__c='eco-eu'),
+            new CountryLanguage__c(Name = 'France', ATG_Locale__c = 'fra-fr', Salesforce_Locale__c = 'fr_FR', Country__c = c2[0].Id, Language__c = l2[0].Id, Default__c = true, Dispatch_Country__c = '', OOB_Local__c='fra-fr',Mulesoft_Local__c='eco-eu',Cart_Translation__c ='selection' )
         };        
         insert cl;
 
@@ -197,7 +202,18 @@ public with sharing class ICX_TWIST_OOB_TEST {
 
     }
 
-    
+    @isTest
+    public static void getCartTranslation_TEST(){
+        String translation = 'cart';
+        Test.startTest();
+        
+        translation = ICX_TWIST_OOB.getCartTranslation('FR');
+        
+        Test.stopTest();
+        
+        System.assertEquals('selection',translation);
+        
+    }
    
 
 }

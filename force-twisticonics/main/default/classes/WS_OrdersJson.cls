@@ -50,6 +50,7 @@ public class WS_OrdersJson {
 	
 	public class Lines {
         public String shippingNumber {get;set;} 
+		public String lineNumber {get;set;} 
 		public String sku {get;set;} 
 		public Integer quantity {get;set;} 
 		public String initial_eta_min {get;set;}

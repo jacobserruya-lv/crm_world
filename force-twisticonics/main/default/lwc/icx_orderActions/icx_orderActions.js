@@ -319,6 +319,7 @@ export default class Icx_orderActionsExchangeReturn extends LightningModal {
                     }
 
                     console.log('Cancel: ' + jsonProducts[i].product?.request_id + ' / action: ' + reasonSelectedAction + ' / actionMessage: ' + jsonProducts[i].reasonSelected + ' / item_id: ' + jsonProducts[i].product?.item_id);
+                    console.log('Cancel shippingId: ' + + jsonProducts[i].product?.reason.Id);
 
                     await sendAction({
                         orderId: jsonProducts[i].product?.request_id,
@@ -512,7 +513,7 @@ export default class Icx_orderActionsExchangeReturn extends LightningModal {
                         }).catch((error) => {
                             console.error('get duplicate invoice - error for shipping id ' + jsonProducts[i].product.request_id + ': ', error);
                             LightningAlert.open({
-                                message: error.body?.message ? typeof error.body?.message != 'string' && JSON.parse(error.body?.message).statusCode && JSON.parse(error.body?.message).errorMessage ? JSON.parse(error.body?.message).errorMessage + " \r\n Code Error : " + JSON.parse(error.body?.message).statusCode : error.body?.message : "An error occured",
+                                message: error.body?.message ? typeof error.body?.message != 'string' && JSON.parse(error.body?.message).statusCode && JSON.parse(error.body?.message).errorMessage ? JSON.parse(error.body?.message).errorMessage + " \r\n Code Error : " + JSON.parse(error.body?.message).statusCode :   error.body?.message : "An error occured" ,
                                 theme: 'error', // a red theme intended for error states
                                 label: 'Download Invoice Error for shipping ' + jsonProducts[i].product.request_id, // this is the header text
                             });

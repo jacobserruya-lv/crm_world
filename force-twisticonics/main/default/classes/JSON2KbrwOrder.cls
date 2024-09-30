@@ -157,6 +157,14 @@ system.debug('CAR-JGU-deserialize-14');
 		}
 	} 
 
+	//CSC-574 If Order Number starts with 'nx', it is an ATG migrant order
+	@AuraEnabled
+	public Boolean isATG {
+		get {
+			return (order_id.startsWith('nx'));
+		}
+	}
+
 	@AuraEnabled
 	public Ship_to ship_to {
 		get {
@@ -680,6 +688,7 @@ system.debug('CAR-JGU-deserialize-14');
 				if(prefix.contains('tMrs')) return 'Mrs';
 				else if(prefix.contains('tMr')) return 'Mr';
 				else if(prefix.contains('tMs')) return 'Ms';
+				else if(prefix.contains('tMx')) return 'Mx';
 				else if(prefix.contains('tUnknown')) return 'Prefer not to say';
 				else return prefix;
 			}
@@ -704,6 +713,7 @@ system.debug('CAR-JGU-deserialize-14');
 		@AuraEnabled public String status {get;set;} // TWIST-29860 - Can by empty in case of Exchange. In our case is usefull in order to determine if the SG has a pending return or not
 		@AuraEnabled public Boolean isPartOfThisOrder {get;set;} // TWIST-29860 - usefull ? I'm not sure...
 	}
+
 	
 	public class Order_lines {
 		@AuraEnabled public String item_id {get;set;} 
@@ -761,6 +771,7 @@ system.debug('CAR-JGU-deserialize-14');
 
 		// Custom Fields
 		@AuraEnabled public Boolean isTwist {get;set;}
+		@AuraEnabled public Boolean isATG {get;set;}
 		@AuraEnabled public Tenders paymentMethod {get;set;}
 		@AuraEnabled public String orderChannel {get;set;} //TWIST-27414
 		@AuraEnabled public Boolean isExchange {get;set;} //TWIST-34953
@@ -1005,11 +1016,12 @@ system.debug('CAR-JGU-deserialize-14');
 		// Order action "refund" is eligeable if :
 		// CASE 1: (is a return) And (Status = 'accepted')
 		// CASE 2: (Status = 'cancelled') AND (payment method is 'Bank Transfer') AND (exists "pending_payment" in status history)
+		//CSC - 574 Add a new condition isATG
 		@AuraEnabled
 		public Boolean isRefundAvailable {
 			get {
 				return ( (isReturn && (status == 'accepted')) 
-					|| ((status == 'cancelled') && (paymentMethod?.description == 'VIB') && hasPendingPaymentInLogs) );
+					|| ((status == 'cancelled') && (paymentMethod?.description == 'VIB') && ( hasPendingPaymentInLogs || isATG )) );
 				// return true;
 			}
 		}
@@ -1221,6 +1233,8 @@ system.debug('CAR-JGU-deserialize-14');
 			orderLine.currency_Z = transactionInfo?.currency_Z;
 			// isTwist
 			orderLine.isTwist = isTwist;
+			//isATG
+			orderLine.isATG = isATG;
 			// Source Store : usefull for "Order Actions"
 			orderLine.sourceStore = store;
 			// Channel  

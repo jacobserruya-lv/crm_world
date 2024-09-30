@@ -161,6 +161,52 @@ public with sharing class ICX_OrderShippingStatusService {
             }
         }
 	}
+
+    // <TODO> - //
+    /**
+     * Calculate the Status Iconics at Shipping Group History level
+     */
+    public static void setIconicsShippingGroupStatusHistory(JSON2KbrwOrderV2 order){
+        IconicsStatusWrapper isw;
+        List<String> rmsIds = new List<String>();
+        for(JSON2KbrwOrderV2.Shipping_groups orderLine: order.order_lines) { 
+            for(JSON2KbrwOrderV2.Logs log: orderLine?.logs) {
+                if (log.location?.rms_id != null) {
+                    rmsIds.add(log.location.rms_id);
+                }
+                else system.debug('ERROR - ICX_OrderShippingStatusService.setIconicsShippingGroupStatusHistory - missing log.location.rms_id');
+                rmsIds.add(orderLine.reason.Pickup_Location__c);
+            }
+            if (orderLine.reason?.Pickup_Location__c != null) {
+                rmsIds.add(orderLine.reason.Pickup_Location__c);
+            }
+        }
+        Map<String, Store__c> storeByRmsId = getStoreByRmsId(rmsIds); 
+        for(JSON2KbrwOrderV2.Shipping_groups orderLine: order.order_lines) { 
+            for(JSON2KbrwOrderV2.Logs log: orderLine?.logs) {
+                isw = new IconicsStatusWrapper();
+                isw.status = log.status;
+                // isw.source_location = storeByRmsId?.get(log.location.rms_id)?.StoreType__c;
+                if (String.isNotEmpty(log.location?.rms_id)) {
+                    isw.source_location = storeByRmsId?.get(log.location.rms_id);
+                }
+                system.debug('xxx-log.status:'+log.status);
+                system.debug('xxx-orderLine.reason:'+log.status + '/' +orderLine.reason);
+                system.debug('xxx-orderLine.reason.Pickup_Location__c:'+log.status + '/' +orderLine.reason.Pickup_Location__c);
+                if (String.isNotEmpty(orderLine.reason.Pickup_Location__c)) {
+                    isw.pickup_location = storeByRmsId?.get(orderLine.reason.Pickup_Location__c);
+                }
+                isw.deliveryType = orderLine.fulfillment_type;
+
+                setIconicsStatus(isw);
+                
+                log.statusIconics   = isw.statusIconics;
+                log.messageIconics  = isw.statusIconicsMessage; 
+                log.statusColor     = isw.statusIconicsColor;
+
+            }
+        }
+	}
     
     
     /**

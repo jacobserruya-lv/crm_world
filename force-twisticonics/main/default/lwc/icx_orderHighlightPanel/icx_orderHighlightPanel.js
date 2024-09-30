@@ -15,6 +15,7 @@ import hasOrderActionDeclareFundReceptionVisibility from '@salesforce/customPerm
 import hasOrderActionAproveRejectPMAVisibility from '@salesforce/customPermission/ICX_Order_Action_Approve_Reject_PMA';
 import hasOrderActionDownloadInvoice from '@salesforce/customPermission/ICX_Order_Action_Download_Invoice';
 import hasOrderShippingCancelPermission from '@salesforce/customPermission/ICX_OrderShippingCancel';
+import hasOrderShippingCancelLimitedPermission from '@salesforce/customPermission/ICX_OrderShippingCancelLimited';
 import hasOrderActionManualRefundShippingFeesPermission from '@salesforce/customPermission/ICX_OrderActionManualRefundShippingFees';
 
 
@@ -58,6 +59,9 @@ export default class ICX_Order_highlight_Panel_LWC extends NavigationMixin(Light
   get hasOrderShippingCancelPermission() {
     return hasOrderShippingCancelPermission;
   }
+  get hasOrderShippingCancelLimitedPermission() {
+    return hasOrderShippingCancelLimitedPermission;
+  }
 
 
   // Retrieve the values available in the button "Order Actions"
@@ -91,6 +95,7 @@ export default class ICX_Order_highlight_Panel_LWC extends NavigationMixin(Light
 
     // If the user is allowed to process "Order Actions"
     console.log('this.hasOrderShippingCancelPermission:' + this.hasOrderShippingCancelPermission);
+    console.log('this.hasOrderShippingCancelLimitedPermission:' + this.hasOrderShippingCancelLimitedPermission);
     console.log('this.hasOrderActionsVisibility:' + this.hasOrderActionsVisibility);
     console.log('hasOrderActionsVisibility:' + hasOrderActionsVisibility);
 
@@ -173,11 +178,17 @@ export default class ICX_Order_highlight_Panel_LWC extends NavigationMixin(Light
         orderActions[i].disabled = !this.orderdetailsapi.hasDownloadInvoice;
       }
 
+      
       //CANCEL
-
       else if (this.hasOrderShippingCancelPermission && orderActions[i].value == 'cancelShipping') {
         orderActions[i].disabled = !this.orderdetailsapi.hasCancel;
-
+      }
+      else if (this.hasOrderShippingCancelLimitedPermission && orderActions[i].value == 'cancelShipping') {
+        for (var j = 0; j < this.orderdetailsapi.order_lines.length; j++) {
+          if (this.orderdetailsapi.order_lines[j].isCancelLimitedAvailable) {
+            orderActions[i].disabled = false;
+          }
+        }
       }
 
       // MANUAL REFUND SHIPPING FEES
@@ -276,8 +287,9 @@ export default class ICX_Order_highlight_Panel_LWC extends NavigationMixin(Light
             products.push(orderdetailsapi.order_lines[i]);
           }
         }
-        else if (event.detail.value == 'cancelShipping') {
-          if (orderdetailsapi.order_lines[i].available_actions.includes('cancel') && !orderdetailsapi.order_lines[i].isReturn) {
+        else if ( (event.detail.value == 'cancelShipping') ) {
+          if ( (hasOrderShippingCancelPermission && orderdetailsapi.order_lines[i].available_actions.includes('cancel') && !orderdetailsapi.order_lines[i].isReturn)
+            || (hasOrderShippingCancelLimitedPermission && orderdetailsapi.order_lines[i].isCancelLimitedAvailable) ) {
             products.push(orderdetailsapi.order_lines[i]);
           }
         }

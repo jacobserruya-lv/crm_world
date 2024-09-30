@@ -116,15 +116,10 @@ export default class ICX_Order_Shipping_Tile_List_LWC extends LightningElement {
         const tileSelected = this.template.querySelectorAll('c-icx_order-shipping-tile');
 
         for (let i = 0; i < tileSelected.length; i++) {
-            console.log('dans le for : ')
             tileSelected[i].unSelectTile();
         }
-        console.log('orderShippingTileList- selectTile() event.detail' + JSON.stringify(event.detail));
-        console.log('orderShippingTileList- selectTile() event.detail.reason' + JSON.stringify(event.detail.reason));
-
 
         this.selectedProductId = event.detail.reason.Id;
-        console.log('orderShippingTileList- selectTile() this.selectedProductId' + JSON.stringify(this.selectedProductId));
 
         event.currentTarget.selectTile();
 

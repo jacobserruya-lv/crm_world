@@ -40,6 +40,23 @@ export default class Icx_orderActionApproveRejectPMA extends LightningModal {
             // For each product selected
             for (let i = 0; i < this.products.length; i++) {
                 let productToApproveRefusePMA = this.products[i];
+
+                // bodyToSend  = {
+                //     requesting_system: 'ICONICS',
+                //     id: productToApproveRefusePMA.request_id,
+                //     line_number: parseInt(productToApproveRefusePMA.line_number),
+                //     item_id: productToApproveRefusePMA.item_id,
+                //     action_message: '',
+                //     action: this.selectedaction
+                // }
+
+                // console.log('Icx_orderActionApproveRejectPMA-bodyToSend'+bodyToSend);
+                // console.log('Icx_orderActionApproveRejectPMA-bodyToSend'+JSON.stringify(bodyToSend));
+
+                // await sendAction({
+                //     body : bodyToSend,
+                //     shippingId: productToApproveRefusePMA.reason.Id
+                // })
                 console.log('Icx_orderActionApproveRejectPMA - sendAction params', productToApproveRefusePMA.request_id, productToApproveRefusePMA.item_id, this.selectedaction, productToApproveRefusePMA.reason.Id);
 
                 await sendAction({
