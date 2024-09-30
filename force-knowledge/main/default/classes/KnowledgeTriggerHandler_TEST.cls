@@ -133,7 +133,59 @@ public with sharing class  KnowledgeTriggerHandler_TEST{
         // A Knowledge updated
         Knowledge__kav updatedKnowledge = [SELECT Id, UrlName, Themes__c, Client_Service__c, Website__c, CreatedDate FROM Knowledge__kav WHERE Id = :knowledgeToUpdate.Id];
         System.assertEquals(knowledgeToUpdate.Id, updatedKnowledge.Id);
-    }    
+    } 
+    
+    
+    @isTest static void handleWorlwideArticlesBeforeInsert(){
+        Id RCInternal = Schema.SObjectType.Knowledge__kav.getRecordTypeInfosByDeveloperName().get('Internal').getRecordTypeId();
+        
+        Knowledge__kav aKnowledgeToInsert = new Knowledge__kav();
+        aKnowledgeToInsert.Title='Test Apex';
+        aKnowledgeToInsert.Article_Body__c='Apex test article creation';
+        aKnowledgeToInsert.Client_Service__c='Worldwide';
+        aKnowledgeToInsert.Themes__c ='Orders';
+        aKnowledgeToInsert.Website__c ='fr_fr';
+        aKnowledgeToInsert.UrlName='Test-Apex';
+        aKnowledgeToInsert.RecordTypeId = RCInternal;
+
+        insert aKnowledgeToInsert;
+
+    
+        Knowledge__kav insertedKnowledge = [SELECT Id, UrlName, Themes__c, Client_Service__c, Website__c, CreatedDate FROM Knowledge__kav WHERE Id = :aKnowledgeToInsert.Id];
+
+        System.assert(insertedKnowledge.Client_Service__c.split(';').contains('Europe'));
+
+    }  
+
+    @isTest static void handleWorlwideArticlesBeforeUpdate(){
+        Id RCInternal = Schema.SObjectType.Knowledge__kav.getRecordTypeInfosByDeveloperName().get('Internal').getRecordTypeId();
+    
+
+        Knowledge__kav aKnowledgeToUpdate = new Knowledge__kav();
+        aKnowledgeToUpdate.Title='Test Apex';
+        aKnowledgeToUpdate.Article_Body__c='Apex test article creation';
+        aKnowledgeToUpdate.Client_Service__c='Europe';
+        aKnowledgeToUpdate.Themes__c ='Orders';
+        aKnowledgeToUpdate.Website__c ='fr_fr';
+        aKnowledgeToUpdate.UrlName='Test-Apex';
+        aKnowledgeToUpdate.RecordTypeId = RCInternal;
+
+        insert aKnowledgeToUpdate;
+
+        // A Knowledge to update
+        Knowledge__kav knowledgeToUpdate = [SELECT Id, UrlName, Themes__c, Client_Service__c, Website__c, CreatedDate FROM Knowledge__kav WHERE Id = :aKnowledgeToUpdate.Id LIMIT 1];
+        knowledgeToUpdate.Id = aKnowledgeToUpdate.Id;
+        knowledgeToUpdate.Article_Body__c='Apex test, update an existing article';
+        knowledgeToUpdate.Client_Service__c='Worldwide';
+        update knowledgeToUpdate;
+        // A Knowledge updated
+
+    
+        Knowledge__kav updatedKnowledge = [SELECT Id, UrlName, Themes__c, Client_Service__c, Website__c, CreatedDate FROM Knowledge__kav WHERE Id = :knowledgeToUpdate.Id];
+
+        System.assert(updatedKnowledge.Client_Service__c.split(';').contains('Europe'));
+
+    }  
 
   /*   @isTest */
   /*   static void UpdatePublicVisibilityForExternal_TEST() */

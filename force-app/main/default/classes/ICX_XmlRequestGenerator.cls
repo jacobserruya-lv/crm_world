@@ -125,6 +125,12 @@ public class ICX_XmlRequestGenerator {
                 createElementAndTextNodeMetapack('Receiver.Email',care.getSobject('Client__r').get('PersonEmail'));              
                  //BusinessParameters
                 createElementAndTextNodeMetapack('DeliveryType','HD');
+
+                //CSC-376 Japan Send Total Amount and Currency 
+                if(care.get('StoreRetailCode__c') == 'VJ3' && care.get('TotalAmountWithTax__c') != null){
+                    createElementAndTextNodeMetapack('Shipment.CODAmount',care.get('TotalAmountWithTax__c'));
+                    createElementAndTextNodeMetapack('Shipment.CODCurrency','JPY');
+                }
             }
             
             
@@ -225,9 +231,9 @@ public class ICX_XmlRequestGenerator {
         createElementAndTextNodeMyRepair(CustomerInformation,'rmsCountryClientId',care.getSobject('Client__r').get('RMSId__pc')); 
         createElementAndTextNodeMyRepair(CustomerInformation,'workPhoneNumber',care.getSobject('Client__r').get('Phone'));
         createElementAndTextNodeMyRepair(CustomerInformation,'workPhoneNumberCountryCodeIso2',care.getSobject('Client__r').get('WorkPhoneCountryCode__pc'));
-        
+    
+
         Dom.XMLNode OrderInformation = CustomerInformation.addChildElement('salesForceOrderInformation', null, null);
-       
         createElementAndTextNodeMyRepair(OrderInformation,'creationDate', care.get('CreatedDate'));
         createElementAndTextNodeMyRepair(OrderInformation,'externalComments', care.get('Client_Comments__c'));
         createElementAndTextNodeMyRepair(OrderInformation,'followUpEmail', care.get('FollowupBy_Email__c'));
@@ -250,6 +256,8 @@ public class ICX_XmlRequestGenerator {
         else
         createElementAndTextNodeMyRepair(OrderInformation,'sku', care.get('SKU__c'));
         createElementAndTextNodeMyRepair(OrderInformation,'destination', care.get('Destination__c'));
+        Dom.XMLNode MapPropertiesImpl = OrderInformation.addChildElement('mapProperties', null, null);
+        createElementAndTextNodeMyRepair(MapPropertiesImpl,'addFieldFuture1',care.getSobject('Client__r').get('C360GoldenID__c'));
         req = doc.toXmlString();
         system.debug('### handleSalesForceOrder Request Body : '+req) ;
 

@@ -45,4 +45,4 @@ public with sharing class BL_EMAIL_File_Helper {
         
         insert contentLink;
     }
-}
+}  

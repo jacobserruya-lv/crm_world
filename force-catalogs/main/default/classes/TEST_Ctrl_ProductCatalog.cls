@@ -917,7 +917,7 @@ public class TEST_Ctrl_ProductCatalog {
 	@IsTest
 	static void testEncryptWithManagedIV()
 	{
-	   String dataToEncrypt = 'https://lv-alpha-dev-wa.azurewebsites.net/?lng=EN&productName=Boîte%20Bijoux&sku=M20291&country=FRANCE&storeCode=A&appName=catalogdesktop&timestamp=1698832115&token=DUQFNnZl_lp6C9etUWU0LIMEkE3Mt8uUuKBRdSyBESk=';
+	   String dataToEncrypt = 'https://lv-alpha-dev-wa.azurewebsites.net/?lng=EN&productName=Boîte%20Bijoux&sku=M20291&country=FR&storeCode=A&appName=catalogdesktop&timestamp=1698832115&token=DUQFNnZl_lp6C9etUWU0LIMEkE3Mt8uUuKBRdSyBESk=';
 	   String keys = 'ConfidantialsInformation';
 	   Catalogue_Settings__c orgDefault = new Catalogue_Settings__c();
         orgDefault.SetupOwnerId=UserInfo.getOrganizationId();
@@ -929,6 +929,22 @@ public class TEST_Ctrl_ProductCatalog {
        system.debug('Test results =>'+finalEncryptData);
 	   Assert.isNotNull(finalEncryptData);
 	   Test.stopTest();
+	}
+
+	@isTest 
+	static void testTransformCountryNameToIso2() {
+		Country__c coun = new Country__C(
+			Name = 'FRANCE',
+			Iso2Code__c = 'FR',
+			CannotEditClient__c = true,
+			tech_duplicate__c = 'FRANCE'
+		);
+		insert coun;
+
+		Test.startTest();
+		String iso2 = Ctrl_ProductCatalog.transformCountryNameToIso2(coun.Name);
+		system.assertEquals('FR', iso2);
+		Test.stopTest();
 	}
 
 	// @isTest

@@ -39,7 +39,9 @@ export default class knowledgeWidgetLWC extends NavigationMixin(LightningElement
 			{ label: 'Singapore', value: 'Singapore' },
 			{ label: 'Thailand', value: 'Thailand' },
 			{ label: 'USA', value: 'USA' },	
-			{ label: 'Vietnam', value: 'Vietnam' },				
+			{ label: 'Vietnam', value: 'Vietnam' },		
+            { label: 'Worldwide', value: 'Worldwide' },				
+		
         ];
     }
 

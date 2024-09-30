@@ -1,14 +1,22 @@
-<aura:component implements="force:hasRecordId,force:appHostable,lightning:availableForFlowScreens,flexipage:availableForRecordHome,lightning:actionOverride,forceCommunity:availableForAllPageTypes,force:lightningQuickActionwithoutHeader,force:hasSObjectName">
+<aura:component
+    implements="force:hasRecordId,force:appHostable,lightning:availableForFlowScreens,flexipage:availableForRecordHome,lightning:actionOverride,forceCommunity:availableForAllPageTypes,force:lightningQuickActionwithoutHeader,force:hasSObjectName"
+    controller="EmailComposer_CTRL">
 
     <aura:attribute name="defaultValues" type="Object" default="{}" />
     <aura:attribute name="applicationName" type="String" default="ICONICS" />
-    <!-- <aura:handler name="init" value="{!this}" action="{!c.onInit}" /> -->
+    <aura:attribute name="recordId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
 
     <!-- encodeURIComponent(JSON.stringify(v.myObject)) -->
     <aura:if isTrue="{!not(empty(v.defaultValues))}">
-        <iframe src="{!'/apex/EmailComposer_VF?recordId=' + v.recordId +'&amp;application=' + v.applicationName}"
+        <iframe
+            src="{!'/apex/EmailComposer_VF?recordId=' + v.recordId +'&amp;application=' + v.applicationName+'&amp;refreshRecordPage='+v.refreshRecordPage}"
             width="100%" height="800px" frameborder="0" />
     </aura:if>
-
+    <aura:html tag="style">
+        .slds-modal__container {
+        min-width: 60rem;
+        }
+    </aura:html>
 
 </aura:component>

@@ -6,8 +6,52 @@ public with sharing class ICX_WS_MyRepair {
     //Create MyRepair Order
     @AuraEnabled (cacheable=true)
     public static String createRepairOrder(ID careId) {
-        CareService__c care =[select id,CreatedDate,SKU__c,Shipping_Address_Line_1__c,Shipping_Address_Line_2__c,Shipping_City__c,Shipping_Zip_Postal_Code__c,Shipping_State_Province__c,Shipping_Country__c,Client_Comments__c,FollowupBy_Email__c,FollowupBy_Call__c,FollowupBy_Video_Call__c,FollowupBy_Chat__c,Product_Sku_unknown__c,Category__c,Repair_Center_Comments__c,MyRepairStatus__c,Delivery_Date__c,CA_Code__c,TransactionId__c,StoreRetailCode__c,Store__r.Store_CountryCode__c,ICONiCS_Status_Detail__c,Client__r.PersonEmail,Client__r.Salutation,Client__r.ECO_ClientId__c,Client__r.LastName,Client__r.Lastname2__pc,Client__r.FirstName,Client__r.Firstname2__pc,Client__r.PersonHomePhone,Client__r.HomePhoneCountrycode__pc,Client__r.Nationality__pc,Client__r.PersonMobilePhone,Client__r.MobilePhoneCountryCode__pc,Client__r.AttachedStore__pc,Client__r.AttachedStoreCode__pc,Client__r.RMSId__pc,Client__r.Phone,Client__r.WorkPhoneCountryCode__pc,Product__r.SKU__c,Destination__c from CareService__c 
-                                        where id =:careId];   
+        CareService__c care =[SELECT id,
+                                     CreatedDate,
+                                     SKU__c,
+                                     Shipping_Address_Line_1__c,
+                                     Shipping_Address_Line_2__c,
+                                     Shipping_City__c,
+                                     Shipping_Zip_Postal_Code__c,
+                                     Shipping_State_Province__c,
+                                     Shipping_Country__c,
+                                     Client_Comments__c,
+                                     FollowupBy_Email__c,
+                                     FollowupBy_Call__c,
+                                     FollowupBy_Video_Call__c,
+                                     FollowupBy_Chat__c,
+                                     Product_Sku_unknown__c,
+                                     Category__c,
+                                     Repair_Center_Comments__c,
+                                     MyRepairStatus__c,
+                                     Delivery_Date__c,
+                                     CA_Code__c,
+                                     TransactionId__c,
+                                     StoreRetailCode__c,
+                                     Store__r.Store_CountryCode__c,
+                                     ICONiCS_Status_Detail__c,
+                                     Client__r.PersonEmail,
+                                     Client__r.Salutation,
+                                     Client__r.ECO_ClientId__c,
+                                     Client__r.LastName,
+                                     Client__r.Lastname2__pc,
+                                     Client__r.FirstName,
+                                     Client__r.Firstname2__pc,
+                                     Client__r.PersonHomePhone,
+                                     Client__r.HomePhoneCountrycode__pc,
+                                     Client__r.Nationality__pc,
+                                     Client__r.PersonMobilePhone,
+                                     Client__r.MobilePhoneCountryCode__pc,
+                                     Client__r.AttachedStore__pc,
+                                     Client__r.AttachedStoreCode__pc,
+                                     Client__r.RMSId__pc,
+                                     Client__r.C360GoldenID__c,
+                                     Client__r.Phone,
+                                     Client__r.WorkPhoneCountryCode__pc,
+                                     Product__r.SKU__c,
+                                     Destination__c
+                                FROM CareService__c 
+                                WHERE id =:careId];   
               String returnString = null;
             //Request
             HttpRequest req = new HttpRequest();      
@@ -86,8 +130,52 @@ public with sharing class ICX_WS_MyRepair {
     @future(callout = true)
     public static void updateRepairOrderStatus(set<ID> careIds) {
         
-        List<CareService__c> listCare =[select id,CreatedDate,SKU__c,Shipping_Address_Line_1__c,Shipping_Address_Line_2__c,Shipping_City__c,Shipping_Zip_Postal_Code__c,Shipping_State_Province__c,Shipping_Country__c,Client_Comments__c,FollowupBy_Email__c,FollowupBy_Call__c,FollowupBy_Video_Call__c,FollowupBy_Chat__c,Product_Sku_unknown__c,Category__c,Repair_Center_Comments__c,MyRepairStatus__c,Delivery_Date__c,CA_Code__c,TransactionId__c,StoreRetailCode__c,ICONiCS_Status_Detail__c,Client__r.PersonEmail,Client__r.Salutation,Client__r.ECO_ClientId__c,Client__r.LastName,Client__r.Lastname2__pc,Client__r.FirstName,Client__r.Firstname2__pc,Client__r.PersonHomePhone,Client__r.HomePhoneCountrycode__pc,Client__r.Nationality__pc,Client__r.PersonMobilePhone,Client__r.MobilePhoneCountryCode__pc,Client__r.AttachedStore__pc,Client__r.AttachedStoreCode__pc,Client__r.RMSId__pc,Client__r.Phone,Client__r.WorkPhoneCountryCode__pc,Product__r.SKU__c,Price_Update_Reason__c,TotalAmount_Updated__c from CareService__c 
-                                        where id IN:careIds];   
+        List<CareService__c> listCare =[SELECT id,
+                                               CreatedDate,
+                                               SKU__c,
+                                               Shipping_Address_Line_1__c,
+                                               Shipping_Address_Line_2__c,
+                                               Shipping_City__c,
+                                               Shipping_Zip_Postal_Code__c,
+                                               Shipping_State_Province__c,
+                                               Shipping_Country__c,
+                                               Client_Comments__c,
+                                               FollowupBy_Email__c,
+                                               FollowupBy_Call__c,
+                                               FollowupBy_Video_Call__c,
+                                               FollowupBy_Chat__c,
+                                               Product_Sku_unknown__c,
+                                               Category__c,
+                                               Repair_Center_Comments__c,
+                                               MyRepairStatus__c,
+                                               Delivery_Date__c,
+                                               CA_Code__c,
+                                               TransactionId__c,
+                                               StoreRetailCode__c,
+                                               ICONiCS_Status_Detail__c,
+                                               Client__r.PersonEmail,
+                                               Client__r.Salutation,
+                                               Client__r.ECO_ClientId__c,
+                                               Client__r.LastName,
+                                               Client__r.Lastname2__pc,
+                                               Client__r.FirstName,
+                                               Client__r.Firstname2__pc,
+                                               Client__r.PersonHomePhone,
+                                               Client__r.HomePhoneCountrycode__pc,
+                                               Client__r.Nationality__pc,
+                                               Client__r.PersonMobilePhone,
+                                               Client__r.MobilePhoneCountryCode__pc,
+                                               Client__r.AttachedStore__pc,
+                                               Client__r.AttachedStoreCode__pc,
+                                               Client__r.RMSId__pc,
+                                               Client__r.C360GoldenID__c,
+                                               Client__r.Phone,
+                                               Client__r.WorkPhoneCountryCode__pc,
+                                               Product__r.SKU__c,
+                                               Price_Update_Reason__c,
+                                               TotalAmount_Updated__c
+                                        FROM CareService__c 
+                                        WHERE id IN:careIds];   
         List<CareService__c> listCareToUpdate = new List<CareService__c>() ;
         for(CareService__c care : listCare){
             //Request

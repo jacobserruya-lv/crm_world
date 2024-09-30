@@ -26,7 +26,7 @@ public with sharing class KnowledgeTriggerHandler{
         }
     }
     public static void handleBeforeInsert(List<Knowledge__kav> newArticleList){
-        system.debug('<<==  Before Insert Article Trigger. Now, Checking field urlName of article to insert ==>> ');
+        System.debug('<<==  Before Insert Article Trigger. Now, Checking field urlName of article to insert ==>> ');
         // Create a List of all non latines websites
         List<String> listOfNotlatinesWebSites  = new List<String>{'zh_cn','zh_hk','ja_jp','ko_kr','ar_ae','ru_ru','zh_tw','th_th'};
         List<String> listOfNotlatinesCS  = new List<String>{'China','Hong_Kong_Macao_Taiwan','India','Indonesia','Japan','Korea','Middle_East','Singapore','Thailand','Vietnam'};
@@ -45,10 +45,25 @@ public with sharing class KnowledgeTriggerHandler{
             }
         }
 
+        if (!newArticleList.isEmpty()){
+            List<Knowledge__kav> aknowledgeArticleClientService = new List<Knowledge__kav>();
+            Id RCInternal = Schema.SObjectType.Knowledge__kav.getRecordTypeInfosByDeveloperName().get('Internal').getRecordTypeId();
+            for(Knowledge__kav aknowledgeArticle : newArticleList){
+                if(aknowledgeArticle.RecordTypeId == RCInternal && aknowledgeArticle.Client_Service__c!=null && aknowledgeArticle.Client_Service__c.split(';').contains('Worldwide')) {
+                    aknowledgeArticleClientService.add(aknowledgeArticle);
+                }
+            }
+            if(!aknowledgeArticleClientService.isEmpty())
+            {
+
+                UpdateClientService(aknowledgeArticleClientService);
+            }
+        }
+
         UpdatePublicVisibilityForExternal(newArticleList,null);
     }
     public static void handleBeforeUpdate(List<Knowledge__kav> newArticleList, Map<id,Knowledge__kav> oldArticleMap){
-        system.debug('<<==  Before Update Article Trigger. Now, Checking field urlName of article to update ==>> ');
+        System.debug('<<==  Before Update Article Trigger. Now, Checking field urlName of article to update ==>> ');
         // Create a List of all non latines websites and Client Services
         List<String> listOfNotlatinesWebSites  = new List<String>{'zh_cn','zh_hk','ja_jp','ko_kr','ar_ae','ru_ru','zh_tw','th_th'};
         List<String> listOfNotlatinesCS  = new List<String>{'China','Hong_Kong_Macao_Taiwan','India','Indonesia','Japan','Korea','Middle_East','Singapore','Thailand','Vietnam'};
@@ -67,12 +82,27 @@ public with sharing class KnowledgeTriggerHandler{
             }
         }
 
+        if (!newArticleList.isEmpty()){
+            List<Knowledge__kav> aknowledgeArticleClientService = new List<Knowledge__kav>();
+            Id RCInternal = Schema.SObjectType.Knowledge__kav.getRecordTypeInfosByDeveloperName().get('Internal').getRecordTypeId();
+            for(Knowledge__kav aknowledgeArticle : newArticleList){
+                if(aknowledgeArticle.RecordTypeId == RCInternal && aknowledgeArticle.Client_Service__c!=null &&  aknowledgeArticle.Client_Service__c!=oldArticleMap.get(aknowledgeArticle.Id).Client_Service__c && aknowledgeArticle.Client_Service__c.split(';').contains('Worldwide')) {
+                    aknowledgeArticleClientService.add(aknowledgeArticle);
+                }
+            }
+            if(!aknowledgeArticleClientService.isEmpty())
+            {
+
+                UpdateClientService(aknowledgeArticleClientService);
+            }
+        }
+
         UpdatePublicVisibilityForExternal(newArticleList,oldArticleMap);
 
     }
 
     public static String handleBeforeInsertUpdate(Knowledge__kav articleKnow, List<String> listOfNotlatine, List<String> listWebs){
-        system.debug('<<==  In method BeforeInsertUpdate Article Trigger ==>> ');
+        System.debug('<<==  In method BeforeInsertUpdate Article Trigger ==>> ');
         String savedUrlName = articleKnow.UrlName;        
         if(listWebs.size()>0){
             for(String currentWeb : listWebs){
@@ -188,7 +218,7 @@ public with sharing class KnowledgeTriggerHandler{
     };  
 
     public static void handleAfterInsert(List<Knowledge__kav> articleList){
-        system.debug('<<==  After Insert Article Trigger. Now, Inserting in Knowledge__DataCategorySelection ==>> ');
+        System.debug('<<==  After Insert Article Trigger. Now, Inserting in Knowledge__DataCategorySelection ==>> ');
         List<Knowledge__DataCategorySelection> finalArticleList = new  List<Knowledge__DataCategorySelection>();
         if (articleList.Size()>0){
             // New Knowledge__DataCategorySelection's creation with knowledge article given categories
@@ -206,7 +236,7 @@ public with sharing class KnowledgeTriggerHandler{
         }
     }
     public static void handleAfterUpdate(List<Knowledge__kav> articleList){
-        system.debug('<<==   After Update Article Trigger. Now, Updating Knowledge__DataCategorySelection ==>> ');
+        System.debug('<<==   After Update Article Trigger. Now, Updating Knowledge__DataCategorySelection ==>> ');
         List<Knowledge__DataCategorySelection> finalArticleList = new  List<Knowledge__DataCategorySelection>();
         List<Knowledge__DataCategorySelection> dataCategoriesList = [SELECT ParentId, DataCategoryGroupName, DataCategoryName
                                                                      FROM Knowledge__DataCategorySelection
@@ -226,7 +256,7 @@ public with sharing class KnowledgeTriggerHandler{
                 // Insertion After Update categories in Knowledge__DataCategorySelection
                 if(finalArticleList.size()>0) {
                     insert finalArticleList;}} catch (Exception ex) {
-                system.debug('<<==  An error occured while updating a Knowledge__DataCategorySelection ==> ' + ex.getMessage());
+                System.debug('<<==  An error occured while updating a Knowledge__DataCategorySelection ==> ' + ex.getMessage());
             }
         }
     }
@@ -273,6 +303,21 @@ public with sharing class KnowledgeTriggerHandler{
             {
                 currentArticle.IsVisibleInPkb=true;
             }
+        }
+    }
+
+    // naomi 30/06 Client service update for Worldwide selection
+    public static void UpdateClientService(List<Knowledge__kav> aknowledgeArticleClientService){
+        String pickListValuesString = '';
+        Schema.DescribeFieldResult fieldResult = Knowledge__kav.Client_Service__c.getDescribe();
+        List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
+
+        for( Schema.PicklistEntry pickListVal : ple){
+            pickListValuesString+=(pickListVal.getValue() + ';');
+        }     
+
+        for(Knowledge__kav aknowledgeArticle : aknowledgeArticleClientService){
+            aknowledgeArticle.Client_Service__c = pickListValuesString;
         }
     }
 }
