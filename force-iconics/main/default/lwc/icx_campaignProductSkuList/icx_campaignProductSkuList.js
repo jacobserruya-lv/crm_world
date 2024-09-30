@@ -172,14 +172,14 @@ export default class Icx_campaignProductSkuList extends NavigationMixin(Lightnin
         if (userManager) {
             this.tableData.headers = [
                 { type: "text", label: "Product Name" },
-                { type: "text", label: "Prduct SKU" },
+                { type: "text", label: "Product SKU" },
                 { type: "image", label: "" }
             ];
         }
         else {
             this.tableData.headers = [
                 { type: "text", label: "Product Name" },
-                { type: "text", label: "Prduct SKU" },
+                { type: "text", label: "Product SKU" },
             ];
         }
     }
