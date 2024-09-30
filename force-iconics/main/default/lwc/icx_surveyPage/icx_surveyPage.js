@@ -25,7 +25,7 @@ export default class Icx_surveyPage extends NavigationMixin(LightningElement) {
     @track isMoreSurveyRecords = true;
     isLoadingMoreSurveyRecords = false;
 
-    pageSize = 10;
+    pageSize = 50;
     @track pageIndex = 0;
     percentOnScroll = 95;
 
@@ -299,7 +299,6 @@ export default class Icx_surveyPage extends NavigationMixin(LightningElement) {
 
 
         if (heightScrolled >= heightToCallApi && this.isMoreSurveyRecords && !this.isLoadingMoreSurveyRecords) {
-            this.isLoading = true;
             this.getSurveySF()
         }
     }
