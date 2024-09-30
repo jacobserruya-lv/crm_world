@@ -1,0 +1,33 @@
+<template>
+    <div class="modalSpinner">
+        <lightning-modal-header label={orderaction.label}></lightning-modal-header>
+        <lightning-modal-body>
+            <template if:true={isLoading}>
+                 <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                 </lightning-spinner>
+            </template>
+            <div class="slds-box">
+               Are you sure you want to do a manual refund shipping fees on this order ?
+            </div>   
+        <div >
+            <lightning-layout-item size="12">
+                <lightning-combobox
+                    class="method"
+                    name="method"
+                    label="Refund Method"
+                    value={methodSelected}
+                    placeholder="Refund Method"
+                    options={methods}
+                    onchange={handleMethodChange}
+                    required={reasonRequired}
+                    variant="">
+                </lightning-combobox>
+            </lightning-layout-item>
+        </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button label="Yes" onclick={handleYes}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>
