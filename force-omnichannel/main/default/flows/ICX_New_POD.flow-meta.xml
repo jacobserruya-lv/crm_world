@@ -10,7 +10,7 @@
         <connector>
             <targetReference>Object</targetReference>
         </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>recordIds</name>
             <value>
@@ -54,7 +54,7 @@
         <connector>
             <targetReference>Open_new_Case_POD</targetReference>
         </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>category</name>
             <value>
@@ -478,7 +478,7 @@
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Check_Id</targetReference>
+            <targetReference>Update_parent_with_HasParent</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -517,6 +517,30 @@
             <field>AccountId</field>
         </outputAssignments>
     </recordLookups>
+    <recordUpdates>
+        <name>Update_parent_with_HasParent</name>
+        <label>Update parent with HasParent</label>
+        <locationX>314</locationX>
+        <locationY>458</locationY>
+        <connector>
+            <targetReference>Check_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Qualifications__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>hasParent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
     <recordUpdates>
         <name>UpdateTaskWithQualification</name>
         <label>UpdateTaskWithQualification</label>
@@ -595,21 +619,11 @@
                     <booleanValue>false</booleanValue>
                 </value>
             </inputParameters>
-            <inputParameters>
-                <name>recordId</name>
-                <value>
-                    <elementReference>recordId</elementReference>
-                </value>
-            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>VarAccountID</assignToReference>
                 <name>accountId</name>
-            </outputParameters>
-            <outputParameters>
-                <assignToReference>recordId</assignToReference>
-                <name>recordId</name>
             </outputParameters>
         </fields>
         <showFooter>true</showFooter>
@@ -634,7 +648,7 @@
             <defaultSelectedChoiceReference>PODWithSKU</defaultSelectedChoiceReference>
             <fieldText>Select POD Type</fieldText>
             <fieldType>DropdownBox</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
@@ -661,7 +675,7 @@
                     <elementReference>selectedProductId</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>catevoryValue</assignToReference>
@@ -732,7 +746,7 @@
                     <stringValue></stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -746,7 +760,7 @@
             <targetReference>objectsInspection</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>catevoryValue</name>
         <dataType>String</dataType>

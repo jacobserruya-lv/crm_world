@@ -3,14 +3,14 @@
     <actionCalls>
         <name>objects_Inspection</name>
         <label>objects Inspection</label>
-        <locationX>556</locationX>
+        <locationX>776</locationX>
         <locationY>134</locationY>
         <actionName>objectsInspection</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>Object</targetReference>
         </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>recordIds</name>
             <value>
@@ -28,7 +28,7 @@
     <actionCalls>
         <name>open_case</name>
         <label>open case</label>
-        <locationX>226</locationX>
+        <locationX>446</locationX>
         <locationY>2438</locationY>
         <actionName>c:OpenSObject</actionName>
         <actionType>component</actionType>
@@ -95,8 +95,8 @@
     <decisions>
         <name>client_ID</name>
         <label>client ID ?</label>
-        <locationX>556</locationX>
-        <locationY>650</locationY>
+        <locationX>776</locationX>
+        <locationY>758</locationY>
         <defaultConnector>
             <targetReference>Client_Search</targetReference>
         </defaultConnector>
@@ -127,8 +127,8 @@
     <decisions>
         <name>ContinueOrFinishTheFlow</name>
         <label>ContinueOrFinishTheFlow</label>
-        <locationX>556</locationX>
-        <locationY>1058</locationY>
+        <locationX>776</locationX>
+        <locationY>1166</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Continue</name>
@@ -149,8 +149,8 @@
     <decisions>
         <name>Is_Order_Shipping</name>
         <label>Is Order Shipping</label>
-        <locationX>226</locationX>
-        <locationY>1490</locationY>
+        <locationX>446</locationX>
+        <locationY>1598</locationY>
         <defaultConnector>
             <targetReference>Operation_Exception_Creation_Without_Order_Shipping</targetReference>
         </defaultConnector>
@@ -174,7 +174,7 @@
     <decisions>
         <name>Object</name>
         <label>Object?</label>
-        <locationX>556</locationX>
+        <locationX>776</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>client_ID</targetReference>
@@ -229,8 +229,8 @@
     <decisions>
         <name>Update_elements</name>
         <label>Update elements</label>
-        <locationX>226</locationX>
-        <locationY>2030</locationY>
+        <locationX>446</locationX>
+        <locationY>2138</locationY>
         <defaultConnector>
             <targetReference>open_case</targetReference>
         </defaultConnector>
@@ -246,7 +246,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>open_case</targetReference>
+                <targetReference>Update_Task</targetReference>
             </connector>
             <label>IsTask?</label>
         </rules>
@@ -272,7 +272,7 @@
                 <leftValueReference>sObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>MessagingSession</stringValue>
+                    <stringValue>Messaging Session</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -424,8 +424,8 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
         <description>Creation of case with record type Operation Exception with order shipping lookup</description>
         <name>Operation_Exception_Creation_With_Order_Shipping</name>
         <label>Operation Exception Creation With Order Shipping</label>
-        <locationX>94</locationX>
-        <locationY>1598</locationY>
+        <locationX>314</locationX>
+        <locationY>1706</locationY>
         <assignRecordIdToReference>VarNewCaseID</assignRecordIdToReference>
         <connector>
             <targetReference>Update_elements</targetReference>
@@ -538,14 +538,20 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
                 <elementReference>VarCountry</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>hasParent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <object>Case</object>
     </recordCreates>
     <recordCreates>
         <description>Creation of case with record type Operation Exception without Order shipping lookup</description>
         <name>Operation_Exception_Creation_Without_Order_Shipping</name>
         <label>Operation Exception Creation Without Order Shipping</label>
-        <locationX>358</locationX>
-        <locationY>1598</locationY>
+        <locationX>578</locationX>
+        <locationY>1706</locationY>
         <assignRecordIdToReference>VarNewCaseID</assignRecordIdToReference>
         <connector>
             <targetReference>Update_elements</targetReference>
@@ -655,16 +661,22 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
                 <elementReference>VarCountry</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>hasParent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <object>Case</object>
     </recordCreates>
     <recordLookups>
         <name>Copy_2_of_get_request</name>
         <label>get MS data</label>
-        <locationX>688</locationX>
+        <locationX>908</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>client_ID</targetReference>
+            <targetReference>update_parent_record_on_MS</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -683,16 +695,12 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
             <assignToReference>VarAccountID</assignToReference>
             <field>EndUserAccountId</field>
         </outputAssignments>
-        <outputAssignments>
-            <assignToReference>VarMS</assignToReference>
-            <field>MessagingEndUserId</field>
-        </outputAssignments>
     </recordLookups>
     <recordLookups>
         <name>get_Account_Data</name>
         <label>get Account Data</label>
-        <locationX>160</locationX>
-        <locationY>458</locationY>
+        <locationX>380</locationX>
+        <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>client_ID</targetReference>
@@ -718,8 +726,8 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     <recordLookups>
         <name>Get_Order_Shipping</name>
         <label>Get Order Shipping</label>
-        <locationX>226</locationX>
-        <locationY>1382</locationY>
+        <locationX>446</locationX>
+        <locationY>1490</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Order_Shipping</targetReference>
@@ -739,11 +747,11 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     <recordLookups>
         <name>get_request</name>
         <label>get request</label>
-        <locationX>424</locationX>
+        <locationX>644</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>client_ID</targetReference>
+            <targetReference>Upadet_Parent_record</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -774,11 +782,11 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     <recordLookups>
         <name>getTask</name>
         <label>get Task data</label>
-        <locationX>160</locationX>
+        <locationX>380</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>get_Account_Data</targetReference>
+            <targetReference>Update_Parent_record_on_Task</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -801,8 +809,8 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     <recordLookups>
         <name>lookup_product_info</name>
         <label>lookup product info</label>
-        <locationX>226</locationX>
-        <locationY>1274</locationY>
+        <locationX>446</locationX>
+        <locationY>1382</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Order_Shipping</targetReference>
@@ -834,12 +842,36 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
         </outputAssignments>
     </recordLookups>
     <recordUpdates>
+        <name>Upadet_Parent_record</name>
+        <label>Upadet Parent record</label>
+        <locationX>644</locationX>
+        <locationY>458</locationY>
+        <connector>
+            <targetReference>client_ID</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Qualifications__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>hasParent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_MS</name>
         <label>Update MS</label>
-        <locationX>314</locationX>
-        <locationY>2138</locationY>
+        <locationX>578</locationX>
+        <locationY>2246</locationY>
         <connector>
-            <targetReference>Update_MU</targetReference>
+            <targetReference>open_case</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -858,34 +890,58 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
         <object>MessagingSession</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_MU</name>
-        <label>Update MU</label>
-        <locationX>314</locationX>
-        <locationY>2246</locationY>
+        <name>update_parent_record_on_MS</name>
+        <label>update parent record on MS</label>
+        <locationX>908</locationX>
+        <locationY>458</locationY>
         <connector>
-            <targetReference>open_case</targetReference>
+            <targetReference>client_ID</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
+            <field>Qualifications__c</field>
+            <operator>NotEqualTo</operator>
             <value>
-                <elementReference>VarMS</elementReference>
+                <stringValue></stringValue>
             </value>
         </filters>
         <inputAssignments>
-            <field>AccountId</field>
+            <field>Tech_Qualif_Not_Completed__c</field>
             <value>
-                <elementReference>VarAccountID</elementReference>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
-        <object>MessagingEndUser</object>
+        <object>MessagingSession</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Parent_record_on_Task</name>
+        <label>Update Parent record on Task</label>
+        <locationX>380</locationX>
+        <locationY>458</locationY>
+        <connector>
+            <targetReference>get_Account_Data</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Category__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Tech_Qualif_Not_Completed__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Product_Qualification</name>
         <label>Update new case</label>
-        <locationX>50</locationX>
-        <locationY>2138</locationY>
+        <locationX>314</locationX>
+        <locationY>2246</locationY>
         <connector>
             <targetReference>open_case</targetReference>
         </connector>
@@ -905,11 +961,35 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
         </inputAssignments>
         <object>Case</object>
     </recordUpdates>
+    <recordUpdates>
+        <name>Update_Task</name>
+        <label>Update Task</label>
+        <locationX>50</locationX>
+        <locationY>2246</locationY>
+        <connector>
+            <targetReference>open_case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Resolution__c</field>
+            <value>
+                <stringValue>Request Creation (MyCR - POD - Request)</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
     <screens>
         <name>Client_Search</name>
         <label>Client Search</label>
-        <locationX>644</locationX>
-        <locationY>758</locationY>
+        <locationX>864</locationX>
+        <locationY>866</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -940,12 +1020,6 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
                     <booleanValue>false</booleanValue>
                 </value>
             </inputParameters>
-            <inputParameters>
-                <name>recordId</name>
-                <value>
-                    <elementReference>recordId</elementReference>
-                </value>
-            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
@@ -964,8 +1038,8 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     <screens>
         <name>Copy_1_of_Fault_Error</name>
         <label>Fault Error</label>
-        <locationX>622</locationX>
-        <locationY>1706</locationY>
+        <locationX>842</locationX>
+        <locationY>1814</locationY>
         <allowBack>true</allowBack>
         <allowFinish>false</allowFinish>
         <allowPause>false</allowPause>
@@ -981,8 +1055,8 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     <screens>
         <name>Operation_Exception_Screen</name>
         <label>Operation Exception Screen</label>
-        <locationX>226</locationX>
-        <locationY>1166</locationY>
+        <locationX>446</locationX>
+        <locationY>1274</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1199,8 +1273,8 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     <screens>
         <name>ShippingGroup</name>
         <label>ShippingGroup</label>
-        <locationX>556</locationX>
-        <locationY>950</locationY>
+        <locationX>776</locationX>
+        <locationY>1058</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1275,7 +1349,7 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>430</locationX>
+        <locationX>650</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>objects_Inspection</targetReference>
@@ -1508,13 +1582,6 @@ IF( NOT(ISNULL({!CaseCallRT})), &quot;ObjTaskCall.Subject&quot;, {!ObjCase.Subje
     </variables>
     <variables>
         <name>VarIssueCategory</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarMS</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
