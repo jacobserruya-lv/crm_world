@@ -7,6 +7,9 @@ import NAME_FIELD from "@salesforce/schema/Campaign__c.Name";
 import DESCRIPTION_FIELD from "@salesforce/schema/Campaign__c.Description__c";
 import TOOLKITCOMMENTS_FIELD from "@salesforce/schema/Campaign__c.ToolkitComments__c";
 import STATUS_FIELD from "@salesforce/schema/Campaign__c.Status__c";
+import CAMPAIGNSTARTDATE_FIELD from "@salesforce/schema/Campaign__c.StartDate__c";
+import CAMPAIGNENDDATE_FIELD from "@salesforce/schema/Campaign__c.EndDate__c";
+import CAMPAIGNPRIORITY_FIELD from "@salesforce/schema/Campaign__c.Priority__c";
 import STATUSCAMPAIGNMEMBER_FIELD from "@salesforce/schema/CampaignMember__c.Status__c";
 import PROFILE_NAME_FIELD from '@salesforce/schema/User.Profile.Name';
 import ContentDocumentId_FIELD from '@salesforce/schema/ContentDocumentLink.ContentDocumentId';
@@ -43,7 +46,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
 
     @wire(getRecord, {
 		recordId: "$campaignId",
-		fields: [NAME_FIELD,DESCRIPTION_FIELD,TOOLKITCOMMENTS_FIELD,STATUS_FIELD]
+		fields: [NAME_FIELD,DESCRIPTION_FIELD,TOOLKITCOMMENTS_FIELD,STATUS_FIELD,CAMPAIGNSTARTDATE_FIELD,CAMPAIGNENDDATE_FIELD, CAMPAIGNPRIORITY_FIELD]
 	})
 	campaign;
 
@@ -54,7 +57,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
     @wire(getRelatedListRecords, {
         parentRecordId: "$getRelatedRecordId",
         relatedListId: 'Campaign_Members__r',
-        fields: ['Id','CampaignMember__c.Status__c'],
+        fields: ['CampaignMember__c.Name','CampaignMember__c.Status__c'],
         where: "$wireWhereClauseAllMember" 
       })
       wireallMemberList({ error, data }) {
@@ -294,6 +297,21 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
     return getFieldValue(this.campaign.data, NAME_FIELD) ? getFieldValue(this.campaign.data, NAME_FIELD) : "N/A";
     }
 
+    get startDate() {
+    console.log('  this.campaign.data', this.campaign.data);
+    return getFieldValue(this.campaign.data, CAMPAIGNSTARTDATE_FIELD) ? getFieldValue(this.campaign.data, CAMPAIGNSTARTDATE_FIELD) : "N/A";
+    }
+
+    get endDate() {
+    console.log('  this.campaign.data', this.campaign.data);
+    return getFieldValue(this.campaign.data, CAMPAIGNENDDATE_FIELD) ? getFieldValue(this.campaign.data, CAMPAIGNENDDATE_FIELD) : "N/A";
+    }
+
+    get priority() {
+    console.log('  this.campaign.data', this.campaign.data);
+    return getFieldValue(this.campaign.data, CAMPAIGNPRIORITY_FIELD) ? getFieldValue(this.campaign.data, CAMPAIGNPRIORITY_FIELD) : "N/A";
+    }
+    
     get description() {
     console.log('  this.campaign.data', this.campaign.data);
     return getFieldValue(this.campaign.data, DESCRIPTION_FIELD) ? getFieldValue(this.campaign.data, DESCRIPTION_FIELD) : "N/A";
@@ -347,7 +365,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
                 }
                 else if(NbMemberOnGoing>0)
                 {
-                    CAStatus='On Going';
+                    CAStatus='Ongoing';
                 }
                 else if(NbMemberCancelled==allMemberSize)
                 {
@@ -415,7 +433,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
         if(allListCount>0)
         {
 
-            return restrictedListCount/allListCount*100;
+            return (restrictedListCount/allListCount*100).toFixed(2);
         }
         else
         {
