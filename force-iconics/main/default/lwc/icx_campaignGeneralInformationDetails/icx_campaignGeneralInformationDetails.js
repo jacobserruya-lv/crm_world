@@ -54,7 +54,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
     @wire(getRelatedListRecords, {
         parentRecordId: "$getRelatedRecordId",
         relatedListId: 'Campaign_Members__r',
-        fields: ['Id','CampaignMember__c.Status__c'],
+        fields: ['CampaignMember__c.Name','CampaignMember__c.Status__c'],
         where: "$wireWhereClauseAllMember" 
       })
       wireallMemberList({ error, data }) {
@@ -293,7 +293,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
     console.log('  this.campaign.data', this.campaign.data);
     return getFieldValue(this.campaign.data, NAME_FIELD) ? getFieldValue(this.campaign.data, NAME_FIELD) : "N/A";
     }
-
+    
     get description() {
     console.log('  this.campaign.data', this.campaign.data);
     return getFieldValue(this.campaign.data, DESCRIPTION_FIELD) ? getFieldValue(this.campaign.data, DESCRIPTION_FIELD) : "N/A";
@@ -347,7 +347,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
                 }
                 else if(NbMemberOnGoing>0)
                 {
-                    CAStatus='On Going';
+                    CAStatus='OnGoing';
                 }
                 else if(NbMemberCancelled==allMemberSize)
                 {
@@ -415,7 +415,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
         if(allListCount>0)
         {
 
-            return restrictedListCount/allListCount*100;
+            return (restrictedListCount/allListCount*100).toFixed(2);
         }
         else
         {
