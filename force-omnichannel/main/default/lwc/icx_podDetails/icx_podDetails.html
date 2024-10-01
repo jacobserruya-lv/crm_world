@@ -1,0 +1,35 @@
+<template>
+    <div class="container">
+        <!-- the event of the child need to be taken by the grand parent  -->
+
+        <c-icx_search-digital-store></c-icx_search-digital-store> 
+        
+        <div class="priceclass">
+            
+            <lightning-input type="number" label="*Price" onchange={handlePriceChange}></lightning-input>
+            
+            <lightning-combobox
+                name="Currency"
+                label="*Currency"
+                placeholder="Currency"
+                options={currencyOptions}
+                onchange={handleCurrencyChange}> </lightning-combobox>
+    </div>
+
+    <lightning-input data-field="advancedField"  type="date" name="DesiredDate"  placeholder="*Desired Date" onchange={handleDesiredDateChange} ></lightning-input> 
+
+
+    <lightning-combobox
+    name="Contact Preference"
+    label="*Contact Preference"
+    placeholder="Contact Preference"
+    options={contactPreferenceOptions}
+    onchange={handlecontactPreferenceChange}
+    > </lightning-combobox>
+    
+    
+    <lightning-input type="text" label="Comment"  onchange={handleCommentChange}></lightning-input>
+    
+    
+</div>
+</template>

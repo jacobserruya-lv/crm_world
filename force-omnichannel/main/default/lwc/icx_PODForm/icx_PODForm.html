@@ -1,0 +1,21 @@
+<template>
+    <div class="container">
+        <template lwc:if={selectedProduct}>
+            <template if:true={selectedProductObj}>
+                <div class="productContainerParent">
+                    <c-icx_pod-s-k-u-details selected-product-obj={selectedProductObj} is-hot-s-k-u="true"  is-collection="true" img-width="15%" onhotskuevent={handleHotSkuSelection} oncollectionevent={handleCollectionSelection} ></c-icx_pod-s-k-u-details>
+                    <p class="requiredMessage">* Please complete all required fields before proceeding</p> 
+                </div>
+            </template>
+        </template>
+        <template lwc:else>
+            <div class="unknownProductContainer">
+                <c-icx_unknown-product-details ongenderevent={handleGenderSelection} oncotegoryevent={handleCategorySelection} oncollectionevent={handleCollectionSelection} onproductdescriptionevent={handleProductDescriptionSelection} ></c-icx_unknown-product-details>
+                <p class="requiredMessage">* Please complete all required fields before proceeding</p>
+            </div>
+        </template>
+        <div class="detailsContainer"> 
+            <c-icx_pod-details onpriceevent={handlePriceSelection} oncurrencyevent={handleCurrencySelection} oncontactpreferenceevent={handleContactPreferenceSelection} oncommentevent={handleCommentSelection} ondigitalstoreevent={handleDigitalStoreSelection} ondesireddateevent={handleDesiredDateSelection}></c-icx_pod-details>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,17 @@
+<template>
+
+  <div class="container">
+    <header class="slds-modal__header" >
+      <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate ">POD Creation</h2>
+    </header>
+    <template if:true={recordId}>
+      <div class="slds-modal__content slds-p-around_large contentContainer" id="modal-content00">
+        <lightning-flow
+        flow-api-name="ICX_New_POD"
+        flow-input-variables={inputVariables}
+        onstatuschange={handleFlowStatusChange}>
+      </lightning-flow>   
+    </div>
+  </template>
+</div>
+</template>

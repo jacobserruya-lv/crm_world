@@ -1,0 +1,9 @@
+.container{
+
+	min-width: 30rem;
+	max-width: 60rem;
+
+}
+.contentContainer{
+    height: 100%;
+}
