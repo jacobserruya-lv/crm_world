@@ -106,9 +106,6 @@ public class JSON2KbrwOrderV2 extends JSONReservedSerializer  {
 	public String order_id {get;set;} // OrderId
 	@AuraEnabled
 	public String xstore_request_id {get;set;}	
-	/////////      CSC-1159 Check order version V1 or V2 for manualRefundShippingFees     /////////
-	@AuraEnabled
-	public String version {get;set;}	
 	@AuraEnabled
 	public String preferred_language {get;set;} 
 	@AuraEnabled
@@ -390,11 +387,12 @@ public class JSON2KbrwOrderV2 extends JSONReservedSerializer  {
 		get {
 			Double sumOfShippingFeesWithoutTax;
 			if(fees != null && !fees.isEmpty()) {
-				for (Fees fee: this.fees) {
-					if (fee.type == 'shipping_fee') {
-						sumOfShippingFeesWithoutTax = (sumOfShippingFeesWithoutTax==null?0:sumOfShippingFeesWithoutTax) + fee.amount_tax_free;
-					}
+			for (Fees fee: this.fees) {
+				if (fee.type == 'shipping_fee') {
+					sumOfShippingFeesWithoutTax = (sumOfShippingFeesWithoutTax==null?0:sumOfShippingFeesWithoutTax) + fee.amount_tax_free;
 				}
+			}
+
 			} else if (shipping_groups != null ) {
 				for(Shipping_groups shippingGroups: this.shipping_groups) {
 					if (shippingGroups.shipments != null && !shippingGroups.shipments.isEmpty() ) {
@@ -1244,7 +1242,7 @@ public class JSON2KbrwOrderV2 extends JSONReservedSerializer  {
 		@AuraEnabled
 		public Boolean isApproveRejectPMAAvailable {
 			get {
-				// return true;
+				//return true;
 				return ( !isReturn
 						&& (status == 'pending') );
 			}

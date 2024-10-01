@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apex_Method_to_Execute__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Apex Method to Execute</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>genericUpdate</fullName>
+                <default>false</default>
+                <label>Generic Update</label>
+            </value>
+            <value>
+                <fullName>insertOrderSearchFromOrderLine</fullName>
+                <default>false</default>
+                <label>Insert OrderSearch From OrderLine</label>
+            </value>
+            <value>
+                <fullName>updOrderSearchFromUser</fullName>
+                <default>false</default>
+                <label>Upd OrderSearch From User</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
