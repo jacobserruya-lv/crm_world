@@ -111,6 +111,10 @@ function removeFieldErrorMessage(fieldElement) {
     setFieldErrorMessage(fieldElement, "");
 }
 
+function focusOnEmail(emailField) {
+    emailField.focus();
+}
+
 export {
     clearFormErrrors,
     updateFormErrors,
@@ -123,5 +127,6 @@ export {
     hasLowerCaseLetter,
     hasSpecialChar,
     doesPasswordMatchStringPattern,
-    hasLegalAge
+    hasLegalAge,
+    focusOnEmail
 }

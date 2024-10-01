@@ -20,6 +20,7 @@ public with sharing class TWIST_Utils_TEST {
         settings.SFCC_Feature_Flag_Endpoint__c = '/eco-eu/lvcom-core-conf-eapi/v1/configuration/lang_country';
         settings.Origins_to_replace__c = 'lvapp';
         settings.Target_origin__c = 'mylv';
+        settings.Default_Language_Country_Parameter__c = 'eng-e1';
         insert settings;
         
         Account acc = new Account(LastName = 'test', FirstName = 'test', PersonEmail = 'aaa@test.com');
@@ -476,6 +477,26 @@ public with sharing class TWIST_Utils_TEST {
         String password = TWIST_Utils.createRandomPassword();
         String password2 = TWIST_Utils.createRandomPassword();
         System.assertNotEquals(password, password2);
+    }
+
+    @isTest
+    public static void test_getLanguageWithEmptyLangCountry(){
+        Map<String,String>  languageSettings = TWIST_Utils.getLanguageSettings(null);
+        Map<String,String> languageSettingsExpected = new Map<String,String>{
+            'salesforceLanguage' => 'default',
+            'metaLanguage' =>'en-E1'
+        };
+        System.assertEquals(languageSettingsExpected, languageSettings);
+    }
+
+    @isTest
+    public static void test_getLanguageWithGivenLangCountry(){
+        Map<String,String> languageSettings = TWIST_Utils.getLanguageSettings('eng-ae');
+        Map<String,String> languageSettingsExpected = new Map<String,String>{
+            'salesforceLanguage' => 'en_ZA',
+            'metaLanguage' => 'en-AE'
+        };
+        System.assertEquals(languageSettingsExpected, languageSettings);
     }
 
     /* PRIVATE METHODS ***************************************************************************************/

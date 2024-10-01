@@ -10,9 +10,9 @@
     Create or Upate a user according social data in social login flow
 */
 global without sharing class TWIST_RegistrationHandler implements Auth.RegistrationHandler{
-    
+
     class CustomException extends Exception {}
-    
+
     global User createUser(String portalId, Auth.UserData data){
         User uIdentity;
         String dataJson = JSON.serialize(data);
@@ -20,7 +20,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
         System.debug('REGISTRATION HANDLER: CREATE USER');
         System.debug('User Data: ' + dataJson);
 
-       
+
         // RULE 1: SOCIAL ID
         if(!String.isEmpty(data.identifier)){
             uIdentity = getUserBySocialId(data.identifier);
@@ -34,7 +34,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
                 return uIdentity;
             }
         }
-        
+
         // RULE 2: EMAIL
         if(!String.isEmpty(data.email)){
             uIdentity = getUserByEmail(data.email);
@@ -74,7 +74,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
         // RULE 5: NEED SOCIAL REGISTRATION
         throw new CustomException(setPayload(data));
     }
-    
+
     global void updateUser(Id userId, Id portalId, Auth.UserData data){
         System.debug('REGISTRATION HANDLER: UPDATE USER from Twist');
         System.debug('User Id: ' + userId);
@@ -92,7 +92,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
     /****************  HELP METHODS  ****************/
 
     /*
-    *** DESCRIPTION Get user according social id 
+    *** DESCRIPTION Get user according social id
     *** RETURN      User
     */
     global User getUserBySocialId(String socialId){
@@ -101,16 +101,16 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
         for (Social_Media_Identifier__c SMIresult : [SELECT Id, Client__r.PersonContactId FROM Social_Media_Identifier__c WHERE Social_Id__c =: socialId] ){
             contacts.add(SMIresult.Client__r.PersonContactId);
         }
-        
+
         // GET USER
         User[] users = [SELECT Id FROM User WHERE ContactId IN : contacts AND (IsActive = true OR IsActive = false) AND Is_Identity_User__c = true LIMIT 1];
         if(!users.IsEmpty()){
-            return users[0]; 
+            return users[0];
         }
 
         return null;
     }
-    
+
     /*
     *** DESCRIPTION Get user according email
     *** RETURN      User
@@ -123,7 +123,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
 
         return null;
     }
-    
+
     /*
     *** DESCRIPTION Get user according mobile phone
     *** RETURN      User
@@ -138,21 +138,21 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
     }
 
     /*
-    *** DESCRIPTION Set payload 
-    *** RETURN      Base64 Encoded payload 
+    *** DESCRIPTION Set payload
+    *** RETURN      Base64 Encoded payload
     */
     global String setPayload(Auth.UserData data){
         TWIST_Settings__c settings = TWIST_Settings__c.getInstance();
         String payload = '{'
                 +  (!String.isEmpty(data.email) ? ('"passKey": "' + EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'email'=>data.email, 'rand'=>stringUtils.generateRandomString(10,settings.Email_Token_Chars__c)}) + '",') : '')
-                +  '"data": {' 
+                +  '"data": {'
                 +  '"authData": "' + EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>data.identifier, 'social_media_type'=>data.provider, 'rand'=>stringUtils.generateRandomString(10,settings.Email_Token_Chars__c)}) + '",'
                 +  (!String.isEmpty(data.email) ? ('"email": "' + data.email + '",') : '')
                 +  (!String.isEmpty(data.firstname) ? ('"firstname": "' + data.firstname + '",') : '')
                 +  (!String.isEmpty(data.lastname) ? ('"lastname": "' + data.lastname + '",') : '')
                 +  (!String.isEmpty(data.username) ? ('"nickname": "' + data.username + '",') : '');
                 //+  '"others": "' + data.attributeMap + '",'
-                
+
         if(!data.attributeMap.IsEmpty()){
                for(String key : data.attributeMap.keySet()){
                    if(data.attributeMap.get(key) != null){
@@ -173,11 +173,11 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
 
     /*
     *** DESCRIPTION Create SMI
-    *** RETURN      
+    *** RETURN
     */
     @future
     global static void setSocialMediaIdentifier(String dataJSON, String uIdentityJSON){
-        
+
         Auth.UserData data = (Auth.UserData)JSON.deserialize(dataJSON, Auth.UserData.Class);
         User uIdentity = (User)JSON.deserialize(uIdentityJSON, User.Class);
 
@@ -190,14 +190,15 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
                 accountId = user.AccountId;
             }
         }
-        
+
         Social_Media_Identifier__c smi = new Social_Media_Identifier__c(
             Client__c = accountId,
             Social_Id__c = data.identifier,
-            Social_Media_Type__c = data.provider,
+            Social_Media_Type__c = TWIST_RegistrationUtils.getSocialMediaTypeByAuthProvider(data.provider),
             Nickname__c = data.username,
             Opt_In__c = true
         );
+
 
         if(data.provider.toUpperCase() == 'KAKAO') {
             checkSmiUpdates(smi, data.attributeMap);
@@ -209,8 +210,8 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
     @future
     global static void setLog(String userId, String provider, String message){
         new Logs( new Map<String,Object> {
-            'level' => 'INFO', 
-            'apexClass' => 'IDENTITY_RegistrationHandler', // TODO change for Twist
+            'level' => 'INFO',
+            'apexClass' => 'IDENTITY_RegistrationHandler', // TODO change class prefix for Twist
             'category' => 'EVENT',
             'message' => message,
             'application' => 'SSO',
@@ -226,7 +227,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
 /*global static User createUserFromKakao(Auth.UserData data) {
         Map<String, String> attributeMap = data.attributeMap;
         String fullPhone = attributeMap.get('phone_number');
-        
+
         Map<String, String> genderToSalutation = new Map<String, String> {
             'Male' => '02',
             'Female' => '04',
@@ -243,7 +244,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
             acc.MobilePhoneCountryCallingCode__pc = countryCode;
             acc.PersonMobilePhone = fullPhone;
         }
-        
+
         acc.FirstName = data.firstname;
         acc.LastName = data.lastname;
         acc.PersonEmail = data.email;
@@ -259,13 +260,13 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
     }*/
 
     @future
-   
+
     global static void updateAccountFromKakao(Id userId, String dataJson) {
         Auth.UserData data = (Auth.UserData)JSON.deserialize(dataJSON, Auth.UserData.Class);
 
         Account[] accounts = [
             SELECT Id,LocalMobilePhone__pc,PersonMobilePhone,MobilePhoneCountryCallingCode__pc,MobilePhoneCountryCode__pc, Gender__pc, Salutation, PersonEmail,
-            PrimaryAddressLine1__pc, PrimaryAddressLine2__pc, PrimaryZipCode__pc, BirthdateDay__pc, BirthdateMonth__pc, BirthdateYear__pc, 
+            PrimaryAddressLine1__pc, PrimaryAddressLine2__pc, PrimaryZipCode__pc, BirthdateDay__pc, BirthdateMonth__pc, BirthdateYear__pc,
             Can_Be_Contacted_By_Email__pc
             FROM Account
             WHERE Id IN (
@@ -282,8 +283,8 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
 
         // EMAIL
         if(
-            String.isBlank(acc.PersonEmail) && 
-            data.attributeMap.get('email_verified') != null && 
+            String.isBlank(acc.PersonEmail) &&
+            data.attributeMap.get('email_verified') != null &&
             Boolean.valueOf(data.attributeMap.get('email_verified'))
         ) {
             acc.PersonEmail = data.email;
@@ -292,10 +293,10 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
 
         // PHONE NUMBER
         if(
-            String.isBlank(acc.LocalMobilePhone__pc) && 
+            String.isBlank(acc.LocalMobilePhone__pc) &&
             String.isBlank(acc.PersonMobilePhone) &&
             data.attributeMap.get('phone_number') != null &&
-            data.attributeMap.get('phone_number_verified') != null && 
+            data.attributeMap.get('phone_number_verified') != null &&
             Boolean.valueOf(data.attributeMap.get('phone_number_verified'))
         ) {
             Map<String, String> phoneMap = TWIST_Utils.getSplittedPhoneFromFullPhone(data.attributeMap.get('phone_number'));
@@ -310,7 +311,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
 
         // SHIPPING ADDRESS
         if(
-            String.isBlank(acc.PrimaryAddressLine1__pc) && 
+            String.isBlank(acc.PrimaryAddressLine1__pc) &&
             data.attributeMap.get('base_address') != null
         ) {
             acc.PrimaryAddressLine1__pc = data.attributeMap.get('base_address');
@@ -321,7 +322,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
 
          // BIRTH DAY
         if(
-            String.isBlank(acc.BirthdateDay__pc) && 
+            String.isBlank(acc.BirthdateDay__pc) &&
             String.isBlank(acc.BirthdateMonth__pc) &&
             data.attributeMap.get('birthdate_day') != null &&
             data.attributeMap.get('birthdate_month') != null
@@ -339,7 +340,7 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
             acc.BirthdateYear__pc = data.attributeMap.get('birthdate_year');
             updateAccount = true;
         }
-        
+
         // GENDER
         if (
             String.isBlank(acc.Gender__pc) && String.isBlank(acc.Salutation) &&
@@ -349,9 +350,9 @@ global without sharing class TWIST_RegistrationHandler implements Auth.Registrat
             acc.Salutation = TWIST_Utils.genderToSalutation(acc.Gender__pc);
             updateAccount = true;
         }
-        
+
 		//NEWSLETTER
-        if ( 
+        if (
             acc.Can_Be_Contacted_By_Email__pc != true &&
             data.attributeMap.get('newsletter_terms') != null
         ) {

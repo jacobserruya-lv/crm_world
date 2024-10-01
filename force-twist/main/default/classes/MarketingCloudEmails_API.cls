@@ -3,8 +3,8 @@ public with sharing class MarketingCloudEmails_API { //TWIST-4340
     //Debug the error
     public static void logResponse(HTTP_Utils request, String level) {
         new Logs( new Map<String,Object> {
-                'level' => level, 
-                'apexClass' => 'MarketingCloudEmails_API', 
+                'level' => level,
+                'apexClass' => 'MarketingCloudEmails_API',
                 'category' => 'CALLOUT',
                 'http' => request
             });
@@ -37,7 +37,7 @@ public with sharing class MarketingCloudEmails_API { //TWIST-4340
         String url = TWIST_Utils.getResetPasswordUrl(langCountry, dispatchCountry, origin, token);
         List <String> splitLangCountry = langCountry.split('-');
         String preferredLanguage = splitLangCountry[0].substring(0,2).toUpperCase();
-       
+
        if (!String.isEmpty(dispatchCountry)){
             countryCode = dispatchCountry.toUppercase();
         }
@@ -52,7 +52,7 @@ public with sharing class MarketingCloudEmails_API { //TWIST-4340
             langCountry,
             mobilePhoneInternational,
         	preferredLanguage);
-        
+
         HTTP_Utils request = new HTTP_Utils()
             .post(settings.get('endpoint'))
             .header('Content-Type', 'application/json')

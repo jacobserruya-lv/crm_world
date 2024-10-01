@@ -7,22 +7,25 @@ import { lwcNameToCamelCase } from 'c/twistUtils';
 export default class TwistHeader extends LightningElement {
 
     twistHeaderLogo = Twist_UI + '/twist-header-logo.png';
+    urls = {};
 
     @api language;
     @api title;
     @api langCountry;
     @api canModalBeShown;
     @track customLabels = {};
-    @track urls = {};
+    @track linkToBeRedirected;
 
     connectedCallback() {
         apexGetHeaderAndFooterUrls({langCountry: this.langCountry})
         .then(data => {
             this.urls = data;
+            this.linkToBeRedirected = this.urls["Logo"];
         })
         .catch(error => {
             console.log(error, 'Error when retrieving URLs');
         })
+        
         apexTranslateLabels({
             labels: [
                 'Twist_Header_LouisVuitton',

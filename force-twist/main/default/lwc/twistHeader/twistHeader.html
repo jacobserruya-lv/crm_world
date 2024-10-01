@@ -2,8 +2,11 @@
     <div class="header">
         <div class="header__item">
             <span class="header__item-logo">
-                <a data-id="Logo" onclick={handleClickOnLink} ><img src={twistHeaderLogo} alt={customLabels.Twist_Header_LouisVuitton} title={customLabels.Twist_Header_LouisVuitton}  /></a>
-            </span>
-            <h1 class="header__item-login">{title}</h1>        </div>
+                <a href={linkToBeRedirected} data-id="Logo">
+                    <img src={twistHeaderLogo} alt={customLabels.Twist_Header_LouisVuitton} title={customLabels.Twist_Header_LouisVuitton} />
+                </a>
+                </span>
+                <h1 class="header__item-login">{title}</h1>
+        </div>
     </div>
 </template>

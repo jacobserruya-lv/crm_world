@@ -10,7 +10,12 @@
     <!-- <apex:outputText value="{!debug}"></apex:outputText> -->
 
     <c:TWIST_PageLoader />
-
+    <script type="text/javascript">
+        if ('{!socialMediaCookieInfo}') {
+            const info = JSON.parse('{!socialMediaCookieInfo}');
+            document.cookie = `social_login=${info.social_login}; Domain=${info.domain}; Path=/; Secure; SameSite=None'`;
+        }
+    </script>
     <apex:outputPanel rendered="{! lwcAttributes != null }">
         <c:TWIST_GoogleAnalytics utagDataStringified="{!JSENCODE(utagDataStringified)}" utagDataScript="{!utagDataScript}"/>
         

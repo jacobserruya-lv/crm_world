@@ -1,7 +1,7 @@
 import { LightningElement, track, api } from 'lwc';
 
 import apexGetPageDirection from '@salesforce/apex/TWIST_WireService.getPageDirection';
-import apexGetLanguage from '@salesforce/apex/TWIST_Login.getLanguage';
+import apexGetLanguageSettings from '@salesforce/apex/TWIST_Login.getLanguageSettings';
 import apexTranslateLabel from '@salesforce/apex/TWIST_i18nTranslations.translateSingleLabel';
 import apexBuildError404Url from '@salesforce/apex/TWIST_WireService.buildError404Url';
 
@@ -48,11 +48,12 @@ export default class TwistAlternativeLoginWrapper extends LightningElement {
         this.alternativeLoginComponentQueryParams = JSON.stringify(mainChildComponentQueryParams);
 
         Promise.all([
-            apexGetLanguage({ langCountry: this.oQueryParams.langCountry }),
+            apexGetLanguageSettings({ langCountry: this.oQueryParams.langCountry }),
             apexGetPageDirection({ langCountry: this.oQueryParams.langCountry })
         ])
         .then(result => {
-            this.language = result[0];
+            this.language = result[0].salesforceLanguage;
+            this.metaLanguage = result[0].metaLanguage;
             this.mainWrapperCssClasses= result[1];
             apexTranslateLabel({
                 label: 'Twist_Header_LoginToMyLV',

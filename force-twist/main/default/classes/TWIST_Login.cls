@@ -16,14 +16,16 @@ public without sharing class TWIST_Login {
     @AuraEnabled(cacheable=true)
     public static String getLanguage(String langCountry) {
         if (String.isEmpty(langCountry)) {
-            TWIST_Settings__c settings = TWIST_Settings__c.getInstance();
-            langCountry = (String) settings.get('Default_Language_Country_Parameter__c');
-            return langCountry;
+            langCountry =  TWIST_Utils.getDefaultLangCountry();
         }
         Language_Mapping_ATG_SF__mdt mapping = [SELECT Salesforce__c FROM Language_Mapping_ATG_SF__mdt WHERE ATG__c =: langCountry LIMIT 1];
         return (String) mapping.Salesforce__c;
     }
 
+    @AuraEnabled(cacheable=true)
+    public static Map<String,String> getLanguageSettings (String langCountry) {
+        return TWIST_Utils.getLanguageSettings(langCountry);
+    }
     /**
      * @description Replaces the former IDENTITY_Login_CTRL constructor method
      */

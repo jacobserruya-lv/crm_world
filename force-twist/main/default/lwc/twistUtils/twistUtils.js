@@ -4,3 +4,4 @@ export * from './string';
 export * from './browser';
 export * from './queryParams';
 export * from './googleAnalytics';
+export * from './socialLogin';

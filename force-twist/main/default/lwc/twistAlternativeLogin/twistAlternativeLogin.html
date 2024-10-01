@@ -20,7 +20,7 @@
         <!--IN CASE OF SUCCESS-->
         <!--TODO: to check-->
         <template if:true={isAlternativeLoginPage}>
-            <div class="success-message">{customLabels.Twist_Alternative_Login_Form_EmailSentSuccessfullyText}</div>
+            <p class="success-message">{customLabels.Twist_Alternative_Login_Form_EmailSentSuccessfullyText}</p>
         </template>
 
         <!--BODY TEXT-->
@@ -38,6 +38,9 @@
                     value={user.email}
                     onblur={handleOnBlur}
                     onkeydown={handleEnter}
+                    aria-describedby="alternative-login-error-message"
+                    aria-invalid={validity}
+                    data-id="email"
                     >
                 </lightning-input>
 

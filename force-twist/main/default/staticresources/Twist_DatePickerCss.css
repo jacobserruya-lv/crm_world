@@ -1,0 +1,7 @@
+.birthdate button[name=today] {
+    transition: none !important;
+}
+
+.mobile .birthdate {
+   min-width: 100% !important;
+}

@@ -56,9 +56,12 @@ global with sharing class TWIST_PwdlessEmailVerifGetTokenAPI {
             if(accessToken == null){
                 throw new CustomException(LOGIN_ERROR);
             }
-
+            User requestedUser = [SELECT Id from User WHERE username =: pwdlessEmailVerifRequest.Username__c limit 1];
             response.statusCode = 200;
-            responseMap = TWIST_Utils.buildSuccessResponseObject('access_token', accessToken);
+            responseMap = TWIST_Utils.buildSuccessResponseObject(new Map<String,Object> {
+                'access_token' => accessToken,
+                'user_id' => requestedUser.Id
+            });
             
         }
         catch (Exception e) {

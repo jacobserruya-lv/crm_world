@@ -9,7 +9,7 @@ public with sharing class TWIST_Login_TEST {
         TWIST_Settings__c settings = new TWIST_Settings__c();
         settings.Name = 'test';
         settings.Password_Maxlength__c = 20;
-        settings.Default_Language_Country_Parameter__c = 'es';
+        settings.Default_Language_Country_Parameter__c = 'eng-e1';
         insert settings;
     }
 
@@ -239,7 +239,7 @@ public with sharing class TWIST_Login_TEST {
  
          // Then
          System.assertEquals('fr', result, 'ERROR');
-         System.assertEquals('es', resultNull, 'ERROR');
+         System.assertEquals('default', resultNull, 'ERROR');
     }
  
     private static User getIdentityUser(String email) {
@@ -270,5 +270,38 @@ public with sharing class TWIST_Login_TEST {
 
     private static User getIdentityUser() {
         return [SELECT Id, Email, AccountId FROM User WHERE Email = :userEmail  AND AccountId != null  LIMIT 1];
+    }
+
+    @isTest
+    static void test_getLanguageSettings() {
+        // Given
+        String langCountry = 'fra-fr';
+
+        // When
+        Test.startTest();
+        Map<String,String> result = TWIST_Login.getLanguageSettings(langCountry);
+        Test.stopTest();
+ 
+        Map<String,String> languageSettingsExpected = new Map<String,String>{
+            'salesforceLanguage' => 'fr',
+            'metaLanguage' => 'fr-FR'
+        };
+        // Then
+        System.assertEquals(languageSettingsExpected, result, 'ERROR');
+    }
+    @isTest
+    static void test_getLanguageSettingsNullLangCountry() {
+       
+        // When
+        Test.startTest();
+        Map<String,String> resultNull = TWIST_Login.getLanguageSettings('');
+        Test.stopTest();
+ 
+        Map<String,String> languageSettingsExpected = new Map<String,String>{
+            'salesforceLanguage' => 'default',
+            'metaLanguage' => 'en-E1'
+        };
+        // Then
+        System.assertEquals(languageSettingsExpected, resultNull, 'ERROR');
     }
 }

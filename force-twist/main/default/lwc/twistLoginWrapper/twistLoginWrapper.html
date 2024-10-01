@@ -1,7 +1,7 @@
 <template>
 <div class={mainWrapperCssClasses}>
   <template if:true={language}>
-    <header class="header">
+    <header class="header" lang={metaLanguage}>
       <c-twist-header language={language} title={title} lang-country={oQueryParams.langCountry} onchildlwcrendered={handleChildLwcRendered}></c-twist-header>
     </header>
 

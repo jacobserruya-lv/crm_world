@@ -28,13 +28,13 @@ public class TWIST_PwdlessEmailVerifInitAPI_TEST {
         
         
         EmailTemplate et = [SELECT Id, DeveloperName From EmailTemplate LIMIT 1];
-        User userTest = [SELECT Id, Email, userName FROM User LIMIT 1];
+        String username = 'test_2023_d_31@test.com';
         
         Test.startTest();
        
             // ALL FIELDS
             Map<String, Object> bodyMap = new Map<String, Object>{
-                'username' => userTest.userName,
+                'username' => username,
                 'emailtemplate' => et.DeveloperName,
                 'redirecturi' => 'https://google.com',
                 'locale' => 'eng-us'
@@ -51,7 +51,7 @@ public class TWIST_PwdlessEmailVerifInitAPI_TEST {
             
             //MISSING FIELDS
             Map<String, Object> bodyMap2 = new Map<String, Object>{
-                'username' => userTest.userName,
+                'username' => username,
                 'emailtemplate' => '',
                 'redirecturi' => 'https://google.com',
                 'locale' => 'eng-us'
@@ -73,7 +73,7 @@ public class TWIST_PwdlessEmailVerifInitAPI_TEST {
         
         	//WRONG TEMPLATE
             Map<String, Object> bodyMap4 = new Map<String, Object>{
-                'username' => userTest.userName,
+                'username' => username,
                 'emailtemplate' => 'notexisting',
                 'redirecturi' => 'https://google.com',
                 'locale' => 'eng-us'

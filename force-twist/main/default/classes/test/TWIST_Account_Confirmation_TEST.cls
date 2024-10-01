@@ -1,13 +1,13 @@
 @isTest
 public with sharing class TWIST_Account_Confirmation_TEST {
-    
+
     @testSetup
     static void initData(){
 
         TWIST_Registration_Form_Settings__c  registrationSetting = new TWIST_Registration_Form_Settings__c();
         registrationSetting.Code_Validity_Time__c = 10;
         insert registrationSetting;
-        
+
         Identity_TestFactory.createSettings();
 
         Registration_Code_Verification_Request__c code = createCodeRequest('12345', 'test@test.test');
@@ -35,7 +35,7 @@ public with sharing class TWIST_Account_Confirmation_TEST {
         insert countryLanguage;
     }
 
-    
+
     @isTest
     static void test_createMyLvUserAndRedirect_registrationMode() {
         // Given
@@ -67,6 +67,7 @@ public with sharing class TWIST_Account_Confirmation_TEST {
         // Then
         System.assertEquals(result, expected);
     }
+
     @isTest
     static void test_createMyLvUserAndRedirect_partialSocialregistrationMode() {
         // Given
@@ -113,7 +114,7 @@ public with sharing class TWIST_Account_Confirmation_TEST {
 
         System.assertEquals(result, expected);
     }
-    
+
     @isTest
     static void test_isUserIdentity() {
         User user = Identity_TestFactory.createUser('TEST','TEST','identityUserTest@test.test','0500000000','972');
@@ -134,7 +135,7 @@ public with sharing class TWIST_Account_Confirmation_TEST {
 
         Id resultFullActivation = TWIST_Account_Confirmation.userCreation(account1, 'Pass86324@!', new Map<String,Object> {}, TWIST_RegistrationUtils.Mode.FULL_ACTIVATION);
         Id resultPartialActivation = TWIST_Account_Confirmation.userCreation(account2, 'Pass86324@!', new Map<String,Object> {}, TWIST_RegistrationUtils.Mode.PARTIAL_ACTIVATION);
-        
+
         try {
             Id resultException = TWIST_Account_Confirmation.userCreation(account2, 'Pass86324@!', new Map<String,Object> {}, TWIST_RegistrationUtils.Mode.LOGIN);
         } catch(Exception e) {
@@ -166,22 +167,22 @@ public with sharing class TWIST_Account_Confirmation_TEST {
 
     @isTest
     static void test_socialMediaCreationAndLogin() {
-
-        User user = Identity_TestFactory.createUser('TEST','TEST','identityUserTest@test.test','0500000000','972');
-
+        User user = Identity_TestFactory.createUser('TEST', 'TEST', 'identityUserTest@test.test', '0500000000', '972');
         Map<String,String> socialParams = new Map<String,String> {
-            'authData' => EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>'Uf2537919f7f580be5280cd749ce7b86e', 'social_media_type'=>'Line'})
+            'authData' => EncryptUtils.getEncryptedMetadata(new Map<String,Object> {
+                'social_id' => 'dummy-social-id',
+                'social_media_type' => 'DummySocialMedia'
+            })
         };
-
         Map<String,Object> queryParams = new Map<String,Object> {
             'dispatchCountry' => 'US',
             'langCountry' => 'eng-e1'
         };
-
-
-        TWIST_Account_Confirmation.socialMediaCreationAndLogin('identityUserTest@test.test','test1234', socialParams, queryParams);
+        TWIST_Account_Confirmation.socialMediaCreationAndLogin('identityUserTest@test.test', 'test1234', socialParams, queryParams);
     }
-    //--------------- PRIVATE METHODS ---------------//
+
+    /** Pivate Methods ************************************************************************************************************* */
+
     private static Registration_Code_Verification_Request__c createCodeRequest(String code, String recordId) {
         Registration_Code_Verification_Request__c request = new Registration_Code_Verification_Request__c();
         request.code__c = code;
@@ -190,14 +191,13 @@ public with sharing class TWIST_Account_Confirmation_TEST {
         return request;
     }
 
-    public class GetMockData implements HttpCalloutMock {
+    private class GetMockData implements HttpCalloutMock {
         public HTTPResponse respond(HTTPRequest request) {
             HttpResponse response = new HttpResponse();
             response.setHeader('Content-Type', 'application/json');
             response.setStatusCode(200);
             response.setStatus('OK');
             response.setBody(' "IDENTITY_Activation_Confirm_Button" : "IDENTITY_Activation_Confirm_Button" , "CUSTOM_LABEL" : "CUSTOM_LABEL",');
-
             return response;
         }
     }

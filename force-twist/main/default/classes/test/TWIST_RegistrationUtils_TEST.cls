@@ -63,7 +63,7 @@ public with sharing class TWIST_RegistrationUtils_TEST {
         TWIST_RegistrationUtils.setSocialMediaIdentifier(
             Identity_TestFactory.createAccount('test1', 'test1', 'dummy@dummy-test.com', '133456789', '972', true),
             new Map<String,String> {
-                'authData' => EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>'dummy-value', 'social_media_type'=>'Line'}),
+                'authData' => EncryptUtils.getEncryptedMetadata(new Map<String,Object>{'social_id'=>'dummy-value', 'social_media_type'=>'DummySocialMedia'}),
                 'nickname' => 'dummy-value'
             },
             'dummy-user-id'

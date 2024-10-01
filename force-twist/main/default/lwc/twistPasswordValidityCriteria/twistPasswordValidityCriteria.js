@@ -15,7 +15,7 @@ export default class TwistPasswordValidityCriteria extends LightningElement {
     @api language;
 
     wrapperElement = null;
-    
+
     connectedCallback() {
         this.wrapperElement = this.template.querySelector('.wrapper');
         apexTranslateLabels({
@@ -45,8 +45,8 @@ export default class TwistPasswordValidityCriteria extends LightningElement {
         if(!this.wrapperElement){
             this.wrapperElement = this.template.querySelector('.wrapper');
         }
-        const method = doShow ? 'add' : 'remove';
-        this.wrapperElement.classList[method]('visible');
+        const classToAdd = doShow ? "expand" : "collapse";
+        this.wrapperElement.classList = `wrapper ${classToAdd}`;
     }
 
     /**
@@ -98,7 +98,7 @@ export default class TwistPasswordValidityCriteria extends LightningElement {
         return this.iconHasUpperCaseLetter == validIcon ? 'validText' : 'invalidText';
      }
      get classHasLowerCaseLetter() {
-        return this.iconHasLowerCaseLetter == validIcon ? 'validText' : 'invalidText';  
+        return this.iconHasLowerCaseLetter == validIcon ? 'validText' : 'invalidText';
      }
      get classHasSpecialChar() {
         return this.iconHasSpecialChar == validIcon ? 'validText' : 'invalidText';

@@ -41,3 +41,20 @@
 .mobile .birthdate-overlay {
     margin-top: 0 !important;
 }
+
+.help-text{
+    font-size: 14px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    color: #767676; 
+    font-family: "Louis Vuitton";
+}
+
+.hidden-input-logo__wrapper:has(.birthdate-overlay .slds-form-element__help) + .help-text {
+   margin-top: 1.3em;
+}
+
+

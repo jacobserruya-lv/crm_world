@@ -1,5 +1,7 @@
 import Twist_UI from "@salesforce/resourceUrl/Twist_UI";
+import datePickerCss from "@salesforce/resourceUrl/Twist_DatePickerCss";
 import { LightningElement, track , api} from 'lwc';
+import { loadStyle } from 'lightning/platformResourceLoader';
 import { isMobileDevice } from 'c/twistUtils';
 
 export default class DateInputFormat extends LightningElement {
@@ -8,13 +10,14 @@ export default class DateInputFormat extends LightningElement {
     @api dateField;
     @api customLabels;
     @api calendarDateFormat;
+    @api birthdayHelpText
 
-    @api setErrorMessage(message) {
+    @api setErrorMessage(message, cssSelector) {
         try {
-            const fieldElement = this.template.querySelector(".birthdate-overlay");
+            const fieldElement = this.template.querySelector(cssSelector || ".birthdate-overlay");
             fieldElement.setCustomValidity(message);
             fieldElement.reportValidity();
-            
+
         }
         catch (error) {
             console.log(error)
@@ -24,9 +27,9 @@ export default class DateInputFormat extends LightningElement {
     @api getDateFieldElement() {
         return this.template.querySelector("[data-id]");
     }
-    
+
     chevronLV = Twist_UI + "/Chevrons.svg";
-    
+
     handleBirthdayDateChange(event) {
         let formattedDate;
         let eventToDispatch;
@@ -65,4 +68,10 @@ export default class DateInputFormat extends LightningElement {
         return isMobileDevice() ? "" : "label-hidden";
     }
 
-}
+    renderedCallback() {
+        this.setErrorMessage(" ", ".birthdate"); // hack to prevent a new behavior of Winter '24 release: date format is displayed under the date picker when page loads
+        loadStyle(this, datePickerCss)
+        .catch(console.error)
+    }
+
+ }

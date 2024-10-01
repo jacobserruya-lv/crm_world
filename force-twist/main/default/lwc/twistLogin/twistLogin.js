@@ -14,7 +14,12 @@ import {
     isEmailValid,
     sendPageView,
     sendEvent,
-    lwcNameToCamelCase
+    lwcNameToCamelCase,
+    focusOnEmail,
+    showLineSocialLoginButton,
+    showLineTaiwanSocialLoginButton,
+    showGoogleSocialLoginButton,
+    showOrSeparator
 } from 'c/twistUtils';
 
 export default class TwistLogin extends LightningElement {
@@ -43,7 +48,7 @@ export default class TwistLogin extends LightningElement {
         password: { value: null, error: null, type: null }
     };
     @track socialMediaProviders = {};
-    @track showLineButtonAccordingOrigin = false;
+    @track validity = false;
 
     /* Getters ********************************************************************************* */
 
@@ -61,17 +66,25 @@ export default class TwistLogin extends LightningElement {
     }
 
     get showOrText() {
-        return this.componentConfig['lineSocialLoginEnabled'] || this.componentConfig['googleSocialLoginEnabled'];
+        return showOrSeparator.call(this);
     }
+
     get showLineButton() {
-        return this.socialMediaProviders.LineLV && this.componentConfig['lineSocialLoginEnabled'];
+        return showLineSocialLoginButton.call(this);
     }
-    get showSocialGoogleButton() {
-        return this.componentConfig['googleSocialLoginEnabled'];
+
+    get showLineTWButton() {
+        return showLineTaiwanSocialLoginButton.call(this);
     }
+
+    get showGoogleButton() {
+        return showGoogleSocialLoginButton.call(this);
+    }
+
     get showOTCLink() {
         return this.componentConfig['oneTimeConnectionEnabled'];
     }
+
     /* Component life cycle ******************************************************************** */
 
     constructor() {
@@ -177,7 +190,8 @@ export default class TwistLogin extends LightningElement {
                     'Twist_Login_Form_UseAlternativeLoginLinkToSignIn',
                     'Twist_Login_Page_Social_Login_Line',
                     'Twist_Login_Page_Social_Login_Google',
-                    'Twist_Social_Line_Text_For_Second_Option'
+                    'Twist_Social_Line_Text_For_Second_Option',
+                     'Twist_RequiredFieldsLabel'
                 ],
                 language: this.language
             }),
@@ -216,6 +230,9 @@ export default class TwistLogin extends LightningElement {
         })
         .then(response => {
             if (!response.success) {
+                const emailField = this.template.querySelector('[data-id="email"]');
+                focusOnEmail(emailField);
+                this.validity = true;
                 updateFormErrors(this.loginForm, response);
                 if (this.loginForm.form.error) {
                     this.template.querySelector('.global-error-message').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
@@ -243,6 +260,7 @@ export default class TwistLogin extends LightningElement {
                     actionPosition:'i_already_have_an_account'
                 });
                 location.href = response.redirectUrl;
+                this.validity = false;
             }
         })
         .catch(error => {

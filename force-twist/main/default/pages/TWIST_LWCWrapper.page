@@ -3,20 +3,20 @@
     <div id="lwc-wrapper-container"/>
 
     <script type="text/javascript">
-        console.time("Page Loading Time"); // JSSI remove
         window.addEventListener("message", event => {
             switch (event.data) {
                 case "hidePageLoader":
                     console.timeEnd("Page Loading Time"); // JSSI remove
                     document.querySelector(".lv-loader-wrapper").style.display = "none";
                     break;
-                case "showPageLoader":
-                    document.querySelector(".lv-loader-wrapper").style.display = "block";
-                    break;
-            }
-        });
+                    case "showPageLoader":
+                        document.querySelector(".lv-loader-wrapper").style.display = "block";
+                        break;
+                    }
+                });
 
         function createWrapperComponent() {
+            console.time("Page Loading Time"); // JSSI remove
             $Lightning.use("c:TwistSilentRedirectLightningApp", function() {
                 const oQueryParams = buildQueryParamsObject(new URL("{!$CurrentPage.URL}"));
                 if('{!redirectionLinkToLVapp}' !== ''){

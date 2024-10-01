@@ -32,10 +32,11 @@ global with sharing class TWIST_PwdlessEmailVerifInitAPI {
             String redirectUri = String.ValueOf(body.get('redirecturi'));
             String locale = String.ValueOf(body.get('locale'));
             
-            String userId = getUserId(username);
-            if(userId == null){
+            User user = TWIST_Utils.getUserByUsername(username);
+            if(user == null){
                 throw new CustomException(Label.EM_User_Not_Found);
-            } 
+            }
+            TWIST_Utils.activateUser(user);
 
             String emailTemplateId = getEmailTemplateId(emailTemplate);
             if(emailTemplateId == null){
@@ -47,7 +48,7 @@ global with sharing class TWIST_PwdlessEmailVerifInitAPI {
                 throw new CustomException(IDENTIFIER_ERROR);
             }
             
-            Boolean isEmailSent = System.UserManagement.sendAsyncEmailConfirmation(userId, emailTemplateId, String.valueOf(settings.get('Network_Id__c')),'TWIST_PwdlessEmailVerif?client-id=null&identifier='+identifier+'&redirect-uri='+redirectUri+'&username='+EncodingUtil.urlEncode(userName, 'UTF-8')+'&locale='+locale);
+            Boolean isEmailSent = System.UserManagement.sendAsyncEmailConfirmation(user.Id, emailTemplateId, String.valueOf(settings.get('Network_Id__c')),'TWIST_PwdlessEmailVerif?client-id=null&identifier='+identifier+'&redirect-uri='+redirectUri+'&username='+EncodingUtil.urlEncode(userName, 'UTF-8')+'&locale='+locale);
             
             if(isEmailSent){
                 upsertPwdlessEmailVerifRequest(username, identifier, redirectUri, locale);
@@ -80,14 +81,6 @@ global with sharing class TWIST_PwdlessEmailVerifInitAPI {
         return null;
     }
 
-    private static String getUserId(String username){
-        List<User> users = [SELECT id, UserName from user WHERE UserName =: userName];
-        if(!users.isEmpty()){
-            return users[0].Id;
-        }  
-        return null;
-    }
-
     private static String getEmailTemplateId(String emailTemplate){
         List<EmailTemplate> templates = [SELECT Id from EmailTemplate WHERE DeveloperName =: emailTemplate LIMIT 1];
         if(!templates.isEmpty()){
@@ -96,13 +89,14 @@ global with sharing class TWIST_PwdlessEmailVerifInitAPI {
         return null;
     }
 
+    @future
     private static void upsertPwdlessEmailVerifRequest(String username, String identifier, String redirectUri, String locale) {
         Headless_Identity_Flow_Instance__c pwdlessEmailVerifRequest = new Headless_Identity_Flow_Instance__c ();
-        List<Headless_Identity_Flow_Instance__c> pwdlessEmailVerifRequestList = [	SELECT 	id 
-                                                                                	FROM 	Headless_Identity_Flow_Instance__c 
-                                                                                	WHERE 	Username__c =: username 
-                                                                                	AND 	Flow_Type__c =: PWDLESS_EMAIL_VERIFICATION
-                                                                                	AND 	Verification_Method__c =: EMAIL];
+        List<Headless_Identity_Flow_Instance__c> pwdlessEmailVerifRequestList = [   SELECT  id 
+                                                                                    FROM    Headless_Identity_Flow_Instance__c 
+                                                                                    WHERE   Username__c =: username 
+                                                                                    AND     Flow_Type__c =: PWDLESS_EMAIL_VERIFICATION
+                                                                                    AND     Verification_Method__c =: EMAIL];
         if(!pwdlessEmailVerifRequestList.isEmpty()){
             pwdlessEmailVerifRequest.Id = pwdlessEmailVerifRequestList[0].Id;
         } 

@@ -1,5 +1,5 @@
 public without sharing class TWIST_Registration {
-    
+
     public static final String PICKLIST_COUNTRIES = 'Countries';
     public static final String CL_TITLE_02 = 'Twist_Account_Creation_Title_Picklist_Value_02';
     public static final String CL_TITLE_03 = 'Twist_Account_Creation_Title_Picklist_Value_03';
@@ -46,13 +46,13 @@ public without sharing class TWIST_Registration {
         setLoginBaseUrl(langCountry, origin);
         setPrefilledValues(langCountry, accountId, utmCampaign);
         setShowKanaFields(langCountry);
-        setLegalAge(langCountry);
+        setLegalAgeSettings(langCountry);
         setCalendarDateFormat(langCountry);
         getSocialSettings(langCountry, queryParams);
         setForgotPasswordUrl(langCountry, origin, queryParams);
         writeLogs(queryParams);
         setFeaturesFlags(langCountry, origin);
-        
+
         return registrationComponentConfig;
     }
 
@@ -76,23 +76,23 @@ public without sharing class TWIST_Registration {
             String cid = queryParams.get(TWIST_QueryParamKey_CONST.CID) != null ? (String)queryParams.get(TWIST_QueryParamKey_CONST.CID) : null;
             Map<String, Object> cidMap = TWIST_RegistrationUtils.extractAccountId(cid);
             String accountId = cidMap.containsKey('accountId') ? (string) cidMap.get('accountId') : null ;
-        
+
             TWIST_RegistrationUtils.Mode currentMode = TWIST_RegistrationUtils.getRegistrationMode(accountId, socialParams);
-            
+
             form.putAll(formData);
             Map<String,String> convertedAccount = TWIST_RegistrationUtils.convertAccountToMap(currentMode, accountId);
-            
+
             form.putAll(convertedAccount);
 
             Boolean isFormValid = TWIST_RegistrationUtils.validateForm(form, langCountry,currentMode);
             if(!isFormValid) return  TWIST_Utils.buildFailureResponseObject('form', TWIST_i18nTranslations.translateSingleLabel('Twist_Account_Creation_Form_AccountCreationProcessError', 'en')) ;
-          
+
             if(doNeedVerificationCode){
                 sendVerificationCode(form, queryParams);
             }
-            
+
             return TWIST_Utils.buildSuccessResponseObject();
- 
+
         } catch (Exception ex) {
 
             String origin = (String) queryParams.get(TWIST_QueryParamKey_CONST.ORIGIN);
@@ -123,7 +123,7 @@ public without sharing class TWIST_Registration {
 
             Map<string, IDENTITY_Registration_Form__mdt> verificationFields = getMapFromList(verificationFieldsList);
             Map<String,Object> registrationComponentConfig  = TWIST_Utils.getAccountSettings();
-            
+
             // Generate Random VERIFICATION CODE
             String code = String.valueOf(Math.round(Math.random() * 100000));
             counter_message = TWIST_Utils.countVerificationCodes(formData.get('email'), formData.get('mobile_phone'));
@@ -186,7 +186,7 @@ public without sharing class TWIST_Registration {
         return TWIST_RegistrationUtils.validateActivationCode(activationCode, identifier, 0);
     }
 
-   
+
 
     /** PRIVATE METHODS *********************************************************************************************** */
 
@@ -294,7 +294,7 @@ public without sharing class TWIST_Registration {
 
             Fractalist_API.sendVerificationSMS(toPhones, code, origin);
             counter_message++;
-                        
+
             new Logs( new Map<String,Object> {'level' => 'INFO',
                 'apexClass' => 'TWIST_Registration',
                 'category' => 'EVENT',
@@ -381,7 +381,7 @@ public without sharing class TWIST_Registration {
                     countriesWithCountryLang.add(String.valueOf(c.Value__c));
                 }
             }
-            
+
             Map<String,String> country_picklist = new Map<String,String>();
             List<CountryMapping__mdt> clist = [SELECT Picklist__c, Iso2Code__c, Iso3Code__c FROM CountryMapping__mdt WHERE Picklist__c != null];
             for(CountryMapping__mdt mdt: clist) {
@@ -400,7 +400,7 @@ public without sharing class TWIST_Registration {
                             registrationComponentConfig.put('client_country', mdt.Iso3Code__c);
                         }
                     }
-                
+
                 }
                 //default: all countries besides specific ones
                 else{
@@ -463,7 +463,7 @@ public without sharing class TWIST_Registration {
             }
         }
         TWIST_RegistrationUtils.Mode currentMode = TWIST_RegistrationUtils.getRegistrationMode(accountId, socialParams);
-        
+
         mode = currentMode.name();
         registrationComponentConfig.put('mode', mode);
 
@@ -474,7 +474,7 @@ public without sharing class TWIST_Registration {
             'isSocialLogin' => new List<TWIST_RegistrationUtils.Mode> { TWIST_RegistrationUtils.Mode.PARTIAL_SOCIAL_REGISTRATION, TWIST_RegistrationUtils.Mode.FULL_SOCIAL_REGISTRATION }.contains(currentMode),
             'doNeedVerificationCode' => doNeedVerificationCode
         });
-        
+
     }
 
     private static void setLoginBaseUrl(String langCountry, String origin){
@@ -484,10 +484,11 @@ public without sharing class TWIST_Registration {
     private static void setShowKanaFields(String langCountry){
         registrationComponentConfig.put('showKanaFields', langCountry =='jpn-jp');
     }
-
-    private static void setLegalAge(String langCountry){
+   
+    private static void setLegalAgeSettings(String langCountry){
         Map<String,Object> settings = TWIST_RegistrationUtils.getSettingsForAgeRestriction(null, langCountry);
         registrationComponentConfig.put('legalAge', settings == null ? 0 : (Integer) settings.get('legalAge'));
+        registrationComponentConfig.put('birthdayHelpText', (settings != null && (Boolean) settings.get('displayBirthdayHelpText')) ? TWIST_i18nTranslations.translateSingleLabel('Twist_Account_Creation_BirthdateHelpText', langCountry) : '');
     }
     private static void setCalendarDateFormat(String langCountry) {
         registrationComponentConfig.put('calendarDateFormat', TWIST_DateUtils.getDateFormatByLangCountry(langCountry));
@@ -503,7 +504,7 @@ public without sharing class TWIST_Registration {
         }
 
         if(mode == 'FULL_ACTIVATION'){
-       
+
             Map<String, Object> formData = TWIST_RegistrationUtils.convertAccountToForm(client, TWIST_RegistrationUtils.Mode.valueOf(mode), langCountry);
             registrationComponentConfig.put('formData', formData);
         }
@@ -523,25 +524,22 @@ public without sharing class TWIST_Registration {
     }
 
     private static void setFeaturesFlags(String langCountry, String origin) {
-        if(origin != 'mylv'){
+        if(origin != 'mylv') {
             registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN, false);
             registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN, false);
         }
-        else{
-            TWIST_FlaggedFeatureUtils flags = new TWIST_FlaggedFeatureUtils( 
-            new List<String> {
-                TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN,
-                TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN
-            },
-            langCountry
+        else {
+            TWIST_FlaggedFeatureUtils flags = new TWIST_FlaggedFeatureUtils(
+                new List<String> { TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN, TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN },
+                langCountry
             );
-            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN,flags.isLineSocialLoginEnabled());
-            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN,flags.isGoogleSocialLoginEnabled());
+            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_LINE_SOCIAL_LOGIN, flags.isLineSocialLoginEnabled());
+            registrationComponentConfig.put(TWIST_FlaggedFeatureUtils.FEATURE_KEY_GOOGLE_SOCIAL_LOGIN, flags.isGoogleSocialLoginEnabled());
         }
-      
     }
 
     public class CustomException extends Exception {}
+
 }
 
 
@@ -614,7 +612,7 @@ public without sharing class TWIST_Registration {
         return !String.isEmpty(email) && !String.isEmpty(password) && !IDENTITY_Utils.passwordTooLong(password);
     }
 
-   
+
 
     private static void setForm(String langCountry, String accountId, String origin, String errorUrl, String dispatch_country){
 
@@ -624,7 +622,7 @@ public without sharing class TWIST_Registration {
             FROM IDENTITY_Registration_Form__mdt
             WHERE Context__c =: langCountry
         ];
-        
+
         //Map<String,Map<String,IDENTITY_Registration_Form__mdt>> fields = new Map<String,Map<String,IDENTITY_Registration_Form__mdt>>();
         for(IDENTITY_Registration_Form__mdt field : metadata){
             if(field.Form__c == 'Registration'){
@@ -654,7 +652,7 @@ public without sharing class TWIST_Registration {
 
         // FOR ACTIVATION MODE - GET ALL FIELDS OF THE CLIENT
         if(mode == TWIST_Mode_CONST.ACTIVATION){
-            
+
             List<Account> accounts =  [SELECT Id, Salutation, Firstname, Lastname, FirstName2__pc, LastName2__pc, PrimaryCountry__pc,
                             PersonEmail, LocalLoginPhone__pc, LoginPhoneCallingCode__pc, LoginPhoneCountryCode__pc, LoginPhone__pc,
                             LocalMobilePhone__pc, MobilePhoneCountryCode__pc, MobilePhoneCountryCallingCode__pc, PersonMobilePhone, SPO_Country_code__pc,
@@ -666,12 +664,12 @@ public without sharing class TWIST_Registration {
             if(!accounts.isEmpty()) {
                 account_activation = accounts[0];
             }
-            
+
             if(origin == 'checkout')
             {
                 fields.get('Personal').get('newsletter_agreement').Is_Required__c = false;
                 fields.get('Personal').get('newsletter_agreement').Is_Hidden__c = true;
-                
+
 
                 if(errorUrl != null && errorUrl.contains('/checkout/identification')){
                     // checkoutPreviousPage = 'identification';
@@ -684,7 +682,7 @@ public without sharing class TWIST_Registration {
         // CLIENT CONSTRUCTOR
         client = new Client(fields, socialParams, dispatch_country, account_activation);
         Client client_origin = client;
- 
+
         if(!String.isEmpty(client.country)){
             registrationComponentConfig.put('client_country', client.country);
         }
@@ -732,15 +730,15 @@ public without sharing class TWIST_Registration {
             //sendVerificationCode(); //TODO
         }
     }
-    
+
     public static void onPersonalSubmit(Map<String,String> formData, String recaptchaToken, Map<String,Object> queryParams, String language) {
         counter_message = TWIST_Utils.countVerificationCodes(formData.get('email'), formData.get('mobile_phone'));
         if(counter_message == 0) {
             // sendVerificationCode(formData, recaptchaToken, queryParams, language);
         }
     }
-    
- 
+
+
     public static void onLoginSubmit(String mode, String subMode, Map<String,String> formData, String recaptchaToken, Map<String,Object> queryParams, String language) {
         if(mode == TWIST_Mode_CONST.SOCIAL_REGISTRATION && subMode == TWIST_Mode_CONST.MATCHING){
             // sendVerificationCode(formData, recaptchaToken, queryParams, language);
@@ -764,7 +762,7 @@ public without sharing class TWIST_Registration {
             }
 
             // JSI implement rest of Business Logic here...
-            
+
             return TWIST_Utils.buildSuccessResponseObject('redirectUrl', 'https://www.google.com'); // JSI change this temporary return value
         }
         catch(Exception e) {

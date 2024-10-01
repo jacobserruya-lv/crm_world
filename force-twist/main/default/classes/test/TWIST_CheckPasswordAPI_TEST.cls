@@ -17,12 +17,12 @@ private class TWIST_CheckPasswordAPI_TEST {
     
     @isTest
     static void test_match() {
-        Identity_TestFactory.createSimpleUser('check', 'password', userEmail, '0541234567');
+
         Test.startTest();
         
         Map<String, Object> bodyMap = new Map<String, Object>();
         
-        User userTest = [SELECT Id, Email, userName FROM User WHERE username = :userEmail LIMIT 1];
+        User userTest = [SELECT Id, Email, userName FROM User WHERE profile.name = 'Standard User' AND IsActive = true LIMIT 1];
         
         System.setPassword(userTest.Id, 'check1234!');
         

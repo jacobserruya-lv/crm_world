@@ -8,6 +8,8 @@ public with sharing class TWIST_SocialMediaBounce_CTRL {
     public String flowStepDebug {get; set;} // JSSI remove
     public String debug {get; set;} // JSSI remove
 
+    public String socialMediaCookieInfo  {get; set;}
+
     private Map<String,String> currentPageParams;
     private Map<String,Cookie> currentPageCookies;
     
@@ -18,7 +20,7 @@ public with sharing class TWIST_SocialMediaBounce_CTRL {
 
     
     public final String PARAM_PREFIX = 'param_';
-    
+
     private enum FlowStep {
         BOUNCE_FROM_SALESFORCE_TO_SOCIAL_MEDIA,
         BOUNCE_FROM_SOCIAL_MEDIA_TO_SALESFORCE,
@@ -159,6 +161,7 @@ public with sharing class TWIST_SocialMediaBounce_CTRL {
                 this.setCookie(PARAM_PREFIX + key, this.currentPageParams.get(key));
             }
         }
+        this.socialMediaCookieInfo = setSocialMediaCookieInfo();
     }
     
     private Map<String,String> buildGoogleAnalyticsMetadata() {
@@ -418,5 +421,15 @@ public with sharing class TWIST_SocialMediaBounce_CTRL {
         return '';
     }
 
+    private String setSocialMediaCookieInfo(){
+        return !isSetSocialMediaParam() ? '' : JSON.serialize(new Map<String,String> {
+                'domain' => '.louisvuitton.com',
+                'social_login' => this.currentPageParams.get(TWIST_QueryParamKey_CONST.SOCIAL_MEDIA)
+        });
+    }
+
+    private Boolean isSetSocialMediaParam(){
+        return String.isNotEmpty(this.currentPageParams.get(TWIST_QueryParamKey_CONST.SOCIAL_MEDIA));
+    }
     
 }

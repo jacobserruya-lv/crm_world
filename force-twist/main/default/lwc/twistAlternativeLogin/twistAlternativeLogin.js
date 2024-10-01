@@ -12,7 +12,8 @@ import {
     isEmailValid,
     sendPageView,
     sendEvent,
-    lwcNameToCamelCase
+    lwcNameToCamelCase,
+    focusOnEmail
 } from 'c/twistUtils';
 
 export default class twistAlternativeLogin extends LightningElement {
@@ -21,6 +22,7 @@ export default class twistAlternativeLogin extends LightningElement {
 
     @api queryParams;
     @api autodata;
+    @api metaLanguage
     oQueryParams;
 
     twistArrowIcon = Twist_UI + '/arrow-back.svg';
@@ -38,7 +40,7 @@ export default class twistAlternativeLogin extends LightningElement {
     
     };
      @track isAlternativeLoginPage = false;
-
+     @track validity = false;
     /* Getters ********************************************************************************* */
 
     get emailFieldCssClass() {
@@ -48,6 +50,10 @@ export default class twistAlternativeLogin extends LightningElement {
     get linkToRegistration() {
         return this.componentConfig.registrationUrl;
     }
+    get ariaInvalid() {
+        return this.validity ? 'true' : 'false';
+    }
+
 
     /* Component life cycle ******************************************************************** */
 
@@ -97,6 +103,7 @@ export default class twistAlternativeLogin extends LightningElement {
     }
     handleClickOnSubmitButton(event) {
         if (this.isFormValid()) {
+            this.validity = false;
             this.isSubmitButtonDisabled = true;
             //Tagging Plan: line 42
             sendEvent.call(this, { 
@@ -109,6 +116,11 @@ export default class twistAlternativeLogin extends LightningElement {
             showPageLoader();
             this.clearFormErrors();
             this.requestAlternativeLogin();
+        }
+        else{
+            const emailField = this.template.querySelector('[data-id="email"]');
+            focusOnEmail(emailField);
+            this.validity = true;
         }
         
     }
@@ -130,7 +142,8 @@ export default class twistAlternativeLogin extends LightningElement {
                     'Twist_Forgot_Password_Form_SubmitButtonLabel',
                     'Twist_Login_Form_DontHaveAccountText',
                     'Twist_Login_Form_CreateYourAccountText',
-                    'Twist_Login_Form_Validation_Email_Format'
+                    'Twist_Login_Form_Validation_Email_Format',
+                    'Twist_Login_Form_UseAnAlternativeLogin'
                 ],
                 language: this.language
             })
@@ -142,6 +155,7 @@ export default class twistAlternativeLogin extends LightningElement {
                 this.user.email = isEmailValid(this.oQueryParams.email, this.componentConfig.AllowPlusSymbolInEmail) ? this.oQueryParams.email : '';
                 this.alternativeLoginForm.email.value = this.user.email != null ? this.user.email : '';
             }
+            this.setPageTitle();
 
         })
         .catch(error => {
@@ -204,6 +218,10 @@ export default class twistAlternativeLogin extends LightningElement {
         const isEmailFieldInvalid =  !isEmailValid(value, this.componentConfig.AllowPlusSymbolInEmail);
         this.alternativeLoginForm.email.error = isEmailFieldInvalid ? this.customLabels.Twist_Login_Form_Validation_Email_Format : null;
         return isEmailFieldInvalid;
+    }
+    
+    setPageTitle() {
+        document.title = this.customLabels.Twist_Login_Form_UseAnAlternativeLogin;
     }
 
 }

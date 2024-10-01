@@ -1,5 +1,5 @@
 public without sharing class TWIST_Utils {
-    
+
     public static PageReference buildPageReference(String partialURL, Map<String,String> queryParams) {
         PageReference page = new Pagereference(partialURL);
         for (String key: queryParams.keySet()) {
@@ -7,7 +7,7 @@ public without sharing class TWIST_Utils {
         }
         return page.setRedirect(true);
     }
-    
+
     public static Map<String,Object> getLoginFormSettings() {
         Map<String,Object> result= new Map<String,Object>();
         Map<String,Object> settings = getIdentitySettings(new List<String> {
@@ -24,7 +24,7 @@ public without sharing class TWIST_Utils {
         result.put('AllowPlusSymbolInEmail', (settings.get('Allow_Plus_Symbol_In_Email__c') == true));
         return result;
     }
-    
+
     public static Map<String,Object> getForgotPasswordFormSettings(Map<String,Object> queryParams) {
         Map<String,Object> result= new Map<String,Object>();
         Map<String,Object> settings = getTwistSettings(new List<String> { 'Allow_Plus_Symbol_In_Email__c' });
@@ -33,7 +33,7 @@ public without sharing class TWIST_Utils {
         result.put('registrationUrl', buildTwistPageUrl(TWIST_IdentityPathsMdt_CONST.REGISTRATION_FORM, queryParams));
         return result;
     }
-    
+
     public static Map<String,Object> getAccountSettings(){
         Map<String,Object> result= new Map<String,Object>();
         Map<String,Object> settings = getIdentitySettings(new List<String> {
@@ -44,10 +44,10 @@ public without sharing class TWIST_Utils {
         result.put('passwordMaxlength', settings.get('Password_Maxlength__c'));
         result.put('defaultOriginParameter', settings.get('Default_Origin_Parameter__c'));
         result.put('defaultLangCountryParameter', settings.get('Default_Language_Country_Parameter__c'));
-        
+
         Map<String,Object> twistSettings = getTwistSettings(new List<String> { 'Allow_Plus_Symbol_In_Email__c' });
         result.put('AllowPlusSymbolInEmail', (twistSettings.get('Allow_Plus_Symbol_In_Email__c') == true));
-        
+
         settings = getRegistrationSettings(new List<String> {
             'Tealium_Environment__c',
             'Code_Validity_Time__c',
@@ -60,7 +60,7 @@ public without sharing class TWIST_Utils {
         result.put('SentSMSLimit', settings.get('Sent_SMS_Limit__c'));
         return result;
     }
-    
+
     /*
     * @description Get LVApp url scheme for redirection
     * @returns {String}
@@ -73,34 +73,34 @@ public without sharing class TWIST_Utils {
         }
         return path;
     }
-    
+
     public static Map<String,Object> buildSuccessResponseObject() {
         return buildResponseObject(true, null);
     }
-    
+
     public static Map<String,Object> buildSuccessResponseObject(String responseKey, Object responseValue) {
         return buildResponseObject(true, new Map<String,Object> { responseKey => responseValue });
     }
-    
+
     public static Map<String,Object> buildSuccessResponseObject(Map<String,Object> response) {
         return buildResponseObject(true, response);
     }
-    
+
     public static Map<String,Object> buildFailureResponseObject() {
         return buildResponseObject(false, null);
     }
-    
+
     public static Map<String,Object> buildFailureResponseObject(String responseKey, Object responseValue) {
         return buildResponseObject(false, new Map<String,Object> { responseKey => responseValue });
     }
-    
+
     public static Boolean isMapResponseOfTypeFailureResponseObject(Map<String,Object> m) {
         return m.containsKey('success')
         && Boolean.valueOf(m.get('success')) == false
         && m.containsKey('message')
         && String.isNotEmpty(String.valueOf('message'));
     }
-    
+
     public static Boolean isValidEmail(String email) {
         Map<String,Object> settings = getTwistSettings(new List<String> { 'Allow_Plus_Symbol_In_Email__c' });
         String emailRegex = settings.get('Allow_Plus_Symbol_In_Email__c') == true ? '^[a-zA-Z0-9._|\\\\%#~`=?&/$^*!}{+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$' : '^[a-zA-Z0-9._|\\\\%#~`=?&/$^*!}{-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$';// source: http://www.regular-expressions.info/email.html
@@ -108,7 +108,7 @@ public without sharing class TWIST_Utils {
         Matcher MyMatcher = MyPattern.matcher(email);
         return MyMatcher.matches();
     }
-    
+
     public static Map<String,String> getUserByEmail(String email) {
         if(!String.isEmpty(email)){
             List<User> users = [
@@ -140,22 +140,22 @@ public without sharing class TWIST_Utils {
         Account Client = IDENTITY_Utils.setupAccount(acc);
         CountryLanguage__c locales = IDENTITY_Utils.getLocales(client.SPO_Country_Code__pc);
         User identityUser = new User(
-        
+
         // Identity Fields
         ProfileId = IDENTITY_Settings__c.getInstance().ProfileId__c,
         ContactId = client.personContactId,
-        
+
         // Identifier Fields
         Username = IDENTITY_Utils.getUsername(client.PersonEmail, client.LoginPhone__pc),
         Email = IDENTITY_Utils.getUsername(client.PersonEmail, client.LoginPhone__pc),
         MobilePhone = client.LoginPhone__pc,
-        
+
         // Contact Fields
         Title = client.Salutation,
         LastName = client.LastName,
         FirstName = client.FirstName,
         Alias = IDENTITY_Utils.getAlias(client.FirstName, client.LastName),
-        
+
         // Local Fields
         Country__c = client.PrimaryCountry__pc,
         EmailEncodingKey = 'UTF-8',
@@ -173,7 +173,7 @@ public without sharing class TWIST_Utils {
             Database.Insert(identityUser) ;
             System.setPassword(identityUser.Id, password);
         }
-        
+
         return identityUser;
     }
     public static Map<String,String> convertUserToMap(User usExt){
@@ -182,7 +182,7 @@ public without sharing class TWIST_Utils {
     public static Boolean canFindMyLVUserWithEmail(String email) {
         return (getUserByEmail(email) != null);
     }
-    
+
     public static void activateUser(Id userId) {
         List<User> users = [SELECT IsActive FROM User WHERE Id =: userId LIMIT 1];
         if(!users.isEmpty() && users[0].get('IsActive') == false) {
@@ -191,11 +191,11 @@ public without sharing class TWIST_Utils {
             update user;
         }
     }
-    
+
     public static Boolean doPasswordsMatch(String password, String confirmPassword) {
         return !String.isEmpty(password) && !String.isEmpty(confirmPassword) && password.equals(confirmPassword);
     }
-    
+
     public static Boolean doesPasswordMatchStringPattern(String password) { // JSI recopier les tests U de la méthode invalidPassword() dans IDENTITY_Utils_TEST
         return isPasswordLongEnough(password)
         && hasUpperCharacter(password)
@@ -203,15 +203,15 @@ public without sharing class TWIST_Utils {
         && hasNumberCharacter(password)
         && hasSpecialCharacter(password);
     }
-    
+
     public static Boolean isPasswordTooLong(String password) {
         return password.length() > Integer.valueOf(TWIST_Settings__c.getInstance().Password_Maxlength__c);
     }
-    
+
     public static Boolean doesPasswordContainUserFirstNameOrLastName(String password, Map<String,String> user) {
         return  password.contains(user.get('FirstName')) || password.contains(user.get('LastName'));
     }
-    
+
     public static String buildForgotPasswordFormUrl(String langCountry, String origin, String dispatchCountry) {
         String url =  buildTwistPageUrl(langCountry, origin, TWIST_IdentityPathsMdt_CONST.FORGOT_PASSWORD_FORM);
         if(!String.isEmpty(dispatchCountry)){
@@ -219,7 +219,7 @@ public without sharing class TWIST_Utils {
         }
         return url;
     }
-    
+
     public static String buildTwistPageUrl(String pageName, Map<String,Object> queryParams) {
 
 
@@ -242,7 +242,7 @@ public without sharing class TWIST_Utils {
         });
         return url + buildQueryParamsString(queryParams);
     }
-    
+
     public static String buildTwistPageUrl(String pageName, Map<String,Object> queryParams, List<String> queryParamsToRemove) {
         if (queryParamsToRemove != null && !queryParamsToRemove.isEmpty()) {
             for (String key: queryParamsToRemove) {
@@ -251,15 +251,15 @@ public without sharing class TWIST_Utils {
         }
         return buildTwistPageUrl(pageName, queryParams);
     }
-    
+
     public static String getLoginFormBaseUrl(String langCountry, String origin) {
         return buildTwistPageUrl(langCountry, origin, TWIST_IdentityPathsMdt_CONST.LOGIN_FORM);
     }
-    
+
     public static String getRegistrationFormBaseUrl(String langCountry, String origin) {
         return buildTwistPageUrl(langCountry, origin, TWIST_IdentityPathsMdt_CONST.REGISTRATION_FORM);
     }
-    
+
     public static Map<String,String> getResetPasswordEmailSettings() {
         return !Test.isRunningTest() ? ThirdParty_Utils.getSettings('TWIST_SFMC_Reset_Password_Email') : new Map<String,String> {
             'definitionKey' => 'dummy-definition-key',
@@ -268,7 +268,7 @@ public without sharing class TWIST_Utils {
             'client_secret' => 'dummy-client-secret'
         };
     }
-    
+
     public static Map<String,String> getAccountCreationdEmailSettings() {
         return !Test.isRunningTest() ? ThirdParty_Utils.getSettings('TWIST_SFMC_Account_Creation_Email') : new Map<String,String> {
             'definitionKey' => 'dummy-definition-key',
@@ -277,7 +277,7 @@ public without sharing class TWIST_Utils {
             'client_secret' => 'dummy-client-secret'
         };
     }
-    
+
     public static String getResetPasswordUrl(String langCountry, String dispatchCountry, String origin, String token) {
         String resetPasswordPath = getPathFromPattern(TWIST_IdentityPathsMdt_CONST.RESET_PASSWORD_FORM, langCountry, dispatchCountry, origin);
         String url = String.format(
@@ -293,7 +293,7 @@ public without sharing class TWIST_Utils {
         }
         return url;
     }
-    
+
     public static String getPathFromPattern(String pathPattern, String langCountry, String dispatchCountry, String origin) {
         TWIST_IDENTITY_Paths__mdt path = [SELECT Name__c, Value__c FROM TWIST_IDENTITY_Paths__mdt WHERE Name__c =: pathPattern LIMIT 1];
         String value = path.Value__c.replace('lang_country', langCountry);
@@ -308,25 +308,25 @@ public without sharing class TWIST_Utils {
             return value.replace('origin', origin);
        	}
     }
-    
+
     public static String buildGetAuthorizationCodeUrl(String state, String codeChallenge, String clientId, String redirectUri) {
         return String.format(
         '/services/oauth2/authorize?response_type=code&state={0}&code_challenge={1}&client_id={2}&redirect_uri={3}',
         new List<String> { state, codeChallenge, clientId, redirectUri }
         );
     }
-    
+
     //this method has been replaced by the getLangCountryISO2CountryCode  if it's and no other use is found for this method it must be deleted
     public static String getUserISO2CountryCode(String userCountry) {
         List<Country__c> country = [SELECT Name, Iso2Code__c FROM Country__c WHERE Name =: userCountry LIMIT 1];
-        
+
         String iso2Code = 'US';
         if(!country.IsEmpty() && isValidCountryCode(String.valueOf(country[0].Iso2Code__c))) {
             iso2Code = String.valueOf(country[0].Iso2Code__c);
         }
         return iso2Code;
     }
-    
+
     public static String getLangCountryISO2CountryCode(String langCountry) {
         String iso2Code = 'US';
         if(String.IsNotBlank(langCountry)){
@@ -337,7 +337,7 @@ public without sharing class TWIST_Utils {
         }
         return iso2Code;
     }
-    
+
     public static void setContext(String origin, String langCountry, String dispatchCountry ,Map<String,Object> componentConfig){
         if(String.isEmpty(langCountry)){
             langCountry = (String) componentConfig.get('defaultLangCountryParameter');
@@ -353,7 +353,7 @@ public without sharing class TWIST_Utils {
         componentConfig.put(TWIST_QueryParamKey_CONST.ORIGIN, origin);
         componentConfig.put(TWIST_QueryParamKey_CONST.CUSTOMER_SERVICE_PHONE_NUMBER, IDENTITY_Utils.getClientServicePhoneNumber(langCountry, dispatchCountry));
     }
-    
+
     public static Integer countVerificationCodes(String email, String phoneNumber) {
         if (String.isEmpty(email) && String.isEmpty(phoneNumber)) {
             return 0;//through error maybe ?
@@ -363,15 +363,15 @@ public without sharing class TWIST_Utils {
             DateTime before24Hours = System.Now().addHours(-24);
             List<AggregateResult> aggregateResults = [SELECT COUNT(Id) totalRequests FROM Registration_Code_Verification_Request__c WHERE Record_Id__c =: recordId AND CreatedDate >: before24Hours];
             return (Integer) aggregateResults[0]?.get('totalRequests');
-            
+
         }
         catch(Exception e) {
             System.debug('> Error in method TWIST_Utils.countVerificationCodes(): ' + e.getMessage());
         }
         return 0;
-        
+
     }
-    
+
     public static User getUserByAccountId(String accountId) {
         try {
             User[] users = [SELECT Id, Username, AccountId, IsActive FROM User WHERE AccountId = :accountId LIMIT 1];
@@ -381,7 +381,7 @@ public without sharing class TWIST_Utils {
             return null;
         }
     }
-    
+
     public static User getUserByUsername(String username) {
         List<User> users = new List<User>();
         if(!String.isEmpty(username)){
@@ -397,17 +397,17 @@ public without sharing class TWIST_Utils {
         }
         return users[0];
     }
-    
+
     public static void activateUser(User user) {
         if (user != null && !user.IsActive) {
             IDENTITY_UTILS.activeUser(user.Id);
         }
     }
-    
+
     public static void writeErrorLogs(Map<String,Object> queryParams, String className) {
         String origin = (String) queryParams.get(TWIST_QueryParamKey_CONST.ORIGIN);
         String defaultCountryLangLog = (String) queryParams.get(TWIST_QueryParamKey_CONST.UPDATED_TO_DEFAULT_LANG_COUNTRY);
-        
+
         if (defaultCountryLangLog != null && Boolean.valueOf(defaultCountryLangLog)) {
             new Logs( new Map<String,Object> {
                 'level' => 'ERROR',
@@ -418,7 +418,7 @@ public without sharing class TWIST_Utils {
                 'application' => origin
             });
         }
-        
+
         String log404 = (String) queryParams.get(TWIST_QueryParamKey_CONST.ERROR_404);
         if (log404 != null && Boolean.valueOf(log404)) {
             new Logs( new Map<String,Object> {
@@ -431,11 +431,11 @@ public without sharing class TWIST_Utils {
             });
         }
     }
-    
+
     public static Object getTwistSetting(String field) {
         return getTwistSettings(new List<String> { field }).get(field);
     }
-    
+
     public static Map<String,Object> getTwistSettings(List<String> fields) {
         Map<String,Object> result = new Map<String,Object>();
         try {
@@ -449,35 +449,35 @@ public without sharing class TWIST_Utils {
         }
         return result;
     }
-    
+
     public static List<String> getOfferCodeValues(List<String> picklistValuesOfferCodeString){
         Schema.DescribeFieldResult XXPR_OfferCode = Exclusive_Experience__c.Offer_Code__c.getDescribe();
         Schema.sObjectField fieldOfferCode = XXPR_OfferCode.getSObjectField();
         List<PicklistEntry> picklistValuesOfferCode = fieldOfferCode.getDescribe().getPicklistValues();
-        
+
         for(PicklistEntry pe : picklistValuesOfferCode){
             picklistValuesOfferCodeString.add(pe.getValue());
         }
         return picklistValuesOfferCodeString;
     }
-    
+
     public static Boolean isUtmCampaignValid(String utmCampaign){
         List<String> picklistValuesOfferCodeString = new List<String>();
         getOfferCodeValues(picklistValuesOfferCodeString);
         return utmCampaign != null && picklistValuesOfferCodeString.contains(utmCampaign);
     }
-    
+
     public static Boolean doRedirectionToLVapp(String userAgent, Map<String,String> params, Boolean isUtmCampaignValid){
         return isUtmCampaignValid
         && isExcludeOfferWebOnly(params.get('utm_campaign'))
         && isValidParamsForExclusiveOffer(params)
         && isMobileDevice(userAgent);
     }
-    
+
     public static Boolean isMobileDevice(String userAgent) {
         return userAgent.contains('Android') || userAgent.contains('webOS') || userAgent.contains('iPhone') || userAgent.contains('iPad') || userAgent.contains('BlackBerry') || userAgent.contains('Windows Phone');
     }
-    
+
     public static String getAccountId(String cid){
         Map<String, Object> cidMap = new Map<String, Object>();
         if (!String.isEmpty(cid)){
@@ -494,11 +494,11 @@ public without sharing class TWIST_Utils {
         }
         return null;
     }
-    
+
     public static String getUserIdentifier(String utmCampaign, String identifier){
         return isUtmCampaignValid(utmCampaign) ? identifier : truncateIdentifier(identifier);
     }
-    
+
     /*
     * @description Truncate Username
     * @param {String} username
@@ -507,7 +507,7 @@ public without sharing class TWIST_Utils {
     public static String truncateIdentifier(String identifier) {
         return String.isNotEmpty(identifier) && identifier.length() >= 3 ? identifier.substring(0,3)+'***' : '';
     }
-    
+
     @future
     public static void updateUserVerifiedEmail(String username) {
         try{
@@ -526,7 +526,7 @@ public without sharing class TWIST_Utils {
             System.debug('> Error in method TWIST_Utils.updateUserVerifiedEmail(): ' + e.getMessage());
         }
     }
-    
+
     public static Boolean hasUserVerifiedEmail(String username) {
         List<TwoFactorMethodsInfo> twoFactorMethodsInfoList = [SELECT HasUserVerifiedEmailAddress FROM 	TwoFactorMethodsInfo WHERE 	User.Username =: username];
         if(!twoFactorMethodsInfoList.isEmpty()){
@@ -534,10 +534,10 @@ public without sharing class TWIST_Utils {
         }
         return false;
     }
-    
+
     public static Map<String,String> getPaths(String lang_country, String origin, String dispatch_country){
         Map<String,String> paths = new Map<String,String>();
-        
+
         // GET ALL PATHS
         for(TWIST_IDENTITY_Paths__mdt path : [
             SELECT Name__c, Value__c, Context__c, Application__c
@@ -549,7 +549,7 @@ public without sharing class TWIST_Utils {
             String value = path.Value__c;
             value = value.replace('lang_country', lang_country);
             value = value.replace('origin', origin);
-            
+
             if(!String.isEmpty(dispatch_country)){
                 value = value.replaceAll('\\[dispatchCountry=dispatch_country\\]', 'dispatchCountry=dispatch_country');
                 value = value.replace('dispatch_country', dispatch_country);
@@ -558,13 +558,13 @@ public without sharing class TWIST_Utils {
                 value = value.replaceAll('&\\[dispatchCountry=dispatch_country\\]', '');
                 value = value.replaceAll('\\[dispatchCountry=dispatch_country\\]', '');
             }
-            
+
             paths.put(path.Name__c, value);
         }
-        
+
         return paths;
     }
-    
+
     public static void blockUser(Map<String, Object> setting, String email, String value, String langCountry) {
         Integer legalAge = (Integer)setting.get('legalAge');
         Integer timeBlock = (Integer)setting.get('timeBlockValue');
@@ -588,18 +588,14 @@ public without sharing class TWIST_Utils {
     }
 
     public static Map<String,String> getSocialProvidersByLangCountry(String langCountry, Map<String,Object> queryParams) {
-        Map<String,String> paths = TWIST_Utils.getPaths(langCountry, 'mylv', '');
         Map<String,String> result = new Map<String,String>();
         List<TWIST_Social_Media__mdt> socialMediaList = [
             SELECT Auth_Provider_Name__c, Page_Key__c
             FROM TWIST_Social_Media__mdt
             WHERE Lang_Country__c = :langCountry
-            ];
+        ];
         for (TWIST_Social_Media__mdt socialMedia : socialMediaList) {
             String socialMediaName = socialMedia.Auth_Provider_Name__c;
-            String socialMediaType = socialMedia.Page_Key__c;
-            queryParams.put('redirect_url', EncodingUtil.urlEncode(paths.get(TWIST_IdentityPathsMdt_CONST.LV_SECURE_DOMAIN) + paths.get(TWIST_IdentityPathsMdt_CONST.SOCIAL_LOGIN_SUCCES_PATH) + socialMediaType, 'UTF-8'));
-            queryParams.put('error_redirect_url', EncodingUtil.urlEncode(paths.get(TWIST_IdentityPathsMdt_CONST.LV_API_DOMAIN) + paths.get(TWIST_IdentityPathsMdt_CONST.SOCIAL_LOGIN_ERROR_PATH) + socialMediaType, 'UTF-8'));
             result.put(socialMediaName, buildTwistPageUrl(socialMediaName, queryParams));
         }
         return result;
@@ -627,7 +623,7 @@ public without sharing class TWIST_Utils {
         }
         return null;
     }
-    
+
     public static String genderToSalutation(String gender) {
         Map<String, String> genderToSalutation = new Map<String, String> {
             'male' => '02',
@@ -637,7 +633,7 @@ public without sharing class TWIST_Utils {
         gender = gender.toLowerCase();
         return genderToSalutation.containsKey(gender) ? genderToSalutation.get(gender) : null ;
     }
-    
+
     public static Boolean isUserBlocked(String email, String langCountry) {
         Boolean isblocked = false;
         List<TwistCacheManager__c> userBlocked = [SELECT Key__c, LangCountry__c, TTL__c, Value__c, Type__c, CreatedDate FROM TwistCacheManager__c WHERE Key__c =: email AND LangCountry__c =: langCountry LIMIT 1];
@@ -654,7 +650,7 @@ public without sharing class TWIST_Utils {
          }
         return isblocked;
     }
-     
+
     public static Boolean isMinimumAge(String birthdate, Integer legalAge){
          if(birthdate != null){
             List<String> partsBirthdate = birthdate.split('-');
@@ -698,8 +694,31 @@ public without sharing class TWIST_Utils {
         return shuffleString(randomVal);
     }
 
+    public static String getDefaultLangCountry() {
+        TWIST_Settings__c settings = TWIST_Settings__c.getInstance();
+        return (String) settings.get('Default_Language_Country_Parameter__c');
+    }
+
+    public static Map<String,String> getLanguageSettings(String langCountry){
+        Map<String,String> languageSettings = new Map<String,String> ();
+        if (String.isEmpty(langCountry)) {
+            langCountry =  getDefaultLangCountry();
+        }
+        List<Language_Mapping_ATG_SF__mdt> languageMappingATG = [SELECT Meta_Language__c, Salesforce__c
+        FROM Language_Mapping_ATG_SF__mdt
+        WHERE ATG__c =: langCountry
+        LIMIT 1
+        ];
+        if(!languageMappingATG.isEmpty()){
+            languageSettings.put('salesforceLanguage', languageMappingATG[0].Salesforce__c);
+            languageSettings.put('metaLanguage', languageMappingATG[0].Meta_Language__c);
+        }
+        
+        return languageSettings;
+    }
+
     /* PRIVATE METHODS ***************************************************************************************/
-    
+
     @TestVisible
     private static String getIso2CodeForCallingCode(Integer callingCode) {
         List<CountryMapping__mdt> countryMappingList = [SELECT Iso2Code__c FROM CountryMapping__mdt WHERE Calling_Code__c = : callingCode];
@@ -709,16 +728,16 @@ public without sharing class TWIST_Utils {
         }
         return null;
     }
-    
+
     private static Boolean isValidCountryCode(String countryCode) {
         return countryCode != null && countryCode.length() == 2;
     }
-    
+
     //convert null values to empty strings ''
     private static Map<String,String> convertNullToEmptyValUser(User user) {
         Map<String,String> result = new Map<String,String>();
         Set<String> userPropertiesToReturn = new Set<String> {'Id', 'LanguageLocaleKey', 'HasVerifiedEmail__c', 'LocaleSidKey', 'FirstName', 'LastName', 'Country__c', 'Title', 'MobilePhone', 'Username'};
-        
+
         Map<String,Object> mapUserObject = (Map<String,Object>)JSON.deserializeUntyped(JSON.serialize(user));
         Set<String> userObjectKeyset = mapUserObject.keySet();
         String getKey = '';
@@ -726,27 +745,27 @@ public without sharing class TWIST_Utils {
         for (String key: userPropertiesToReturn) {
             if(key == 'HasVerifiedEmail__c') {
                 if (user.get(key) == true){
-                    getKey = 'true'; 
+                    getKey = 'true';
                 }
-                else{ 
+                else{
                     getKey = 'false';
                 }
             } else {
                 getKey = (String) user.get(key);
             }
-            
+
             result.put(
                 key,
                 userObjectKeyset.contains(key) && user.get(key) != null ? getKey : ''
             );
         }
-            
+
         // Specific cases
         result.put('IsActive', userObjectKeyset.contains('IsActive') && user.IsActive == true ? 'true' : 'false');
-        
+
         return result;
     }
-    
+
     private static Map<String,Object> getIdentitySettings(List<String> fields) {
         Map<String,Object> result = new Map<String,Object>();
         try {
@@ -760,7 +779,7 @@ public without sharing class TWIST_Utils {
         }
         return result;
     }
-    
+
     private static Map<String,Object> getRegistrationSettings(List<String> fields) {
         Map<String,Object> result = new Map<String,Object>();
         try {
@@ -774,7 +793,7 @@ public without sharing class TWIST_Utils {
         }
         return result;
     }
-    
+
     private static Map<String,Object> buildResponseObject(Boolean responseSuccess, Map<String,Object> responseParams) {
         Map<String,Object> result = new Map<String,Object> { 'success' => responseSuccess };
         if (responseParams != null && !responseParams.isEmpty()) {
@@ -782,31 +801,31 @@ public without sharing class TWIST_Utils {
         }
         return result;
     }
-    
+
     private static Boolean isPasswordLongEnough(String password) {
         return !String.isEmpty(password) && password.length() >= 8;
     }
-    
+
     private static Boolean hasUpperCharacter(String str) {
         return doesStringMatchRegexp('(?=.*[A-Z])', str);
     }
-    
+
     private static Boolean hasLowerCharacter(String str) {
         return doesStringMatchRegexp('(?=.*[a-z])', str);
     }
-    
+
     private static Boolean hasNumberCharacter(String str) {
         return doesStringMatchRegexp('(?=.*[0-9])', str);
     }
-    
+
     private static Boolean hasSpecialCharacter(String str) {
         return doesStringMatchRegexp('(?=.*[!#$&()*+,\\-.:;<=>?@\\[\\]^_{|}~])', str);
     }
-    
+
     private static Boolean doesStringMatchRegexp(String regexp, String str) {
         return Pattern.compile(regexp).matcher(str).find();
     }
-    
+
     private static String buildTwistPageUrl(String langCountry, String origin, String pageName) {
         return String.format('{0}{1}/{2}/{3}', new List<String> {
             // TWIST_Settings__c.getInstance().Community_URL__c,
@@ -816,7 +835,7 @@ public without sharing class TWIST_Utils {
             getPageKey(pageName)
         });
     }
-    
+
     private static String buildQueryParamsString(Map<String,Object> queryParams) {
         Map<String,Object> queryParamsClone = queryParams.clone();
         queryParamsClone.remove(TWIST_QueryParamKey_CONST.LANG_COUNTRY);
@@ -834,7 +853,7 @@ public without sharing class TWIST_Utils {
         }
         return result;
     }
-    
+
     @TestVisible
     private static String getPageKey(String pageName) { // return first key, for the sake of simplicity
         List <TWIST_IDENTITY_Paths__mdt> paths = [SELECT Value__c FROM TWIST_IDENTITY_Paths__mdt WHERE Name__c = :pageName AND Context__c = ''];
@@ -845,7 +864,7 @@ public without sharing class TWIST_Utils {
         }
         return null;
     }
-    
+
     private static Boolean isValidParamsForExclusiveOffer(Map<String,String> params){
         return params.containsKey('cid')
         && params.get('origin').toLowerCase() != 'lvapp'
@@ -883,7 +902,7 @@ public without sharing class TWIST_Utils {
 
         return shuffledString.toString();
     }
-  
+
     public class CustomException extends Exception {}
-    
+
 }

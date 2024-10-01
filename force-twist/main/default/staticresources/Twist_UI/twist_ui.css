@@ -1,3 +1,15 @@
+/* Keyframes */
+@keyframes buttonAnimation {
+  from {
+    background-color: #000;
+    color: #fff;
+  }
+  to {
+    background-color: #fff;
+    color: #19110b;
+  }
+}
+
 /* Begin: errors handling */
 .component .component__form lightning-input.error .slds-form-element__label,
 .component .component__form lightning-combobox.slds-has-error .slds-form-element__label,
@@ -39,6 +51,12 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
+}
+
+.slds-input,
+.slds-scope .slds-button,
+.slds-scope a {
+  transition: none !important;
 }
 
 .component .component__form lightning-input.error input.slds-input {
@@ -178,7 +196,14 @@ input::-webkit-contacts-auto-fill-button {
   margin-bottom: 16px;
   border-radius: 24px;
   text-decoration: none;
-  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
+}
+.component .component__form .form__button button:hover {
+  animation: buttonAnimation .3s cubic-bezier(.39,.575,.565,1) forwards;
+}
+.component .component__form .form__button button:focus {
+  background-color:#fff;
+  color:#19110b;
+  box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px #19110b;
 }
 
 .line-or-text{
@@ -190,14 +215,14 @@ input::-webkit-contacts-auto-fill-button {
 .line-container {
   display: flex;
   align-items: center;
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 .line {
   flex: 1;
   height: 1px;
-  background-color: #ccc; 
-  margin: 0 10px; 
+  background-color: #ccc;
+  margin: 0 10px;
 }
 
 .component .component__form .forms__button button {
@@ -213,16 +238,6 @@ input::-webkit-contacts-auto-fill-button {
   padding: 14px 0;
   width: 100%;
   border-radius: 24px;
-}
-
-.component .component__form .form__button button:hover {
-  background-color:#ffffff;
-  color: #19110b;
-}
-.component .component__form .form__button button:focus {
-  background-color:#fff;
-  color:#19110b;
-  box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px #19110b;
 }
 
 .success-message {
@@ -531,7 +546,7 @@ input::-webkit-contacts-auto-fill-button {
 }
 
 .forceCommunitySection .cb-section_column:only-child {
-  /* padding-right:0; 
+  /* padding-right:0;
   padding-left:0;  */
   padding: 0;
 }
@@ -565,6 +580,19 @@ input::-webkit-contacts-auto-fill-button {
   letter-spacing: 0.4px;
   color: #000;
   margin-bottom: 24px;
+}
+
+.required_field_text{
+  display: flex;
+  justify-content: end;
+  font-size: 14px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+  color: #000;
+  margin-bottom: 24px
 }
 
 .main__section {
@@ -665,16 +693,16 @@ input::-webkit-contacts-auto-fill-button {
 }
 .line-icon-svg {
   filter: invert(100%) sepia(0%) saturate(24%) hue-rotate(114deg) brightness(108%) contrast(108%);
-  width: 1.5em; 
-  height:1.5em; 
-  margin-right:0.5rem; 
-  position: relative; 
+  width: 1.5em;
+  height:1.5em;
+  margin-right:0.5rem;
+  position: relative;
 }
 .google-icon-svg{
-  width: 1.5em; 
-  height:1.5em; 
-  margin-right:0.5rem; 
-  position: relative; 
+  width: 1.5em;
+  height:1.5em;
+  margin-right:0.5rem;
+  position: relative;
 }
 .component .component__form .line__button button:hover {
   background-color: #ffffff;
@@ -685,7 +713,6 @@ input::-webkit-contacts-auto-fill-button {
   color:#19110b;
   box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px#19110b;
 }
-
 
 .component .component__form .continue__button button {
   border: 1px solid #19110b;
@@ -704,11 +731,9 @@ input::-webkit-contacts-auto-fill-button {
   margin-bottom: 16px;
   border-radius: 24px;
   text-decoration: none;
-  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
 }
 .component .component__form .continue__button button:hover {
-  background-color: #ffffff;
-  color: #19110b;
+  animation: buttonAnimation .3s cubic-bezier(.39,.575,.565,1) forwards;
 }
 .component .component__form .continue__button button:focus {
   background-color:#fff;
@@ -745,11 +770,9 @@ input::-webkit-contacts-auto-fill-button {
   padding: 14px;
   margin-bottom: 16px;
   text-decoration: none;
-  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
 }
 .component .component__form .leave__button button:hover {
-  background-color: #19110b;
-  color: #ffffff;
+  animation: buttonAnimation .3s cubic-bezier(.39,.575,.565,1) reverse forwards;
 }
 .component .component__form .leave__button button:focus {
   background-color:#19110b;
@@ -774,12 +797,9 @@ input::-webkit-contacts-auto-fill-button {
   padding: 14px;
   margin-bottom: 16px;
   text-decoration: none;
-  transition: border .3s cubic-bezier(.39,.575,.565,1),color .3s cubic-bezier(.39,.575,.565,1),background .3s cubic-bezier(.39,.575,.565,1); 
-
 }
 .component .component__form .continue__buttons button:hover {
-  background-color: #ffffff;
-  color: #19110b;
+  animation: buttonAnimation .3s cubic-bezier(.39,.575,.565,1) forwards;
 }
 .component .component__form .continue__buttons button:focus {
   background-color:#fff;
