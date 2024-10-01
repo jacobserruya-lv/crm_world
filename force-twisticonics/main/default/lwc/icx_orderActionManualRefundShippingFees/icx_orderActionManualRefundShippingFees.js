@@ -18,6 +18,7 @@ export default class Icx_orderActionManualRefundShippingFees extends LightningMo
     @api orderdetailsapi; // Order__c.orderNumber__c
     // @api products; // list of product to display
     @api orderaction; // [{ label: 'Exchange', value: 'exchange' }, { label: 'Return', value: 'return' }, ...] 
+    shippingNumber;
 
     @track userId = USER_ID;
     wwemployeeid;
@@ -77,7 +78,7 @@ export default class Icx_orderActionManualRefundShippingFees extends LightningMo
                 employeeId: this.wwemployeeid,
                 orderNumber: this.orderdetailsapi.order_id,
                 orderAction: this.orderaction.value,
-                orderVersion: this.orderdetailsapi.version
+                shippingNumber: this.orderdetailsapi.version === 'v1' ? this.orderdetailsapi.order_lines[0].shippingLineNumber : null
                 // reasonCode: this.reasonSelected,
                 // shippingId: tiles[i].product?.reason.Id,
                 // requestId: tiles[i].product?.request_id
