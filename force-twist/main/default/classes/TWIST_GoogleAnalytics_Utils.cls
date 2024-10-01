@@ -1,4 +1,4 @@
-public with sharing class TWIST_GoogleAnalytics_Utils {
+    public with sharing class TWIST_GoogleAnalytics_Utils {
 
         public static String buildUtagDataObjectFromCurrentPageParams(String origin, String langCountry, String dispatchCountry, String page) {
             Map<String,String> utagData = buildUtagDataObject(new Map<String,String> {
@@ -67,3 +67,4 @@ public with sharing class TWIST_GoogleAnalytics_Utils {
         }
         
     }
+    

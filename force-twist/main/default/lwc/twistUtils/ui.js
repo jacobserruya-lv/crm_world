@@ -1,3 +1,4 @@
+
 function showPageLoader() {
     window.postMessage('showPageLoader', '*');
 }

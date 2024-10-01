@@ -1,0 +1,32 @@
+<apex:component>
+
+    <apex:attribute name="utagDataStringified" type="String" required="true" description="" />
+    <apex:attribute name="utagDataScript" type="String" required="true" description="" />
+
+
+    <script type="text/javascript">
+        const utag_data = Object.assign(
+            JSON.parse("{!utagDataStringified}"),
+            { screenOrientation: window.innerHeight > window.innerWidth ? 'portrait' : 'landscape' }
+        );
+
+        Object.defineProperties(window, {
+            _autoDataLoaded: {
+                value: false,
+                writable: true
+            },
+            autoDataLoaded: {
+                get: () => this._autoDataLoaded,
+                set: value => {
+                    this._autoDataLoaded = value;
+                    if (value === true) {
+                        createWrapperComponent();
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script src="{!utagDataScript}"></script>
+
+</apex:component>

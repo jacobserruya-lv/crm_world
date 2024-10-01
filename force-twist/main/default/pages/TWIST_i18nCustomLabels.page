@@ -1,4 +1,5 @@
-<apex:page language="{!$CurrentPage.parameters.language}"
+<apex:page
+    language="{!$CurrentPage.parameters.language}"
     controller="TWIST_i18nCustomLabels_CTRL"
     action="{!init}"
     contentType="text/plain"

@@ -29,3 +29,4 @@ export default class TwistFooterLegalSection extends LightningElement {
         this.dispatchEvent(new Event('showmsatransparencysection'));
     }
 }
+

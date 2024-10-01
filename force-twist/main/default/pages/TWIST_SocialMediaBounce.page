@@ -1,4 +1,5 @@
-<apex:page controller="TWIST_SocialMediaBounce_CTRL"
+<apex:page
+    controller="TWIST_SocialMediaBounce_CTRL"
     showHeader="false"
     applyBodyTag="false"
     applyHtmlTag="false"
