@@ -14,7 +14,7 @@ public class ICX_CaseQualificationLC_TEST {
 
         // Check
         System.assert(resultMap.get('Transfer') != null && resultMap.get('Transfer').isEmpty());
-        System.assert(resultMap.get('Product Information') != null && !resultMap.get('Product Information').isEmpty());
+      //  System.assert(resultMap.get('Product Information') != null && !resultMap.get('Product Information').isEmpty()); //dependency deleted FOR THE NEW FLOW
     }
 
 	@isTest
