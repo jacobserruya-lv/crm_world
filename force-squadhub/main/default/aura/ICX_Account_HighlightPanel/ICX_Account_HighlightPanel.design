@@ -1,0 +1,6 @@
+<design:component label="HighlightPanel">
+    <design:attribute name="authorizationToEdit" label="Display Edit" />
+    <design:attribute name="openEditModal" label="Open Edit Modal" />
+    <design:attribute name="displayFormat" label="Horizontal Format" />
+    <design:attribute name="accountApi" label="Account field API name of the current object" description="DEPRECATED (can't be used). Used to simplify the usage for all objects with a lookup with Account" />
+</design:component>
