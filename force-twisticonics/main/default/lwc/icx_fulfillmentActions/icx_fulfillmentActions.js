@@ -4,7 +4,7 @@ import { publish, subscribe, MessageContext } from 'lightning/messageService';
 //import PRODUCTS_FILTERED_MESSAGE from '@salesforce/messageChannel/ProductsFiltered__c';
 import ORDER_REFRESH_MESSAGE from '@salesforce/messageChannel/OrderRefresh__c';
 import sendAction from '@salesforce/apex/Account_OrderDetailsControllerLC.sendAction';
-import getOrderDetails from '@salesforce/apex/Account_OrderDetailsControllerLC.getOrderDetailsTwist';
+// import getOrderDetails from '@salesforce/apex/Account_OrderDetailsControllerLC.getOrderDetailsTwist';
 
 import getBackOfficeUser from '@salesforce/apex/Account_OrderDetailsControllerLC.backOfficeUser2';
 import getReasonPicklist from '@salesforce/apex/Account_OrderDetailsControllerLC.reasonPicklist';
