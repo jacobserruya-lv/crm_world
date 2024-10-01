@@ -310,12 +310,12 @@ public without sharing class Account_OrderDetailsControllerLC {
     }
 
     @AuraEnabled
-    public static Map<String,Object> sendActionManualRefundShippingFees(String requestingSystem, String amount, String paymentMethod, String employeeId, String orderNumber, String orderAction, String orderVersion){
-        System.debug('sendActionRefund params : ' + amount + ' / ' +paymentMethod + ' / ' + employeeId + ' / ' + orderNumber + ' / ' + orderAction + ' / ' + orderVersion);
+    public static Map<String,Object> sendActionManualRefundShippingFees(String requestingSystem, String amount, String paymentMethod, String employeeId, String orderNumber, String orderAction, String shippingNumber){
+        System.debug('sendActionRefund params : ' + amount + ' / ' +paymentMethod + ' / ' + employeeId + ' / ' + orderNumber + ' / ' + orderAction + ' / ' + shippingNumber);
        
         Map<String, Object> response = new Map<String, Object>();
         try {
-            String requestId = orderVersion == 'v2' ? orderNumber+'_fees' : orderNumber; //special request id for refund shipping fees
+            String requestId = shippingNumber != null ? shippingNumber :  orderNumber+'_fees' ; //special request id for refund shipping fees
 
            response = callToFinor(requestingSystem,'REFUND', amount,paymentMethod,employeeId,orderNumber,requestId);     
            if(response.get('status') != 'error' ) insertTraceability(orderAction, null , null, employeeId, orderNumber, paymentMethod);
