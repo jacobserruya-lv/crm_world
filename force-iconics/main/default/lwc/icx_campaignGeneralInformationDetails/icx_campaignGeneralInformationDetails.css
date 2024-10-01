@@ -11,6 +11,10 @@
     flex: 1;
 }
 
+.div_column3 {
+    flex: 1;
+}
+
 .div_container {
     display: flex;
     margin-bottom: 17px;
@@ -39,6 +43,20 @@
 }
 
 .div_column2 .text_value {
+    font-size: 14px;
+    font-weight: bold;
+    flex: 2;
+    margin-left: 10px;
+}
+
+.div_column3 .text_label {
+    color: #706E6B;
+    white-space: nowrap;
+    font-size: 12px;
+    flex: 1;
+}
+
+.div_column3 .text_value {
     font-size: 14px;
     font-weight: bold;
     flex: 2;
