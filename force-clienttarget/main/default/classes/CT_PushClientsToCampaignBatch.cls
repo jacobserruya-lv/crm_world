@@ -37,14 +37,18 @@ global class CT_PushClientsToCampaignBatch implements Database.Batchable<sObject
         String assignedCaLVMId = assignedCaByDreamId.get(c.DREAMID__c);
         String assignedCaSFId = assignedCaLVMId != null ? userByLVMId.get(assignedCaLVMId) : null;
 
-        campaignMembers.put(
-          c.DREAMID__c,
-          new CampaignMember__c(
-            Member__c = c.Id,
-            Campaign__c = campaignId,
-            AssignedCA__c = assignedCaSFId != null ? assignedCaSFId : assignedCaLVMId
-          )
-        );
+        try {
+          campaignMembers.put(
+            c.DREAMID__c,
+            new CampaignMember__c(
+              Member__c = c.Id,
+              Campaign__c = campaignId,
+              AssignedCA__c = assignedCaSFId != null ? assignedCaSFId : assignedCaLVMId
+            )
+          );
+        } catch (Exception e) {
+          addRowToCsvFile(c.DREAMID__c, e.getMessage());
+        }
       }
 
       List<Database.SaveResult> results = Database.insert(campaignMembers.values(), false);
