@@ -226,7 +226,7 @@ global class Account_OrderDetailsContollerLC_TEST  {
         User currentUser = [SELECT id, WWEmployeeNumber__c FROM User WHERE WWEmployeeNumber__c = 'LV12345' LIMIT 1];
         
         System.runAs(currentUser) {
-        Account_OrderDetailsControllerLC.sendActionManualRefundShippingFees('ICONiCS','160','BANK_TRANSFER',currentUser.WWEmployeeNumber__c,ord.OrderNumber__c,'REFUND','v1');
+        Account_OrderDetailsControllerLC.sendActionManualRefundShippingFees('ICONiCS','160','BANK_TRANSFER',currentUser.WWEmployeeNumber__c,ord.OrderNumber__c,'REFUND');
         }
 
         Test.stopTest();

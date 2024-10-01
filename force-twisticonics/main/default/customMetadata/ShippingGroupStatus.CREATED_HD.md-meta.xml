@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Created</label>
+    <protected>false</protected>
+    <values>
+        <field>Fulfillment_Type__c</field>
+        <value xsi:type="xsd:string">DELIVERY</value>
+    </values>
+    <values>
+        <field>Html_Color__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Information_to_display__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Source_Location__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Source_Pickup_Location__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Status_OMS__c</field>
+        <value xsi:type="xsd:string">created</value>
+    </values>
+</CustomMetadata>

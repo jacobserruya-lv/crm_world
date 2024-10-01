@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Relationship_in_listened_Object__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Relationship in listened Object</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OrderShipping__r</fullName>
+                <default>false</default>
+                <label>OrderShipping__r</label>
+            </value>
+            <value>
+                <fullName>Order__r</fullName>
+                <default>false</default>
+                <label>Order__r</label>
+            </value>
+            <value>
+                <fullName>Order__r.account__r</fullName>
+                <default>false</default>
+                <label>Order__r.account__r</label>
+            </value>
+            <value>
+                <fullName>ProductReferential__r</fullName>
+                <default>false</default>
+                <label>ProductReferential__r</label>
+            </value>
+            <value>
+                <fullName>Order__r.OwnerId__r</fullName>
+                <default>false</default>
+                <label>Order__r.OwnerId__r</label>
+            </value>
+            <value>
+                <fullName>Order__r.Store__r</fullName>
+                <default>false</default>
+                <label>Order__r.Store__r</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

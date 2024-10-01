@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Objects to Listen in the &quot;Order Search&quot; context</description>
+    <label>ICX Order Search  Listener</label>
+    <pluralLabel>ICX Order Search Listeners</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

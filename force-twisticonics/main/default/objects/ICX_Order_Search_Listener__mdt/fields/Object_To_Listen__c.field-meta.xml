@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Object_To_Listen__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Object To Listen</label>
+    <referenceTo>EntityDefinition</referenceTo>
+    <relationshipLabel>Order_Search_Listeners</relationshipLabel>
+    <relationshipName>Order_Search_Listeners</relationshipName>
+    <required>true</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>
