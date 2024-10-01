@@ -296,7 +296,7 @@ export default class Icx_campaignGeneralInformationDetails extends NavigationMix
     console.log('  this.campaign.data', this.campaign.data);
     return getFieldValue(this.campaign.data, NAME_FIELD) ? getFieldValue(this.campaign.data, NAME_FIELD) : "N/A";
     }
-
+  
     get startDate() {
     console.log('  this.campaign.data', this.campaign.data);
     return getFieldValue(this.campaign.data, CAMPAIGNSTARTDATE_FIELD) ? getFieldValue(this.campaign.data, CAMPAIGNSTARTDATE_FIELD) : "N/A";
