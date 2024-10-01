@@ -9,6 +9,10 @@
       "default": false
     },
     {
+      "path": "force-squadhub",
+      "default": false
+    },
+    {
       "path": "force-clientforce",
       "default": false
     },

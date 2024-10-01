@@ -1080,6 +1080,8 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
         
         if(isManager) query += ' AdvisorWWId__c IN :myTeamWWEmployeeNumber ';
   
+        // else if() query+= ' AdvisorWWId__c IN :myTeamDigital ';
+
         else query+= ' AdvisorCSRole__c = :myUserRoleName ';
 
         query += 'AND ( SurveyType__c = \'ONLINE POST DELIVERY\'  OR  SurveyType__c = \'ONLINE POST PAYMENT\') ' + 
