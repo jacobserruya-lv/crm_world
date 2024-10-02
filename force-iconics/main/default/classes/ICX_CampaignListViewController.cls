@@ -29,7 +29,7 @@ public with sharing class ICX_CampaignListViewController {
             }
         }
         
-        query += 'ORDER BY Name ASC LIMIT :pageSize OFFSET :pageIndex';
+        query += 'ORDER BY Status_Order__c, Name ASC LIMIT :pageSize OFFSET :pageIndex';
         campaignList = Database.query(query);
 
         if(campaignList.size()>0){
