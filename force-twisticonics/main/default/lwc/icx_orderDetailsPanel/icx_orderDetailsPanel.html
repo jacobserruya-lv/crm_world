@@ -139,8 +139,8 @@
                                 <!-- <p>Shipping: {orderdetailsapi.sumOfShippingFees}</p> -->
                                 <p> Shipping: <lightning-formatted-number value={orderdetailsapi.sumOfShippingFeesWithoutTax}  minimum-fraction-digits="2"></lightning-formatted-number></p>
                             </template>
-                            <template if:true={orderdetailsapi.transactionInfo.additional_fees}>
-                                <p>Retail Delivery Fee: <lightning-formatted-number value={orderdetailsapi.transactionInfo.additional_fees}  minimum-fraction-digits="2"></lightning-formatted-number></p>
+                            <template if:true={orderdetailsapi.sumOfAdditionalFees}>
+                                <p>Retail Delivery Fee: <lightning-formatted-number value={orderdetailsapi.sumOfAdditionalFees}  minimum-fraction-digits="2"></lightning-formatted-number></p>
                             </template>  
                             <p>Tax:  <lightning-formatted-number value={orderdetailsapi.transactionInfo.tax_amount}  minimum-fraction-digits="2"></lightning-formatted-number></p>
                         </div>
