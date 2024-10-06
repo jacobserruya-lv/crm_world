@@ -106,7 +106,7 @@ private class ICX_Client360_SF_Test {
      
      boolean isComplaints = true;
      boolean isRemotConsent = false;
-      boolean isClienteling = false;
+     boolean isClienteling = false;
 
  
      Test.startTest();

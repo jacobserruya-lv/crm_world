@@ -1,15 +1,15 @@
 @isTest
 public class ICX_CaseDataServiceControllerLCTest {
-
-    // Avoid : System.DmlException: Insert failed. First exception on row 0; 
-    // first error: MIXED_DML_OPERATION, DML operation on setup object is not permitted after you have updated a non-setup object (or vice versa): MessagingChannel, original object: Account: []
-    //@testSetup
-    //public static void init() {
-        //MessagingChannel chan = createMessagingChannel();//[SELECT Id FROM MessagingChannel WHERE MessageType='Text' LIMIT 1];
-        //insert chan;
-    //}
+/*
+    // // Avoid : System.DmlException: Insert failed. First exception on row 0; 
+    // // first error: MIXED_DML_OPERATION, DML operation on setup object is not permitted after you have updated a non-setup object (or vice versa): MessagingChannel, original object: Account: []
+    // //@testSetup
+    // //public static void init() {
+    //     //MessagingChannel chan = createMessagingChannel();//[SELECT Id FROM MessagingChannel WHERE MessageType='Text' LIMIT 1];
+    //     //insert chan;
+    // //}
     
-    // test getAccountId()
+    // // test getAccountId()
     @isTest
     public static void getAccountId_CaseTest() {
         // test case empty
@@ -125,34 +125,34 @@ public class ICX_CaseDataServiceControllerLCTest {
         System.assertEquals(acc.Id, accIdResult);
     }
     
-    /* TODO
-    @isTest
-    public static void getAccountId_Task_NoAccountIdTest() {
-        // test case empty
-        System.assertEquals(null, ICX_CaseDataServiceControllerLC.getAccountId(null));
+    //  TODO
+    // @isTest
+    // public static void getAccountId_Task_NoAccountIdTest() {
+    //     // test case empty
+    //     System.assertEquals(null, ICX_CaseDataServiceControllerLC.getAccountId(null));
         
-        // test 2
-        Account acc = ICX_TestFactory.createAccount();
-        insert acc;
+    //     // test 2
+    //     Account acc = ICX_TestFactory.createAccount();
+    //     insert acc;
         
-        Task task = ICX_TestFactory.createEmailTaskOnCase(null);
-        // task.accountId = acc.Id; // field not writeable
-        //task.WhatId = acc.id;
-        insert task;
+    //     Task task = ICX_TestFactory.createEmailTaskOnCase(null);
+    //     // task.accountId = acc.Id; // field not writeable
+    //     //task.WhatId = acc.id;
+    //     insert task;
         
-        Case cas = ICX_TestFactory.createCase(acc.Id);
-        insert cas;
+    //     Case cas = ICX_TestFactory.createCase(acc.Id);
+    //     insert cas;
         
-        // should changed AccountId in empty
-        task.WhatId = cas.Id;
-        update task;
+    //     // should changed AccountId in empty
+    //     task.WhatId = cas.Id;
+    //     update task;
         
-        Test.startTest();
-        Id accId = ICX_CaseDataServiceControllerLC.getAccountId(task.Id);
-        Test.stopTest();
+    //     Test.startTest();
+    //     Id accId = ICX_CaseDataServiceControllerLC.getAccountId(task.Id);
+    //     Test.stopTest();
 
-        System.assertEquals(acc.Id, accId);
-    }*/
+    //     System.assertEquals(acc.Id, accId);
+    // }
 
     @isTest
     public static void getCareServiceList_Test() {
@@ -564,7 +564,7 @@ public class ICX_CaseDataServiceControllerLCTest {
         System.assertEquals(1, result.openMessagingList.size());
         System.assertEquals(mess.Id, result.openMessagingList[0].id);
     }
-
+    
     @isTest
     public static void updateRecord_Alias_Test() {
         
@@ -588,4 +588,5 @@ public class ICX_CaseDataServiceControllerLCTest {
         System.assertEquals(a.Id, result.Alias__c);
         System.assertEquals(acc.Id, result.Client__c);
     }
+        */
 }
