@@ -1,0 +1,33 @@
+.dummy{
+	color : black;
+}
+
+
+.container
+{
+	width: 100%;
+	height: 5rem;
+	background-color: white;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.button
+{
+	width: 15rem;
+	height: 3rem;
+	background-color: white;
+	border-radius: 5px;
+	border-color: #acac93;;
+	padding-top: 10px;
+	padding-left: 25px;
+	display:flex;
+	justify-content: center;
+}
+
+.slds-modal__container
+{
+	min-width: 30rem;
+	max-width: 60rem;
+}

@@ -30,7 +30,13 @@ public with sharing class ICX_CaseDataServiceControllerLC {
                             accId = [SELECT AccountId FROM Contact WHERE Id = :taskList.get(0).WhatId].AccountId;
                         }
                     }
-                }else{                   
+
+                                   
+                }
+                else if('MessagingSession'.equalsIgnoreCase(objectType)){
+                    accId =  [SELECT EndUserAccountId FROM MessagingSession WHERE Id = :recordId ].EndUserAccountId;
+                        }  
+                else{                   
                     sObject sobj = Database.query('SELECT '+ accountField +' FROM '+ objectType +' WHERE Id = :recordId');
                       accId = String.valueof(sobj.get(accountField));
                 }

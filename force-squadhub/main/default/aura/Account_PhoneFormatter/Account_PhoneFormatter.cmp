@@ -1,0 +1,56 @@
+<aura:component access="global" >
+
+    <aura:attribute type="String" name="type" 				default="MOBILE" description="MOBILE / WORK / HOME"/>
+    <aura:attribute type="String" name="title" 				default="-" description="Field label"/>
+    <aura:attribute type="String" name="countryCode" 		default="" description="ISO2 country code (ex: FR for France)"/>
+    <aura:attribute type="String" name="localePhone" 		default="" description="Local phone (ex: 0611223344 for country FR)"/>
+    <aura:attribute type="String" name="internationalPhone" default="" description="International phone (ex: +33611223344 for country FR)"/>
+
+    <aura:attribute type="String" name="titleId" 			default="" description="Field label" access="private"/>
+
+    <ltng:require styles="{!$Resource.PhoneFormatter + '/css/intlTelInput.css'}"
+                  scripts="{!join(',', 
+                           $Resource.PhoneFormatter + '/js/jquery.min.js', 
+                           $Resource.PhoneFormatter + '/js/phoneformatter.js',
+                           $Resource.PhoneFormatter + '/js/intlTelInput.min.js'
+                           )}" 
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+
+    <aura:handler name="change" value="{!v.countryCode}" action="{!c.handleClick}"/>
+    <aura:registerEvent name="phoneEvent" type="c:Account_PhoneFormatterEvent"/>
+
+    <!--lightning:input aura:id="phone" type="text" label="Telephone" name="tel" value="343-343-3434" /--><!---pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/-->
+    <!-- input type="tel" id="phone" aura:id="phone"/-->
+    <!--input id="phone" type="phone" class="slds-form-element lightningInput" /-->
+
+	<!--ui:inputText id="phone" type="phone" value="{!v.localePhone}" blur="{!c.handleClick}"/-->
+    <!--lightning:input aura:id="phone" type="number" name="phone" label="phone" value="{!v.internationalPhone}"/-->
+    <!--ui:inputText label="" id="phone" class="field" value="{!v.countryCode}" updateOn="{!c.handleClick}"/-->
+    
+    <div class="slds-form-element lightningInput">
+        <label class="slds-form-element__label slds-no-flex">
+            <span class="">{!v.title}</span>
+        </label>
+        <div class="slds-form-element__control slds-grow">
+            <input aura:id="intlTelPhone" id="{! 'intlTelPhone' + v.title }" type="text" onblur="{!c.handleClick}" oninput="{!c.onInputChanged}" class="slds-input" />
+            <lightning:icon aura:id="validMsg" iconName="utility:success" title="Valid" alternativeText="Valid" class="slds-hide valid iconPosition" size="xx-small"/>
+            <lightning:icon aura:id="errorMsg" iconName="utility:error" title="Invalid number" alternativeText="Invalid number" class="slds-hide iconPosition" variant="error" size="xx-small" />
+
+            <!--lightning:icon iconName="action:approval" title="Valid" alternativeText="Valid" variant="warning" size="xx-small"/>
+            <lightning:icon iconName="action:approval" title="Valid" alternativeText="Valid" variant="" size="xx-small"/>
+            <lightning:icon iconName="action:approval" title="Valid" alternativeText="Valid" variant="error" size="xx-small"/>
+            <lightning:icon iconName="utility:success" title="Valid" alternativeText="Valid" variant="warning" size="xx-small"/>
+            <lightning:icon iconName="utility:success" title="Valid" alternativeText="Valid" variant="inverse" size="xx-small"/>
+            <lightning:icon iconName="utility:success" title="Valid" alternativeText="Valid" variant="error" size="xx-small"/-->
+        </div>
+        <ui:outputText value="{!v.internationalPhone}" class="internationalPhone"/>
+    </div>
+    
+    <!--span aura:id="validMsg" id="valid-msg" class="slds-hide">✓ Valid</span>
+    <span aura:id="errorMsg" id="error-msg" class="slds-hide">Invalid number</span-->
+    <!--br/>
+    <ui:outputText value="{!v.countryCode}"/>
+    <br/>
+    <ui:outputText value="{!v.localePhone}"/-->
+    
+</aura:component>

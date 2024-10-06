@@ -1071,8 +1071,6 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
         }
     }
 
-
-
     if(isDigital) {
       
       String query = 'SELECT id, CreatedDate,SurveyType__c,ClientDreamID__r.Name,ClientDreamID__r.Segmentation__c,' +
@@ -1080,6 +1078,8 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
         
         if(isManager) query += ' AdvisorWWId__c IN :myTeamWWEmployeeNumber ';
   
+        // else if() query+= ' AdvisorWWId__c IN :myTeamDigital ';
+
         else query+= ' AdvisorCSRole__c = :myUserRoleName ';
 
         query += 'AND ( SurveyType__c = \'ONLINE POST DELIVERY\'  OR  SurveyType__c = \'ONLINE POST PAYMENT\') ' + 
@@ -1104,17 +1104,12 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
 
     }
 
-    system.debug('myListSurveys : '+myListSurveys);
-
-
     Map<String,String> advisorCSRole = new Map<String,String>();
   
     List<string> listAdvisorId = new List<string>();
     for(VO_Survey__c survey : myListSurveys) {
       if(survey.AdvisorWWId__c != null )listAdvisorId.add(survey.AdvisorWWId__c);
     }
-
-    system.debug('listAdvisorId : '+listAdvisorId);
 
     List<User> listUserRoles = [SELECT id, Name, UserRole.Name, WWEmployeeNumber__c  
                             FROM User
@@ -1123,9 +1118,6 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
     for(User usRole :listUserRoles) {
       advisorCSRole.put( usRole.WWEmployeeNumber__c , usRole.UserRole.Name);
     }
-
-    system.debug('advisorCSRole : '+advisorCSRole);
-
 
                                   
     List<ICX_Client360_API_Helper.SurveyWrapper> surveyList = new List<ICX_Client360_API_Helper.SurveyWrapper>();
@@ -1152,8 +1144,6 @@ Date threeMonthAgo = (Date.Today()).addMonths(-3);
 
       surveyList.add(surveyWrapper);
     }
-    system.debug('surveyList : '+surveyList);
-
 
     return surveyList;
   }

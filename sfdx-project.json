@@ -9,6 +9,14 @@
       "default": false
     },
     {
+      "path": "force-omnichannel",
+      "default": false
+    },
+    {
+      "path": "force-squadhub",
+      "default": false
+    },
+    {
       "path": "force-clientforce",
       "default": false
     },
