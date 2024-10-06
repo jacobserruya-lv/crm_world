@@ -18,8 +18,8 @@ const COLUMNS = [
     {label: 'Id', fieldName: 'recordLink', type: 'url', typeAttributes: {label: {fieldName: 'Id'}, target: '_self'}, hideDefaultActions: true },
     {label: clientName, fieldName: 'clientLink', type: 'url', typeAttributes: {label: {fieldName: 'clientName'}, target: '_self'}, hideDefaultActions: true },
     {label: status, fieldName: 'Status__c', type: 'text', hideDefaultActions: true },
-    {label: preferredCa, fieldName: 'preferredCa', type: 'text', hideDefaultActions: true },
-    {label: AssignedCa, fieldName: 'AssignedCa', type: 'text', hideDefaultActions: true },
+    {label: preferredCa, fieldName: 'preferredCaLink', type: 'url', typeAttributes: {label: {fieldName: 'preferredCa'}, target: '_self'}, hideDefaultActions: true },
+    {label: AssignedCa, fieldName: 'AssignedCaLink', type: 'url', typeAttributes: {label: {fieldName: 'AssignedCa'}, target: '_self'}, hideDefaultActions: true },
     {label: guests, fieldName: 'GuestNumber__c', type: 'text', hideDefaultActions: true },
     {label: appointmentStart, fieldName: 'Appointment_Start__c', type: 'date', typeAttributes: {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',  hour12: true}, hideDefaultActions: true, initialWidth: 160 },
     {label: appointmentEnd, fieldName: 'Appointment_End__c', type: 'date', typeAttributes: {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',  hour12: true}, hideDefaultActions: true, initialWidth: 160 }
@@ -66,7 +66,9 @@ export default class Ex_invitees_related_list extends NavigationMixin(LightningE
                                             clientLink: `/${invitee.Client__c}`,
                                             clientName: invitee.Client__r?.Name,
                                             preferredCa: invitee.Client__r?.Owner?.Name,
-                                            AssignedCa: invitee.Assigned_CA__r?.Name
+                                            AssignedCa: invitee.Assigned_CA__r?.Name,
+                                            preferredCaLink: `/${invitee.Client__r?.OwnerId}`,
+                                            AssignedCaLink: `/${invitee.Assigned_CA__c}`
 
                                         }
                                 });
@@ -78,7 +80,8 @@ export default class Ex_invitees_related_list extends NavigationMixin(LightningE
     }
     openNewModal() {
         const encodedValues = encodeDefaultFieldValues({
-            Brand_Experience_Variation__c: this.recordId
+            Brand_Experience_Variation__c: this.recordId,
+            NominationSource__c: 'Desktop'
         });
 
         this[NavigationMixin.Navigate]({

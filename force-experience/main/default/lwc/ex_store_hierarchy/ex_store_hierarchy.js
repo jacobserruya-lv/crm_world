@@ -100,10 +100,10 @@ export default class ex_store_hierarchy extends LightningElement {
 
 
     connectedCallback(){
-        // Promise.all([
-        //     loadStyle(this, CssLvClub + "/CssLvClub.css"),
-        //    // loadStyle(this, LVFont + "/LVFont.css")    
-        //   ])
+        Promise.all([
+            loadStyle(this, CssLvClub + "/CssLvClub.css"),
+           // loadStyle(this, LVFont + "/LVFont.css")    
+          ])
         getLevel0 ()
         .then((result) => {
             result.map((zone) => {

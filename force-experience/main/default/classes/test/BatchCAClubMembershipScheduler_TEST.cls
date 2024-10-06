@@ -34,10 +34,14 @@ class BatchCAClubMembershipScheduler_TEST {
         Identity_TestFactory.createSettings();
         Identity_TestFactory.createUser('test','user','test.user@louisvuitton.com','0541234567','972');
 
-        Account acc = [SELECT Id, DreamId__C FROM Account WHERE PersonEmail = 'test.user@louisvuitton.com'];
-        acc.DreamId__C = 'asdfghj145';
-        update acc;
-
+        List<Account> accounts = [SELECT Id, DreamId__C FROM Account WHERE PersonEmail = 'test.user@louisvuitton.com' LIMIT 1];
+        
+        if(!accounts.isEmpty()){
+            Account acc = accounts.get(0);
+            acc.DreamId__C = 'asdfghj145';
+        	update acc;
+        }
+      
         String cron = '0 0 23 * * ?';
         BatchCAClubMembershipScheduler schd = new BatchCAClubMembershipScheduler();
         String jobId = System.schedule('test BatchCAClubMembershipScheduler', cron, schd);

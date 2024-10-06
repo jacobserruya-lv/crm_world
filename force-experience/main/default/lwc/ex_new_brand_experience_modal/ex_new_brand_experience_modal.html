@@ -39,30 +39,24 @@
                         </div>
                         <lightning-card>
                             <div class="section-title">{labels.eventDetails}</div>
-                                <div class="slds-grid slds-gutters" >
-                                    <lightning-record-edit-form object-api-name="Brand_Experience__c" record-type-id={eventRecord.recordTypeId}>
-                                            <div class="slds-grid">
-                                                <div class="slds-col">  
-                                                    <lightning-input class = "eventName" label="Event Name" onchange={saveName} required></lightning-input>  
-                                                    <div class="DateTime slds-form-element">
-                                                        <div class="row "><!--slds-p-around_small-->
-                                                            <h2 class="header"><span style="color: #b71c1c">*</span> {labels.startDate}</h2>
-                                                            <lightning-input class="DateTimeInput" variant="label-hidden" type="datetime" onchange={saveStart} required></lightning-input>
-                                                        </div>
-                                                        <div class="row slds-p-around_small">
-                                                            <h2 class="header"><span style="color: #b71c1c">*</span> {labels.endDate}</h2>
-                                                            <lightning-input class="endDate DateTimeInput" variant="label-hidden" type="datetime"  onchange={saveEnd} required></lightning-input>
-                                                        </div>
-                                                    </div>
-                                                    <lightning-input-field field-name="Type__c" onchange={saveType} value={typeVal} required></lightning-input-field>
-                                                    <lightning-input-field field-name="Sub_Type__c" onchange={saveSubType} required></lightning-input-field>
-                                                    <lightning-input-field field-name="Description__c" onchange={saveDescription}></lightning-input-field>
+                            <lightning-record-edit-form object-api-name="Brand_Experience__c" record-type-id={eventRecord.recordTypeId}>
+                                <div class="form-container">
+                                        <lightning-input class="slds-p-horizontal_xx-small slds-p-bottom_x-small" label="Event Name" onchange={saveName} required></lightning-input>  
+                                        <div class="slds-p-horizontal_xx-small slds-p-bottom_x-small">
+                                            <h3><span style="color: #b71c1c">*</span> {labels.startDate}</h3>
+                                            <lightning-input class="DateTimeInput" variant="label-hidden" type="datetime" onchange={saveStart} required></lightning-input>
+                                        </div>
+                                        <div class="slds-p-horizontal_xx-small slds-p-bottom_x-small">
+                                            <h3><span style="color: #b71c1c">*</span> {labels.endDate}</h3> 
+                                            <lightning-input class="DateTimeInput endDate" variant="label-hidden" type="datetime"  onchange={saveEnd} required></lightning-input>
+                                        </div>
+                                        <lightning-input-field field-name="Type__c" onchange={saveType} value={typeVal} required></lightning-input-field>
+                                        <lightning-input-field field-name="Sub_Type__c" onchange={saveSubType} required></lightning-input-field>
+                                        <lightning-input-field field-name="Description__c" onchange={saveDescription}></lightning-input-field>
 
-                                                </div>  
-                                            </div>
-                                    </lightning-record-edit-form>
                                 </div>
-                        </lightning-card>           
+                            </lightning-record-edit-form>
+                        </lightning-card>         
                     </div>    
                 </template>
                 
