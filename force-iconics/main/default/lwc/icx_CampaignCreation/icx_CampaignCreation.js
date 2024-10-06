@@ -356,7 +356,7 @@ export default class Icx_CampaignCreation extends NavigationMixin(LightningEleme
         {
             return false;
         }
-        return false;
+        return true;
     }
     get isCreateDisabled()
     {
