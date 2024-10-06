@@ -1,0 +1,13 @@
+#footer{
+  position: relative;
+}
+.page {
+  width: 100%;
+}
+.content {
+    padding-top: 0px;
+    padding-bottom: 4em;
+}
+.content_large {
+    padding-bottom: 260px;
+}

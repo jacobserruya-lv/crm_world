@@ -1,0 +1,686 @@
+<apex:page controller="IDENTITY_Registration_CTRL"
+		   title="{!$Label.IDENTITY_Registration_Window_Title}"
+ 		   language="{!language}"
+           showHeader="false"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           sidebar="false"
+           docType="html-5.0"
+           standardStylesheets="false"
+           action="{!log}"
+>
+  <html dir="ltr">
+    <head>
+        <!-- META -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="robots" content="noindex,nofollow"/>
+        <title>{!$Label.IDENTITY_Registration_Window_Title}</title>
+        <meta name="page_type" content="account_creation" data-autodata-config="account_creation"/>
+        <meta name="country" content="{!country_local}" /> 
+        <meta name="language" content="{!meta_language}"/>
+
+        <link rel="icon" type="image/png" href="{!URLFOR($Resource.Identity_Registration_CSS, 'favicon.png')}"/>
+        
+        <!-- import PHONE NUMBER FORMATTER and JQURRY of GOOGLE -->
+        <apex:includeScript value="{!URLFOR($Resource.PhoneFormatter, '/js/jquery.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.PhoneFormatter, '/js/phoneformatter.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.PhoneFormatter, '/js/intlTelInput.js')}"/>               
+
+    </head>
+
+    <!-- import LV & SALESFORCE CSS and JS -->
+    <c:Identity_LV_Scripts paths="{!paths}" country_local="{!country_local}" isDevMode="{!isDevMode}" isNewDesignActive="{!isNewDesignActive}" customCss="{!customCss}" />
+
+    <apex:includeScript value="{!URLFOR($Resource.Identity_Registration_JS, 'Identity_Activation.js')}"/>
+
+
+    <body data-pv-event="pageview"
+          data-pv-position-number="step_email"
+          class="page-type-storelocator_section id-page {!IF(isDevMode, 'id-page_is-dev-mode', '')} {! IF(lang_country=='ara-ae', 'arabic', '') }"
+    >
+
+        <div class="page salesforce-account-creation">
+            <!-- TO SCROLL UP - MANAGED BY LV -->
+            <a id="pageTop" tabindex="-1"></a>
+
+            <header class="id-page__header">
+                <a href="{! paths['Louis Vuitton Domain'] }">
+                    <img class="id-page__header-logo"
+                         src="{!URLFOR($Resource.Identity_Registration_CSS, 'lvtitle.png')}"
+                         alt="Louis Vuitton"
+                    />
+                </a>
+                <apex:outputText styleClass="header-title" id="header-title" value="{!$Label.IDENTITY_Registration_Header_Title}"/>
+            </header>
+            
+            <apex:outputPanel layout="block"
+                                id="content"
+                                styleClass="{!'content' + IF(country_local == 'kr', ' content_large', '')}">
+                <div class="registrationTemplate">
+                    <div class="registrationWrapper">
+                        <div id="leftColumn" class="leftColumn id-page__main">
+
+                            <!-- MANAGED BY LV -->
+                            <div id="serviceClientNumber" style="display: inline-block;"></div> <!-- add this style to your Salesforce CSS file -->
+
+                            <!-- SALESFORCE FORM -->
+                            <div id="createNewProfile" class="">
+                                <div id="page">
+
+                                    <!-- AUTO LOGOUT -->
+                                    <apex:iframe src="{!$Site.Prefix}/secur/logout.jsp" height="1" width="1" rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}"/>
+
+                                    <!-- HEADER OF THE PAGE -->
+                                    <h1>
+                                        <apex:outputText styleClass="id-page-title" value="{!$Label.IDENTITY_Activation_Title}"/>
+                                    </h1>
+
+                                    <apex:form styleClass="id-page-form" id="form" >                                        
+
+                                        <!-- PERSONAL SECTION -->
+                                        <apex:outputPanel layout="block" id="personal_section"
+                                                          styleClass="id-page-form__step id-page-form__step_num_2"
+                                        >
+
+                                            <h2 id="h2_personal" tabindex="-1" >
+                                                <apex:outputText styleClass="id-page-form__section-title"
+                                                                 value="{!$Label.IDENTITY_Activation_Section_Title}"
+                                                />
+                                            </h2>
+                                             
+                                            <div class="id-page-form__section">
+                                                <apex:outputText id="section_description"
+                                                             styleClass="id-page-form__section-subtitle"
+                                                             escape="false"
+                                                />
+
+                                                <!-- PASSWORD FORM -->
+                                                <div title="{!$Label.IDENTITY_Activation_Section_Title}"
+                                                     class="id-page-form__field-wrap">
+
+                                                    <!-- PASSWORD -->
+                                                    <div class="id-page-form__password-label" id="idPpasswordLabel">
+                                                        <apex:outputLabel for="password"
+                                                                          styleClass="id-page-form__label id-page-form__password-label id-page-form__label_is-required"
+                                                                          value="{!$Label.IDENTITY_Registration_Password_Label}">
+                                                        </apex:outputLabel>
+                                                    </div>
+                                                    <apex:inputText id="password"
+                                                                    styleClass="id-page-form__field id-page-form__field_type_password"
+                                                                    html-autocomplete="off"
+                                                                    html-aria-required="true"
+                                                                    value="{! client.password }"
+                                                                    onkeyup="onPasswordKeyup()"
+                                                                    onchange="onPasswordChange()"
+                                                                    onfocus="onPasswordFocus()"
+                                                                    onblur="onPasswordBlur()"
+                                                                    onkeypress="return onHandleKeyPress(event)"
+                                                                    html-aria-describedby="password_error"
+
+                                                    />
+                                                    <div class="id-page-form__show-pass-btn-wrap">
+                                                        <button type="button"
+                                                                class="id-page-form__show-pass-btn"
+                                                                id="password_btn"
+                                                                onclick="onDisplayPasswordClick()"
+                                                                onblur="onPasswordBlur()"></button>
+                                                    </div>
+                                                    <div id="div_password_error" tabindex="-1" class="divErr">
+                                                        <apex:outputText id="password_error"
+                                                                         styleClass="id-page-form__field-error"/>
+                                                    </div>
+                                                    <!-- PASSWORD RULES -->
+                                                    <div id='password_rules' style="display: none">
+                                                        <p class="id-page-form__password-policy">{!$Label.IDENTITY_Registration_Password_Policy_Label}</p>
+                                                        <ul class="id-page-form__password-rules">
+                                                            <li id="password-rule-1" class="id-page-form__password-rule">
+                                                                    {!$Label.IDENTITY_Registration_Password_Policy_Rule_1}
+                                                            </li>
+                                                            <li id="password-rule-2" class="id-page-form__password-rule">
+                                                                    {!$Label.IDENTITY_Registration_Password_Policy_Rule_2}
+                                                            </li>
+                                                            <li id="password-rule-3" class="id-page-form__password-rule">
+                                                                    {!$Label.IDENTITY_Registration_Password_Policy_Rule_3}
+                                                            </li>
+                                                            <li id="password-rule-4" class="id-page-form__password-rule">
+                                                                    {!$Label.IDENTITY_Registration_Password_Policy_Rule_4}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         
+                                            <div class="id-page-form__section">
+                                                <!-- PERSONAL FORM -->
+                                                <apex:outputPanel id="personalForm"
+                                                                  title="{!$Label.IDENTITY_Registration_Personal_Section_Title}"
+                                                >
+
+                                                    <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                      rendered="{!client.title == ''}"
+                                                                      layout="block"
+                                                    >
+                                                        <!-- TITLE -->
+                                                        <apex:outputLabel for="title"
+                                                                          value="{!$Label.IDENTITY_Registration_Title_Label}"
+                                                                          rendered="{! !fields['Personal']['title'].Is_Hidden__c }"
+                                                                          styleClass="{!'id-page-form__label' +
+                                                                                  IF(fields['Personal']['title'].Is_Required__c,' id-page-form__label_is-required','')
+                                                                                  }"
+                                                        />
+                                                        <apex:selectList id="title"
+                                                                         size="1"
+                                                                         value="{! client.title }"
+                                                                         html-placeholder="{!$Label.IDENTITY_Registration_Title_Placeholder}"
+                                                                         html-aria-describedby="title_error"
+                                                                         html-aria-required="{!fields['Personal']['title'].Is_Required__c}"
+                                                                         rendered="{! !fields['Personal']['title'].Is_Hidden__c }"
+                                                                         onblur="onTitleChange()"
+                                                                         styleClass="id-page-form__select-title id-page-form__select"
+                                                        >
+                                                            <apex:selectOptions value="{! Titles }"/>
+                                                        </apex:selectList>
+                                                        <div id="div_title_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="title_error"
+                                                                             styleClass="id-page-form__field-error"/>
+                                                        </div>
+                                                    </apex:outputPanel>
+
+                                                    <apex:outputPanel layout="block"
+                                                                      id="names"
+                                                                      rendered="{!OR(client.firstname == '',client.lastname == '')}"
+                                                                      styleClass="{!'id-page-form__fields' +
+                                                                              IF( country_local == 'cn',' id-page-form__fields_reverse','')}">
+                                                        <!-- FIRSTNAME -->                                                        
+                                                         <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                  rendered="{!client.firstname == ''}"
+                                                                  layout="block"
+                                                        >     
+                                                            <apex:outputLabel for="firstname"
+                                                                              value="{!$Label.IDENTITY_Registration_FirstName_Label}"
+                                                                              rendered="{! !fields['Personal']['firstname'].Is_Hidden__c }"
+                                                                              styleClass="{!'id-page-form__label' +
+                                                                                      IF(fields['Personal']['firstname'].Is_Required__c,' id-page-form__label_is-required','')}"
+                                                            />
+                                                            <apex:inputText id="firstname"
+                                                                            value="{! client.firstname }"
+                                                                            maxlength="40"
+                                                                            rendered="{! !fields['Personal']['firstname'].Is_Hidden__c }"
+                                                                            html-aria-describedby="firstname_error"
+                                                                            html-aria-required="{!fields['Personal']['firstname'].Is_Required__c}"
+                                                                            styleClass="id-page-form__field"
+                                                                            onchange="onFirstnameChange()"
+                                                                            onkeypress="return onHandleKeyPress(event, 'alpha')"
+                                                            />
+                                                            <div id="div_firstname_error" tabindex="-1" class="divErr">
+                                                                <apex:outputText id="firstname_error"
+                                                                                 styleClass="id-page-form__field-error"/>
+                                                            </div>
+                                                        </apex:outputPanel>
+
+                                                        <!-- LASTNAME -->
+                                                        <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                      rendered="{!client.lastname == ''}"
+                                                                      layout="block"
+                                                        >
+                                                            <apex:outputLabel for="lastname"
+                                                                              value="{!$Label.IDENTITY_Registration_Lastname_Label}"
+                                                                              rendered="{! !fields['Personal']['lastname'].Is_Hidden__c }"
+                                                                              styleClass="{!'id-page-form__label' +
+                                                                                      IF(fields['Personal']['lastname'].Is_Required__c,' id-page-form__label_is-required','')
+                                                                                      }"
+                                                            />
+                                                            <apex:inputText id="lastname"
+                                                                            value="{! client.lastname }"
+                                                                            maxlength="40"
+                                                                            rendered="{! !fields['Personal']['lastname'].Is_Hidden__c }"
+                                                                            styleClass="id-page-form__field"
+                                                                            onchange="onLastnameChange()"
+                                                                            onkeypress="return onHandleKeyPress(event, 'alpha')"
+                                                                            html-aria-describedby="lastname_error"
+                                                                            html-aria-required="{!fields['Personal']['lastname'].Is_Required__c}"
+                                                            />
+                                                            <div id="div_lastname_error" tabindex="-1" class="divErr">
+                                                                <apex:outputText id="lastname_error"
+                                                                                 styleClass="id-page-form__field-error"/>
+                                                            </div>
+                                                        </apex:outputPanel>
+                                                    </apex:outputPanel>
+
+                                                    <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                      rendered="{!AND(!fields['Personal']['firstname2'].Is_Hidden__c, client.firstname2 == '')}"
+                                                                      layout="block"
+                                                    >
+                                                        <!-- FIRSTNAME KANA -->
+                                                        <apex:outputLabel for="firstname2"
+                                                                          value="{!$Label.IDENTITY_Registration_Firstname_Kana_Label}"
+                                                                          rendered="{! !fields['Personal']['firstname2'].Is_Hidden__c }"
+                                                                          styleClass="{!'id-page-form__label' +
+                                                                                  IF(fields['Personal']['firstname2'].Is_Required__c,' id-page-form__label_is-required','')}"
+                                                        />
+                                                        <apex:inputText id="firstname2"
+                                                                        value="{! client.firstname2 }"
+                                                                        maxlength="40"
+                                                                        rendered="{! !fields['Personal']['firstname2'].Is_Hidden__c }"
+                                                                        styleClass="id-page-form__field"
+                                                                        onchange="onFirstname2Change()"
+                                                                        html-aria-describedby="firstname2_error"
+                                                                        html-aria-required="{!fields['Personal']['firstname2'].Is_Required__c}"
+                                                        />
+                                                        <div id="div_firstname2_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="firstname2_error"
+                                                                             styleClass="id-page-form__field-error"/>
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                      rendered="{!AND(!fields['Personal']['lastname2'].Is_Hidden__c, client.lastname2 == '')}"
+                                                                      layout="block"
+                                                    >
+                                                        <!-- LASTNAME KANA -->
+                                                        <apex:outputLabel for="lastname2"
+                                                                          value="{!$Label.IDENTITY_Registration_Lastname_Kana_Label}"
+                                                                          rendered="{! !fields['Personal']['lastname2'].Is_Hidden__c }"
+                                                                          styleClass="{!'id-page-form__label' +
+                                                                                  IF(fields['Personal']['lastname2'].Is_Required__c,' id-page-form__label_is-required','')
+                                                                                  }"
+                                                        />
+                                                        <apex:inputText id="lastname2"
+                                                                        value="{! client.lastname2 }"
+                                                                        maxlength="40"
+                                                                        rendered="{! !fields['Personal']['lastname2'].Is_Hidden__c }"
+                                                                        styleClass="id-page-form__field"
+                                                                        onchange="onLastname2Change()"
+                                                                        html-aria-describedby="lastname2_error"
+                                                                        html-aria-required="{!fields['Personal']['lastname2'].Is_Required__c}"
+                                                        />
+                                                        <div id="div_lastname2_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="lastname2_error"
+                                                                             styleClass="id-page-form__field-error"/>
+                                                        </div>
+                                                    </apex:outputPanel>
+
+                                                    <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                      rendered="{! !fields['Personal']['country'].Is_Hidden__c }"
+                                                                      layout="block"
+                                                    >
+                                                        <!-- COUNTRY -->
+                                                        <apex:outputLabel for="country"
+                                                                          value="{!$Label.IDENTITY_Registration_Country_Label}"
+                                                                          rendered="{! !fields['Personal']['country'].Is_Hidden__c }"
+                                                                          styleClass="{!'id-page-form__label' +
+                                                                                  IF(fields['Personal']['lastname'].Is_Required__c,' id-page-form__label_is-required','')
+                                                                                  }"
+                                                        />
+                                                        <select 
+                                                            id="country" 
+                                                            size="1" 
+                                                            class="id-page-form__select-country id-page-form__select" 
+                                                            onblur="onCountryChange()"
+                                                            aria-required="{!fields['Personal']['country'].Is_Required__c}">
+                                                                <apex:outputPanel layout="block" rendered="{! country_local == 'e1' }">
+                                                                  <option value="{!'null'}">{!$Label.IDENTITY_Registration_Country_Default_Value}</option>
+                                                                </apex:outputPanel>
+                                                                <apex:repeat value="{!countries_values}" var="option">
+                                                                    <option value="{!option.Iso2Code__c}">
+                                                                        <apex:outputText value="{!option.Picklist__c}" />
+                                                                    </option>
+                                                                </apex:repeat>
+                                                        </select>
+                                                        <apex:inputHidden value="{! client.country }" id="client_country"/>
+                                                        <div id="div_country_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="country_error"
+                                                                             styleClass="id-page-form__field-error"/>
+                                                        </div>
+
+                                                    </apex:outputPanel>
+
+                                                    <!-- EMAIL -->
+                                                    <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                      rendered="{!AND(!fields['Personal']['email'].Is_Hidden__c, client.email == '')}"
+                                                                      layout="block"
+                                                    >
+                                                        <apex:outputLabel for="email"
+                                                                          value="{!$Label.IDENTITY_Registration_Email_Label}"
+                                                                          rendered="{! !fields['Personal']['email'].Is_Hidden__c }"
+                                                                          styleClass="{!'id-page-form__label' +
+                                                                                  IF(fields['Personal']['email'].Is_Required__c,' id-page-form__label_is-required','')
+                                                                                  }"
+                                                        />
+                                                        <apex:inputText id="email"
+                                                                        value="{! client.email }"
+                                                                        html-placeholder="{!$Label.IDENTITY_Registration_Email_Placeholder}"
+                                                                        rendered="{! !fields['Personal']['email'].Is_Hidden__c }"
+                                                                        onblur="onEmailChange()"
+                                                                        styleClass="id-page-form__field"
+                                                                        onkeypress="return onHandleKeyPress(event)"
+                                                                        html-aria-describedby="email_error"
+                                                                        html-aria-required="{!fields['Personal']['email'].Is_Required__c}"
+                                                        />
+                                                        <div id="div_email_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="email_error"
+                                                                             styleClass="id-page-form__field-error"/>
+                                                        </div>
+                                                    </apex:outputPanel>
+
+                                                    <apex:outputPanel styleClass="id-page-form__field-wrap"
+                                                                      rendered="{!AND(!fields['Personal']['mobile_phone'].Is_Hidden__c, client.mobile_phone == '')}"
+                                                                      layout="block"
+                                                    >
+                                                        <!-- MOBILE PHONE -->
+                                                        <apex:outputLabel for="mobile_phone"
+                                                                          value="{!$Label.IDENTITY_Registration_Mobile_Phone_Label}"
+                                                                          rendered="{! !fields['Personal']['mobile_phone'].Is_Hidden__c }"
+                                                                          styleClass="{!'id-page-form__label' +
+                                                                                  IF(fields['Personal']['mobile_phone'].Is_Required__c,
+                                                                                          ' id-page-form__label_is-required',
+                                                                                          ' id-page-form__label_is-optional'
+                                                                                          )
+                                                                                  }"
+                                                        />
+                                                        <apex:panelGrid columns="2"
+                                                                        rendered="{! !fields['Personal']['mobile_phone'].Is_Hidden__c }"
+                                                                        styleClass="id-page-form__select-grid"
+                                                                        html-role="presentation"
+                                                        >
+                                                            <apex:selectList size="1"
+                                                                             id="calling_code"
+                                                                             value="{! client.calling_code }"
+                                                                             title="{!$Label.IDENTITY_Registration_Calling_Code_Title}"
+                                                                             styleClass="id-page-form__select id-page-form__select_is-valid"
+                                                                             onchange="onCallingCodeChange()"
+                                                            >
+                                                                <apex:selectOptions value="{! CallingCodes }"/>
+                                                            </apex:selectList>
+                                                            <apex:input id="mobile_phone"
+                                                                        value="{! client.mobile_phone }"
+                                                                        type="tel"
+                                                                        onchange="onMobilePhoneChange()"
+                                                                        styleClass="id-page-form__field"
+                                                                        onkeypress="return onHandleKeyPress(event, 'numeric')"
+                                                                        html-aria-describedby="mobile_phone_error"
+                                                                        html-aria-required="{!fields['Personal']['mobile_phone'].Is_Required__c}"
+                                                            />
+                                                        </apex:panelGrid>
+                                                        <div id="div_mobile_phone_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="mobile_phone_error"
+                                                                             styleClass="id-page-form__field-error"/>
+                                                        </div>
+                                                        <apex:input id="international_mobile_phone"
+                                                                    value="{!client.international_mobile_phone}"
+                                                                    style="display: none"
+                                                        />
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+
+                                            </div>
+
+                                            <div class="id-page-form__section">
+                                                    <!-- NEWSLETTER AGREEMENT -->
+                                                    <apex:outputPanel id="newsletterAgreementCheckbox"
+                                                                      rendered="{! !fields['Personal']['newsletter_agreement'].Is_Hidden__c }"
+                                                                      styleClass="id-page-form__checkbox-field newscheckbox"
+                                                    >
+                                                        <div class="stylish-checkbox">
+                                                            <apex:inputCheckbox id="newsletter_agreement"
+                                                                                value="{! client.newsletter_agreement }"
+                                                                                onkeypress="return handleCheckboxEnter(event, 'newsletter_agreement')"
+                                                                                onclick="onNewsletterAgreementChange(true)"
+                                                                                html-aria-describedby="newsletter_agreement_error"
+                                                                                html-aria-required="{!fields['Personal']['newsletter_agreement'].Is_Required__c}"
+                                                            />
+                                                        </div>
+                                                        <apex:outputLabel for="newsletter_agreement"
+                                                                          escape="false"
+                                                                          value="{!$Label.IDENTITY_Registration_Newsletter_Agreement}"
+                                                                          styleClass="{!IF(fields['Personal']['newsletter_agreement'].Is_Required__c,
+                                                                                  ' id-page-form__label_is-required','')
+                                                                                  } id-page-form__label-checkbox"
+                                                        />
+                                                        <div id="div_newsletter_agreement_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="newsletter_agreement_error" styleClass="id-page-form__field-error id-page-form__checkbox-field-error"/>
+                                                        </div>
+                                                    </apex:outputPanel>
+
+                                                    <!-- PRIVACY POLICY AGREEMENT -->
+                                                    <apex:outputPanel id="privacyAgreementCheckbox"
+                                                                      rendered="{! !fields['Personal']['privacy_agreement'].Is_Hidden__c }"
+                                                                      styleClass="id-page-form__checkbox-field"
+                                                    >
+                                                        <div class="stylish-checkbox">
+                                                            <apex:inputCheckbox id="privacy_agreement"
+                                                                                value="{! client.privacy_agreement }"
+                                                                                onclick="onPrivacyAgreementChange()"
+                                                                                onkeypress="return handleCheckboxEnter(event, 'privacy_agreement')"
+                                                                                html-aria-describedby="privacy_agreement_error"
+                                                                                html-aria-required="{!fields['Personal']['privacy_agreement'].Is_Required__c}"/>
+                                                        </div>
+                                                        <apex:outputLabel for="privacy_agreement"
+                                                                          escape="false"
+                                                                          value="{!$Label.IDENTITY_Registration_Privacy_Policy_Agreement}"
+                                                                          styleClass="{!IF(fields['Personal']['privacy_agreement'].Is_Required__c,
+                                                                                  ' id-page-form__label_is-required','')
+                                                                                  } id-page-form__label-checkbox"
+                                                        />
+                                                        <div id="div_privacy_agreement_error" tabindex="-1" class="divErr">
+                                                            <apex:outputText id="privacy_agreement_error" styleClass="id-page-form__field-error id-page-form__checkbox-field-error"/>
+                                                        </div>
+
+                                                    </apex:outputPanel>
+                                                </div>
+                                            <!-- SUBMIT -->
+                                            <apex:commandButton onclick="onRepairsSectionSubmit()"
+                                                                id="personal_button"
+                                                                reRender=""
+                                                                oncomplete=""
+                                                                value="{!$Label.IDENTITY_Activation_Confirm_Button}"
+                                                                styleClass="id-page-form__btn id-page-form__btn_full-width"
+                                                                style="text-transform: inherit;"
+                                            >
+                                                <div id="personal-section-loader" class="wrap-loading" style="display:none">
+                                                    <div class="loading loading-1"></div>
+                                                </div>
+                                            </apex:commandButton>
+
+                                            
+                                        </apex:outputPanel>
+                                        
+                                        <!-- LOADER SECTION -->
+                                        <apex:outputPanel layout="block"
+                                                          id="loader_section"
+                                                          styleClass="id-page-form__loader"
+                                        >
+                                            <apex:outputLabel value="{!$Label.IDENTITY_Registration_Activation_Label}"/>
+                                        </apex:outputPanel>
+                                       
+
+                                        <!-- ACTION FUNCTION TO SUBMIT -->
+                                        <apex:actionFunction name="setSubMode"
+                                            action="{! setSubMode }"
+                                            oncomplete="setVariable('sub_mode', '{!sub_mode}')"
+                                            reRender="">
+                                            <apex:param name="isValid" value=""/>
+                                        </apex:actionFunction>              
+                                        <apex:actionFunction name="register"
+                                            action="{! register }"
+                                            reRender=""
+                                            oncomplete="redirect()"/>
+                                        <apex:actionFunction name="redirect"
+                                            action="{! redirect }"/>                                        
+
+                                        <!-- ACTION FUNCTION TO LOG -->
+                                        <apex:actionFunction name="onScriptError"
+                                            action="{! onScriptError }"
+                                            oncomplete=""
+                                            reRender="">
+                                            <apex:param name="src" value=""/>
+                                        </apex:actionFunction>
+                                        <apex:actionFunction name="setBrowserData" reRender="">
+                                            <apex:param name="browser" value="" assignTo="{! browser }"/>
+                                        </apex:actionFunction>
+                                    </apex:form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- MANAGED BY LV -->
+                        <div id="sf-sidebar" class="registrationRightCol id-page__sidebar"></div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <!-- MANAGED BY LV -->
+            <footer></footer>
+        </div>
+    </body>
+
+
+ 	<script type="text/javascript">  
+        // INITIAL LOAD PAGE
+        var settings = new Object();
+        (function ready(){
+            setTimeout("logout()", 100);
+            setVariables();  
+            setDefaultStyle();
+            onDisplayPasswordClick(true);
+            setDynamicActivationLabels();
+
+            // SET BROWSER DATA 
+            setBrowserData(JSON.stringify({
+              'appCodeName': navigator.appCodeName,
+              'appName': navigator.appName,
+              'appVersion': navigator.appVersion,
+              'platform': navigator.platform,
+              'userAgent': navigator.userAgent,
+              'language': navigator.language,
+              'product': navigator.product,
+              'vendor': navigator.vendor
+            }));
+        })();        
+        
+        // SET VARIABLES
+        function setVariables() {
+            settings = {
+                mode: '{!mode}',
+                sub_mode: '{!sub_mode}',
+                isLoggin: "{!NOT(ISPICKVAL($User.UserType,'Guest'))}",
+                site_prefix: '{!$Site.Prefix}',
+                country_local: '{!country_local}',
+                language: '{!language}',
+                meta_language: '{!meta_language}',
+                lang_country: '{!lang_country}',
+                client: {
+                    country: '{!client.country}',
+                    currency_code: '{!client.currency_code}',
+                    login_email: '{!client.login_email}',
+                    login_international_mobile_phone: '{!client.login_international_mobile_phone}'
+                },
+                fields: {
+                    login_email: {
+                        isHidden: "{! fields['Login']['email'].Is_Hidden__c}", 
+                        isRequired: "{! fields['Login']['email'].Is_Required__c}"
+                    },
+                    login_email_confirmation: {
+                        isHidden: "{! fields['Login']['email_confirmation'].Is_Hidden__c}",
+                        isRequired: "{! fields['Login']['email_confirmation'].Is_Required__c}"
+                    },
+                    login_mobile_phone: {
+                        isHidden: "{! fields['Login']['mobile_phone'].Is_Hidden__c}", 
+                        isRequired: "{! fields['Login']['mobile_phone'].Is_Required__c}"
+                    },
+                    title: {
+                        isHidden: "{!fields['Personal']['title'].Is_Hidden__c}", 
+                        isRequired: "{!fields['Personal']['title'].Is_Required__c}"
+                    },
+                    firstname: {
+                        isHidden: "{!fields['Personal']['firstname'].Is_Hidden__c}",
+                        isRequired: "{!fields['Personal']['firstname'].Is_Required__c}"
+                    },
+                    lastname: {
+                        isHidden: "{!fields['Personal']['lastname'].Is_Hidden__c}", 
+                        isRequired: "{!fields['Personal']['lastname'].Is_Required__c}"
+                    },
+                    firstname2: {
+                        isHidden: "{!fields['Personal']['firstname2'].Is_Hidden__c}", 
+                        isRequired: "{!fields['Personal']['firstname2'].Is_Required__c}"
+                    },
+                    lastname2: {
+                        isHidden: "{!fields['Personal']['lastname2'].Is_Hidden__c}",
+                        isRequired: "{!fields['Personal']['lastname2'].Is_Required__c}"
+                    },
+                    country: {
+                        isHidden: "{!fields['Personal']['country'].Is_Hidden__c}", 
+                        isRequired: "{!fields['Personal']['country'].Is_Required__c}"
+                    },
+                    email: {
+                        isHidden: "{!fields['Personal']['email'].Is_Hidden__c}",
+                        isRequired: "{!fields['Personal']['email'].Is_Required__c}"
+                    },
+                    mobile_phone: {
+                        isHidden: "{!fields['Personal']['mobile_phone'].Is_Hidden__c}", 
+                        isRequired: "{!fields['Personal']['mobile_phone'].Is_Required__c}"
+                    },
+                    newsletter_agreement: {
+                        isHidden: "{!fields['Personal']['newsletter_agreement'].Is_Hidden__c}",
+                        isRequired:"{!fields['Personal']['newsletter_agreement'].Is_Required__c}"
+                    },
+                    privacy_agreement: {
+                        isHidden: "{!fields['Personal']['privacy_agreement'].Is_Hidden__c}",
+                        isRequired:"{!fields['Personal']['privacy_agreement'].Is_Required__c}"
+                    },
+                    currency_code: {
+
+                    }
+                },
+                labels: {
+                      Required_Field: '{! $Label.IDENTITY_Registration_Required_Field }',
+                      Sign_In_Button: '{! $Label.IDENTITY_Registration_Sign_In_Button }',
+                      Next_Button: '{!$Label.IDENTITY_Registration_Next_Button}',
+                      Incorrect_Password: '{! $Label.IDENTITY_Registration_Incorrect_Password }',
+                      SMS_Verification_Section_Description: '{! $Label.IDENTITY_Registration_SMS_Verification_Section_Description }',
+                      Email_Verification_Section_Description: '{! $Label.IDENTITY_Registration_Email_Verification_Section_Description }',
+                      Validation_Format_Email_Message: '{! $Label.IDENTITY_Registration_Validation_Format_Email_Message }',
+                      Validation_Format_Mobile_Phone_Message: '{! $Label.IDENTITY_Registration_Validation_Format_Mobile_Phone_Message }',
+                      Kana_Error_Validation: '{! $Label.IDENTITY_Registration_Kana_Error_Validation }',
+                      Kanji_Error_Validation: '{! $Label.IDENTITY_Registration_Kanji_Error_Validation }',
+                      Password_Error: '{! $Label.IDENTITY_Registration_Password_Error }',
+                      Verification_Section_Error: '{!$Label.IDENTITY_Registration_Verification_Section_Error}',
+                      Email_Confirmation_Doesn_t_Match: '{! $Label.IDENTITY_Registration_Email_Confirmation_Doesn_t_Match }',
+                      Verification_Code_Resent: '{! $Label.IDENTITY_Registration_Verification_Code_Resent }',
+                      Verification_Code_Failed: '{! $Label.IDENTITY_Registration_Verification_Code_Failed }',
+                      Verification_Code_Limit: '{! $Label.IDENTITY_Registration_Verification_Code_Limit }',
+                      Email_Repairs_Section_Description: '{! $Label.IDENTITY_Activation_Email_Section_Description }',
+                      Mobile_Repairs_Section_Description: '{! $Label.IDENTITY_Activation_Mobile_Section_Description }'
+                  }
+            };
+        }
+
+        //TEALIUM DATA LAYER OBJECT
+        var utag_data = {
+            environmentType: "{!googleAnalyticsConfig['environmentType']}",
+            environmentId: "{!googleAnalyticsConfig['environmentId']}",
+           'environmentVersion':settings.country_local,
+           'environmentLanguage':settings.meta_language,
+           'pageName':'mylv/account_creation',
+           'pageType':'account_creation',
+           'currencyCode': settings.client.currency_code,
+           'screenOrientation' : window.innerHeight > window.innerWidth ? 'portrait': 'landscape'
+        };
+
+        //TEALIUM SNIPPET 
+       (function(a,b,c,d){  
+            a = "{!paths['Tealium']}";
+            b = document;
+            c = 'script';
+            d= b.createElement(c);
+            d.src = a;
+            d.type = 'text/java'+c;
+            d.async = true;
+            a = b.getElementsByTagName(c)[0];
+            a.parentNode.insertBefore(d,a);
+        })();
+    </script> 
+
+ 	<!-- import SIDEBAR MODAL AND FOOTER from ATG -->
+    <script src="{! paths['Louis Vuitton Domain'] + paths['Get HTML Fragment Path'] }" type="text/javascript" id="getHtmlFragment" onerror="onScriptError(event.target.src)"></script>   
+  </html>
+</apex:page>

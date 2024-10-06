@@ -1,0 +1,254 @@
+<apex:component controller="IDENTITY_jusoAddressSearch_CTRL">
+    <style>
+        .popup-wrapper {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 5;
+        }
+        .modal-wrapper{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0, 0.5);
+        }
+        .modal-body{
+            width: 100%;
+            background: #ffffff;
+            max-width: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0;
+            border-radius: 8px;
+            position: absolute;
+        }
+        .modal-content{
+            padding: 0 20px 20px;
+            font-family: LouisVuitton;
+            font-size: 16px;
+            font-weight: 400;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 24px;
+            letter-spacing: 0.4px;
+            text-align: left;
+            color: #19110b;
+        }
+        .row{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .title{
+            padding-right: 10px;
+            align-self: center;
+        }
+        .input-txt{
+            height: 3rem;
+            padding: 0 1rem;
+            border: 1px solid #eae8e4;
+            color: #19110b;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            width: 60%
+        }
+        .button-container{
+            height: 3rem;
+            width: 40%;
+            background-color: #19110b;
+            box-sizing: border-box;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .search-btn{
+            height: inherit;
+            width: -webkit-fill-available;
+        }
+        .accept-btn{
+            height: inherit;
+            width: -webkit-fill-available;
+        }
+        .card{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            line-height: 16px;
+        }
+        .result-container{
+            padding-top: 20px;
+            overflow: scroll;
+            height: 400px;
+        }
+        .address-text{
+            padding: 5px 10px;
+        }
+        .wrap-loader{
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #19110b;
+            width: 30%;
+        }
+        .loader-3 {
+            position: relative;
+            top: unset;
+            left: unset;
+            margin: unset;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @-webkit-keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .address-cancel-button-container{
+            display: flex;
+            justify-content: end;
+            font-size: 18px;
+            font-family: LouisVuitton;
+            padding: 5px 10px;
+
+        }
+        .error-message{
+            color:red;
+        }
+    </style>
+    <script>
+        var selectedItem;
+        var selectedAddress;
+        function onSearch(){
+            showLoader(true, '#search-juso-loader', 'search-button');
+        }
+        function addressSelected(counter, postalCode, state, address1, address2, city ){
+
+            this.selectedAddress = { postalCode, state, address1,  address2, city };
+            //make selected button available
+            document.getElementsByClassName('accept-btn')[0].disabled = false;
+
+            if(document.getElementById(this.selectedItem) != null)
+                document.getElementById(this.selectedItem).checked = false;
+
+            this.selectedItem = 'checkbox_'+counter;
+            
+            if(document.getElementById(this.selectedItem) != null)
+                document.getElementById(this.selectedItem).checked = true;
+            
+            //invoke apex action
+            addressSelectedApex();
+        }
+        function onAcceptClick(){
+            if(this.selectedAddress != null){
+                $('[id$=":postal_code"]').val(this.selectedAddress.postalCode);
+                $('[id$=":state"]').val(this.selectedAddress.state);
+                $('[id$=":city"]').val(this.selectedAddress.city);
+                $('[id$=":address1"]').val(this.selectedAddress.address1);
+                $('[id$=":address2"]').val(this.selectedAddress.address2);
+                closePopup();
+            }
+        }
+        function handleKeyPress(event){
+            //'ENTER key pressed'
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $('[id$=":search-button"]').click();
+            }
+        }
+        function closePopup(){
+            document.querySelector(".popup-wrapper").style.display = "none";
+            if(this.selectedItem != null){
+                document.getElementById(this.selectedItem).checked = false;
+                this.selectedItem = null;
+                this.selectedAddress = null;    
+            }
+        }
+    </script>
+    <apex:form>
+    <div class="popup-wrapper" style="display: none" >
+        <div class="modal-wrapper">
+            <div class="modal-body">
+                <div id="cancel-button-container" class="address-cancel-button-container">
+                    <apex:commandButton id="address-popup-cancel-button" onclick="closePopup();" action="{!resetPopup}" reRender="searchinput,resultsPanel,accept-button-panel" value="x" />
+                </div>
+                <div id="modal-content" class="modal-content">
+                    <apex:outputText value="{!$Label.IDENTITY_registration_search_address}" />
+                    <div class="row">
+                        <apex:inputText id="searchinput" value ="{!addressInputSearch}" styleClass="input-txt" onkeypress="handleKeyPress(event);"/>
+                    
+                        <apex:outputPanel id="search-button-panel"  styleClass="button-container">
+                            <apex:commandButton id="search-button" styleClass="search-btn" action="{!search}" value="{!$Label.IDENTITY_registration_address_search}" rerender="resultsPanel,search-button-panel,accept-button-panel,error-message-container" onclick="onSearch();">
+                                <!-- POPOVER LOADER -->
+                                <div id="search-juso-loader" class="wrap-loader" style="display:none">
+                                    <div class="loading loading-1 loader-3"></div>
+                                </div>
+                            </apex:commandButton>
+                        </apex:outputPanel>
+                    </div>
+                    <apex:outputPanel id="error-message-container">
+                        <apex:outputText styleClass="error-message" rendered="{!NOT(ISNULL(error_message))}" value="{!error_message}" />
+                    </apex:outputPanel>
+                    <apex:actionFunction name="addressSelectedApex" action="{!setIsSelectedAccess}" rerender="accept-button" />
+                    <apex:outputPanel id="resultsPanel">
+                        <apex:outputPanel  title="Search Results" rendered="{!NOT(ISNULL(searchResults))}">
+                            <div class="result-container">
+                                <apex:variable var="counter" value="{!0}" />
+                                <apex:repeat value="{!searchResults}" var="result">
+                                    <apex:variable var="counter" value="{!counter + 1}" />
+
+                                    <div class="card"> 
+                                        <div class="row">
+                                                <input type="radio" id="checkbox_{!counter}" onclick="addressSelected( {!counter}, '{! result.postalCode}', '{!result.state}', '{!result.address1}', '{!result.address2}', '{!result.city}' );" />
+                                            <div>
+                                                <div class="address-text">
+                                                    <apex:outputText value="{!result.newAddress}" />
+                                                </div>
+                                                <div class="address-text">
+                                                    <apex:outputText value="{!result.oldAddress}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="address-text">
+                                                <apex:outputText value="{!result.postalCode}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:repeat>
+                            </div>
+                            <div class="row" style="padding: 10px;" >
+                                <apex:commandButton style="padding: 5px;" action="{!first}" rendered="{!hasPrevious}" value="<<" rerender="resultsPanel"/>
+                                <apex:commandButton style="padding: 5px;" action="{!previous}" rendered="{!hasPrevious}" value="<" rerender="resultsPanel"/>
+                                <apex:commandButton style="padding: 5px;" action="{!next}" rendered="{!hasNext}" value=">" rerender="resultsPanel"/>
+                                <apex:commandButton style="padding: 5px;" action="{!last}" rendered="{!hasNext}" value=">>" rerender="resultsPanel"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel id="accept-button-panel" styleClass="row" >
+                        <apex:outputPanel  styleClass="button-container" rendered="{!NOT(ISNULL(searchResults))}">
+                            <apex:commandButton disabled="{! !isItemSelected}" id="accept-button" styleClass="accept-btn" value="{!$Label.IDENTITY_registration_check}" reRender="searchinput,resultsPanel,accept-button-panel" onclick="onAcceptClick();" action="{!resetPopup}"></apex:commandButton>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</apex:form>
+
+</apex:component>

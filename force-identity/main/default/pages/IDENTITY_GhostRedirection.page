@@ -1,0 +1,16 @@
+<apex:page controller="IDENTITY_GhostRedirection_CTRL" 
+           showHeader="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false" docType="html-5.0"
+           standardStylesheets="false">
+            <body>
+                    <apex:form >
+                        <apex:actionFunction name="redirect" action="{!redirect}" reRender=""></apex:actionFunction>
+                    </apex:form>
+    		</body>
+            
+            <script type="text/javascript">
+            (function ready() {
+                redirect();
+            })();
+            </script>
+    
+</apex:page>
