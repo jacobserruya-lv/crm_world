@@ -15,8 +15,8 @@ public with sharing class ex_invitees_related_list_CTRL {
     }
     private static List<Brand_Experience_Variation_Member__c> getInvitees (String variationId, String experienceRT){
         try{
-            User runningUser = EX_Store_Hierarchy_Utils.getUserHierarchies();
-            String query = 'SELECT Id, Client__c, Client__r.Name, Client__r.Owner.Name, Status__c, Assigned_CA__c, Assigned_CA__r.Name, GuestNumber__c, Appointment_Start__c, Appointment_End__c '
+            User runningUser = EX_Store_Hierarchy_Utils.getUserHierarchies(); 
+            String query = 'SELECT Id, Client__c, Client__r.Name, Client__r.OwnerId, Client__r.Owner.Name, toLabel(Status__c), Assigned_CA__c, Assigned_CA__r.Name, GuestNumber__c, Appointment_Start__c, Appointment_End__c '
                             + ' FROM Brand_Experience_Variation_Member__c'
                             + ' WHERE Brand_Experience_Variation__c = \''+variationId+'\'';
             

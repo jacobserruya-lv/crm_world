@@ -65,26 +65,27 @@ public with sharing class ExperienceVariationMemberTriggerHandler {
         
             List<Push_Notification_Item__c> notificationItems = new List<Push_Notification_Item__c>();
             
-            for (Brand_Experience_Variation_Member__c member : [SELECT Id, NominationStatus__c, Assigned_CA__c, Brand_Experience_Variation__r.Name FROM Brand_Experience_Variation_Member__c WHERE ID IN: newList]) {
-                if(member.NominationStatus__c == 'Approved'){
+            for (Brand_Experience_Variation_Member__c member : [SELECT Id, NominationStatus__c, NominationSource__c, Assigned_CA__c, Brand_Experience_Variation__r.Name, Brand_Experience_Variation__r.Status__c 
+                FROM Brand_Experience_Variation_Member__c WHERE ID IN: newList AND Brand_Experience_Variation__r.Status__c IN ('Ready', 'Participation Opened') AND NominationStatus__c = 'Approved']) {
+                    if(member.NominationSource__c == 'Desktop' || member.NominationSource__c  == 'Client_target'){
+                        String caLanguage = UserInfo.getLocale();
+                        String variationName = member.Brand_Experience_Variation__r.Name;
+                        String assignedCA =  member.Assigned_CA__c ; 
+                        String memberId =  member.Id;
 
-                    String caLanguage = UserInfo.getLocale();
-                    String variationName = member.Brand_Experience_Variation__r.Name;
-                    String assignedCA =  member.Assigned_CA__c ; 
-                    String memberId =  member.Id;
+                        String placeholder = IM_SendPushNotifications.getNotificationTemplate(caLanguage, 'Experience_member_approved__c');
+                        List<String> fillers = new String[]{variationName};
+                            
+                        Push_Notification_Item__c push = new Push_Notification_Item__c(
+                                Body__c = String.format(placeholder, fillers),
+                                Type__c = 'Variation_Member',
+                                ObjectId__c = memberId,
+                                UserRecipient__c  = assignedCA
+                            );
 
-                    String placeholder = IM_SendPushNotifications.getNotificationTemplate(caLanguage, 'Experience_member_approved__c');
-                    List<String> fillers = new String[]{variationName};
-                        
-                    Push_Notification_Item__c push = new Push_Notification_Item__c(
-                            Body__c = String.format(placeholder, fillers),
-                            Type__c = 'Variation_Member',
-                            ObjectId__c = memberId,
-                            UserRecipient__c  = assignedCA
-                        );
-
-                        notificationItems.add(push);
-                }
+                        notificationItems.add(push);  
+                    }
+                    
             }
             if(!notificationItems.isEmpty()){
                 Database.insert(notificationItems, false);

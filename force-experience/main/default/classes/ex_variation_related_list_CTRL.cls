@@ -89,6 +89,12 @@ public with sharing class ex_variation_related_list_CTRL {
                 query += ' AND '+filterField+
                 		' LIKE ' + '\'%' + String.escapeSingleQuotes(searchString.trim()) + '%\' ';
             }
+
+            User runningUser = EX_Store_Hierarchy_Utils.getUserHierarchies();
+            if(EX_Store_Hierarchy_Utils.needStoreHierarchyCondition(runningUser))
+            {
+                query += EX_Store_Hierarchy_Utils.getStoreHierarchyCond_variationLevel(runningUser);
+            }
             System.debug('**query: '+query);
 	        for(SObject s : Database.query(query)) {
                 String storeName = (String) s.getSobject('Store__r').get('Name');

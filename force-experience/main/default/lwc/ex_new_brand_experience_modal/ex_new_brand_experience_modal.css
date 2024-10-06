@@ -78,3 +78,13 @@
 .content {
     border-radius: 10px !important;
 }
+.section-title {
+    font-weight: 600;
+    font-size: 14px;
+    background: #f4f4f4;
+    padding: 0.7rem;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    font-family: "LouisVuitton-Regular", sans-serif;
+} 
